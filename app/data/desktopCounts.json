@@ -1,0 +1,21 @@
+{
+    "data": [
+        {
+            "balance": [
+                {
+                    "initial_balance": 9999
+                }
+            ],
+            "clients": [
+                {
+                    "total_count": 1
+                }
+            ],
+            "voicemails": [
+                {
+                    "total_count": 3
+                }
+            ]
+        }
+    ]
+}
