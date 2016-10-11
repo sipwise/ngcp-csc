@@ -103,3 +103,41 @@ This area is intended for overrides like these:
 Such overrides, while automatically required, will only be included if their target
 class ("Ext.foo.Bar" in this case) is also required. This simplifies applying
 patches or extensions to other classes.
+
+
+## Build the app
+
+Run from within app folder (Sencha CMD should be installed https://www.sencha.com/products/extjs/cmd-download/ ) :
+
+sencha app build
+
+The application manifest (app.json) is ingested and the minified app generated
+and placed in build/production folder.
+
+The build consists of
+- index.html containing the microloader (dynamic JS/CSS loader)
+- toolkit (classic / modern) manifests: desktop/mobile specific configurations
+  defined in the manifest
+- /resources folder : extra resources copied from /resources in root folder
+- /app folder
+  - app.js : minified file containing codebase, framework and external libs as
+    configured in manifest
+  - /resources folder
+    - framework resources
+    - generated css
+
+## Run the app
+sencha web start
+
+makes the build available at localhost:1841
+
+## Watch changes
+sencha app watch
+
+watch for changes and performs a quick rebuild of the app
+
+Further info about CMD
+http://docs.sencha.com/cmd/
+
+and regarding ExtJS
+http://docs.sencha.com/extjs/6.2.0/
