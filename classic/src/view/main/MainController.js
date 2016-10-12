@@ -2,10 +2,10 @@ Ext.define('NgcpCsc.view.main.MainController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.main',
 
-    listen : {
-        controller : {
-            '#' : {
-                unmatchedroute : 'onRouteChange'
+    listen: {
+        controller: {
+            '#': {
+                unmatchedroute: 'onRouteChange'
             }
         }
     },
@@ -26,7 +26,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
             navigationList = refs.navigationTreeList,
             store = navigationList.getStore(),
             node = store.findNode('routeId', hashTag) ||
-                   store.findNode('viewType', hashTag) || 'desktop',
+            store.findNode('viewType', hashTag) || 'desktop',
             view = (node && node.get('viewType')) || 'page404',
             lastView = me.lastView,
             existingItem = mainCard.child('component[routeId=' + hashTag + ']'),
@@ -42,7 +42,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
         if (!existingItem) {
             newView = Ext.create({
                 xtype: view,
-                routeId: hashTag,  // for existingItem search later
+                routeId: hashTag, // for existingItem search later
                 hideMode: 'offsets'
             });
         }
@@ -56,8 +56,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
                     mainLayout.setActiveItem(existingItem);
                 }
                 newView = existingItem;
-            }
-            else {
+            } else {
                 // newView is set (did not exist already), so add it and make it the
                 // activeItem.
                 Ext.suspendLayouts();
@@ -75,15 +74,18 @@ Ext.define('NgcpCsc.view.main.MainController', {
         me.lastView = newView;
     },
 
-    onNavigationTreeSelectionChange: function (tree, node) {
+    onNavigationTreeSelectionChange: function(tree, node) {
         var to = node && (node.get('routeId') || node.get('viewType'));
 
         if (to) {
+            if(node.parentNode){
+                node.parentNode.expand();
+            }
             this.redirectTo(to);
         }
     },
 
-    onToggleNavigationSize: function () {
+    onToggleNavigationSize: function() {
         var me = this,
             refs = me.getReferences(),
             navigationList = refs.navigationTreeList,
@@ -103,9 +105,8 @@ Ext.define('NgcpCsc.view.main.MainController', {
 
             // No animation for IE9 or lower...
             wrapContainer.layout.animatePolicy = wrapContainer.layout.animate = null;
-            wrapContainer.updateLayout();  // ... since this will flush them
-        }
-        else {
+            wrapContainer.updateLayout(); // ... since this will flush them
+        } else {
             if (!collapsing) {
                 // If we are leaving micro mode (expanding), we do that first so that the
                 // text of the items in the navlist will be revealed by the animation.
@@ -113,13 +114,20 @@ Ext.define('NgcpCsc.view.main.MainController', {
             }
 
             // Start this layout first since it does not require a layout
-            refs.logo.animate({dynamic: true, to: {width: new_width}});
+            refs.logo.animate({
+                dynamic: true,
+                to: {
+                    width: new_width
+                }
+            });
 
             // Directly adjust the width config and then run the main wrap container layout
             // as the root layout (it and its chidren). This will cause the adjusted size to
             // be flushed to the element and animate to that new size.
             navigationList.width = new_width;
-            wrapContainer.updateLayout({isRoot: true});
+            wrapContainer.updateLayout({
+                isRoot: true
+            });
             navigationList.el.addCls('nav-tree-animating');
 
             // We need to switch to micro mode on the navlist *after* the animation (this
@@ -127,7 +135,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
             // visible.
             if (collapsing) {
                 navigationList.on({
-                    afterlayoutanimation: function () {
+                    afterlayoutanimation: function() {
                         navigationList.setMicro(true);
                         navigationList.el.removeCls('nav-tree-animating');
                     },
@@ -137,13 +145,13 @@ Ext.define('NgcpCsc.view.main.MainController', {
         }
     },
 
-    onMainViewRender:function() {
+    onMainViewRender: function() {
         if (!window.location.hash) {
             this.redirectTo("desktop");
         }
     },
 
-    onRouteChange:function(id){
+    onRouteChange: function(id) {
         this.setCurrentView(id);
     }
 });

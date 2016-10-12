@@ -198,7 +198,7 @@
         "js": [
 //            // Remove this entry to individually load sources from the framework.
 //            {
-//                "path": "${framework.dir}/build/ext-all-rtl-debug.js"
+//                "path": "${framework.dir}/build/ext-all-debug.js"
 //            }
         ]
     },
@@ -549,17 +549,22 @@
         "classic": {
             "toolkit": "classic",
             "theme": "theme-triton"
-        },
+        }
+
+        // we gonna activate modern later on
+        /*,
 
         "modern": {
             "toolkit": "modern",
             "theme": "theme-triton"
-        }
+        }*/
     },
 
     /**
      * Uniquely generated id for this application, used as prefix for localStorage keys.
      * Normally you should never change this value.
      */
-    "id": "39acbe74-575a-4e77-8062-a62324a1e58f"
+    "id": "39acbe74-575a-4e77-8062-a62324a1e58f",
+
+    "locale": "en"
 }

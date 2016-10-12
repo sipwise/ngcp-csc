@@ -43,3 +43,11 @@ $wizard-two-button-background-color: #925e8b;
 $wizard-three-primary-background-color: #9cc96b;
 $wizard-three-button-background-color: #9cc96b;
 
+//------------------------------------------------
+// global custom classes
+
+.link {
+    cursor: pointer;
+    color: $base-color;
+    text-decoration: underline;
+}
