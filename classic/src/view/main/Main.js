@@ -1,5 +1,6 @@
 Ext.define('NgcpCsc.view.main.Main', {
     extend: 'Ext.container.Viewport',
+    xtype: 'ngcp-main',
 
     requires: [
         'Ext.button.Segmented',

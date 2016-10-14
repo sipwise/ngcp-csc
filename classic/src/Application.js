@@ -8,11 +8,21 @@ Ext.define('NgcpCsc.Application', {
 
     name: 'NgcpCsc',
 
-    defaultToken : 'desktop',
+    defaultToken : 'login',
 
-    mainView: 'NgcpCsc.view.main.Main',
+    views: [
+        'NgcpCsc.view.main.Main',
+        'NgcpCsc.view.login.Login'
+    ],
 
     stores: [
         'NavigationTree'
-    ]
+    ],
+
+    launch: function () {
+        Ext.create({
+            xtype: 'ngcp-login'
+        });
+        window.location.hash = '';
+    }
 });
