@@ -14,6 +14,7 @@ Ext.define('NgcpCsc.view.login.Login', {
     autoShow: true,
     standardSubmit: true,
     viewModel: 'login',
+    width: 330,
 
     items: {
         xtype: 'form',
@@ -24,6 +25,7 @@ Ext.define('NgcpCsc.view.login.Login', {
             name: 'username',
             fieldLabel: 'Username',
             allowBlank: false,
+            padding: '10 0 0 15',
             listeners: {
                 specialKey: 'onPressEnter'
             },
@@ -34,16 +36,47 @@ Ext.define('NgcpCsc.view.login.Login', {
             inputType: 'password',
             fieldLabel: 'Password',
             allowBlank: false,
+            padding: '0 0 0 15',
             listeners: {
                 specialKey: 'onPressEnter'
             },
             bind:'{password}'
         }, {
+            xtype: 'combo',
+            fieldLabel: 'Choose language',
+            padding: '0 0 0 15',
+            store: new Ext.data.Store({
+                data: [{
+                    id: "en",
+                    language: 'English'
+                },{
+                    id: "it",
+                    language: 'Italian'
+                },{
+                    id: "de",
+                    language: 'German'
+                },{
+                    id: "fr",
+                    language: 'French'
+                },{
+                    id: "sp",
+                    language: 'Spanish'
+                }]
+            }),
+            queryMode: 'local',
+            valueField: 'id',
+            displayField: 'language',
+            value: localStorage.getItem('languageSelected') || 'en',
+            listeners: {
+                'select': 'languageSelection'
+            }
+        },  {
             xtype: 'displayfield',
             hideEmptyLabel: false,
             itemId: 'login-message',
-            width: 300,
-            value: 'Enter any non-blank password',
+            padding: '0 0 5 15',
+            hidden: true,
+            width: 310,
             bind:'{message}'
         }],
         buttons: [{

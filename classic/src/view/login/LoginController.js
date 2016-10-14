@@ -14,14 +14,24 @@ Ext.define('NgcpCsc.view.login.LoginController', {
         }
     },
 
+    languageSelection: function (cmp, rec) {
+        languageSelected = localStorage.setItem('languageSelected', rec.get('id'));
+    },
+
+    showMessage: function (message) {
+        this.loginFormReset();
+        this.getViewModel().set('message', message);
+        inputMessageComponent.show();
+    },
+
     onLoginClick: function () {
         var inputUsername = this.getViewModel().get('username');
         var inputPassword = this.getViewModel().get('password');
-        var inputMessage = this.getView().down('message');
+        languageSelected = localStorage.getItem('languageSelected') || 'en';
+        inputMessageComponent = this.getView().down('#login-message');
 
         if (inputUsername === 'admin' && inputPassword === 'admin') {
             this.getView().destroy();
-            // TODO: Use
             Ext.create({
                 xtype: 'ngcp-main'
             });
@@ -30,21 +40,17 @@ Ext.define('NgcpCsc.view.login.LoginController', {
                 field: 'password',
                 message: 'Invalid password'
             }]);
-            this.loginFormReset();
-            this.getViewModel().set('message', 'Login failed, please verify username and password.');
+            this.showMessage('Login failed, please verify username and password.');
         } else if (inputUsername === '') {
-            this.loginFormReset();
-            this.getViewModel().set('message', 'Please enter your username.');
+            this.showMessage('Please enter your username.');
         } else if (inputPassword === '') {
-            this.loginFormReset();
-            this.getViewModel().set('message', 'Please enter your password.');
+            this.showMessage('Please enter your password.');
         } else if (inputUsername !== 'admin' && inputPassword !== '') {
             this.lookupReference('login-form').getForm().markInvalid([{
                 field: 'username',
                 message: 'Invalid username'
             }]);
-            this.loginFormReset();
-            this.getViewModel().set('message', 'Login failed, please verify username and password.');
+            this.showMessage('Login failed, please verify username and password.');
         }
     }
 
