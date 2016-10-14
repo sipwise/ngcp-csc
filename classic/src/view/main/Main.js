@@ -4,7 +4,8 @@ Ext.define('NgcpCsc.view.main.Main', {
 
     requires: [
         'Ext.button.Segmented',
-        'Ext.list.Tree'
+        'Ext.list.Tree',
+        'Ngcp.csc.view.pages.BlankPage'
     ],
 
     controller: 'main',
