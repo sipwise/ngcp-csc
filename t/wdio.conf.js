@@ -10,7 +10,7 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './tests/wdio/*.js'
+        './wdio/*.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -45,8 +45,8 @@ exports.config = {
         maxInstances: 5,
         //
         browserName: 'phantomjs',
-
-        "phantomjs.binary.path": "./node_modules/phantomjs/bin/phantomjs"
+            "phantomjs.binary.path": "/tmp/code/t/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs" // Docker path
+            // "phantomjs.binary.path": "/usr/local/bin/phantomjs" // Local path
     }],
     //
     // ===================
@@ -70,7 +70,7 @@ exports.config = {
     //
     // Set a base URL in order to shorten url command calls. If your url parameter starts
     // with "/", then the base url gets prepended.
-    baseUrl: 'http://localhost',
+    baseUrl: 'http://localhost:1841',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
