@@ -10,7 +10,7 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './tests/wdio/*.js'
+        './wdio/*.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -45,8 +45,7 @@ exports.config = {
         maxInstances: 5,
         //
         browserName: 'phantomjs',
-
-        "phantomjs.binary.path": "./node_modules/phantomjs/bin/phantomjs"
+        "phantomjs.binary.path": "/code/t/node_modules/phantomjs/bin/phantomjs"
     }],
     //
     // ===================

@@ -1,6 +1,6 @@
-# NgcpCsc Dashboard
+# NGCP-CSC Dashboard
 
-The NgcpCsc Dashboard is an application template for you to copy and adapt to suite
+The **NGCP-CSC** Dashboard is an application template for you to copy and adapt to suite
 your specific needs. While you can remove the files and folders that your application
 does not use, be sure to read below before deciding what can be deleted and what needs
 to be kept in source control.
@@ -109,7 +109,9 @@ patches or extensions to other classes.
 
 Run from within app folder (Sencha CMD should be installed https://www.sencha.com/products/extjs/cmd-download/ ) :
 
+```
 sencha app build
+```
 
 The application manifest (app.json) is ingested and the minified app generated
 and placed in build/production folder.
@@ -127,9 +129,12 @@ The build consists of
     - generated css
 
 ## Run the app
-sencha web start
 
-makes the build available at localhost:1841
+```
+sencha web start
+```
+makes the build available at **localhost:1841**
+
 
 ## Watch changes
 sencha app watch
@@ -143,16 +148,20 @@ and regarding ExtJS
 http://docs.sencha.com/extjs/6.2.0/
 
 
-## Install test runners & run tests
+## Tests
 
-```npm install```
+Install all Node.js dependencies in *ngcp-csc/t/* with ```npm install```.
 
-```./node_modules/selenium-standalone/bin/selenium-standalone install```
+### Local
 
-To run karma
-```./node_modules/karma/bin/karma start karma.conf.js```
+Karma test: ```npm run test-karma```
 
-To run webdriverIO
-```./node_modules/selenium-standalone/bin/selenium-standalone start```
+WebdriverIO test: ```npm run test-karma```
 
-```./node_modules/.bin/wdio wdio.conf.js```
+*Make sure that selenium-server is running ```./node_modules/selenium-standalone/bin/selenium-standalone start```*.
+
+### Docker
+
+Create and run Docker Image (see instructions inside the Dockerfile).
+
+Inside Docker, run ```cd /code && sencha app build -c && ./t/testrunner```.
