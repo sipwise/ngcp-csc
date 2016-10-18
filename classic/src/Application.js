@@ -16,7 +16,8 @@ Ext.define('NgcpCsc.Application', {
     ],
 
     stores: [
-        'NavigationTree'
+        'NavigationTree',
+        'Languages'
     ],
 
     launch: function () {
