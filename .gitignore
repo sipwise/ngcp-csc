@@ -1,3 +1,10 @@
 build/
-sass/example/
+sass/example/bootstrap.js
+sass/example/bootstrap.json
+sass/example/bootstrap.jsonp
+sass/example/example.css
 bootstrap.json
+classic.json
+classic.jsonp
+modern.json
+modern.jsonp

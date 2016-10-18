@@ -2,11 +2,6 @@ Ext.define('NgcpCsc.view.login.Login', {
     extend: 'Ext.window.Window',
     xtype: 'ngcp-login',
 
-    requires: [
-        'NgcpCsc.view.login.LoginController',
-        'Ext.form.Panel'
-    ],
-
     controller: 'login',
     bodyPadding: 10,
     title: 'Login Window',
@@ -45,24 +40,7 @@ Ext.define('NgcpCsc.view.login.Login', {
             xtype: 'combo',
             fieldLabel: 'Choose language',
             padding: '0 0 0 15',
-            store: new Ext.data.Store({
-                data: [{
-                    id: "en",
-                    language: 'English'
-                },{
-                    id: "it",
-                    language: 'Italian'
-                },{
-                    id: "de",
-                    language: 'German'
-                },{
-                    id: "fr",
-                    language: 'French'
-                },{
-                    id: "sp",
-                    language: 'Spanish'
-                }]
-            }),
+            store: 'languages',
             queryMode: 'local',
             valueField: 'id',
             displayField: 'language',
