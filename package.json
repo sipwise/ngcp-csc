@@ -1,9 +1,9 @@
 {
   "name": "ngcp-csc",
-  "description": "ngcp-csc description",
+  "description": "Sipwise NGCP-CSC Panel",
   "version": "0.0.1",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "karma start karma.conf.js"
     },
   "devDependencies": {
     "install": "^0.8.1",
