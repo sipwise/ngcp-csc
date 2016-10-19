@@ -4,7 +4,7 @@ Ext.define('NgcpCsc.view.login.Login', {
 
     controller: 'login',
     bodyPadding: 10,
-    title: 'Login Window',
+    title: Ngcp.csc.locales.login.title[localStorage.getItem('languageSelected')],
     closable: false,
     autoShow: true,
     standardSubmit: true,
@@ -18,30 +18,33 @@ Ext.define('NgcpCsc.view.login.Login', {
         items: [{
             xtype: 'textfield',
             name: 'username',
-            fieldLabel: 'Username',
+            id: 'login-username',
+            fieldLabel: Ngcp.csc.locales.login.username[localStorage.getItem('languageSelected')],
             allowBlank: false,
             padding: '10 0 0 15',
             listeners: {
                 specialKey: 'onPressEnter'
             },
-            bind:'{username}'
+            bind: '{username}'
         }, {
             xtype: 'textfield',
             name: 'password',
+            id: 'login-password',
             inputType: 'password',
-            fieldLabel: 'Password',
+            fieldLabel: Ngcp.csc.locales.login.password[localStorage.getItem('languageSelected')],
             allowBlank: false,
             padding: '0 0 0 15',
             listeners: {
                 specialKey: 'onPressEnter'
             },
-            bind:'{password}'
+            bind: '{password}'
         }, {
             xtype: 'combo',
-            fieldLabel: 'Choose language',
+            fieldLabel: Ngcp.csc.locales.login.choose_language[localStorage.getItem('languageSelected')],
             padding: '0 0 0 15',
             store: 'Languages',
             queryMode: 'local',
+            id: 'login-language',
             valueField: 'id',
             displayField: 'language',
             value: localStorage.getItem('languageSelected') || 'en',
@@ -51,14 +54,14 @@ Ext.define('NgcpCsc.view.login.Login', {
         },  {
             xtype: 'displayfield',
             hideEmptyLabel: false,
-            itemId: 'login-message',
             padding: '0 0 5 15',
             hidden: true,
-            width: 310,
-            bind:'{message}'
+            id: 'login-message',
+            bind: '{message}'
         }],
         buttons: [{
-            text: 'Login',
+            text: Ngcp.csc.locales.login.button_text[localStorage.getItem('languageSelected')],
+            id: 'login-button',
             listeners: {
                 click: 'onLoginClick'
             }

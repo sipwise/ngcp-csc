@@ -16,15 +16,15 @@ Ext.define('NgcpCsc.view.pages.summary.SummaryModel', {
         },
         checkVoiceMails: function(get) {
             var count;
-            count = (get('voicemails_total_count') == 0) ? Ngcp.csc.locales.common.no[Ext.manifest.locale] : get('voicemails_total_count');
-            return Ext.String.format('{0} {1}', count, Ngcp.csc.locales.summary.new_voicemails[Ext.manifest.locale].toLowerCase());
+            count = (get('voicemails_total_count') == 0) ? Ngcp.csc.locales.common.no[localStorage.getItem('languageSelected')] : get('voicemails_total_count');
+            return Ext.String.format('{0} {1}', count, Ngcp.csc.locales.summary.new_voicemails[localStorage.getItem('languageSelected')].toLowerCase());
         },
         checkCallFwd: function(get) {
             var active = get('call_forward_active') ? 'active' : 'inactive';
-            return Ext.String.format('<span class="fa fa-rotate-left fa-3x"></span><span>{0} {1}</span>', Ngcp.csc.locales.summary.call_forwards[Ext.manifest.locale].toLowerCase(), active);
+            return Ext.String.format('<span class="fa fa-rotate-left fa-3x"></span><span>{0} {1}</span>', Ngcp.csc.locales.summary.call_forwards[localStorage.getItem('languageSelected')].toLowerCase(), active);
         },
         checkReminder: function() {
-            return Ext.String.format('<span class="fa fa-exclamation fa-3x"></span><span>{0}</span>', Ngcp.csc.locales.calls.call_type.forwarded[Ext.manifest.locale]);
+            return Ext.String.format('<span class="fa fa-exclamation fa-3x"></span><span>{0}</span>', Ngcp.csc.locales.calls.call_type.forwarded[localStorage.getItem('languageSelected')]);
         }
     }
 });

@@ -16,6 +16,11 @@ Ext.define('NgcpCsc.view.login.LoginController', {
 
     languageSelection: function (cmp, rec) {
         languageSelected = localStorage.setItem('languageSelected', rec.get('id'));
+        this.getView().down('#login-username').setFieldLabel(Ngcp.csc.locales.login.username[localStorage.getItem('languageSelected')]);
+        this.getView().down('#login-password').setFieldLabel(Ngcp.csc.locales.login.password[localStorage.getItem('languageSelected')]);
+        this.getView().down('#login-language').setFieldLabel(Ngcp.csc.locales.login.choose_language[localStorage.getItem('languageSelected')]);
+        this.getView().down('#login-button').setConfig('text', Ngcp.csc.locales.login.button_text[localStorage.getItem('languageSelected')]);
+        this.getView().setConfig('title', Ngcp.csc.locales.login.title[localStorage.getItem('languageSelected')]);
     },
 
     showMessage: function (message) {
@@ -37,11 +42,11 @@ Ext.define('NgcpCsc.view.login.LoginController', {
                 xtype: 'ngcp-main'
             });
         } else if (inputUsername === '' && inputPassword === '' || inputUsername === '' ) {
-            this.showMessage('Please enter your username.');
+            this.showMessage(Ngcp.csc.locales.login.missing_username[localStorage.getItem('languageSelected')]);
         } else if (inputPassword === '') {
-            this.showMessage('Please enter your password.');
+            this.showMessage(Ngcp.csc.locales.login.missing_password[localStorage.getItem('languageSelected')]);
         } else if (inputUsername !== defaultCredential || inputPassword !== defaultCredential) {
-            this.showMessage('Login failed, please verify username and password.');
+            this.showMessage(Ngcp.csc.locales.login.invalid_credentialse[localStorage.getItem('languageSelected')]);
         }
     }
 

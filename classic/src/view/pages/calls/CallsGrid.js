@@ -35,23 +35,23 @@ Ext.define('NgcpCsc.view.pages.calls.CallsGrid', {
                 renderer: 'renderCallTypeIcons',
                 width: 30
             }, {
-                text: (!summaryView) ? Ngcp.csc.locales.calls.columns.number[Ext.manifest.locale] : '',
+                text: (!summaryView) ? Ngcp.csc.locales.calls.columns.number[localStorage.getItem('languageSelected')] : '',
                 flex: 1,
                 dataIndex: 'source_cli'
             }, {
                 renderer: 'renderPhoneIcon',
                 width: 30
             }, {
-                text: (!summaryView) ? Ngcp.csc.locales.calls.columns.duration[Ext.manifest.locale] : '',
+                text: (!summaryView) ? Ngcp.csc.locales.calls.columns.duration[localStorage.getItem('languageSelected')] : '',
                 flex: 1,
                 dataIndex: 'duration'
             }, {
-                text: (!summaryView) ? Ngcp.csc.locales.calls.columns.charges[Ext.manifest.locale] : '',
+                text: (!summaryView) ? Ngcp.csc.locales.calls.columns.charges[localStorage.getItem('languageSelected')] : '',
                 flex: 1,
                 dataIndex: 'charges'
             }, {
                 xtype: 'datecolumn',
-                text: (!summaryView) ? Ngcp.csc.locales.calls.columns.date[Ext.manifest.locale] : '',
+                text: (!summaryView) ? Ngcp.csc.locales.calls.columns.date[localStorage.getItem('languageSelected')] : '',
                 flex: 1,
                 dataIndex: 'start_time',
                 format: 'd-m-Y h:i:s'

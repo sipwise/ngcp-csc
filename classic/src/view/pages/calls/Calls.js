@@ -13,7 +13,7 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
     initComponent: function() {
         var callsGrid = Ext.create('NgcpCsc.view.pages.calls.CallsGrid');
         if (!this._isDesktopSection) {
-            this.setTitle(Ngcp.csc.locales.calls.section_title[Ext.manifest.locale]);
+            this.setTitle(Ngcp.csc.locales.calls.section_title[localStorage.getItem('languageSelected')]);
         }
         this.items = [{
             flex: 4,
@@ -21,7 +21,7 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
                 padding: 20
             },
             items: [{
-                    html: Ngcp.csc.locales.calls.recent_calls[Ext.manifest.locale],
+                    html: Ngcp.csc.locales.calls.recent_calls[localStorage.getItem('languageSelected')]
                 }, {
                     xtype: 'container',
                     anchor: '100%',
@@ -34,11 +34,11 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
                         height: 20
                     },
                     items: [{
-                        html: Ext.String.format('<span class="fa fa-arrow-circle-up calls-icon"></span><span>{0}</span>', Ngcp.csc.locales.calls.call_type.incoming[Ext.manifest.locale])
+                        html: Ext.String.format('<span class="fa fa-arrow-circle-up calls-icon"></span><span>{0}</span>', Ngcp.csc.locales.calls.call_type.incoming[localStorage.getItem('languageSelected')])
                     }, {
-                        html: Ext.String.format('<span class="fa fa-arrow-circle-down calls-icon"></span><span>{0}</span>', Ngcp.csc.locales.calls.call_type.outgoing[Ext.manifest.locale])
+                        html: Ext.String.format('<span class="fa fa-arrow-circle-down calls-icon"></span><span>{0}</span>', Ngcp.csc.locales.calls.call_type.outgoing[localStorage.getItem('languageSelected')])
                     }, {
-                        html: Ext.String.format('<span class="fa fa-arrow-circle-right calls-icon"></span><span>{0}</span>', Ngcp.csc.locales.calls.call_type.forwarded[Ext.manifest.locale])
+                        html: Ext.String.format('<span class="fa fa-arrow-circle-right calls-icon"></span><span>{0}</span>', Ngcp.csc.locales.calls.call_type.forwarded[localStorage.getItem('languageSelected')])
                     }]
                 },
                 callsGrid, {
@@ -47,7 +47,7 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
                     height: 40,
                     padding: 10,
                     hidden: !this._isDesktopSection,
-                    html: Ext.String.format('<div class="link">{0}</div>', Ngcp.csc.locales.calls.all_calls[Ext.manifest.locale]),
+                    html: Ext.String.format('<div class="link">{0}</div>', Ngcp.csc.locales.calls.all_calls[localStorage.getItem('languageSelected')]),
                     listeners: {
                         click: {
                             element: 'el',

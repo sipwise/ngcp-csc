@@ -9,7 +9,7 @@ Ext.define('NgcpCsc.view.pages.summary.Summary', {
 
     layout: 'fit',
 
-    title: Ngcp.csc.locales.summary.title[Ext.manifest.locale],
+    title: Ngcp.csc.locales.summary.title[localStorage.getItem('languageSelected')],
 
     layout: 'hbox',
 
@@ -35,18 +35,18 @@ Ext.define('NgcpCsc.view.pages.summary.Summary', {
             width: '90%'
         },
         items: [{
-            fieldLabel: Ngcp.csc.locales.summary.account_balance[Ext.manifest.locale],
+            fieldLabel: Ngcp.csc.locales.summary.account_balance[localStorage.getItem('languageSelected')],
             bind: {
                 value: '{initial_balance}',
                 hidden: '{checkInitialBalance}',
             }
         }, {
-            fieldLabel: Ngcp.csc.locales.summary.clients[Ext.manifest.locale],
+            fieldLabel: Ngcp.csc.locales.summary.clients[localStorage.getItem('languageSelected')],
             bind: {
-                value: '{clients_total_count} ' + Ngcp.csc.locales.summary.clients_label[Ext.manifest.locale]
+                value: '{clients_total_count} ' + Ngcp.csc.locales.summary.clients_label[localStorage.getItem('languageSelected')]
             }
         }, {
-            fieldLabel: Ngcp.csc.locales.summary.new_voicemails[Ext.manifest.locale],
+            fieldLabel: Ngcp.csc.locales.summary.new_voicemails[localStorage.getItem('languageSelected')],
             bind: {
                 value: '{checkVoiceMails}'
             }
@@ -54,7 +54,7 @@ Ext.define('NgcpCsc.view.pages.summary.Summary', {
             xtype: 'container',
             height: 40,
             padding: 10,
-            html: Ext.String.format('<div class="link">{0}</div>', Ngcp.csc.locales.summary.all_voicemails[Ext.manifest.locale]),
+            html: Ext.String.format('<div class="link">{0}</div>', Ngcp.csc.locales.summary.all_voicemails[localStorage.getItem('languageSelected')]),
             listeners: {
                 click: {
                     element: 'el',
@@ -65,7 +65,7 @@ Ext.define('NgcpCsc.view.pages.summary.Summary', {
     }, {
         padding: 20,
         items: [{
-            html: Ngcp.csc.locales.summary.call_forwards[Ext.manifest.locale]
+            html: Ngcp.csc.locales.summary.call_forwards[localStorage.getItem('languageSelected')]
         }, {
             padding: 5,
             bind: {
@@ -75,7 +75,7 @@ Ext.define('NgcpCsc.view.pages.summary.Summary', {
             xtype: 'container',
             height: 40,
             padding: 10,
-            html: Ext.String.format('<div class="link">{0}</div>', Ngcp.csc.locales.summary.reminder[Ext.manifest.locale]),
+            html: Ext.String.format('<div class="link">{0}</div>', Ngcp.csc.locales.summary.reminder[localStorage.getItem('languageSelected')]),
             listeners: {
                 click: {
                     element: 'el',
@@ -83,7 +83,7 @@ Ext.define('NgcpCsc.view.pages.summary.Summary', {
                 }
             }
         }, {
-            html: Ngcp.csc.locales.summary.clients[Ext.manifest.locale]
+            html: Ngcp.csc.locales.summary.clients[localStorage.getItem('languageSelected')]
         }, {
 
             padding: 5,
@@ -94,7 +94,7 @@ Ext.define('NgcpCsc.view.pages.summary.Summary', {
             xtype: 'container',
             height: 40,
             padding: 10,
-            html: Ext.String.format('<div class="link">{0}</div>', Ngcp.csc.locales.summary.reminder[Ext.manifest.locale]),
+            html: Ext.String.format('<div class="link">{0}</div>', Ngcp.csc.locales.summary.reminder[localStorage.getItem('languageSelected')]),
             listeners: {
                 click: {
                     element: 'el',

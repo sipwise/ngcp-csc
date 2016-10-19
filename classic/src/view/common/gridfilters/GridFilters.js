@@ -8,14 +8,14 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters.js', {
     margin: '0 10 0 0',
 
     items: [{
-        html: Ngcp.csc.locales.filters.search[Ext.manifest.locale],
+        html: Ngcp.csc.locales.filters.search[localStorage.getItem('languageSelected')],
         padding: '10 0 10 0'
     }, {
         xtype: 'datefield',
         format: 'd.m.Y',
         labelAlign: 'top',
         width: '100%',
-        fieldLabel: Ngcp.csc.locales.filters.from[Ext.manifest.locale],
+        fieldLabel: Ngcp.csc.locales.filters.from[localStorage.getItem('languageSelected')],
         name: 'from_date'
     }, {
         xtype: 'datefield',
@@ -27,7 +27,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters.js', {
         xtype: 'textfield',
         labelAlign: 'top',
         width: '100%',
-        fieldLabel: Ngcp.csc.locales.filters.search_term[Ext.manifest.locale]
+        fieldLabel: Ngcp.csc.locales.filters.search_term[localStorage.getItem('languageSelected')]
     }, {
         layout: 'hbox',
         margin: '10 0 0 0',
@@ -36,11 +36,11 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters.js', {
             flex: 1
         },
         items: [{
-            text: Ngcp.csc.locales.filters.apply[Ext.manifest.locale],
+            text: Ngcp.csc.locales.filters.apply[localStorage.getItem('languageSelected')],
             margin: '0 5 0 0',
             handler: 'submitFilters'
         }, {
-            text: Ngcp.csc.locales.filters.reset[Ext.manifest.locale],
+            text: Ngcp.csc.locales.filters.reset[localStorage.getItem('languageSelected')],
             handler: 'resetFilters'
         }]
     }]
