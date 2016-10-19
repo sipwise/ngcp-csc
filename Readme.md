@@ -141,3 +141,16 @@ http://docs.sencha.com/cmd/
 
 and regarding ExtJS
 http://docs.sencha.com/extjs/6.2.0/
+
+
+## Install test runners & run tests
+
+npm install
+./node_modules/selenium-standalone/bin/selenium-standalone install
+
+To run karma
+./node_modules/karma/bin/karma start karma.conf.js
+
+To run webdriverIO
+./node_modules/selenium-standalone/bin/selenium-standalone start
+./node_modules/.bin/wdio wdio.conf.js
