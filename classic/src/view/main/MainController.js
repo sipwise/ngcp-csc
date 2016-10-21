@@ -6,6 +6,9 @@ Ext.define('NgcpCsc.view.main.MainController', {
         controller: {
             '#': {
                 unmatchedroute: 'onRouteChange'
+            },
+            '*': {
+                showmessage: 'showMessage'
             }
         }
     },
@@ -78,7 +81,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
         var to = node && (node.get('routeId') || node.get('viewType'));
 
         if (to) {
-            if(node.parentNode){
+            if (node.parentNode) {
                 node.parentNode.expand();
             }
             this.redirectTo(to);
@@ -153,5 +156,14 @@ Ext.define('NgcpCsc.view.main.MainController', {
 
     onRouteChange: function(id) {
         this.setCurrentView(id);
+    },
+
+    showMessage: function(msg) {
+        Ext.toast('test');
+    },
+
+    logout:function(){
+        localStorage.removeItem('remember_me');
+        location.reload();
     }
 });

@@ -2,52 +2,43 @@ Ext.define('NgcpCsc.view.login.LoginController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.login',
 
-    loginFormReset: function () {
-        this.getViewModel().set('username', '');
-        this.getViewModel().set('password', '');
-        this.getViewModel().set('message', '');
-    },
-
-    onPressEnter: function (field, e) {
+    onPressEnter: function(field, e) {
         if (e.getKey() == e.ENTER) {
             this.onLoginClick();
         }
     },
 
-    languageSelection: function (cmp, rec) {
-        languageSelected = localStorage.setItem('languageSelected', rec.get('id'));
-        this.getView().down('#login-username').setFieldLabel(Ngcp.csc.locales.login.username[localStorage.getItem('languageSelected')]);
-        this.getView().down('#login-password').setFieldLabel(Ngcp.csc.locales.login.password[localStorage.getItem('languageSelected')]);
-        this.getView().down('#login-language').setFieldLabel(Ngcp.csc.locales.login.choose_language[localStorage.getItem('languageSelected')]);
-        this.getView().down('#login-button').setConfig('text', Ngcp.csc.locales.login.button_text[localStorage.getItem('languageSelected')]);
-        this.getView().setConfig('title', Ngcp.csc.locales.login.title[localStorage.getItem('languageSelected')]);
+    languageSelection: function(cmp, rec) {
+        var selectedLang = rec.get('id');
+        this.getView().down('#title').setTitle(Ngcp.csc.locales.login.title[selectedLang]);
+        this.getView().down('#login-username').setEmptyText(Ngcp.csc.locales.login.username[selectedLang]);
+        this.getView().down('#login-password').setEmptyText(Ngcp.csc.locales.login.password[selectedLang]);
+        this.getView().down('#login-language').setEmptyText(Ngcp.csc.locales.login.choose_language[selectedLang]);
+        this.getView().down('#login-button').setText(Ngcp.csc.locales.login.button_text[selectedLang]);
+        localStorage.setItem('languageSelected', selectedLang);
     },
 
-    showMessage: function (message) {
-        this.loginFormReset();
-        this.getViewModel().set('message', message);
-        inputMessageComponent.show();
-    },
-
-    onLoginClick: function () {
+    onLoginClick: function() {
+        localStorage.removeItem('remember_me');
+        if (!localStorage.getItem('languageSelected')) {
+            localStorage.setItem('languageSelected', 'en');
+        }
         var inputUsername = this.getViewModel().get('username');
         var inputPassword = this.getViewModel().get('password');
-        var defaultCredential = 'administrator';
-        languageSelected = localStorage.getItem('languageSelected') || 'en';
-        inputMessageComponent = this.getView().down('#login-message');
+        var remember_me = this.getViewModel().get('remember_me') || false;
+        var defaultCredentials = this.getViewModel().get('defaultCredentials');
+        var languageSelected = localStorage.getItem('languageSelected');
 
-        if (inputUsername === defaultCredential && inputPassword === defaultCredential) {
-            this.getView().destroy();
+        if (inputUsername === defaultCredentials && inputPassword === defaultCredentials) {
+            localStorage.setItem('username', inputUsername);
+            localStorage.setItem('password', inputPassword);
+            if(remember_me){
+                localStorage.setItem('remember_me', remember_me);
+            }
+            this.getView().close();
             Ext.create({
                 xtype: 'ngcp-main'
             });
-        } else if (inputUsername === '' && inputPassword === '' || inputUsername === '' ) {
-            this.showMessage(Ngcp.csc.locales.login.missing_username[localStorage.getItem('languageSelected')]);
-        } else if (inputPassword === '') {
-            this.showMessage(Ngcp.csc.locales.login.missing_password[localStorage.getItem('languageSelected')]);
-        } else if (inputUsername !== defaultCredential || inputPassword !== defaultCredential) {
-            this.showMessage(Ngcp.csc.locales.login.invalid_credentialse[localStorage.getItem('languageSelected')]);
         }
     }
-
 });

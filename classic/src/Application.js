@@ -8,7 +8,7 @@ Ext.define('NgcpCsc.Application', {
 
     name: 'NgcpCsc',
 
-    defaultToken : 'login',
+    defaultToken: 'login',
 
     views: [
         'NgcpCsc.view.main.Main',
@@ -21,10 +21,18 @@ Ext.define('NgcpCsc.Application', {
         'Languages'
     ],
 
-    launch: function () {
-        Ext.create({
-            xtype: 'ngcp-login'
-        });
-        window.location.hash = '';
+    launch: function() {
+        // TODO to be replaced with request
+        if(localStorage.getItem('remember_me')){
+            window.location.hash = '#desktop';
+            Ext.create({
+                xtype: 'ngcp-main'
+            });
+        }else{
+            window.location.hash = '';
+            Ext.create({
+                xtype: 'ngcp-login'
+            });
+        }
     }
 });

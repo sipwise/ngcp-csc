@@ -49,8 +49,16 @@ Ext.define('NgcpCsc.view.main.Main', {
                 tooltip: 'See your profile'
             }, {
                 xtype: 'tbtext',
-                text: 'Logged in as TestUser',
+                bind: {
+                    text: 'Logged in as {username}'
+                },
                 cls: 'top-user-name'
+            }, {
+                xtype: 'tbseparator'
+            }, {
+                html: Ngcp.csc.locales.common.logout[localStorage.getItem('languageSelected')],
+                tooltip: 'Logout',
+                handler:'logout'
             }, {
                 xtype: 'image',
                 cls: 'header-right-profile-image',
