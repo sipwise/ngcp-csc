@@ -7,8 +7,14 @@ Ext.define('NgcpCsc.view.login.LoginModel', {
     alias: 'viewmodel.login',
 
     data: {
-       username: '',
-       password: '',
-       message: ''
-   }
+        username: localStorage.getItem('username') || '',
+        password:  localStorage.getItem('password') || '',
+        defaultCredentials: 'administrator',
+        remember_me: false
+    },
+    formulas: {
+        authValid: function(get) {
+            return (get('username') == get('defaultCredentials') && get('password') == get('defaultCredentials'));
+        }
+    }
 });
