@@ -38,7 +38,7 @@ Ext.define('NgcpCsc.view.pages.summary.Summary', {
             fieldLabel: Ngcp.csc.locales.summary.account_balance[localStorage.getItem('languageSelected')],
             bind: {
                 value: '{initial_balance}',
-                hidden: '{checkInitialBalance}',
+                hidden: '{checkInitialBalance}'
             }
         }, {
             fieldLabel: Ngcp.csc.locales.summary.clients[localStorage.getItem('languageSelected')],

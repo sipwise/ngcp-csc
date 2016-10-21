@@ -1,4 +1,5 @@
 build/
+node_modules/
 sass/example/bootstrap.js
 sass/example/bootstrap.json
 sass/example/bootstrap.jsonp

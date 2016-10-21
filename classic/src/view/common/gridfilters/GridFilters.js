@@ -1,4 +1,4 @@
-Ext.define('NgcpCsc.view.common.gridfilters.GridFilters.js', {
+Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
     extend: 'Ext.form.Panel',
 
     xtype: 'gridfilters',

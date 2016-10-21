@@ -18,7 +18,7 @@ Ext.define('NgcpCsc.view.pages.calls.CallsGrid', {
                     return name.split('.')[1];
                 }
             }
-        ],
+        ]
     }],
 
     padding: 10,
