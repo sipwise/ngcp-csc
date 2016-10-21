@@ -3,68 +3,117 @@ Ext.define('NgcpCsc.view.login.Login', {
     xtype: 'ngcp-login',
 
     controller: 'login',
-    bodyPadding: 10,
-    title: Ngcp.csc.locales.login.title[localStorage.getItem('languageSelected')],
+    bodyPadding: 20,
     closable: false,
     autoShow: true,
     standardSubmit: true,
     viewModel: 'login',
-    width: 330,
-
+    width: 500,
+    resizable: false,
+    draggable: false,
+    header: false,
+    cls: 'auth-dialog',
+    modal: true,
     items: {
         xtype: 'form',
         reference: 'login-form',
         enableKeyEvents: true,
+        layout: {
+            type: 'vbox',
+            align: 'stretch'
+        },
+
+        defaults: {
+            margin: '5 0'
+        },
         items: [{
-            xtype: 'textfield',
-            name: 'username',
-            id: 'login-username',
-            fieldLabel: Ngcp.csc.locales.login.username[localStorage.getItem('languageSelected')],
-            allowBlank: false,
-            padding: '10 0 0 15',
-            listeners: {
-                specialKey: 'onPressEnter'
+                id: 'title',
+                panel: 'label',
+                title: Ngcp.csc.locales.login.title[localStorage.getItem('languageSelected') || 'en']
+            }, {
+                xtype: 'textfield',
+                name: 'username',
+                id: 'login-username',
+                cls: 'auth-textbox',
+                emptyText: Ngcp.csc.locales.login.username[localStorage.getItem('languageSelected') || 'en'],
+                allowBlank: false,
+                padding: '10 0 0 15',
+                minLength: 1,
+                listeners: {
+                    specialKey: 'onPressEnter'
+                },
+                bind: '{username}',
+                triggers: {
+                    glyphed: {
+                        cls: 'auth-user-trigger'
+                    }
+                }
+            }, {
+                xtype: 'textfield',
+                name: 'password',
+                id: 'login-password',
+                cls: 'auth-textbox',
+                inputType: 'password',
+                minLength: 1,
+                emptyText: Ngcp.csc.locales.login.password[localStorage.getItem('languageSelected') || 'en'],
+                allowBlank: false,
+                padding: '0 0 0 15',
+                listeners: {
+                    specialKey: 'onPressEnter'
+                },
+                bind: '{password}',
+                triggers: {
+                    glyphed: {
+                        cls: 'auth-password-trigger'
+                    }
+                }
+            }, {
+                xtype: 'combo',
+                emptyText: Ngcp.csc.locales.login.choose_language[localStorage.getItem('languageSelected') || 'en'],
+                padding: '0 0 0 15',
+                store: 'Languages',
+                queryMode: 'local',
+                id: 'login-language',
+                valueField: 'id',
+                displayField: 'language',
+                editable: false,
+                value: localStorage.getItem('languageSelected') || 'en',
+                listeners: {
+                    'select': 'languageSelection'
+                }
             },
-            bind: '{username}'
-        }, {
-            xtype: 'textfield',
-            name: 'password',
-            id: 'login-password',
-            inputType: 'password',
-            fieldLabel: Ngcp.csc.locales.login.password[localStorage.getItem('languageSelected')],
-            allowBlank: false,
-            padding: '0 0 0 15',
-            listeners: {
-                specialKey: 'onPressEnter'
-            },
-            bind: '{password}'
-        }, {
-            xtype: 'combo',
-            fieldLabel: Ngcp.csc.locales.login.choose_language[localStorage.getItem('languageSelected')],
-            padding: '0 0 0 15',
-            store: 'Languages',
-            queryMode: 'local',
-            id: 'login-language',
-            valueField: 'id',
-            displayField: 'language',
-            value: localStorage.getItem('languageSelected') || 'en',
-            listeners: {
-                'select': 'languageSelection'
+            // TODO: remember me & forgotten pswd
+            {
+                xtype: 'container',
+                layout: 'hbox',
+                items: [{
+                    xtype: 'checkboxfield',
+                    flex: 1,
+                    cls: 'form-panel-font-color rememberMeCheckbox',
+                    height: 30,
+                    boxLabel: 'Remember me',
+                    bind: {
+                        value: '{remember_me}'
+                    }
+                }, {
+                    xtype: 'box',
+                    html: '<a href="#" class="link-forgot-password"> Forgot Password ?</a>'
+                }]
+            }, {
+                text: Ngcp.csc.locales.login.button_text[localStorage.getItem('languageSelected') || 'en'],
+                id: 'login-button',
+                xtype: 'button',
+                width: '100%',
+                scale: 'large',
+                iconAlign: 'right',
+                iconCls: 'x-fa fa-angle-right',
+                bind: {
+                    disabled: '{!authValid}'
+                },
+                listeners: {
+                    click: 'onLoginClick'
+                }
             }
-        },  {
-            xtype: 'displayfield',
-            hideEmptyLabel: false,
-            padding: '0 0 5 15',
-            hidden: true,
-            id: 'login-message',
-            bind: '{message}'
-        }],
-        buttons: [{
-            text: Ngcp.csc.locales.login.button_text[localStorage.getItem('languageSelected')],
-            id: 'login-button',
-            listeners: {
-                click: 'onLoginClick'
-            }
-        }]
+        ],
     }
 });
