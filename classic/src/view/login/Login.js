@@ -36,11 +36,11 @@ Ext.define('NgcpCsc.view.login.Login', {
                 id: 'login-username',
                 cls: 'auth-textbox',
                 emptyText: Ngcp.csc.locales.login.username[localStorage.getItem('languageSelected') || 'en'],
-                allowBlank: false,
                 padding: '10 0 0 15',
                 minLength: 1,
                 listeners: {
-                    specialKey: 'onPressEnter'
+                    specialKey: 'onPressEnter',
+                    change: 'onCredentialsChanged'
                 },
                 bind: '{username}',
                 triggers: {
@@ -56,10 +56,10 @@ Ext.define('NgcpCsc.view.login.Login', {
                 inputType: 'password',
                 minLength: 1,
                 emptyText: Ngcp.csc.locales.login.password[localStorage.getItem('languageSelected') || 'en'],
-                allowBlank: false,
                 padding: '0 0 0 15',
                 listeners: {
-                    specialKey: 'onPressEnter'
+                    specialKey: 'onPressEnter',
+                    change: 'onCredentialsChanged'
                 },
                 bind: '{password}',
                 triggers: {

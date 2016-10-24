@@ -24,7 +24,7 @@ Ext.define('NgcpCsc.store.NavigationTree', {
         }, {
             text: 'Voicemails',
             iconCls: 'x-fa fa-envelope',
-            viewType: 'pageblank',
+            viewType: 'voicemails',
             routeId: 'voicebox',
             leaf: true
         }, {

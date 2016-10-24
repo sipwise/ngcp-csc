@@ -40,6 +40,11 @@ Ext.define('NgcpCsc.view.main.Main', {
                 iconCls: 'x-fa fa-navicon',
                 id: 'main-navigation-btn',
                 handler: 'onToggleNavigationSize'
+            }, {
+                border: 1,
+                reference: 'console',
+                xtype: 'label',
+                cls: 'toolbar-console'
             },
             '->', {
                 iconCls: 'x-fa fa-th-large',

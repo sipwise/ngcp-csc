@@ -5,6 +5,8 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
 
     controller: 'gridfilters',
 
+    model: 'gridfilters',
+
     margin: '0 10 0 0',
 
     items: [{
@@ -16,12 +18,19 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
         labelAlign: 'top',
         width: '100%',
         fieldLabel: Ngcp.csc.locales.filters.from[localStorage.getItem('languageSelected')],
-        name: 'from_date'
+        name: 'from_date',
+        bind:{
+            value:'{from_date}',
+            maxValue: '{to_date}'
+        }
     }, {
         xtype: 'datefield',
         format: 'd.m.Y',
         width: '100%',
         name: 'to_date',
+        bind:{
+            value: '{to_date}'
+        },
         maxValue: new Date() // limited to the current date or prior
     }, {
         xtype: 'textfield',
@@ -43,6 +52,6 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
             text: Ngcp.csc.locales.filters.reset[localStorage.getItem('languageSelected')],
             handler: 'resetFilters'
         }]
-    }]
+    }],
 
 })

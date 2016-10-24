@@ -11,7 +11,9 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
     },
 
     initComponent: function() {
-        var callsGrid = Ext.create('NgcpCsc.view.pages.calls.CallsGrid');
+        var callsGrid = Ext.create('NgcpCsc.view.pages.calls.CallsGrid', {
+            _groupCallsByMonth: !this._isDesktopSection
+        });
         if (!this._isDesktopSection) {
             this.setTitle(Ngcp.csc.locales.calls.section_title[localStorage.getItem('languageSelected')]);
         }
@@ -60,7 +62,7 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
             flex: 1,
             xtype: 'gridfilters',
             hidden: this._isDesktopSection,
-            _attachedCmp: callsGrid
+            _linkedStoreId: 'Calls'
         }];
         this.callParent();
     }

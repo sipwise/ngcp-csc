@@ -283,7 +283,13 @@ Ext.define('Ngcp.csc.locales', {
                     sp: 'date'
                 }
             },
-
+            by_months: {
+                en: 'VOICEMAILS BY MONTH',
+                it: 'VOICEMAILS BY MONTH',
+                de: 'VOICEMAILS BY MONTH',
+                fr: 'VOICEMAILS BY MONTH',
+                sp: 'VOICEMAILS BY MONTH'
+            },
             settings: {
                 title: {
                     en: 'SETTINGS',
@@ -345,6 +351,13 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Last week',
                 sp: 'Last week'
             },
+            logout: {
+                en: 'Logout',
+                it: 'Logout',
+                de: 'Logout',
+                fr: 'Logout',
+                sp: 'Logout'
+            },
             past: {
                 en: 'Past',
                 it: 'Past',
@@ -373,12 +386,33 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Listen',
                 sp: 'Listen'
             },
-            logout: {
-                en: 'Logout',
-                it: 'Logout',
-                de: 'Logout',
-                fr: 'Logout',
-                sp: 'Logout'
+            save_success: {
+                en: 'Successfully saved.',
+                it: 'Successfully saved.',
+                de: 'Successfully saved.',
+                fr: 'Successfully saved.',
+                sp: 'Successfully saved.'
+            },
+            save_unsuccess: {
+                en: 'Something went wrong. Please retry later',
+                it: 'Something went wrong. Please retry later',
+                de: 'Something went wrong. Please retry later',
+                fr: 'Something went wrong. Please retry later',
+                sp: 'Something went wrong. Please retry later'
+            },
+            add_success: {
+                en: 'Successfully added.',
+                it: 'Successfully added.',
+                de: 'Successfully added.',
+                fr: 'Successfully added.',
+                sp: 'Successfully added.'
+            },
+            remove_success: {
+                en: 'Successfully removed.',
+                it: 'Successfully removed.',
+                de: 'Successfully removed.',
+                fr: 'Successfully removed.',
+                sp: 'Successfully removed.'
             }
         }
     }

@@ -7,24 +7,11 @@ Ext.define('NgcpCsc.view.pages.calls.CallsGrid', {
 
     store: 'Calls',
 
-    // used to toggle grid columns headers visibility
-    _showColHeaders: true,
-
-    features: [{
-        ftype: 'grouping',
-        groupHeaderTpl: [
-            '<div><b>{name:this.formatName}</b></div>', {
-                formatName: function(name) {
-                    return name.split('.')[1];
-                }
-            }
-        ]
-    }],
+    _groupCallsByMonth: false,
 
     padding: 10,
 
     initComponent: function() {
-        var summaryView = (window.location.hash.substr(1) == 'desktop');
         this.columns = {
             defaults: {
                 menuDisabled: true,
@@ -35,29 +22,42 @@ Ext.define('NgcpCsc.view.pages.calls.CallsGrid', {
                 renderer: 'renderCallTypeIcons',
                 width: 30
             }, {
-                text: (!summaryView) ? Ngcp.csc.locales.calls.columns.number[localStorage.getItem('languageSelected')] : '',
+                text: (this._groupCallsByMonth) ? Ngcp.csc.locales.calls.columns.number[localStorage.getItem('languageSelected')] : '',
                 flex: 1,
                 dataIndex: 'source_cli'
             }, {
                 renderer: 'renderPhoneIcon',
                 width: 30
             }, {
-                text: (!summaryView) ? Ngcp.csc.locales.calls.columns.duration[localStorage.getItem('languageSelected')] : '',
+                text: (this._groupCallsByMonth) ? Ngcp.csc.locales.calls.columns.duration[localStorage.getItem('languageSelected')] : '',
                 flex: 1,
                 dataIndex: 'duration'
             }, {
-                text: (!summaryView) ? Ngcp.csc.locales.calls.columns.charges[localStorage.getItem('languageSelected')] : '',
+                text: (this._groupCallsByMonth) ? Ngcp.csc.locales.calls.columns.charges[localStorage.getItem('languageSelected')] : '',
                 flex: 1,
                 dataIndex: 'charges'
             }, {
                 xtype: 'datecolumn',
-                text: (!summaryView) ? Ngcp.csc.locales.calls.columns.date[localStorage.getItem('languageSelected')] : '',
+                text: (this._groupCallsByMonth) ? Ngcp.csc.locales.calls.columns.date[localStorage.getItem('languageSelected')] : '',
                 flex: 1,
                 dataIndex: 'start_time',
-                format: 'd-m-Y h:i:s'
+                align: 'right',
+                format: 'd.m.Y h:i:s'
             }]
         };
 
+        if(this._groupCallsByMonth){
+            this.features = [{
+                ftype: 'grouping',
+                groupHeaderTpl: [
+                    '<div><b>{name:this.formatName}</b></div>', {
+                        formatName: function(name) {
+                            return name.split('.')[1];
+                        }
+                    }
+                ]
+            }];
+        }
         this.callParent();
     }
 })

@@ -8,6 +8,14 @@ Ext.define('NgcpCsc.view.login.LoginController', {
         }
     },
 
+    onCredentialsChanged: function(field, val){
+        if(val.length < 1){
+            field.addCls('invalid-field');
+        }else{
+            field.removeCls('invalid-field');
+        }
+    },
+
     languageSelection: function(cmp, rec) {
         var selectedLang = rec.get('id');
         this.getView().down('#title').setTitle(Ngcp.csc.locales.login.title[selectedLang]);

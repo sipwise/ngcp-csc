@@ -3,7 +3,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
     alias: 'controller.gridfilters',
 
     submitFilters: function() {
-        this.getView()._attachedCmp.getStore().load();
+        Ext.getStore(this.getView()._linkedStoreId).load();
     },
 
     resetFilters: function() {

@@ -320,3 +320,17 @@
     $background-color: transparent,
     $border-width: 0
 );
+
+
+//custom classes
+.toolbar-console {
+    text-align: center;
+    font-size: $console-msg-font-size;
+    left: 50% !important;
+}
+.green-txt {
+    color: green;
+}
+.red-txt {
+    color: red;
+}

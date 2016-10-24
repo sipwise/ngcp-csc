@@ -18,6 +18,7 @@ Ext.define('NgcpCsc.Application', {
     stores: [
         'NavigationTree',
         'Calls',
+        'VoiceMails',
         'Languages'
     ],
 
