@@ -52,6 +52,5 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
             text: Ngcp.csc.locales.filters.reset[localStorage.getItem('languageSelected')],
             handler: 'resetFilters'
         }]
-    }],
-
+    }]
 })
