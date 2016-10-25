@@ -36,7 +36,7 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMailsGrid', {
         }, {
             flex: 1,
             dataIndex: 'duration',
-            text: 'duration',
+            text: 'duration'
         }, {
             flex: 1,
             xtype:'datecolumn',
