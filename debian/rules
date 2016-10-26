@@ -5,3 +5,12 @@
 
 %:
 	dh "$@"
+
+override_dh_auto_build:
+	dh_auto_build
+	/opt/Sencha/Cmd/sencha app build -c
+
+override_dh_auto_install:
+	dh_auto_install
+	mkdir -p debian/ngcp-panel-csc/usr/share/ngcp-csc/csc/
+	cp -a build/production/* debian/ngcp-panel-csc/usr/share/ngcp-csc/csc/
