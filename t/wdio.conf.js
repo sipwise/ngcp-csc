@@ -45,8 +45,8 @@ exports.config = {
         maxInstances: 5,
         //
         browserName: 'phantomjs',
-            "phantomjs.binary.path": "/tmp/code/t/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs" // Docker path
-            // "phantomjs.binary.path": "/usr/local/bin/phantomjs" // Local path
+            // "phantomjs.binary.path": "/tmp/code/t/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs" // Docker path
+            "phantomjs.binary.path": "/usr/local/bin/phantomjs" // Local path
     }],
     //
     // ===================
@@ -116,8 +116,11 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: http://webdriver.io/guide/testrunner/reporters.html
-    // reporters: ['dot'],
+    reporters: ['spec', 'junit'],
     //
+    reporterOptions: {
+        outputDir: './'
+    },
     // Options to be passed to Jasmine.
     jasmineNodeOpts: {
         //
