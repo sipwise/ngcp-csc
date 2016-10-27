@@ -11,7 +11,7 @@ Ext.define('NgcpCsc.store.Calls', {
 
     proxy: {
         type: 'ajax',
-        url: '/app/data/calls.json',
+        url: '/resources/data/calls.json',
         reader: {
             type: 'json',
             rootProperty: 'data'
