@@ -5,21 +5,21 @@ FROM docker.mgm.sipwise.com/sipwise-jessie:latest
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT 2016-10-24
+ENV REFRESHED_AT 2016-10-27
 
 RUN echo "deb https://deb.sipwise.com/autobuild/ release-trunk-jessie main" >>/etc/apt/sources.list
 
 RUN apt-get update
 RUN apt-get install --assume-yes \
-        devscripts \
-        openjdk-7-jre-headless \
-        xterm \
         curl \
-        unzip \
-        default-jre \
+        default-jre-headless \
+        devscripts \
         nodejs \
         nodejs-legacy \
-        npm
+        npm \
+        sencha-cmd \
+        unzip \
+        xterm
 
 RUN adduser --disabled-password --gecos=Selenium-User selenium
 
@@ -27,13 +27,7 @@ WORKDIR /home/selenium
 RUN wget -O selenium-server-standalone-2.53.1.jar http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar
 RUN ln -s selenium-server-standalone-2.53.1.jar selenium-server-standalone.jar
 
-RUN curl -o /cmd.sh.zip https://deb.sipwise.com/files/SenchaCmd-6.2.0-linux-amd64.sh.zip && \
-        unzip -p /cmd.sh.zip > /cmd-install.sh && \
-        chmod +x /cmd-install.sh && \
-        /cmd-install.sh -q -dir "/bin/Sencha/Cmd/6.2.0.103/" && \
-        rm /cmd-install.sh /cmd.sh.zip
-
-RUN echo "cd /code && sencha app build -c && ./t/testrunner" >/root/.bash_history
+RUN echo "cd /code && /opt/Sencha/Cmd/sencha app build -c && ./t/testrunner" >/root/.bash_history
 
 WORKDIR /home/selenium
 

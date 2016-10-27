@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export PATH="$PATH:/opt/Sencha/Cmd/"
+
 if ! [ -f /.dockerenv ] && ! grep -q 'devices:/docker' /proc/1/cgroup ; then
   echo "Not running inside docker, exiting to avoid data damage." >&2
   exit 1
