@@ -12,6 +12,6 @@ Package: ngcp-panel-csc
 Architecture: all
 Depends:
  ${misc:Depends},
-Description: ExtJS based frontend for endusers to configure their accounts on the Sipwise NGCP
-  The CSC framework is used by endusers to configure their accounts on the
-  Sipwise NGCP.
+Description: ExtJS based frontend for endusers to configure accounts on NGCP
+ The CSC framework is used by endusers to configure their accounts on the
+ Sipwise NGCP.
