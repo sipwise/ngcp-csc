@@ -78,6 +78,7 @@ Ext.define('NgcpCsc.view.main.Main', {
         id: 'main-view-detail-wrap',
         reference: 'mainContainerWrap',
         flex: 1,
+        scrollable: false,
         items: [{
             xtype: 'treelist',
             reference: 'navigationTreeList',
@@ -96,9 +97,9 @@ Ext.define('NgcpCsc.view.main.Main', {
             reference: 'mainCardPanel',
             cls: 'sencha-dash-right-main-container',
             itemId: 'contentPanel',
+            height: 500,
             layout: {
-                type: 'card',
-                anchor: '100%'
+                type: 'card'
             }
         }]
     }]
