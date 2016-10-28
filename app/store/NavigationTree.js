@@ -14,30 +14,35 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             iconCls: 'x-fa fa-desktop',
             viewType: 'summary',
             routeId: 'desktop',
+            acl: ['administrator', 'restricted', 'host'], //TODO define real roles, which should be delivered along with user info after successfull login
             leaf: true
         }, {
             text: 'Calls',
             iconCls: 'x-fa fa-phone',
             viewType: 'calls',
             routeId: 'callist',
+            acl: ['administrator', 'restricted'],
             leaf: true
         }, {
             text: 'Voicemails',
             iconCls: 'x-fa fa-envelope',
             viewType: 'voicemails',
             routeId: 'voicebox',
+            acl: ['administrator', 'restricted'],
             leaf: true
         }, {
             text: 'Address book',
             iconCls: 'x-fa fa-book',
             viewType: 'pageblank',
             routeId: 'addressbook',
+            acl: ['administrator'],
             leaf: true
         }, {
             text: 'Call forward',
             iconCls: 'x-fa fa-mail-forward',
             expanded: false,
             selectable: false,
+            acl: ['administrator'],
             children: [{
                 text: 'Mapping',
                 iconCls: 'x-fa fa-sitemap',
@@ -62,6 +67,7 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             iconCls: 'x-fa fa-ban',
             routeId: 'callblock',
             viewType: 'pageblank',
+            acl: ['administrator'],
             leaf: 'true'
 
         }, {
@@ -69,12 +75,14 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             iconCls: 'x-fa fa-sticky-note',
             viewType: 'pageblank',
             routeId: 'reminder',
+            acl: ['administrator'],
             leaf: true
         }, {
             text: 'Account',
             iconCls: 'x-fa fa-user',
             viewType: 'pageblank',
             routeId: 'account',
+            acl: ['administrator', 'restricted', 'host'],
             leaf: true
         }]
     }

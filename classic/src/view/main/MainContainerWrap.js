@@ -28,12 +28,19 @@ Ext.define('NgcpCsc.view.main.MainContainerWrap', {
             height = Ext.Element.getViewportHeight() - 64, // offset by topmost toolbar height
             // We use itemId/getComponent instead of "reference" because the initial
             // layout occurs too early for the reference to be resolved
-            navTree = me.getComponent('navigationTreeList');
+            navTree = me.getComponent('navigationTreeList'),
+            acl = localStorage.getItem('acl');
 
         me.minHeight = height;
 
         navTree.setStyle({
             'min-height': height + 'px'
+        });
+
+        navTree.getStore().each(function(module){
+            if(module.get('acl').indexOf(acl) == -1){
+                module.remove();
+            }
         });
 
         me.callParent(arguments);
