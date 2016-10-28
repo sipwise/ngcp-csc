@@ -8,10 +8,10 @@ Ext.define('NgcpCsc.view.login.LoginController', {
         }
     },
 
-    onCredentialsChanged: function(field, val){
-        if(val.length < 1){
+    onCredentialsChanged: function(field, val) {
+        if (val.length < 1) {
             field.addCls('invalid-field');
-        }else{
+        } else {
             field.removeCls('invalid-field');
         }
     },
@@ -37,10 +37,11 @@ Ext.define('NgcpCsc.view.login.LoginController', {
         var defaultCredentials = this.getViewModel().get('defaultCredentials');
         var languageSelected = localStorage.getItem('languageSelected');
 
-        if (inputUsername === defaultCredentials && inputPassword === defaultCredentials) {
+        if (inputUsername == inputPassword && defaultCredentials.indexOf(inputUsername) > -1 && defaultCredentials.indexOf(inputPassword) > -1) {
             localStorage.setItem('username', inputUsername);
             localStorage.setItem('password', inputPassword);
-            if(remember_me){
+            localStorage.setItem('acl', inputUsername);
+            if (remember_me) {
                 localStorage.setItem('remember_me', remember_me);
             }
             this.getView().close();
