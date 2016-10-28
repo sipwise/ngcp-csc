@@ -192,7 +192,6 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'all calls'
             }
         },
-
         filters: {
             search: {
                 en: 'SEARCH',
@@ -237,7 +236,6 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'reset filter'
             }
         },
-
         voicemails: {
             title: {
                 en: 'Your voicemail recordings.',
@@ -305,7 +303,7 @@ Ext.define('Ngcp.csc.locales', {
                     fr: 'Send notification of new messages to the following e-mail adddress',
                     sp: 'Send notification of new messages to the following e-mail adddress'
                 },
-                attach_recording:{
+                attach_recording: {
                     en: 'attach recording',
                     it: 'attach recording',
                     de: 'attach recording',
@@ -335,6 +333,31 @@ Ext.define('Ngcp.csc.locales', {
                 }
             }
 
+        },
+        chat: {
+            title: {
+                en: 'Team',
+                it: 'Team',
+                de: 'Team',
+                fr: 'Team',
+                sp: 'Team'
+            },
+            msg_box:{
+                empty_text:{
+                    en: 'Type a message',
+                    it: 'Type a message',
+                    de: 'Type a message',
+                    fr: 'Type a message',
+                    sp: 'Type a message'
+                }
+            },
+            start_conversation: {
+                en: 'You can start a private conversation with {0} here.',
+                it: 'You can start a private conversation with {0} here.',
+                de: 'You can start a private conversation with {0} here.',
+                fr: 'You can start a private conversation with {0} here.',
+                sp: 'You can start a private conversation with {0} here.'
+            }
         },
         common: {
             today: {
@@ -372,14 +395,14 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'no',
                 sp: 'no'
             },
-            delete:{
+            delete: {
                 en: 'Delete',
                 it: 'Delete',
                 de: 'Delete',
                 fr: 'Delete',
                 sp: 'Delete'
             },
-            listen:{
+            listen: {
                 en: 'Listen',
                 it: 'Listen',
                 de: 'Listen',
@@ -413,7 +436,15 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Successfully removed.',
                 fr: 'Successfully removed.',
                 sp: 'Successfully removed.'
+            },
+            submit: {
+                en: 'submit',
+                it: 'submit',
+                de: 'submit',
+                fr: 'submit',
+                sp: 'submit'
             }
+
         }
     }
 })

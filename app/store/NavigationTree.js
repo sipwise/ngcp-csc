@@ -28,6 +28,12 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             routeId: 'voicebox',
             leaf: true
         }, {
+            text: 'Chat',
+            iconCls: 'x-fa fa-wechat',
+            viewType: 'chat',
+            routeId: 'chat',
+            leaf: true
+        }, {
             text: 'Address book',
             iconCls: 'x-fa fa-book',
             viewType: 'pageblank',

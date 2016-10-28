@@ -19,6 +19,8 @@ Ext.define('NgcpCsc.Application', {
         'NavigationTree',
         'Calls',
         'VoiceMails',
+        'Chat',
+        'ChatList',
         'Languages'
     ],
 
