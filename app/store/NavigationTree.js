@@ -35,6 +35,7 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             iconCls: 'x-fa fa-wechat',
             viewType: 'chat',
             routeId: 'chat',
+            acl: ['administrator', 'restricted'],
             leaf: true
         }, {
             text: 'Address book',
