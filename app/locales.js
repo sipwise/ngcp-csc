@@ -192,6 +192,136 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'all calls'
             }
         },
+
+        callbarring: {
+            title: {
+                en: 'Call barring for incoming and outgoing calls.',
+                it: 'Call barring for incoming and outgoing calls.',
+                de: 'Call barring for incoming and outgoing calls.',
+                fr: 'Call barring for incoming and outgoing calls.',
+                sp: 'Call barring for incoming and outgoing calls.'
+            },
+            subtitle: {
+                en: 'CALL BARRING',
+                it: 'CALL BARRING',
+                de: 'CALL BARRING',
+                fr: 'CALL BARRING',
+                sp: 'CALL BARRING'
+            },
+            user_label: {
+                en: 'Settings for ',
+                it: 'Settings for ',
+                de: 'Settings for ',
+                fr: 'Settings for ',
+                sp: 'Settings for '
+            },
+            incoming_calls: {
+                en: 'INCOMING CALLS',
+                it: 'INCOMING CALLS',
+                de: 'INCOMING CALLS',
+                fr: 'INCOMING CALLS',
+                sp: 'INCOMING CALLS'
+            },
+            outgoing_calls: {
+                en: 'OUTGOING CALLS',
+                it: 'OUTGOING CALLS',
+                de: 'OUTGOING CALLS',
+                fr: 'OUTGOING CALLS',
+                sp: 'OUTGOING CALLS'
+            },
+            save_settings: {
+                en: 'SAVE SETTINGS',
+                it: 'SAVE SETTINGS',
+                de: 'SAVE SETTINGS',
+                fr: 'SAVE SETTINGS',
+                sp: 'SAVE SETTINGS'
+            },
+            add_number: {
+                en: 'ADD NUMBER',
+                it: 'ADD NUMBER',
+                de: 'ADD NUMBER',
+                fr: 'ADD NUMBER',
+                sp: 'ADD NUMBER'
+            },
+            delete: {
+                en: 'DELETE',
+                it: 'DELETE',
+                de: 'DELETE',
+                fr: 'DELETE',
+                sp: 'DELETE'
+            },
+            disable: {
+                en: 'DISABLE',
+                it: 'DISABLE',
+                de: 'DISABLE',
+                fr: 'DISABLE',
+                sp: 'DISABLE'
+            },
+            enable: {
+                en: 'ENABLE',
+                it: 'ENABLE',
+                de: 'ENABLE',
+                fr: 'ENABLE',
+                sp: 'ENABLE'
+            },
+            block_everything: {
+                en: 'Block everything except ...',
+                it: 'Block everything except ...',
+                de: 'Block everything except ...',
+                fr: 'Block everything except ...',
+                sp: 'Block everything except ...'
+            },
+            allow_everything: {
+                en: 'Allow everything except ...',
+                it: 'Allow everything except ...',
+                de: 'Allow everything except ...',
+                fr: 'Allow everything except ...',
+                sp: 'Allow everything except ...'
+            },
+            hide_own: {
+                en: 'HIDE OWN NUMBER ON OUTGOING CALLS',
+                it: 'HIDE OWN NUMBER ON OUTGOING CALLS',
+                de: 'HIDE OWN NUMBER ON OUTGOING CALLS',
+                fr: 'HIDE OWN NUMBER ON OUTGOING CALLS',
+                sp: 'HIDE OWN NUMBER ON OUTGOING CALLS'
+            },
+            enabled_success: {
+                en: 'Enable/disable successfully toggled.',
+                it: 'Enable/disable successfully toggled.',
+                de: 'Enable/disable successfully toggled.',
+                fr: 'Enable/disable successfully toggled.',
+                sp: 'Enable/disable successfully toggled.'
+            },
+            new_entry: {
+                en: 'NEW ENTRY',
+                it: 'NEW ENTRY',
+                de: 'NEW ENTRY',
+                fr: 'NEW ENTRY',
+                sp: 'NEW ENTRY'
+            },
+            add_number: {
+                en: 'ADD NUMBER',
+                it: 'ADD NUMBER',
+                de: 'ADD NUMBER',
+                fr: 'ADD NUMBER',
+                sp: 'ADD NUMBER'
+            },
+            new_entry_instructions: {
+                en: 'Please use digits only and include the area code of the number. You may use the wildcard characters "?" for one and "*" for an indefinite number of arbitrary digits.',
+                it: 'Please use digits only and include the area code of the number. You may use the wildcard characters "?" for one and "*" for an indefinite number of arbitrary digits.',
+                de: 'Please use digits only and include the area code of the number. You may use the wildcard characters "?" for one and "*" for an indefinite number of arbitrary digits.',
+                fr: 'Please use digits only and include the area code of the number. You may use the wildcard characters "?" for one and "*" for an indefinite number of arbitrary digits.',
+                sp: 'Please use digits only and include the area code of the number. You may use the wildcard characters "?" for one and "*" for an indefinite number of arbitrary digits.'
+            },
+            new_entry_anonymous: {
+                 en: 'To block anonymous calls you may just submit the empty string.',
+                 it: 'To block anonymous calls you may just submit the empty string.',
+                 de: 'To block anonymous calls you may just submit the empty string.',
+                 fr: 'To block anonymous calls you may just submit the empty string.',
+                 sp: 'To block anonymous calls you may just submit the empty string.'
+            }
+        },
+
         filters: {
             search: {
                 en: 'SEARCH',
