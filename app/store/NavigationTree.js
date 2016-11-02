@@ -73,10 +73,9 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             text: 'Call barring',
             iconCls: 'x-fa fa-ban',
             routeId: 'callblock',
-            viewType: 'pageblank',
+            viewType: 'callbarring',
             acl: ['administrator'],
             leaf: 'true'
-
         }, {
             text: 'Reminder',
             iconCls: 'x-fa fa-sticky-note',
