@@ -3,3 +3,16 @@
 body.x-ios.x-webview.x-portrait {
   margin-top: 20px;
 }
+
+//------------------------------------------------
+// global custom classes
+
+.link {
+    cursor: pointer;
+    color: $base-color;
+    text-decoration: underline;
+}
+
+.no-underline {
+    text-decoration: none !important;
+}
