@@ -39,13 +39,10 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarringController', {
         var store, newNumber;
         var fieldArrayIncoming = ['incoming-new-enter', 'incoming-new-btn'];
         var fieldArrayOutgoing = ['outgoing-new-enter', 'outgoing-new-btn'];
-        console.log(fieldArrayIncoming.indexOf(field) > -1);
         if (fieldArrayIncoming.indexOf(field) > -1) {
-            console.log(field);
             store = Ext.getStore('CallBarringIncoming');
             newNumber = this.getViewModel().get('new_in_number');
         } else if (fieldArrayOutgoing.indexOf(field) > -1){
-            console.log(field);
             store = Ext.getStore('CallBarringOutgoing');
             newNumber = this.getViewModel().get('new_out_number');
         };
