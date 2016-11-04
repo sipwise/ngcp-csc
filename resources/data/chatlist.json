@@ -1,27 +1,76 @@
-{
-    "data": [{
-        "id": 840,
+[{
+    "name": "Buddies",
+    "iconCls": "x-fa fa-group",
+    "expanded": true,
+    "children": [{
+        "uid": 840,
         "online": true,
-        "name": "Jil Sanchez"
+        "name": "Jil Sanchez",
+        "leaf": true
     }, {
-        "id": 1,
+        "uid": 1,
         "online": false,
-        "name": "Oneill Franklin"
+        "name": "Oneill Franklin",
+        "leaf": true
     }, {
-        "id": 3,
+        "uid": 3,
         "online": false,
-        "name": "Branch Allison"
+        "name": "Branch Allison",
+        "leaf": true
     }, {
-        "id": 252,
+        "uid": 252,
         "online": true,
-        "name": "Ben Wright"
+        "name": "Ben Wright",
+        "leaf": true
     }, {
-        "id": 162,
+        "uid": 162,
         "online": true,
-        "name": "Allen Morris"
+        "name": "Allen Morris",
+        "leaf": true
     }, {
-        "id": 5,
+        "uid": 5,
         "online": false,
-        "name": "Suzette Powell"
+        "name": "Suzette Powell",
+        "leaf": true
     }]
-}
+}, {
+    "name": "Development",
+    "iconCls": "x-fa fa-wechat",
+    "expanded": true,
+    "children": [{
+        "uid": 162,
+        "online": true,
+        "name": "Allen Morris",
+        "leaf": true
+    },{
+        "uid": 840,
+        "online": true,
+        "name": "Jil Sanchez",
+        "leaf": true
+    },{
+        "uid": 252,
+        "online": true,
+        "name": "Ben Wright",
+        "leaf": true
+    }, {
+        "uid": 5,
+        "online": false,
+        "name": "Suzette Powell",
+        "leaf": true
+    }]
+}, {
+    "name": "Operations",
+    "iconCls": "x-fa fa-wechat",
+    "expanded": true,
+    "children": [{
+        "uid": 162,
+        "online": true,
+        "name": "Allen Morris",
+        "leaf": true
+    }, {
+        "uid": 5,
+        "online": false,
+        "name": "Suzette Powell",
+        "leaf": true
+    }]
+}]

@@ -7,53 +7,46 @@ Ext.define('NgcpCsc.view.pages.chat.Chat', {
 
     controller: 'chat',
 
-    layout: 'hbox',
+    layout: {
+        type: 'hbox',
+        align: 'stretch'
+    },
 
     items: [{
         xtype: 'chatlist',
-        width: 200,
-        padding: '10 20 20',
-        height: '100%'
+        flex:1,
+        padding: '0 1 0 3',
+        scrollable:true
     }, {
         xtype: 'tabpanel',
-        width: '90%',
-        height: '100%',
-        items: [{
-            title: Ngcp.csc.locales.chat.title[localStorage.getItem('languageSelected')],
-            xtype: 'chat-notifications',
-            id: 'chat-notifications',
-            scrollable: true,
-            bind: {
-                store: '{notifications}'
-            }
-        }]
-    }],
-
-    dockedItems: [{
-        xtype: 'toolbar',
-        cls: 'new-message-cont',
-        fixed: true,
-        padding: '0 0 10 0',
-        dock: 'bottom',
-        items: [{
-            xtype: 'textarea',
-            bind: {
-                value: '{new_message}'
-            },
-            cls: 'new-message',
-            name: 'new-message',
-            enableKeyEvents: true,
-            height: 100,
-            width: '95%',
-            listeners: {
-                keypress: 'onPressEnter'
-            },
-            emptyText: Ngcp.csc.locales.chat.msg_box.empty_text[localStorage.getItem('languageSelected')]
-        }, {
-            xtype: 'button',
-            cls: 'submit-new-message',
-            text: Ngcp.csc.locales.common.submit[localStorage.getItem('languageSelected')],
-            handler: 'onPressSubmitBtn'
+        flex: 5,
+        plugins: 'tabreorderer',
+        dockedItems: [{
+            xtype: 'toolbar',
+            cls: 'new-message-cont',
+            fixed: true,
+            padding: '0 0 10 0',
+            dock: 'bottom',
+            items: [{
+                xtype: 'textarea',
+                bind: {
+                    value: '{new_message}'
+                },
+                cls: 'new-message',
+                name: 'new-message',
+                enableKeyEvents: true,
+                height: 100,
+                width: '95%',
+                emptyText: Ngcp.csc.locales.chat.msg_box.empty_text[localStorage.getItem('languageSelected')],
+                listeners: {
+                    keypress: 'onPressEnter'
+                }
+            }, {
+                xtype: 'button',
+                cls: 'submit-new-message',
+                text: Ngcp.csc.locales.common.submit[localStorage.getItem('languageSelected')],
+                handler: 'onPressSubmitBtn'
+            }]
         }]
     }]
 

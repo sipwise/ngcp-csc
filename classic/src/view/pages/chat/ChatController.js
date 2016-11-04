@@ -6,13 +6,15 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
     listen: {
         controller: {
             '#chatlist': {
-                openpmtab: 'openPM'
+                openpmtab: 'openPM',
+                openchanneltab: 'openChat',
+                destroytab: 'closeChat'
             }
         }
     },
 
     onPressEnter: function(field, e) {
-        if (e.getKey() == e.ENTER) {
+        if (!e.shiftKey && e.getKey() == e.ENTER) {
             e.preventDefault();
             this.submitMessage();
         }
@@ -24,7 +26,7 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
 
     submitMessage: function(msg, user) {
         var message = msg || this.getViewModel().get('new_message');
-        if (message.length < 1)
+        if (message.length < 1 || !this.getView().down('tabpanel').getActiveTab())
             return;
         var chatStore = this.getView().down('tabpanel').getActiveTab().getStore('notifications');
         var lastMsg = chatStore.getAt(chatStore.getCount() - 1) || this.getViewModel().getStore('notifications').findRecord('id', this.getView().down('tabpanel').getActiveTab().name);
@@ -40,7 +42,7 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
             "isActive": true,
             "time": Ext.String.format("{0}:{1}", hour, minutes),
             "thumbnail": (user) ? user.get('thumbnail') : "resources/images/user-profile/2.png",
-            "content": message
+            "content": message.replace(/(?:\r\n|\r|\n)/g, '<br />')
         });
         chatStore.add(messageModel);
         this.clearMsg();
@@ -57,7 +59,7 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
     },
 
     openPM: function(item, rec) {
-        var tab = this.getView().down('[name=' + rec.get('id') + ']');
+        var tab = this.getView().down('[name=' + rec.get('uid') + ']');
         if (rec.get('name') == 'administrator') // hardcoded administrator
             return;
         if (!tab) {
@@ -69,12 +71,38 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
                 cls: 'private-conversation-text',
                 deferEmptyText: false,
                 emptyText: Ext.String.format(Ngcp.csc.locales.chat.start_conversation[localStorage.getItem('languageSelected')], rec.get('name')),
-                name: rec.get('id'),
+                name: rec.get('uid'),
                 store: Ext.create('Ext.data.Store', {
                     model: 'NgcpCsc.model.ChatNotification'
                 })
             });
         }
         this.getView().down('tabpanel').setActiveTab(tab);
+    },
+    openChat: function(rec) {
+        var tab = this.getView().down('[name=' + rec.get('name') + ']');
+        if (rec.get('name') == 'Buddies')
+            return;
+        if (!tab) {
+            tab = this.getView().down('tabpanel').add({
+                xtype: 'chat-notifications',
+                title: rec.get('name'),
+                name: rec.get('name'),
+                closable: true,
+                scrollable: true,
+                bind: {
+                    store: '{notifications}'
+                }
+            });
+        }
+        this.getView().down('tabpanel').setActiveTab(tab);
+    },
+    closeChat: function(tabToClose) {
+        var tabToClose = this.getView().down('[name=' + tabToClose + ']');
+        var chatList = this.getView().down('#chatlist');
+        if (tabToClose){
+            tabToClose.destroy();
+        }
+        chatList.getView().refresh();
     }
 });

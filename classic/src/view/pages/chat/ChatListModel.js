@@ -4,12 +4,8 @@ Ext.define('NgcpCsc.view.pages.chat.ChatListModel', {
     alias: 'viewmodel.chatlist',
 
     stores: {
-        friends: {
-            //Store reference
-            type: 'chatlist',
-
-            //Auto load
-            autoLoad: true
+        buddyList: {
+            type: 'chatlist'
         }
     }
 });

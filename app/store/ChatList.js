@@ -1,25 +1,17 @@
 Ext.define('NgcpCsc.store.ChatList', {
-    extend: 'Ext.data.Store',
+    extend: 'Ext.data.TreeStore',
 
     alias: 'store.chatlist',
 
     storeId: 'ChatList',
 
-    model: 'NgcpCsc.model.ChatList',
-
-    autoLoad: true,
-
     proxy: {
         type: 'ajax',
-        url: '/resources/data/chatlist.json',
-        reader: {
-            type: 'json',
-            rootProperty: 'data'
-        }
+        url: 'resources/data/chatlist.json'
     },
 
-    sorters: {
-        direction: 'DESC',
-        property: 'online'
-    }
+    sorters: [{
+        property: 'online',
+        direction: 'DESC'
+    }]
 });

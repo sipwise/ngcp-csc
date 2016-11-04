@@ -466,11 +466,25 @@ Ext.define('Ngcp.csc.locales', {
         },
         chat: {
             title: {
-                en: 'Team',
-                it: 'Team',
-                de: 'Team',
-                fr: 'Team',
-                sp: 'Team'
+                en: 'Buddy List',
+                it: 'Buddy List',
+                de: 'Buddy List',
+                fr: 'Buddy List',
+                sp: 'Buddy List'
+            },
+            new_group: {
+                en: 'Create new team',
+                it: 'Create new team',
+                de: 'Create new team',
+                fr: 'Create new team',
+                sp: 'Create new team'
+            },
+            provide_name: {
+                en: 'Chat group name',
+                it: 'Chat group name',
+                de: 'Chat group name',
+                fr: 'Chat group name',
+                sp: 'Chat group name'
             },
             msg_box:{
                 empty_text:{
@@ -487,6 +501,52 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'You can start a private conversation with {0} here.',
                 fr: 'You can start a private conversation with {0} here.',
                 sp: 'You can start a private conversation with {0} here.'
+            },
+            alerts:{
+                user_ddrop: {
+                    en: 'Only users can be dropped',
+                    it: 'Only users can be dropped',
+                    de: 'Only users can be dropped',
+                    fr: 'Only users can be dropped',
+                    sp: 'Only users can be dropped'
+                },
+                user_in_group: {
+                    en: 'User already in group.',
+                    it: 'User already in group.',
+                    de: 'User already in group.',
+                    fr: 'User already in group.',
+                    sp: 'User already in group.'
+                },
+                user_added: {
+                    en: '{0} added to {1}  channel.',
+                    it: '{0} added to {1}  channel.',
+                    de: '{0} added to {1}  channel.',
+                    fr: '{0} added to {1}  channel.',
+                    sp: '{0} added to {1}  channel.'
+                },
+
+                choose_valid_name: {
+                    en: 'Please choose a valid name.',
+                    it: 'Please choose a valid name.',
+                    de: 'Please choose a valid name.',
+                    fr: 'Please choose a valid name.',
+                    sp: 'Please choose a valid name.'
+                },
+                channel_created: {
+                    en: 'Channel created',
+                    it: 'Channel created',
+                    de: 'Channel created',
+                    fr: 'Channel created',
+                    sp: 'Channel created'
+                },
+
+                channel_delete: {
+                    en: 'Do you really want to delete {0} channel?',
+                    it: 'Do you really want to delete {0} channel?',
+                    de: 'Do you really want to delete {0} channel?',
+                    fr: 'Do you really want to delete {0} channel?',
+                    sp: 'Do you really want to delete {0} channel?'
+                }
             }
         },
         common: {
@@ -573,6 +633,27 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'submit',
                 fr: 'submit',
                 sp: 'submit'
+            },
+            add: {
+                en: 'add',
+                it: 'add',
+                de: 'add',
+                fr: 'add',
+                sp: 'add'
+            },
+            call: {
+                en: 'Call',
+                it: 'Call',
+                de: 'Call',
+                fr: 'Call',
+                sp: 'Call'
+            },
+            videocall: {
+                en: 'Videocall',
+                it: 'Videocall',
+                de: 'Videocall',
+                fr: 'Videocall',
+                sp: 'Videocall'
             }
 
         }

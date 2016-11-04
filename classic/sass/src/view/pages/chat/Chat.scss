@@ -201,6 +201,27 @@
 }
 
 .navigation-email {
+    .x-grid-row:hover {
+        .x-phone-display:before {
+            font-family: FontAwesome;
+            content: "\f095";
+            margin-left: 5px;
+        }
+        .x-video-display:before {
+            font-family: FontAwesome;
+            content: "\f03d";
+            margin-left: 10px;
+        }
+
+        .x-drop-display{
+            position: relative;
+            right: 6px;
+            &:before {
+                font-family: FontAwesome;
+                content: "\f00d";
+            }
+        }
+    }
     // @include box-shadow(0px,2px,8px,0px,rgba(0,0,0,.15));
     @include box-shadow(0, 1px, 2px, 0, rgba(0,0,0,0.2));
 
@@ -278,7 +299,7 @@
 }
 
 .new-message-cont {
-    margin-left: 203px;
+    margin-right: 10px;
 }
 
 .submit-new-message {
@@ -292,4 +313,10 @@
 
 .private-conversation-text {
     padding: 30px;
+}
+.online-user {
+    color: $online-menu-item-color !important;
+}
+.offline-user {
+    color: $offline-menu-item-color !important;
 }

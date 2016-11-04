@@ -167,6 +167,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
     showMessage: function(success, msg) {
         var msgConsole = this.lookupReference('console'),
             msgColor = (success) ? 'green-txt' : 'red-txt';
+        msgConsole.removeCls(['green-txt' , 'red-txt']);
         msgConsole.addCls(msgColor);
         msgConsole.setText(msg);
         msgConsole.getEl().fadeIn();
