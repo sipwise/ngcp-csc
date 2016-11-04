@@ -21,7 +21,8 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
         name: 'from_date',
         bind:{
             value:'{from_date}',
-            maxValue: '{to_date}'
+            maxValue: '{to_date}',
+            hidden: '{hidedatefilters}'
         }
     }, {
         xtype: 'datefield',
@@ -29,7 +30,8 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
         width: '100%',
         name: 'to_date',
         bind:{
-            value: '{to_date}'
+            value: '{to_date}',
+            hidden: '{hidedatefilters}'
         },
         maxValue: new Date() // limited to the current date or prior
     }, {
