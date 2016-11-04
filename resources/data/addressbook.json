@@ -22,7 +22,7 @@
     }, {
         "firstname": "Frank",
         "lastname": "Costello",
-        "company": "Acme Inc",
+        "company": "Hello Corp",
         "home": "4333333",
         "office": "4333334",
         "mobile": "4333335",
@@ -42,7 +42,7 @@
     }, {
         "firstname": "Peter",
         "lastname": "Wallet",
-        "company": "Acme Inc",
+        "company": "Hello Corp",
         "home": "4355555",
         "office": "4355556",
         "mobile": "4355557",

@@ -23,7 +23,8 @@ Ext.define('NgcpCsc.Application', {
         'ChatList',
         'Languages',
         'CallBarringOutgoing',
-        'CallBarringIncoming'
+        'CallBarringIncoming',
+        'Addressbook'
     ],
 
     launch: function() {
