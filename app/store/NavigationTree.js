@@ -38,9 +38,9 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             acl: ['administrator', 'restricted'],
             leaf: true
         }, {
-            text: 'Address book',
+            text: 'Addressbook',
             iconCls: 'x-fa fa-book',
-            viewType: 'pageblank',
+            viewType: 'addressbook',
             routeId: 'addressbook',
             acl: ['administrator'],
             leaf: true

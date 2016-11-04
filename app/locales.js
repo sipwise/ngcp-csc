@@ -314,11 +314,11 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Please use digits only and include the area code of the number. You may use the wildcard characters "?" for one and "*" for an indefinite number of arbitrary digits.'
             },
             new_entry_anonymous: {
-                 en: 'To block anonymous calls you may just submit the empty string.',
-                 it: 'To block anonymous calls you may just submit the empty string.',
-                 de: 'To block anonymous calls you may just submit the empty string.',
-                 fr: 'To block anonymous calls you may just submit the empty string.',
-                 sp: 'To block anonymous calls you may just submit the empty string.'
+                en: 'To block anonymous calls you may just submit the empty string.',
+                it: 'To block anonymous calls you may just submit the empty string.',
+                de: 'To block anonymous calls you may just submit the empty string.',
+                fr: 'To block anonymous calls you may just submit the empty string.',
+                sp: 'To block anonymous calls you may just submit the empty string.'
             }
         },
 
@@ -486,8 +486,8 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Chat group name',
                 sp: 'Chat group name'
             },
-            msg_box:{
-                empty_text:{
+            msg_box: {
+                empty_text: {
                     en: 'Type a message',
                     it: 'Type a message',
                     de: 'Type a message',
@@ -502,7 +502,7 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'You can start a private conversation with {0} here.',
                 sp: 'You can start a private conversation with {0} here.'
             },
-            alerts:{
+            alerts: {
                 user_ddrop: {
                     en: 'Only users can be dropped',
                     it: 'Only users can be dropped',
@@ -547,6 +547,123 @@ Ext.define('Ngcp.csc.locales', {
                     fr: 'Do you really want to delete {0} channel?',
                     sp: 'Do you really want to delete {0} channel?'
                 }
+            }
+        },
+
+        addressbook: {
+            title: {
+                en: 'Your personal addressbook.',
+                it: 'Your personal addressbook.',
+                de: 'Your personal addressbook.',
+                fr: 'Your personal addressbook.',
+                sp: 'Your personal addressbook.'
+            },
+            subtitle: {
+                en: 'CONTACTS',
+                it: 'CONTACTS',
+                de: 'CONTACTS',
+                fr: 'CONTACTS',
+                sp: 'CONTACTS'
+            },
+            user_label: {
+                en: 'Contacts for ',
+                it: 'Contacts for ',
+                de: 'Contacts for ',
+                fr: 'Contacts for ',
+                sp: 'Contacts for '
+            },
+            columns: {
+                name: {
+                    en: 'name',
+                    it: 'name',
+                    de: 'name',
+                    fr: 'name',
+                    sp: 'name'
+                },
+                firstname: {
+                    en: 'firstname',
+                    it: 'firstname',
+                    de: 'firstname',
+                    fr: 'firstname',
+                    sp: 'firstname'
+                },
+                lastname: {
+                    en: 'lastname',
+                    it: 'lastname',
+                    de: 'lastname',
+                    fr: 'lastname',
+                    sp: 'lastname'
+                },
+                company: {
+                    en: 'company',
+                    it: 'company',
+                    de: 'company',
+                    fr: 'company',
+                    sp: 'company'
+                },
+                number: {
+                    en: 'number',
+                    it: 'number',
+                    de: 'number',
+                    fr: 'number',
+                    sp: 'number'
+                }
+            },
+            phone_numbers: {
+                en: 'phone numbers',
+                it: 'phone numbers',
+                de: 'phone numbers',
+                fr: 'phone numbers',
+                sp: 'phone numbers'
+            },
+            web: {
+                en: 'web',
+                it: 'web',
+                de: 'web',
+                fr: 'web',
+                sp: 'web'
+            },
+            home: {
+                en: 'home',
+                it: 'home',
+                de: 'home',
+                fr: 'home',
+                sp: 'home'
+            },
+            office: {
+                en: 'office',
+                it: 'office',
+                de: 'office',
+                fr: 'office',
+                sp: 'office'
+            },
+            mobile: {
+                en: 'mobile',
+                it: 'mobile',
+                de: 'mobile',
+                fr: 'mobile',
+                sp: 'mobile'
+            },
+            fax: {
+                en: 'fax',
+                it: 'fax',
+                de: 'fax',
+                fr: 'fax',
+                sp: 'fax'
+            },
+            e_mail: {
+                en: 'e-mail',
+                it: 'e-mail',
+                de: 'e-mail',
+                fr: 'e-mail',
+                sp: 'e-mail'
+            },
+            homepage: {
+                en: 'homepage',
+                it: 'homepage',
+                de: 'homepage',
+                fr: 'homepage',
+                sp: 'homepage'
             }
         },
         common: {
@@ -654,6 +771,20 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Videocall',
                 fr: 'Videocall',
                 sp: 'Videocall'
+            },
+            save: {
+                en: 'Save',
+                it: 'Save',
+                de: 'Save',
+                fr: 'Save',
+                sp: 'Save'
+            },
+            revert: {
+                en: 'Revert',
+                it: 'Revert',
+                de: 'Revert',
+                fr: 'Revert',
+                sp: 'Revert'
             }
 
         }
