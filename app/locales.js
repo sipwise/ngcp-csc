@@ -489,6 +489,68 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'You can start a private conversation with {0} here.'
             }
         },
+
+        addressbook: {
+            title: {
+                en: 'Your personal addressbook.',
+                it: 'Your personal addressbook.',
+                de: 'Your personal addressbook.',
+                fr: 'Your personal addressbook.',
+                sp: 'Your personal addressbook.'
+            },
+            subtitle: {
+                en: 'CONTACTS',
+                it: 'CONTACTS',
+                de: 'CONTACTS',
+                fr: 'CONTACTS',
+                sp: 'CONTACTS'
+            },
+            user_label: {
+                en: 'Contacts for ',
+                it: 'Contacts for ',
+                de: 'Contacts for ',
+                fr: 'Contacts for ',
+                sp: 'Contacts for '
+            },
+            columns: {
+                name: {
+                    en: 'name',
+                    it: 'name',
+                    de: 'name',
+                    fr: 'name',
+                    sp: 'name'
+                },
+                firstname: {
+                    en: 'firstname',
+                    it: 'firstname',
+                    de: 'firstname',
+                    fr: 'firstname',
+                    sp: 'firstname'
+                },
+                lastname: {
+                    en: 'lastname',
+                    it: 'lastname',
+                    de: 'lastname',
+                    fr: 'lastname',
+                    sp: 'lastname'
+                },
+                company: {
+                    en: 'company',
+                    it: 'company',
+                    de: 'company',
+                    fr: 'company',
+                    sp: 'company'
+                },
+                number: {
+                    en: 'number',
+                    it: 'number',
+                    de: 'number',
+                    fr: 'number',
+                    sp: 'number'
+                }
+            }
+        },
+
         common: {
             today: {
                 en: 'Today',
