@@ -16,6 +16,6 @@ Ext.define('NgcpCsc.view.pages.summary.SummaryController', {
     },
 
     showCallForward: function() {
-        this.redirectTo('#callforward/mapping');
+        this.redirectTo('#callforward');
     }
 });
