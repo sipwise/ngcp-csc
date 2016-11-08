@@ -1,11 +1,9 @@
 #!/bin/bash
 
-export PATH="$PATH:/opt/Sencha/Cmd/"
-
-if ! [ -f /.dockerenv ] && ! grep -q 'devices:/docker' /proc/1/cgroup ; then
-  echo "Not running inside docker, exiting to avoid data damage." >&2
-  exit 1
-fi
+# if ! [ -f /.dockerenv ] && ! grep -q 'devices:/docker' /proc/1/cgroup ; then
+#   echo "Not running inside docker, exiting to avoid data damage." >&2
+#   exit 1
+# fi
 
 set -e
 set -u
@@ -14,6 +12,21 @@ pwd
 
 PASSWORD="selenium"
 
+OUTPUT_DIRECTORY="${2:-/code/}"
+
+# vnc
+echo "Setting VNC password"
+printf '%s\n%s\n\n' "${PASSWORD}" "${PASSWORD}" | vncpasswd >/dev/null
+PASSWORD_ENCODED=$(hexdump -v -e '"\\""x" 1/1 "%02X"' < "${HOME}/.vnc/passwd")
+xvnc_process=$(pgrep -f 'Xvnc4 :99' || true)
+if [ -n "${xvnc_process:-}" ] ; then
+  echo "Warning: existing VNC server found, not restarting Xvnc4 process (PID: $xvnc_process)."
+else
+  echo "Starting VNCserver on display :99"
+  vncserver -geometry 1280x1024 :99
+fi
+
+# selenium
 pkill -f '/usr/bin/java -jar /home/selenium/selenium-server-standalone.jar' || true
 # NOTE: this could silently fail because selenium-server-standalone.jar is missing a daemonize option
 DISPLAY=:99 /usr/bin/java -jar /home/selenium/selenium-server-standalone.jar -trustAllSSLCertificates -log /home/selenium/selenium.log &
@@ -23,12 +36,14 @@ sleep 5
 echo "################################################################################"
 echo "Finished main setup, now running tests ..."
 echo "Selenium server log file available at /home/selenium/selenium.log"
+echo "Watch at test runs by connecting via VNC (password: '${PASSWORD}'):"
+echo "echo -e '$PASSWORD_ENCODED' >/tmp/vncpasswd ; vncviewer geometry=1280x1024x16 passwd=/tmp/vncpasswd localhost:5999"
 
 cp -Rf . /tmp/code
 cd /tmp/code/t/
 rm -rf node_modules node_modules
 
-npm install
+npm install --production
 
 echo "Starting karma test"
 ./node_modules/karma/bin/karma start karma.conf.js

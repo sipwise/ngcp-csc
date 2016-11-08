@@ -1,10 +1,11 @@
 {
   "name": "ngcp-csc",
   "description": "Sipwise ngcp-csc tests",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "author": "Markus Danek <mdanek@sipwise.com>",
+  "private": "true",
   "scripts": {
-    "test-karma": "karma start karma.conf.js",
-    "test-wdio": "wdio wdio.conf.js"
+    "test": "karma start karma.conf.js && wdio wdio.conf.js"
   },
   "dependencies": {
     "install": "^0.8.1",
@@ -15,11 +16,10 @@
     "phantomjs-prebuilt": "^2.1.13",
     "selenium-standalone": "^5.7.2",
     "wdio-jasmine-framework": "^0.2.6",
-    "webdriverio": "^4.2.16"
-  },
-  "devDependencies": {
+    "webdriverio": "^4.2.16",
     "karma-junit-reporter": "^1.1.0",
     "wdio-junit-reporter": "^0.1.0",
-    "wdio-spec-reporter": "0.0.3"
+    "wdio-spec-reporter": "0.0.3",
+    "karma-chrome-launcher": "^2.0.0"
   }
 }
