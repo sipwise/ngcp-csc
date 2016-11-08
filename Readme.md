@@ -135,7 +135,6 @@ sencha web start
 ```
 makes the build available at **localhost:1841**
 
-
 ## Watch changes
 sencha app watch
 
@@ -147,7 +146,6 @@ http://docs.sencha.com/cmd/
 and regarding ExtJS
 http://docs.sencha.com/extjs/6.2.0/
 
-
 ## Tests
 
 Install all Node.js dependencies in *ngcp-csc/t/* with ```npm install```.
@@ -156,14 +154,16 @@ Install all Node.js dependencies in *ngcp-csc/t/* with ```npm install```.
 
 Make sure that selenium-server and the NGCP-CSC application is running.
 
-Karma test: ```npm run test-karma```
-
-WebdriverIO test: ```npm run test-karma```
-
-*Change the path to your local PhantomJS executable in wdio.conf.js.*
+```
+npm test
+```
 
 ### Docker
 
 Create and run Docker Image (see instructions inside the Dockerfile).
 
-Run inside Docker:  ```cd /code && sencha app build -c && ./t/testrunner```
+Inside docker:
+
+```su - selenium```
+
+```cd /code && /opt/Sencha/Cmd/sencha app build -c && ./t/testrunner```

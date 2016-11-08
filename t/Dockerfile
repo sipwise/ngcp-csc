@@ -5,21 +5,34 @@ FROM docker.mgm.sipwise.com/sipwise-jessie:latest
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT 2016-10-27
+ENV REFRESHED_AT 2016-11-08
 
 RUN echo "deb https://deb.sipwise.com/autobuild/ release-trunk-jessie main" >>/etc/apt/sources.list
+
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
 
 RUN apt-get update
 RUN apt-get install --assume-yes \
         curl \
-        default-jre-headless \
         devscripts \
+        fluxbox \
+        git \
+        google-chrome-stable \
+        iceweasel \
+        libtap-formatter-junit-perl \
+        lsof \
+        net-tools \
         nodejs \
         nodejs-legacy \
         npm \
+        openjdk-7-jre-headless \
         sencha-cmd \
-        unzip \
-        xterm
+        unzip
+        vim-tiny \
+        vnc4server \
+        wget \
+        xterm \
 
 RUN adduser --disabled-password --gecos=Selenium-User selenium
 
@@ -27,7 +40,16 @@ WORKDIR /home/selenium
 RUN wget -O selenium-server-standalone-2.53.1.jar http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar
 RUN ln -s selenium-server-standalone-2.53.1.jar selenium-server-standalone.jar
 
-RUN echo "cd /code && /opt/Sencha/Cmd/sencha app build -c && ./t/testrunner" >/root/.bash_history
+RUN wget -O chromedriver_linux64.zip http://chromedriver.storage.googleapis.com/2.22/chromedriver_linux64.zip && unzip chromedriver_linux64.zip
+
+RUN echo "cd /code && /opt/Sencha/Cmd/sencha app build -c && ./t/testrunner" >/home/selenium/.bash_history
+RUN echo "su - selenium" >/root/.bash_history
+EXPOSE 5999 3000
+
+WORKDIR /usr/bin
+RUN ln -s /home/selenium/chromedriver chromedriver
+
+COPY jenkins_docker_run /home/selenium/
 
 WORKDIR /home/selenium
 
@@ -43,5 +65,9 @@ WORKDIR /home/selenium
 # % docker run --rm -i -t -v $(pwd)/..:/code:rw docker.mgm.sipwise.com/ngcp-csc-jessie:latest bash
 #
 # Inside docker:
-#   cd /code && sencha app build -c && ./t/testrunner
+#   su - selenium
+#   cd /code && /opt/Sencha/Cmd/sencha app build -c && ./t/testrunner
+#
+# On host (where vncviewer can be e.g. from Debian package xvnc4viewer):
+# % vncviewer geometry=1280x1024x16 localhost:5999
 ################################################################################
