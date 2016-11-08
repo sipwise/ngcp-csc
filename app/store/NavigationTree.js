@@ -86,7 +86,7 @@ Ext.define('NgcpCsc.store.NavigationTree', {
         }, {
             text: 'Account',
             iconCls: 'x-fa fa-user',
-            viewType: 'pageblank',
+            viewType: 'account',
             routeId: 'account',
             acl: ['administrator', 'restricted', 'host'],
             leaf: true
