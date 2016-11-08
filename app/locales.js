@@ -192,7 +192,6 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'all calls'
             }
         },
-
         callbarring: {
             title: {
                 en: 'Call barring for incoming and outgoing calls.',
@@ -314,14 +313,92 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Please use digits only and include the area code of the number. You may use the wildcard characters "?" for one and "*" for an indefinite number of arbitrary digits.'
             },
             new_entry_anonymous: {
-                 en: 'To block anonymous calls you may just submit the empty string.',
-                 it: 'To block anonymous calls you may just submit the empty string.',
-                 de: 'To block anonymous calls you may just submit the empty string.',
-                 fr: 'To block anonymous calls you may just submit the empty string.',
-                 sp: 'To block anonymous calls you may just submit the empty string.'
+                en: 'To block anonymous calls you may just submit the empty string.',
+                it: 'To block anonymous calls you may just submit the empty string.',
+                de: 'To block anonymous calls you may just submit the empty string.',
+                fr: 'To block anonymous calls you may just submit the empty string.',
+                sp: 'To block anonymous calls you may just submit the empty string.'
             }
         },
-
+        account: {
+            title: {
+                en: 'Your personal settings.',
+                it: 'Your personal settings.',
+                de: 'Your personal settings.',
+                fr: 'Your personal settings.',
+                sp: 'Your personal settings.'
+            },
+            subtitle: {
+                en: 'PASSWORD',
+                it: 'PASSWORD',
+                de: 'PASSWORD',
+                fr: 'PASSWORD',
+                sp: 'PASSWORD'
+            },
+            password_instructions: {
+                en: 'You may change the password for your self-administration login here.',
+                it: 'You may change the password for your self-administration login here.',
+                de: 'You may change the password for your self-administration login here.',
+                fr: 'You may change the password for your self-administration login here.',
+                sp: 'You may change the password for your self-administration login here.'
+            },
+            change_password: {
+                en: 'change password',
+                it: 'change password',
+                de: 'change password',
+                fr: 'change password',
+                sp: 'change password'
+            },
+            reset_form: {
+                en: 'reset form',
+                it: 'reset form',
+                de: 'reset form',
+                fr: 'reset form',
+                sp: 'reset form'
+            },
+            password_short: {
+                en: 'The password is too short, please use 6 characters at least.',
+                it: 'The password is too short, please use 6 characters at least.',
+                de: 'The password is too short, please use 6 characters at least.',
+                fr: 'The password is too short, please use 6 characters at least.',
+                sp: 'The password is too short, please use 6 characters at least.'
+            },
+            wrong_password: {
+                en: 'Wrong password, please verify your input.',
+                it: 'Wrong password, please verify your input.',
+                de: 'Wrong password, please verify your input.',
+                fr: 'Wrong password, please verify your input.',
+                sp: 'Wrong password, please verify your input.'
+            },
+            password_match: {
+                en: 'Passwords do not match, please try again.',
+                it: 'Passwords do not match, please try again.',
+                de: 'Passwords do not match, please try again.',
+                fr: 'Passwords do not match, please try again.',
+                sp: 'Passwords do not match, please try again.'
+            },
+            change_success: {
+                en: 'The password has been changed successfully.',
+                it: 'The password has been changed successfully.',
+                de: 'The password has been changed successfully.',
+                fr: 'The password has been changed successfully.',
+                sp: 'The password has been changed successfully.'
+            },
+            enter_current: {
+                en: 'Please enter your current password.',
+                it: 'Please enter your current password.',
+                de: 'Please enter your current password.',
+                fr: 'Please enter your current password.',
+                sp: 'Please enter your current password.'
+            },
+            username: {
+                en: 'username',
+                it: 'username',
+                de: 'username',
+                fr: 'username',
+                sp: 'username'
+            }
+        },
         filters: {
             search: {
                 en: 'SEARCH',
@@ -462,7 +539,6 @@ Ext.define('Ngcp.csc.locales', {
                     sp: 'save settings'
                 }
             }
-
         },
         chat: {
             title: {
@@ -486,8 +562,8 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Chat group name',
                 sp: 'Chat group name'
             },
-            msg_box:{
-                empty_text:{
+            msg_box: {
+                empty_text: {
                     en: 'Type a message',
                     it: 'Type a message',
                     de: 'Type a message',
@@ -502,7 +578,7 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'You can start a private conversation with {0} here.',
                 sp: 'You can start a private conversation with {0} here.'
             },
-            alerts:{
+            alerts: {
                 user_ddrop: {
                     en: 'Only users can be dropped',
                     it: 'Only users can be dropped',
@@ -655,7 +731,6 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Videocall',
                 sp: 'Videocall'
             }
-
         }
     }
 })

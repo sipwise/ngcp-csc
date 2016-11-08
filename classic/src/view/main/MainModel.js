@@ -3,7 +3,12 @@ Ext.define('NgcpCsc.view.main.MainModel', {
     alias: 'viewmodel.main',
 
     data: {
-        currentView: null,
-        username: localStorage.getItem('username')
+        currentView: null
+    },
+
+    formulas: {
+        username: function(get) {
+            return localStorage.getItem('username');
+        }
     }
 });
