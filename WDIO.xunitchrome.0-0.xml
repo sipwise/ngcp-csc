@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="webdriver_io_page" timestamp="2016-11-11T14:22:05" time="0.893" tests="1" failures="0" errors="1" skipped="0">
+    <properties>
+      <property name="specId" value="209e3c5711071c3d1f84506cd8b46d4a"/>
+      <property name="suiteName" value="webdriver.io page"/>
+      <property name="capabilities" value="chrome"/>
+    </properties>
+    <testcase classname="chrome.webdriver.io page" name="should have the right title - the fancy generator way" time="0.892">
+      <error message="&#xA;Failed: 'http://localhost:1841/ is not available' == 'NgcpCsc Dashboard'&#xA;"/>
+      <system-err>
+        <![CDATA[
+AssertionError: 'http://localhost:1841/ is not available' == 'NgcpCsc Dashboard'
+    at Object.<anonymous> (/code/t/specs/wdio-setup.spec.js:6:16)
+]]>
+      </system-err>
+    </testcase>
+  </testsuite>
+</testsuites>
