@@ -5,29 +5,43 @@ FROM docker.mgm.sipwise.com/sipwise-jessie:latest
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT 2016-10-27
+ENV REFRESHED_AT 2016-11-11
 
 RUN echo "deb https://deb.sipwise.com/autobuild/ release-trunk-jessie main" >>/etc/apt/sources.list
 
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
+
 RUN apt-get update
 RUN apt-get install --assume-yes \
-        curl \
-        default-jre-headless \
         devscripts \
-        nodejs \
-        nodejs-legacy \
-        npm \
+        openjdk-7-jre-headless \
+        curl \
+        xvfb \
+        chromium \
         sencha-cmd \
-        unzip \
-        xterm
+        unzip
 
 RUN adduser --disabled-password --gecos=Selenium-User selenium
-
 WORKDIR /home/selenium
 RUN wget -O selenium-server-standalone-2.53.1.jar http://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar
 RUN ln -s selenium-server-standalone-2.53.1.jar selenium-server-standalone.jar
 
+RUN wget -O chromedriver_linux64.zip http://chromedriver.storage.googleapis.com/2.22/chromedriver_linux64.zip && unzip chromedriver_linux64.zip
+
+ADD xvfb-chromium /usr/bin/xvfb-chromium
+RUN ln -s /usr/bin/xvfb-chromium /usr/bin/google-chrome
+RUN ln -s /usr/bin/xvfb-chromium /usr/bin/chromium-browser
+
+RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -
+RUN apt-get install -y nodejs
+
 RUN echo "cd /code && /opt/Sencha/Cmd/sencha app build -c && ./t/testrunner" >/root/.bash_history
+
+WORKDIR /usr/bin
+RUN ln -s /home/selenium/chromedriver chromedriver
+
+COPY jenkins_docker_run /home/selenium/
 
 WORKDIR /home/selenium
 
@@ -43,5 +57,5 @@ WORKDIR /home/selenium
 # % docker run --rm -i -t -v $(pwd)/..:/code:rw docker.mgm.sipwise.com/ngcp-csc-jessie:latest bash
 #
 # Inside docker:
-#   cd /code && sencha app build -c && ./t/testrunner
+#   cd /code && /opt/Sencha/Cmd/sencha app build -c && ./t/testrunner
 ################################################################################
