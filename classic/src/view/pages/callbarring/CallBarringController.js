@@ -39,6 +39,9 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarringController', {
         var store, newNumber;
         var fieldArrayIncoming = ['incoming-new-enter', 'incoming-new-btn'];
         var fieldArrayOutgoing = ['outgoing-new-enter', 'outgoing-new-btn'];
+        if (typeof field === 'object') {
+            field = field.currentTarget.id;
+        };
         if (fieldArrayIncoming.indexOf(field) > -1) {
             store = Ext.getStore('CallBarringIncoming');
             newNumber = this.getViewModel().get('new_in_number');
