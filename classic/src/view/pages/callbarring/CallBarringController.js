@@ -29,10 +29,9 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarringController', {
     },
 
     toggleEnabled: function(grid, rowIndex, colIndex, item, event, record, row) {
-        // TODO: Debug console error: "Uncaught TypeError: Cannot read property 'get' of undefined(...)"
         record.set('enabled', !record.get('enabled'));
         this.fireEvent('showmessage', true, Ngcp.csc.locales.callbarring.enabled_success[localStorage.getItem('languageSelected')]);
-        this.renderBarrNumber();
+        this.renderBarrNumber(record.get('enabled'), null, record);
     },
 
     saveNumber: function (field) {
