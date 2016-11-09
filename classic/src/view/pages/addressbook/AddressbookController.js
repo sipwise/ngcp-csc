@@ -93,6 +93,12 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookController', {
 
     capitalize: function(field, newVal, oldVal) {
         field.setValue(Ext.String.capitalize(newVal));
+    },
+
+    onCellClicked: function(view, td, cellindex, record, tr, rowindex, ev){
+        if(cellindex == 4){ // phone column, TODO update in case new columns are added, or repositioned
+            this.fireEvent('initwebrtc', record);
+        }
     }
 
 });
