@@ -71,13 +71,13 @@ Ext.define('NgcpCsc.view.pages.chat.ChatList', {
         items: [{
             tooltip: Ngcp.csc.locales.common.call[localStorage.getItem('languageSelected')],
             getClass: function(value, context) {
-                return (context.record && context.record.get('leaf')) ? 'x-phone-display' : '';
+                return (context.record && context.record.get('leaf') && context.record.get('online')) ? 'x-phone-display' : '';
             },
             handler: 'startCall'
         }, {
             tooltip: Ngcp.csc.locales.common.videocall[localStorage.getItem('languageSelected')],
             getClass: function(value, context) {
-                return (context.record && context.record.get('leaf')) ? 'x-video-display' : '';
+                return (context.record && context.record.get('leaf') && context.record.get('online')) ? 'x-video-display' : '';
             },
             handler: 'startVideoCall'
         }, {

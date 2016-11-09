@@ -202,20 +202,26 @@
 
 .navigation-email {
     .x-grid-row:hover {
-        .x-phone-display:before {
-            font-family: FontAwesome;
-            content: "\f095";
-            margin-left: 5px;
-        }
-        .x-video-display:before {
-            font-family: FontAwesome;
-            content: "\f03d";
-            margin-left: 10px;
+        .x-phone-display {
+            padding-left: 5px;
+            &:before {
+                font-family: FontAwesome;
+                content: "\f095";
+            }
         }
 
-        .x-drop-display{
+        .x-video-display {
+            margin-left: 10px;
+            &:before {
+                font-family: FontAwesome;
+                content: "\f03d";
+            }
+        }
+
+        .x-drop-display {
             position: relative;
             right: 6px;
+
             &:before {
                 font-family: FontAwesome;
                 content: "\f00d";
@@ -314,9 +320,11 @@
 .private-conversation-text {
     padding: 30px;
 }
+
 .online-user {
     color: $online-menu-item-color !important;
 }
+
 .offline-user {
     color: $offline-menu-item-color !important;
 }

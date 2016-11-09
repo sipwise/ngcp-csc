@@ -748,6 +748,15 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Create new contact'
             }
         },
+        webrtc:{
+            title:{
+                en: 'Webrtc',
+                it: 'Webrtc',
+                de: 'Webrtc',
+                fr: 'Webrtc',
+                sp: 'Webrtc'
+            }
+        },
         common: {
             today: {
                 en: 'Today',
