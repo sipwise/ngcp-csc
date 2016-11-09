@@ -10,9 +10,10 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookGrid', {
     padding: 10,
 
     listeners: {
-        afterrender: 'onGridRendered'
+        afterrender: 'onGridRendered',
+        cellclick: 'onCellClicked'
     },
-
+    
     tbar: [{
         xtype:'label',
         text: Ngcp.csc.locales.common.order_by[localStorage.getItem('languageSelected')]

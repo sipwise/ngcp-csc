@@ -63,7 +63,7 @@ Ext.define('NgcpCsc.view.main.Main', {
             }, {
                 html: Ngcp.csc.locales.common.logout[localStorage.getItem('languageSelected')],
                 tooltip: 'Logout',
-                handler:'logout'
+                handler: 'logout'
             }, {
                 xtype: 'image',
                 cls: 'header-right-profile-image',
@@ -101,6 +101,11 @@ Ext.define('NgcpCsc.view.main.Main', {
             layout: {
                 type: 'card'
             }
+        }, {
+            title:Ngcp.csc.locales.webrtc.title[localStorage.getItem('languageSelected')],
+            xtype:'webrtc',
+            itemId:'webrtcPanel',
+            hidden: true
         }]
     }]
 });
