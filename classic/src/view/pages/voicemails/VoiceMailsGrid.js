@@ -11,6 +11,10 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMailsGrid', {
 
     padding: 10,
 
+    listeners: {
+        cellclick:'onCellClicked'
+    },
+
     columns: {
         defaults: {
             menuDisabled: true,
