@@ -11,6 +11,10 @@ Ext.define('NgcpCsc.view.pages.calls.CallsGrid', {
 
     padding: 10,
 
+    listeners: {
+        cellclick:'onCellClicked'
+    },
+
     initComponent: function() {
         this.columns = {
             defaults: {
@@ -28,6 +32,7 @@ Ext.define('NgcpCsc.view.pages.calls.CallsGrid', {
             }, {
                 renderer: 'renderPhoneIcon',
                 width: 30
+
             }, {
                 text: (this._groupCallsByMonth) ? Ngcp.csc.locales.calls.columns.duration[localStorage.getItem('languageSelected')] : '',
                 flex: 1,

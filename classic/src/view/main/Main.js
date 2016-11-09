@@ -63,7 +63,7 @@ Ext.define('NgcpCsc.view.main.Main', {
             }, {
                 html: Ngcp.csc.locales.common.logout[localStorage.getItem('languageSelected')],
                 tooltip: 'Logout',
-                handler:'logout'
+                handler: 'logout'
             }, {
                 xtype: 'image',
                 cls: 'header-right-profile-image',
@@ -79,12 +79,14 @@ Ext.define('NgcpCsc.view.main.Main', {
         reference: 'mainContainerWrap',
         flex: 1,
         scrollable: false,
+        layout:'border',
         items: [{
             xtype: 'treelist',
             reference: 'navigationTreeList',
             itemId: 'navigationTreeList',
             ui: 'navigation',
             store: 'NavigationTree',
+            region: 'west',
             width: 250,
             expanderFirst: false,
             expanderOnly: false,
@@ -94,6 +96,7 @@ Ext.define('NgcpCsc.view.main.Main', {
         }, {
             xtype: 'container',
             flex: 1,
+            region: 'center',
             reference: 'mainCardPanel',
             cls: 'sencha-dash-right-main-container',
             itemId: 'contentPanel',
@@ -101,6 +104,13 @@ Ext.define('NgcpCsc.view.main.Main', {
             layout: {
                 type: 'card'
             }
+        }, {
+            xtype:'webrtc',
+            region: 'east',
+            itemId:'webrtcPanel',
+            hidden: true,
+            collapsed:true,
+            collapsible: true
         }]
     }]
 });

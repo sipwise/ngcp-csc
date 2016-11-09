@@ -69,11 +69,12 @@ Ext.define('NgcpCsc.view.pages.chat.ChatListController', {
             return false;
         }
     },
-    startCall: function(grid, rowIndex, colIndex, item, e) {
-        this.fireEvent('showmessage', true, 'Todo start call');
+    startCall: function(grid, rowIndex, colIndex, item, e, record) {
+        if (record.get('online'))
+            this.fireEvent('initwebrtc', record);
     },
-    startVideoCall: function(grid, rowIndex, colIndex) {
-        this.fireEvent('showmessage', true, 'Todo start videocall');
+    startVideoCall: function(grid, rowIndex, colIndex, e, record) {
+        this.fireEvent('initwebrtc', record);
     },
     nodeClicked: function(node, record, item, index, e) {
         if (record.get('checked') != null)

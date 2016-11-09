@@ -24,5 +24,9 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMailsController', {
 
     saveSettings: function() {
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
+    },
+
+    onCellClicked: function(view, td, cellindex, record){
+        this.fireEvent('initwebrtc', record);
     }
 });

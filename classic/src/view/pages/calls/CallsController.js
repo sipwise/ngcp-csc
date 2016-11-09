@@ -28,5 +28,8 @@ Ext.define('NgcpCsc.view.pages.calls.CallsController', {
                 break;
         };
         return Ext.String.format('<div class="{0}"></div>', icon);
+    },
+    onCellClicked: function(view, td, cellindex, record){
+        this.fireEvent('initwebrtc', record);
     }
 });
