@@ -41,7 +41,7 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookController', {
     },
 
     renderPhoneIcon: function(value, metaData) {
-        return '<div class="fa fa-phone-square"></div>';
+        return '<div class="fa fa-phone-square pointer"></div>';
     },
 
     renderToggleDetailsIcon: function(value, metaData) {
@@ -93,6 +93,12 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookController', {
 
     capitalize: function(field, newVal, oldVal) {
         field.setValue(Ext.String.capitalize(newVal));
+    },
+
+    onCellClicked: function(view, td, cellindex, record, tr, rowindex, ev){
+        if(cellindex == 4){ // phone column, TODO update in case new columns are added, or repositioned
+            this.fireEvent('initwebrtc', record);
+        }
     }
 
 });

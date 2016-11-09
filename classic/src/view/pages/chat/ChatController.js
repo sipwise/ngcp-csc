@@ -9,6 +9,9 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
                 openpmtab: 'openPM',
                 openchanneltab: 'openChat',
                 destroytab: 'closeChat'
+            },
+            '*': {
+                togglechat: 'tooggleChat'
             }
         }
     },
@@ -26,10 +29,10 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
 
     submitMessage: function(msg, user) {
         var message = msg || this.getViewModel().get('new_message');
-        if (message.length < 1 || !this.getView().down('tabpanel').getActiveTab())
+        if (message.length < 1 || !this.getView().getActiveTab())
             return;
-        var chatStore = this.getView().down('tabpanel').getActiveTab().getStore('notifications');
-        var lastMsg = chatStore.getAt(chatStore.getCount() - 1) || this.getViewModel().getStore('notifications').findRecord('id', this.getView().down('tabpanel').getActiveTab().name);
+        var chatStore = this.getView().getActiveTab().getStore('notifications');
+        var lastMsg = chatStore.getAt(chatStore.getCount() - 1) || this.getViewModel().getStore('notifications').findRecord('id', this.getView().getActiveTab().name);
         var date = new Date();
         var minutes = date.getMinutes();
         var hour = date.getHours();
@@ -54,7 +57,7 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
     },
 
     focusLastMsg: function(rec) {
-        var chatCmp = this.getView().down('tabpanel').getActiveTab();
+        var chatCmp = this.getView().getActiveTab();
         chatCmp.scrollTo(0, chatCmp.getEl().dom.scrollHeight);
     },
 
@@ -63,7 +66,7 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
         if (rec.get('name') == 'administrator') // hardcoded administrator
             return;
         if (!tab) {
-            tab = this.getView().down('tabpanel').add({
+            tab = this.getView().add({
                 xtype: 'chat-notifications',
                 title: rec.get('name'),
                 closable: true,
@@ -77,14 +80,14 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
                 })
             });
         }
-        this.getView().down('tabpanel').setActiveTab(tab);
+        this.getView().setActiveTab(tab);
     },
     openChat: function(rec) {
         var tab = this.getView().down('[name=' + rec.get('name') + ']');
         if (rec.get('name') == 'Buddies')
             return;
         if (!tab) {
-            tab = this.getView().down('tabpanel').add({
+            tab = this.getView().add({
                 xtype: 'chat-notifications',
                 title: rec.get('name'),
                 name: rec.get('name'),
@@ -95,7 +98,7 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
                 }
             });
         }
-        this.getView().down('tabpanel').setActiveTab(tab);
+        this.getView().setActiveTab(tab);
     },
     closeChat: function(tabToClose) {
         var tabToClose = this.getView().down('[name=' + tabToClose + ']');
@@ -104,5 +107,10 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
             tabToClose.destroy();
         }
         chatList.getView().refresh();
+    },
+
+    tooggleChat:function(visible){
+        this.getViewModel().set('chatEnabled', visible);
     }
+
 });
