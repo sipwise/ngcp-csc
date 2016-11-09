@@ -4,7 +4,7 @@ Ext.define('NgcpCsc.view.pages.calls.CallsController', {
     alias: 'controller.calls',
 
     renderPhoneIcon: function(value, metaData) {
-        return '<div class="fa fa-phone-square"></div>';
+        return '<div class="fa fa-phone-square pointer"></div>';
     },
 
     renderCallTypeIcons: function(value) {
@@ -28,5 +28,8 @@ Ext.define('NgcpCsc.view.pages.calls.CallsController', {
                 break;
         };
         return Ext.String.format('<div class="{0}"></div>', icon);
+    },
+    onCellClicked: function(view, td, cellindex, record){
+        this.fireEvent('initwebrtc', record);
     }
 });
