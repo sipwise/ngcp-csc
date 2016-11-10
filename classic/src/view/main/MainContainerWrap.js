@@ -6,8 +6,6 @@ Ext.define('NgcpCsc.view.main.MainContainerWrap', {
         'Ext.layout.container.HBox'
     ],
 
-    scrollable: 'y',
-
     layout: {
         type: 'hbox',
         align: 'stretchmax',

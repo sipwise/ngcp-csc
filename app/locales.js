@@ -375,6 +375,148 @@ Ext.define('Ngcp.csc.locales', {
                 }
             }
         },
+        callforward: {
+            title: {
+                en: 'Your personal settings.',
+                it: 'Your personal settings.',
+                de: 'Your personal settings.',
+                fr: 'Your personal settings.',
+                sp: 'Your personal settings.'
+            },
+            subtitle: {
+                en: 'CALL FORWARD',
+                it: 'CALL FORWARD',
+                de: 'CALL FORWARD',
+                fr: 'CALL FORWARD',
+                sp: 'CALL FORWARD'
+            },
+            user_label: {
+                en: 'Settings for ',
+                it: 'Settings for ',
+                de: 'Settings for ',
+                fr: 'Settings for ',
+                sp: 'Settings for '
+            },
+            save_rule: {
+                en: 'save rule',
+                it: 'save rule',
+                de: 'save rule',
+                fr: 'save rule',
+                sp: 'save rule'
+            },
+            time_one: {
+                en: 'Always',
+                it: 'Always',
+                de: 'Always',
+                fr: 'Always',
+                sp: 'Always'
+            },
+            time_two: {
+                en: 'After hours',
+                it: 'After hours',
+                de: 'After hours',
+                fr: 'After hours',
+                sp: 'After hours'
+            },
+            time_three: {
+                en: 'Company hours',
+                it: 'Company hours',
+                de: 'Company hours',
+                fr: 'Company hours',
+                sp: 'Company hours'
+            },
+            source_one: {
+                en: 'Everybody',
+                it: 'Everybody',
+                de: 'Everybody',
+                fr: 'Everybody',
+                sp: 'Everybody'
+            },
+            source_two: {
+                en: 'List A',
+                it: 'List A',
+                de: 'List A',
+                fr: 'List A',
+                sp: 'List A'
+            },
+            source_three: {
+                en: 'List B',
+                it: 'List B',
+                de: 'List B',
+                fr: 'List B',
+                sp: 'List B'
+            },
+            first_ring: {
+                en: 'First ring:',
+                it: 'First ring:',
+                de: 'First ring:',
+                fr: 'First ring:',
+                sp: 'First ring:'
+            },
+            then_forward_to: {
+                en: 'Then forward to:',
+                it: 'Then forward to:',
+                de: 'Then forward to:',
+                fr: 'Then forward to:',
+                sp: 'Then forward to:'
+            },
+            add_new_destination: {
+                en: 'ADD NEW DESTINATION',
+                it: 'ADD NEW DESTINATION',
+                de: 'ADD NEW DESTINATION',
+                fr: 'ADD NEW DESTINATION',
+                sp: 'ADD NEW DESTINATION'
+            },
+            when_phone_online: {
+                en: 'When My Phone is Online:',
+                it: 'When My Phone is Online:',
+                de: 'When My Phone is Online:',
+                fr: 'When My Phone is Online:',
+                sp: 'When My Phone is Online:'
+            },
+            when_phone_busy: {
+                en: 'When My Phone is Busy:',
+                it: 'When My Phone is Busy:',
+                de: 'When My Phone is Busy:',
+                fr: 'When My Phone is Busy:',
+                sp: 'When My Phone is Busy:'
+            },
+            when_phone_offline: {
+                en: 'When My Phone is Offline:',
+                it: 'When My Phone is Offline:',
+                de: 'When My Phone is Offline:',
+                fr: 'When My Phone is Offline:',
+                sp: 'When My Phone is Offline:'
+            },
+            drag_text: {
+                en: 'Drag and drop to move',
+                it: 'Drag and drop to move',
+                de: 'Drag and drop to move',
+                fr: 'Drag and drop to move',
+                sp: 'Drag and drop to move'
+            },
+            phone: {
+                en: 'Phone',
+                it: 'Phone',
+                de: 'Phone',
+                fr: 'Phone',
+                sp: 'Phone'
+            },
+            ring_for: {
+                en: 'Ring For',
+                it: 'Ring For',
+                de: 'Ring For',
+                fr: 'Ring For',
+                sp: 'Ring For'
+            },
+            move: {
+                en: 'Move',
+                it: 'Move',
+                de: 'Move',
+                fr: 'Move',
+                sp: 'Move'
+            }
+        },
         filters: {
             search: {
                 en: 'SEARCH',
