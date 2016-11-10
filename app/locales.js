@@ -375,6 +375,78 @@ Ext.define('Ngcp.csc.locales', {
                 }
             }
         },
+        callforward: {
+            title: {
+                en: 'Your personal settings.',
+                it: 'Your personal settings.',
+                de: 'Your personal settings.',
+                fr: 'Your personal settings.',
+                sp: 'Your personal settings.'
+            },
+            subtitle: {
+                en: 'CALL FORWARD',
+                it: 'CALL FORWARD',
+                de: 'CALL FORWARD',
+                fr: 'CALL FORWARD',
+                sp: 'CALL FORWARD'
+            },
+            user_label: {
+                en: 'Settings for ',
+                it: 'Settings for ',
+                de: 'Settings for ',
+                fr: 'Settings for ',
+                sp: 'Settings for '
+            },
+            save_rule: {
+                en: 'save rule',
+                it: 'save rule',
+                de: 'save rule',
+                fr: 'save rule',
+                sp: 'save rule'
+            },
+            time_one: {
+                en: 'Always',
+                it: 'Always',
+                de: 'Always',
+                fr: 'Always',
+                sp: 'Always'
+            },
+            time_two: {
+                en: 'After hours',
+                it: 'After hours',
+                de: 'After hours',
+                fr: 'After hours',
+                sp: 'After hours'
+            },
+            time_three: {
+                en: 'Company hours',
+                it: 'Company hours',
+                de: 'Company hours',
+                fr: 'Company hours',
+                sp: 'Company hours'
+            },
+            source_one: {
+                en: 'Everybody',
+                it: 'Everybody',
+                de: 'Everybody',
+                fr: 'Everybody',
+                sp: 'Everybody'
+            },
+            source_two: {
+                en: 'List A',
+                it: 'List A',
+                de: 'List A',
+                fr: 'List A',
+                sp: 'List A'
+            },
+            source_three: {
+                en: 'List B',
+                it: 'List B',
+                de: 'List B',
+                fr: 'List B',
+                sp: 'List B'
+            }
+        },
         filters: {
             search: {
                 en: 'SEARCH',
