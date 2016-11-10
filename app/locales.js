@@ -375,6 +375,36 @@ Ext.define('Ngcp.csc.locales', {
                 }
             }
         },
+        callforward: {
+            title: {
+                en: 'Your personal settings.',
+                it: 'Your personal settings.',
+                de: 'Your personal settings.',
+                fr: 'Your personal settings.',
+                sp: 'Your personal settings.'
+            },
+            subtitle: {
+                en: 'CALL FORWARD RULES',
+                it: 'CALL FORWARD RULES',
+                de: 'CALL FORWARD RULES',
+                fr: 'CALL FORWARD RULES',
+                sp: 'CALL FORWARD RULES'
+            },
+            user_label: {
+                en: 'Settings for ',
+                it: 'Settings for ',
+                de: 'Settings for ',
+                fr: 'Settings for ',
+                sp: 'Settings for '
+            },
+            save_rule: {
+                en: 'save rule',
+                it: 'save rule',
+                de: 'save rule',
+                fr: 'save rule',
+                sp: 'save rule'
+            }
+        },
         filters: {
             search: {
                 en: 'SEARCH',
