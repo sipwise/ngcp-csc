@@ -24,6 +24,10 @@ Ext.define('NgcpCsc.Application', {
         'CallBarringOutgoing',
         'CallBarringIncoming',
         'Addressbook',
+        'CallForward',
+        'Sourcesets',
+        'Timesets',
+        'Destinationsets',
         'FaxSpool',
         'FaxSendQuality'
     ],
