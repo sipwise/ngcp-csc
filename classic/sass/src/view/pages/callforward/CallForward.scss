@@ -1,0 +1,18 @@
+/* mixins */
+@include extjs-panel-ui (
+    $ui: 'cf-container',
+);
+
+/* custom css */
+.x-panel-cf-container .x-autocontainer-innerCt {
+    font-size: 120%;
+    padding-top: 20px;
+}
+
+.cf-subheader {
+    font-weight: 600;
+}
+ .cf-subtitle {
+    font-size: 110%;
+    font-weight: 600;
+ }

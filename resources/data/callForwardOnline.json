@@ -1,0 +1,19 @@
+{
+    "data": [{
+        "phone": "Jane Doe",
+        "active": true,
+        "ring_for": "20 secs"
+    }, {
+        "phone": "11111111",
+        "active": true,
+        "ring_for": "20 secs"
+    }, {
+        "phone": "67788888",
+        "active": true,
+        "ring_for": "20 secs"
+    }, {
+        "phone": "Voicemail",
+        "active": false,
+        "ring_for": "0 secs"
+    }]
+}
