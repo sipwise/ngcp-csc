@@ -1,0 +1,133 @@
+/* mixins */
+// @robert you can define a mixin here and use it anywhere.
+// Good practise though, in case you want to share a mixin between widgets/modules,
+// is to place it in the .scss of the common parent component - ultimately Main.scss.
+// Variables of ext-panel-ui are listed here
+// http://docs.sencha.com/extjs/6.2.0/classic/Ext.panel.Panel.html#css_mixin-extjs-panel-ui
+@include extjs-panel-ui(
+    $ui:'callforward-mixin-example' /*,
+    $ui-body-color : red*/
+);
+
+/* custom css */
+.callforward-heading {
+    font-size: 24px;
+},
+
+.divTable{
+	display: table;
+}
+
+.divTableRow {
+	display: table-row;
+}
+
+.divTableCell {
+	display: table-cell;
+    width: 33%;
+    margin-top: 20px;
+}
+
+.divTableCell .ngcp-card-delete {
+    display: inline-block;
+    margin-bottom: 20px;
+};
+
+.divTableBody {
+	display: table-row-group;
+}
+
+.ngcp-sm-card {
+    height: 120px;
+    border-radius: 2px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+
+.ngcp-md-card {
+    height: 120px;
+    border-radius: 2px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+
+.ngcp-md-card-inactive {
+    height: 120px;
+    border-radius: 2px;
+    background-color: #f6f6f6;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+
+.ngcp-lg-card {
+    height: 650px; // was set to 250px
+    border-radius: 2px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    margin-right: 20px;
+    margin-left: 20px;
+    .x-panel-body {
+        background-color: #fff;
+    }
+}
+
+/*
+* -- Ngcp Cards Grid --
+*/
+.ngcp-row {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 20px;
+    box-sizing: border-box;
+}
+
+[class*="ngcp-col-"] {
+    padding: 10px;
+    margin: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+@media all and ( min-width: 600px ) {
+
+    /* set col widths */
+    .ngcp-col-1-1 {
+        width: 100%;
+    }
+    .ngcp-col-1-2 {
+        width: 48%;
+    }
+    .ngcp-col-1-4 {
+        width: 30%;
+    }
+
+}
+
+.ngcp-card-headline-when,
+.ngcp-card-headline {
+    font-size: 17px;
+    text-align: left;
+}
+
+.ngcp-card-headline {
+    padding: 20px 20px;
+}
+
+.ngcp-card-p-when,
+.ngcp-card-p {
+    font-size: 15px;
+    text-align: left;
+}
+
+.ngcp-card-p {
+    padding: 20px 20px;
+}
+
+.ngcp-field-label {
+    font-size: 17px;
+}
+
+.ngcp-card-cftype {
+    font-size: 32px;
+    text-align: center;
+    margin-top: 40px;
+}
