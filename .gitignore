@@ -16,3 +16,5 @@ t/node_modules
 phantomjsdriver.log
 npm-debug.log
 t/*.xml
+sass/example/fashion.html
+sass/example/render.js
