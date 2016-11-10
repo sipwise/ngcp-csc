@@ -1,7 +1,7 @@
 Ext.define('NgcpCsc.view.pages.account.AccountForm', {
     extend: 'Ext.form.Panel',
 
-    xtype: 'accountform',
+    xtype: 'account-form',
 
     viewModel: 'account',
 
