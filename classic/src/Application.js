@@ -24,7 +24,8 @@ Ext.define('NgcpCsc.Application', {
         'Languages',
         'CallBarringOutgoing',
         'CallBarringIncoming',
-        'Addressbook'
+        'Addressbook',
+        'CallForward'
     ],
 
     launch: function() {

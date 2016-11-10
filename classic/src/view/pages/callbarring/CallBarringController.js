@@ -35,6 +35,7 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarringController', {
     },
 
     saveNumber: function (field) {
+        console.log(this.getViewModel());
         var store, newNumber;
         var fieldArrayIncoming = ['incoming-new-enter', 'incoming-new-btn'];
         var fieldArrayOutgoing = ['outgoing-new-enter', 'outgoing-new-btn'];
