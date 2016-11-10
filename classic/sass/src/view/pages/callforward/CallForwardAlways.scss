@@ -1,0 +1,13 @@
+/* mixins */
+// @robert you can define a mixin here and use it anywhere.
+// Good practise though, in case you want to share a mixin between widgets/modules,
+// is to place it in the .scss of the common parent component - ultimately Main.scss.
+// Variables of ext-panel-ui are listed here
+// http://docs.sencha.com/extjs/6.2.0/classic/Ext.panel.Panel.html#css_mixin-extjs-panel-ui
+@include extjs-panel-ui(
+    $ui:'callforward-mixin-example' /*,
+    $ui-body-color : red*/
+);
+/* custom css*/
+// @robert move the rules which belongs to CallForwardAlways.scss and its children component
+// from CallForward.scss to here
