@@ -47,8 +47,17 @@ Ext.define('NgcpCsc.store.NavigationTree', {
         }, {
             text: 'Call forward',
             iconCls: 'x-fa fa-mail-forward',
-            viewType: 'pageblank',
+            viewType: 'callforward',
             routeId: 'callforward',
+            acl: ['administrator'],
+            leaf: true
+            // TODO: We need a proper way to nest child items. Not been able
+            // to debug previous implementation
+        }, {
+            text: 'Call forward always',
+            iconCls: 'x-fa fa-sitemap',
+            viewType: 'callforward-always',
+            routeId: 'callforward/always',
             acl: ['administrator'],
             leaf: true
         }, {
