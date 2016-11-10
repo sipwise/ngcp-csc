@@ -21,7 +21,7 @@ Ext.define('NgcpCsc.view.pages.account.Account', {
             padding: '20 0 5 20',
             html: Ngcp.csc.locales.account.password_instructions[localStorage.getItem('languageSelected')]
         }, {
-            xtype: 'accountform'
+            xtype: 'account-form'
         }, {
             xtype: 'container',
             height: 40,
