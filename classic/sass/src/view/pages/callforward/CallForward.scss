@@ -1,0 +1,14 @@
+/* mixins */
+@include extjs-panel-ui (
+    $ui: 'cf-test',
+);
+
+/* custom css */
+.x-panel-cf-test .x-autocontainer-innerCt {
+    font-size: 130%;
+    padding-top: 15px;
+}
+
+.cf-subheader {
+    font-weight: 700;
+}
