@@ -1,62 +1,19 @@
 {
-    "data": [
-        {
-            "cfb": {
-                "destinations": [
-                    {
-                        "destination": "sip:435678@10.15.20.112",
-                        "priority": "1",
-                        "simple_destination": "435678",
-                        "timeout": "300"
-                    }
-                ],
-                "times": [
-                    {
-                        "hour": "12-13",
-                        "mday": null,
-                        "minute": "0-59",
-                        "month": null,
-                        "wday": "2-6",
-                        "year": null
-                    },
-                    {
-                        "hour": "0-23",
-                        "mday": null,
-                        "minute": "0-59",
-                        "month": null,
-                        "wday": "7-1",
-                        "year": null
-                    }
-                ]
-            },
-            "cfna": {
-                "destinations": [
-                    {
-                        "destination": "fax2mail",
-                        "priority": "1",
-                        "timeout": "300"
-                    }
-                ]
-            },
-            "cft": {
-                "destinations": [
-                    {
-                        "destination": "conference",
-                        "priority": "1",
-                        "timeout": "300"
-                    }
-                ],
-                "ringtimeout": "15"
-            },
-            "cfu": {
-                "destinations": [
-                    {
-                        "destination": "voicebox",
-                        "priority": "1",
-                        "timeout": "300"
-                    }
-                ]
-            }
-        }
-    ]
+    "data": [{
+        "phone": "Jane Doe",
+        "active": true,
+        "ring_for": "20 secs"
+    }, {
+        "phone": "11111111",
+        "active": true,
+        "ring_for": "20 secs"
+    }, {
+        "phone": "67788888",
+        "active": true,
+        "ring_for": "20 secs"
+    }, {
+        "phone": "Voicemail",
+        "active": false,
+        "ring_for": "0 secs"
+    }]
 }
