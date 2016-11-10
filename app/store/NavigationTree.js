@@ -47,7 +47,7 @@ Ext.define('NgcpCsc.store.NavigationTree', {
         }, {
             text: 'Call forward',
             iconCls: 'x-fa fa-mail-forward',
-            viewType: 'pageblank',
+            viewType: 'callforward',
             routeId: 'callforward',
             acl: ['administrator'],
             leaf: true
