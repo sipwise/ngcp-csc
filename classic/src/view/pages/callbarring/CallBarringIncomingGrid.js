@@ -28,7 +28,6 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarringIncomingGrid', {
             items: [
                 {
                     tooltip: Ngcp.csc.locales.callbarring.enable[localStorage.getItem('languageSelected')],
-                    iconCls: 'x-fa fa-home',
                     getClass: 'getActionClass',
                     handler: 'toggleEnabled'
                 }
