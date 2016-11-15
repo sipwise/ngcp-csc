@@ -748,8 +748,76 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Create new contact'
             }
         },
-        webrtc: {
-            title: {
+        reminder:{
+            title:{
+                en: 'Set your personal alarm.',
+                it: 'Set your personal alarm.',
+                de: 'Set your personal alarm.',
+                fr: 'Set your personal alarm.',
+                sp: 'Set your personal alarm.'
+            },
+            subtitle:{
+                en: 'Reminder',
+                it: 'Reminder',
+                de: 'Reminder',
+                fr: 'Reminder',
+                sp: 'Reminder'
+            },
+            settings:{
+                en: 'Settings for',
+                it: 'Settings for',
+                de: 'Settings for',
+                fr: 'Settings for',
+                sp: 'Settings for'
+            },
+            is:{
+                en: 'Reminder is',
+                it: 'Reminder is',
+                de: 'Reminder is',
+                fr: 'Reminder is',
+                sp: 'Reminder is'
+            },
+            time:{
+                en: 'Time of the day',
+                it: 'Time of the day',
+                de: 'Time of the day',
+                fr: 'Time of the day',
+                sp: 'Time of the day'
+            },
+            recurrence:{
+                en: 'Recurrence',
+                it: 'Recurrence',
+                de: 'Recurrence',
+                fr: 'Recurrence',
+                sp: 'Recurrence'
+            },
+
+            never:{
+                en: 'never',
+                it: 'never',
+                de: 'never',
+                fr: 'never',
+                sp: 'never'
+            },
+
+            weekdays:{
+                en: 'on weekedays',
+                it: 'on weekedays',
+                de: 'on weekedays',
+                fr: 'on weekedays',
+                sp: 'on weekedays'
+            },
+
+            always:{
+                en: 'every day',
+                it: 'every day',
+                de: 'every day',
+                fr: 'every day',
+                sp: 'every day'
+            }
+        },
+        webrtc:{
+            title:{
                 en: 'Webrtc',
                 it: 'Webrtc',
                 de: 'Webrtc',
@@ -978,6 +1046,27 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Missing or invalid input found',
                 fr: 'Missing or invalid input found',
                 sp: 'Missing or invalid input found'
+            },
+            when: {
+                en: 'When',
+                it: 'When',
+                de: 'When',
+                fr: 'When',
+                sp: 'When'
+            },
+            active: {
+                en: 'Active',
+                it: 'Active',
+                de: 'Active',
+                fr: 'Active',
+                sp: 'Active'
+            },
+            inactive: {
+                en: 'Inactive',
+                it: 'Inactive',
+                de: 'Inactive',
+                fr: 'Inactive',
+                sp: 'Inactive'
             }
         }
     }
