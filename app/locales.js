@@ -748,6 +748,24 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Create new contact'
             }
         },
+        reminder:{
+            title:{
+                en: 'Reminder',
+                it: 'Reminder',
+                de: 'Reminder',
+                fr: 'Reminder',
+                sp: 'Reminder'
+            }
+        },
+        webrtc:{
+            title:{
+                en: 'Webrtc',
+                it: 'Webrtc',
+                de: 'Webrtc',
+                fr: 'Webrtc',
+                sp: 'Webrtc'
+            }
+        },
         common: {
             today: {
                 en: 'Today',
