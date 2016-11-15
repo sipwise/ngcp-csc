@@ -23,15 +23,17 @@ echo "Finished main setup, now running tests ..."
 echo "Selenium server log file available at /home/selenium/selenium.log"
 
 cp -Rf . /tmp/code
+cd /tmp/code/
+
+/opt/Sencha/Cmd/sencha app build -c
+
 cd /tmp/code/t/
 rm -rf node_modules node_modules
 npm install
 
-echo "Starting Karma test"
 cd /tmp/code/t/
 ./node_modules/karma/bin/karma start config/karma.conf.js
 
-echo "Starting WebdriverIO test"
 cd /tmp/code/
 /opt/Sencha/Cmd/sencha web start &
 sleep 5

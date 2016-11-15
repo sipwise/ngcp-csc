@@ -35,7 +35,7 @@ RUN ln -s /usr/bin/xvfb-chromium /usr/bin/chromium-browser
 RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -
 RUN apt-get install -y nodejs
 
-RUN echo "cd /code && /opt/Sencha/Cmd/sencha app build -c && ./t/testrunner" >/root/.bash_history
+RUN echo "cd /code && ./t/testrunner" >/root/.bash_history
 
 RUN ln -s /home/selenium/chromedriver /usr/bin/chromedriver
 
@@ -55,5 +55,5 @@ WORKDIR /home/selenium/
 # % docker run --rm -i -t -v $(pwd)/..:/code:rw docker.mgm.sipwise.com/ngcp-csc-jessie:latest bash
 #
 # Inside docker:
-#   cd /code && /opt/Sencha/Cmd/sencha app build -c && ./t/testrunner
+#   cd /code && ./t/testrunner
 ################################################################################

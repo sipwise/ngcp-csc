@@ -1,18 +1,18 @@
 module.exports = function(config) {
     config.set({
         basePath: '',
-        frameworks: ['jasmine'],
+        frameworks: ['mocha', 'chai'],
         files: [
             '../../ext/build/ext-all-debug.js', '../specs/app_test.js', '../specs/karma-*.js'
         ],
         browsers: ['Chrome'],
         plugins: [
-            'karma-jasmine', 'karma-chrome-launcher', 'karma-junit-reporter'
+            'karma-mocha', 'karma-chai-plugins', 'karma-chrome-launcher', 'karma-junit-reporter', 'karma-spec-reporter'
         ],
         exclude: [],
         preprocessors: {},
         reporters: [
-            'progress', 'junit'
+            'spec', 'junit'
         ],
         junitReporter: {
             outputDir: '../',

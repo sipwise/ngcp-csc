@@ -1,21 +1,24 @@
 {
   "name": "ngcp-csc",
   "description": "Sipwise ngcp-csc tests",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Markus Danek <mdanek@sipwise.com>",
   "private": "true",
   "scripts": {
     "test": "karma start config/karma.conf.js && wdio config/wdio.conf.js"
   },
   "dependencies": {
-    "jasmine": "^2.5.2",
+    "chai": "^3.5.0",
     "karma": "^1.3.0",
+    "karma-chai": "^0.1.0",
+    "karma-chai-plugins": "^0.8.0",
     "karma-chrome-launcher": "^2.0.0",
-    "karma-jasmine": "^1.0.2",
     "karma-junit-reporter": "^1.1.0",
-    "selenium-standalone": "^5.7.2",
-    "wdio-jasmine-framework": "^0.2.6",
+    "karma-mocha": "^1.3.0",
+    "karma-spec-reporter": "0.0.26",
+    "mocha": "^3.1.2",
     "wdio-junit-reporter": "^0.1.0",
+    "wdio-mocha-framework": "^0.2.6",
     "wdio-spec-reporter": "0.0.3",
     "webdriverio": "^4.2.16"
   }
