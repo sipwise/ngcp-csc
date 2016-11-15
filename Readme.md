@@ -164,4 +164,4 @@ Create and run Docker Image (see instructions inside the Dockerfile).
 
 Inside docker:
 
-```cd /code && /opt/Sencha/Cmd/sencha app build -c && ./t/testrunner```
+```cd /code && ./t/testrunner```

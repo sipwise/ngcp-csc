@@ -16,12 +16,12 @@ exports.config = {
     waitforTimeout: 10000,
     connectionRetryTimeout: 90000,
     connectionRetryCount: 3,
-    framework: 'jasmine',
+    framework: 'mocha',
     reporters: [
         'spec', 'junit'
     ],
     reporterOptions: {
-        outputDir: '../'
+        outputDir: './'
     },
     jasmineNodeOpts: {
         defaultTimeoutInterval: 10000,

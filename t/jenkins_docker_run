@@ -1,4 +1,4 @@
 #!/bin/bash
 # This script is used for running the tests with proper arguments
 # from within Jenkins
-cd /code && /opt/Sencha/Cmd/sencha app build -c && ./t/testrunner
+cd /code && ./t/testrunner
