@@ -748,13 +748,94 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Create new contact'
             }
         },
-        webrtc:{
-            title:{
+        webrtc: {
+            title: {
                 en: 'Webrtc',
                 it: 'Webrtc',
                 de: 'Webrtc',
                 fr: 'Webrtc',
                 sp: 'Webrtc'
+            }
+        },
+        fax_spool: {
+            title: {
+                en: 'Your faxes.',
+                it: 'Your faxes.',
+                de: 'Your faxes.',
+                fr: 'Your faxes.',
+                sp: 'Your faxes.'
+            },
+            subtitle: {
+                en: 'FAX SPOOL',
+                it: 'FAX SPOOL',
+                de: 'FAX SPOOL',
+                fr: 'FAX SPOOL',
+                sp: 'FAX SPOOL'
+            },
+            user_label: {
+                en: 'Faxes for ',
+                it: 'Faxes for ',
+                de: 'Faxes for ',
+                fr: 'Faxes for ',
+                sp: 'Faxes for '
+            },
+            columns: {
+                number: {
+                    en: '#',
+                    it: '#',
+                    de: '#',
+                    fr: '#',
+                    sp: '#'
+                },
+                timestamp: {
+                    en: 'timestamp',
+                    it: 'timestamp',
+                    de: 'timestamp',
+                    fr: 'timestamp',
+                    sp: 'timestamp'
+                },
+                status: {
+                    en: 'status',
+                    it: 'status',
+                    de: 'status',
+                    fr: 'status',
+                    sp: 'status'
+                },
+                duration: {
+                    en: 'duration',
+                    it: 'duration',
+                    de: 'duration',
+                    fr: 'duration',
+                    sp: 'duration'
+                },
+                direction: {
+                    en: 'direction',
+                    it: 'direction',
+                    de: 'direction',
+                    fr: 'direction',
+                    sp: 'direction'
+                },
+                caller: {
+                    en: 'caller',
+                    it: 'caller',
+                    de: 'caller',
+                    fr: 'caller',
+                    sp: 'caller'
+                },
+                callee: {
+                    en: 'callee',
+                    it: 'callee',
+                    de: 'callee',
+                    fr: 'callee',
+                    sp: 'callee'
+                },
+                pages: {
+                    en: 'pages',
+                    it: 'pages',
+                    de: 'pages',
+                    fr: 'pages',
+                    sp: 'pages'
+                }
             }
         },
         common: {
@@ -806,6 +887,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Listen',
                 fr: 'Listen',
                 sp: 'Listen'
+            },
+            view: {
+                en: 'View',
+                it: 'View',
+                de: 'View',
+                fr: 'View',
+                sp: 'View'
             },
             save_success: {
                 en: 'Successfully saved.',
