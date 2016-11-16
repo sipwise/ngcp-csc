@@ -1,0 +1,30 @@
+{
+    "data": [{
+        "id": "1",
+        "timestamp": "2016-10-08T17:41:12",
+        "status": "FAILED",
+        "duration": "19.488",
+        "direction": "out",
+        "caller": "43991001",
+        "callee": "11228844",
+        "pages": "7"
+    }, {
+        "id": "2",
+        "timestamp": "2016-10-08T11:14:12",
+        "status": "SUCCESS",
+        "duration": "13.144",
+        "direction": "in",
+        "caller": "11223344",
+        "callee": "43991001",
+        "pages": "4"
+    }, {
+        "id": "3",
+        "timestamp": "2016-09-03T07:23:43",
+        "status": "SUCCESS",
+        "duration": "231.743",
+        "direction": "in",
+        "caller": "11223344",
+        "callee": "11228844",
+        "pages": "1"
+    }]
+}
