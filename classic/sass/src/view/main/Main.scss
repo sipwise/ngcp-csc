@@ -48,11 +48,19 @@
     $row-indicator-over-color: transparent
 );
 
+
 //--------------------------------------------------------
 // Create classes for full-size responsive items
 
 .big-100 {
     @include responsivecolumn-item(100%);
+}
+.big-80 {
+    @include responsivecolumn-item(80%);
+}
+
+.big-66 {
+    @include responsivecolumn-item(66.66%);
 }
 
 .big-60 {
@@ -71,8 +79,16 @@
     @include responsivecolumn-item(33.33%);
 }
 
+.big-30 {
+    @include responsivecolumn-item(30%);
+}
+
 .big-20 {
     @include responsivecolumn-item(20%);
+}
+
+.big-10 {
+    @include responsivecolumn-item(10%);
 }
 
 //--------------------------------------------------------
@@ -83,8 +99,20 @@
          @include responsivecolumn-item(100%);
      }
 
+     > .small-60 {
+         @include responsivecolumn-item(60%);
+     }
+
      > .small-50 {
          @include responsivecolumn-item(50%);
+     }
+
+     > .small-40 {
+         @include responsivecolumn-item(40%);
+     }
+
+     > .small-20 {
+         @include responsivecolumn-item(20%);
      }
 }
 
@@ -334,6 +362,18 @@
 .red-txt {
     color: red;
 }
-.x-panel-bodyWrap {
-    background-color: white;
+
+.main-container {
+    .x-panel-body{
+        background-color: #f6f6f6;
+    }
+}
+
+.white-box {
+    border: 1px #66A648 solid;
+    background-color: #fff;
+    border-radius:10px;
+    .x-panel-body{
+        background-color: #fff;
+    }
 }

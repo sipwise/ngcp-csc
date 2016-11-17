@@ -7,32 +7,29 @@ Ext.define('NgcpCsc.view.pages.summary.Summary', {
 
     controller: 'summary',
 
-    layout: 'fit',
-
     title: Ngcp.csc.locales.summary.title[localStorage.getItem('languageSelected')],
 
-    layout: 'hbox',
+    layout: 'responsivecolumn',
+
+    scrollable:true,
 
     defaults: {
-        flex: 1,
-        padding: 10
+        margin: 10,
+        padding:20,
+        cls:'white-box'
     },
 
     items: [{
-        flex: 3,
-        padding: 0,
-        items: [{
-            layout: 'fit',
-            xtype: 'calls',
-            _isDesktopSection: true
-        }]
+        xtype: 'calls',
+        userCls: 'big-60 small-100',
+        _isDesktopSection: true
     }, {
+        userCls: 'big-20 small-60',
         defaults: {
             editable: false,
             xtype: 'textfield',
             labelAlign: 'top',
-            padding: '0 20 0 20',
-            width: '90%'
+            width:'95%'
         },
         items: [{
             fieldLabel: Ngcp.csc.locales.summary.account_balance[localStorage.getItem('languageSelected')],
@@ -63,7 +60,7 @@ Ext.define('NgcpCsc.view.pages.summary.Summary', {
             }
         }]
     }, {
-        padding: 20,
+        userCls: 'big-20 small-40',
         items: [{
             html: Ngcp.csc.locales.summary.call_forwards[localStorage.getItem('languageSelected')]
         }, {
