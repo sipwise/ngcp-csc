@@ -16,31 +16,34 @@
         // filters in your manifest or by platformConfig expressions in your app.
         //
         Ext.beforeLoad = function (tags) {
-            var s = location.search,  // the query string (ex "?foo=1&bar")
-                profile;
 
-            // For testing look for "?classic" or "?modern" in the URL to override
-            // device detection default.
+            // var s = location.search,  // the query string (ex "?foo=1&bar")
+            //     profile;
             //
-            if (s.match(/\bclassic\b/)) {
-                profile = 'classic';
-            }
-            else if (s.match(/\bmodern\b/)) {
-                profile = 'modern';
-            }
-            // uncomment this if you have added native build profiles to your app.json
-            /*else if (tags.webview) {
-                if (tags.ios) {
-                    profile = 'ios';
-                }
-                // add other native platforms here
-            }*/
-            else {
-                //profile = tags.desktop ? 'classic' : 'modern';
-                profile = tags.phone ? 'modern' : 'classic';
-            }
+            // // For testing look for "?classic" or "?modern" in the URL to override
+            // // device detection default.
+            // //
+            // if (s.match(/\bclassic\b/)) {
+            //     profile = 'classic';
+            // }
+            // else if (s.match(/\bmodern\b/)) {
+            //     profile = 'modern';
+            // }
+            // // uncomment this if you have added native build profiles to your app.json
+            // /*else if (tags.webview) {
+            //     if (tags.ios) {
+            //         profile = 'ios';
+            //     }
+            //     // add other native platforms here
+            // }*/
+            // else {
+            //     //profile = tags.desktop ? 'classic' : 'modern';
+            //     profile = tags.phone ? 'modern' : 'classic';
+            // }
 
-            Ext.manifest = profile; // this name must match a build profile name
+            //Ext.manifest = profile; // this name must match a build profile name
+
+            Ext.manifest = 'classic';
 
             // This function is called once the manifest is available but before
             // any data is pulled from it.
@@ -50,8 +53,8 @@
             //};
         };
     </script>
-    
-    
+
+
     <!-- The line below must be kept intact for Sencha Cmd to build your application -->
     <script id="microloader" type="text/javascript" src="bootstrap.js"></script>
 

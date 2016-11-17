@@ -206,14 +206,14 @@
     /**
      * Settings specific to modern toolkit builds.
      */
-    "modern": {
+    /*"modern": {
         "js": [
-//            // Remove this entry to individually load sources from the framework.
-//            {
-//                "path": "${framework.dir}/build/ext-modern-all-debug.js"
-//            }
+            // Remove this entry to individually load sources from the framework.
+            {
+                "path": "${framework.dir}/build/ext-modern-all-debug.js"
+            }
         ]
-    },
+    },*/
 
     /**
      * List of all CSS assets in the right inclusion order.

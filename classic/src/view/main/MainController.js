@@ -87,7 +87,6 @@ Ext.define('NgcpCsc.view.main.MainController', {
             this.redirectTo(to);
         }
     },
-
     onToggleNavigationSize: function() {
         var me = this,
             refs = me.getReferences(),
@@ -158,7 +157,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
         this.setCurrentView(id);
     },
 
-    logout:function(){
+    logout: function() {
         localStorage.removeItem('remember_me');
         location.reload();
 
@@ -167,7 +166,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
     showMessage: function(success, msg) {
         var msgConsole = this.lookupReference('console'),
             msgColor = (success) ? 'green-txt' : 'red-txt';
-        msgConsole.removeCls(['green-txt' , 'red-txt']);
+        msgConsole.removeCls(['green-txt', 'red-txt']);
         msgConsole.addCls(msgColor);
         msgConsole.setText(msg);
         msgConsole.getEl().fadeIn();

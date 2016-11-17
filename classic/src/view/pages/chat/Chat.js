@@ -3,19 +3,21 @@ Ext.define('NgcpCsc.view.pages.chat.Chat', {
 
     xtype: 'chat',
 
-    layout: {
-        type: 'hbox',
-        align: 'stretch'
-    },
+    layout: 'responsivecolumn',
 
-    items: [{
-        xtype: 'chatlist',
-        flex:1,
-        padding: '0 1 0 3',
-        scrollable:true
-    }, {
-        xtype:'chatcontainer',
-        flex: 3
-    }]
+    scrollable:true,
+
+    initComponent:function(){
+        this.items = [{
+            xtype: 'chatlist',
+            userCls: 'big-30 small-100 white-box',
+            collapsible:true
+        }, {
+            height: Ext.getCmp('mainContainer').getHeight() - 105 ,
+            xtype:'chatcontainer',
+            userCls: 'big-70 small-100 white-box',
+        }]
+        this.callParent();
+    }
 
 });

@@ -7,28 +7,25 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
 
     title: Ngcp.csc.locales.reminder.title[localStorage.getItem('languageSelected')],
 
-    layout: {
-        type: 'hbox',
-        align: 'stretch'
-    },
+    layout: 'fit',
+
     initComponent: function() {
         this.items = [{
             xtype: 'form',
-            flex: 2,
+            margin:20,
+            padding:10,
+            userCls:'white-box',
             defaults: {
                 padding: 20
             },
             items: [{
                 height: 60,
-                padding: '20 0 5 20',
                 html: Ngcp.csc.locales.reminder.subtitle[localStorage.getItem('languageSelected')].toUpperCase()
             }, {
-                height: 60,
-                padding: '5 0 0 20',
+                height: 70,
                 html: Ext.String.format('<div class="voicemails-heading">{0} {1}</div>', Ngcp.csc.locales.reminder.settings[localStorage.getItem('languageSelected')], localStorage.getItem('username'))
             }, {
-                height: 30,
-                padding: '5 0 5 20',
+                height: 60,
                 html: Ngcp.csc.locales.common.when[localStorage.getItem('languageSelected')].toUpperCase()
             }, {
                 xtype: 'timefield',
@@ -66,10 +63,10 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
                 }]
             }, {
                 xtype: 'segmentedbutton',
-                width: 350,
+                width:350,
                 items: [{
                     text: Ngcp.csc.locales.common.active[localStorage.getItem('languageSelected')],
-                    margin: '0 5 0 0',
+                    margin: '0 10 0 10',
                     bind: {
                         pressed: '{reminder_status}'
                     }
