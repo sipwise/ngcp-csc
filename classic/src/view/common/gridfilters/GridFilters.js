@@ -5,54 +5,57 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
 
     controller: 'gridfilters',
 
-    model: 'gridfilters',
+    viewModel: 'gridfilters',
 
-    margin: '0 10 0 0',
+    initComponent:function(){
 
-    items: [{
-        html: Ngcp.csc.locales.filters.search[localStorage.getItem('languageSelected')],
-        padding: '10 0 10 0'
-    }, {
-        xtype: 'datefield',
-        format: 'd.m.Y',
-        labelAlign: 'top',
-        width: '100%',
-        fieldLabel: Ngcp.csc.locales.filters.from[localStorage.getItem('languageSelected')],
-        name: 'from_date',
-        bind:{
-            value:'{from_date}',
-            maxValue: '{to_date}',
-            hidden: '{hidedatefilters}'
-        }
-    }, {
-        xtype: 'datefield',
-        format: 'd.m.Y',
-        width: '100%',
-        name: 'to_date',
-        bind:{
-            value: '{to_date}',
-            hidden: '{hidedatefilters}'
-        },
-        maxValue: new Date() // limited to the current date or prior
-    }, {
-        xtype: 'textfield',
-        labelAlign: 'top',
-        width: '100%',
-        fieldLabel: Ngcp.csc.locales.filters.search_term[localStorage.getItem('languageSelected')]
-    }, {
-        layout: 'hbox',
-        margin: '10 0 0 0',
-        defaults: {
-            xtype: 'button',
-            flex: 1
-        },
-        items: [{
-            text: Ngcp.csc.locales.filters.apply[localStorage.getItem('languageSelected')],
-            margin: '0 5 0 0',
-            handler: 'submitFilters'
+        this.items = [{
+            html: Ngcp.csc.locales.filters.search[localStorage.getItem('languageSelected')],
+            padding: '10 0 10 0'
         }, {
-            text: Ngcp.csc.locales.filters.reset[localStorage.getItem('languageSelected')],
-            handler: 'resetFilters'
-        }]
-    }]
+            xtype: 'datefield',
+            format: 'd.m.Y',
+            labelAlign: 'top',
+            width: this._isNested ? '100%' : '98%',
+            fieldLabel: Ngcp.csc.locales.filters.from[localStorage.getItem('languageSelected')],
+            name: 'from_date',
+            bind:{
+                value:'{from_date}',
+                maxValue: '{to_date}',
+                hidden: '{hidedatefilters}'
+            }
+        }, {
+            xtype: 'datefield',
+            format: 'd.m.Y',
+            width: this._isNested ? '100%' : '98%' ,
+            name: 'to_date',
+            bind:{
+                value: '{to_date}',
+                hidden: '{hidedatefilters}'
+            },
+            maxValue: new Date() // limited to the current date or prior
+        }, {
+            xtype: 'textfield',
+            labelAlign: 'top',
+            width: this._isNested ? '100%' : '98%',
+            fieldLabel: Ngcp.csc.locales.filters.search_term[localStorage.getItem('languageSelected')]
+        }, {
+            layout: 'hbox',
+            margin: '10 0 0 0',
+            defaults: {
+                xtype: 'button',
+                flex: 1
+            },
+            items: [{
+                text: Ngcp.csc.locales.filters.apply[localStorage.getItem('languageSelected')],
+                margin: '0 5 0 0',
+                handler: 'submitFilters'
+            }, {
+                text: Ngcp.csc.locales.filters.reset[localStorage.getItem('languageSelected')],
+                handler: 'resetFilters'
+            }]
+        }];
+        this.callParent();
+    }
+
 })
