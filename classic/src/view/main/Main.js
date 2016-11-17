@@ -33,7 +33,7 @@ Ext.define('NgcpCsc.view.main.Main', {
                 reference: 'logo',
                 cls: 'logo',
                 html: '<div class="main-logo"></div>',
-                width: 250
+                width: (Ext.isIE9m || !Ext.os.is.Desktop) ? 64 : 250
             }, {
                 margin: '0 0 0 8',
                 ui: 'header',
@@ -79,24 +79,27 @@ Ext.define('NgcpCsc.view.main.Main', {
         reference: 'mainContainerWrap',
         flex: 1,
         scrollable: false,
-        height:'100%',
+        height: '100%',
         items: [{
             xtype: 'treelist',
             reference: 'navigationTreeList',
             itemId: 'navigationTreeList',
             ui: 'navigation',
             store: 'NavigationTree',
-            width: 250,
+            width: (Ext.isIE9m || !Ext.os.is.Desktop) ? 65 : 250,
             expanderFirst: false,
             expanderOnly: false,
+            micro:(Ext.isIE9m || !Ext.os.is.Desktop),
             listeners: {
                 selectionchange: 'onNavigationTreeSelectionChange'
             }
         }, {
             xtype: 'container',
-            height:1, // (any) height is required by border layout
+            height: 1, // (any) height is required by border layout
             flex: 1, // combined with hbox stretch, it takes all the available space
+            id: 'mainContainer',
             layout: 'border',
+            userCls: 'main-container',
             items: [{
                 region: 'center',
                 reference: 'mainCardPanel',

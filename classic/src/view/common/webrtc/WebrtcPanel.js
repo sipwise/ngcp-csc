@@ -9,7 +9,7 @@ Ext.define('NgcpCsc.view.common.webrtc.WebrtcPanel', {
 
     padding: '0 0 0 1',
 
-    width: 500,
+    width: '30%',
 
     closable: true,
 

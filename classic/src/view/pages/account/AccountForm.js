@@ -8,13 +8,13 @@ Ext.define('NgcpCsc.view.pages.account.AccountForm', {
     store: 'Account',
 
     defaults: {
-        width: 750
+        width: '100%'
     },
 
     items: [{
         xtype: 'container',
         bind: '{username}',
-        padding: '0 0 15 0'
+        margin:'0 0 10 0'
     }, {
         xtype: 'textfield',
         inputType: 'password',
@@ -26,15 +26,11 @@ Ext.define('NgcpCsc.view.pages.account.AccountForm', {
         }
     }, {
         xtype: 'fieldcontainer',
-        labelStyle: 'font-weight:bold;padding:0;',
-        layout: 'hbox',
         defaultType: 'textfield',
-
-        fieldDefaults: {
-            labelAlign: 'right'
+        defaults: {
+            width: '100%'
         },
         items: [{
-            flex: 2,
             inputType: 'password',
             fieldLabel: 'new password',
             name: 'account-new-password',
@@ -43,11 +39,9 @@ Ext.define('NgcpCsc.view.pages.account.AccountForm', {
                 specialKey: 'onEnterPressed'
             }
         }, {
-            flex: 2,
             inputType: 'password',
             fieldLabel: 'repeat',
             name: 'account-repeat-password',
-            margin: '0 0 0 5',
             bind: '{repeat-password}',
             listeners: {
                 specialKey: 'onEnterPressed'
