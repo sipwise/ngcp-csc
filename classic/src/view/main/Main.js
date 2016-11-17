@@ -97,6 +97,7 @@ Ext.define('NgcpCsc.view.main.Main', {
             height:1, // (any) height is required by border layout
             flex: 1, // combined with hbox stretch, it takes all the available space
             layout: 'border',
+            userCls: 'main-container',
             items: [{
                 region: 'center',
                 reference: 'mainCardPanel',

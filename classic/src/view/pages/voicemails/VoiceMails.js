@@ -7,53 +7,50 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMails', {
 
     controller: 'voicemails',
 
+    scrollable: true,
+
     title: Ngcp.csc.locales.voicemails.title[localStorage.getItem('languageSelected')],
 
-    layout: {
-        type: 'hbox',
-        align: 'stretch'
-    },
+    layout: 'responsivecolumn',
 
     initComponent: function() {
         var grid = Ext.create('NgcpCsc.view.pages.voicemails.VoiceMailsGrid', {
-            flex: 4,
-            bind:{
+            bind: {
                 title: '{month_summary}'
             }
         });
 
         this.items = [{
-            flex: 4,
+            userCls: 'big-80 small-100 white-box',
+            padding: 20,
             items: [{
-                    height: 60,
-                    padding: '20 0 5 20',
-                    html: Ngcp.csc.locales.voicemails.subtitle[localStorage.getItem('languageSelected')]
-                }, {
-                    height: 60,
-                    padding: '5 0 0 20',
-                    html: Ext.String.format('<div class="voicemails-heading">{0} {1}</div>', Ngcp.csc.locales.voicemails.user_label[localStorage.getItem('languageSelected')], localStorage.getItem('username'))
-                }, {
-                xtype: 'voicemails-grid'
-            }]
+                height: 60,
+                padding: '20 0 5 20',
+                html: Ngcp.csc.locales.voicemails.subtitle[localStorage.getItem('languageSelected')]
+            }, {
+                height: 60,
+                padding: '5 0 0 20',
+                html: Ext.String.format('<div class="voicemails-heading">{0} {1}</div>', Ngcp.csc.locales.voicemails.user_label[localStorage.getItem('languageSelected')], localStorage.getItem('username'))
+            }, grid]
         }, {
-            flex: 1,
+            userCls: 'big-20 small-100',
+            margin: 10,
             defaults: {
-                padding: '0 20 0 20'
+                cls: 'white-box reduced-margin',
+                padding: 20
             },
             items: [{
+                items: [{
                     xtype: 'gridfilters',
                     _linkedStoreId: 'VoiceMails'
                 }, {
-                    padding: '20 0 10 20',
+                    padding: '20 0 0 0',
                     html: Ngcp.csc.locales.voicemails.by_months[localStorage.getItem('languageSelected')]
                 }, {
-                    padding: '0 0 20 40',
                     xtype: 'container',
                     bind: '<div class="link">{month_summary}</div>'
-                }, {
-                defaults: {
-                    padding: '0 20 0 0'
-                },
+                }]
+            }, {
                 items: [{
                     html: Ngcp.csc.locales.voicemails.settings.title[localStorage.getItem('languageSelected')]
                 }, {

@@ -16,7 +16,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
         xtype: 'datefield',
         format: 'd.m.Y',
         labelAlign: 'top',
-        width: '100%',
+        width: '98%',
         fieldLabel: Ngcp.csc.locales.filters.from[localStorage.getItem('languageSelected')],
         name: 'from_date',
         bind:{
@@ -27,7 +27,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
     }, {
         xtype: 'datefield',
         format: 'd.m.Y',
-        width: '100%',
+        width: '98%',
         name: 'to_date',
         bind:{
             value: '{to_date}',
@@ -37,7 +37,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
     }, {
         xtype: 'textfield',
         labelAlign: 'top',
-        width: '100%',
+        width: '98%',
         fieldLabel: Ngcp.csc.locales.filters.search_term[localStorage.getItem('languageSelected')]
     }, {
         layout: 'hbox',
