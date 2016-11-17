@@ -7,15 +7,15 @@ Ext.define('NgcpCsc.view.pages.addressbook.Addressbook', {
 
     viewModel: 'addressbook',
 
-    layout: {
-        type: 'hbox',
-        align: 'stretch'
-    },
+    layout: 'responsivecolumn',
+
+    scrollable: true,
 
     title: Ngcp.csc.locales.addressbook.title[localStorage.getItem('languageSelected')],
 
     items : [{
-        flex: 3,
+        userCls: 'big-80 small-100 white-box',
+        padding:10,
         defaults: {
             padding: 20
         },
@@ -32,14 +32,15 @@ Ext.define('NgcpCsc.view.pages.addressbook.Addressbook', {
             }
         ]
     }, {
-        flex: 1,
+        userCls: 'big-20 small-100 white-box',
         defaults: {
             padding: 20
         },
         items: [{
             xtype: 'gridfilters',
             _linkedStoreId: 'Addressbook',
-            _hideDateFilters: true
+            _hideDateFilters: true,
+            _isNested: true
         }, {
             xtype: 'form',
             reference:'contactForm',

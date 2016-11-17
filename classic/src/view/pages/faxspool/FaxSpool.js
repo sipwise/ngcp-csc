@@ -7,27 +7,27 @@ Ext.define('NgcpCsc.view.pages.faxspool.FaxSpool', {
 
     title: Ngcp.csc.locales.fax_spool.title[localStorage.getItem('languageSelected')],
 
-    layout: {
-        type: 'hbox',
-        align: 'stretch'
-    },
+    layout: 'responsivecolumn',
+
+    scrollable: true,
 
     initComponent: function() {
         this.items = [{
-            flex: 4,
+            userCls: 'big-80 small-100 white-box',
+            padding:30,
             items: [{
-                height: 60,
-                padding: '20 0 5 20',
+                height: 40,
                 html: Ngcp.csc.locales.fax_spool.subtitle[localStorage.getItem('languageSelected')]
             }, {
-                height: 60,
-                padding: '5 0 0 20',
+                height: 80,
+                padding: '5 0 0 0',
                 html: Ext.String.format('<div class="faxspool-heading">{0} {1}</div>', Ngcp.csc.locales.fax_spool.user_label[localStorage.getItem('languageSelected')], localStorage.getItem('username'))
             }, {
                 xtype: 'faxspool-grid'
             }]
         }, {
-            flex: 1,
+            userCls: 'big-20 small-100 white-box',
+            padding:20,
             xtype: 'gridfilters',
             _linkedStoreId: 'FaxSpool'
         }];
