@@ -9,8 +9,6 @@ Ext.define('NgcpCsc.view.pages.calls.CallsGrid', {
 
     _groupCallsByMonth: false,
 
-    padding: 10,
-
     listeners: {
         cellclick:'onCellClicked'
     },

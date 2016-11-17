@@ -8,8 +8,6 @@ Ext.define('NgcpCsc.Application', {
 
     name: 'NgcpCsc',
 
-    defaultToken: 'login',
-
     views: [
         'NgcpCsc.view.main.Main',
         'NgcpCsc.view.login.Login',
