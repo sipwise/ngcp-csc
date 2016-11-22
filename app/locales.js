@@ -906,6 +906,36 @@ Ext.define('Ngcp.csc.locales', {
                 }
             }
         },
+        fax_send: {
+            title: {
+                en: 'Send a fax.',
+                it: 'Send a fax.',
+                de: 'Send a fax.',
+                fr: 'Send a fax.',
+                sp: 'Send a fax.'
+            },
+            subtitle: {
+                en: 'CREATE FAX',
+                it: 'CREATE FAX',
+                de: 'CREATE FAX',
+                fr: 'CREATE FAX',
+                sp: 'CREATE FAX'
+            },
+            send_fax: {
+                en: 'send fax',
+                it: 'send fax',
+                de: 'send fax',
+                fr: 'send fax',
+                sp: 'send fax'
+            },
+            reset_form: {
+                en: 'reset form',
+                it: 'reset form',
+                de: 'reset form',
+                fr: 'reset form',
+                sp: 'reset form'
+            },
+        },
         common: {
             today: {
                 en: 'Today',

@@ -59,8 +59,15 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             acl: ['administrator'],
             leaf: true
         }, {
+            text: 'Fax Send',
+            iconCls: 'x-fa fa-fax', //fa-file-text-o
+            viewType: 'faxsend',
+            routeId: 'faxsend',
+            acl: ['administrator'],
+            leaf: true
+        }, {
             text: 'Fax Spool',
-            iconCls: 'x-fa fa-fax',
+            iconCls: 'x-fa fa-file-text-o',
             viewType: 'faxspool',
             routeId: 'faxspool',
             acl: ['administrator'],
