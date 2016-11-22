@@ -5,8 +5,6 @@ Ext.define('NgcpCsc.view.pages.account.AccountForm', {
 
     viewModel: 'account',
 
-    store: 'Account',
-
     defaults: {
         width: 750
     },

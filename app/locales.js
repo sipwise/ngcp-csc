@@ -906,6 +906,80 @@ Ext.define('Ngcp.csc.locales', {
                 }
             }
         },
+        fax_send: {
+            title: {
+                en: 'Send a fax.',
+                it: 'Send a fax.',
+                de: 'Send a fax.',
+                fr: 'Send a fax.',
+                sp: 'Send a fax.'
+            },
+            subtitle: {
+                en: 'CREATE FAX',
+                it: 'CREATE FAX',
+                de: 'CREATE FAX',
+                fr: 'CREATE FAX',
+                sp: 'CREATE FAX'
+            },
+            send_fax: {
+                en: 'send fax',
+                it: 'send fax',
+                de: 'send fax',
+                fr: 'send fax',
+                sp: 'send fax'
+            },
+            reset_form: {
+                en: 'reset form',
+                it: 'reset form',
+                de: 'reset form',
+                fr: 'reset form',
+                sp: 'reset form'
+            },
+            field_labels: {
+                destination_number: {
+                    en: 'Destination number',
+                    it: 'Destination number',
+                    de: 'Destination number',
+                    fr: 'Destination number',
+                    sp: 'Destination number'
+                },
+                quality: {
+                    en: 'Quality',
+                    it: 'Quality',
+                    de: 'Quality',
+                    fr: 'Quality',
+                    sp: 'Quality'
+                },
+                page_header: {
+                    en: 'Page header',
+                    it: 'Page header',
+                    de: 'Page header',
+                    fr: 'Page header',
+                    sp: 'Page header'
+                },
+                content: {
+                    en: 'Content',
+                    it: 'Content',
+                    de: 'Content',
+                    fr: 'Content',
+                    sp: 'Content'
+                },
+                file: {
+                    en: 'File',
+                    it: 'File',
+                    de: 'File',
+                    fr: 'File',
+                    sp: 'File'
+                }
+            },
+            choose_file: {
+                en: 'Choose file',
+                it: 'Choose file',
+                de: 'Choose file',
+                fr: 'Choose file',
+                sp: 'Choose file'
+            }
+        },
         common: {
             today: {
                 en: 'Today',
