@@ -906,6 +906,117 @@ Ext.define('Ngcp.csc.locales', {
                 }
             }
         },
+        fax_send: {
+            title: {
+                en: 'Send a fax.',
+                it: 'Send a fax.',
+                de: 'Send a fax.',
+                fr: 'Send a fax.',
+                sp: 'Send a fax.'
+            },
+            subtitle: {
+                en: 'CREATE FAX',
+                it: 'CREATE FAX',
+                de: 'CREATE FAX',
+                fr: 'CREATE FAX',
+                sp: 'CREATE FAX'
+            },
+            send_fax: {
+                en: 'send fax',
+                it: 'send fax',
+                de: 'send fax',
+                fr: 'send fax',
+                sp: 'send fax'
+            },
+            reset_form: {
+                en: 'reset form',
+                it: 'reset form',
+                de: 'reset form',
+                fr: 'reset form',
+                sp: 'reset form'
+            },
+            field_labels: {
+                destination_number: {
+                    en: 'Destination number',
+                    it: 'Destination number',
+                    de: 'Destination number',
+                    fr: 'Destination number',
+                    sp: 'Destination number'
+                },
+                quality: {
+                    en: 'Quality',
+                    it: 'Quality',
+                    de: 'Quality',
+                    fr: 'Quality',
+                    sp: 'Quality'
+                },
+                page_header: {
+                    en: 'Page header',
+                    it: 'Page header',
+                    de: 'Page header',
+                    fr: 'Page header',
+                    sp: 'Page header'
+                },
+                content: {
+                    en: 'Content',
+                    it: 'Content',
+                    de: 'Content',
+                    fr: 'Content',
+                    sp: 'Content'
+                },
+                file: {
+                    en: 'File',
+                    it: 'File',
+                    de: 'File',
+                    fr: 'File',
+                    sp: 'File'
+                }
+            },
+            tooltips: {
+                number_fax: {
+                    en: 'The number to send the fax to',
+                    it: 'The number to send the fax to',
+                    de: 'The number to send the fax to',
+                    fr: 'The number to send the fax to',
+                    sp: 'The number to send the fax to'
+                },
+                fax_quality: {
+                    en: 'Fax quality',
+                    it: 'Fax quality',
+                    de: 'Fax quality',
+                    fr: 'Fax quality',
+                    sp: 'Fax quality'
+                },
+                header_text: {
+                    en: 'Header text to add on every page',
+                    it: 'Header text to add on every page',
+                    de: 'Header text to add on every page',
+                    fr: 'Header text to add on every page',
+                    sp: 'Header text to add on every page'
+                },
+                content_text: {
+                    en: 'Content text',
+                    it: 'Content text',
+                    de: 'Content text',
+                    fr: 'Content text',
+                    sp: 'Content text'
+                },
+                file_to_send: {
+                    en: 'File to send. Will be sent if no text content specified. Supported File Types are TXT, PDF, PS, TIFF',
+                    it: 'File to send. Will be sent if no text content specified. Supported File Types are TXT, PDF, PS, TIFF',
+                    de: 'File to send. Will be sent if no text content specified. Supported File Types are TXT, PDF, PS, TIFF',
+                    fr: 'File to send. Will be sent if no text content specified. Supported File Types are TXT, PDF, PS, TIFF',
+                    sp: 'File to send. Will be sent if no text content specified. Supported File Types are TXT, PDF, PS, TIFF'
+                }
+            },
+            choose_file: {
+                en: 'Choose file',
+                it: 'Choose file',
+                de: 'Choose file',
+                fr: 'Choose file',
+                sp: 'Choose file'
+            }
+        },
         common: {
             today: {
                 en: 'Today',
