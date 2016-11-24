@@ -25,29 +25,19 @@ Ext.define('NgcpCsc.view.pages.faxsend.FaxSend', {
                 xtype: 'faxsendform'
             }]
         }, {
-            xtype: 'container',
-            height: 40,
-            padding: '10 0 10 10',
-            html: Ngcp.csc.locales.fax_send.send_fax[localStorage.getItem('languageSelected')].toLowerCase(),
-            cls: 'link',
-            listeners: {
-                click: {
-                    element: 'el',
-                    fn: 'submitForm'
-                }
-            }
-        }, {
-            xtype: 'container',
-            height: 40,
-            padding: '10 0 10 10',
-            html: Ngcp.csc.locales.fax_send.reset_form[localStorage.getItem('languageSelected')].toLowerCase(),
-            cls: 'link',
-            listeners: {
-                click: {
-                    element: 'el',
-                    fn: 'resetForm'
-                }
-            }
+            layout: 'hbox',
+            margin: '0 0 0 5',
+            defaults: {
+                xtype: 'button'
+            },
+            items: [{
+                text: Ngcp.csc.locales.fax_send.send_fax[localStorage.getItem('languageSelected')],
+                margin: '0 5 0 0',
+                handler: 'submitForm'
+            }, {
+                text: Ngcp.csc.locales.fax_send.reset_form[localStorage.getItem('languageSelected')],
+                handler: 'resetForm'
+            }]
         }];
         this.callParent();
     }

@@ -54,17 +54,16 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
                                 id: 'incoming2'
                             }]
                         }, {
-                            xtype: 'container',
-                            height: 40,
-                            padding: '0 0 10 10',
-                            html: Ngcp.csc.locales.callbarring.save_settings[localStorage.getItem('languageSelected')].toLowerCase(),
-                            cls: 'link',
-                            listeners: {
-                                click: {
-                                    element: 'el',
-                                    fn: 'saveBarrSettings'
-                                }
-                            }
+                            layout: 'hbox',
+                            margin: '0 0 0 5',
+                            defaults: {
+                                xtype: 'button'
+                            },
+                            items: [{
+                                text: Ngcp.csc.locales.callbarring.save_settings[localStorage.getItem('languageSelected')].toLowerCase(),
+                                margin: '0 0 20 0',
+                                handler: 'saveBarrSettings'
+                            }]
                         },
                         incomingGrid, {
                             flex: 1,
@@ -81,18 +80,22 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
                                 specialKey: 'onEnterPressed'
                             }
                         }, {
-                            xtype: 'container',
-                            id: 'incoming-new-btn',
-                            height: 40,
-                            padding: '10 0 10 10',
-                            html: Ngcp.csc.locales.callbarring.add_number[localStorage.getItem('languageSelected')].toLowerCase(),
-                            cls: 'link',
-                            listeners: {
-                                click: {
-                                    element: 'el',
-                                    fn: 'saveNumber'
+                            layout: 'hbox',
+                            margin: '0 0 0 5',
+                            defaults: {
+                                xtype: 'button'
+                            },
+                            items: [{
+                                text:  Ngcp.csc.locales.callbarring.add_number[localStorage.getItem('languageSelected')].toLowerCase(),
+                                margin: '10 0 20 0',
+                                id: 'incoming-new-btn',
+                                listeners: {
+                                    click: {
+                                        element: 'el',
+                                        fn: 'saveNumber'
+                                    }
                                 }
-                            }
+                            }]
                         }, {
                             xtype: 'container',
                             padding: '0 0 10 10',
@@ -123,17 +126,16 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
                                 id: 'outgoing2'
                             }]
                         }, {
-                            xtype: 'container',
-                            height: 40,
-                            padding: '0 0 10 10',
-                            html: Ngcp.csc.locales.callbarring.save_settings[localStorage.getItem('languageSelected')].toLowerCase(),
-                            cls: 'link',
-                            listeners: {
-                                click: {
-                                    element: 'el',
-                                    fn: 'saveBarrSettings'
-                                }
-                            }
+                            layout: 'hbox',
+                            margin: '0 0 0 5',
+                            defaults: {
+                                xtype: 'button'
+                            },
+                            items: [{
+                                text: Ngcp.csc.locales.callbarring.save_settings[localStorage.getItem('languageSelected')].toLowerCase(),
+                                margin: '0 0 20 0',
+                                handler: 'saveBarrSettings'
+                            }]
                         },
                         outgoingGrid, {
                             flex: 1,
@@ -149,20 +151,40 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
                             listeners: {
                                 specialKey: 'onEnterPressed'
                             }
-                        }, {
-                            xtype: 'container',
-                            id: 'outgoing-new-btn',
-                            height: 40,
-                            padding: '10 0 10 10',
-                            html: Ngcp.csc.locales.callbarring.add_number[localStorage.getItem('languageSelected')].toLowerCase(),
-                            cls: 'link',
-                            listeners: {
-                                click: {
-                                    element: 'el',
-                                    fn: 'saveNumber'
+                        },
+                        {
+                            layout: 'hbox',
+                            margin: '0 0 0 5',
+                            defaults: {
+                                xtype: 'button'
+                            },
+                            items: [{
+                                text:  Ngcp.csc.locales.callbarring.add_number[localStorage.getItem('languageSelected')].toLowerCase(),
+                                margin: '10 0 20 0',
+                                id: 'outgoing-new-btn',
+                                listeners: {
+                                    click: {
+                                        element: 'el',
+                                        fn: 'saveNumber'
+                                    }
                                 }
-                            }
-                        }, {
+                            }]
+                        },
+                        // {
+                        //     xtype: 'container',
+                        //     id: 'outgoing-new-btn',
+                        //     height: 40,
+                        //     padding: '10 0 10 10',
+                        //     html: Ngcp.csc.locales.callbarring.add_number[localStorage.getItem('languageSelected')].toLowerCase(),
+                        //     cls: 'link',
+                        //     listeners: {
+                        //         click: {
+                        //             element: 'el',
+                        //             fn: 'saveNumber'
+                        //         }
+                        //     }
+                        // },
+                        {
                             xtype: 'container',
                             padding: '0 20 10 10',
                             html: Ngcp.csc.locales.callbarring.new_entry_instructions[localStorage.getItem('languageSelected')]
