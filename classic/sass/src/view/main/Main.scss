@@ -48,6 +48,36 @@
     $row-indicator-over-color: transparent
 );
 
+// override of extjs classes to add css variables defined in sass/var/view/main:
+.x-form-text-default {
+    color: var(--color);
+    padding: 5px 10px 4px;
+    background-color: var(--body-background-color);
+    font: var(--font-weight) var(--font-size) var(--font-family);
+    min-height: 30px;
+}
+
+.x-form-item-label-default {
+    color: var(--color);
+    font:  var(--font-weight) var(--font-size) var(--font-family);
+    min-height: 32px;
+    padding-top: 8px;
+    padding-right: 5px;
+}
+
+.x-btn-inner-default-small {
+    font: 500 calc(#{var(--font-size)} - 1px) var(--font-family);
+    color: #f0f0f0;
+    padding: 0 5px;
+    max-width: 100%;
+}
+//$var: dynamic(mix(#000, var(--font-size), 10%));
+.x-btn-over.x-btn-default-small {
+    border-color: #578e3e;
+    background-image: none;
+    background-color: var(--base-color);
+    opacity:0.8;
+}
 
 //--------------------------------------------------------
 // Create classes for full-size responsive items
@@ -126,21 +156,20 @@
 
 .logo {
     background-color: $base-color;
-    height: 65px;
-
+    height: 65px !important;
+    line-height: 65px;
     font-size: 16px;
     color: $lightest-color;
     margin-left: 17px;
 
-    .main-logo {
-        line-height: 65px;
-        img{
-            margin-left: 22px;
-            margin-right: 22px;
-            top: 8px;
-            width: 70px;
-            position: relative;
-        }
+    img{
+        position: absolute;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 100%;
     }
 }
 
@@ -380,11 +409,11 @@
 
 .white-box {
     border: 1px lightgray solid;
-    background-color: #fff;
+    background-color: $body-background-color;
     border-radius:10px;
     margin: 0px 20px 10px 0px;
     .x-panel-body{
-        background-color: #fff;
+        background-color: $body-background-color;
     }
 }
 .reduced-margin {
