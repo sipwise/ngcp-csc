@@ -380,11 +380,11 @@
 
 .white-box {
     border: 1px lightgray solid;
-    background-color: #fff;
+    background-color: $body-background-color;
     border-radius:10px;
     margin: 0px 20px 10px 0px;
     .x-panel-body{
-        background-color: #fff;
+        background-color: $body-background-color;
     }
 }
 .reduced-margin {
