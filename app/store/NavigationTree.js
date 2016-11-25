@@ -86,6 +86,14 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             routeId: 'account',
             acl: ['administrator', 'restricted', 'host'],
             leaf: true
+        },
+        {
+            text: 'Theme roller',
+            iconCls: 'x-fa fa-paint-brush',
+            viewType: 'themeroller',
+            routeId: 'themeroller',
+            acl: ['administrator'],
+            leaf: true
         }]
     }
 });

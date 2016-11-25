@@ -748,43 +748,43 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Create new contact'
             }
         },
-        reminder:{
-            title:{
+        reminder: {
+            title: {
                 en: 'Set your personal alarm.',
                 it: 'Set your personal alarm.',
                 de: 'Set your personal alarm.',
                 fr: 'Set your personal alarm.',
                 sp: 'Set your personal alarm.'
             },
-            subtitle:{
+            subtitle: {
                 en: 'Reminder',
                 it: 'Reminder',
                 de: 'Reminder',
                 fr: 'Reminder',
                 sp: 'Reminder'
             },
-            settings:{
+            settings: {
                 en: 'Settings for',
                 it: 'Settings for',
                 de: 'Settings for',
                 fr: 'Settings for',
                 sp: 'Settings for'
             },
-            is:{
+            is: {
                 en: 'Reminder is',
                 it: 'Reminder is',
                 de: 'Reminder is',
                 fr: 'Reminder is',
                 sp: 'Reminder is'
             },
-            time:{
+            time: {
                 en: 'Time of the day',
                 it: 'Time of the day',
                 de: 'Time of the day',
                 fr: 'Time of the day',
                 sp: 'Time of the day'
             },
-            recurrence:{
+            recurrence: {
                 en: 'Recurrence',
                 it: 'Recurrence',
                 de: 'Recurrence',
@@ -792,7 +792,7 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Recurrence'
             },
 
-            never:{
+            never: {
                 en: 'never',
                 it: 'never',
                 de: 'never',
@@ -800,7 +800,7 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'never'
             },
 
-            weekdays:{
+            weekdays: {
                 en: 'on weekedays',
                 it: 'on weekedays',
                 de: 'on weekedays',
@@ -808,7 +808,7 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'on weekedays'
             },
 
-            always:{
+            always: {
                 en: 'every day',
                 it: 'every day',
                 de: 'every day',
@@ -816,8 +816,8 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'every day'
             }
         },
-        webrtc:{
-            title:{
+        webrtc: {
+            title: {
                 en: 'Webrtc',
                 it: 'Webrtc',
                 de: 'Webrtc',
@@ -1015,6 +1015,36 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Choose file',
                 fr: 'Choose file',
                 sp: 'Choose file'
+            }
+        },
+        themeroller: {
+            title: {
+                en: 'Theme roller',
+                it: 'Theme roller',
+                de: 'Theme roller',
+                fr: 'Theme roller',
+                sp: 'Theme roller'
+            },
+            first_section_title:{
+                en: 'Colors',
+                it: 'Colors',
+                de: 'Colors',
+                fr: 'Colors',
+                sp: 'Colors'
+            },
+            second_section_title:{
+                en: 'Fonts',
+                it: 'Fonts',
+                de: 'Fonts',
+                fr: 'Fonts',
+                sp: 'Fonts'
+            },
+            third_section_title:{
+                en: 'Logo',
+                it: 'Logo',
+                de: 'Logo',
+                fr: 'Logo',
+                sp: 'Logo'
             }
         },
         common: {

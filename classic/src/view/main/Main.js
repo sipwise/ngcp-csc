@@ -78,7 +78,7 @@ Ext.define('NgcpCsc.view.main.Main', {
         id: 'main-view-detail-wrap',
         reference: 'mainContainerWrap',
         flex: 1,
-        scrollable: false,
+        scrollable: true,
         height: '100%',
         items: [{
             xtype: 'treelist',

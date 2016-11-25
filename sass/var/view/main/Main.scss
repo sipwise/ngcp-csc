@@ -1,1 +1,5 @@
-$base-color: rgb(102, 166, 72);
+$base-color: dynamic(rgb(102, 166, 72));
+
+html {
+    --base-color: export;
+}
