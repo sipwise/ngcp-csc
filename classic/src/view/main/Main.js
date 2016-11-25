@@ -29,10 +29,11 @@ Ext.define('NgcpCsc.view.main.Main', {
         height: 64,
         itemId: 'headerBar',
         items: [{
-                xtype: 'component',
+                xtype: 'container',
                 reference: 'logo',
+                id:'logoContainer',
                 cls: 'logo',
-                html: '<div class="main-logo"></div>',
+                html:'&nbsp;', // workaround to set the height
                 width: (Ext.isIE9m || !Ext.os.is.Desktop) ? 64 : 250
             }, {
                 margin: '0 0 0 8',
@@ -78,7 +79,7 @@ Ext.define('NgcpCsc.view.main.Main', {
         id: 'main-view-detail-wrap',
         reference: 'mainContainerWrap',
         flex: 1,
-        scrollable: false,
+        scrollable: true,
         height: '100%',
         items: [{
             xtype: 'treelist',
