@@ -19,7 +19,6 @@ Ext.define('NgcpCsc.view.pages.addressbook.Addressbook', {
         defaults: {
             padding: 20
         },
-        scrollable:true,
         items: [{
                 html: Ngcp.csc.locales.addressbook.subtitle[localStorage.getItem('languageSelected')]
             }, {
@@ -45,7 +44,8 @@ Ext.define('NgcpCsc.view.pages.addressbook.Addressbook', {
             xtype: 'form',
             reference:'contactForm',
             defaults:{
-                xtype: 'textfield'
+                xtype: 'textfield',
+                width:'100%'
             },
             items: [{
                 focusable:true,

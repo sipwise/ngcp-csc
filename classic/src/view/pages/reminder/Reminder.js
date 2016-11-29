@@ -7,74 +7,75 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
 
     title: Ngcp.csc.locales.reminder.title[localStorage.getItem('languageSelected')],
 
-    layout: 'fit',
-
     initComponent: function() {
         this.items = [{
-            xtype: 'form',
-            margin:20,
-            padding:10,
-            userCls:'white-box',
-            defaults: {
-                padding: 20
-            },
+            layout: 'responsivecolumn',
+            userCls: 'white-box',
+            margin: 20,
+            padding: 10,
             items: [{
-                height: 60,
-                html: Ngcp.csc.locales.reminder.subtitle[localStorage.getItem('languageSelected')].toUpperCase()
-            }, {
-                height: 70,
-                html: Ext.String.format('<div class="voicemails-heading">{0} {1}</div>', Ngcp.csc.locales.reminder.settings[localStorage.getItem('languageSelected')], localStorage.getItem('username'))
-            }, {
-                height: 60,
-                html: Ngcp.csc.locales.common.when[localStorage.getItem('languageSelected')].toUpperCase()
-            }, {
-                xtype: 'timefield',
-                fieldLabel: Ngcp.csc.locales.reminder.time[localStorage.getItem('languageSelected')],
-                format: 'H:i',
-                minValue: '0:00',
-                maxValue: '23:50',
-                increment: 10,
-                width: 200,
-                bind: {
-                    value: '{timer}',
-                    disabled: '{!reminder_status}'
-                }
-            }, {
-                xtype: 'radiogroup',
-                fieldLabel: Ngcp.csc.locales.reminder.recurrence[localStorage.getItem('languageSelected')],
-                vertical: true,
-                columns: 1,
-                bind: {
-                    value: '{recurrence}',
-                    disabled: '{!reminder_status}'
-                },
+                userCls: 'big-66 small-100',
+                xtype: 'form',
                 defaults: {
-                    name: 'value'
+                    width: '100%'
                 },
                 items: [{
-                    boxLabel: Ngcp.csc.locales.reminder.never[localStorage.getItem('languageSelected')],
-                    inputValue: 'value'
+                    height: 60,
+                    html: Ngcp.csc.locales.reminder.subtitle[localStorage.getItem('languageSelected')].toUpperCase()
                 }, {
-                    boxLabel: Ngcp.csc.locales.reminder.weekdays[localStorage.getItem('languageSelected')],
-                    inputValue: 'weekdays'
+                    height: 70,
+                    html: Ext.String.format('<div class="voicemails-heading">{0} {1}</div>', Ngcp.csc.locales.reminder.settings[localStorage.getItem('languageSelected')], localStorage.getItem('username'))
                 }, {
-                    boxLabel: Ngcp.csc.locales.reminder.always[localStorage.getItem('languageSelected')],
-                    inputValue: 'always'
-                }]
-            }, {
-                xtype: 'segmentedbutton',
-                width:350,
-                items: [{
-                    text: Ngcp.csc.locales.common.active[localStorage.getItem('languageSelected')],
-                    margin: '0 10 0 10',
+                    height: 60,
+                    html: Ngcp.csc.locales.common.when[localStorage.getItem('languageSelected')].toUpperCase()
+                }, {
+                    xtype: 'timefield',
+                    fieldLabel: Ngcp.csc.locales.reminder.time[localStorage.getItem('languageSelected')],
+                    format: 'H:i',
+                    minValue: '0:00',
+                    maxValue: '23:50',
+                    increment: 10,
                     bind: {
-                        pressed: '{reminder_status}'
+                        value: '{timer}',
+                        disabled: '{!reminder_status}'
                     }
                 }, {
-                    text: Ngcp.csc.locales.common.inactive[localStorage.getItem('languageSelected')],
+                    xtype: 'radiogroup',
+                    fieldLabel: Ngcp.csc.locales.reminder.recurrence[localStorage.getItem('languageSelected')],
+                    vertical: true,
+                    columns: 1,
                     bind: {
-                        pressed: '{!reminder_status}'
-                    }
+                        value: '{recurrence}',
+                        disabled: '{!reminder_status}'
+                    },
+                    defaults: {
+                        name: 'value'
+                    },
+                    items: [{
+                        boxLabel: Ngcp.csc.locales.reminder.never[localStorage.getItem('languageSelected')],
+                        inputValue: 'value'
+                    }, {
+                        boxLabel: Ngcp.csc.locales.reminder.weekdays[localStorage.getItem('languageSelected')],
+                        inputValue: 'weekdays'
+                    }, {
+                        boxLabel: Ngcp.csc.locales.reminder.always[localStorage.getItem('languageSelected')],
+                        inputValue: 'always'
+                    }]
+                }, {
+                    xtype: 'segmentedbutton',
+                    margin: '20 0 0 0',
+                    items: [{
+                        text: Ngcp.csc.locales.common.active[localStorage.getItem('languageSelected')],
+                        margin: '0 5 0 0',
+                        bind: {
+                            pressed: '{reminder_status}'
+                        }
+                    }, {
+                        text: Ngcp.csc.locales.common.inactive[localStorage.getItem('languageSelected')],
+                        bind: {
+                            pressed: '{!reminder_status}'
+                        }
+                    }]
                 }]
             }]
         }];

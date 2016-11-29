@@ -9,34 +9,45 @@ Ext.define('NgcpCsc.view.pages.faxsend.FaxSend', {
 
     title: Ngcp.csc.locales.fax_send.title[localStorage.getItem('languageSelected')],
 
-    defaults: {
-        padding: 20
-    },
+    scrollable: true,
 
     initComponent: function () {
         this.items = [{
-            height: 60,
-            padding: '20 0 5 20',
-            html: Ngcp.csc.locales.fax_send.subtitle[localStorage.getItem('languageSelected')]
-        }, {
-            xtype: 'form',
-            reference:'faxsendForm',
-            items: [{
-                xtype: 'faxsendform'
-            }]
-        }, {
-            layout: 'hbox',
-            margin: '0 0 0 5',
-            defaults: {
-                xtype: 'button'
-            },
-            items: [{
-                text: Ngcp.csc.locales.fax_send.send_fax[localStorage.getItem('languageSelected')],
-                margin: '0 5 0 0',
-                handler: 'submitForm'
-            }, {
-                text: Ngcp.csc.locales.fax_send.reset_form[localStorage.getItem('languageSelected')],
-                handler: 'resetForm'
+            userCls: 'white-box',
+
+            layout: 'responsivecolumn',
+
+            margin:20,
+
+            padding: 10,
+
+            items:[{
+
+                userCls: 'big-66 small-100',
+
+                items:[{
+                    height: 60,
+                    html: Ngcp.csc.locales.fax_send.subtitle[localStorage.getItem('languageSelected')]
+                }, {
+                    reference:'faxsendForm',
+                    xtype: 'faxsendform',
+                    width:'100%'
+                }, {
+                    layout: 'hbox',
+                    width:'99%',
+                    defaults: {
+                        xtype: 'button',
+                        flex: 1
+                    },
+                    items: [{
+                        text: Ngcp.csc.locales.fax_send.send_fax[localStorage.getItem('languageSelected')],
+                        margin: '0 5 0 0',
+                        handler: 'submitForm'
+                    }, {
+                        text: Ngcp.csc.locales.fax_send.reset_form[localStorage.getItem('languageSelected')],
+                        handler: 'resetForm'
+                    }]
+                }]
             }]
         }];
         this.callParent();

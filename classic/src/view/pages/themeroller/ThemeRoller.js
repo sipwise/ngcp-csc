@@ -23,7 +23,7 @@ Ext.define('NgcpCsc.view.pages.themeroller.ThemeRoller', {
         items: [{
             title: Ngcp.csc.locales.themeroller.first_section_title[localStorage.getItem('languageSelected')],
             items: [{
-                userCls: 'big-50 small-100',
+                userCls: 'big-66 small-100',
                 items: [{
                     xtype: 'container',
                     defaults: {
@@ -92,7 +92,7 @@ Ext.define('NgcpCsc.view.pages.themeroller.ThemeRoller', {
         }, {
             title: Ngcp.csc.locales.themeroller.second_section_title[localStorage.getItem('languageSelected')],
             items: [{
-                userCls: 'big-50 small-100',
+                userCls: 'big-66 small-100',
                 defaults: {
                     width: '100%',
                     listeners: {
@@ -144,7 +144,7 @@ Ext.define('NgcpCsc.view.pages.themeroller.ThemeRoller', {
         }, {
             title: Ngcp.csc.locales.themeroller.third_section_title[localStorage.getItem('languageSelected')],
             items: [{
-                userCls: 'big-50 small-100',
+                userCls: 'big-66 small-100',
                 defaults: {
                     width: '100%'
                 },

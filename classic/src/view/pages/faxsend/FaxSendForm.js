@@ -2,9 +2,10 @@ Ext.define('NgcpCsc.view.pages.faxsend.FaxSendForm', {
     extend: 'Ext.form.Panel',
 
     xtype: 'faxsendform',
+
     defaultType: 'textfield',
+
     layout: 'form',
-    width: 750,
 
     items: [{
         fieldLabel: Ngcp.csc.locales.fax_send.field_labels.destination_number[localStorage.getItem('languageSelected')],
