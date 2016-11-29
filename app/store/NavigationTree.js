@@ -60,7 +60,7 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             leaf: true
         }, {
             text: 'Fax Send',
-            iconCls: 'x-fa fa-fax', //fa-file-text-o
+            iconCls: 'x-fa fa-paper-plane', //fa-file-text-o
             viewType: 'faxsend',
             routeId: 'faxsend',
             acl: ['administrator'],
@@ -84,6 +84,41 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             iconCls: 'x-fa fa-user',
             viewType: 'account',
             routeId: 'account',
+            acl: ['administrator', 'restricted', 'host'],
+            leaf: true
+        }, {
+            text: 'Auto attendant',
+            iconCls: 'x-fa fa-microphone',
+            viewType: 'autoattendant',
+            routeId: 'autoattendant',
+            acl: ['administrator', 'restricted', 'host'],
+            leaf: true
+        }, {
+            text: 'Device provisioning',
+            iconCls: 'x-fa fa-fax',
+            viewType: 'deviceprovisioning',
+            routeId: 'deviceprovisioning',
+            acl: ['administrator', 'restricted', 'host'],
+            leaf: true
+        }, {
+            text: 'Hunt group',
+            iconCls: 'x-fa fa-users',
+            viewType: 'huntgroup',
+            routeId: 'huntgroup',
+            acl: ['administrator', 'restricted', 'host'],
+            leaf: true
+        }, {
+            text: 'Pbx extension',
+            iconCls: 'x-fa fa-sign-out',
+            viewType: 'pbxextension',
+            routeId: 'pbxextension',
+            acl: ['administrator', 'restricted', 'host'],
+            leaf: true
+        }, {
+            text: 'Subscriber admin',
+            iconCls: 'x-fa fa-cog',
+            viewType: 'subscriberadmin',
+            routeId: 'subscriberadmin',
             acl: ['administrator', 'restricted', 'host'],
             leaf: true
         }]
