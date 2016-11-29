@@ -30,7 +30,8 @@ Ext.define('NgcpCsc.view.pages.account.Account', {
                         layout: 'hbox',
                         margin: '20 0 0 0',
                         defaults: {
-                            xtype: 'button'
+                            xtype: 'button',
+                            flex:1
                         },
                         items: [{
                             text: Ngcp.csc.locales.account.change_password[localStorage.getItem('languageSelected')].toLowerCase(),
