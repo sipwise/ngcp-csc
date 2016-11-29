@@ -162,7 +162,7 @@ Ext.define('Ngcp.csc.locales', {
                     it: 'incoming',
                     de: 'incoming',
                     fr: 'incoming',
-                    sp: 'incoming'
+                    sp: 'inoming'
                 },
                 outgoing: {
                     en: 'outgoing',
@@ -1010,6 +1010,121 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Logo',
                 fr: 'Logo',
                 sp: 'Logo'
+            }
+        },
+        autoattendant: {
+            title: {
+                en: 'Your auto attendants.',
+                it: 'Your auto attendants.',
+                de: 'Your auto attendants.',
+                fr: 'Your auto attendants.',
+                sp: 'Your auto attendants.'
+            },
+            subtitle: {
+                en: 'AUTO ATTENDANT',
+                it: 'AUTO ATTENDANT',
+                de: 'AUTO ATTENDANT',
+                fr: 'AUTO ATTENDANT',
+                sp: 'AUTO ATTENDANT'
+            },
+            user_label: {
+                en: 'Auto attendants for ',
+                it: 'Auto attendants for ',
+                de: 'Auto attendants for ',
+                fr: 'Auto attendants for ',
+                sp: 'Auto attendants for '
+            }
+        },
+        deviceprovisioning: {
+            title: {
+                en: 'Your device provisionings.',
+                it: 'Your device provisionings.',
+                de: 'Your device provisionings.',
+                fr: 'Your device provisionings.',
+                sp: 'Your device provisionings.'
+            },
+            subtitle: {
+                en: 'DEVICE PROVISIONING',
+                it: 'DEVICE PROVISIONING',
+                de: 'DEVICE PROVISIONING',
+                fr: 'DEVICE PROVISIONING',
+                sp: 'DEVICE PROVISIONING'
+            },
+            user_label: {
+                en: 'Device provisionings for ',
+                it: 'Device provisionings for ',
+                de: 'Device provisionings for ',
+                fr: 'Device provisionings for ',
+                sp: 'Device provisionings for '
+            }
+        },
+        huntgroup: {
+            title: {
+                en: 'Your hunt groups.',
+                it: 'Your hunt groups.',
+                de: 'Your hunt groups.',
+                fr: 'Your hunt groups.',
+                sp: 'Your hunt groups.'
+            },
+            subtitle: {
+                en: 'HUNT GROUP',
+                it: 'HUNT GROUP',
+                de: 'HUNT GROUP',
+                fr: 'HUNT GROUP',
+                sp: 'HUNT GROUP'
+            },
+            user_label: {
+                en: 'Hunt groups for ',
+                it: 'Hunt groups for ',
+                de: 'Hunt groups for ',
+                fr: 'Hunt groups for ',
+                sp: 'Hunt groups for '
+            }
+        },
+        pbxextension: {
+            title: {
+                en: 'Your pbx extensions.',
+                it: 'Your pbx extensions.',
+                de: 'Your pbx extensions.',
+                fr: 'Your pbx extensions.',
+                sp: 'Your pbx extensions.'
+            },
+            subtitle: {
+                en: 'PBX EXTENSION',
+                it: 'PBX EXTENSION',
+                de: 'PBX EXTENSION',
+                fr: 'PBX EXTENSION',
+                sp: 'PBX EXTENSION'
+            },
+            user_label: {
+                en: 'Pbx extensions for ',
+                it: 'Pbx extensions for ',
+                de: 'Pbx extensions for ',
+                fr: 'Pbx extensions for ',
+                sp: 'Pbx extensions for '
+            }
+        },
+        subscriberadmin: {
+            title: {
+                en: 'Your subscriber admin settings.',
+                it: 'Your subscriber admin settings.',
+                de: 'Your subscriber admin settings.',
+                fr: 'Your subscriber admin settings.',
+                sp: 'Your subscriber admin settings.'
+            },
+            subtitle: {
+                en: 'SUBSCRIBER ADMIN',
+                it: 'SUBSCRIBER ADMIN',
+                de: 'SUBSCRIBER ADMIN',
+                fr: 'SUBSCRIBER ADMIN',
+                sp: 'SUBSCRIBER ADMIN'
+            },
+            user_label: {
+                en: 'Subscriber admin for ',
+                it: 'Subscriber admin for ',
+                de: 'Subscriber admin for ',
+                fr: 'Subscriber admin for ',
+                sp: 'Subscriber admin for '
             }
         },
         common: {
