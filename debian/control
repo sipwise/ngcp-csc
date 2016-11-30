@@ -5,6 +5,7 @@ Maintainer: Sipwise Development Team <support@sipwise.com>
 Build-Depends:
  debhelper (>= 9~),
  sencha-cmd (>= 6.2.0.103-1~),
+ nodejs (>= 4.6.2~),
 Standards-Version: 3.9.8
 Homepage: https://www.sipwise.com/
 
@@ -12,6 +13,7 @@ Package: ngcp-panel-csc
 Architecture: all
 Depends:
  ${misc:Depends},
+ nodejs (>= 4.6.2~),
 Description: ExtJS based frontend for endusers to configure accounts on NGCP
  The CSC framework is used by endusers to configure their accounts on the
  Sipwise NGCP.

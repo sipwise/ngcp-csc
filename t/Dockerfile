@@ -5,16 +5,16 @@ FROM docker.mgm.sipwise.com/sipwise-jessie:latest
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT 2016-11-16
+ENV REFRESHED_AT 2016-12-12
 
 RUN echo "deb https://deb.sipwise.com/autobuild/ release-trunk-jessie main" >>/etc/apt/sources.list
 
-RUN apt-get update
-RUN apt-get install --assume-yes \
+RUN apt-get update && apt-get install --assume-yes \
         chromium \
         curl \
         devscripts \
         libgconf-2-4 \
+        nodejs \
         openjdk-7-jre-headless \
         sencha-cmd \
         unzip \
@@ -30,10 +30,6 @@ RUN wget -O chromedriver_linux64.zip https://deb.sipwise.com/files/chromedriver_
 ADD xvfb-chromium /usr/bin/xvfb-chromium
 RUN ln -s /usr/bin/xvfb-chromium /usr/bin/google-chrome
 RUN ln -s /usr/bin/xvfb-chromium /usr/bin/chromium-browser
-
-# Needs to be removed when sipwise node.js backport is available
-RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -
-RUN apt-get install -y nodejs
 
 RUN echo "cd /code && ./t/testrunner" >/root/.bash_history
 
