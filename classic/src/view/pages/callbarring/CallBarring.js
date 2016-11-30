@@ -60,7 +60,7 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
                                 xtype: 'button'
                             },
                             items: [{
-                                text: Ngcp.csc.locales.callbarring.save_settings[localStorage.getItem('languageSelected')].toLowerCase(),
+                                text: Ngcp.csc.locales.common.save_settings[localStorage.getItem('languageSelected')],
                                 margin: '0 0 20 0',
                                 handler: 'saveBarrSettings'
                             }]
@@ -132,7 +132,7 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
                                 xtype: 'button'
                             },
                             items: [{
-                                text: Ngcp.csc.locales.callbarring.save_settings[localStorage.getItem('languageSelected')].toLowerCase(),
+                                text: Ngcp.csc.locales.common.save_settings[localStorage.getItem('languageSelected')],
                                 margin: '0 0 20 0',
                                 handler: 'saveBarrSettings'
                             }]
