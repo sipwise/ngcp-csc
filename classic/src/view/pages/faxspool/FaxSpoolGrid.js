@@ -50,6 +50,7 @@ Ext.define('NgcpCsc.view.pages.faxspool.FaxSpoolGrid', {
             flex: 1,
             dataIndex: 'caller',
             text: 'caller'
+            //text: Ngcp.csc.locales.common.caller[localStorage.getItem('languageSelected')]
         }, {
             flex: 1,
             dataIndex: 'callee',

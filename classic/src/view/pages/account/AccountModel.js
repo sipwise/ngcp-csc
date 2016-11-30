@@ -10,7 +10,7 @@ Ext.define('NgcpCsc.view.pages.account.AccountModel', {
 
     formulas: {
         username: function(get) {
-            return Ext.String.format('{0}: <span class="account-username">{1}</span>', Ngcp.csc.locales.account.username[localStorage.getItem('languageSelected')], localStorage.getItem('username'));
+            return Ext.String.format('{0}: <span class="account-username">{1}</span>', Ngcp.csc.locales.common.username[localStorage.getItem('languageSelected')], localStorage.getItem('username'));
         }
     }
 

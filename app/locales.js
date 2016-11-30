@@ -1,4 +1,29 @@
 Ext.define('Ngcp.csc.locales', {
+
+    /*
+
+    TODO: 1. Below is a list of duplicates, to be fixes, and list removed upon
+    task completion.
+    date: >> FOUND IN >> voicemails: column_headers, calls: columns
+    duration: >> FOUND IN >> voicemails: column_headers, fax_spool: columns
+    save_settings >> FOUND IN >> callbarring: (CAPS), voicemails: settings:
+    password: >> FOUND IN >> login:, account: (CAPS, named subtitle:)
+    reset_form >> FOUND IN >> fax_send:, account:
+    caller: >> FOUND IN >> voicemails: column_headers:, fax_spool: columns:
+    delete: >> FOUND IN >> callbarring: (CAPS), common: (CAP FL)
+    save_settings >> FOUND IN >> callbarring: (CAPS), voicemails: settings: (called save:)
+    company: >> FOUND IN >> addressbook: columns:, addressbook: field_labels:
+    home: >> FOUND IN >> addressbook: field_labels (CAP FL), addressbook:
+    office: >> FOUND IN >> addressbook: field_labels (CAP FL), addressbook:
+    mobile: >> FOUND IN >> addressbook: field_labels (CAP FL), addressbook:
+    fax: >> FOUND IN >> addressbook: field_labels (CAP FL), addressbook:
+    e_mail: >> FOUND IN >> addressbook: field_labels (CAP FL), addressbook:
+    homepage: >> FOUND IN >> addressbook: field_labels (CAP FL), addressbook:
+
+    TODO: 2. After rebase, also check choose_file: and file:
+
+    */
+
     statics: {
         login: {
             title: {
@@ -7,13 +32,6 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Ihr persönliches Portal',
                 fr: 'Connexion à l\'espace d\'administration',
                 sp: 'Acceso al panel de administración'
-            },
-            username: {
-                en: 'Username',
-                it: 'Username',
-                de: 'Benutzername',
-                fr: 'Identifiant',
-                sp: 'Nombre de usuario'
             },
             password: {
                 en: 'Password',
@@ -56,6 +74,38 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Login fehlgeschlagen, bitte überprüfen Sie Ihren Usernamen und Ihr Passwort.',
                 fr: 'L\'établissement de la connexion a échoué, vérifiez le nom d’utilisateur et le mot de passe.',
                 sp: 'Acceso denegado. Por favor, compruebe el nombre de usuario y la contraseña.'
+            },
+            remember_me: {
+                en: 'Remember me',
+                it: 'Remember me',
+                de: 'Remember me',
+                fr: 'Remember me',
+                sp: 'Remember me'
+            },
+            forgot_password: {
+                en: 'Forgot Password ?',
+                it: 'Forgot Password ?',
+                de: 'Forgot Password ?',
+                fr: 'Forgot Password ?',
+                sp: 'Forgot Password ?'
+            }
+        },
+        main: {
+            tooltips: {
+                see_profile: {
+                    en: 'See your profile',
+                    it: 'See your profile',
+                    de: 'See your profile',
+                    fr: 'See your profile',
+                    sp: 'See your profile'
+                }
+            },
+            logged_in_as: {
+                en: 'Logged in as ',
+                it: 'Logged in as ',
+                de: 'Logged in as ',
+                fr: 'Logged in as ',
+                sp: 'Logged in as '
             }
         },
         summary: {
@@ -132,13 +182,6 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'RECENT CALLS'
             },
             columns: {
-                number: {
-                    en: 'number',
-                    it: 'number',
-                    de: 'number',
-                    fr: 'number',
-                    sp: 'number'
-                },
                 duration: {
                     en: 'duration',
                     it: 'duration',
@@ -152,13 +195,6 @@ Ext.define('Ngcp.csc.locales', {
                     de: 'charges',
                     fr: 'charges',
                     sp: 'charges'
-                },
-                date: {
-                    en: 'date',
-                    it: 'date',
-                    de: 'date',
-                    fr: 'date',
-                    sp: 'date'
                 }
             },
             call_type: {
@@ -298,13 +334,6 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'NEW ENTRY',
                 sp: 'NEW ENTRY'
             },
-            add_number: {
-                en: 'ADD NUMBER',
-                it: 'ADD NUMBER',
-                de: 'ADD NUMBER',
-                fr: 'ADD NUMBER',
-                sp: 'ADD NUMBER'
-            },
             new_entry_instructions: {
                 en: 'Please use digits only and include the area code of the number. You may use the wildcard characters "?" for one and "*" for an indefinite number of arbitrary digits.',
                 it: 'Please use digits only and include the area code of the number. You may use the wildcard characters "?" for one and "*" for an indefinite number of arbitrary digits.',
@@ -391,12 +420,28 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Please enter your current password.',
                 sp: 'Please enter your current password.'
             },
-            username: {
-                en: 'username',
-                it: 'username',
-                de: 'username',
-                fr: 'username',
-                sp: 'username'
+            field_labels: {
+                old_password: {
+                    en: 'old password',
+                    it: 'old password',
+                    de: 'old password',
+                    fr: 'old password',
+                    sp: 'old password'
+                },
+                new_password: {
+                    en: 'new password',
+                    it: 'new password',
+                    de: 'new password',
+                    fr: 'new password',
+                    sp: 'new password'
+                },
+                repeat_password: {
+                    en: 'repeat',
+                    it: 'repeat',
+                    de: 'repeat',
+                    fr: 'repeat',
+                    sp: 'repeat'
+                }
             }
         },
         filters: {
@@ -479,13 +524,6 @@ Ext.define('Ngcp.csc.locales', {
                     de: 'duration',
                     fr: 'duration',
                     sp: 'duration'
-                },
-                date: {
-                    en: 'date',
-                    it: 'date',
-                    de: 'date',
-                    fr: 'date',
-                    sp: 'date'
                 }
             },
             by_months: {
@@ -675,13 +713,6 @@ Ext.define('Ngcp.csc.locales', {
                     de: 'company',
                     fr: 'company',
                     sp: 'company'
-                },
-                number: {
-                    en: 'number',
-                    it: 'number',
-                    de: 'number',
-                    fr: 'number',
-                    sp: 'number'
                 }
             },
             phone_numbers: {
@@ -746,6 +777,71 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Create new contact',
                 fr: 'Create new contact',
                 sp: 'Create new contact'
+            },
+            field_labels: {
+                first_name: {
+                    en: 'First name',
+                    it: 'First name',
+                    de: 'First name',
+                    fr: 'First name',
+                    sp: 'First name'
+                },
+                last_name: {
+                    en: 'Last name',
+                    it: 'Last name',
+                    de: 'Last name',
+                    fr: 'Last name',
+                    sp: 'Last name'
+                },
+                company: {
+                    en: 'Company',
+                    it: 'Company',
+                    de: 'Company',
+                    fr: 'Company',
+                    sp: 'Company'
+                },
+                home: {
+                    en: 'Home',
+                    it: 'Home',
+                    de: 'Home',
+                    fr: 'Home',
+                    sp: 'Home'
+                },
+                office: {
+                    en: 'Office',
+                    it: 'Office',
+                    de: 'Office',
+                    fr: 'Office',
+                    sp: 'Office'
+                },
+                mobile: {
+                    en: 'Mobile',
+                    it: 'Mobile',
+                    de: 'Mobile',
+                    fr: 'Mobile',
+                    sp: 'Mobile'
+                },
+                fax: {
+                    en: 'Fax',
+                    it: 'Fax',
+                    de: 'Fax',
+                    fr: 'Fax',
+                    sp: 'Fax'
+                },
+                e_mail: {
+                    en: 'E-mail',
+                    it: 'E-mail',
+                    de: 'E-mail',
+                    fr: 'E-mail',
+                    sp: 'E-mail'
+                },
+                homepage: {
+                    en: 'Homepage',
+                    it: 'Homepage',
+                    de: 'Homepage',
+                    fr: 'Homepage',
+                    sp: 'Homepage'
+                }
             }
         },
         reminder:{
@@ -1178,6 +1274,27 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Inactive',
                 fr: 'Inactive',
                 sp: 'Inactive'
+            },
+            username: {
+                en: 'Username',
+                it: 'Username',
+                de: 'Benutzername',
+                fr: 'Identifiant',
+                sp: 'Nombre de usuario'
+            },
+            number: {
+                en: 'number',
+                it: 'number',
+                de: 'number',
+                fr: 'number',
+                sp: 'number'
+            },
+            date: {
+                en: 'date',
+                it: 'date',
+                de: 'date',
+                fr: 'date',
+                sp: 'date'
             }
         }
     }

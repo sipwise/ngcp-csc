@@ -51,18 +51,18 @@ Ext.define('NgcpCsc.view.main.Main', {
                 ui: 'header',
                 href: '#account',
                 hrefTarget: '_self',
-                tooltip: 'See your profile'
+                tooltip: Ngcp.csc.locales.main.tooltips.see_profile[localStorage.getItem('languageSelected')]
             }, {
                 xtype: 'tbtext',
                 bind: {
-                    text: 'Logged in as {username}'
+                    text: Ngcp.csc.locales.main.logged_in_as[localStorage.getItem('languageSelected')] + '{username}'
                 },
                 cls: 'top-user-name'
             }, {
                 xtype: 'tbseparator'
             }, {
                 html: Ngcp.csc.locales.common.logout[localStorage.getItem('languageSelected')],
-                tooltip: 'Logout',
+                tooltip: Ngcp.csc.locales.common.logout[localStorage.getItem('languageSelected')],
                 handler: 'logout'
             }, {
                 xtype: 'image',

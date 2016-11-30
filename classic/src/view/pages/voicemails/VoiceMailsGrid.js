@@ -31,7 +31,8 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMailsGrid', {
         }, {
             flex: 1,
             dataIndex: 'caller',
-            text: 'caller',
+            //text: Ngcp.csc.locales.common.caller[localStorage.getItem('languageSelected')],
+            text: 'Caller',
             renderer: 'renderCaller'
         }, {
             dataIndex: 'href',
