@@ -11,7 +11,7 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
                 destroytab: 'closeChat'
             },
             '*': {
-                togglechat: 'tooggleChat'
+                togglechat: 'toggleChat'
             }
         }
     },
@@ -109,7 +109,7 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
         chatList.getView().refresh();
     },
 
-    tooggleChat:function(visible){
+    toggleChat:function(visible){
         this.getViewModel().set('chatEnabled', visible);
     }
 

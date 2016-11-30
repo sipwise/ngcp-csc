@@ -24,7 +24,7 @@ Ext.define('NgcpCsc.view.pages.calls.CallsGrid', {
                 renderer: 'renderCallTypeIcons',
                 width: 30
             }, {
-                text: (this._groupCallsByMonth) ? Ngcp.csc.locales.calls.columns.number[localStorage.getItem('languageSelected')] : '',
+                text: (this._groupCallsByMonth) ? Ngcp.csc.locales.common.number[localStorage.getItem('languageSelected')] : '',
                 flex: 1,
                 dataIndex: 'source_cli'
             }, {
@@ -32,16 +32,16 @@ Ext.define('NgcpCsc.view.pages.calls.CallsGrid', {
                 width: 40
 
             }, {
-                text: (this._groupCallsByMonth) ? Ngcp.csc.locales.calls.columns.duration[localStorage.getItem('languageSelected')] : '',
+                text: (this._groupCallsByMonth) ? Ngcp.csc.locales.common.duration[localStorage.getItem('languageSelected')] : '',
                 flex: 1,
                 dataIndex: 'duration'
             }, {
-                text: (this._groupCallsByMonth) ? Ngcp.csc.locales.calls.columns.charges[localStorage.getItem('languageSelected')] : '',
+                text: (this._groupCallsByMonth) ? Ngcp.csc.locales.calls.charges[localStorage.getItem('languageSelected')] : '',
                 flex: 1,
                 dataIndex: 'charges'
             }, {
                 xtype: 'datecolumn',
-                text: (this._groupCallsByMonth) ? Ngcp.csc.locales.calls.columns.date[localStorage.getItem('languageSelected')] : '',
+                text: (this._groupCallsByMonth) ? Ngcp.csc.locales.common.date[localStorage.getItem('languageSelected')] : '',
                 flex: 1,
                 dataIndex: 'start_time',
                 align: 'right',

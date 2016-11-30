@@ -31,7 +31,7 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMailsGrid', {
         }, {
             flex: 1,
             dataIndex: 'caller',
-            text: 'caller',
+            text: Ngcp.csc.locales.common.caller[localStorage.getItem('languageSelected')],
             renderer: 'renderCaller'
         }, {
             dataIndex: 'href',
@@ -40,12 +40,12 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMailsGrid', {
         }, {
             flex: 1,
             dataIndex: 'duration',
-            text: 'duration'
+            text: Ngcp.csc.locales.common.duration[localStorage.getItem('languageSelected')]
         }, {
             flex: 1,
             xtype:'datecolumn',
             dataIndex: 'time',
-            text: 'date',
+            text: Ngcp.csc.locales.common.date[localStorage.getItem('languageSelected')],
             format: 'd.m.Y h:i:s',
             align: 'right'
         }, {

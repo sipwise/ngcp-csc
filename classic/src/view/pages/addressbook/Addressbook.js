@@ -48,43 +48,43 @@ Ext.define('NgcpCsc.view.pages.addressbook.Addressbook', {
                 width:'100%'
             },
             items: [{
-                focusable:true,
-                fieldLabel: 'First name',
-                id:'contactFirstName',
+                focusable: true,
+                fieldLabel: Ngcp.csc.locales.addressbook.first_name[localStorage.getItem('languageSelected')],
+                id: 'contactFirstName',
                 bind: '{selection.firstname}',
-                allowBlank:false,
-                blankText:Ngcp.csc.locales.common.no_empty_value[localStorage.getItem('languageSelected')],
+                allowBlank: false,
+                blankText: Ngcp.csc.locales.common.no_empty_value[localStorage.getItem('languageSelected')],
                 listeners:{
                     change: 'capitalize'
                 }
             },{
-                fieldLabel: 'Last name',
+                fieldLabel: Ngcp.csc.locales.addressbook.last_name[localStorage.getItem('languageSelected')],
                 bind: '{selection.lastname}',
-                blankText:Ngcp.csc.locales.common.no_empty_value[localStorage.getItem('languageSelected')],
-                allowBlank:false,
+                blankText: Ngcp.csc.locales.common.no_empty_value[localStorage.getItem('languageSelected')],
+                allowBlank: false,
                 listeners:{
                     change: 'capitalize'
                 }
             },{
-                fieldLabel: 'Company',
+                fieldLabel:  Ngcp.csc.locales.addressbook.company[localStorage.getItem('languageSelected')],
                 bind: '{selection.company}'
             }, {
-                fieldLabel: 'Home',
+                fieldLabel:  Ngcp.csc.locales.addressbook.home[localStorage.getItem('languageSelected')],
                 bind: '{selection.home}'
             }, {
-                fieldLabel: 'Office',
+                fieldLabel:  Ngcp.csc.locales.addressbook.office[localStorage.getItem('languageSelected')],
                 bind: '{selection.office}'
             }, {
-                fieldLabel: 'Mobile',
+                fieldLabel:  Ngcp.csc.locales.addressbook.mobile[localStorage.getItem('languageSelected')],
                 bind: '{selection.mobile}'
             }, {
-                fieldLabel: 'Fax',
+                fieldLabel:  Ngcp.csc.locales.addressbook.fax[localStorage.getItem('languageSelected')],
                 bind: '{selection.fax}'
             }, {
-                fieldLabel: 'E-mail',
+                fieldLabel:  Ngcp.csc.locales.addressbook.e_mail[localStorage.getItem('languageSelected')],
                 bind: '{selection.e_mail}'
             }, {
-                fieldLabel: 'Homepage',
+                fieldLabel:  Ngcp.csc.locales.addressbook.homepage[localStorage.getItem('languageSelected')],
                 bind: '{selection.homepage}'
             }],
             bind: {

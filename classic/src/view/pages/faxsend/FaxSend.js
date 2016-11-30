@@ -13,6 +13,7 @@ Ext.define('NgcpCsc.view.pages.faxsend.FaxSend', {
 
     initComponent: function () {
         this.items = [{
+
             userCls: 'white-box',
 
             layout: 'responsivecolumn',
@@ -44,7 +45,7 @@ Ext.define('NgcpCsc.view.pages.faxsend.FaxSend', {
                         margin: '0 5 0 0',
                         handler: 'submitForm'
                     }, {
-                        text: Ngcp.csc.locales.fax_send.reset_form[localStorage.getItem('languageSelected')],
+                        text: Ngcp.csc.locales.common.reset_form[localStorage.getItem('languageSelected')],
                         handler: 'resetForm'
                     }]
                 }]

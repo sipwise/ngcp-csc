@@ -35,7 +35,7 @@ Ext.define('NgcpCsc.view.login.Login', {
                 name: 'username',
                 id: 'login-username',
                 cls: 'auth-textbox',
-                emptyText: Ngcp.csc.locales.login.username[localStorage.getItem('languageSelected') || 'en'],
+                emptyText: Ngcp.csc.locales.common.username[localStorage.getItem('languageSelected') || 'en'],
                 padding: '10 0 0 15',
                 minLength: 1,
                 listeners: {
@@ -55,7 +55,7 @@ Ext.define('NgcpCsc.view.login.Login', {
                 cls: 'auth-textbox',
                 inputType: 'password',
                 minLength: 1,
-                emptyText: Ngcp.csc.locales.login.password[localStorage.getItem('languageSelected') || 'en'],
+                emptyText: Ngcp.csc.locales.common.password[localStorage.getItem('languageSelected') || 'en'],
                 padding: '0 0 0 15',
                 listeners: {
                     specialKey: 'onPressEnter',
@@ -91,13 +91,14 @@ Ext.define('NgcpCsc.view.login.Login', {
                     flex: 1,
                     cls: 'form-panel-font-color rememberMeCheckbox',
                     height: 30,
-                    boxLabel: 'Remember me',
+                    boxLabel: Ngcp.csc.locales.login.remember_me[localStorage.getItem('languageSelected')],
                     bind: {
                         value: '{remember_me}'
                     }
                 }, {
                     xtype: 'box',
-                    html: '<a href="#" class="link-forgot-password"> Forgot Password ?</a>'
+                    width: 120,
+                    html: '<a href="#" class="link-forgot-password"> ' + Ngcp.csc.locales.login.forgot_password[localStorage.getItem('languageSelected')] + '</a>'
                 }]
             }, {
                 text: Ngcp.csc.locales.login.button_text[localStorage.getItem('languageSelected') || 'en'],

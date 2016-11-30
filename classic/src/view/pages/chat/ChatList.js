@@ -81,7 +81,6 @@ Ext.define('NgcpCsc.view.pages.chat.ChatList', {
             },
             handler: 'startVideoCall'
         }, {
-            //tooltip: Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')],
             getClass: function(value, context) {
                 return (context.record && !context.record.get('leaf')) ? 'x-drop-display' : '';
             },

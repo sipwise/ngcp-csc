@@ -8,20 +8,6 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Connexion à l\'espace d\'administration',
                 sp: 'Acceso al panel de administración'
             },
-            username: {
-                en: 'Username',
-                it: 'Username',
-                de: 'Benutzername',
-                fr: 'Identifiant',
-                sp: 'Nombre de usuario'
-            },
-            password: {
-                en: 'Password',
-                it: 'Password',
-                de: 'Passwort',
-                fr: 'Mot de passe',
-                sp: 'Contraseña'
-            },
             choose_language: {
                 en: 'Choose language',
                 it: 'Choose language',
@@ -56,6 +42,38 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Login fehlgeschlagen, bitte überprüfen Sie Ihren Usernamen und Ihr Passwort.',
                 fr: 'L\'établissement de la connexion a échoué, vérifiez le nom d’utilisateur et le mot de passe.',
                 sp: 'Acceso denegado. Por favor, compruebe el nombre de usuario y la contraseña.'
+            },
+            remember_me: {
+                en: 'Remember me',
+                it: 'Remember me',
+                de: 'Remember me',
+                fr: 'Remember me',
+                sp: 'Remember me'
+            },
+            forgot_password: {
+                en: 'Forgot Password ?',
+                it: 'Forgot Password ?',
+                de: 'Forgot Password ?',
+                fr: 'Forgot Password ?',
+                sp: 'Forgot Password ?'
+            }
+        },
+        main: {
+            tooltips: {
+                see_profile: {
+                    en: 'See your profile',
+                    it: 'See your profile',
+                    de: 'See your profile',
+                    fr: 'See your profile',
+                    sp: 'See your profile'
+                }
+            },
+            logged_in_as: {
+                en: 'Logged in as ',
+                it: 'Logged in as ',
+                de: 'Logged in as ',
+                fr: 'Logged in as ',
+                sp: 'Logged in as '
             }
         },
         summary: {
@@ -131,35 +149,12 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'RECENT CALLS',
                 sp: 'RECENT CALLS'
             },
-            columns: {
-                number: {
-                    en: 'number',
-                    it: 'number',
-                    de: 'number',
-                    fr: 'number',
-                    sp: 'number'
-                },
-                duration: {
-                    en: 'duration',
-                    it: 'duration',
-                    de: 'duration',
-                    fr: 'duration',
-                    sp: 'duration'
-                },
-                charges: {
-                    en: 'charges',
-                    it: 'charges',
-                    de: 'charges',
-                    fr: 'charges',
-                    sp: 'charges'
-                },
-                date: {
-                    en: 'date',
-                    it: 'date',
-                    de: 'date',
-                    fr: 'date',
-                    sp: 'date'
-                }
+            charges: {
+                en: 'charges',
+                it: 'charges',
+                de: 'charges',
+                fr: 'charges',
+                sp: 'charges'
             },
             call_type: {
                 incoming: {
@@ -228,26 +223,12 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'OUTGOING CALLS',
                 sp: 'OUTGOING CALLS'
             },
-            save_settings: {
-                en: 'SAVE SETTINGS',
-                it: 'SAVE SETTINGS',
-                de: 'SAVE SETTINGS',
-                fr: 'SAVE SETTINGS',
-                sp: 'SAVE SETTINGS'
-            },
             add_number: {
                 en: 'ADD NUMBER',
                 it: 'ADD NUMBER',
                 de: 'ADD NUMBER',
                 fr: 'ADD NUMBER',
                 sp: 'ADD NUMBER'
-            },
-            delete: {
-                en: 'DELETE',
-                it: 'DELETE',
-                de: 'DELETE',
-                fr: 'DELETE',
-                sp: 'DELETE'
             },
             disable: {
                 en: 'DISABLE',
@@ -298,13 +279,6 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'NEW ENTRY',
                 sp: 'NEW ENTRY'
             },
-            add_number: {
-                en: 'ADD NUMBER',
-                it: 'ADD NUMBER',
-                de: 'ADD NUMBER',
-                fr: 'ADD NUMBER',
-                sp: 'ADD NUMBER'
-            },
             new_entry_instructions: {
                 en: 'Please use digits only and include the area code of the number. You may use the wildcard characters "?" for one and "*" for an indefinite number of arbitrary digits.',
                 it: 'Please use digits only and include the area code of the number. You may use the wildcard characters "?" for one and "*" for an indefinite number of arbitrary digits.',
@@ -328,13 +302,6 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Your personal settings.',
                 sp: 'Your personal settings.'
             },
-            subtitle: {
-                en: 'PASSWORD',
-                it: 'PASSWORD',
-                de: 'PASSWORD',
-                fr: 'PASSWORD',
-                sp: 'PASSWORD'
-            },
             password_instructions: {
                 en: 'You may change the password for your self-administration login here.',
                 it: 'You may change the password for your self-administration login here.',
@@ -348,13 +315,6 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'change password',
                 fr: 'change password',
                 sp: 'change password'
-            },
-            reset_form: {
-                en: 'reset form',
-                it: 'reset form',
-                de: 'reset form',
-                fr: 'reset form',
-                sp: 'reset form'
             },
             password_short: {
                 en: 'The password is too short, please use 6 characters at least.',
@@ -391,12 +351,28 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Please enter your current password.',
                 sp: 'Please enter your current password.'
             },
-            username: {
-                en: 'username',
-                it: 'username',
-                de: 'username',
-                fr: 'username',
-                sp: 'username'
+            field_labels: {
+                old_password: {
+                    en: 'old password',
+                    it: 'old password',
+                    de: 'old password',
+                    fr: 'old password',
+                    sp: 'old password'
+                },
+                new_password: {
+                    en: 'new password',
+                    it: 'new password',
+                    de: 'new password',
+                    fr: 'new password',
+                    sp: 'new password'
+                },
+                repeat_password: {
+                    en: 'repeat',
+                    it: 'repeat',
+                    de: 'repeat',
+                    fr: 'repeat',
+                    sp: 'repeat'
+                }
             }
         },
         filters: {
@@ -464,29 +440,6 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Voicemails for ',
                 fr: 'Voicemails for ',
                 sp: 'Voicemails for'
-            },
-            column_headers: {
-                caller: {
-                    en: 'caller',
-                    it: 'caller',
-                    de: 'caller',
-                    fr: 'caller',
-                    sp: 'caller'
-                },
-                duration: {
-                    en: 'duration',
-                    it: 'duration',
-                    de: 'duration',
-                    fr: 'duration',
-                    sp: 'duration'
-                },
-                date: {
-                    en: 'date',
-                    it: 'date',
-                    de: 'date',
-                    fr: 'date',
-                    sp: 'date'
-                }
             },
             by_months: {
                 en: 'VOICEMAILS BY MONTH',
@@ -647,43 +600,6 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Contacts for ',
                 sp: 'Contacts for '
             },
-            columns: {
-                name: {
-                    en: 'name',
-                    it: 'name',
-                    de: 'name',
-                    fr: 'name',
-                    sp: 'name'
-                },
-                firstname: {
-                    en: 'firstname',
-                    it: 'firstname',
-                    de: 'firstname',
-                    fr: 'firstname',
-                    sp: 'firstname'
-                },
-                lastname: {
-                    en: 'lastname',
-                    it: 'lastname',
-                    de: 'lastname',
-                    fr: 'lastname',
-                    sp: 'lastname'
-                },
-                company: {
-                    en: 'company',
-                    it: 'company',
-                    de: 'company',
-                    fr: 'company',
-                    sp: 'company'
-                },
-                number: {
-                    en: 'number',
-                    it: 'number',
-                    de: 'number',
-                    fr: 'number',
-                    sp: 'number'
-                }
-            },
             phone_numbers: {
                 en: 'phone numbers',
                 it: 'phone numbers',
@@ -698,54 +614,96 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'web',
                 sp: 'web'
             },
-            home: {
-                en: 'home',
-                it: 'home',
-                de: 'home',
-                fr: 'home',
-                sp: 'home'
-            },
-            office: {
-                en: 'office',
-                it: 'office',
-                de: 'office',
-                fr: 'office',
-                sp: 'office'
-            },
-            mobile: {
-                en: 'mobile',
-                it: 'mobile',
-                de: 'mobile',
-                fr: 'mobile',
-                sp: 'mobile'
-            },
-            fax: {
-                en: 'fax',
-                it: 'fax',
-                de: 'fax',
-                fr: 'fax',
-                sp: 'fax'
-            },
-            e_mail: {
-                en: 'e-mail',
-                it: 'e-mail',
-                de: 'e-mail',
-                fr: 'e-mail',
-                sp: 'e-mail'
-            },
-            homepage: {
-                en: 'homepage',
-                it: 'homepage',
-                de: 'homepage',
-                fr: 'homepage',
-                sp: 'homepage'
-            },
             new_contact: {
                 en: 'Create new contact',
                 it: 'Create new contact',
                 de: 'Create new contact',
                 fr: 'Create new contact',
                 sp: 'Create new contact'
+            },
+            name: {
+                en: 'name',
+                it: 'name',
+                de: 'name',
+                fr: 'name',
+                sp: 'name'
+            },
+            firstname: {
+                en: 'firstname',
+                it: 'firstname',
+                de: 'firstname',
+                fr: 'firstname',
+                sp: 'firstname'
+            },
+            lastname: {
+                en: 'lastname',
+                it: 'lastname',
+                de: 'lastname',
+                fr: 'lastname',
+                sp: 'lastname'
+            },
+            first_name: {
+                en: 'First name',
+                it: 'First name',
+                de: 'First name',
+                fr: 'First name',
+                sp: 'First name'
+            },
+            last_name: {
+                en: 'Last name',
+                it: 'Last name',
+                de: 'Last name',
+                fr: 'Last name',
+                sp: 'Last name'
+            },
+            company: {
+                en: 'Company',
+                it: 'Company',
+                de: 'Company',
+                fr: 'Company',
+                sp: 'Company'
+            },
+            home: {
+                en: 'Home',
+                it: 'Home',
+                de: 'Home',
+                fr: 'Home',
+                sp: 'Home'
+            },
+            office: {
+                en: 'Office',
+                it: 'Office',
+                de: 'Office',
+                fr: 'Office',
+                sp: 'Office'
+            },
+            mobile: {
+                en: 'Mobile',
+                it: 'Mobile',
+                de: 'Mobile',
+                fr: 'Mobile',
+                sp: 'Mobile'
+            },
+            fax: {
+                en: 'Fax',
+                it: 'Fax',
+                de: 'Fax',
+                fr: 'Fax',
+                sp: 'Fax'
+            },
+            e_mail: {
+                en: 'E-mail',
+                it: 'E-mail',
+                de: 'E-mail',
+                fr: 'E-mail',
+                sp: 'E-mail'
+            },
+            homepage: {
+                en: 'Homepage',
+                it: 'Homepage',
+                de: 'Homepage',
+                fr: 'Homepage',
+                sp: 'Homepage'
             }
         },
         reminder: {
@@ -869,26 +827,12 @@ Ext.define('Ngcp.csc.locales', {
                     fr: 'status',
                     sp: 'status'
                 },
-                duration: {
-                    en: 'duration',
-                    it: 'duration',
-                    de: 'duration',
-                    fr: 'duration',
-                    sp: 'duration'
-                },
                 direction: {
                     en: 'direction',
                     it: 'direction',
                     de: 'direction',
                     fr: 'direction',
                     sp: 'direction'
-                },
-                caller: {
-                    en: 'caller',
-                    it: 'caller',
-                    de: 'caller',
-                    fr: 'caller',
-                    sp: 'caller'
                 },
                 callee: {
                     en: 'callee',
@@ -927,13 +871,6 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'send fax',
                 fr: 'send fax',
                 sp: 'send fax'
-            },
-            reset_form: {
-                en: 'reset form',
-                it: 'reset form',
-                de: 'reset form',
-                fr: 'reset form',
-                sp: 'reset form'
             },
             field_labels: {
                 destination_number: {
@@ -1236,6 +1173,62 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Inactive',
                 fr: 'Inactive',
                 sp: 'Inactive'
+            },
+            username: {
+                en: 'Username',
+                it: 'Username',
+                de: 'Benutzername',
+                fr: 'Identifiant',
+                sp: 'Nombre de usuario'
+            },
+            number: {
+                en: 'number',
+                it: 'number',
+                de: 'number',
+                fr: 'number',
+                sp: 'number'
+            },
+            date: {
+                en: 'date',
+                it: 'date',
+                de: 'date',
+                fr: 'date',
+                sp: 'date'
+            },
+            duration: {
+                en: 'duration',
+                it: 'duration',
+                de: 'duration',
+                fr: 'duration',
+                sp: 'duration'
+            },
+            caller: {
+                en: 'caller',
+                it: 'caller',
+                de: 'caller',
+                fr: 'caller',
+                sp: 'caller'
+            },
+            password: {
+                en: 'Password',
+                it: 'Password',
+                de: 'Passwort',
+                fr: 'Mot de passe',
+                sp: 'Contraseña'
+            },
+            reset_form: {
+                en: 'reset form',
+                it: 'reset form',
+                de: 'reset form',
+                fr: 'reset form',
+                sp: 'reset form'
+            },
+            save_settings: {
+                en: 'save settings',
+                it: 'save settings',
+                de: 'save settings',
+                fr: 'save settings',
+                sp: 'save settings'
             }
         }
     }

@@ -76,7 +76,7 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMails', {
                 }, {
                     margin: '10 0 0 0',
                     items: [{
-                        text: Ngcp.csc.locales.voicemails.settings.save[localStorage.getItem('languageSelected')],
+                        text: Ngcp.csc.locales.common.save_settings[localStorage.getItem('languageSelected')],
                         xtype: 'button',
                         width: '100%',
                         handler: 'saveSettings'

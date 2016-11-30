@@ -21,7 +21,7 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookGrid', {
             xtype: 'container',
             id: 'group-firstname',
             padding: '0 10 0 0',
-            html: Ngcp.csc.locales.addressbook.columns.firstname[localStorage.getItem('languageSelected')],
+            html: Ngcp.csc.locales.addressbook.firstname[localStorage.getItem('languageSelected')],
             cls: 'link',
             listeners: {
                 click: {
@@ -33,7 +33,7 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookGrid', {
             xtype: 'container',
             id: 'group-lastname',
             padding: '0 10 0 0',
-            html: Ngcp.csc.locales.addressbook.columns.lastname[localStorage.getItem('languageSelected')],
+            html: Ngcp.csc.locales.addressbook.lastname[localStorage.getItem('languageSelected')],
             cls: 'link no-underline',
             listeners: {
                 click: {
@@ -45,7 +45,7 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookGrid', {
             xtype: 'container',
             id: 'group-company',
             padding: '0 10 0 0',
-            html: Ngcp.csc.locales.addressbook.columns.company[localStorage.getItem('languageSelected')],
+            html: Ngcp.csc.locales.addressbook.company[localStorage.getItem('languageSelected')].toLowerCase(),
             cls: 'link no-underline',
             listeners: {
                 click: {
@@ -87,7 +87,7 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookGrid', {
             align: 'right',
             items: [{
                 glyph: 'xf00d@FontAwesome',
-                tooltip: Ngcp.csc.locales.callbarring.delete[localStorage.getItem('languageSelected')],
+                tooltip: Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')],
                 handler: 'removeContact'
             }]
         }]

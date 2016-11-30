@@ -17,7 +17,7 @@ Ext.define('NgcpCsc.view.pages.account.Account', {
             padding: 10,
             items: [{
                     padding: '0 0 5 0',
-                    html: Ngcp.csc.locales.account.subtitle[localStorage.getItem('languageSelected')]
+                    html: Ngcp.csc.locales.common.password[localStorage.getItem('languageSelected')].toUpperCase()
                 }, {
                     padding: '00 0 5 0',
                     html: Ngcp.csc.locales.account.password_instructions[localStorage.getItem('languageSelected')]
@@ -38,7 +38,7 @@ Ext.define('NgcpCsc.view.pages.account.Account', {
                             margin: '0 5 0 0',
                             handler: 'submitForm'
                         }, {
-                            text: Ngcp.csc.locales.account.reset_form[localStorage.getItem('languageSelected')].toLowerCase(),
+                            text: Ngcp.csc.locales.common.reset_form[localStorage.getItem('languageSelected')].toLowerCase(),
                             handler: 'resetForm'
                         }]
                     }]
