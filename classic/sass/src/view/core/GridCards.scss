@@ -1,0 +1,9 @@
+@include extjs-panel-ui( $ui: 'core-grid-cards' );
+
+.x-panel-core-grid-cards {
+    .x-grid-item {
+        border: 1px solid lightgray;
+        margin: 5px 10px 0px 10px;
+        border-radius: 5px;
+    }
+}

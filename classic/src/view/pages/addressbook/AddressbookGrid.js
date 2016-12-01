@@ -1,5 +1,5 @@
 Ext.define('NgcpCsc.view.pages.addressbook.AddressbookGrid', {
-    extend: 'NgcpCsc.view.core.Grid',
+    extend: 'NgcpCsc.view.core.GridCards',
 
     xtype: 'addressbook-grid',
 

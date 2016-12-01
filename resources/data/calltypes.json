@@ -1,0 +1,11 @@
+{
+    "data": [{
+        "call_type": "call"
+    }, {
+        "call_type": "voicemail"
+    }, {
+        "call_type": "reminder"
+    }, {
+        "call_type": "fax"
+    }]
+}

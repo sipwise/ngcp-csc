@@ -8,6 +8,8 @@ $font-family: dynamic('Open Sans', 'Helvetica Neue');
 $font-size: dynamic(13px);
 $font-weight: dynamic('normal');
 
+$enable-font-icons : true;
+
 html {
     --base-color: export;
     --body-background-color: export;
