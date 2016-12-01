@@ -12,7 +12,7 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMailsGrid', {
     padding: 10,
 
     listeners: {
-        cellclick:'onCellClicked'
+        cellclick: 'onCellClicked'
     },
 
     columns: {
@@ -43,7 +43,7 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMailsGrid', {
             text: Ngcp.csc.locales.common.duration[localStorage.getItem('languageSelected')]
         }, {
             flex: 1,
-            xtype:'datecolumn',
+            xtype: 'datecolumn',
             dataIndex: 'time',
             text: Ngcp.csc.locales.common.date[localStorage.getItem('languageSelected')],
             format: 'd.m.Y h:i:s',

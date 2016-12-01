@@ -14,24 +14,12 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMails', {
     layout: 'responsivecolumn',
 
     initComponent: function() {
-        var grid = Ext.create('NgcpCsc.view.pages.voicemails.VoiceMailsGrid', {
-            bind: {
-                title: '{month_summary}'
-            }
-        });
-
+        // TODO: Implement fixed column size for the card section
+        // TODO: Adjust responsiveness of cards
+        // TODO: Create formula for {time} value (displayed in VoiceMailsTpl)
+        // to pre-render it in right format
         this.items = [{
-            userCls: 'big-70 small-100 white-box',
-            padding: 10,
-            items: [{
-                height: 60,
-                padding: '20 0 5 20',
-                html: Ngcp.csc.locales.voicemails.subtitle[localStorage.getItem('languageSelected')]
-            }, {
-                height: 60,
-                padding: '5 0 0 20',
-                html: Ext.String.format('<div class="voicemails-heading">{0} {1}</div>', Ngcp.csc.locales.voicemails.user_label[localStorage.getItem('languageSelected')], localStorage.getItem('username'))
-            }, grid]
+            xtype: 'voicemails-tpl'
         }, {
             userCls: 'big-30 small-100',
             defaults: {
