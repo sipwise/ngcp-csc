@@ -31,7 +31,9 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMails', {
                 height: 60,
                 padding: '5 0 0 20',
                 html: Ext.String.format('<div class="voicemails-heading">{0} {1}</div>', Ngcp.csc.locales.voicemails.user_label[localStorage.getItem('languageSelected')], localStorage.getItem('username'))
-            }, grid]
+            }, grid, {
+                xtype: 'voicemails-tpl'
+            }]
         }, {
             userCls: 'big-30 small-100',
             defaults: {

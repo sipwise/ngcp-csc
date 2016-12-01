@@ -12,7 +12,7 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMailsGrid', {
     padding: 10,
 
     listeners: {
-        cellclick:'onCellClicked'
+        cellclick: 'onCellClicked'
     },
 
     columns: {
@@ -43,7 +43,7 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMailsGrid', {
             text: 'duration'
         }, {
             flex: 1,
-            xtype:'datecolumn',
+            xtype: 'datecolumn',
             dataIndex: 'time',
             text: 'date',
             format: 'd.m.Y h:i:s',

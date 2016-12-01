@@ -27,6 +27,22 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMailsController', {
     },
 
     onCellClicked: function(view, td, cellindex, record){
-        this.fireEvent('initwebrtc', record);
+        // TODO: This fires when clicking any cell. Need to an if statement to
+        // only fire if right cell is clicked
+        // this.fireEvent('initwebrtc', record);
+    },
+
+    clickSmCard: function(view, record, item, rowIndex, e, eOpts) {
+        var store = view.getStore();
+        var rec = view.getStore().getAt(rowIndex);
+        var target = e.getTarget();
+        console.log('clickSmCard clicked');
+        for (var item in target.classList) {
+            if (target.classList[item] === 'fa-remove') {
+                store.remove(rec);
+                this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
+            };
+        };
     }
+
 });
