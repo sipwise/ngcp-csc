@@ -1,21 +1,15 @@
-Ext.define('NgcpCsc.view.pages.voicemails.VoiceMailsModel', {
+Ext.define('NgcpCsc.view.pages.calls.CallsModel', {
     extend: 'Ext.app.ViewModel',
-    alias: 'viewmodel.voicemails',
+    alias: 'viewmodel.calls',
 
-    stores:{
+    stores: {
         voicemails: 'VoiceMails'
     },
 
-    links:{
+    links: {
         settings: {
             type: 'NgcpCsc.model.VoiceMailSettings',
             id: Ext.id() // genrates random id (required)
-        }
-    },
-
-    formulas:{
-        month_summary: function(get){
-            return 'October';
         }
     }
 });

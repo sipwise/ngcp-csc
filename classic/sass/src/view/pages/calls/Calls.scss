@@ -3,3 +3,35 @@
   padding-left: 10px;
   padding-right: 10px;
 }
+.contact-wrapper {
+    .content {
+        width: 30%;
+        float: left;
+        margin-left: 40px;
+
+        .fa-phone-square {
+            margin-left:5px;
+            cursor: pointer;
+        }
+
+        .short-label {
+            width: 50px;
+            float: left;
+        }
+
+        .label {
+            width: 80px;
+            float: left;
+        }
+    }
+    .icons-container {}
+}
+
+.fa-file-audio-o:before {
+    color:$base-color;
+    padding: 0px 10px 0px 0px;
+}
+
+.voicemails-heading {
+    font-size: 24px;
+}

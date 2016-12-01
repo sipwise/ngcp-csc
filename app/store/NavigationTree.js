@@ -24,13 +24,6 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             acl: ['administrator', 'restricted'],
             leaf: true
         }, {
-            text: 'Voicemails',
-            iconCls: 'x-fa fa-envelope',
-            viewType: 'voicemails',
-            routeId: 'voicebox',
-            acl: ['administrator', 'restricted'],
-            leaf: true
-        }, {
             text: 'Chat',
             iconCls: 'x-fa fa-wechat',
             viewType: 'chat',
