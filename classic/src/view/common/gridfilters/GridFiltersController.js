@@ -8,7 +8,26 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
     },
 
     submitFilters: function() {
-        Ext.getStore(this.getView()._linkedStoreId).load();
+        var vm = this.getViewModel();
+        var fromFilter = vm.get('from_date');
+        var toFilter = vm.get('to_date');
+        var number = vm.get('number');
+        var types = vm.get('types');
+        var store = Ext.getStore(this.getView()._linkedStoreId);
+
+        store.filter([{
+            property: 'from',
+            value: fromFilter
+        }, {
+            property: 'to',
+            value: toFilter
+        }, {
+            property: 'number',
+            value: number
+        }, {
+            property: 'types',
+            value: types
+        }]);
     },
 
     resetFilters: function() {

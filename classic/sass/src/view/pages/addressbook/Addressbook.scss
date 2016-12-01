@@ -3,26 +3,3 @@
 .addressbook-heading {
     font-size: 24px;
 }
-
-.contact-wrapper {
-    .content {
-        width: 30%;
-        float: left;
-        margin-left: 40px;
-
-        .fa-phone-square {
-            margin-left:5px;
-            cursor: pointer;
-        }
-
-        .short-label {
-            width: 50px;
-            float: left;
-        }
-
-        .label {
-            width: 80px;
-            float: left;
-        }
-    }
-}

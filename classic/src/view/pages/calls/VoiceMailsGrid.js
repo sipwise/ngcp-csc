@@ -1,4 +1,4 @@
-Ext.define('NgcpCsc.view.pages.voicemails.VoiceMailsGrid', {
+Ext.define('NgcpCsc.view.pages.calls.VoiceMailsGrid', {
     extend: 'Ext.grid.Panel',
 
     xtype: 'voicemails-grid',

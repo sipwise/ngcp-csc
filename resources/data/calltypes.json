@@ -1,0 +1,15 @@
+{
+    "data": [{
+        "id" : "call",
+        "call_type": "Call"
+    }, {
+        "id" : "cft",
+        "call_type": "voiVoiceboxcemail"
+    }, {
+        "id" : "cfu",
+        "call_type": "Reminder"
+    }, {
+        "id" : "cfna",
+        "call_type": "Fax"
+    }]
+}
