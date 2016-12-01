@@ -1,0 +1,30 @@
+{
+    "data": [{
+        "id" : "call",
+        "call_type": "Call"
+    }, {
+        "id" : "cft", // not sure about these codes
+        "call_type": "Voiceboxmail"
+    }, {
+        "id" : "cfu",
+        "call_type": "Reminder"
+    }, {
+        "id" : "cfna",
+        "call_type": "Fax"
+    }]
+}
+{
+    "data": [{
+        "id": "call",
+        "call_type": "Call"
+    }, {
+        "id": "cft", // not sure about these codes
+        "call_type": "Voiceboxmail"
+    }, {
+        "id": "cfu",
+        "call_type": "Reminder"
+    }, {
+        "id": "cfna",
+        "call_type": "Fax"
+    }]
+}

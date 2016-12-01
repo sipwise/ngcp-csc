@@ -5,53 +5,60 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
 
     controller: 'calls',
 
-    initComponent: function() {
-        var callsGrid = Ext.create('NgcpCsc.view.pages.calls.CallsGrid');
-        this.setTitle(Ngcp.csc.locales.calls.section_title[localStorage.getItem('languageSelected')]);
-        this.setLayout('responsivecolumn');
-        this.items = [Ext.create('NgcpCsc.view.common.gridfilters.GridFilters',{
-            userCls: 'big-30 small-100',
+    viewModel: 'calls',
+
+    layout: 'responsivecolumn',
+
+    items: [{
+        userCls: 'big-30 small-100',
+        defaults: {
+            padding: 0,
+            collapsible: true,
+            collapsed: !Ext.os.is.Desktop
+        },
+        items: [Ext.create('NgcpCsc.view.common.gridfilters.GridFilters', {
             _linkedStoreId: 'Calls'
-        }),{
-            xtype:'core-container',
-            userCls: 'big-70 small-100',
-            items: [{
-                    html: Ngcp.csc.locales.calls.recent_calls[localStorage.getItem('languageSelected')],
-                    padding: '0 0 20 0'
-                }, {
-                    xtype: 'container',
-                    anchor: '100%',
-                    height: 40,
-                    padding: 10,
-                    layout: 'hbox',
-                    defaults: {
-                        xtype: 'container',
-                        width: 120,
-                        height: 20
-                    },
-                    items: [{
-                        html: Ext.String.format('<span class="fa fa-arrow-circle-up calls-icon"></span><span>{0}</span>', Ngcp.csc.locales.calls.call_type.incoming[localStorage.getItem('languageSelected')])
-                    }, {
-                        html: Ext.String.format('<span class="fa fa-arrow-circle-down calls-icon"></span><span>{0}</span>', Ngcp.csc.locales.calls.call_type.outgoing[localStorage.getItem('languageSelected')])
-                    }, {
-                        html: Ext.String.format('<span class="fa fa-arrow-circle-right calls-icon"></span><span>{0}</span>', Ngcp.csc.locales.calls.call_type.forwarded[localStorage.getItem('languageSelected')])
-                    }]
+        }), {
+            title: Ngcp.csc.locales.voicemails.settings.title[localStorage.getItem('languageSelected')],
+            xtype: 'core-container',
+            items:[{
+                xtype:'form',
+                padding: 20,
+                defaults:{
+                    width: '100%'
                 },
-                callsGrid, {
-                    xtype: 'container',
-                    anchor: '100%',
-                    height: 40,
-                    padding: 10,
-                    html: Ext.String.format('<div class="link">{0}</div>', Ngcp.csc.locales.calls.all_calls[localStorage.getItem('languageSelected')]),
-                    listeners: {
-                        click: {
-                            element: 'el',
-                            fn: 'showAllCalls'
-                        }
-                    }
-                }
-            ]
-        }];
-        this.callParent();
-    }
+                items: [{
+                    xtype: 'textfield',
+                    labelAlign: 'top',
+                    bind: '{settings.email}',
+                    fieldLabel: Ngcp.csc.locales.voicemails.settings.description[localStorage.getItem('languageSelected')]
+                }, {
+                    xtype: 'checkbox',
+                    bind: '{settings.attach_rec}',
+                    boxLabel: Ngcp.csc.locales.voicemails.settings.attach_recording[localStorage.getItem('languageSelected')]
+                }, {
+                    xtype: 'numberfield',
+                    labelAlign: 'left',
+                    labelWidth: 60,
+                    hideTrigger: true,
+                    maxValue: 9999,
+                    bind: '{settings.pin}',
+                    fieldLabel: Ngcp.csc.locales.voicemails.settings.pin[localStorage.getItem('languageSelected')]
+                }, {
+                    html: Ngcp.csc.locales.voicemails.settings.pin_instructions[localStorage.getItem('languageSelected')]
+                }, {
+                    margin: '10 0 0 0',
+                    items: [{
+                        text: Ngcp.csc.locales.common.save[localStorage.getItem('languageSelected')],
+                        xtype: 'button',
+                        width: '100%',
+                        handler: 'saveSettings'
+                    }]
+                }]
+            }]
+        }]
+    }, {
+        xtype: 'calls-grid',
+        userCls: 'big-70 small-100'
+    }]
 })
