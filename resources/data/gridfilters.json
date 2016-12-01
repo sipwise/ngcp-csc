@@ -1,6 +1,13 @@
 {
     "data": [{
         "from_date": "",
-        "to_date": ""
+        "to_date": "",
+        "incoming": true,
+        "outgoing": true ,
+        "number": null,
+        "type":["call", "cft", "cfu", "cfna"],
+        "missed": true,
+        "answered": true,
+        "search_term": ""
     }]
 }

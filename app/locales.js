@@ -519,18 +519,18 @@ Ext.define('Ngcp.csc.locales', {
         },
         filters: {
             search: {
-                en: 'SEARCH',
-                it: 'SEARCH',
-                de: 'SEARCH',
-                fr: 'SEARCH',
-                sp: 'SEARCH'
+                en: 'Filters',
+                it: 'Filters',
+                de: 'Filters',
+                fr: 'Filters',
+                sp: 'Filters'
             },
             from: {
-                en: 'time range (DD.MM.YYYY)',
-                it: 'time range (DD.MM.YYYY)',
-                de: 'time range (DD.MM.YYYY)',
-                fr: 'time range (DD.MM.YYYY)',
-                sp: 'time range (DD.MM.YYYY)'
+                en: 'Time range (DD.MM.YYYY)',
+                it: 'Time range (DD.MM.YYYY)',
+                de: 'Time range (DD.MM.YYYY)',
+                fr: 'Time range (DD.MM.YYYY)',
+                sp: 'Time range (DD.MM.YYYY)'
             },
             to: {
                 en: 'to',
@@ -538,6 +538,41 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'to',
                 fr: 'to',
                 sp: 'to'
+            },
+            incoming: {
+                en: 'Incoming',
+                it: 'Incoming',
+                de: 'Incoming',
+                fr: 'Incoming',
+                sp: 'Incoming'
+            },
+            outgoing: {
+                en: 'Outgoing',
+                it: 'Outgoing',
+                de: 'Outgoing',
+                fr: 'Outgoing',
+                sp: 'Outgoing'
+            },
+            missed: {
+                en: 'Missed',
+                it: 'Missed',
+                de: 'Missed',
+                fr: 'Missed',
+                sp: 'Missed'
+            },
+            answered: {
+                en: 'Answered',
+                it: 'Answered',
+                de: 'Answered',
+                fr: 'Answered',
+                sp: 'Answered'
+            },
+            calltype: {
+                en: 'Type',
+                it: 'Type',
+                de: 'Type',
+                fr: 'Type',
+                sp: 'Type'
             },
             search_term: {
                 en: 'search term',
@@ -547,18 +582,11 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'search term'
             },
             apply: {
-                en: 'apply filter',
-                it: 'apply filter',
-                de: 'apply filter',
-                fr: 'apply filter',
-                sp: 'apply filter'
-            },
-            reset: {
-                en: 'reset filter',
-                it: 'reset filter',
-                de: 'reset filter',
-                fr: 'reset filter',
-                sp: 'reset filter'
+                en: 'apply',
+                it: 'apply',
+                de: 'apply',
+                fr: 'apply',
+                sp: 'apply'
             }
         },
         voicemails: {
@@ -592,11 +620,11 @@ Ext.define('Ngcp.csc.locales', {
             },
             settings: {
                 title: {
-                    en: 'SETTINGS',
-                    it: 'SETTINGS',
-                    de: 'SETTINGS',
-                    fr: 'SETTINGS',
-                    sp: 'SETTINGS'
+                    en: 'Settings',
+                    it: 'Settings',
+                    de: 'Settings',
+                    fr: 'Settings',
+                    sp: 'Settings'
                 },
                 description: {
                     en: 'Send notification of new messages to the following e-mail adddress',

@@ -77,6 +77,11 @@
     opacity: 0.8;
 }
 
+
+.x-grid-item-selected {
+    background-color: #fff;
+}
+
 //--------------------------------------------------------
 // Create classes for full-size responsive items
 
@@ -220,4 +225,8 @@
     .x-panel-body {
         background-color: #f6f6f6;
     }
+}
+
+.x-tagfield{
+    overflow: visible;
 }
