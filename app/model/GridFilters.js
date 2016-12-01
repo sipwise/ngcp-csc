@@ -1,7 +1,7 @@
 Ext.define('NgcpCsc.model.GridFilters', {
     extend: 'Ext.data.Model',
 
-    fields: ['from_date', 'to_date'],
+    fields: ['from_date', 'to_date', 'direction', 'missed', 'answered'],
 
     proxy: {
         type: 'ajax',

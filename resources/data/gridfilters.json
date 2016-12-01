@@ -1,6 +1,10 @@
 {
     "data": [{
         "from_date": "",
-        "to_date": ""
+        "to_date": "",
+        "direction": "incoming",
+        "number": null,
+        "missed": true,
+        "answered": true
     }]
 }
