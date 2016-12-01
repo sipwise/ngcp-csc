@@ -1,5 +1,5 @@
 Ext.define('NgcpCsc.view.pages.addressbook.AddressbookGrid', {
-    extend: 'NgcpCsc.view.core.Grid',
+    extend: 'NgcpCsc.view.core.GridCards',
 
     xtype: 'addressbook-grid',
 
@@ -15,9 +15,9 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookGrid', {
     },
 
     tbar: [{
-        xtype: 'label',
-        text: Ngcp.csc.locales.common.order_by[localStorage.getItem('languageSelected')]
-    },{
+            xtype: 'label',
+            text: Ngcp.csc.locales.common.order_by[localStorage.getItem('languageSelected')]
+        }, {
             xtype: 'container',
             id: 'group-firstname',
             padding: '0 10 0 0',

@@ -1,18 +1,6 @@
 Ext.define('NgcpCsc.view.pages.callforward.CallForwardGrid', {
     extend: 'Ext.grid.Panel',
 
-    store: Ext.create('NgcpCsc.store.CallForward', {
-        storeId: 'CallForwardBusy',
-        proxy: {
-            type: 'ajax',
-            url: '/resources/data/callForwardBusy.json',
-            reader: {
-                type: 'json',
-                rootProperty: 'data'
-            }
-        }
-    }),
-
     selModel: 'cellmodel',
 
     viewConfig: {

@@ -17,9 +17,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
         userCls: 'big-30 small-100',
         items: [{
             xtype: 'gridfilters',
-            _linkedStoreId: 'CallForward',
-            _hideDateFilters: true,
-            _isNested: true
+            _linkedStoreId: ['CallForwardBusy', 'CallForwardOnline', 'CallForwardOffline'],
+            _hideSearchTerm: false,
+            padding: 0
         }, {
             xtype: 'core-container',
             bind: {

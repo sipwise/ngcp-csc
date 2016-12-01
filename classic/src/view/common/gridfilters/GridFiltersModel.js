@@ -11,5 +11,10 @@ Ext.define('NgcpCsc.view.gridfilters.GridFiltersModel', {
             type: "NgcpCsc.model.GridFilters",
             id: Ext.id()
         }
+    },
+    formulas: {
+        fromDateMax : function(get){
+            return get('filtergrid.to_date') || new Date();
+        }
     }
 });
