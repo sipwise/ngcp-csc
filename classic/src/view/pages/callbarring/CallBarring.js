@@ -15,8 +15,8 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
     title: Ngcp.csc.locales.callbarring.title[localStorage.getItem('languageSelected')],
 
     initComponent: function() {
-        var incomingGrid = Ext.create('NgcpCsc.view.pages.callbarring.CallBarringIncomingGrid', {});
-        var outgoingGrid = Ext.create('NgcpCsc.view.pages.callbarring.CallBarringOutgoingGrid', {});
+        var incomingGrid = Ext.create('NgcpCsc.view.pages.callbarring.CallBarringIncomingGrid');
+        var outgoingGrid = Ext.create('NgcpCsc.view.pages.callbarring.CallBarringOutgoingGrid');
 
         this.items = [{
             userCls: 'white-box',
@@ -44,7 +44,7 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
                                 name: 'incoming',
                                 inputValue: 'incoming-allow',
                                 id: 'incoming1',
-                                bind: '{block_in_mode}'
+                                bind: '{settings.block_in_mode}'
                             }, {
                                 boxLabel: Ngcp.csc.locales.callbarring.block_everything[localStorage.getItem('languageSelected')],
                                 name: 'incoming',
@@ -72,7 +72,7 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
                             xtype: 'textfield',
                             id: 'incoming-new-enter',
                             padding: '10 0 0 10',
-                            bind: '{new_in_number}',
+                            bind: '{settings.new_in_number}',
                             fieldLabel: Ngcp.csc.locales.callbarring.new_entry[localStorage.getItem('languageSelected')].toLowerCase(),
                             listeners: {
                                 specialKey: 'onEnterPressed'
@@ -107,7 +107,7 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
                             xtype: 'checkboxfield',
                             boxLabel: Ngcp.csc.locales.callbarring.hide_own[localStorage.getItem('languageSelected')].toLowerCase(),
                             name: 'hidebox',
-                            bind: '{clir}'
+                            bind: '{settings.clir}'
                         }, {
                             xtype: 'fieldcontainer',
                             defaultType: 'radiofield',
@@ -116,7 +116,7 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
                                 name: 'outgoing',
                                 inputValue: 'outgoing-allow',
                                 id: 'outgoing1',
-                                bind: '{block_out_mode}'
+                                bind: '{settings.block_out_mode}'
                             }, {
                                 boxLabel: Ngcp.csc.locales.callbarring.block_everything[localStorage.getItem('languageSelected')],
                                 name: 'outgoing',
@@ -144,7 +144,7 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
                             xtype: 'textfield',
                             id: 'outgoing-new-enter',
                             padding: '10 0 0 10',
-                            bind: '{new_out_number}',
+                            bind: '{settings.new_out_number}',
                             fieldLabel: Ngcp.csc.locales.callbarring.new_entry[localStorage.getItem('languageSelected')].toLowerCase(),
                             listeners: {
                                 specialKey: 'onEnterPressed'
@@ -168,20 +168,6 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
                                 }
                             }]
                         },
-                        // {
-                        //     xtype: 'container',
-                        //     id: 'outgoing-new-btn',
-                        //     height: 40,
-                        //     padding: '10 0 10 10',
-                        //     html: Ngcp.csc.locales.callbarring.add_number[localStorage.getItem('languageSelected')].toLowerCase(),
-                        //     cls: 'link',
-                        //     listeners: {
-                        //         click: {
-                        //             element: 'el',
-                        //             fn: 'saveNumber'
-                        //         }
-                        //     }
-                        // },
                         {
                             xtype: 'container',
                             padding: '0 20 10 10',

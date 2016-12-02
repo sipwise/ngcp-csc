@@ -5,6 +5,8 @@ Ext.define('NgcpCsc.view.pages.account.Account', {
 
     controller: 'account',
 
+    viewModel: 'account',
+
     title: Ngcp.csc.locales.account.title[localStorage.getItem('languageSelected')],
 
     initComponent: function() {

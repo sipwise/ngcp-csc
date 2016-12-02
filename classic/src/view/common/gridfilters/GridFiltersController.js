@@ -13,5 +13,6 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
 
     resetFilters: function() {
         this.getView().getForm().reset();
+        this.submitFilters();
     }
 });

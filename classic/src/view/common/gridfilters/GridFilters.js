@@ -20,19 +20,15 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
             fieldLabel: Ngcp.csc.locales.filters.from[localStorage.getItem('languageSelected')],
             name: 'from_date',
             bind:{
-                value:'{from_date}',
-                maxValue: '{to_date}',
-                hidden: '{hidedatefilters}'
+                value:'{filtergrid.from_date}',
+                maxValue: '{filtergrid.to_date}'
             }
         }, {
             xtype: 'datefield',
             format: 'd.m.Y',
             width: this._isNested ? '100%' : '98%' ,
             name: 'to_date',
-            bind:{
-                value: '{to_date}',
-                hidden: '{hidedatefilters}'
-            },
+            bind: '{filtergrid.to_date}',
             maxValue: new Date() // limited to the current date or prior
         }, {
             xtype: 'textfield',

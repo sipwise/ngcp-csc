@@ -4,16 +4,16 @@ Ext.define('NgcpCsc.view.pages.account.AccountController', {
     alias: 'controller.account',
 
     resetForm: function() {
-        this.getViewModel().set('old-password', '');
-        this.getViewModel().set('new-password', '');
-        this.getViewModel().set('repeat-password', '');
+        this.getViewModel().set('credentials.old_password', '');
+        this.getViewModel().set('credentials.new_password', '');
+        this.getViewModel().set('credentials.repeat_password', '');
     },
 
     submitForm: function(field) {
         var oldPassword = localStorage.getItem('password');
-        var enteredOldPassword = this.getViewModel().get('old-password');
-        var newPassword = this.getViewModel().get('new-password');
-        var repeatPassword = this.getViewModel().get('repeat-password');
+        var enteredOldPassword = this.getViewModel().get('credentials.old_password');
+        var newPassword = this.getViewModel().get('credentials.new_password');
+        var repeatPassword = this.getViewModel().get('credentials.repeat_password');
         if (enteredOldPassword === null) {
             this.fireEvent('showmessage', false, Ngcp.csc.locales.account.enter_current[localStorage.getItem('languageSelected')]);
         } else if (newPassword.length < 6 || repeatPassword.length < 6) {

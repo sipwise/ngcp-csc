@@ -18,7 +18,7 @@ Ext.define('NgcpCsc.view.pages.chat.ChatContainer', {
         items: [{
             xtype: 'textarea',
             bind: {
-                value: '{new_message}'
+                value: '{message.new_message}'
             },
             cls: 'new-message',
             name: 'new-message',

@@ -53,12 +53,12 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMails', {
                 }, {
                     xtype: 'textfield',
                     labelAlign: 'top',
-                    bind: '{email}',
+                    bind: '{settings.email}',
                     width: '98%',
                     fieldLabel: Ngcp.csc.locales.voicemails.settings.description[localStorage.getItem('languageSelected')]
                 }, {
                     xtype: 'checkbox',
-                    bind: '{attach_rec}',
+                    bind: '{settings.attach_rec}',
                     boxLabel: Ngcp.csc.locales.voicemails.settings.attach_recording[localStorage.getItem('languageSelected')]
                 }, {
                     xtype: 'numberfield',
@@ -67,7 +67,7 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMails', {
                     labelWidth: 60,
                     hideTrigger: true,
                     maxValue: 9999,
-                    bind: '{pin}',
+                    bind: '{settings.pin}',
                     fieldLabel: Ngcp.csc.locales.voicemails.settings.pin[localStorage.getItem('languageSelected')]
                 }, {
                     html: Ngcp.csc.locales.voicemails.settings.pin_instructions[localStorage.getItem('languageSelected')]

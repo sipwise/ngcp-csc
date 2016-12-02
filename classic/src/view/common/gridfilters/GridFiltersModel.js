@@ -6,8 +6,10 @@ Ext.define('NgcpCsc.view.gridfilters.GridFiltersModel', {
 
     alias: 'viewmodel.gridfilters',
 
-    data: {
-        from_date: '',
-        to_date:''
+    links: {
+        filtergrid: {
+            type:"NgcpCsc.model.GridFilters",
+            id: Ext.id()
+        }
     }
 });
