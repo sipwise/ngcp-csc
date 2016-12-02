@@ -5,15 +5,20 @@ Ext.define('NgcpCsc.view.pages.chat.Chat', {
 
     layout: 'responsivecolumn',
 
-    initComponent:function(){
+    defaults: {
+        ui: 'core-container',
+        margin: 10
+    },
+
+    initComponent: function() {
         this.items = [{
             xtype: 'chatlist',
-            userCls: 'big-30 small-100 white-box',
+            userCls: 'big-30 small-100',
             collapsible: true
         }, {
-            height: Ext.getCmp('mainContainer').getHeight() - 105 ,
+            height: Ext.getCmp('mainContainer').getHeight() - 105,
             xtype: 'chatcontainer',
-            userCls: 'big-70 small-100 white-box'
+            userCls: 'big-70 small-100'
         }]
         this.callParent();
     }

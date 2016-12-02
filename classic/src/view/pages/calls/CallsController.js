@@ -9,7 +9,6 @@ Ext.define('NgcpCsc.view.pages.calls.CallsController', {
 
     renderCallTypeIcons: function(value) {
         var icon;
-
         switch (value) {
             case 'call':
                 icon = 'fa fa-arrow-circle-down';
@@ -29,7 +28,7 @@ Ext.define('NgcpCsc.view.pages.calls.CallsController', {
         };
         return Ext.String.format('<div class="{0}"></div>', icon);
     },
-    onCellClicked: function(view, td, cellindex, record){
+    onCellClicked: function(view, td, cellindex, record) {
         this.fireEvent('initwebrtc', record);
     }
 });

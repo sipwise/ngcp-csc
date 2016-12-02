@@ -5,19 +5,19 @@ Ext.define('NgcpCsc.view.pages.account.Account', {
 
     controller: 'account',
 
+    viewModel: 'account',
+
     title: Ngcp.csc.locales.account.title[localStorage.getItem('languageSelected')],
 
     initComponent: function() {
         this.items = [{
             layout: 'responsivecolumn',
-            userCls: 'white-box',
-            margin: 20,
-            padding: 10,
+            xtype:'core-container',
             items: [{
                     padding: '0 0 5 0',
                     html: Ngcp.csc.locales.common.password[localStorage.getItem('languageSelected')].toUpperCase()
                 }, {
-                    padding: '00 0 5 0',
+                    padding: '0 0 5 0',
                     html: Ngcp.csc.locales.account.password_instructions[localStorage.getItem('languageSelected')]
                 }, {
                     userCls: 'big-66 small-100',

@@ -1,0 +1,11 @@
+@include extjs-panel-ui(
+    $ui: 'core-container',
+    $ui-border-color: lightgray,
+    $ui-border-width: 1px,
+    $ui-border-radius: 10px
+);
+.x-panel-core-container{
+    .x-panel-body {
+        background-color: $body-background-color;
+    }
+}

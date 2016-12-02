@@ -80,6 +80,13 @@
 //--------------------------------------------------------
 // Create classes for full-size responsive items
 
+.x-responsivecolumn {
+    padding: 0px 0px 0px 0px;
+    > * {
+        margin: 0px 0px 0px 0px;
+    }
+}
+
 .big-100 {
     @include responsivecolumn-item(100%);
 }
@@ -212,18 +219,5 @@
 .main-container {
     .x-panel-body {
         background-color: #f6f6f6;
-    }
-    .x-responsivecolumn {
-        padding: 20px 0px 20px 20px;
-    }
-}
-
-.white-box {
-    border: 1px lightgray solid;
-    background-color: $body-background-color;
-    border-radius: 10px;
-    margin: 0px 20px 10px 0px;
-    .x-panel-body {
-        background-color: $body-background-color;
     }
 }

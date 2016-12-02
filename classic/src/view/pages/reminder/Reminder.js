@@ -10,9 +10,7 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
     initComponent: function() {
         this.items = [{
             layout: 'responsivecolumn',
-            userCls: 'white-box',
-            margin: 20,
-            padding: 10,
+            xtype:'core-container',
             items: [{
                 userCls: 'big-66 small-100',
                 xtype: 'form',
@@ -36,24 +34,25 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
                     maxValue: '23:50',
                     increment: 10,
                     bind: {
-                        value: '{timer}',
-                        disabled: '{!reminder_status}'
+                        value: '{reminder.timer}',
+                        disabled: '{!reminder.reminder_status}'
                     }
                 }, {
                     xtype: 'radiogroup',
                     fieldLabel: Ngcp.csc.locales.reminder.recurrence[localStorage.getItem('languageSelected')],
                     vertical: true,
                     columns: 1,
+                    simpleValue: true,
                     bind: {
-                        value: '{recurrence}',
-                        disabled: '{!reminder_status}'
+                        value: '{reminder.recurrence}',
+                        disabled: '{!reminder.reminder_status}'
                     },
                     defaults: {
                         name: 'value'
                     },
                     items: [{
                         boxLabel: Ngcp.csc.locales.reminder.never[localStorage.getItem('languageSelected')],
-                        inputValue: 'value'
+                        inputValue: 'never'
                     }, {
                         boxLabel: Ngcp.csc.locales.reminder.weekdays[localStorage.getItem('languageSelected')],
                         inputValue: 'weekdays'
@@ -68,12 +67,12 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
                         text: Ngcp.csc.locales.common.active[localStorage.getItem('languageSelected')],
                         margin: '0 5 0 0',
                         bind: {
-                            pressed: '{reminder_status}'
+                            pressed: '{reminder.reminder_status}'
                         }
                     }, {
                         text: Ngcp.csc.locales.common.inactive[localStorage.getItem('languageSelected')],
                         bind: {
-                            pressed: '{!reminder_status}'
+                            pressed: '{!reminder.reminder_status}'
                         }
                     }]
                 }]

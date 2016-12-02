@@ -1,9 +1,9 @@
 {
     "data": [
         {
-            "webusername": "43991002",
-            "webpassword": "x43991002",
-            "time": "15:00:00"
+            "new_password": "test",
+            "old_password": "test",
+            "repeat_password": "test"
         }
     ]
 }

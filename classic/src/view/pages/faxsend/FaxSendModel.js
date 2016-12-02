@@ -1,13 +1,11 @@
 Ext.define('NgcpCsc.view.pages.faxsend.FaxSendModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.faxsend',
+    links: {
+        fax: {
+            type: 'NgcpCsc.model.Fax',
+            id: Ext.id()
 
-    data: {
-        destination_number: '',
-        page_header: '',
-        content: '',
-        selected_quality: 'Standard',
-        chosen_file: ''
+        }
     }
-
 })

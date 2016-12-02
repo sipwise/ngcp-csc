@@ -28,7 +28,7 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
     },
 
     submitMessage: function(msg, user) {
-        var message = msg || this.getViewModel().get('new_message');
+        var message = msg || this.getViewModel().get('message.new_message');
         if (message.length < 1 || !this.getView().getActiveTab())
             return;
         var chatStore = this.getView().getActiveTab().getStore('notifications');
@@ -110,7 +110,6 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
     },
 
     toggleChat:function(visible){
-        this.getViewModel().set('chatEnabled', visible);
+        this.getViewModel().set('messages.chatEnabled', visible);
     }
-
 });
