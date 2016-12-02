@@ -7,7 +7,7 @@ Ext.define('NgcpCsc.view.pages.faxsend.FaxSend', {
 
     controller: 'faxsend',
 
-    title: Ngcp.csc.locales.fax_send.title[localStorage.getItem('languageSelected')],
+    title: Ngcp.csc.locales.faxsend.title[localStorage.getItem('languageSelected')],
 
     initComponent: function () {
         this.items = [{
@@ -26,7 +26,7 @@ Ext.define('NgcpCsc.view.pages.faxsend.FaxSend', {
 
                 items:[{
                     height: 60,
-                    html: Ngcp.csc.locales.fax_send.subtitle[localStorage.getItem('languageSelected')]
+                    html: Ngcp.csc.locales.faxsend.subtitle[localStorage.getItem('languageSelected')]
                 }, {
                     reference:'faxsendForm',
                     xtype: 'faxsendform',
@@ -39,7 +39,7 @@ Ext.define('NgcpCsc.view.pages.faxsend.FaxSend', {
                         flex: 1
                     },
                     items: [{
-                        text: Ngcp.csc.locales.fax_send.send_fax[localStorage.getItem('languageSelected')],
+                        text: Ngcp.csc.locales.faxsend.send_fax[localStorage.getItem('languageSelected')],
                         margin: '0 5 0 0',
                         handler: 'submitForm'
                     }, {
