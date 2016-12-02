@@ -1,11 +1,12 @@
 Ext.define('NgcpCsc.view.pages.chat.ChatModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.chat',
-    data: {
-        new_message: '',
-        chatEnabled: false
+    links: {
+        message: {
+            type: 'NgcpCsc.model.Chat',
+            id: Ext.id()
+        }
     },
-    formulas: {},
     stores: {
         notifications: 'Chat'
     }

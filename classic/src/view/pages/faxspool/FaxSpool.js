@@ -11,13 +11,12 @@ Ext.define('NgcpCsc.view.pages.faxspool.FaxSpool', {
 
     initComponent: function() {
         this.items = [{
-            userCls: 'big-30 small-100 white-box',
-            padding: 20,
+            userCls: 'big-30 small-100',
             xtype: 'gridfilters',
             _linkedStoreId: 'FaxSpool'
-        }, {
-            userCls: 'big-70 small-100 white-box',
-            padding: 30,
+        },{
+            userCls: 'big-70 small-100',
+            xtype:'core-container',
             items: [{
                 height: 40,
                 html: Ngcp.csc.locales.faxspool.subtitle[localStorage.getItem('languageSelected')]

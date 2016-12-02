@@ -5,21 +5,15 @@ Ext.define('NgcpCsc.view.pages.faxsend.FaxSendController', {
 
     resetForm: function() {
         var vm = this.getViewModel();
-        vm.set('destination_number', '');
-        vm.set('page_header', '');
-        vm.set('content', '');
-        vm.set('chosen_file', '');
+        vm.set('fax.destination_number', '');
+        vm.set('fax.page_header', '');
+        vm.set('fax.content', '');
+        vm.set('fax.chosen_file', '');
         Ext.ComponentQuery.query('#faxsend-quality')[0].reset();
         Ext.ComponentQuery.query('#fs-file')[0].reset();
     },
 
     submitForm: function (field) {
-        // var vm = this.getViewModel();
-        // var newNumberEntered = vm.get('destination_number');
-        // var newHeaderEntered = vm.get('page_header');
-        // var newConteredEntered = vm.get('content');
-        // var newQualitySelected = vm.get('selected_quality');
-        // var newFileChosen = vm.get('chosen_file');
         var form = this.lookupReference('faxsendForm');
         if (!form.isValid()) {
             return;
@@ -35,7 +29,7 @@ Ext.define('NgcpCsc.view.pages.faxsend.FaxSendController', {
 
     selectQuality: function (cmp, rec) {
         var selectedValue = rec.get('quality');
-        this.getViewModel().set('selected_quality', selectedValue);
+        this.getViewModel().set('fax.selected_quality', selectedValue);
     }
 
 })

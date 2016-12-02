@@ -10,13 +10,15 @@ Ext.define('NgcpCsc.view.pages.themeroller.ThemeRoller', {
     title: Ngcp.csc.locales.themeroller.title[localStorage.getItem('languageSelected')],
 
     items: [{
-        margin: '20 0 20 20',
         defaults: {
-            bodyPadding: 20,
-            userCls: 'white-box',
+            ui:'core-container',
             collapsible: true,
             collapsed: false,
-            layout: 'responsivecolumn'
+            layout: 'responsivecolumn',
+            margin:10,
+            defaults:{
+                padding: 20
+            }
         },
         items: [{
             title: Ngcp.csc.locales.themeroller.first_section_title[localStorage.getItem('languageSelected')],

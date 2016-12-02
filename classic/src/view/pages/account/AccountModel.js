@@ -2,10 +2,11 @@ Ext.define('NgcpCsc.view.pages.account.AccountModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.account',
 
-    data: {
-        new_password: '',
-        old_password: '',
-        repeat_password: ''
+    links: {
+        credentials: {
+            type: 'NgcpCsc.model.Account',
+            id: Ext.id()
+        }
     },
 
     formulas: {

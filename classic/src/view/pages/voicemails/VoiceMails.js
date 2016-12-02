@@ -19,16 +19,16 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMails', {
         });
 
         this.items = [{
-            userCls: 'big-30 small-100 white-box',
+            userCls: 'big-30 small-100',
             defaults: {
-                padding: 20
+                xtype:'core-container',
+                margin:'10 0 10 10'
             },
-            items: [{
-                items: [Ext.create('NgcpCsc.view.common.gridfilters.GridFilters', {
-                    _linkedStoreId: 'VoiceMails',
-                    _isNested: true
-                }), {
-                    padding: '20 0 0 0',
+            items: [Ext.create('NgcpCsc.view.common.gridfilters.GridFilters', {
+                _linkedStoreId: 'VoiceMails',
+                _isNested: true
+            }),{
+                items: [{
                     html: Ngcp.csc.locales.voicemails.by_months[localStorage.getItem('languageSelected')]
                 }, {
                     xtype: 'container',
@@ -40,12 +40,12 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMails', {
                 }, {
                     xtype: 'textfield',
                     labelAlign: 'top',
-                    bind: '{email}',
+                    bind: '{settings.email}',
                     width: '98%',
                     fieldLabel: Ngcp.csc.locales.voicemails.settings.description[localStorage.getItem('languageSelected')]
                 }, {
                     xtype: 'checkbox',
-                    bind: '{attach_rec}',
+                    bind: '{settings.attach_rec}',
                     boxLabel: Ngcp.csc.locales.voicemails.settings.attach_recording[localStorage.getItem('languageSelected')]
                 }, {
                     xtype: 'numberfield',
@@ -54,7 +54,7 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMails', {
                     labelWidth: 60,
                     hideTrigger: true,
                     maxValue: 9999,
-                    bind: '{pin}',
+                    bind: '{settings.pin}',
                     fieldLabel: Ngcp.csc.locales.voicemails.settings.pin[localStorage.getItem('languageSelected')]
                 }, {
                     html: Ngcp.csc.locales.voicemails.settings.pin_instructions[localStorage.getItem('languageSelected')]
@@ -68,16 +68,14 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMails', {
                     }]
                 }]
             }]
-        }, {
-            userCls: 'big-70 small-100 white-box',
-            padding: 10,
+        },{
+            userCls: 'big-70 small-100',
+            xtype:'core-container',
             items: [{
                 height: 60,
-                padding: '20 0 5 20',
                 html: Ngcp.csc.locales.voicemails.subtitle[localStorage.getItem('languageSelected')]
             }, {
                 height: 60,
-                padding: '5 0 0 20',
                 html: Ext.String.format('<div class="voicemails-heading">{0} {1}</div>', Ngcp.csc.locales.voicemails.user_label[localStorage.getItem('languageSelected')], localStorage.getItem('username'))
             }, grid]
         }];

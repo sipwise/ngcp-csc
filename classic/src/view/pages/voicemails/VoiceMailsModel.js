@@ -6,10 +6,11 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMailsModel', {
         voicemails: 'VoiceMails'
     },
 
-    data: {
-        email: '1234@1.2.3.4',
-        attach_rec: true,
-        pin: '1234'
+    links:{
+        settings: {
+            type: 'NgcpCsc.model.VoiceMailSettings',
+            id: Ext.id() // genrates random id (required)
+        }
     },
 
     formulas:{

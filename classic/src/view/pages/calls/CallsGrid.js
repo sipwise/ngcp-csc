@@ -2,9 +2,7 @@ Ext.define('NgcpCsc.view.pages.calls.CallsGrid', {
     extend: 'Ext.grid.Panel',
 
     xtype: 'calls-grid',
-
-    layout: 'fit',
-
+    
     store: 'Calls',
 
     _groupCallsByMonth: false,

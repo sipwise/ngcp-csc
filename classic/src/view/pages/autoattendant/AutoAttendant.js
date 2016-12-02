@@ -11,9 +11,7 @@ Ext.define('NgcpCsc.view.pages.autoattendant.AutoAttendant', {
 
     items: [{
         layout: 'responsivecolumn',
-        userCls: 'white-box',
-        margin: 20,
-        padding: 10,
+        xtype:'core-container',
         items: [{
             height: 25,
             html: Ngcp.csc.locales.autoattendant.subtitle[localStorage.getItem('languageSelected')]
