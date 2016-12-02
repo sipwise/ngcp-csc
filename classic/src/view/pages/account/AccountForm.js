@@ -11,14 +11,14 @@ Ext.define('NgcpCsc.view.pages.account.AccountForm', {
 
     items: [{
         xtype: 'container',
-        bind: '{username}',
+        bind: '{credentials.username}',
         margin:'0 0 10 0'
     }, {
         xtype: 'textfield',
         inputType: 'password',
         fieldLabel: Ngcp.csc.locales.account.field_labels.old_password[localStorage.getItem('languageSelected')],
         name: 'account-old-password',
-        bind: '{old-password}',
+        bind: '{credentials.old-password}',
         listeners: {
             specialKey: 'onEnterPressed'
         }
@@ -32,7 +32,7 @@ Ext.define('NgcpCsc.view.pages.account.AccountForm', {
             inputType: 'password',
             fieldLabel: Ngcp.csc.locales.account.field_labels.new_password[localStorage.getItem('languageSelected')],
             name: 'account-new-password',
-            bind: '{new-password}',
+            bind: '{credentials.new-password}',
             listeners: {
                 specialKey: 'onEnterPressed'
             }
@@ -40,7 +40,7 @@ Ext.define('NgcpCsc.view.pages.account.AccountForm', {
             inputType: 'password',
             fieldLabel: Ngcp.csc.locales.account.field_labels.repeat_password[localStorage.getItem('languageSelected')],
             name: 'account-repeat-password',
-            bind: '{repeat-password}',
+            bind: '{credentials.repeat-password}',
             listeners: {
                 specialKey: 'onEnterPressed'
             }
