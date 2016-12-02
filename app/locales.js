@@ -783,7 +783,7 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Webrtc'
             }
         },
-        fax_spool: {
+        faxspool: {
             title: {
                 en: 'Your faxes.',
                 it: 'Your faxes.',
@@ -850,7 +850,7 @@ Ext.define('Ngcp.csc.locales', {
                 }
             }
         },
-        fax_send: {
+        faxsend: {
             title: {
                 en: 'Send a fax.',
                 it: 'Send a fax.',
@@ -983,21 +983,21 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Logo',
                 sp: 'Logo'
             },
-            fontfamily: {
+            font_family: {
                 en: 'Font family',
                 it: 'Font family',
                 de: 'Font family',
                 fr: 'Font family',
                 sp: 'Font family'
             },
-            fontsize: {
+            font_size: {
                 en: 'Font size',
                 it: 'Font size',
                 de: 'Font size',
                 fr: 'Font size',
                 sp: 'Font size'
             },
-            fontweight: {
+            font_weight: {
                 en: 'Font weight',
                 it: 'Font weight',
                 de: 'Font weight',

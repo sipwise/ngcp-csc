@@ -31,13 +31,13 @@ Ext.define('NgcpCsc.view.pages.faxspool.FaxSpoolGrid', {
             flex: 1,
             xtype:'datecolumn',
             dataIndex: 'timestamp',
-            text: Ngcp.csc.locales.fax_spool.columns.timestamp[localStorage.getItem('languageSelected')],
+            text: Ngcp.csc.locales.faxspool.columns.timestamp[localStorage.getItem('languageSelected')],
             format: 'd.m.Y h:i:s'
         }
         , {
             flex: 1,
             dataIndex: 'status',
-            text: Ngcp.csc.locales.fax_spool.columns.status[localStorage.getItem('languageSelected')]
+            text: Ngcp.csc.locales.faxspool.columns.status[localStorage.getItem('languageSelected')]
         }, {
             flex: 1,
             dataIndex: 'duration',
@@ -45,7 +45,7 @@ Ext.define('NgcpCsc.view.pages.faxspool.FaxSpoolGrid', {
         }, {
             flex: 1,
             dataIndex: 'direction',
-            text: Ngcp.csc.locales.fax_spool.columns.direction[localStorage.getItem('languageSelected')]
+            text: Ngcp.csc.locales.faxspool.columns.direction[localStorage.getItem('languageSelected')]
         }, {
             flex: 1,
             dataIndex: 'caller',
@@ -53,11 +53,11 @@ Ext.define('NgcpCsc.view.pages.faxspool.FaxSpoolGrid', {
         }, {
             flex: 1,
             dataIndex: 'callee',
-            text: Ngcp.csc.locales.fax_spool.columns.callee[localStorage.getItem('languageSelected')]
+            text: Ngcp.csc.locales.faxspool.columns.callee[localStorage.getItem('languageSelected')]
         }, {
             flex: 1,
             dataIndex: 'pages',
-            text: Ngcp.csc.locales.fax_spool.columns.pages[localStorage.getItem('languageSelected')],
+            text: Ngcp.csc.locales.faxspool.columns.pages[localStorage.getItem('languageSelected')],
             align: 'right'
         }, {
             xtype: 'actioncolumn',

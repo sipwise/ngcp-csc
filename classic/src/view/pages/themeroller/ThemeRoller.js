@@ -99,11 +99,11 @@ Ext.define('NgcpCsc.view.pages.themeroller.ThemeRoller', {
                 },
                 items: [{
                     xtype: 'textfield',
-                    fieldLabel: Ngcp.csc.locales.themeroller.fontfamily[localStorage.getItem('languageSelected')],
+                    fieldLabel: Ngcp.csc.locales.themeroller.font_family[localStorage.getItem('languageSelected')],
                     bind: '{fontfamily}'
                 }, {
                     xtype: 'combo',
-                    fieldLabel: Ngcp.csc.locales.themeroller.fontweight[localStorage.getItem('languageSelected')],
+                    fieldLabel: Ngcp.csc.locales.themeroller.font_weight[localStorage.getItem('languageSelected')],
                     bind: '{fontweight}',
                     editable: false,
                     store: Ext.create('Ext.data.Store', {
@@ -121,7 +121,7 @@ Ext.define('NgcpCsc.view.pages.themeroller.ThemeRoller', {
                     minValue: 6,
                     editable: false,
                     bind: '{fontsize}',
-                    fieldLabel: Ngcp.csc.locales.themeroller.fontsize[localStorage.getItem('languageSelected')]
+                    fieldLabel: Ngcp.csc.locales.themeroller.font_size[localStorage.getItem('languageSelected')]
                 }, {
                     layout: 'hbox',
                     margin: '10 0 0 0',
