@@ -9,22 +9,15 @@ Ext.define('NgcpCsc.view.pages.faxsend.FaxSend', {
 
     title: Ngcp.csc.locales.faxsend.title[localStorage.getItem('languageSelected')],
 
-    initComponent: function () {
+    initComponent: function() {
         this.items = [{
-
-            userCls: 'white-box',
-
             layout: 'responsivecolumn',
-
-            margin: 20,
-
-            padding: 10,
-
-            items:[{
+            xtype: 'core-container',
+            items: [{
 
                 userCls: 'big-66 small-100',
 
-                items:[{
+                items: [{
                     height: 60,
                     html: Ngcp.csc.locales.faxsend.subtitle[localStorage.getItem('languageSelected')]
                 }, {

@@ -9,7 +9,7 @@ Ext.define('NgcpCsc.view.pages.faxsend.FaxSendForm', {
 
     items: [{
         fieldLabel: Ngcp.csc.locales.faxsend.field_labels.destination_number[localStorage.getItem('languageSelected')],
-        bind: '{destination_number}',
+        bind: '{fax.destination_number}',
         allowBlank: false,
         inputAttrTpl: 'data-qtip="' + Ngcp.csc.locales.faxsend.tooltips.number_fax[localStorage.getItem('languageSelected')] + '"',
         listeners: {
@@ -32,7 +32,7 @@ Ext.define('NgcpCsc.view.pages.faxsend.FaxSendForm', {
         }
     }, {
         fieldLabel: Ngcp.csc.locales.faxsend.field_labels.page_header[localStorage.getItem('languageSelected')],
-        bind: '{page_header}',
+        bind: '{fax.page_header}',
         allowBlank: false,
         inputAttrTpl: 'data-qtip="' + Ngcp.csc.locales.faxsend.tooltips.header_text[localStorage.getItem('languageSelected')] + '"',
         listeners: {
@@ -41,7 +41,7 @@ Ext.define('NgcpCsc.view.pages.faxsend.FaxSendForm', {
     }, {
         xtype: 'textareafield',
         fieldLabel: Ngcp.csc.locales.faxsend.field_labels.content[localStorage.getItem('languageSelected')],
-        bind: '{content}',
+        bind: '{fax.content}',
         cls: 'faxsend-content',
         allowBlank: false,
         inputAttrTpl: 'data-qtip="' + Ngcp.csc.locales.faxsend.tooltips.content_text[localStorage.getItem('languageSelected')] + '"',
@@ -55,7 +55,7 @@ Ext.define('NgcpCsc.view.pages.faxsend.FaxSendForm', {
         anchor: '100%',
         allowBlank: false,
         inputAttrTpl: 'data-qtip="' + Ngcp.csc.locales.faxsend.tooltips.file_to_send[localStorage.getItem('languageSelected')] + '"',
-        bind: '{file}',
+        bind: '{fax.file}',
         buttonText: Ngcp.csc.locales.faxsend.choose_file[localStorage.getItem('languageSelected')]
     }]
 

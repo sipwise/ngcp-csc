@@ -5,25 +5,16 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
 
     controller: 'calls',
 
-    defaults: {
-        padding: 20
-    },
-
     initComponent: function() {
-        var callsGrid = Ext.create('NgcpCsc.view.pages.calls.CallsGrid', {
-            _groupCallsByMonth: !this._isDesktopSection
-        });
-        if (!this._isDesktopSection) {
-            this.setTitle(Ngcp.csc.locales.calls.section_title[localStorage.getItem('languageSelected')]);
-            this.setLayout('responsivecolumn');
-        }
+        var callsGrid = Ext.create('NgcpCsc.view.pages.calls.CallsGrid');
+        this.setTitle(Ngcp.csc.locales.calls.section_title[localStorage.getItem('languageSelected')]);
+        this.setLayout('responsivecolumn');
         this.items = [Ext.create('NgcpCsc.view.common.gridfilters.GridFilters',{
-            userCls: 'big-30 small-100 white-box',
-            hidden: this._isDesktopSection,
+            userCls: 'big-30 small-100',
             _linkedStoreId: 'Calls'
-        }), {
-            padding:  30,
-            userCls: (!this._isDesktopSection) ? 'big-70 small-100 white-box' : '',
+        }),{
+            xtype:'core-container',
+            userCls: 'big-70 small-100',
             items: [{
                     html: Ngcp.csc.locales.calls.recent_calls[localStorage.getItem('languageSelected')],
                     padding: '0 0 20 0'
@@ -51,7 +42,6 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
                     anchor: '100%',
                     height: 40,
                     padding: 10,
-                    hidden: !this._isDesktopSection,
                     html: Ext.String.format('<div class="link">{0}</div>', Ngcp.csc.locales.calls.all_calls[localStorage.getItem('languageSelected')]),
                     listeners: {
                         click: {

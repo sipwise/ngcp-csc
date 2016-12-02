@@ -1,8 +1,9 @@
 {
     "data": [
         {
-            "email": "voicebox@10.15.20.116",
-            "pin": "5402"
+            "email": "1234@1.2.3.4",
+            "attach_rec": true,
+            "pin": "1234"
         }
     ]
 }

@@ -759,11 +759,11 @@ Ext.define('Ngcp.csc.locales', {
             },
 
             weekdays: {
-                en: 'on weekedays',
-                it: 'on weekedays',
-                de: 'on weekedays',
-                fr: 'on weekedays',
-                sp: 'on weekedays'
+                en: 'on weekdays',
+                it: 'on weekdays',
+                de: 'on weekdays',
+                fr: 'on weekdays',
+                sp: 'on weekdays'
             },
 
             always: {

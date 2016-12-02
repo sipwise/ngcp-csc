@@ -11,9 +11,7 @@ Ext.define('NgcpCsc.view.pages.deviceprovisioning.DeviceProvisioning', {
 
     items: [{
         layout: 'responsivecolumn',
-        userCls: 'white-box',
-        margin: 20,
-        padding: 10,
+        xtype:'core-container',
         items: [{
             height: 25,
             html: Ngcp.csc.locales.deviceprovisioning.subtitle[localStorage.getItem('languageSelected')]
