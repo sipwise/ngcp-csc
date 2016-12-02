@@ -5,8 +5,6 @@ Ext.define('NgcpCsc.view.pages.chat.Chat', {
 
     layout: 'responsivecolumn',
 
-    scrollable:true,
-
     initComponent:function(){
         this.items = [{
             xtype: 'chatlist',

@@ -7,8 +7,6 @@ Ext.define('NgcpCsc.view.pages.voicemails.VoiceMails', {
 
     controller: 'voicemails',
 
-    scrollable: true,
-
     title: Ngcp.csc.locales.voicemails.title[localStorage.getItem('languageSelected')],
 
     layout: 'responsivecolumn',

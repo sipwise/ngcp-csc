@@ -9,8 +9,6 @@ Ext.define('NgcpCsc.view.pages.addressbook.Addressbook', {
 
     layout: 'responsivecolumn',
 
-    scrollable: true,
-
     title: Ngcp.csc.locales.addressbook.title[localStorage.getItem('languageSelected')],
 
     items : [{

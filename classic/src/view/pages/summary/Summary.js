@@ -11,8 +11,6 @@ Ext.define('NgcpCsc.view.pages.summary.Summary', {
 
     layout: 'responsivecolumn',
 
-    scrollable: true,
-
     items: [{
         xtype: 'calls',
         userCls: 'big-70 small-100 white-box',

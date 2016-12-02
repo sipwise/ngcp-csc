@@ -9,8 +9,6 @@ Ext.define('NgcpCsc.view.pages.deviceprovisioning.DeviceProvisioning', {
 
     title: Ngcp.csc.locales.deviceprovisioning.title[localStorage.getItem('languageSelected')],
 
-    scrollable: true,
-
     items: [{
         layout: 'responsivecolumn',
         userCls: 'white-box',

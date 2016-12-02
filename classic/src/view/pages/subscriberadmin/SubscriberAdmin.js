@@ -9,8 +9,6 @@ Ext.define('NgcpCsc.view.pages.subscriberadmin.SubscriberAdmin', {
 
     title: Ngcp.csc.locales.subscriberadmin.title[localStorage.getItem('languageSelected')],
 
-    scrollable: true,
-
     items: [{
         layout: 'responsivecolumn',
         userCls: 'white-box',

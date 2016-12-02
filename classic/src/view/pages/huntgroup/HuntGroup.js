@@ -9,8 +9,6 @@ Ext.define('NgcpCsc.view.pages.huntgroup.HuntGroup', {
 
     title: Ngcp.csc.locales.huntgroup.title[localStorage.getItem('languageSelected')],
 
-    scrollable: true,
-
     items: [{
         layout: 'responsivecolumn',
         userCls: 'white-box',

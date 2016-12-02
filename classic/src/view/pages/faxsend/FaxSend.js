@@ -9,8 +9,6 @@ Ext.define('NgcpCsc.view.pages.faxsend.FaxSend', {
 
     title: Ngcp.csc.locales.fax_send.title[localStorage.getItem('languageSelected')],
 
-    scrollable: true,
-
     initComponent: function () {
         this.items = [{
 

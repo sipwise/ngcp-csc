@@ -9,8 +9,6 @@ Ext.define('NgcpCsc.view.pages.pbxextension.PbxExtension', {
 
     title: Ngcp.csc.locales.pbxextension.title[localStorage.getItem('languageSelected')],
 
-    scrollable: true,
-
     items: [{
         layout: 'responsivecolumn',
         userCls: 'white-box',

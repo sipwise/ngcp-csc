@@ -9,8 +9,6 @@ Ext.define('NgcpCsc.view.pages.themeroller.ThemeRoller', {
 
     title: Ngcp.csc.locales.themeroller.title[localStorage.getItem('languageSelected')],
 
-    scrollable: true,
-
     items: [{
         margin: '20 0 20 20',
         defaults: {

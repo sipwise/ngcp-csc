@@ -14,8 +14,6 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
 
     title: Ngcp.csc.locales.callbarring.title[localStorage.getItem('languageSelected')],
 
-    scrollable: true,
-
     initComponent: function() {
         var incomingGrid = Ext.create('NgcpCsc.view.pages.callbarring.CallBarringIncomingGrid', {});
         var outgoingGrid = Ext.create('NgcpCsc.view.pages.callbarring.CallBarringOutgoingGrid', {});

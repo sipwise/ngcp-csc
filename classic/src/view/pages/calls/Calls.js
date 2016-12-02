@@ -5,8 +5,6 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
 
     controller: 'calls',
 
-    scrollable: true,
-
     defaults: {
         padding: 20
     },

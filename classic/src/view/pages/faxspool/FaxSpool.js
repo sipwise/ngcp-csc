@@ -9,8 +9,6 @@ Ext.define('NgcpCsc.view.pages.faxspool.FaxSpool', {
 
     layout: 'responsivecolumn',
 
-    scrollable: true,
-
     initComponent: function() {
         this.items = [{
             userCls: 'big-70 small-100 white-box',
