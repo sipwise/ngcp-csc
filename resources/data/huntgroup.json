@@ -1,0 +1,18 @@
+{
+    "data": [{
+        "name": "Marketing",
+        "extension": "100",
+        "hunting_policy": "Serial Ringing",
+        "serial_hunting_timeout": "10"
+    }, {
+        "name": "Sales",
+        "extension": "200",
+        "hunting_policy": "Serial Ringing",
+        "serial_hunting_timeout": "10"
+    }, {
+        "name": "Support",
+        "extension": "300",
+        "hunting_policy": "Serial Ringing",
+        "serial_hunting_timeout": "10"
+    }]
+}

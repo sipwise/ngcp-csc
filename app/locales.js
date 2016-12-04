@@ -1079,7 +1079,57 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Hunt groups for ',
                 fr: 'Hunt groups for ',
                 sp: 'Hunt groups for '
+            },
+            new_group: {
+                en: 'Create new group',
+                it: 'Create new group',
+                de: 'Create new group',
+                fr: 'Create new group',
+                sp: 'Create new group'
+            },
+            group_and_extension: {
+                en: 'group and extension',
+                it: 'group and extension',
+                de: 'group and extension',
+                fr: 'group and extension',
+                sp: 'group and extension'
+            },
+            name: {
+                en: 'Name',
+                it: 'Name',
+                de: 'Name',
+                fr: 'Name',
+                sp: 'Name'
+            },
+            extension: {
+                en: 'Extension',
+                it: 'Extension',
+                de: 'Extension',
+                fr: 'Extension',
+                sp: 'Extension'
+            },
+            policy_and_timeout: {
+                en: 'policy and timeout',
+                it: 'policy and timeout',
+                de: 'policy and timeout',
+                fr: 'policy and timeout',
+                sp: 'policy and timeout'
+            },
+            hunting_policy: {
+                en: 'Hunting policy',
+                it: 'Hunting policy',
+                de: 'Hunting policy',
+                fr: 'Hunting policy',
+                sp: 'Hunting policy'
+            },
+            serial_hunting_timeout: {
+                en: 'Serial hunting timeout',
+                it: 'Serial hunting timeout',
+                de: 'Serial hunting timeout',
+                fr: 'Serial hunting timeout',
+                sp: 'Serial hunting timeout'
             }
+
         },
         pbxextension: {
             title: {
