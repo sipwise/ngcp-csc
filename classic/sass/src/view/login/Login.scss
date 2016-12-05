@@ -1,4 +1,4 @@
-.auth-dialog{
+.auth-dialog {
 
     border: none;
     border-radius: 0;
@@ -8,8 +8,8 @@
     }
 
     .x-form-trigger{
-        text-align:right;
-        width:50px;
+        text-align: right;
+        width: 50px;
     }
 
     #login-language-trigger-picker:before{
@@ -23,37 +23,36 @@
     .password-trigger,
     .auth-user-trigger,
     .auth-password-trigger{
-        cursor:default;
-        &:before{
+        cursor: default;
+        &:before {
             top: 10px;
-            left:-18px;
+            left: -18px;
             position: relative;
             color: $dialog-trigger-color;
             font-size: 30px;
         }
 
         &.password-trigger:before,
-        &.auth-password-trigger:before{
+        &.auth-password-trigger:before {
             content: "\f023";
         }
-        &.auth-user-trigger:before{
+        &.auth-user-trigger:before {
             content: "\f007";
         }
     }
 
     .link-forgot-password {
-        line-height:32px;
-    //    color: $base-color;
-        text-decoration:none;
-        margin-left:5px;
+        line-height: 32px;
+        text-decoration: none;
+        margin-left: 5px;
         &:hover{
-            text-decoration:underline;
+            text-decoration: underline;
         }
     }
 
-    .x-btn{
-        .x-btn-icon-el{
-            &:before{
+    .x-btn {
+        .x-btn-icon-el {
+            &:before {
                 right: 10px;
                 font-size: 24px;
                 position: absolute;
@@ -61,30 +60,29 @@
         }
     }
     .link-forgot-password {
-        line-height:32px;
+        line-height: 32px;
         color: $base-color;
-        text-decoration:none;
-        margin-left:5px;
+        text-decoration: none;
+        margin-left: 5px;
         &:hover{
-            text-decoration:underline;
+            text-decoration: underline;
         }
     }
     .auth-login-button .x-fa,
-    .auth-resetpassword-button .x-fa{
+    .auth-resetpassword-button .x-fa {
         font-size: 32px;
         right: 11px;
-        top:10px;
+        top: 10px;
         line-height: 16px;
     }
-    .outer-div{
-        width:100%;
+    .outer-div {
+        width: 100%;
         text-align: center;
-        &:after{
+        &:after {
             content: " ";
-            width:100%;
+            width: 100%;
             height: 1px;
-    //        background-color: $blank-page-color;
-            position:absolute;
+            position: absolute;
             left: 0;
             top: 9px;
         }
