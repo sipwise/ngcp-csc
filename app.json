@@ -187,6 +187,9 @@
      *
      */
     "js": [{
+        "path": "load.js",
+        "bundle": true
+    },{
         "path": "app.js",
         "bundle": true
     }],
