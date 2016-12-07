@@ -19,8 +19,8 @@ Ext.define('NgcpCsc.view.login.LoginController', {
     languageSelection: function(cmp, rec) {
         var selectedLang = rec.get('id');
         this.getView().down('#title').setTitle(Ngcp.csc.locales.login.title[selectedLang]);
-        this.getView().down('#login-username').setEmptyText(Ngcp.csc.locales.login.username[selectedLang]);
-        this.getView().down('#login-password').setEmptyText(Ngcp.csc.locales.login.password[selectedLang]);
+        this.getView().down('#login-username').setEmptyText(Ngcp.csc.locales.common.username[selectedLang]);
+        this.getView().down('#login-password').setEmptyText(Ngcp.csc.locales.common.password[selectedLang]);
         this.getView().down('#login-language').setEmptyText(Ngcp.csc.locales.login.choose_language[selectedLang]);
         this.getView().down('#login-button').setText(Ngcp.csc.locales.login.button_text[selectedLang]);
         localStorage.setItem('languageSelected', selectedLang);
