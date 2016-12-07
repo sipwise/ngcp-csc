@@ -45,7 +45,7 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookGrid', {
             xtype: 'container',
             id: 'group-company',
             padding: '0 10 0 0',
-            html: Ngcp.csc.locales.addressbook.company[localStorage.getItem('languageSelected')].toLowerCase(),
+            renderer: 'renderCompanyGroupText',
             cls: 'link no-underline',
             listeners: {
                 click: {

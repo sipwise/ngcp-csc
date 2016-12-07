@@ -40,7 +40,9 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarringOutgoingGrid', {
             align: 'right',
             items: [{
                 glyph: 'xf00d@FontAwesome',
-                tooltip: Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')].toUpperCase(),
+                tooltip: {
+                    renderer: 'renderDeleteIconTooltip'
+                },
                 handler: 'removeBarrNumber'
             }]
         }]
