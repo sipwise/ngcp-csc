@@ -10,8 +10,8 @@ Ext.define('NgcpCsc.view.pages.account.Account', {
     initComponent: function() {
         this.items = [{
             layout: 'responsivecolumn',
-            userCls:'white-box',
-            margin:20,
+            userCls: 'white-box',
+            margin: 20,
             padding: 10,
             items: [{
                     padding: '0 0 5 0',

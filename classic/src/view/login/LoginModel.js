@@ -12,6 +12,7 @@ Ext.define('NgcpCsc.view.login.LoginModel', {
         defaultCredentials: ['administrator', 'restricted', 'host'],
         remember_me: false
     },
+
     formulas: {
         authValid: function(get) {
             return (get('username') == get('password') &&
@@ -19,4 +20,5 @@ Ext.define('NgcpCsc.view.login.LoginModel', {
                 get('defaultCredentials').indexOf(get('password')) > -1);
         }
     }
+
 });
