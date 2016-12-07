@@ -28,6 +28,10 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarringController', {
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
     },
 
+    renderDeleteIconTooltip: function(value, metaData) {
+        return Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')].toUpperCase();
+    },
+
     toggleEnabled: function(grid, rowIndex, colIndex, item, event, record, row) {
         record.set('enabled', !record.get('enabled'));
         this.fireEvent('showmessage', true, Ngcp.csc.locales.callbarring.enabled_success[localStorage.getItem('languageSelected')]);

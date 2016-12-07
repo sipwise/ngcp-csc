@@ -48,6 +48,10 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookController', {
         return '<div class="fa fa-arrow-circle-down"></div>';
     },
 
+    renderCompanyGroupText: function(value, metaData) {
+        return Ngcp.csc.locales.addressbook.company[localStorage.getItem('languageSelected')].toLowerCase();
+    },
+
     removeContact: function(grid, rowIndex, colIndex) {
         var store = grid.getStore();
         var rec = grid.getStore().getAt(rowIndex);

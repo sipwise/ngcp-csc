@@ -29,13 +29,13 @@ Ext.define('NgcpCsc.view.login.Login', {
         items: [{
                 id: 'title',
                 panel: 'label',
-                title: Ngcp.csc.locales.login.title[localStorage.getItem('languageSelected') || 'en']
+                title: Ngcp.csc.locales.login.title[localStorage.getItem('languageSelected')]
             }, {
                 xtype: 'textfield',
                 name: 'username',
                 id: 'login-username',
                 cls: 'auth-textbox',
-                emptyText: Ngcp.csc.locales.common.username[localStorage.getItem('languageSelected') || 'en'],
+                emptyText: Ngcp.csc.locales.common.username[localStorage.getItem('languageSelected')],
                 padding: '10 0 0 15',
                 minLength: 1,
                 listeners: {
@@ -55,7 +55,7 @@ Ext.define('NgcpCsc.view.login.Login', {
                 cls: 'auth-textbox',
                 inputType: 'password',
                 minLength: 1,
-                emptyText: Ngcp.csc.locales.common.password[localStorage.getItem('languageSelected') || 'en'],
+                emptyText: Ngcp.csc.locales.common.password[localStorage.getItem('languageSelected')],
                 padding: '0 0 0 15',
                 listeners: {
                     specialKey: 'onPressEnter',
@@ -69,7 +69,7 @@ Ext.define('NgcpCsc.view.login.Login', {
                 }
             }, {
                 xtype: 'combo',
-                emptyText: Ngcp.csc.locales.login.choose_language[localStorage.getItem('languageSelected') || 'en'],
+                emptyText: Ngcp.csc.locales.login.choose_language[localStorage.getItem('languageSelected')],
                 padding: '0 0 0 15',
                 store: 'Languages',
                 queryMode: 'local',
@@ -77,7 +77,7 @@ Ext.define('NgcpCsc.view.login.Login', {
                 valueField: 'id',
                 displayField: 'language',
                 editable: false,
-                value: localStorage.getItem('languageSelected') || 'en',
+                value: localStorage.getItem('languageSelected'),
                 listeners: {
                     'select': 'languageSelection'
                 }
@@ -101,7 +101,7 @@ Ext.define('NgcpCsc.view.login.Login', {
                     html: '<a href="#" class="link-forgot-password"> ' + Ngcp.csc.locales.login.forgot_password[localStorage.getItem('languageSelected')] + '</a>'
                 }]
             }, {
-                text: Ngcp.csc.locales.login.button_text[localStorage.getItem('languageSelected') || 'en'],
+                text: Ngcp.csc.locales.login.button_text[localStorage.getItem('languageSelected')],
                 id: 'login-button',
                 xtype: 'button',
                 width: '100%',
@@ -117,4 +117,5 @@ Ext.define('NgcpCsc.view.login.Login', {
             }
         ]
     }
+
 });
