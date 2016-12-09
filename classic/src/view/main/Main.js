@@ -31,9 +31,9 @@ Ext.define('NgcpCsc.view.main.Main', {
         items: [{
                 xtype: 'container',
                 reference: 'logo',
-                id:'logoContainer',
+                id: 'logoContainer',
                 cls: 'logo',
-                html:'&nbsp;', // workaround to set the height
+                html: '&nbsp;', // workaround to set the height
                 width: (Ext.isIE9m || !Ext.os.is.Desktop) ? 64 : 250
             }, {
                 margin: '0 0 0 8',

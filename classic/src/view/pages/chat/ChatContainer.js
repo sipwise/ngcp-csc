@@ -24,15 +24,15 @@ Ext.define('NgcpCsc.view.pages.chat.ChatContainer', {
             name: 'new-message',
             enableKeyEvents: true,
             height: 100,
-            flex:8,
+            flex: 8,
             emptyText: Ngcp.csc.locales.chat.msg_box.empty_text[localStorage.getItem('languageSelected')],
             listeners: {
                 keypress: 'onPressEnter'
             }
         }, {
-            flex:1,
+            flex: 1,
             xtype: 'button',
-            iconCls:'fa fa-send',
+            iconCls: 'fa fa-send',
             cls: 'submit-new-message',
             handler: 'onPressSubmitBtn'
         }]

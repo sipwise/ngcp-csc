@@ -8,6 +8,6 @@ Ext.define('NgcpCsc.view.gridfilters.GridFiltersModel', {
 
     data: {
         from_date: '',
-        to_date:''
+        to_date: ''
     }
 });

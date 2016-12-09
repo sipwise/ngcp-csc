@@ -12,14 +12,7 @@ Ext.define('NgcpCsc.view.pages.summary.Summary', {
     layout: 'responsivecolumn',
 
     items: [{
-        xtype: 'calls',
-        userCls: 'big-70 small-100 white-box',
-        _isDesktopSection: true
-    }, {
-        userCls: 'big-30 small-100',
-        defaults: {
-            cls: 'white-box reduced-margin'
-        },
+        userCls: 'big-30 small-100 white-box',
         items: [{
             padding: 20,
             defaults: {
@@ -102,5 +95,9 @@ Ext.define('NgcpCsc.view.pages.summary.Summary', {
                 }]
             }]
         }]
+    }, {
+        xtype: 'calls',
+        userCls: 'big-70 small-100 white-box',
+        _isDesktopSection: true
     }]
 });

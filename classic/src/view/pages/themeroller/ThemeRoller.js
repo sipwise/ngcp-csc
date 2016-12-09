@@ -149,7 +149,7 @@ Ext.define('NgcpCsc.view.pages.themeroller.ThemeRoller', {
                 items: [{
                     xtype: 'filefield',
                     fieldLabel: Ngcp.csc.locales.themeroller.logo[localStorage.getItem('languageSelected')],
-                    reference:'logoField',
+                    reference: 'logoField',
                     listeners: {
                         change: 'toggleLogo'
                     }

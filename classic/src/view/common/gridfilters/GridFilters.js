@@ -20,7 +20,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
             fieldLabel: Ngcp.csc.locales.filters.from[localStorage.getItem('languageSelected')],
             name: 'from_date',
             bind:{
-                value:'{from_date}',
+                value: '{from_date}',
                 maxValue: '{to_date}',
                 hidden: '{hidedatefilters}'
             }

@@ -16,7 +16,7 @@ Ext.define('NgcpCsc.view.pages.faxsend.FaxSend', {
 
             layout: 'responsivecolumn',
 
-            margin:20,
+            margin: 20,
 
             padding: 10,
 
@@ -28,12 +28,12 @@ Ext.define('NgcpCsc.view.pages.faxsend.FaxSend', {
                     height: 60,
                     html: Ngcp.csc.locales.faxsend.subtitle[localStorage.getItem('languageSelected')]
                 }, {
-                    reference:'faxsendForm',
+                    reference: 'faxsendForm',
                     xtype: 'faxsendform',
-                    width:'100%'
+                    width: '100%'
                 }, {
                     layout: 'hbox',
-                    width:'99%',
+                    width: '99%',
                     defaults: {
                         xtype: 'button',
                         flex: 1

@@ -12,7 +12,7 @@ Ext.define('NgcpCsc.view.pages.account.AccountForm', {
     items: [{
         xtype: 'container',
         bind: '{username}',
-        margin:'0 0 10 0'
+        margin: '0 0 10 0'
     }, {
         xtype: 'textfield',
         inputType: 'password',

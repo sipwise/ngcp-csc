@@ -17,12 +17,16 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
             this.setTitle(Ngcp.csc.locales.calls.section_title[localStorage.getItem('languageSelected')]);
             this.setLayout('responsivecolumn');
         }
-        this.items = [{
+        this.items = [Ext.create('NgcpCsc.view.common.gridfilters.GridFilters',{
+            userCls: 'big-30 small-100 white-box',
+            hidden: this._isDesktopSection,
+            _linkedStoreId: 'Calls'
+        }), {
             padding:  30,
             userCls: (!this._isDesktopSection) ? 'big-70 small-100 white-box' : '',
             items: [{
                     html: Ngcp.csc.locales.calls.recent_calls[localStorage.getItem('languageSelected')],
-                    padding:'0 0 20 0'
+                    padding: '0 0 20 0'
                 }, {
                     xtype: 'container',
                     anchor: '100%',
@@ -57,11 +61,7 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
                     }
                 }
             ]
-        }, Ext.create('NgcpCsc.view.common.gridfilters.GridFilters',{
-            userCls: 'big-30 small-100 white-box',
-            hidden: this._isDesktopSection,
-            _linkedStoreId: 'Calls'
-        })];
+        }];
         this.callParent();
     }
 })
