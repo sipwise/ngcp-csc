@@ -9,9 +9,9 @@ Ext.define('Ngcp.csc.view.pages.BlankPage', {
     anchor : '100% -1',
 
     layout:{
-        type:'vbox',
-        pack:'center',
-        align:'center'
+        type: 'vbox',
+        pack: 'center',
+        align: 'center'
     },
 
     items: [

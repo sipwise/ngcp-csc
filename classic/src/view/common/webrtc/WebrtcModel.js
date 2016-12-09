@@ -5,11 +5,11 @@ Ext.define('NgcpCsc.view.webrtc.WebrtcModel', {
 
     data: {
         title: 123456789,
-        defaultThumbnail:'resources/images/icons/phoneicon.png',
-        thumbnail:'resources/images/icons/phoneicon.png',
-        status:'calling...',
+        defaultThumbnail: 'resources/images/icons/phoneicon.png',
+        thumbnail: 'resources/images/icons/phoneicon.png',
+        status: 'calling...',
         callEnabled: false,
-        micEnabled:false,
-        videoEnabled:false
+        micEnabled: false,
+        videoEnabled: false
     }
 });

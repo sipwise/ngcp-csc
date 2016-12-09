@@ -23,7 +23,7 @@ Ext.define('NgcpCsc.view.common.webrtc.WebrtcPanel', {
     },
 
     listeners:{
-        beforeclose:'onBeforeClose'
+        beforeclose: 'onBeforeClose'
     },
 
     initComponent: function() {

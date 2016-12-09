@@ -15,7 +15,7 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookGrid', {
     },
 
     tbar: [{
-        xtype:'label',
+        xtype: 'label',
         text: Ngcp.csc.locales.common.order_by[localStorage.getItem('languageSelected')]
     },{
             xtype: 'container',
@@ -71,7 +71,7 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookGrid', {
         }, {
             flex: 1,
             dataIndex: 'name',
-            renderer:'composeName'
+            renderer: 'composeName'
         }, {
             flex: 1,
             dataIndex: 'company'

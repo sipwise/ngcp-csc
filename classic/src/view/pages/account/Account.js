@@ -10,8 +10,8 @@ Ext.define('NgcpCsc.view.pages.account.Account', {
     initComponent: function() {
         this.items = [{
             layout: 'responsivecolumn',
-            userCls:'white-box',
-            margin:20,
+            userCls: 'white-box',
+            margin: 20,
             padding: 10,
             items: [{
                     padding: '0 0 5 0',
@@ -29,7 +29,7 @@ Ext.define('NgcpCsc.view.pages.account.Account', {
                         margin: '20 0 0 0',
                         defaults: {
                             xtype: 'button',
-                            flex:1
+                            flex: 1
                         },
                         items: [{
                             text: Ngcp.csc.locales.account.change_password[localStorage.getItem('languageSelected')].toLowerCase(),

@@ -20,7 +20,7 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
 
         this.items = [{
             userCls: 'white-box',
-            margin:20,
+            margin: 20,
             padding: 10,
             items:[{
                 height: 60,

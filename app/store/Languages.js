@@ -10,19 +10,19 @@ Ext.define('NgcpCsc.store.Languages', {
 
     data: [
         {
-            id: "en",
+            id: 'en',
             language: 'English'
         },{
-            id: "it",
+            id: 'it',
             language: 'Italian'
         },{
-            id: "de",
+            id: 'de',
             language: 'German'
         },{
-            id: "fr",
+            id: 'fr',
             language: 'French'
         },{
-            id: "sp",
+            id: 'sp',
             language: 'Spanish'
         }
     ]

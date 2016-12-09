@@ -5,7 +5,7 @@ Ext.define('NgcpCsc.view.pages.chat.ChatList', {
 
     controller: 'chatlist',
 
-    itemId:'chatlist',
+    itemId: 'chatlist',
 
     title: Ngcp.csc.locales.chat.title[localStorage.getItem('languageSelected')],
 

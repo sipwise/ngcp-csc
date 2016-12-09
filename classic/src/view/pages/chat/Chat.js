@@ -9,10 +9,10 @@ Ext.define('NgcpCsc.view.pages.chat.Chat', {
         this.items = [{
             xtype: 'chatlist',
             userCls: 'big-30 small-100 white-box',
-            collapsible:true
+            collapsible: true
         }, {
             height: Ext.getCmp('mainContainer').getHeight() - 105 ,
-            xtype:'chatcontainer',
+            xtype: 'chatcontainer',
             userCls: 'big-70 small-100 white-box'
         }]
         this.callParent();

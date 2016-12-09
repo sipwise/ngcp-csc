@@ -12,23 +12,6 @@ Ext.define('NgcpCsc.view.pages.addressbook.Addressbook', {
     title: Ngcp.csc.locales.addressbook.title[localStorage.getItem('languageSelected')],
 
     items : [{
-        userCls: 'big-70 small-100 white-box',
-        padding:10,
-        defaults: {
-            padding: 20
-        },
-        items: [{
-                html: Ngcp.csc.locales.addressbook.subtitle[localStorage.getItem('languageSelected')]
-            }, {
-                height: 60,
-                padding: '5 0 0 20',
-                html: Ext.String.format('<div class="addressbook-heading">{0} {1}</div>', Ngcp.csc.locales.addressbook.user_label[localStorage.getItem('languageSelected')], localStorage.getItem('username'))
-            },
-            {
-                xtype: 'addressbook-grid'
-            }
-        ]
-    }, {
         userCls: 'big-30 small-100 white-box',
         defaults: {
             padding: 20
@@ -40,10 +23,10 @@ Ext.define('NgcpCsc.view.pages.addressbook.Addressbook', {
             _isNested: true
         }, {
             xtype: 'form',
-            reference:'contactForm',
+            reference: 'contactForm',
             defaults:{
                 xtype: 'textfield',
-                width:'100%'
+                width: '100%'
             },
             items: [{
                 focusable: true,
@@ -107,5 +90,22 @@ Ext.define('NgcpCsc.view.pages.addressbook.Addressbook', {
                 handler: 'saveChanges'
             }]
         }]
+    }, {
+        userCls: 'big-70 small-100 white-box',
+        padding: 10,
+        defaults: {
+            padding: 20
+        },
+        items: [{
+                html: Ngcp.csc.locales.addressbook.subtitle[localStorage.getItem('languageSelected')]
+            }, {
+                height: 60,
+                padding: '5 0 0 20',
+                html: Ext.String.format('<div class="addressbook-heading">{0} {1}</div>', Ngcp.csc.locales.addressbook.user_label[localStorage.getItem('languageSelected')], localStorage.getItem('username'))
+            },
+            {
+                xtype: 'addressbook-grid'
+            }
+        ]
     }]
 });
