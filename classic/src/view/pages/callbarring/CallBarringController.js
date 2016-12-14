@@ -25,7 +25,10 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarringController', {
         var store = grid.getStore();
         var rec = grid.getStore().getAt(rowIndex);
         store.remove(rec);
-        this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
+        // TODO: Replace current implementation with Ext.toast() after
+        // researching it further
+        return Ext.toast('Removed successfully!');
+        // this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
     },
 
     renderDeleteIconTooltip: function(value, metaData) {
