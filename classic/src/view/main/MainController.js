@@ -164,16 +164,11 @@ Ext.define('NgcpCsc.view.main.MainController', {
     },
 
     showMessage: function(success, msg) {
-        var msgConsole = this.lookupReference('console'),
-            msgColor = (success) ? 'green-txt' : 'red-txt';
-        msgConsole.removeCls(['green-txt', 'red-txt']);
-        msgConsole.addCls(msgColor);
-        msgConsole.setText(msg);
-        msgConsole.getEl().fadeIn();
-        setTimeout(function() {
-            msgConsole.getEl().fadeOut({
-                duration: 500
-            });
-        }, 3000)
+        if (success) {
+            Ext.toast({ html: msg, align: 't', ui:'toast-green' });
+        } else if (!success) {
+            Ext.toast({ html: msg, align: 't', ui: 'toast-red' });
+        };
     }
+
 });

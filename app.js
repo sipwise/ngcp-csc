@@ -13,7 +13,8 @@ Ext.application({
     // explicitly.
     //
     requires: [
-        'NgcpCsc.*'
+        'NgcpCsc.*',
+        'Ext.window.Toast'
     ]
 
 });
