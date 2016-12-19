@@ -34,7 +34,8 @@ Ext.define('NgcpCsc.view.pages.account.Account', {
                         items: [{
                             text: Ngcp.csc.locales.account.change_password[localStorage.getItem('languageSelected')].toLowerCase(),
                             margin: '0 5 0 0',
-                            handler: 'submitForm'
+                            handler: 'toastMe'
+                            // handler: 'submitForm'
                         }, {
                             text: Ngcp.csc.locales.common.reset_form[localStorage.getItem('languageSelected')].toLowerCase(),
                             handler: 'resetForm'

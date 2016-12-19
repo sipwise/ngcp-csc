@@ -33,6 +33,14 @@ Ext.define('NgcpCsc.view.pages.account.AccountController', {
         if (el.getKey() == el.ENTER) {
             this.submitForm(field.id);
         };
+    },
+
+    toastMe: function () {
+        Ext.toast({
+            html: Ngcp.csc.locales.account.change_success[localStorage.getItem('languageSelected')],
+            align: 't',
+            autoClose: false
+        });
     }
 
 });
