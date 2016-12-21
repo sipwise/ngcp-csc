@@ -1,4 +1,4 @@
-Ext.define('NgcpCsc.view.pages.callforward.CallForwardGrid', {
+Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
     extend: 'Ext.grid.Panel',
 
     store: Ext.create('NgcpCsc.store.CallForward', {

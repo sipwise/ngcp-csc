@@ -27,7 +27,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
             },
             title: Ngcp.csc.locales.callforward.time_two[localStorage.getItem('languageSelected')],
             items: [{
-                xtype: 'datepicker',
+                xtype: 'callforwardtimesetform',
                 width: '100%'
             }]
         }, {
@@ -37,7 +37,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
             },
             title: Ngcp.csc.locales.callforward.time_three[localStorage.getItem('languageSelected')],
             items: [{
-                xtype: 'datepicker',
+                xtype: 'callforwardtimesetform',
                 width: '100%'
             }]
         }]
@@ -48,7 +48,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
             padding: '0 0 20 0',
             html: Ext.String.format('<div class="fa fa-mail-forward cf-subtitle"> {0}</div>', Ngcp.csc.locales.callforward.subtitle[localStorage.getItem('languageSelected')])
         }, {
-            xtype: 'callforwardform'
+            xtype: 'callforwardmainform'
         }]
     }]
 

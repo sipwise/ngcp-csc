@@ -63,6 +63,10 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         } else if (targetId.indexOf('companyHoursButton') > -1) {
             vm.set('company_hours_form', false);
         };
+    },
+
+    editTimesetDay: function (grid, rowIndex, colIndex) {
+        console.log(rowIndex);
     }
 
 });

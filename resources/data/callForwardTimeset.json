@@ -1,0 +1,45 @@
+{
+    "data": [{
+        "day": "Monday",
+        "time_full": "9:00 AM - 6:00 PM",
+        "time_from": "9:00 AM",
+        "time_to": "6:00 PM",
+        "closed": false
+    }, {
+        "day": "Tuesday",
+        "time_full": "10:00 AM - 6:00 PM",
+        "time_from": "9:00 AM",
+        "time_to": "6:00 PM",
+        "closed": false
+    }, {
+        "day": "Wednesday",
+        "time_full": "10:00 AM - 6:00 PM",
+        "time_from": "9:00 AM",
+        "time_to": "6:00 PM",
+        "closed": false
+    }, {
+        "day": "Thursday",
+        "time_full": "9:00 AM - 5:00 PM",
+        "time_from": "9:00 AM",
+        "time_to": "6:00 PM",
+        "closed": false
+    }, {
+        "day": "Friday",
+        "time_full": "9:00 AM - 5:00 PM",
+        "time_from": "9:00 AM",
+        "time_to": "6:00 PM",
+        "closed": false
+    }, {
+        "day": "Saturday",
+        "time_full": "9:00 AM - 6:00 PM",
+        "time_from": "9:00 AM",
+        "time_to": "6:00 PM",
+        "closed": true
+    }, {
+        "day": "Sunday",
+        "time_full": "9:00 AM - 6:00 PM",
+        "time_from": "9:00 AM",
+        "time_to": "6:00 PM",
+        "closed": true
+    }]
+}
