@@ -1,7 +1,7 @@
-Ext.define('NgcpCsc.view.pages.callforward.CallForwardForm', {
+Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
     extend: 'Ext.form.Panel',
 
-    xtype: 'callforwardform',
+    xtype: 'callforwardmainform',
 
     defaults: {
         width: '100%'
@@ -11,10 +11,14 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardForm', {
         labelAlign: 'top'
     },
 
+    margin: '0 10 0 0',
+
     defaultType: 'textfield',
 
+    ui: 'cf-mainform',
+
     initComponent: function() {
-        var busyGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardGrid', {
+        var busyGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             store: Ext.create('NgcpCsc.store.CallForward', {
                 storeId: 'CallForwardBusy',
                 proxy: {
@@ -27,7 +31,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardForm', {
                 }
             })
         });
-        var onlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardGrid', {
+        var onlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             store: Ext.create('NgcpCsc.store.CallForward', {
                 storeId: 'CallForwardOnline',
                 proxy: {
@@ -40,7 +44,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardForm', {
                 }
             })
         });
-        var offlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardGrid', {
+        var offlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             store: Ext.create('NgcpCsc.store.CallForward', {
                 storeId: 'CallForwardOffline',
                 proxy: {
@@ -58,40 +62,56 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardForm', {
             xtype: 'segmentedbutton',
             itemId: 'timeButtons',
             value: 'alwaysButton',
-            items: [{
-                value: 'alwaysButton',
-                id: 'alwaysButton',
-                text: Ngcp.csc.locales.callforward.time_one[localStorage.getItem('languageSelected')],
+            defaults: {
                 listeners: {
                     element: 'el',
-                    click: 'clickTimesetButton'
+                    click: 'clickSegmentedButton'
                 }
+            },
+            items: [{
+                value: 'alwaysButton', // Can be used for filtering
+                id: 'alwaysButton',
+                text: Ngcp.csc.locales.callforward.time_one[localStorage.getItem('languageSelected')]
             }, {
+                value: 'afterHoursButton',
                 id: 'afterHoursButton',
                 text: Ngcp.csc.locales.callforward.time_two[localStorage.getItem('languageSelected')],
-                listeners: {
-                    element: 'el',
-                    click: 'clickTimesetButton'
-                }
+                iconCls: 'x-fa fa-pencil',
+                iconAlign: 'right'
             }, {
+                value: 'companyHoursButton',
                 id: 'companyHoursButton',
                 text: Ngcp.csc.locales.callforward.time_three[localStorage.getItem('languageSelected')],
-                listeners: {
-                    element: 'el',
-                    click: 'clickTimesetButton'
-                }
+                iconCls: 'x-fa fa-pencil',
+                iconAlign: 'right'
             }]
         }, {
             xtype: 'segmentedbutton',
             itemId: 'sourceButtons',
             value: 'everybodyButton',
+            defaults: {
+                listeners: {
+                    element: 'el',
+                    click: 'clickSegmentedButton'
+                }
+            },
+            ui: 'cf-segmentedbutton',
             items: [{
                 value: 'everybodyButton',
+                id: 'everybodyButton',
                 text: Ngcp.csc.locales.callforward.source_one[localStorage.getItem('languageSelected')]
             }, {
-                text: Ngcp.csc.locales.callforward.source_two[localStorage.getItem('languageSelected')]
+                value: 'listAButton',
+                id: 'listAButton',
+                text: Ngcp.csc.locales.callforward.source_two[localStorage.getItem('languageSelected')],
+                iconCls: 'x-fa fa-pencil',
+                iconAlign: 'right'
             }, {
-                text: Ngcp.csc.locales.callforward.source_three[localStorage.getItem('languageSelected')]
+                value: 'listBButton',
+                id: 'listBButton',
+                text: Ngcp.csc.locales.callforward.source_three[localStorage.getItem('languageSelected')],
+                iconCls: 'x-fa fa-pencil',
+                iconAlign: 'right'
             }]
         }, {
             xtype: 'panel',

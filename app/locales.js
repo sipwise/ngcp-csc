@@ -390,20 +390,6 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'CALL FORWARD',
                 sp: 'CALL FORWARD'
             },
-            user_label: {
-                en: 'Settings for ',
-                it: 'Settings for ',
-                de: 'Settings for ',
-                fr: 'Settings for ',
-                sp: 'Settings for '
-            },
-            save_rule: {
-                en: 'save rule',
-                it: 'save rule',
-                de: 'save rule',
-                fr: 'save rule',
-                sp: 'save rule'
-            },
             time_one: {
                 en: 'Always',
                 it: 'Always',
@@ -515,6 +501,27 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Move',
                 fr: 'Move',
                 sp: 'Move'
+            },
+            closed: {
+                en: 'Closed',
+                it: 'Closed',
+                de: 'Closed',
+                fr: 'Closed',
+                sp: 'Closed'
+            },
+            after_hours: {
+                en: 'After hours',
+                it: 'After hours',
+                de: 'After hours',
+                fr: 'After hours',
+                sp: 'After hours'
+            },
+            company_hours: {
+                en: 'Company hours',
+                it: 'Company hours',
+                de: 'Company hours',
+                fr: 'Company hours',
+                sp: 'Company hours'
             }
         },
         filters: {
@@ -531,13 +538,6 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Time range (DD.MM.YYYY)',
                 fr: 'Time range (DD.MM.YYYY)',
                 sp: 'Time range (DD.MM.YYYY)'
-            },
-            to: {
-                en: 'to',
-                it: 'to',
-                de: 'to',
-                fr: 'to',
-                sp: 'to'
             },
             incoming: {
                 en: 'Incoming',
@@ -1626,6 +1626,27 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'play',
                 fr: 'play',
                 sp: 'play'
+            },
+            day: {
+                en: 'Day',
+                it: 'Day',
+                de: 'Day',
+                fr: 'Day',
+                sp: 'Day'
+            },
+            from: {
+                en: 'From',
+                it: 'From',
+                de: 'From',
+                fr: 'From',
+                sp: 'From'
+            },
+            to: {
+                en: 'To',
+                it: 'To',
+                de: 'To',
+                fr: 'To',
+                sp: 'To'
             }
         }
     }
