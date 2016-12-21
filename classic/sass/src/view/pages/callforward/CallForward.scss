@@ -3,10 +3,20 @@
     $ui: 'cf-container',
 );
 
+@include extjs-panel-ui (
+    $ui: 'cf-timeset',
+);
+
 /* custom css */
 .x-panel-cf-container .x-autocontainer-innerCt {
     font-size: 120%;
     padding-top: 20px;
+}
+
+.x-panel-cf-timeset {
+    border: solid 1px;
+    border-color: #d0d0d0;
+    padding: 20px 10px;
 }
 
 .cf-subheader {
