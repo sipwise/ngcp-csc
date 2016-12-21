@@ -1,7 +1,7 @@
-Ext.define('NgcpCsc.view.pages.callforward.CallForwardForm', {
+Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
     extend: 'Ext.form.Panel',
 
-    xtype: 'callforwardform',
+    xtype: 'callforwardmainform',
 
     defaults: {
         width: '100%'
@@ -14,7 +14,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardForm', {
     defaultType: 'textfield',
 
     initComponent: function() {
-        var busyGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardGrid', {
+        var busyGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             store: Ext.create('NgcpCsc.store.CallForward', {
                 storeId: 'CallForwardBusy',
                 proxy: {
@@ -27,7 +27,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardForm', {
                 }
             })
         });
-        var onlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardGrid', {
+        var onlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             store: Ext.create('NgcpCsc.store.CallForward', {
                 storeId: 'CallForwardOnline',
                 proxy: {
@@ -40,7 +40,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardForm', {
                 }
             })
         });
-        var offlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardGrid', {
+        var offlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             store: Ext.create('NgcpCsc.store.CallForward', {
                 storeId: 'CallForwardOffline',
                 proxy: {

@@ -59,10 +59,29 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         vm.set('after_hours_form', true);
         vm.set('company_hours_form', true);
         if (targetId.indexOf('afterHoursButton') > -1) {
+            vm.set('active_widget_form', 'After hours');
             vm.set('after_hours_form', false);
         } else if (targetId.indexOf('companyHoursButton') > -1) {
+            vm.set('active_widget_form', 'Company hours');
             vm.set('company_hours_form', false);
         };
+    },
+
+    renderDay: function(value, meta, record) {
+        if (record.get('closed') === true) {
+            return Ext.String.format('<div style="text-decoration: line-through;">{0}</div>', value);
+        } else {
+            return value;
+        }
+    },
+
+    toggleClosedState: function(grid, rowIndex, colIndex, item, event, record, row) {
+        record.set('closed', !record.get('closed'));
+        this.renderDay(record.get('closed'), null, record);
+    },
+
+    toggleClosedClass: function (val, meta, rec) {
+        return rec.get('closed') === true ? "x-fa fa-check-square-o" : "x-fa fa-square-o";
     }
 
 });
