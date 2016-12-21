@@ -3,16 +3,43 @@
     $ui: 'cf-container',
 );
 
+@include extjs-panel-ui (
+    $ui: 'cf-timeset',
+);
+
+@include extjs-panel-ui (
+    $ui: 'cf-mainform',
+);
+
 /* custom css */
 .x-panel-cf-container .x-autocontainer-innerCt {
     font-size: 120%;
     padding-top: 20px;
 }
 
+.x-panel-cf-timeset {
+    border: solid 1px;
+    border-color: #d0d0d0;
+    padding: 20px 10px;
+}
+
+.x-panel-cf-mainform .x-segmented-button .x-btn-button-default-small {
+    display: inline-block;
+}
+
+.x-panel-cf-mainform .x-segmented-button .x-btn-icon-el-default-small {
+    float: right;
+}
+
+.x-panel-cf-mainform .x-segmented-button .x-btn-inner-default-small {
+    float: left;
+}
+
 .cf-subheader {
     font-weight: 600;
 }
- .cf-subtitle {
+
+.cf-subtitle {
     font-size: 110%;
     font-weight: 600;
- }
+}
