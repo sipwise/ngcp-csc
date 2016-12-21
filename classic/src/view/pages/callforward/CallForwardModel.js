@@ -5,9 +5,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardModel', {
     data: {
         after_hours_form: true,
         company_hours_form: true,
+        list_a_form: true,
+        list_b_form: true,
         online_timeout_hidden: false,
         busy_timeout_hidden: true,
-        offline_timeout_hidden: true
+        offline_timeout_hidden: true,
+        active_widget_form: '',
+        row_elements_disabled: false
     }
 
 });

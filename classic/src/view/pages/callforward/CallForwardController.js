@@ -3,10 +3,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
 
     alias: 'controller.callforward',
 
-    renderSaveRuleText: function(value, metaData) {
-        return Ngcp.csc.locales.callforward.save_rule[localStorage.getItem('languageSelected')].toLowerCase();
-    },
-
     selectFirstRing: function(component, record) {
         var vm = this.getViewModel();
         function showHideTimeoutField(timeoutField) {
@@ -53,15 +49,55 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         store.remove(rec);
     },
 
-    clickTimesetButton: function (el) {
+    clickSegmentedButton: function (el) {
         var targetId = el.getTarget().id;
         var vm = this.getViewModel();
         vm.set('after_hours_form', true);
         vm.set('company_hours_form', true);
-        if (targetId.indexOf('afterHoursButton') > -1) {
+        vm.set('list_a_form', true);
+        vm.set('list_b_form', true);
+        if (targetId.indexOf('afterHoursButton-btnIconEl') > -1) {
+            vm.set('active_widget_form', Ngcp.csc.locales.callforward.after_hours[localStorage.getItem('languageSelected')]);
             vm.set('after_hours_form', false);
-        } else if (targetId.indexOf('companyHoursButton') > -1) {
+        } else if (targetId.indexOf('companyHoursButton-btnIconEl') > -1) {
+            vm.set('active_widget_form', Ngcp.csc.locales.callforward.company_hours[localStorage.getItem('languageSelected')]);
             vm.set('company_hours_form', false);
+        } else if (targetId.indexOf('listAButton-btnIconEl') > -1) {
+            // TODO
+        } else if (targetId.indexOf('listAButton-btnIconEl') > -1) {
+            // TODO
+        };
+    },
+
+    renderDay: function(value, meta, record) {
+        if (record.get('closed') === true) {
+            return Ext.String.format('<div class="cf-deactivate-day">{0}</div>', value);
+        } else {
+            return value;
+        }
+    },
+
+    toggleClosedState: function(grid, rowIndex, colIndex, item, event, record, row) {
+        record.set('closed', !record.get('closed'));
+        this.renderDay(record.get('closed'), null, record);
+    },
+
+    toggleClosedClass: function (val, meta, rec) {
+        return rec.get('closed') === true ? "x-fa fa-check-square-o" : "x-fa fa-square-o";
+    },
+
+    resetTimesetWidget: function (el) {
+        var buttonId = el.id;
+        if (buttonId == 'resetAfter') {
+            var grid = Ext.getCmp('cf-timeset-after-grid');
+            var store = grid.getStore();
+            store.rejectChanges();
+            grid.reconfigure(store);
+        } else {
+            var grid = Ext.getCmp('cf-timeset-company-grid');
+            var store = grid.getStore();
+            store.rejectChanges();
+            grid.reconfigure(store);
         };
     }
 
