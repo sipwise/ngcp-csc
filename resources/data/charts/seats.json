@@ -1,0 +1,9 @@
+{
+    "data": [{
+        "name": "Assigned",
+        "data" : 16
+    },{
+        "name": "Free",
+        "data" : 3
+    }]
+}
