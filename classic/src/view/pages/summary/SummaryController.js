@@ -3,19 +3,20 @@ Ext.define('NgcpCsc.view.pages.summary.SummaryController', {
 
     alias: 'controller.summary',
 
-    showAllCalls: function() {
-        this.redirectTo('#callist');
+    onConfigure:function(){
+        this.fireEvent('showmessage', true, 'ToDo');
     },
 
-    showAllVoicemails: function() {
-        this.redirectTo('#voicebox');
+    reloadChart: function(btn){
+        debugger
+        var chart = btn.up('summary-pie');
+        chart.getStore().reload();
     },
 
-    showSettings: function() {
-        this.redirectTo('#reminder');
-    },
-
-    showCallForward: function() {
-        this.redirectTo('#callforward');
+    onSeriesTooltipRender: function (tooltip, record, item) {
+        var store = record.store;
+        var freeSlots = store.findRecord("name", 'Free');
+        var assignedSlots = store.findRecord("name", 'Assigned');
+        tooltip.setHtml(record.get('name') + ': ' + record.get('data') + ' on ' + (freeSlots.get('data') + assignedSlots.get('data')));
     }
 });
