@@ -11,5 +11,16 @@ Ext.define('NgcpCsc.view.pages.summary.Summary', {
 
     layout: 'responsivecolumn',
 
-    html: '<p><a target="blank" href="https://sipwise.attask-ondemand.com/task/view?ID=580e25510021e900c9bb4f35ad94d665" class="link"> TODO </a></p>'
+    defaults: {
+        ui: 'core-container',
+        margin: 10,
+        userCls: 'big-30 small-100',
+    },
+    items: [{
+        xtype: 'summary-pie'
+    },{
+        xtype: 'summary-pie'
+    },{
+        xtype: 'summary-pie'
+    }]
 });
