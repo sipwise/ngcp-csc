@@ -9,6 +9,12 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
 
     title: Ngcp.csc.locales.filters.search[localStorage.getItem('languageSelected')],
 
+    padding: 0,
+
+    collapsible: true,
+
+    collapsed: !Ext.os.is.Desktop,
+
     initComponent: function() {
 
         this.items = [{
@@ -94,15 +100,15 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 xtype: 'textfield',
                 labelAlign: 'top',
                 bind: '{filtergrid.name}',
-                hidden: !this._subscriberAdmin,
+                hidden: !this._subscriberAdminSeats && !this._subscriberAdminGroups && !this._subscriberAdminDevices,
                 fieldLabel: Ngcp.csc.locales.common.name[localStorage.getItem('languageSelected')]
             }, {
                 xtype: 'textfield',
                 labelAlign: 'top',
                 bind: '{filtergrid.extensions}',
-                hidden: !this._subscriberAdmin,
+                hidden: !this._subscriberAdminSeats && !this._subscriberAdminGroups,
                 fieldLabel: Ngcp.csc.locales.filters.extensions[localStorage.getItem('languageSelected')]
-            },{
+            }, {
                 xtype: 'textfield',
                 labelAlign: 'top',
                 bind: '{filtergrid.groups}',
@@ -114,6 +120,48 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 bind: '{filtergrid.pbx_devices}',
                 hidden: !this._subscriberAdmin,
                 fieldLabel: Ngcp.csc.locales.filters.pbx_devices[localStorage.getItem('languageSelected')]
+            }, {
+                xtype: 'textfield',
+                labelAlign: 'top',
+                bind: '{filtergrid.hunt_policy}',
+                hidden: !this._subscriberAdminGroups,
+                fieldLabel: Ngcp.csc.locales.filters.hunt_policy[localStorage.getItem('languageSelected')]
+            }, {
+                xtype: 'textfield',
+                labelAlign: 'top',
+                bind: '{filtergrid.hunt_timeout}',
+                hidden: !this._subscriberAdminGroups,
+                fieldLabel: Ngcp.csc.locales.filters.hunt_timeout[localStorage.getItem('languageSelected')]
+            }, {
+                xtype: 'combo',
+                labelAlign: 'top',
+                store: Ext.create('NgcpCsc.store.DevicesList'),
+                fieldLabel: Ngcp.csc.locales.subscriberadmin.device_profile[localStorage.getItem('languageSelected')],
+                name: 'deviceCombo',
+                displayField: 'name',
+                valueField: 'name', // here we will use the ids most probablys
+                editable: false,
+                bind: '{filtergrid.device}',
+                hidden: !this._subscriberAdminDevices
+            }, {
+                xtype: 'textfield',
+                labelAlign: 'top',
+                bind: '{filtergrid.mac}',
+                fieldLabel: Ngcp.csc.locales.filters.mac[localStorage.getItem('languageSelected')],
+                hidden: !this._subscriberAdminDevices
+            }, {
+                xtype: 'checkboxgroup',
+                hidden: !this._subscriberAdminDevices,
+                labelAlign: 'top',
+                items: [{
+                    boxLabel: Ngcp.csc.locales.filters.enabled[localStorage.getItem('languageSelected')],
+                    inputValue: "enabled",
+                    bind: '{filtergrid.enabled}'
+                }, {
+                    boxLabel: Ngcp.csc.locales.filters.disabled[localStorage.getItem('languageSelected')],
+                    inputValue: "disabled",
+                    bind: '{filtergrid.disabled}'
+                }]
             }, {
                 layout: 'hbox',
                 margin: '10 0 0 0',
