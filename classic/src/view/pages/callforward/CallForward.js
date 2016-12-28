@@ -18,7 +18,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
         items: [{
             xtype: 'gridfilters',
             _linkedStoreId: ['CallForwardBusy', 'CallForwardOnline', 'CallForwardOffline'],
-            _hideSearchTerm: false,
+            _searchTerm: true,
             padding: 0
         }, {
             xtype: 'core-container',
