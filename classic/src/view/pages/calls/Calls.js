@@ -20,7 +20,7 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
         },
         items: [Ext.create('NgcpCsc.view.common.gridfilters.GridFilters', {
             _linkedStoreId: 'Calls',
-            _hideSearchTerm: true
+            _callFilters: true
         }), {
             title: Ngcp.csc.locales.voicemails.settings.title[localStorage.getItem('languageSelected')],
             xtype: 'core-container',

@@ -587,6 +587,48 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'apply',
                 fr: 'apply',
                 sp: 'apply'
+            },
+            name: {
+                en: 'name',
+                it: 'name',
+                de: 'name',
+                fr: 'name',
+                sp: 'name'
+            },
+            extensions: {
+                en: 'extensions',
+                it: 'extensions',
+                de: 'extensions',
+                fr: 'extensions',
+                sp: 'extensions'
+            },
+            groups: {
+                en: 'groups',
+                it: 'groups',
+                de: 'groups',
+                fr: 'groups',
+                sp: 'groups'
+            },
+            pbx_devices: {
+                en: 'pbx devices',
+                it: 'pbx devices',
+                de: 'pbx devices',
+                fr: 'pbx devices',
+                sp: 'pbx devices'
+            },
+            hunt_policy: {
+                en: 'hunt policy',
+                it: 'hunt policy',
+                de: 'hunt policy',
+                fr: 'hunt policy',
+                sp: 'hunt policy'
+            },
+            hunt_timeout: {
+                en: 'hunt timeout',
+                it: 'hunt timeout',
+                de: 'hunt timeout',
+                fr: 'hunt timeout',
+                sp: 'hunt timeout'
             }
         },
         voicemails: {
@@ -1282,19 +1324,19 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Your subscriber admin settings.',
                 sp: 'Your subscriber admin settings.'
             },
-            subtitle: {
-                en: 'SUBSCRIBER ADMIN',
-                it: 'SUBSCRIBER ADMIN',
-                de: 'SUBSCRIBER ADMIN',
-                fr: 'SUBSCRIBER ADMIN',
-                sp: 'SUBSCRIBER ADMIN'
+            add_new_seat: {
+                en: 'ADD NEW SEAT',
+                it: 'ADD NEW SEAT',
+                de: 'ADD NEW SEAT',
+                fr: 'ADD NEW SEAT',
+                sp: 'ADD NEW SEAT'
             },
-            user_label: {
-                en: 'Subscriber admin for ',
-                it: 'Subscriber admin for ',
-                de: 'Subscriber admin for ',
-                fr: 'Subscriber admin for ',
-                sp: 'Subscriber admin for '
+            add_new_group: {
+                en: 'ADD NEW GROUP',
+                it: 'ADD NEW GROUP',
+                de: 'ADD NEW GROUP',
+                fr: 'ADD NEW GROUP',
+                sp: 'ADD NEW GROUP'
             }
         },
         common: {
