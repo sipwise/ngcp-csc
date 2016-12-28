@@ -587,6 +587,27 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'apply',
                 fr: 'apply',
                 sp: 'apply'
+            },
+            extensions: {
+                en: 'extensions',
+                it: 'extensions',
+                de: 'extensions',
+                fr: 'extensions',
+                sp: 'extensions'
+            },
+            groups: {
+                en: 'groups',
+                it: 'groups',
+                de: 'groups',
+                fr: 'groups',
+                sp: 'groups'
+            },
+            pbx_devices: {
+                en: 'pbx_devices',
+                it: 'pbx_devices',
+                de: 'pbx_devices',
+                fr: 'pbx_devices',
+                sp: 'pbx_devices'
             }
         },
         voicemails: {
@@ -790,13 +811,6 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Create new contact',
                 fr: 'Create new contact',
                 sp: 'Create new contact'
-            },
-            name: {
-                en: 'name',
-                it: 'name',
-                de: 'name',
-                fr: 'name',
-                sp: 'name'
             },
             firstname: {
                 en: 'firstname',
@@ -1282,19 +1296,12 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Your subscriber admin settings.',
                 sp: 'Your subscriber admin settings.'
             },
-            subtitle: {
-                en: 'SUBSCRIBER ADMIN',
-                it: 'SUBSCRIBER ADMIN',
-                de: 'SUBSCRIBER ADMIN',
-                fr: 'SUBSCRIBER ADMIN',
-                sp: 'SUBSCRIBER ADMIN'
-            },
-            user_label: {
-                en: 'Subscriber admin for ',
-                it: 'Subscriber admin for ',
-                de: 'Subscriber admin for ',
-                fr: 'Subscriber admin for ',
-                sp: 'Subscriber admin for '
+            add_new_seat: {
+                en: 'ADD NEW SEAT',
+                it: 'ADD NEW SEAT',
+                de: 'ADD NEW SEAT',
+                fr: 'ADD NEW SEAT',
+                sp: 'ADD NEW SEAT'
             }
         },
         common: {
@@ -1514,6 +1521,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'save settings',
                 fr: 'save settings',
                 sp: 'save settings'
+            },
+            name: {
+                en: 'name',
+                it: 'name',
+                de: 'name',
+                fr: 'name',
+                sp: 'name'
             }
         }
     }
