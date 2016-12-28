@@ -1,11 +1,11 @@
-Ext.define('NgcpCsc.view.pages.subscriberadmin.SubscriberAdmin', {
+Ext.define('NgcpCsc.view.pages.subscriberadmin.groups.Groups', {
     extend: 'Ext.panel.Panel',
 
-    xtype: 'subscriberadmin',
+    xtype: 'subscriberadmin-groups',
 
-    viewModel: 'subscriberadmin',
+    viewModel: 'subscriberadmin-groups',
 
-    controller: 'subscriberadmin',
+    controller: 'subscriberadmin-groups',
 
     title: Ngcp.csc.locales.subscriberadmin.title[localStorage.getItem('languageSelected')],
 
