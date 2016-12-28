@@ -22,3 +22,49 @@
         bottom: 2px;
     }
 }
+
+.card-grid {
+    .x-grid-body {
+        border-width: 0;
+    }
+}
+
+.card-wrapper {
+    float: left;
+    width: 100%;
+    color: $base-color;
+
+    .img-row {
+        img {
+            width: 100%;
+        }
+    }
+
+    .fa {
+        margin-right: 10px;
+        color: $base-color;
+    }
+
+    .fa:before {
+        padding: 0 10px 0 0;
+    }
+
+    .card-data-row {
+        padding: 7px;
+        margin: 0 10px;
+        width: 100%;
+        color: #606060;
+    }
+
+    .card-icon-row {
+        text-align: center;
+        padding: 20px;
+        margin: 0 auto;
+        width: 100%;
+
+        .card-icon {
+            display: inline;
+            padding: 40px;
+        }
+    }
+}

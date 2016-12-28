@@ -1,0 +1,128 @@
+{
+    "data": [{
+        "id": 1,
+        "name": "Device1",
+        "extension": "ext1",
+        "status": "enabled",
+        "image":"/resources/images/pbx.png",
+        "destinations": [{
+            "name": "destination1",
+            "sound": "audio/voicemail.mp3",
+            "position": {
+                "order" : 1,
+                "top" : "20%",
+                "left" : "45%"
+            }
+
+        }, {
+            "name": "destination2",
+            "sound": "audio/voicemail.mp3",
+            "position": {
+                "order" : 2,
+                "top" : "25%",
+                "left" : "45%"
+            }
+        }, {
+            "name": "destination3",
+            "sound": "audio/voicemail.mp3",
+            "position": {
+                "order" : 3,
+                "top" : "30%",
+                "left" : "45%"
+            }
+        }]
+    }, {
+        "id": 2,
+        "name": "Device2",
+        "extension": "ext2",
+        "status": "enabled",
+        "image":"/resources/images/pbx.png",
+        "destinations": [{
+            "name": "destination1",
+            "sound": "audio/voicemail.mp3",
+            "position": {
+                "order" : 1,
+                "top" : "20%",
+                "left" : "45%"
+            }
+        }, {
+            "name": "destination2",
+            "sound": "audio/voicemail.mp3",
+            "position": {
+                "order" : 1,
+                "top" : "25%",
+                "left" : "45%"
+            }
+        }, {
+            "name": "destination3",
+            "sound": "audio/voicemail.mp3",
+            "position": {
+                "order" : 1,
+                "top" : "30%",
+                "left" : "45%"
+            }
+        }]
+    }, {
+        "id": 3,
+        "name": "Device3",
+        "extension": "ext3",
+        "status": "enabled",
+        "image":"/resources/images/pbx.png",
+        "destinations": [{
+            "name": "destination1",
+            "sound": "audio/voicemail.mp3",
+            "position": {
+                "order" : 1,
+                "top" : "20%",
+                "left" : "45%"
+            }
+        }, {
+            "name": "destination2",
+            "sound": "audio/voicemail.mp3",
+            "position": {
+                "order" : 1,
+                "top" : "25%",
+                "left" : "45%"
+            }
+        }, {
+            "name": "destination3",
+            "sound": "audio/voicemail.mp3",
+            "position": {
+                "order" : 1,
+                "top" : "30%",
+                "left" : "45%"
+            }
+        }]
+    }, {
+        "id": 4,
+        "name": "Device4",
+        "extension": "ext4",
+        "status": "enabled",
+        "image":"/resources/images/pbx.png",
+        "destinations": [{
+            "name": "destination1",
+            "sound": "audio/voicemail.mp3",
+            "position": {
+                "order" : 1,
+                "top" : "20%",
+                "left" : "45%"
+            }
+        }, {
+            "name": "destination2",
+            "sound": "audio/voicemail.mp3",
+            "position": {
+                "order" : 2,
+                "top" : "25%",
+                "left" : "45%"
+            }
+        }, {
+            "name": "destination3",
+            "sound": "audio/voicemail.mp3",
+            "position": {
+                "order" : 3,
+                "top" : "30%",
+                "left" : "45%"
+            }
+        }]
+    }]
+}
