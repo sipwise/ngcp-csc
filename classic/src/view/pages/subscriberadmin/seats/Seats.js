@@ -17,7 +17,11 @@ Ext.define('NgcpCsc.view.pages.subscriberadmin.seats.Seats', {
             xtype: 'gridfilters',
             padding: 0,
             _linkedStoreId: 'Seats',
+<<<<<<< 8a91b442e2622f48e2dfe71117e2cc1ff236a334
             _subscriberAdmin: true
+=======
+            _subscriberAdminSeats: true
+>>>>>>> TT#7556 ngcp-csc Subscriber Admin > Seats section
         }, {
             xtype:'form',
             ui: 'core-container',
@@ -32,7 +36,11 @@ Ext.define('NgcpCsc.view.pages.subscriberadmin.seats.Seats', {
                 xtype: 'textfield',
                 labelAlign: 'top',
                 bind: '{selection.name}',
+<<<<<<< 8a91b442e2622f48e2dfe71117e2cc1ff236a334
                 fieldLabel: Ngcp.csc.locales.common.name[localStorage.getItem('languageSelected')]
+=======
+                fieldLabel: Ngcp.csc.locales.filters.name[localStorage.getItem('languageSelected')]
+>>>>>>> TT#7556 ngcp-csc Subscriber Admin > Seats section
             }, {
                 xtype: 'textfield',
                 labelAlign: 'top',

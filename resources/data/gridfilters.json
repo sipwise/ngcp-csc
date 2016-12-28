@@ -16,5 +16,10 @@
         "extensions":"",
         "groups":"",
         "pbx_devices":"",
+<<<<<<< 8a91b442e2622f48e2dfe71117e2cc1ff236a334
+=======
+        "hunt_policy":"",
+        "hunt_timeout":""
+>>>>>>> TT#7556 ngcp-csc Subscriber Admin > Seats section
     }]
 }

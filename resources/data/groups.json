@@ -1,0 +1,27 @@
+{
+    "data": [{
+        "id" : 1,
+        "name": "Group1",
+        "extension": "ext1",
+        "hunt_policy": "policy1",
+        "hunt_timeout": "123"
+    },{
+        "id" : 2,
+        "name":"Group2",
+        "extension": "ext2",
+        "hunt_policy": "policy2",
+        "hunt_timeout": "456"
+    }, {
+        "id" : 3,
+        "name":"Group3",
+        "extension": "ext3",
+        "hunt_policy": "policy3, policy4",
+        "hunt_timeout": "789"
+    }, {
+        "id" : 4,
+        "name":"Group4",
+        "extension": "ext4",
+        "hunt_policy": "policy4",
+        "hunt_timeout": "123, 987"
+    }]
+}
