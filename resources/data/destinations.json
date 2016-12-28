@@ -1,0 +1,27 @@
+{
+    "data": [{
+        "position": "1",
+        "destination": "destination 1",
+        "sound": "resources/audio/voicemail.mp3"
+    },{
+        "position": "2",
+        "destination": "destination 2",
+        "sound": "resources/audio/voicemail.mp3"
+    },{
+        "position": "3",
+        "destination": "destination 3",
+        "sound": "resources/audio/voicemail.mp3"
+    },{
+        "position": "4",
+        "destination": "destination 4",
+        "sound": "resources/audio/voicemail.mp3"
+    },{
+        "position": "5",
+        "destination": "destination 5",
+        "sound": "resources/audio/voicemail.mp3"
+    },{
+        "position": "6",
+        "destination": "destination 6",
+        "sound": "resources/audio/voicemail.mp3"
+    }]
+}
