@@ -8,7 +8,6 @@ Ext.define('NgcpCsc.view.pages.summary.SummaryController', {
     },
 
     reloadChart: function(btn){
-        debugger
         var chart = btn.up('summary-pie');
         chart.getStore().reload();
     },
