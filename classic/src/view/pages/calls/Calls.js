@@ -13,17 +13,15 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
 
     items: [{
         userCls: 'big-30 small-100',
-        defaults: {
-            padding: 0,
-            collapsible: true,
-            collapsed: !Ext.os.is.Desktop
-        },
         items: [Ext.create('NgcpCsc.view.common.gridfilters.GridFilters', {
             _linkedStoreId: 'Calls',
-            _hideSearchTerm: true
+            _callFilters: true
         }), {
             title: Ngcp.csc.locales.voicemails.settings.title[localStorage.getItem('languageSelected')],
             xtype: 'core-container',
+            padding: 0,
+            collapsible: true,
+            collapsed: !Ext.os.is.Desktop,
             items:[{
                 xtype:'form',
                 padding: 20,

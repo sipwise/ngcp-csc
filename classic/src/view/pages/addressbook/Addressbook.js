@@ -17,7 +17,7 @@ Ext.define('NgcpCsc.view.pages.addressbook.Addressbook', {
             xtype: 'gridfilters',
             padding: 0,
             _linkedStoreId: 'Addressbook',
-            _hideSearchTerm: false
+            _searchTerm: true
         }, {
             xtype: 'core-container',
             reference: 'contactForm',
