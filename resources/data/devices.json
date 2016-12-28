@@ -1,0 +1,223 @@
+{
+    "data": [{
+        "id": 1,
+        "name": "Device1",
+        "extension": "ext1",
+        "status": "enabled",
+        "image": "/resources/images/pbx.png",
+        "destinations": [{
+            "name": "destination1",
+            "sound": "audio/voicemail.mp3",
+            "order": 1,
+            "position": {
+                "top": "14%",
+                "left": "45%"
+            }
+        }, {
+            "name": "destination2",
+            "sound": "audio/voicemail.mp3",
+            "order": 2,
+            "position": {
+                "top": "18%",
+                "left": "45%"
+            }
+        }, {
+            "name": "destination3",
+            "sound": "audio/voicemail.mp3",
+            "order": 3,
+            "position": {
+                "top": "22%",
+                "left": "45%"
+            }
+        }, {
+            "name": "destination4",
+            "sound": "audio/voicemail.mp3",
+            "order": 4,
+            "position": {
+                "top": "41%",
+                "left": "54%"
+            }
+        }, {
+            "name": "destination5",
+            "sound": "audio/voicemail.mp3",
+            "order": 5,
+            "position": {
+                "top": "41%",
+                "left": "61%"
+            }
+        }, {
+            "name": "destination6",
+            "sound": "audio/voicemail.mp3",
+            "order": 6,
+            "position": {
+                "top": "41%",
+                "left": "67%"
+            }
+        }]
+    }, {
+        "id": 2,
+        "name": "Device2",
+        "extension": "ext2",
+        "status": "enabled",
+        "image": "/resources/images/pbx.png",
+        "destinations": [{
+            "name": "destination1",
+            "sound": "audio/voicemail.mp3",
+            "order": 1,
+            "position": {
+                "top": "14%",
+                "left": "45%"
+            }
+        }, {
+            "name": "destination2",
+            "sound": "audio/voicemail.mp3",
+            "order": 2,
+            "position": {
+                "top": "18%",
+                "left": "45%"
+            }
+        }, {
+            "name": "destination3",
+            "sound": "audio/voicemail.mp3",
+            "order": 3,
+            "position": {
+                "top": "22%",
+                "left": "45%"
+            }
+        }, {
+            "name": "destination4",
+            "sound": "audio/voicemail.mp3",
+            "order": 4,
+            "position": {
+                "top": "41%",
+                "left": "54%"
+            }
+        }, {
+            "name": "destination5",
+            "sound": "audio/voicemail.mp3",
+            "order": 5,
+            "position": {
+                "top": "41%",
+                "left": "61%"
+            }
+        }, {
+            "name": "destination6",
+            "sound": "audio/voicemail.mp3",
+            "order": 6,
+            "position": {
+                "top": "41%",
+                "left": "67%"
+            }
+        }]
+    }, {
+        "id": 3,
+        "name": "Device3",
+        "extension": "ext3",
+        "status": "enabled",
+        "image": "/resources/images/pbx.png",
+        "destinations": [{
+            "name": "destination1",
+            "sound": "audio/voicemail.mp3",
+            "order": 1,
+            "position": {
+                "top": "14%",
+                "left": "45%"
+            }
+        }, {
+            "name": "destination2",
+            "sound": "audio/voicemail.mp3",
+            "order": 2,
+            "position": {
+                "top": "18%",
+                "left": "45%"
+            }
+        }, {
+            "name": "destination3",
+            "sound": "audio/voicemail.mp3",
+            "order": 3,
+            "position": {
+                "top": "22%",
+                "left": "45%"
+            }
+        }, {
+            "name": "destination4",
+            "sound": "audio/voicemail.mp3",
+            "order": 4,
+            "position": {
+                "top": "41%",
+                "left": "54%"
+            }
+        }, {
+            "name": "destination5",
+            "sound": "audio/voicemail.mp3",
+            "order": 5,
+            "position": {
+                "top": "41%",
+                "left": "61%"
+            }
+        }, {
+            "name": "destination6",
+            "sound": "audio/voicemail.mp3",
+            "order": 6,
+            "position": {
+                "top": "41%",
+                "left": "67%"
+            }
+        }]
+    }, {
+        "id": 4,
+        "name": "Device4",
+        "extension": "ext4",
+        "status": "enabled",
+        "image": "/resources/images/pbx.png",
+        "destinations": [{
+            "name": "destination1",
+            "sound": "audio/voicemail.mp3",
+            "order": 1,
+            "position": {
+                "top": "14%",
+                "left": "45%"
+            }
+        }, {
+            "name": "destination2",
+            "sound": "audio/voicemail.mp3",
+            "order": 2,
+            "position": {
+                "top": "18%",
+                "left": "45%"
+            }
+        }, {
+            "name": "destination3",
+            "sound": "audio/voicemail.mp3",
+            "order": 3,
+            "position": {
+                "top": "22%",
+                "left": "45%"
+            }
+        }, {
+            "name": "destination4",
+            "sound": "audio/voicemail.mp3",
+            "order": 4,
+            "position": {
+                "top": "41%",
+                "left": "54%"
+            }
+        }, {
+            "name": "destination5",
+            "sound": "audio/voicemail.mp3",
+            "order": 5,
+            "position": {
+                "top": "41%",
+                "left": "61%"
+            }
+        }, {
+            "name": "destination6",
+            "sound": "audio/voicemail.mp3",
+            "order": 6,
+            "position": {
+                "top": "41%",
+                "left": "67%"
+            }
+        }]
+    }]
+}
