@@ -12,6 +12,7 @@ Ext.define('NgcpCsc.view.pages.subscriberadmin.devices.Devices', {
     items: [{
         layout: 'responsivecolumn',
         xtype: 'core-container',
+<<<<<<< 8a91b442e2622f48e2dfe71117e2cc1ff236a334
         items: [{
             height: 25
             //html: Ngcp.csc.locales.subscriberadmin.subtitle[localStorage.getItem('languageSelected')]
@@ -24,6 +25,9 @@ Ext.define('NgcpCsc.view.pages.subscriberadmin.devices.Devices', {
                 html: '{test_viewmodel_data}'
             }
         }]
+=======
+        html: 'ToDo'
+>>>>>>> TT#7556 ngcp-csc Subscriber Admin > Seats section
     }]
 
 });
