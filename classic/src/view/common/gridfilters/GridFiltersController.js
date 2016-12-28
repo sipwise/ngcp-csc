@@ -17,13 +17,19 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
                 switch (true) {
                     case me.getView()._callFilters:
                         store.filterBy(me.applyCallFilters, me)
-                    break;
+                        break;
                     case me.getView()._searchTerm:
                         store.filterBy(me.searchText, me);
-                    break;
+                        break;
                     case me.getView()._subscriberAdmin:
                         store.filterBy(me.applySubscriberFilters, me);
-                    break;
+                        break;
+                    case me.getView()._subscriberAdminGroups:
+                        store.filterBy(me.applySubscriberGroupsFilters, me);
+                        break;
+                    case me.getView()._subscriberAdminDevices:
+                        store.filterBy(me.applySubscriberDevicesFilters, me);
+                        break;
                 }
             })
         }
@@ -33,7 +39,6 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         var vm = this.getViewModel();
         var search_term = vm.get('filtergrid.search_term') || "";
         var retVal = false;
-
         Ext.Object.each(record.data, function(key, val) {
             if (Ext.isString(val) && val.indexOf(search_term) > -1) {
                 retVal = true;
@@ -69,7 +74,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
 
     },
 
-    applySubscriberFilters: function(record){
+    applySubscriberFilters: function(record) {
         var vm = this.getViewModel();
         var name = vm.get('filtergrid.name') || "";
         var extensions = vm.get('filtergrid.extensions') ? vm.get('filtergrid.extensions').split(',') : [];
@@ -88,9 +93,45 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         return retVal;
     },
 
+    applySubscriberGroupsFilters: function(record) {
+        var vm = this.getViewModel();
+        var name = vm.get('filtergrid.name') || "";
+        var extensions = vm.get('filtergrid.extensions') ? vm.get('filtergrid.extensions').split(',') : [];
+        var hunt_policy = vm.get('filtergrid.hunt_policy') ? vm.get('filtergrid.hunt_policy').split(',') : [];
+        var hunt_timeout = vm.get('filtergrid.hunt_timeout') ? vm.get('filtergrid.hunt_timeout').split(',') : [];
+        var retVal = true;
+        if (name && record.get('name').indexOf(name) == -1 ||
+            extensions.length > 0 && extensions.indexOf(record.get('extension')) == -1 ||
+            hunt_policy.length > 0 && hunt_policy.indexOf(record.get('hunt_policy')) == -1 ||
+            hunt_timeout.length > 0 && hunt_timeout.indexOf(record.get('hunt_timeout')) == -1
+        ) {
+            retVal = false;
+        }
+        return retVal;
+    },
+
+    applySubscriberDevicesFilters: function(record) {
+        var vm = this.getViewModel();
+        var name = vm.get('filtergrid.name') || "";
+        var deviceProfile = vm.get('filtergrid.device') || "";
+        var mac = vm.get('filtergrid.mac') || "";
+        var status = [vm.get('filtergrid.enabled') ? 'enabled' : null, vm.get('filtergrid.disabled') ? 'disabled' : null];
+
+        var retVal = true;
+
+        if (name && record.get('name').indexOf(name) == -1 ||
+            deviceProfile && record.get('device').indexOf(deviceProfile) == -1 ||
+            mac && record.get('mac').indexOf(mac) == -1 ||
+            status.length > 0 && status.indexOf(record.get('status')) == -1
+        ) {
+            retVal = false;
+        }
+        return retVal;
+    },
+
     resetFilters: function() {
         var store,
-        me = this;
+            me = this;
         if (Ext.isString(me.getView()._linkedStoreId)) {
             me.getView()._linkedStoreId = [me.getView()._linkedStoreId];
         }
@@ -106,7 +147,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         vm.set('filtergrid.from_date', null);
         vm.set('filtergrid.to_date', null);
         vm.set('filtergrid.number', null);
-        vm.set('filtergrid.type', null);
+        vm.set('filtergrid.type', ["call", "cft", "cfu", "cfna"]);
         vm.set('filtergrid.incoming', true);
         vm.set('filtergrid.outgoing', true);
         vm.set('filtergrid.missed', true);
@@ -116,5 +157,9 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         vm.set('filtergrid.extensions', '');
         vm.set('filtergrid.groups', '');
         vm.set('filtergrid.pbx_devices', '');
+        vm.set('filtergrid.enabled', true);
+        vm.set('filtergrid.disabled', true);
+        vm.set('filtergrid.device', '');
+        vm.set('filtergrid.mac', '');
     }
 });

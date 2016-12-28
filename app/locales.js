@@ -595,6 +595,13 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'extensions',
                 sp: 'extensions'
             },
+            pbx_image: {
+                en: 'pbx image',
+                it: 'pbx image',
+                de: 'pbx image',
+                fr: 'pbx image',
+                sp: 'pbx image'
+            },
             groups: {
                 en: 'groups',
                 it: 'groups',
@@ -602,12 +609,19 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'groups',
                 sp: 'groups'
             },
+            mac: {
+                en: 'mac address',
+                it: 'mac address',
+                de: 'mac address',
+                fr: 'mac address',
+                sp: 'mac address'
+            },
             pbx_devices: {
-                en: 'pbx_devices',
-                it: 'pbx_devices',
-                de: 'pbx_devices',
-                fr: 'pbx_devices',
-                sp: 'pbx_devices'
+                en: 'pbx devices',
+                it: 'pbx devices',
+                de: 'pbx devices',
+                fr: 'pbx devices',
+                sp: 'pbx devices'
             },
             hunt_policy: {
                 en: 'hunt policy',
@@ -620,8 +634,29 @@ Ext.define('Ngcp.csc.locales', {
                 en: 'hunt timeout',
                 it: 'hunt timeout',
                 de: 'hunt timeout',
-                fr: 'hunt poltimeouticy',
+                fr: 'hunt timeout',
                 sp: 'hunt timeout'
+            },
+            status: {
+                en: 'status',
+                it: 'status',
+                de: 'status',
+                fr: 'status',
+                sp: 'status'
+            },
+            enabled: {
+                en: 'enabled',
+                it: 'enabled',
+                de: 'enabled',
+                fr: 'enabled',
+                sp: 'enabled'
+            },
+            disabled: {
+                en: 'disabled',
+                it: 'disabled',
+                de: 'disabled',
+                fr: 'disabled',
+                sp: 'disabled'
             }
         },
         voicemails: {
@@ -1323,6 +1358,41 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'ADD NEW GROUP',
                 fr: 'ADD NEW GROUP',
                 sp: 'ADD NEW GROUP'
+            },
+            add_new_destination: {
+                en: 'ADD NEW DESTINATION',
+                it: 'ADD NEW DESTINATION',
+                de: 'ADD NEW DESTINATION',
+                fr: 'ADD NEW DESTINATION',
+                sp: 'ADD NEW DESTINATION'
+            },
+            add_new_device: {
+                en: 'ADD NEW DEVICE',
+                it: 'ADD NEW DEVICE',
+                de: 'ADD NEW DEVICE',
+                fr: 'ADD NEW DEVICE',
+                sp: 'ADD NEW DEVICE'
+            },
+            device: {
+                en: 'device',
+                it: 'device',
+                de: 'device',
+                fr: 'device',
+                sp: 'device'
+            },
+            device_profile: {
+                en: 'device profile',
+                it: 'device profile',
+                de: 'device profile',
+                fr: 'device profile',
+                sp: 'device profile'
+            },
+            destination: {
+                en: 'Destination',
+                it: 'Destination',
+                de: 'Destination',
+                fr: 'Destination',
+                sp: 'Destination'
             }
         },
         common: {
@@ -1549,6 +1619,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'name',
                 fr: 'name',
                 sp: 'name'
+            },
+            play: {
+                en: 'play',
+                it: 'play',
+                de: 'play',
+                fr: 'play',
+                sp: 'play'
             }
         }
     }

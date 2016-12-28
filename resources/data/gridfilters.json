@@ -17,6 +17,8 @@
         "groups":"",
         "pbx_devices":"",
         "hunt_policy":"",
-        "hunt_timeout":""
+        "hunt_timeout":"",
+        "enabled" : true,
+        "disabled": true
     }]
 }
