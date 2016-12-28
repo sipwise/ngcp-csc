@@ -608,6 +608,20 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'pbx_devices',
                 fr: 'pbx_devices',
                 sp: 'pbx_devices'
+            },
+            hunt_policy: {
+                en: 'hunt policy',
+                it: 'hunt policy',
+                de: 'hunt policy',
+                fr: 'hunt policy',
+                sp: 'hunt policy'
+            },
+            hunt_timeout: {
+                en: 'hunt timeout',
+                it: 'hunt timeout',
+                de: 'hunt timeout',
+                fr: 'hunt poltimeouticy',
+                sp: 'hunt timeout'
             }
         },
         voicemails: {
@@ -1302,6 +1316,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'ADD NEW SEAT',
                 fr: 'ADD NEW SEAT',
                 sp: 'ADD NEW SEAT'
+            },
+            add_new_group: {
+                en: 'ADD NEW GROUP',
+                it: 'ADD NEW GROUP',
+                de: 'ADD NEW GROUP',
+                fr: 'ADD NEW GROUP',
+                sp: 'ADD NEW GROUP'
             }
         },
         common: {

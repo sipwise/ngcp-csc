@@ -17,7 +17,7 @@ Ext.define('NgcpCsc.view.pages.subscriberadmin.seats.Seats', {
             xtype: 'gridfilters',
             padding: 0,
             _linkedStoreId: 'Seats',
-            _subscriberAdmin: true
+            _subscriberAdminSeats: true
         }, {
             xtype:'form',
             ui: 'core-container',
