@@ -27,7 +27,12 @@ Ext.define('NgcpCsc.Application', {
         'Addressbook',
         'FaxSpool',
         'FaxSendQuality',
-        'Chart'
+        'Chart',
+        'Seats',
+        'Devices',
+        'DevicesList',
+        'Destinations',
+        'Sounds'
     ],
 
     launch: function() {
