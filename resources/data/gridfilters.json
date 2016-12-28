@@ -1,5 +1,6 @@
 {
     "data": [{
+        /* calls filters */
         "from_date": "",
         "to_date": "",
         "incoming": true,
@@ -8,6 +9,12 @@
         "type":["call", "cft", "cfu", "cfna"],
         "missed": true,
         "answered": true,
-        "search_term": ""
+        /* addressbook filters */
+        "search_term": "",
+        /* subscriber admin filters */
+        "name":"",
+        "extensions":"",
+        "groups":"",
+        "pbx_devices":"",
     }]
 }
