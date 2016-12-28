@@ -1,0 +1,27 @@
+{
+    "data": [{
+        "id" : 1,
+        "name": "Seat1",
+        "extension": "ext1",
+        "groups": "group1, group2",
+        "pbx_devices": "dev1, dev2"
+    },{
+        "id" : 2,
+        "name":"Seat2",
+        "extension": "ext2",
+        "groups":"group1, group3",
+        "pbx_devices": "dev1, dev3"
+    }, {
+        "id" : 3,
+        "name":"Seat3",
+        "extension": "ext3",
+        "groups":"group3, group4",
+        "pbx_devices": "dev2, dev3"
+    }, {
+        "id" : 4,
+        "name":"Seat4",
+        "extension": "ext4",
+        "groups":"group1, group4",
+        "pbx_devices": "dev3, dev4"
+    }]
+}

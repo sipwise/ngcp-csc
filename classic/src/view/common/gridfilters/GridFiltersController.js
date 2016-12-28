@@ -10,11 +10,11 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         if (form.isValid()) {
             if (Ext.isString(this.getView()._linkedStoreId)) {
                 store = Ext.getStore(this.getView()._linkedStoreId);
-                this.getView()._hideSearchTerm ? store.filterBy(this.applyFilters, this) : store.filterBy(this.searchText, this);
+                this.getView()._callFilters ? store.filterBy(this.applyFilters, this) : store.filterBy(this.searchText, this);
             } else {
                 Ext.each(this.getView()._linkedStoreId, function(storeId) {
                     store = Ext.getStore(storeId);
-                    this.getView()._hideSearchTerm ? store.filterBy(this.applyFilters, this) : store.filterBy(this.searchText, this);
+                    this.getView()._callFilters ? store.filterBy(this.applyFilters, this) : store.filterBy(this.searchText, this);
                 }, this)
             }
         }
@@ -85,5 +85,9 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         vm.set('filtergrid.missed', true);
         vm.set('filtergrid.answered', true);
         vm.set('filtergrid.search_term', '');
+        vm.set('filtergrid.name', '');
+        vm.set('filtergrid.extensions', '');
+        vm.set('filtergrid.groups', '');
+        vm.set('filtergrid.pbx_devices', '');
     }
 });
