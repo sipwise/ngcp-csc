@@ -30,10 +30,14 @@ Ext.define('NgcpCsc.view.main.MainController', {
             store = navigationList.getStore(),
             node = store.findNode('routeId', hashTag) ||
             store.findNode('viewType', hashTag) || 'desktop',
-            view = (node && node.get('viewType')) || 'page404',
+            view = (node && node.get('viewType')),
             lastView = me.lastView,
             existingItem = mainCard.child('component[routeId=' + hashTag + ']'),
             newView;
+
+        if(!view){
+            return;
+        }
 
         // Kill any previously routed window
         if (lastView && lastView.isWindow) {

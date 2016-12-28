@@ -1,0 +1,147 @@
+{
+    "data": [{
+        "id": 1,
+        "name":"Device1",
+        "device": "Cisco Pbx 1",
+        "mac":"00-14-22-01-23-41",
+        "status": "enabled",
+        "image": "/resources/images/pbx.png",
+        "destinations": [{
+            "name": "destination1",
+            "sound": "audio/voicemail.mp3",
+            "order": 1,
+            "position": {
+                "top": "14%",
+                "left": "45%"
+            }
+        }, {
+            "name": "destination2",
+            "sound": "audio/voicemail.mp3",
+            "order": 2,
+            "position": {
+                "top": "18%",
+                "left": "45%"
+            }
+        }, {
+            "name": "destination3",
+            "sound": "audio/voicemail.mp3",
+            "order": 3,
+            "position": {
+                "top": "22%",
+                "left": "45%"
+            }
+        }, {
+            "name": "destination4",
+            "sound": "audio/voicemail.mp3",
+            "order": 4,
+            "position": {
+                "top": "41%",
+                "left": "54%"
+            }
+        }, {
+            "name": "destination5",
+            "sound": "audio/voicemail.mp3",
+            "order": 5,
+            "position": {
+                "top": "41%",
+                "left": "61%"
+            }
+        }, {
+            "name": "destination6",
+            "sound": "audio/voicemail.mp3",
+            "order": 6,
+            "position": {
+                "top": "41%",
+                "left": "67%"
+            }
+        }]
+    }, {
+        "id": 2,
+        "name":"Device2",
+        "device": "Cisco Pbx 2",
+        "mac":"00-14-22-01-23-42",
+        "status": "enabled",
+        "image": "/resources/images/cisco2.jpg",
+        "destinations": [{
+            "name": "destination1",
+            "sound": "audio/voicemail.mp3",
+            "order": 1,
+            "position": {
+                "top": "13%",
+                "left": "86%"
+            }
+        }, {
+            "name": "destination2",
+            "sound": "audio/voicemail.mp3",
+            "order": 2,
+            "position": {
+                "top": "17%",
+                "left": "86%"
+            }
+        }, {
+            "name": "destination3",
+            "sound": "audio/voicemail.mp3",
+            "order": 3,
+            "position": {
+                "top": "21%",
+                "left": "86%"
+            }
+        }]
+    }, {
+        "id": 3,
+        "name":"Device3",
+        "device": "Cisco Pbx 3",
+        "mac":"00-14-22-01-23-43",
+        "status": "enabled",
+        "image": "/resources/images/cisco3.jpg",
+        "destinations": [{
+            "name": "destination1",
+            "sound": "audio/voicemail.mp3",
+            "order": 1,
+            "position": {
+                "top": "34%",
+                "left": "56%"
+            }
+        }, {
+            "name": "destination2",
+            "sound": "audio/voicemail.mp3",
+            "order": 2,
+            "position": {
+                "top": "34%",
+                "left": "83%"
+            }
+        }]
+    }, {
+        "id": 4,
+        "name":"Device4",
+        "device": "Cisco Pbx 4",
+        "mac":"00-14-22-01-23-44",
+        "status": "enabled",
+        "image": "/resources/images/cisco1.jpg",
+        "destinations": [{
+            "name": "destination1",
+            "sound": "audio/voicemail.mp3",
+            "order": 1,
+            "position": {
+                "top": "11%",
+                "left": "49%"
+            }
+        }, {
+            "name": "destination2",
+            "sound": "audio/voicemail.mp3",
+            "order": 2,
+            "position": {
+                "top": "22%",
+                "left": "49%"
+            }
+        }, {
+            "name": "destination3",
+            "sound": "audio/voicemail.mp3",
+            "order": 3,
+            "position": {
+                "top": "38%",
+                "left": "67%"
+            }
+        }]
+    }]
+}
