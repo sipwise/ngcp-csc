@@ -16,5 +16,7 @@
         "extensions":"",
         "groups":"",
         "pbx_devices":"",
+        "hunt_policy":"",
+        "hunt_timeout":""
     }]
 }
