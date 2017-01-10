@@ -9,8 +9,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
 
     layout: 'responsivecolumn',
 
-    scrollable: true,
-
     title: Ngcp.csc.locales.callforward.title[localStorage.getItem('languageSelected')],
 
     initComponent: function () {

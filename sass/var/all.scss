@@ -4,7 +4,7 @@
  */
 
 $panel-navigation-background-color: #32404e;
-$panel-navigation-item-line-height: 64px;
+$panel-navigation-item-line-height: 36px; // max height to fit the smallest supported screen ( 19 tree nodes in tablet landscape view)
 $panel-navigation-item-text-color: #ADB3B8;
 
 $progress-bar-background-color: #458fd2;
