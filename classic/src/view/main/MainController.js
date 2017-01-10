@@ -35,7 +35,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
             existingItem = mainCard.child('component[routeId=' + hashTag + ']'),
             newView;
 
-        if(!view){
+        if (!view) {
             return;
         }
 
@@ -49,6 +49,8 @@ Ext.define('NgcpCsc.view.main.MainController', {
         if (!existingItem) {
             newView = Ext.create({
                 xtype: view,
+                scrollable: true,
+                cls: 'section-container',
                 routeId: hashTag, // for existingItem search later
                 hideMode: 'offsets'
             });
@@ -169,10 +171,59 @@ Ext.define('NgcpCsc.view.main.MainController', {
 
     showMessage: function(success, msg) {
         if (success) {
-            Ext.toast({ html: msg, align: 't', ui:'toast-green' });
-        } else if (!success) {
-            Ext.toast({ html: msg, align: 't', ui: 'toast-red' });
+            Ext.toast({
+                html: msg,
+                align: 't',
+                ui: 'toast-green'
+            });
+        } else {
+            Ext.toast({
+                html: msg,
+                align: 't',
+                ui: 'toast-red'
+            });
         };
+    },
+
+    setItemsSize: function(view) {
+        var defaultHeight = view.down('#headerBar').getHeight();
+        var currentMainViewHeight = view.getHeight() - defaultHeight; // tbar height
+        var navItemsCount = this.getNavTreeNodesCount();
+        var navTree = this.lookupReference('navigationTreeList');
+        var currentItemsHeight = Math.round(currentMainViewHeight / navItemsCount);
+        var nodes;
+        if (currentItemsHeight > 42) { // == $panel-navigation-item-line-height in all.scss
+            nodes = Ext.Array.merge(
+                                    navTree.getEl().query('.x-treelist-row'),
+                                    navTree.getEl().query('.x-treelist-item-tool'),
+                                    navTree.getEl().query('.x-treelist-item-text'),
+                                    navTree.getEl().query('.x-treelist-item-icon'),
+                                    navTree.getEl().query('.x-treelist-item-expander'));
+            Ext.each(nodes, function(node) {
+                node.style.setProperty('height', currentItemsHeight + 'px', 'important');
+                node.style.setProperty('line-height', currentItemsHeight + 'px', 'important');
+            });
+
+            // override pseudo element (can also be done using http://docs.sencha.com/extjs/6.2.0/classic/Ext.util.CSS.html#method-createStyleSheet)
+            document.styleSheets[0].addRule('.x-treelist-item-icon::before', 'line-height:' + currentItemsHeight + 'px !important');
+            document.styleSheets[0].addRule('.x-treelist-item-tool:after', 'height:' + currentItemsHeight + 'px !important');
+            document.styleSheets[0].addRule('.x-treelist-item-tool::before', 'line-height:' + currentItemsHeight + 'px !important');
+        }
+
+    },
+
+    getNavTreeNodesCount: function(parentNode, scope) {
+        var me = scope || this;
+        var navTree = this.lookupReference('navigationTreeList');
+        var navTreeStore = navTree.getStore();
+        var count = 0;
+        Ext.each(parentNode ? parentNode.get('children') : navTreeStore.getRange(), function(node) {
+            if(!(node.leaf || node.get('leaf'))) {
+                count += me.getNavTreeNodesCount(node, me);
+            }
+            count++;
+        });
+        return count;
     }
 
 });

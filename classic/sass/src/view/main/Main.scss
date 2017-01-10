@@ -82,6 +82,10 @@
     background-color: #fff;
 }
 
+.x-tagfield{
+    overflow: visible;
+}
+
 //--------------------------------------------------------
 // Create classes for full-size responsive items
 
@@ -163,6 +167,36 @@
 }
 
 //--------------------------------------------------------
+//UI Styles for buttons
+
+@include extjs-button-small-ui(
+    $ui: 'header',
+    $color: #999,
+    $glyph-color: #919191,
+    $background-color: transparent,
+    $border-width: 0
+);
+
+@include extjs-window-ui(
+    $ui: 'toast-red',
+    $ui-border-color: #FF0000
+);
+
+@include extjs-window-ui(
+    $ui: 'toast-green',
+    $ui-border-color: #66A648
+);
+
+// custom classes & overrides
+
+.main-container {
+    .x-panel-body {
+        background-color: #f6f6f6;
+    }
+}
+.section-container {
+    padding-bottom:25px;
+}
 
 .logo {
     background-color: $base-color;
@@ -192,41 +226,4 @@
     .header-right-profile-image {
         border-radius: 20px;
     }
-}
-
-//UI Styles for buttons
-
-@include extjs-button-small-ui(
-    $ui: 'header',
-    $color: #999,
-    $glyph-color: #919191,
-    $background-color: transparent,
-    $border-width: 0
-);
-
-
-//custom classes
-
-@include extjs-window-ui(
-    $ui: 'toast-red',
-    $ui-border-color: #FF0000
-);
-
-@include extjs-window-ui(
-    $ui: 'toast-green',
-    $ui-border-color: #66A648
-);
-
-// .x-toast {
-//     border-color: red;
-// }
-
-.main-container {
-    .x-panel-body {
-        background-color: #f6f6f6;
-    }
-}
-
-.x-tagfield{
-    overflow: visible;
 }
