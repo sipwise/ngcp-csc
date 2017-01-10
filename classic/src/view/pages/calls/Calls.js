@@ -9,8 +9,6 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
 
     layout: 'responsivecolumn',
 
-    scrollable: true,
-
     items: [{
         userCls: 'big-30 small-100',
         items: [Ext.create('NgcpCsc.view.common.gridfilters.GridFilters', {
