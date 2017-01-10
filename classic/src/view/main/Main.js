@@ -20,7 +20,8 @@ Ext.define('NgcpCsc.view.main.Main', {
     },
 
     listeners: {
-        render: 'onMainViewRender'
+        render: 'onMainViewRender',
+        resize: 'setItemsSize'
     },
 
     items: [{
@@ -73,9 +74,6 @@ Ext.define('NgcpCsc.view.main.Main', {
         xtype: 'maincontainerwrap',
         id: 'main-view-detail-wrap',
         reference: 'mainContainerWrap',
-        flex: 1,
-        scrollable: true,
-        height: '100%',
         items: [{
             xtype: 'treelist',
             reference: 'navigationTreeList',
