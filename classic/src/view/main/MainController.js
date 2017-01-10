@@ -35,7 +35,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
             existingItem = mainCard.child('component[routeId=' + hashTag + ']'),
             newView;
 
-        if(!view){
+        if (!view) {
             return;
         }
 
@@ -49,6 +49,8 @@ Ext.define('NgcpCsc.view.main.MainController', {
         if (!existingItem) {
             newView = Ext.create({
                 xtype: view,
+                scrollable: true,
+                cls: 'section-container',
                 routeId: hashTag, // for existingItem search later
                 hideMode: 'offsets'
             });
@@ -169,10 +171,36 @@ Ext.define('NgcpCsc.view.main.MainController', {
 
     showMessage: function(success, msg) {
         if (success) {
-            Ext.toast({ html: msg, align: 't', ui:'toast-green' });
-        } else if (!success) {
-            Ext.toast({ html: msg, align: 't', ui: 'toast-red' });
+            Ext.toast({
+                html: msg,
+                align: 't',
+                ui: 'toast-green'
+            });
+        } else {
+            Ext.toast({
+                html: msg,
+                align: 't',
+                ui: 'toast-red'
+            });
         };
+    },
+
+    setItemsSize: function(view) {
+        var defaultHeight = view.down('#headerBar').getHeight();
+        var currentMainViewHeight = view.getHeight() - defaultHeight; // tbar height
+        var navTree = this.lookupReference('navigationTreeList');
+        var navTreeStore = navTree.getStore();
+        var navItemsCount = navTreeStore.count();
+        var currentItemsHeight = currentMainViewHeight / navItemsCount;
+        var nodes;
+        if (currentItemsHeight  > 42 && currentItemsHeight < defaultHeight ) { //  between 42 and toolbar height
+            nodes = Ext.Array.merge(navTree.getEl().query('.x-treelist-row'), navTree.getEl().query('.x-treelist-item-tool'));
+            Ext.each(nodes, function(node) {
+                node.style.height = currentItemsHeight + 'px';
+            });
+
+        }
+
     }
 
 });
