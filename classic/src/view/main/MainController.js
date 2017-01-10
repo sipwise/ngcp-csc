@@ -45,6 +45,8 @@ Ext.define('NgcpCsc.view.main.MainController', {
         if (!existingItem) {
             newView = Ext.create({
                 xtype: view,
+                scrollable:true,
+                cls:'section-container',
                 routeId: hashTag, // for existingItem search later
                 hideMode: 'offsets'
             });
