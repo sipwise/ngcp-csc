@@ -35,7 +35,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
             existingItem = mainCard.child('component[routeId=' + hashTag + ']'),
             newView;
 
-        if(!view){
+        if (!view) {
             return;
         }
 
@@ -49,6 +49,8 @@ Ext.define('NgcpCsc.view.main.MainController', {
         if (!existingItem) {
             newView = Ext.create({
                 xtype: view,
+                scrollable: true,
+                cls: 'section-container',
                 routeId: hashTag, // for existingItem search later
                 hideMode: 'offsets'
             });
@@ -169,10 +171,27 @@ Ext.define('NgcpCsc.view.main.MainController', {
 
     showMessage: function(success, msg) {
         if (success) {
-            Ext.toast({ html: msg, align: 't', ui:'toast-green' });
+            Ext.toast({
+                html: msg,
+                align: 't',
+                ui: 'toast-green'
+            });
         } else if (!success) {
-            Ext.toast({ html: msg, align: 't', ui: 'toast-red' });
+            Ext.toast({
+                html: msg,
+                align: 't',
+                ui: 'toast-red'
+            });
         };
+    },
+
+    setItemsSize: function(view) {
+        var currentHeight = view.getHeight() - 94; // - tbar height
+        var navTreeStore =  this.lookupReference('navigationTreeList').getStore();
+        var navItemsCount = navTreeStore.getCount();
+        console.info('items height should be: ' + currentHeight/navItemsCount);
+        // todo on resize/rotate apply the new height to navtreeitems
+
     }
 
 });
