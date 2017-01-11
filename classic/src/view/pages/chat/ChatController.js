@@ -29,7 +29,7 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
 
     submitMessage: function(msg, user) {
         var message = msg || this.getViewModel().get('message.new_message');
-        if (message.length < 1 || !this.getView().getActiveTab()){
+        if (message.length < 1 || !this.getView().getActiveTab()) {
             return;
         }
         var chatStore = this.getView().getActiveTab().getStore('notifications');
@@ -82,35 +82,55 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
             });
         }
         this.getView().setActiveTab(tab);
+        this.toggleTextArea(true);
+
     },
     openChat: function(rec) {
         var tab = this.getView().down('[name=' + rec.get('name') + ']');
+        var messages = Ext.create('NgcpCsc.store.Chat');
         if (rec.get('name') == 'Buddies')
             return;
+        messages.load({callback:function(records){
+            Ext.each(records, function(message){
+                if(!rec.findChild('uid',message.get('uid'))){
+                    messages.remove(message);
+                }
+            });
+        }});
         if (!tab) {
             tab = this.getView().add({
                 xtype: 'chat-notifications',
                 title: rec.get('name'),
                 name: rec.get('name'),
                 closable: true,
-                scrollable: true,
-                bind: {
-                    store: '{notifications}'
-                }
+                emptyText: Ngcp.csc.locales.chat.start_group_conversation[localStorage.getItem('languageSelected')],
+                store: messages
             });
         }
         this.getView().setActiveTab(tab);
+        this.toggleTextArea(true);
     },
+
     closeChat: function(tabToClose) {
         var tabToClose = this.getView().down('[name=' + tabToClose + ']');
         var chatList = this.getView().down('#chatlist');
-        if (tabToClose){
+        if (tabToClose) {
             tabToClose.destroy();
         }
-        chatList.getView().refresh();
+        if(chatList){
+            chatList.getView().refresh()
+        }
     },
 
-    toggleChat:function(visible){
+    tabRemoved: function(tabP){
+        this.toggleTextArea(tabP.items.length > 0);
+    },
+
+    toggleChat: function(visible) {
         this.getViewModel().set('messages.chatEnabled', visible);
+    },
+
+    toggleTextArea: function(visible){
+        this.lookupReference('chat-bottom-bar').setVisible(visible);
     }
 });
