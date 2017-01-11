@@ -84,10 +84,11 @@
     right: 0;
 }
 
-.navigation-email {
+.chat-list {
     .x-grid-row:hover {
         .x-phone-display {
             padding-left: 5px;
+
             &:before {
                 font-family: FontAwesome;
                 content: "\f095";
@@ -96,6 +97,7 @@
 
         .x-video-display {
             margin-left: 10px;
+
             &:before {
                 font-family: FontAwesome;
                 content: "\f03d";
@@ -104,11 +106,21 @@
 
         .x-drop-display {
             position: relative;
-            right: 6px;
+            right: 15px;
 
             &:before {
                 font-family: FontAwesome;
-                content: "\f00d";
+                content: "\f1f8";
+            }
+        }
+
+        .x-add-user-display {
+            position: relative;
+            right: 20px;
+
+            &:before {
+                font-family: FontAwesome;
+                content: "\f234";
             }
         }
     }
@@ -186,6 +198,14 @@
             content: "\f105";
         }
     }
+
+    .x-action-col-icon {
+        color: #919191;
+        font-size: 18px;
+        height: 16px;
+        width: 18px;
+        cursor: pointer;
+    }
 }
 
 .new-message-cont {
@@ -211,4 +231,20 @@
 
 .offline-user {
     color: $offline-menu-item-color !important;
+}
+
+.chat-container {
+    // replace core-container $ui , because tabpanel has no mixin/variables
+    border: 1px solid lightgray;
+    border-radius: 10px;
+
+    .x-panel-body {
+        background-color: $body-background-color;
+    }
+}
+
+.chat-default-msg-cont {
+    font-size: 16px;
+    text-align: center;
+    margin-top: 30px;
 }
