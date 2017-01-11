@@ -785,6 +785,13 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'You can start a private conversation with {0} here.',
                 sp: 'You can start a private conversation with {0} here.'
             },
+            default_msg:{
+                en: 'Click on a user or a group to start a conversation.',
+                it: 'Click on a user or a group to start a conversation.',
+                de: 'Click on a user or a group to start a conversation.',
+                fr: 'Click on a user or a group to start a conversation.',
+                sp: 'Click on a user or a group to start a conversation.'
+            },
             alerts: {
                 user_ddrop: {
                     en: 'Only users can be dropped',
@@ -1668,6 +1675,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'To',
                 fr: 'To',
                 sp: 'To'
+            },
+            done: {
+                en: 'done',
+                it: 'done',
+                de: 'done',
+                fr: 'done',
+                sp: 'done'
             }
         }
     }

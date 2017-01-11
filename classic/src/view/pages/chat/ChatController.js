@@ -29,7 +29,7 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
 
     submitMessage: function(msg, user) {
         var message = msg || this.getViewModel().get('message.new_message');
-        if (message.length < 1 || !this.getView().getActiveTab()){
+        if (message.length < 1 || !this.getView().getActiveTab()) {
             return;
         }
         var chatStore = this.getView().getActiveTab().getStore('notifications');
@@ -81,7 +81,13 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
                 })
             });
         }
-        this.getView().setActiveTab(tab);
+        Ext.Function.defer(function(){
+            this.getView().setActiveTab(tab);
+        }, 100, this);
+        this.toggleTextArea(true);
+        this.toggleDefaultMessage(true);
+        this.toggleDefaultMessage(false);
+
     },
     openChat: function(rec) {
         var tab = this.getView().down('[name=' + rec.get('name') + ']');
@@ -93,24 +99,39 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
                 title: rec.get('name'),
                 name: rec.get('name'),
                 closable: true,
-                scrollable: true,
                 bind: {
                     store: '{notifications}'
                 }
             });
         }
-        this.getView().setActiveTab(tab);
+        Ext.Function.defer(function(){
+            this.getView().setActiveTab(tab);
+        }, 100, this);
     },
+
     closeChat: function(tabToClose) {
         var tabToClose = this.getView().down('[name=' + tabToClose + ']');
         var chatList = this.getView().down('#chatlist');
-        if (tabToClose){
+        if (tabToClose) {
             tabToClose.destroy();
         }
-        chatList.getView().refresh();
+        if(chatList){
+            chatList.getView().refresh()
+        }
     },
 
-    toggleChat:function(visible){
+    tabRemoved: function(tabP){
+        this.toggleTextArea(tabP.items.length > 0);
+    },
+
+    toggleChat: function(visible) {
         this.getViewModel().set('messages.chatEnabled', visible);
+    },
+
+    toggleTextArea: function(visible){
+        this.lookupReference('chat-bottom-bar').setVisible(visible);
+    },
+    toggleDefaultMessage: function(visible){
+        (visible) ? this.getView().setHtml('') : this.getView().setHtml(Ext.String.format('<div class="chat-default-msg-cont">{0}</div>', Ngcp.csc.locales.chat.default_msg[localStorage.getItem('languageSelected')]));
     }
 });
