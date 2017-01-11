@@ -1668,6 +1668,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'To',
                 fr: 'To',
                 sp: 'To'
+            },
+            done: {
+                en: 'done',
+                it: 'done',
+                de: 'done',
+                fr: 'done',
+                sp: 'done'
             }
         }
     }

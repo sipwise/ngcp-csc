@@ -18,21 +18,18 @@ Ext.define('NgcpCsc.view.pages.chat.ChatList', {
     rootVisible: false,
 
     viewConfig: {
-        plugins: {
-            ptype: 'treeviewdragdrop',
-            sortOnDrop: true,
-            containerScroll: true
-        },
         listeners: {
             beforecellclick: 'preventTabOpen'
         }
     },
 
-    tools: [{
-        type: 'plus',
-        tooltip: Ngcp.csc.locales.chat.new_group[localStorage.getItem('languageSelected')],
-        callback: 'showTabBar'
-    }],
+    header:{
+        items:[{
+            xtype:'button',
+            text: Ngcp.csc.locales.chat.new_group[localStorage.getItem('languageSelected')],
+            handler: 'showTabBar'
+        }]
+    },
 
     dockedItems: [{
         xtype: 'toolbar',
@@ -46,13 +43,23 @@ Ext.define('NgcpCsc.view.pages.chat.ChatList', {
             minLength: 1
         }, {
             xtype: 'button',
+            name: 'newChatBtn',
+            width: '20%',
             text: Ngcp.csc.locales.common.add[localStorage.getItem('languageSelected')],
             handler: 'createNewChannel'
         }]
     }],
+    bbar:['->',
+    {
+        name: 'commitChangesBtn',
+        text: Ngcp.csc.locales.common.done[localStorage.getItem('languageSelected')],
+        handler: 'save',
+        width: '20%',
+        hidden: true
+    }],
     listeners: {
         beforeitemclick: 'nodeClicked',
-        beforedrop: 'onBeforeUserDropped'
+        checkchange: 'onNodeSelected'
     },
 
     defaults: {
@@ -82,7 +89,12 @@ Ext.define('NgcpCsc.view.pages.chat.ChatList', {
             handler: 'startVideoCall'
         }, {
             getClass: function(value, context) {
-                return (context.record && !context.record.get('leaf')) ? 'x-drop-display' : '';
+                return (context.record && !context.record.get('leaf') && context.record.get('name') !== 'Buddies') ? 'x-add-user-display' : '';
+            },
+            handler: 'addUser'
+        },{
+            getClass: function(value, context) {
+                return (context.record && !context.record.get('leaf') && context.record.get('name') !== 'Buddies') ? 'x-drop-display' : '';
             },
             handler: 'deleteNode'
         }]
