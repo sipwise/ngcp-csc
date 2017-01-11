@@ -82,6 +82,11 @@ Ext.define('NgcpCsc.view.pages.chat.ChatList', {
             handler: 'startVideoCall'
         }, {
             getClass: function(value, context) {
+                return (context.record && !context.record.get('leaf')) ? 'x-add-user-display' : '';
+            },
+            handler: 'addUser'
+        },{
+            getClass: function(value, context) {
                 return (context.record && !context.record.get('leaf')) ? 'x-drop-display' : '';
             },
             handler: 'deleteNode'

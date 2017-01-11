@@ -31,6 +31,13 @@ Ext.define('NgcpCsc.view.pages.chat.ChatListController', {
     showTabBar: function() {
         var chatList = this.getView();
         chatList.getDockedItems('toolbar[dock="top"]')[0].setVisible(true);
+    },
+    addUser:function(){
+        // TODO
+        // - checkbox for users on other chats only
+        // - on click copy the user to the new chat
+        // - callback to drop user 
+        var chatList = this.getView();
         chatList.getStore().each(function(rec) {
             if (rec.get('leaf')) {
                 rec.set('checked', false);
@@ -56,9 +63,9 @@ Ext.define('NgcpCsc.view.pages.chat.ChatListController', {
         Ext.each(selectedUsers, function(user) {
             newNode.insertChild(0, user.copy(null));
         });
-        chatList.getStore().each(function(rec) {
-            rec.set('checked', null);
-        });
+        // chatList.getStore().each(function(rec) {
+        //     rec.set('checked', null);
+        // });
         chatList.getStore().sort('online', 'DESC');
         this.fireEvent('showmessage', true, Ngcp.csc.locales.chat.alerts.channel_created[localStorage.getItem('languageSelected')]);
         tbar.hide();
