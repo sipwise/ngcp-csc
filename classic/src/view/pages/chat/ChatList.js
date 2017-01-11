@@ -18,11 +18,6 @@ Ext.define('NgcpCsc.view.pages.chat.ChatList', {
     rootVisible: false,
 
     viewConfig: {
-        plugins: {
-            ptype: 'treeviewdragdrop',
-            sortOnDrop: true,
-            containerScroll: true
-        },
         listeners: {
             beforecellclick: 'preventTabOpen'
         }
@@ -46,13 +41,21 @@ Ext.define('NgcpCsc.view.pages.chat.ChatList', {
             minLength: 1
         }, {
             xtype: 'button',
+            name: 'newChatBtn',
             text: Ngcp.csc.locales.common.add[localStorage.getItem('languageSelected')],
             handler: 'createNewChannel'
+        },'->',
+        {
+            xtype: 'button',
+            name: 'commitChangesBtn',
+            text: Ngcp.csc.locales.common.done[localStorage.getItem('languageSelected')],
+            handler: 'save',
+            hidden: true
         }]
     }],
     listeners: {
         beforeitemclick: 'nodeClicked',
-        beforedrop: 'onBeforeUserDropped'
+        selectionchange: 'onNodeSelected'
     },
 
     defaults: {
@@ -82,7 +85,12 @@ Ext.define('NgcpCsc.view.pages.chat.ChatList', {
             handler: 'startVideoCall'
         }, {
             getClass: function(value, context) {
-                return (context.record && !context.record.get('leaf')) ? 'x-drop-display' : '';
+                return (context.record && !context.record.get('leaf')) ? 'x-add-user-display' : '';
+            },
+            handler: 'addUser'
+        },{
+            getClass: function(value, context) {
+                return (context.record && !context.record.get('leaf') && context.record.get('name') !== 'Buddies') ? 'x-drop-display' : '';
             },
             handler: 'deleteNode'
         }]
