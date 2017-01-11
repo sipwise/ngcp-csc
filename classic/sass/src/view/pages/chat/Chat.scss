@@ -104,11 +104,19 @@
 
         .x-drop-display {
             position: relative;
-            right: 6px;
-
+            right:15px;
             &:before {
                 font-family: FontAwesome;
-                content: "\f00d";
+                content: "\f1f8";
+            }
+        }
+
+        .x-add-user-display {
+            position: relative;
+            right:20px;
+            &:before {
+                font-family: FontAwesome;
+                content: "\f067";
             }
         }
     }

@@ -11,29 +11,31 @@ Ext.define('NgcpCsc.view.pages.chat.ChatListController', {
         }
         return val;
     },
-    onBeforeUserDropped: function(node, data, overModel, dropPosition, dropHandlers) {
+
+    onNodeSelected: function(sel, record) {
+        var selectedRec = record[0];
         var chatListStore = this.getView().getStore('ChatList');
-        var dropTeam = overModel.get('leaf') ? overModel.parentNode : overModel;
-        dropHandlers.cancelDrop();
-        switch (true) {
-            case !data.records[0].get('leaf'): // happens when a group is dropped
-                this.fireEvent('showmessage', false, Ngcp.csc.locales.chat.alerts.user_ddrop[localStorage.getItem('languageSelected')]);
-                break;
-            case !!dropTeam.findChild('uid', data.records[0].get('uid')): // checks if user is already in team
-                this.fireEvent('showmessage', false, Ngcp.csc.locales.chat.alerts.user_in_group[localStorage.getItem('languageSelected')]);
-                break;
-            default:
-                dropTeam.insertChild(0, data.records[0].copy(null));
-                chatListStore.sort('online', 'DESC');
-                this.fireEvent('showmessage', true, Ext.String.format(Ngcp.csc.locales.chat.alerts.user_added[localStorage.getItem('languageSelected')], data.records[0].get('name'), dropTeam.get('name')));
+        var destination = chatListStore.findRecord('id', selectedRec.get('addTo'));
+
+        if (destination && !!destination.findChild('uid', selectedRec.get('uid'))) { // checks if user is already in group
+            this.fireEvent('showmessage', false, Ngcp.csc.locales.chat.alerts.user_in_group[localStorage.getItem('languageSelected')]);
+            selectedRec.set('checked', false);
+        } else {
+            selectedRec.set('checked', null);
+            destination.insertChild(0, selectedRec.copy(null));
         }
+
     },
     showTabBar: function() {
         var chatList = this.getView();
         chatList.getDockedItems('toolbar[dock="top"]')[0].setVisible(true);
+    },
+    addUser: function(view, rowIndex, colIndex, item, ev, record) {
+        var chatList = this.getView();
         chatList.getStore().each(function(rec) {
-            if (rec.get('leaf')) {
+            if (rec.get('leaf') && rec.get('parentId') !== record.get('id')) {
                 rec.set('checked', false);
+                rec.set('addTo', record.get('id'));
             }
         });
     },
@@ -41,7 +43,8 @@ Ext.define('NgcpCsc.view.pages.chat.ChatListController', {
         var chatList = this.getView();
         var tbar = chatList.getDockedItems('toolbar[dock="top"]')[0];
         var newChatName = tbar.down('[name=newChatName]');
-        var selectedUsers = chatList.getChecked();
+        var newChatBtn = tbar.down('[name=newChatBtn]');
+        var done = tbar.down('[name=commitChangesBtn]');
         if (newChatName.getValue().length < 1) {
             this.fireEvent('showmessage', false, Ngcp.csc.locales.chat.alerts.choose_valid_name[localStorage.getItem('languageSelected')]);
             return;
@@ -53,15 +56,11 @@ Ext.define('NgcpCsc.view.pages.chat.ChatListController', {
             "expanded": true,
             "children": []
         });
-        Ext.each(selectedUsers, function(user) {
-            newNode.insertChild(0, user.copy(null));
-        });
-        chatList.getStore().each(function(rec) {
-            rec.set('checked', null);
-        });
         chatList.getStore().sort('online', 'DESC');
         this.fireEvent('showmessage', true, Ngcp.csc.locales.chat.alerts.channel_created[localStorage.getItem('languageSelected')]);
-        tbar.hide();
+        newChatName.hide();
+        newChatBtn.hide();
+        done.show();
         newChatName.reset();
     },
     preventTabOpen: function(view, cell, cellIdx, record, row, rowIdx, eOpts) {
@@ -103,5 +102,18 @@ Ext.define('NgcpCsc.view.pages.chat.ChatListController', {
                 }
             }
         });
+    },
+    save: function(){
+        var store = this.getView().getStore();
+        var tbar = this.getView().getDockedItems('toolbar[dock="top"]')[0];
+        var newChatName = tbar.down('[name=newChatName]');
+        var newChatBtn = tbar.down('[name=newChatBtn]');
+        var done = tbar.down('[name=commitChangesBtn]');
+        store.sort('online', 'DESC');
+        store.commitChanges();
+        tbar.hide();
+        newChatName.show();
+        newChatBtn.show();
+        done.hide();
     }
 });

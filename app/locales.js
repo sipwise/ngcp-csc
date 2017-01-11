@@ -1514,6 +1514,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'save settings',
                 fr: 'save settings',
                 sp: 'save settings'
+            },
+            done: {
+                en: 'done',
+                it: 'done',
+                de: 'done',
+                fr: 'done',
+                sp: 'done'
             }
         }
     }
