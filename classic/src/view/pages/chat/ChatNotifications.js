@@ -4,8 +4,6 @@ Ext.define('NgcpCsc.view.pages.chat.ChatNotifications', {
 
     cls: 'user-notifications',
 
-    scrollable: false,
-
     listeners: {
         itemclick: 'openPM'
     },
