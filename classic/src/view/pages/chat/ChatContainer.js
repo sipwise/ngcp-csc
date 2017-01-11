@@ -1,16 +1,23 @@
 Ext.define('NgcpCsc.view.pages.chat.ChatContainer', {
     extend: 'Ext.tab.Panel',
     xtype: 'chatcontainer',
+    cls: 'chat-container',
     plugins: 'tabreorderer',
     viewModel: 'chat',
     controller: 'chat',
     title: null,
+    //html: Ext.String.format('<div class="chat-default-msg-cont">{0}</div>', Ngcp.csc.locales.chat.default_msg[localStorage.getItem('languageSelected')]),
+    listeners: {
+        remove: 'tabRemoved'
+    },
     dockedItems: [{
         xtype: 'toolbar',
+        reference: 'chat-bottom-bar',
         cls: 'new-message-cont',
         fixed: true,
         margin: '0 5 5 5',
         dock: 'bottom',
+        hidden: true,
         layout: {
             type: 'hbox',
             align: 'stretch'
