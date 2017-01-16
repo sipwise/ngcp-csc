@@ -3,8 +3,9 @@ Ext.define('NgcpCsc.view.pages.summary.SummaryController', {
 
     alias: 'controller.summary',
 
-    onConfigure:function(){
-        this.fireEvent('showmessage', true, 'ToDo');
+    onConfigure:function(btn){
+        var page = btn.up('summary-pie').name;
+        this.redirectTo('#subscriberadmin/' + page);
     },
 
     reloadChart: function(btn){

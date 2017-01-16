@@ -24,6 +24,7 @@ Ext.define('NgcpCsc.view.pages.summary.Summary', {
     items: [{
         title: 'Seats',
         xtype: 'summary-pie',
+        name:'seats',
         store: {
             type: 'Chart',
             proxy: {
@@ -38,6 +39,7 @@ Ext.define('NgcpCsc.view.pages.summary.Summary', {
     }, {
         title: 'Groups',
         xtype: 'summary-pie',
+        name:'groups',
         store: {
             type: 'Chart',
             proxy: {
@@ -52,6 +54,7 @@ Ext.define('NgcpCsc.view.pages.summary.Summary', {
     }, {
         title: 'Devices',
         xtype: 'summary-pie',
+        name:'devices',
         store: {
             type: 'Chart',
             proxy: {
