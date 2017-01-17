@@ -147,7 +147,13 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         vm.set('filtergrid.from_date', null);
         vm.set('filtergrid.to_date', null);
         vm.set('filtergrid.number', null);
-        vm.set('filtergrid.type', ["call", "cft", "cfu", "cfna"]);
+        // cvenusino: The previous call types used were codes for different
+        // types of call forwards, for example cfna stands for "Call Forward
+        // Unavailable". Changed them to better reflect the available call
+        // types. If interested, see api docs for more info about call
+        // forwarding types, under "Properties:"
+        // https://demo-dev.sipwise.com:1443/api/?back=https%3A%2F%2Fdemo-dev.sipwise.com%3A1443%2Fdashboard#callforwards
+        vm.set('filtergrid.type', ["call", "voicemail", "reminder", "fax"]);
         vm.set('filtergrid.incoming', true);
         vm.set('filtergrid.outgoing', true);
         vm.set('filtergrid.missed', true);

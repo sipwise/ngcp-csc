@@ -14,8 +14,11 @@ Ext.define('NgcpCsc.view.pages.calls.CallsController', {
             case 'call':
                 icon = 'fa fa-phone-square green-icon fa-2x pointer';
                 break;
-            case 'cft':
+            case 'voicemail':
                 icon = 'fa fa-envelope green-icon fa-2x pointer';
+                break;
+            case 'fax':
+                icon = 'fa fa-file-text green-icon fa-2x pointer';
                 break;
         };
         return Ext.String.format('<div class="{0}"></div>', icon);

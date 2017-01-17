@@ -59,11 +59,11 @@ Ext.define('NgcpCsc.view.pages.calls.CallsGrid', {
                 '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.calls.charges[localStorage.getItem('languageSelected')] + '</b>: {charges} </div>',
                 '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.common.date[localStorage.getItem('languageSelected')] + '</b>: {[ Ext.util.Format.date(values.start_time, "d.m.Y h:i:s")]} </div>',
                 '<div class="card-icon-row">',
-                '<div id="{id}" class="card-icon" data-callback="startChat" ><i class="fa fa-wechat green-icon fa-2x pointer" aria-hidden="true"></i></div>',
+                '<div id="{id}" class="card-icon" data-callback="startChat"><i class="fa fa-wechat green-icon fa-2x pointer" aria-hidden="true"></i></div>',
                 '<div id="{id}" class="card-icon" data-callback="startCall"><i class="fa fa-phone green-icon fa-2x pointer" aria-hidden="true"></i></div>',
                 '<div id="{id}" class="card-icon" data-callback="removeCard"><i class="fa fa-trash green-icon fa-2x pointer" aria-hidden="true"></i></div>',
                 '</div></div>',
-                '<tpl case="cft">', // voicemail tpl
+                '<tpl case="voicemail">', // voicemail tpl
                 '<div class="card-wrapper">',
                 '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.common.caller[localStorage.getItem('languageSelected')] + '</b>: {number}</div>',
                 '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.common.duration[localStorage.getItem('languageSelected')] + '</b>: {duration} </div>',
@@ -74,8 +74,16 @@ Ext.define('NgcpCsc.view.pages.calls.CallsGrid', {
                 '<div id="{id}" class="card-icon" data-callback="removeCard"><i class="fa fa-trash green-icon fa-2x pointer" aria-hidden="true"></i></div>',
                 '<audio id="sample" src="resources/audio/voicemail.mp3" preload="auto"></audio>',
                 '</div></div>',
-                '<tpl default>', // TODO fax, ...
-                '<p>TODO</p>',
+                '<tpl case="fax">', // fax tpl
+                '<div class="card-wrapper">',
+                '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.common.duration[localStorage.getItem('languageSelected')] + '</b>: {duration}</div>',
+                '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.faxspool.columns.pages[localStorage.getItem('languageSelected')] + '</b>: {pages}</div>',
+                '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.common.date[localStorage.getItem('languageSelected')] + '</b>: {[ Ext.util.Format.date(values.start_time, "d.m.Y h:i:s")]} </div>',
+                '<div class="card-icon-row">',
+                '<div id="{id}" class="card-icon"><a href="resources/docs/fax.pdf" target="_blank"><i class="fa fa-file-pdf-o green-icon fa-2x pointer" aria-hidden="true"></i></a></div>',
+                '<div id="{id}" class="card-icon" data-callback="startCall"><i class="fa fa-phone green-icon fa-2x pointer" aria-hidden="true"></i></div>',
+                '<div id="{id}" class="card-icon" data-callback="removeCard"><i class="fa fa-trash green-icon fa-2x pointer" aria-hidden="true"></i></div>',
+                '</div></div>',
                 '</tpl>'
             )
         }];

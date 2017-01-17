@@ -6,7 +6,7 @@
         "incoming": true,
         "outgoing": true ,
         "number": null,
-        "type":["call", "cft", "cfu", "cfna"],
+        "type":["call", "voicemail", "reminder", "fax"],
         "missed": true,
         "answered": true,
         /* addressbook filters */

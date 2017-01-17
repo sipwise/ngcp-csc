@@ -20,6 +20,15 @@ Ext.define('NgcpCsc.model.Call', {
         name: 'start_time',
         type: 'string'
     }, {
+        name: 'number',
+        type: 'string'
+    }, {
+        name: 'direction',
+        type: 'string'
+    }, {
+        name: 'pages',
+        type: 'string'
+    }, {
         name: 'timeGroup',
         type: 'string',
         persist: false

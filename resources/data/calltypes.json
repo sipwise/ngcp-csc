@@ -3,13 +3,13 @@
         "id" : "call",
         "call_type": "Call"
     }, {
-        "id" : "cft", // not sure about these codes
+        "id" : "voicemail", // these codes are for call forwarding. TODO change
         "call_type": "Voicemail"
     }, {
-        "id" : "cfu",
+        "id" : "reminder",
         "call_type": "Reminder"
     }, {
-        "id" : "cfna",
+        "id" : "fax",
         "call_type": "Fax"
     }]
 }
