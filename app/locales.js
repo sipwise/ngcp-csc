@@ -1592,6 +1592,13 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'caller',
                 sp: 'caller'
             },
+            callee: {
+                en: 'callee',
+                it: 'callee',
+                de: 'callee',
+                fr: 'callee',
+                sp: 'callee'
+            },
             password: {
                 en: 'Password',
                 it: 'Password',

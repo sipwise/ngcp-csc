@@ -147,7 +147,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         vm.set('filtergrid.from_date', null);
         vm.set('filtergrid.to_date', null);
         vm.set('filtergrid.number', null);
-        vm.set('filtergrid.type', ["call", "cft", "cfu", "cfna"]);
+        vm.set('filtergrid.type', ["call", "voicemail", "reminder", "fax"]);
         vm.set('filtergrid.incoming', true);
         vm.set('filtergrid.outgoing', true);
         vm.set('filtergrid.missed', true);
