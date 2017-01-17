@@ -17,6 +17,9 @@ Ext.define('NgcpCsc.view.pages.calls.CallsController', {
             case 'cft':
                 icon = 'fa fa-envelope green-icon fa-2x pointer';
                 break;
+            case 'cfna':
+                icon = 'fa fa-file green-icon fa-2x pointer';
+                break;
         };
         return Ext.String.format('<div class="{0}"></div>', icon);
     },

@@ -11,6 +11,17 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
 
     scrollable: true,
 
+    // TODO: 1. migrate Fax Spool to the new unified view
+    // DONE: 1a. add a custom TPL in CallsGrid.js
+    // DONE: 1b. add dummy fax data to calls.json with the call_type defined in call_type.json (data source for the Type filter)
+    // DONE: 1c. Style fax card
+    // TODO: 1d. Fix filter to also work with fax
+    // TODO: 1e. Remove faxspool.json, whole faxspool module (with model and store), and faxspool menu item
+    // TODO: 1f. Rename calltypes from cf codes to something else
+    // TODO: 2. Create separate task to rename "Calls" to "Unified Inbox", and also consolidate locales
+    // TODO: 3. Raise a question regarding whether or not we should reintroduce green top title bar for unified inbox and chat
+
+
     items: [{
         userCls: 'big-30 small-100',
         items: [Ext.create('NgcpCsc.view.common.gridfilters.GridFilters', {
