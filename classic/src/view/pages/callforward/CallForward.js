@@ -14,12 +14,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
     title: Ngcp.csc.locales.callforward.title[localStorage.getItem('languageSelected')],
 
     initComponent: function () {
-        var callForwardTimesetAfterGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
+        var callForwardAfterGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
             id: 'cf-timeset-after-grid',
             store: Ext.create('NgcpCsc.store.CallForwardTimeset', {
                 proxy: {
                     type: 'ajax',
-                    url: '/resources/data/callForwardTimesetAfter.json',
+                    url: '/resources/data/callForwardAfter.json',
                     reader: {
                         type: 'json',
                         rootProperty: 'data'
@@ -27,12 +27,38 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
                 }
             })
         });
-        var callForwardTimesetCompanyGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
+        var callForwardCompanyGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
             id: 'cf-timeset-company-grid',
             store: Ext.create('NgcpCsc.store.CallForwardTimeset', {
                 proxy: {
                     type: 'ajax',
-                    url: '/resources/data/callForwardTimesetCompany.json',
+                    url: '/resources/data/callForwardCompany.json',
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    }
+                }
+            })
+        });
+        var callForwardListAGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
+            id: 'cf-sourceset-list-a-grid',
+            store: Ext.create('NgcpCsc.store.CallForwardSourceset', {
+                proxy: {
+                    type: 'ajax',
+                    url: '/resources/data/callForwardListA.json',
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    }
+                }
+            })
+        });
+        var callForwardListBGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
+            id: 'cf-sourceset-list-b-grid',
+            store: Ext.create('NgcpCsc.store.CallForwardSourceset', {
+                proxy: {
+                    type: 'ajax',
+                    url: '/resources/data/callForwardListB.json',
                     reader: {
                         type: 'json',
                         rootProperty: 'data'
@@ -56,15 +82,15 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
             }, {
                 xtype: 'core-container',
                 bind: {
-                    title: '{active_widget_form}',
-                    hidden: '{after_hours_form}'
+                    title: '{active_widget}',
+                    hidden: '{after_hours}'
                 },
                 items: [{
                     xtype: 'panel',
-                    ui: 'cf-timeset',
+                    ui: 'cf-widget',
                     width: '100%',
                     items: [
-                        callForwardTimesetAfterGrid,
+                        callForwardAfterGrid,
                         {
                             layout: 'hbox',
                             width: '100%',
@@ -87,15 +113,15 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
             }, {
                 xtype: 'core-container',
                 bind: {
-                    title: '{active_widget_form}',
-                    hidden: '{company_hours_form}'
+                    title: '{active_widget}',
+                    hidden: '{company_hours}'
                 },
                 items: [{
                     xtype: 'panel',
-                    ui: 'cf-timeset',
+                    ui: 'cf-widget',
                     width: '100%',
                     items: [
-                        callForwardTimesetCompanyGrid,
+                        callForwardCompanyGrid,
                         {
                             layout: 'hbox',
                             width: '100%',
@@ -112,6 +138,56 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
                                 id: 'resetCompany',
                                 handler: 'resetTimesetWidget'
                             }]
+                        }
+                    ]
+                }]
+            }, {
+                xtype: 'core-container',
+                bind: {
+                    title: '{active_widget}',
+                    hidden: '{list_a}'
+                },
+                items: [{
+                    xtype: 'panel',
+                    ui: 'cf-widget',
+                    width: '100%',
+                    items: [
+                        callForwardListAGrid,
+                        {
+                            html: 'ADD NEW SOURCE',
+                            xtype: 'button',
+                            id: 'addListAButton',
+                            width: 135,
+                            margin: '15 0 0 0',
+                            listeners: {
+                                element: 'el',
+                                click: 'addEmptyRow'
+                            }
+                        }
+                    ]
+                }]
+            }, {
+                xtype: 'core-container',
+                bind: {
+                    title: '{active_widget}',
+                    hidden: '{list_b}'
+                },
+                items: [{
+                    xtype: 'panel',
+                    ui: 'cf-widget',
+                    width: '100%',
+                    items: [
+                        callForwardListBGrid,
+                        {
+                            html: 'ADD NEW SOURCE',
+                            xtype: 'button',
+                            id: 'addListBButton',
+                            width: 135,
+                            margin: '15 0 0 0',
+                            listeners: {
+                                element: 'el',
+                                click: 'addEmptyRow'
+                            }
                         }
                     ]
                 }]
