@@ -40,6 +40,19 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
                 }
             })
         });
+        var callForwardSourcesetListAGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
+            id: 'cf-sourceset-list-a-grid',
+            store: Ext.create('NgcpCsc.store.CallForwardSourceset', {
+                proxy: {
+                    type: 'ajax',
+                    url: '/resources/data/callForwardSourcesetListA.json',
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    }
+                }
+            })
+        });
 
         this.items = [{
             userCls: 'big-30 small-100',
@@ -56,12 +69,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
             }, {
                 xtype: 'core-container',
                 bind: {
-                    title: '{active_widget_form}',
-                    hidden: '{after_hours_form}'
+                    title: '{active_widget}',
+                    hidden: '{after_hours}'
                 },
                 items: [{
                     xtype: 'panel',
-                    ui: 'cf-timeset',
+                    ui: 'cf-widget',
                     width: '100%',
                     items: [
                         callForwardTimesetAfterGrid,
@@ -87,12 +100,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
             }, {
                 xtype: 'core-container',
                 bind: {
-                    title: '{active_widget_form}',
-                    hidden: '{company_hours_form}'
+                    title: '{active_widget}',
+                    hidden: '{company_hours}'
                 },
                 items: [{
                     xtype: 'panel',
-                    ui: 'cf-timeset',
+                    ui: 'cf-widget',
                     width: '100%',
                     items: [
                         callForwardTimesetCompanyGrid,
@@ -112,6 +125,31 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
                                 id: 'resetCompany',
                                 handler: 'resetTimesetWidget'
                             }]
+                        }
+                    ]
+                }]
+            }, {
+                xtype: 'core-container',
+                bind: {
+                    title: '{active_widget}',
+                    hidden: '{list_a}'
+                },
+                items: [{
+                    xtype: 'panel',
+                    ui: 'cf-widget',
+                    width: '100%',
+                    items: [
+                        callForwardSourcesetListAGrid,
+                        {
+                            html: 'ADD NEW SOURCE',
+                            xtype: 'button',
+                            id: 'addListAButton',
+                            width: 135,
+                            margin: '15 0 0 0',
+                            listeners: {
+                                element: 'el',
+                                click: 'addEmptyRow'
+                            }
                         }
                     ]
                 }]

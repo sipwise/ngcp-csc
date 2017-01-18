@@ -40,6 +40,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             addRowToStore('CallForwardBusy');
         } else if (targetId.indexOf('offlineButton') > -1) {
             addRowToStore('CallForwardOffline');
+        } else if (targetId.indexOf('addListAButton') > -1) {
+            var grid = Ext.getCmp('cf-sourceset-list-a-grid');
+            addRowToStore(grid.getStore());
+        } else if (targetId.indexOf('addListBButton') > -1) {
+            var grid = Ext.getCmp('cf-sourceset-list-b-grid');
+            addRowToStore(grid.getStore());
         };
     },
 
@@ -52,20 +58,22 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     clickSegmentedButton: function (el) {
         var targetId = el.getTarget().id;
         var vm = this.getViewModel();
-        vm.set('after_hours_form', true);
-        vm.set('company_hours_form', true);
-        vm.set('list_a_form', true);
-        vm.set('list_b_form', true);
+        vm.set('after_hours', true);
+        vm.set('company_hours', true);
+        vm.set('list_a', true);
+        vm.set('list_b', true);
         if (targetId.indexOf('afterHoursButton-btnIconEl') > -1) {
-            vm.set('active_widget_form', Ngcp.csc.locales.callforward.after_hours[localStorage.getItem('languageSelected')]);
-            vm.set('after_hours_form', false);
+            vm.set('active_widget', Ngcp.csc.locales.callforward.after_hours[localStorage.getItem('languageSelected')]);
+            vm.set('after_hours', false);
         } else if (targetId.indexOf('companyHoursButton-btnIconEl') > -1) {
-            vm.set('active_widget_form', Ngcp.csc.locales.callforward.company_hours[localStorage.getItem('languageSelected')]);
-            vm.set('company_hours_form', false);
+            vm.set('active_widget', Ngcp.csc.locales.callforward.company_hours[localStorage.getItem('languageSelected')]);
+            vm.set('company_hours', false);
         } else if (targetId.indexOf('listAButton-btnIconEl') > -1) {
-            // TODO
+            vm.set('active_widget', Ngcp.csc.locales.callforward.list_a[localStorage.getItem('languageSelected')]);
+            vm.set('list_a', false);
         } else if (targetId.indexOf('listAButton-btnIconEl') > -1) {
-            // TODO
+            vm.set('active_widget', Ngcp.csc.locales.callforward.list_a[localStorage.getItem('languageSelected')]);
+            vm.set('list_b', false);
         };
     },
 
@@ -99,6 +107,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             store.rejectChanges();
             grid.reconfigure(store);
         };
+    },
+
+    removeSourcelistRecord: function(grid, rowIndex, colIndex) {
+        var store = grid.getStore();
+        var rec = grid.getStore().getAt(rowIndex);
+        store.remove(rec);
+        this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
     }
 
 });

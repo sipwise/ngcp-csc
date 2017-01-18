@@ -3,14 +3,14 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardModel', {
     alias: 'viewmodel.callforward',
 
     data: {
-        after_hours_form: true,
-        company_hours_form: true,
-        list_a_form: true,
-        list_b_form: true,
+        after_hours: true,
+        company_hours: true,
+        list_a: true,
+        list_b: true,
         online_timeout_hidden: false,
         busy_timeout_hidden: true,
         offline_timeout_hidden: true,
-        active_widget_form: '',
+        active_widget: '',
         row_elements_disabled: false
     }
 
