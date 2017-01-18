@@ -522,6 +522,20 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Company hours',
                 fr: 'Company hours',
                 sp: 'Company hours'
+            },
+            list_a: {
+                en: 'List A',
+                it: 'List A',
+                de: 'List A',
+                fr: 'List A',
+                sp: 'List A'
+            },
+            list_b: {
+                en: 'List B',
+                it: 'List B',
+                de: 'List B',
+                fr: 'List B',
+                sp: 'List B'
             }
         },
         filters: {
