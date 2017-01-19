@@ -59,26 +59,50 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         store.remove(rec);
     },
 
-    clickSegmentedButton: function (el) {
-        var targetId = el.getTarget().id;
-        var vm = this.getViewModel();
+    changeWidget: function (el, target, vm) {
         vm.set('after_hours', true);
         vm.set('company_hours', true);
         vm.set('list_a', true);
         vm.set('list_b', true);
-        if (this.checkIndex('afterHoursButton-btnIconEl', targetId)) {
+        if (this.checkIndex('afterHoursButton-btnIconEl', target)) {
             vm.set('active_widget', Ngcp.csc.locales.callforward.after_hours[localStorage.getItem('languageSelected')]);
             vm.set('after_hours', false);
-        } else if (this.checkIndex('companyHoursButton-btnIconEl', targetId)) {
+        } else if (this.checkIndex('companyHoursButton-btnIconEl', target)) {
             vm.set('active_widget', Ngcp.csc.locales.callforward.company_hours[localStorage.getItem('languageSelected')]);
             vm.set('company_hours', false);
-        } else if (this.checkIndex('listAButton-btnIconEl', targetId)) {
+        } else if (this.checkIndex('listAButton-btnIconEl', target)) {
             vm.set('active_widget', Ngcp.csc.locales.callforward.list_a[localStorage.getItem('languageSelected')]);
             vm.set('list_a', false);
-        } else if (this.checkIndex('listBButton-btnIconEl', targetId)) {
+        } else if (this.checkIndex('listBButton-btnIconEl', target)) {
             vm.set('active_widget', Ngcp.csc.locales.callforward.list_b[localStorage.getItem('languageSelected')]);
             vm.set('list_b', false);
         };
+
+    },
+
+    clickSegmentedButton: function (el) {
+        var targetId = el.getTarget().id;
+        var vm = this.getViewModel();
+        this.changeWidget(el, targetId, vm);
+        var storesArray = ['CallForwardOnline', 'CallForwardBusy', 'CallForwardOnline']; // should we hardcode like this, and should we store names or actual stores?
+        Ext.Ajax.request({
+            url: '/resources/data/cfCombinations.json',
+            success: function(response, opts) {
+                var obj = Ext.decode(response.responseText);
+                var records = obj.data[0];
+                // TODO: Loop over the storesArray, and do:
+                // a. Remove all records
+                // b. Extract the matching combination from the json
+                // c. loadData inside the store
+                // d. commitChanges of the store
+                for (item in records) {
+                    console.log(item); // checked that we can access the records
+                }
+            },
+            failure: function(response, opts) {
+                console.log('failed to load store, with code ' + response.status);
+            }
+        });
     },
 
     renderDay: function(value, meta, record) {
