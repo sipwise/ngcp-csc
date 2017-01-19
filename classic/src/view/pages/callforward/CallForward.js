@@ -152,7 +152,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
                     items: [
                         callForwardListAGrid,
                         {
-                            html: 'ADD NEW SOURCE',
+                            text: Ngcp.csc.locales.callforward.add_new_source[localStorage.getItem('languageSelected')],
                             xtype: 'button',
                             id: 'addListAButton',
                             width: 135,
@@ -177,7 +177,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
                     items: [
                         callForwardListBGrid,
                         {
-                            html: 'ADD NEW SOURCE',
+                            text: Ngcp.csc.locales.callforward.add_new_source[localStorage.getItem('languageSelected')],
                             xtype: 'button',
                             id: 'addListBButton',
                             width: 135,
