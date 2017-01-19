@@ -37,11 +37,10 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
         }, {
             text: Ngcp.csc.locales.callforward.ring_for[localStorage.getItem('languageSelected')],
             flex: 1,
-            xtype: 'widgetcolumn',
             dataIndex: 'ring_for',
-            editable: false,
-            widget: {
+            editor: {
                 xtype: 'combo',
+                editable: false,
                 value: '20 secs',
                 store: ['0 secs', '10 secs', '20 secs', '30 secs', '40 secs', '50 secs', '60 secs']
             }
