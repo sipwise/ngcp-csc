@@ -536,6 +536,20 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'List B',
                 fr: 'List B',
                 sp: 'List B'
+            },
+            closed: {
+                en: 'Closed',
+                it: 'Closed',
+                de: 'Closed',
+                fr: 'Closed',
+                sp: 'Closed'
+            },
+            add_new_source: {
+                en: 'ADD NEW SOURCE',
+                it: 'ADD NEW SOURCE',
+                de: 'ADD NEW SOURCE',
+                fr: 'ADD NEW SOURCE',
+                sp: 'ADD NEW SOURCE'
             }
         },
         filters: {

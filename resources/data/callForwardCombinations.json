@@ -1,0 +1,463 @@
+{
+    "data": [{
+        "CallForwardBusy_always_everybody": [{
+            "phone": "Busy Always Everybody",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardBusy_always_listA": [{
+            "phone": "Busy Always List A",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardBusy_always_listB": [{
+            "phone": "Busy Always List B",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardBusy_afterHours_everybody": [{
+            "phone": "Busy After Hours Everybody",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardBusy_afterHours_listA": [{
+            "phone": "Busy After Hours List A",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardBusy_afterHours_listB": [{
+            "phone": "Busy After Hours List B",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardBusy_companyHours_everybody": [{
+            "phone": "Busy Company Hours Everybody",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardBusy_companyHours_listA": [{
+            "phone": "Busy Company Hours List A",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardBusy_companyHours_listB": [{
+            "phone": "Busy Company Hours List B",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOnline_always_everybody": [{
+            "phone": "Online Always Everybody",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOnline_always_listA": [{
+            "phone": "Online Always List A",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOnline_always_listB": [{
+            "phone": "Online Always List B",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOnline_afterHours_everybody": [{
+            "phone": "Online After Hours Everybody",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOnline_afterHours_listA": [{
+            "phone": "Online After Hours List A",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOnline_afterHours_listB": [{
+            "phone": "Online After Hours List B",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOnline_companyHours_everybody": [{
+            "phone": "Online Company Hours Everybody",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOnline_companyHours_listA": [{
+            "phone": "Online Company Hours List A",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOnline_companyHours_listB": [{
+            "phone": "Online Company Hours List B",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOffline_always_everybody": [{
+            "phone": "Offline Always Everybody",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOffline_always_listA": [{
+            "phone": "Offline Always List A",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOffline_always_listB": [{
+            "phone": "Offline Always List B",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOffline_afterHours_everybody": [{
+            "phone": "Offline After Hours Everybody",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOffline_afterHours_listA": [{
+            "phone": "Offline After Hours List A",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOffline_afterHours_listB": [{
+            "phone": "Offline After Hours List B",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOffline_companyHours_everybody": [{
+            "phone": "Offline Company Hours Everybody",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOffline_companyHours_listA": [{
+            "phone": "Offline Company Hours List A",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOffline_companyHours_listB": [{
+            "phone": "Offline Company Hours List B",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "33333333",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "67788877",
+            "active": true,
+            "ring_for": "20 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }]
+    }]
+}

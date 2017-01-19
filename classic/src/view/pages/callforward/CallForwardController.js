@@ -25,8 +25,8 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         rec.set('active', !rec.get('active'));
     },
 
-    checkIndex: function(button, target) {
-        return (target.indexOf(button) > -1) === true ? true : false;
+    checkIndexOf: function(string, target) {
+        return (target.indexOf(string) > -1) === true ? true : false;
     },
 
     addEmptyRow: function (el) {
@@ -36,18 +36,18 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             var record = targetStore.getAt(targetStore.getCount() - 1);
             if (record.data.phone !== '') {
                 targetStore.add({ "phone": "", "active": false, "ring_for": "0 secs" });
-            }
+            };
         };
-        if (this.checkIndex('onlineButton', targetId)) {
+        if (this.checkIndexOf('onlineButton', targetId)) {
             addRowToStore('CallForwardOnline');
-        } else if (this.checkIndex('busyButton', targetId)) {
+        } else if (this.checkIndexOf('busyButton', targetId)) {
             addRowToStore('CallForwardBusy');
-        } else if (this.checkIndex('offlineButton', targetId)) {
+        } else if (this.checkIndexOf('offlineButton', targetId)) {
             addRowToStore('CallForwardOffline');
-        } else if (this.checkIndex('addListAButton', targetId)) {
+        } else if (this.checkIndexOf('addListAButton', targetId)) {
             var grid = Ext.getCmp('cf-sourceset-list-a-grid');
             addRowToStore(grid.getStore());
-        } else if (this.checkIndex('addListBButton', targetId)) {
+        } else if (this.checkIndexOf('addListBButton', targetId)) {
             var grid = Ext.getCmp('cf-sourceset-list-b-grid');
             addRowToStore(grid.getStore());
         };
@@ -59,26 +59,80 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         store.remove(rec);
     },
 
-    clickSegmentedButton: function (el) {
-        var targetId = el.getTarget().id;
-        var vm = this.getViewModel();
+    changeWidget: function (target, vm) {
         vm.set('after_hours', true);
         vm.set('company_hours', true);
         vm.set('list_a', true);
         vm.set('list_b', true);
-        if (this.checkIndex('afterHoursButton-btnIconEl', targetId)) {
-            vm.set('active_widget', Ngcp.csc.locales.callforward.after_hours[localStorage.getItem('languageSelected')]);
-            vm.set('after_hours', false);
-        } else if (this.checkIndex('companyHoursButton-btnIconEl', targetId)) {
-            vm.set('active_widget', Ngcp.csc.locales.callforward.company_hours[localStorage.getItem('languageSelected')]);
-            vm.set('company_hours', false);
-        } else if (this.checkIndex('listAButton-btnIconEl', targetId)) {
-            vm.set('active_widget', Ngcp.csc.locales.callforward.list_a[localStorage.getItem('languageSelected')]);
-            vm.set('list_a', false);
-        } else if (this.checkIndex('listBButton-btnIconEl', targetId)) {
-            vm.set('active_widget', Ngcp.csc.locales.callforward.list_b[localStorage.getItem('languageSelected')]);
-            vm.set('list_b', false);
+        switch (target) {
+            case 'afterHoursButton-btnIconEl':
+                vm.set('active_widget', Ngcp.csc.locales.callforward.after_hours[localStorage.getItem('languageSelected')]);
+                vm.set('after_hours', false);
+                break;
+            case 'companyHoursButton-btnIconEl':
+                vm.set('active_widget', Ngcp.csc.locales.callforward.company_hours[localStorage.getItem('languageSelected')]);
+                vm.set('company_hours', false);
+                break;
+            case 'listAButton-btnIconEl':
+                vm.set('active_widget', Ngcp.csc.locales.callforward.list_a[localStorage.getItem('languageSelected')]);
+                vm.set('list_a', false);
+                break;
+            case 'listBButton-btnIconEl':
+                vm.set('active_widget', Ngcp.csc.locales.callforward.list_b[localStorage.getItem('languageSelected')]);
+                vm.set('list_b', false);
+                break;
         };
+    },
+
+    loadRecordsIntoStore: function (storeName, record) {
+        var store = Ext.getStore(storeName);
+        store.add(record);
+    },
+
+    getSelectedSet: function (type) {
+        return type == 'timeButtons' ? 'selected_timeset' : 'selected_sourceset';
+    },
+
+    clickSegmentedButton: function (button, event) {
+        // Cvenusio: Formatting the vars like this, but we should discuss if
+        // this is preferred style, as this has the risk of one of us forgetting
+        // to replace semicolon with colon for the second to last variable.
+        var me = this,
+            vm = me.getViewModel(),
+            targetId = event.getTarget().id,
+            buttonValue = button.value,
+            buttonType = button.findParentByType('segmentedbutton').itemId,
+            storesArray = ['CallForwardOnline', 'CallForwardBusy', 'CallForwardOffline'];
+        me.changeWidget(targetId, vm);
+        vm.set(me.getSelectedSet(buttonType), buttonValue);
+        Ext.Ajax.request({
+            url: '/resources/data/callForwardCombinations.json',
+            success: function(response, opts) {
+                var obj = Ext.decode(response.responseText),
+                    combinationStore = obj.data[0],
+                    selectedTimeset = vm.get('selected_timeset'),
+                    selectedSourceset = vm.get('selected_sourceset');
+                // 1. Loop over the storesArray, and do:
+                storesArray.map(function (storeName) {
+                    var store = Ext.getStore(storeName);
+                    // 1a. Remove all records
+                    store.removeAll();
+                    for (node in combinationStore) {
+                        // 1b. Extract the matching combination from the json.
+                        if (me.checkIndexOf(storeName, node) && me.checkIndexOf(selectedTimeset, node) && me.checkIndexOf(selectedSourceset, node)) {
+                            var gridStore = combinationStore[node];
+                            for (record in gridStore) {
+                                // 1c. add record to store
+                                me.loadRecordsIntoStore(storeName, gridStore[record]);
+                            }
+                        };
+                    };
+                });
+            },
+            failure: function(response, opts) {
+                console.log('failed to load store, with code ' + response.status);
+            }
+        });
     },
 
     renderDay: function(value, meta, record) {
