@@ -25,8 +25,8 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         rec.set('active', !rec.get('active'));
     },
 
-    checkIndex: function(button, target) {
-        return (target.indexOf(button) > -1) === true ? true : false;
+    checkIndex: function(string, target) {
+        return (target.indexOf(string) > -1) === true ? true : false;
     },
 
     addEmptyRow: function (el) {
@@ -59,26 +59,65 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         store.remove(rec);
     },
 
-    clickSegmentedButton: function (el) {
-        var targetId = el.getTarget().id;
-        var vm = this.getViewModel();
+    changeWidget: function (el, target, vm) {
         vm.set('after_hours', true);
         vm.set('company_hours', true);
         vm.set('list_a', true);
         vm.set('list_b', true);
-        if (this.checkIndex('afterHoursButton-btnIconEl', targetId)) {
+        if (this.checkIndex('afterHoursButton-btnIconEl', target)) {
             vm.set('active_widget', Ngcp.csc.locales.callforward.after_hours[localStorage.getItem('languageSelected')]);
             vm.set('after_hours', false);
-        } else if (this.checkIndex('companyHoursButton-btnIconEl', targetId)) {
+        } else if (this.checkIndex('companyHoursButton-btnIconEl', target)) {
             vm.set('active_widget', Ngcp.csc.locales.callforward.company_hours[localStorage.getItem('languageSelected')]);
             vm.set('company_hours', false);
-        } else if (this.checkIndex('listAButton-btnIconEl', targetId)) {
+        } else if (this.checkIndex('listAButton-btnIconEl', target)) {
             vm.set('active_widget', Ngcp.csc.locales.callforward.list_a[localStorage.getItem('languageSelected')]);
             vm.set('list_a', false);
-        } else if (this.checkIndex('listBButton-btnIconEl', targetId)) {
+        } else if (this.checkIndex('listBButton-btnIconEl', target)) {
             vm.set('active_widget', Ngcp.csc.locales.callforward.list_b[localStorage.getItem('languageSelected')]);
             vm.set('list_b', false);
         };
+
+    },
+
+    clickSegmentedButton: function (el) {
+        var targetId = el.getTarget().id;
+        var vm = this.getViewModel();
+        this.changeWidget(el, targetId, vm);
+        var me = this;
+        var storesArray = ['CallForwardOnline', 'CallForwardBusy', 'CallForwardOffline']; // should we hardcode like this, and should we store names or actual stores?
+        Ext.Ajax.request({
+            url: '/resources/data/cfCombinations.json',
+            success: function(response, opts) {
+                var obj = Ext.decode(response.responseText);
+                var combinationStore = obj.data[0];
+                // TODO: 1. Loop over the storesArray, and do:
+                storesArray.map(function (storeName) {
+                    var store = Ext.getStore(storeName), nodeArray = [];
+                    // DONE: 1a. Remove all records
+                    store.removeAll();
+                    for (node in combinationStore) {
+                        if (me.checkIndex(storeName, node)) {
+                            var gridStore = combinationStore[node];
+
+                            for (record in gridStore) {
+                                // TODO: 1b. Extract the matching combination from the json.
+                                // Need to end up with an array of records for each of the 3
+                                // grid stores. Currently pushes all 36 records to each of
+                                // the 3 arrays, so have to figure out why...
+                                nodeArray.push(gridStore[record]);
+                            }
+                            // TODO: 1c. loadData inside the store
+                            // TODO: 1d. commitChanges of the store
+                        };
+                    };
+                    console.log(nodeArray);
+                });
+            },
+            failure: function(response, opts) {
+                console.log('failed to load store, with code ' + response.status);
+            }
+        });
     },
 
     renderDay: function(value, meta, record) {
