@@ -61,25 +61,22 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
         this.items = [{
             xtype: 'segmentedbutton',
             itemId: 'timeButtons',
-            value: 'alwaysButton',
+            value: 'always',
             defaults: {
-                listeners: {
-                    element: 'el',
-                    click: 'clickSegmentedButton'
-                }
+                handler: 'clickSegmentedButton'
             },
             items: [{
-                value: 'alwaysButton', // Can be used for filtering
+                value: 'always',
                 id: 'alwaysButton',
                 text: Ngcp.csc.locales.callforward.time_one[localStorage.getItem('languageSelected')]
             }, {
-                value: 'afterHoursButton',
+                value: 'afterHours',
                 id: 'afterHoursButton',
                 text: Ngcp.csc.locales.callforward.time_two[localStorage.getItem('languageSelected')],
                 iconCls: 'x-fa fa-pencil',
                 iconAlign: 'right'
             }, {
-                value: 'companyHoursButton',
+                value: 'companyHours',
                 id: 'companyHoursButton',
                 text: Ngcp.csc.locales.callforward.time_three[localStorage.getItem('languageSelected')],
                 iconCls: 'x-fa fa-pencil',
@@ -88,26 +85,23 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
         }, {
             xtype: 'segmentedbutton',
             itemId: 'sourceButtons',
-            value: 'everybodyButton',
+            value: 'everybody',
             defaults: {
-                listeners: {
-                    element: 'el',
-                    click: 'clickSegmentedButton'
-                }
+                handler: 'clickSegmentedButton'
             },
             ui: 'cf-segmentedbutton',
             items: [{
-                value: 'everybodyButton',
+                value: 'everybody',
                 id: 'everybodyButton',
                 text: Ngcp.csc.locales.callforward.source_one[localStorage.getItem('languageSelected')]
             }, {
-                value: 'listAButton',
+                value: 'listA',
                 id: 'listAButton',
                 text: Ngcp.csc.locales.callforward.source_two[localStorage.getItem('languageSelected')],
                 iconCls: 'x-fa fa-pencil',
                 iconAlign: 'right'
             }, {
-                value: 'listBButton',
+                value: 'listB',
                 id: 'listBButton',
                 text: Ngcp.csc.locales.callforward.source_three[localStorage.getItem('languageSelected')],
                 iconCls: 'x-fa fa-pencil',

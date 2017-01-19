@@ -1,0 +1,295 @@
+{
+    "data": [{
+        "CallForwardBusy_always_everybody": [{
+            "phone": "43144159",
+            "active": false,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "43236655",
+            "active": false,
+            "ring_for": "50 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": true,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardBusy_always_listA": [{
+            "phone": "43429008",
+            "active": true,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "43043042",
+            "active": true,
+            "ring_for": "60 secs"
+        }],
+        "CallForwardBusy_always_listB": [{
+            "phone": "43235388",
+            "active": false,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "43828384",
+            "active": false,
+            "ring_for": "50 secs"
+        }, {
+            "phone": "43294320",
+            "active": false,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": true,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardBusy_afterHours_everybody": [{
+            "phone": "43058597",
+            "active": false,
+            "ring_for": "40 secs"
+        }, {
+            "phone": "43069072",
+            "active": false,
+            "ring_for": "50 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardBusy_afterHours_listA": [{
+            "phone": "43671959",
+            "active": false,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardBusy_afterHours_listB": [{
+            "phone": "43963808",
+            "active": true,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "43292626",
+            "active": false,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": true,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardBusy_companyHours_everybody": [{
+            "phone": "43506322",
+            "active": false,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "43438084",
+            "active": false,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "43503407",
+            "active": false,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardBusy_companyHours_listA": [{
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardBusy_companyHours_listB": [{
+            "phone": "43115899",
+            "active": false,
+            "ring_for": "50 secs"
+        }, {
+            "phone": "43163841",
+            "active": true,
+            "ring_for": "30 secs"
+        }, {
+            "phone": "43453636",
+            "active": false,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "43623866",
+            "active": true,
+            "ring_for": "60 secs"
+        }],
+        "CallForwardOnline_always_everybody": [{
+            "phone": "43792601",
+            "active": true,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOnline_always_listA": [{
+            "phone": "43346472",
+            "active": false,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "43191649",
+            "active": true,
+            "ring_for": "50 secs"
+        }],
+        "CallForwardOnline_always_listB": [{
+            "phone": "43234068",
+            "active": true,
+            "ring_for": "50 secs"
+        }, {
+            "phone": "43702431",
+            "active": true,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "43502814",
+            "active": true,
+            "ring_for": "60 secs"
+        }],
+        "CallForwardOnline_afterHours_everybody": [{
+            "phone": "43814887",
+            "active": false,
+            "ring_for": "40 secs"
+        }],
+        "CallForwardOnline_afterHours_listA": [{
+            "phone": "43658124",
+            "active": true,
+            "ring_for": "40 secs"
+        }, {
+            "phone": "43478930",
+            "active": false,
+            "ring_for": "20 secs"
+        }],
+        "CallForwardOnline_afterHours_listB": [{
+            "phone": "43805856",
+            "active": true,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "43321147",
+            "active": true,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": true,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOnline_companyHours_everybody": [{
+            "phone": "Voicemail",
+            "active": true,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOnline_companyHours_listA": [{
+            "phone": "43401291",
+            "active": true,
+            "ring_for": "0 secs"
+        }, {
+            "phone": "43393673",
+            "active": false,
+            "ring_for": "40 secs"
+        }, {
+            "phone": "43228450",
+            "active": true,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOnline_companyHours_listB": [{
+            "phone": "43544823",
+            "active": false,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "43380981",
+            "active": false,
+            "ring_for": "60 secs"
+        }],
+        "CallForwardOffline_always_everybody": [{
+            "phone": "43131586",
+            "active": false,
+            "ring_for": "50 secs"
+        }],
+        "CallForwardOffline_always_listA": [{
+            "phone": "43189843",
+            "active": true,
+            "ring_for": "10 secs"
+        }, {
+            "phone": "43434117",
+            "active": true,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "43304032",
+            "active": true,
+            "ring_for": "60 secs"
+        }],
+        "CallForwardOffline_always_listB": [{
+            "phone": "43861777",
+            "active": false,
+            "ring_for": "40 secs"
+        }, {
+            "phone": "43626176",
+            "active": false,
+            "ring_for": "50 secs"
+        }],
+        "CallForwardOffline_afterHours_everybody": [{
+            "phone": "43249513",
+            "active": true,
+            "ring_for": "40 secs"
+        }],
+        "CallForwardOffline_afterHours_listA": [{
+            "phone": "43828647",
+            "active": true,
+            "ring_for": "60 secs"
+        }],
+        "CallForwardOffline_afterHours_listB": [{
+            "phone": "43848070",
+            "active": false,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "43870457",
+            "active": false,
+            "ring_for": "40 secs"
+        }, {
+            "phone": "43956620",
+            "active": false,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOffline_companyHours_everybody": [{
+            "phone": "43109414",
+            "active": true,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "43643249",
+            "active": true,
+            "ring_for": "50 secs"
+        }],
+        "CallForwardOffline_companyHours_listA": [{
+            "phone": "43773031",
+            "active": false,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "43845534",
+            "active": true,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": true,
+            "ring_for": "0 secs"
+        }],
+        "CallForwardOffline_companyHours_listB": [{
+            "phone": "43878682",
+            "active": false,
+            "ring_for": "40 secs"
+        }, {
+            "phone": "43358997",
+            "active": false,
+            "ring_for": "60 secs"
+        }, {
+            "phone": "Voicemail",
+            "active": false,
+            "ring_for": "0 secs"
+        }]
+    }]
+}

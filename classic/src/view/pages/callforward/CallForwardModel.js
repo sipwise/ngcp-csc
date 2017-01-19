@@ -11,7 +11,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardModel', {
         busy_timeout_hidden: true,
         offline_timeout_hidden: true,
         active_widget: '',
-        row_elements_disabled: false
+        row_elements_disabled: false,
+        selected_timeset: 'always',
+        selected_sourceset: 'everybody'
     }
 
 });
