@@ -9,6 +9,8 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
 
     layout: 'responsivecolumn',
 
+    title: Ngcp.csc.locales.calls.section_title[localStorage.getItem('languageSelected')],
+
     items: [{
         userCls: 'big-30 small-100',
         items: [Ext.create('NgcpCsc.view.common.gridfilters.GridFilters', {

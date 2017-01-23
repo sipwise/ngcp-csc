@@ -136,11 +136,11 @@ Ext.define('Ngcp.csc.locales', {
         },
         calls: {
             section_title: {
-                en: 'Incoming and outgoing calls.',
-                it: 'Incoming and outgoing calls.',
-                de: 'Incoming and outgoing calls.',
-                fr: 'Incoming and outgoing calls.',
-                sp: 'Incoming and outgoing calls.'
+                en: 'Unified inbox.',
+                it: 'Unified inbox.',
+                de: 'Unified inbox.',
+                fr: 'Unified inbox.',
+                sp: 'Unified inbox.'
             },
             recent_calls: {
                 en: 'RECENT CALLS',
