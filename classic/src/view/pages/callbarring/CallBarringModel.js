@@ -1,9 +1,10 @@
 Ext.define('NgcpCsc.view.pages.callbarring.CallBarringModel', {
     extend: 'Ext.app.ViewModel',
+
     alias: 'viewmodel.callbarring',
 
     links:{
-        settings:{
+        callbarring:{
             type:"NgcpCsc.model.CallBarring",
             id: Ext.id()
         }

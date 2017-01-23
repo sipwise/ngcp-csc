@@ -17,7 +17,7 @@ Ext.define('NgcpCsc.view.pages.faxsend.FaxSendController', {
         var form = this.lookupReference('faxsendForm');
         if (!form.isValid()) {
             return;
-        }
+        };
         this.resetForm();
     },
 

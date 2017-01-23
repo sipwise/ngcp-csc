@@ -39,7 +39,7 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarringController', {
     },
 
     saveNumber: function (field) {
-        var store, newNumber;
+        var store, newNumber, vm = this.getViewModel();
         var fieldArrayIncoming = ['incoming-new-enter', 'incoming-new-btn'];
         var fieldArrayOutgoing = ['outgoing-new-enter', 'outgoing-new-btn'];
         if (typeof field === 'object') {
@@ -47,10 +47,10 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarringController', {
         };
         if (fieldArrayIncoming.indexOf(field) > -1) {
             store = Ext.getStore('CallBarringIncoming');
-            newNumber = this.getViewModel().get('new_in_number');
+            newNumber = vm.get('callbarring.new_in_number');
         } else if (fieldArrayOutgoing.indexOf(field) > -1){
             store = Ext.getStore('CallBarringOutgoing');
-            newNumber = this.getViewModel().get('new_out_number');
+            newNumber = vm.get('callbarring.new_out_number');
         };
         var acceptedCharacters = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '?'];
         var invalidCheck;
@@ -84,9 +84,9 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarringController', {
             this.fireEvent('showmessage', false, Ngcp.csc.locales.common.save_unsuccess[localStorage.getItem('languageSelected')]);
         };
         if (fieldArrayIncoming.indexOf(field) > -1) {
-            this.getViewModel().set('new_in_number', '');
+            vm.set('callbarring.new_in_number', '');
         } else if (fieldArrayOutgoing.indexOf(field) > -1){
-            this.getViewModel().set('new_out_number', '');
+            vm.set('callbarring.new_out_number', '');
         };
     },
 

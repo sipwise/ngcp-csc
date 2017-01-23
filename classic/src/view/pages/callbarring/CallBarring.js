@@ -41,7 +41,7 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
                                 name: 'incoming',
                                 inputValue: 'incoming-allow',
                                 id: 'incoming1',
-                                bind: '{settings.block_in_mode}'
+                                bind: '{callbarring.block_in_mode}'
                             }, {
                                 boxLabel: Ngcp.csc.locales.callbarring.block_everything[localStorage.getItem('languageSelected')],
                                 name: 'incoming',
@@ -69,7 +69,7 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
                             xtype: 'textfield',
                             id: 'incoming-new-enter',
                             padding: '10 0 0 10',
-                            bind: '{settings.new_in_number}',
+                            bind: '{callbarring.new_in_number}',
                             fieldLabel: Ngcp.csc.locales.callbarring.new_entry[localStorage.getItem('languageSelected')].toLowerCase(),
                             listeners: {
                                 specialKey: 'onEnterPressed'
@@ -104,7 +104,7 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
                             xtype: 'checkboxfield',
                             boxLabel: Ngcp.csc.locales.callbarring.hide_own[localStorage.getItem('languageSelected')].toLowerCase(),
                             name: 'hidebox',
-                            bind: '{settings.clir}'
+                            bind: '{callbarring.clir}'
                         }, {
                             xtype: 'fieldcontainer',
                             defaultType: 'radiofield',
@@ -113,7 +113,7 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
                                 name: 'outgoing',
                                 inputValue: 'outgoing-allow',
                                 id: 'outgoing1',
-                                bind: '{settings.block_out_mode}'
+                                bind: '{callbarring.block_out_mode}'
                             }, {
                                 boxLabel: Ngcp.csc.locales.callbarring.block_everything[localStorage.getItem('languageSelected')],
                                 name: 'outgoing',
@@ -141,7 +141,7 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
                             xtype: 'textfield',
                             id: 'outgoing-new-enter',
                             padding: '10 0 0 10',
-                            bind: '{settings.new_out_number}',
+                            bind: '{callbarring.new_out_number}',
                             fieldLabel: Ngcp.csc.locales.callbarring.new_entry[localStorage.getItem('languageSelected')].toLowerCase(),
                             listeners: {
                                 specialKey: 'onEnterPressed'

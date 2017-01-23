@@ -33,6 +33,7 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
                     minValue: '0:00',
                     maxValue: '23:50',
                     increment: 10,
+                    editable: false,
                     bind: {
                         value: '{reminder.timer}',
                         disabled: '{!reminder.reminder_status}'
