@@ -1,4 +1,4 @@
-Ext.define('NgcpCsc.view.pages.subscriberadmin.devices.Devices', {
+Ext.define('NgcpCsc.view.pages.pbxconfig.devices.Devices', {
     extend: 'Ext.panel.Panel',
 
     xtype: 'devices',
@@ -7,7 +7,7 @@ Ext.define('NgcpCsc.view.pages.subscriberadmin.devices.Devices', {
 
     controller: 'devices',
 
-    title: Ngcp.csc.locales.subscriberadmin.title[localStorage.getItem('languageSelected')],
+    title: Ngcp.csc.locales.pbxconfig.title[localStorage.getItem('languageSelected')],
 
     layout: 'responsivecolumn',
 
@@ -17,7 +17,7 @@ Ext.define('NgcpCsc.view.pages.subscriberadmin.devices.Devices', {
             xtype: 'gridfilters',
             padding: 0,
             _linkedStoreId: 'Devices',
-            _subscriberAdminDevices: true
+            _pbxconfigDevices: true
         }, {
             xtype: 'form',
             ui: 'core-container',
@@ -32,11 +32,12 @@ Ext.define('NgcpCsc.view.pages.subscriberadmin.devices.Devices', {
             items: [{
                     xtype: 'textfield',
                     bind: '{selection.name}',
+                    name:'deviceName',
                     fieldLabel: Ngcp.csc.locales.common.name[localStorage.getItem('languageSelected')]
                 }, {
                     xtype: 'combo',
                     store: 'DevicesList',
-                    fieldLabel: Ngcp.csc.locales.subscriberadmin.device_profile[localStorage.getItem('languageSelected')],
+                    fieldLabel: Ngcp.csc.locales.pbxconfig.device_profile[localStorage.getItem('languageSelected')],
                     name: 'deviceCombo',
                     displayField: 'name',
                     valueField: 'name', // here we will use the ids most probablys
@@ -53,7 +54,10 @@ Ext.define('NgcpCsc.view.pages.subscriberadmin.devices.Devices', {
                 {
                     xtype: 'destinations-grid',
                     width: '100%',
-                    margin: '15 0 10 0'
+                    margin: '15 0 10 0',
+                    bind:{
+                        disabled:'{!selection.device}'
+                    }
                 },
                 {
                     xtype: 'radiogroup',
@@ -91,7 +95,8 @@ Ext.define('NgcpCsc.view.pages.subscriberadmin.devices.Devices', {
         }, {
             margin: 10,
             xtype: 'button',
-            text: Ngcp.csc.locales.subscriberadmin.add_new_device[localStorage.getItem('languageSelected')],
+            reference:'addNewBtn',
+            text: Ngcp.csc.locales.pbxconfig.add_new_device[localStorage.getItem('languageSelected')],
             handler: 'addDevice'
         }]
     }]

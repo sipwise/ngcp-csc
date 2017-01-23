@@ -536,6 +536,20 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'List B',
                 fr: 'List B',
                 sp: 'List B'
+            },
+            closed: {
+                en: 'Closed',
+                it: 'Closed',
+                de: 'Closed',
+                fr: 'Closed',
+                sp: 'Closed'
+            },
+            add_new_source: {
+                en: 'ADD NEW SOURCE',
+                it: 'ADD NEW SOURCE',
+                de: 'ADD NEW SOURCE',
+                fr: 'ADD NEW SOURCE',
+                sp: 'ADD NEW SOURCE'
             }
         },
         filters: {
@@ -596,11 +610,11 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'search term'
             },
             apply: {
-                en: 'apply',
-                it: 'apply',
-                de: 'apply',
-                fr: 'apply',
-                sp: 'apply'
+                en: 'Apply',
+                it: 'Apply',
+                de: 'Apply',
+                fr: 'Apply',
+                sp: 'Apply'
             },
             extensions: {
                 en: 'extensions',
@@ -630,12 +644,19 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'mac address',
                 sp: 'mac address'
             },
-            pbx_devices: {
-                en: 'pbx devices',
-                it: 'pbx devices',
-                de: 'pbx devices',
-                fr: 'pbx devices',
-                sp: 'pbx devices'
+            numbers: {
+                en: 'numbers',
+                it: 'numbers',
+                de: 'numbers',
+                fr: 'numbers',
+                sp: 'numbers'
+            },
+            phone_devices: {
+                en: 'phone/devices',
+                it: 'phone/devices',
+                de: 'phone/devices',
+                fr: 'phone/devices',
+                sp: 'phone/devices'
             },
             hunt_policy: {
                 en: 'hunt policy',
@@ -1358,13 +1379,13 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Pbx extensions for '
             }
         },
-        subscriberadmin: {
+        pbxconfig: {
             title: {
-                en: 'Your subscriber admin settings.',
-                it: 'Your subscriber admin settings.',
-                de: 'Your subscriber admin settings.',
-                fr: 'Your subscriber admin settings.',
-                sp: 'Your subscriber admin settings.'
+                en: 'Pbx Configuration.',
+                it: 'Pbx Configuration.',
+                de: 'Pbx Configuration.',
+                fr: 'Pbx Configuration.',
+                sp: 'Pbx Configuration.'
             },
             add_new_seat: {
                 en: 'ADD NEW SEAT',

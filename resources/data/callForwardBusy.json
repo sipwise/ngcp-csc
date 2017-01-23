@@ -1,19 +1,15 @@
 {
     "data": [{
-        "phone": "Bobby Doe",
-        "active": true,
-        "ring_for": "20 secs"
+        "phone": "43144159",
+        "active": false,
+        "ring_for": "60 secs"
     }, {
-        "phone": "33333333",
-        "active": true,
-        "ring_for": "20 secs"
-    }, {
-        "phone": "67788877",
-        "active": true,
-        "ring_for": "20 secs"
+        "phone": "43236655",
+        "active": false,
+        "ring_for": "50 secs"
     }, {
         "phone": "Voicemail",
-        "active": false,
+        "active": true,
         "ring_for": "0 secs"
     }]
 }

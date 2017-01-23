@@ -1,15 +1,7 @@
 {
     "data": [{
-        "phone": "John Doe",
-        "active": true,
-        "ring_for": "10 secs"
-    }, {
-        "phone": "222222",
-        "active": true,
-        "ring_for": "20 secs"
-    }, {
-        "phone": "Voicemail",
-        "active": true,
-        "ring_for": "0 secs"
+        "phone": "43131586",
+        "active": false,
+        "ring_for": "50 secs"
     }]
 }
