@@ -10,8 +10,11 @@ Ext.define('NgcpCsc.model.Seat', {
     }, {
         name: 'groups',
         type: 'string'
+    },{
+        name: 'numbers',
+        type: 'string'
     }, {
-        name: 'pbx_devices',
+        name: 'phone_devices',
         type: 'string'
     }]
 });
