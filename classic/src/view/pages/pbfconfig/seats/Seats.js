@@ -32,6 +32,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.Seats', {
                 xtype: 'textfield',
                 labelAlign: 'top',
                 bind: '{selection.name}',
+                name:'seatName',
                 fieldLabel: Ngcp.csc.locales.common.name[localStorage.getItem('languageSelected')]
             }, {
                 xtype: 'textfield',
@@ -77,6 +78,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.Seats', {
         }, {
             margin: 10,
             xtype: 'button',
+            reference:'addNewBtn',
             text: Ngcp.csc.locales.pbxconfig.add_new_seat[localStorage.getItem('languageSelected')],
             handler: 'addSeat'
         }]

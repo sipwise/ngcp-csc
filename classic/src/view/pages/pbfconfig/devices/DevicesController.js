@@ -22,6 +22,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesController', {
         grid.getPlugin('rowexpander').toggleRow(0, newRec);
         grid.getSelectionModel().select(newRec);
         destinationsGrid.getStore().removeAll();
+        this.toggleNewDeviceBtn(false);
+        form.down('[name=deviceName]').focus();
         form.show();
     },
 
@@ -32,7 +34,14 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesController', {
         var selectedRow = store.findRecord('id', id);
         grid.getSelectionModel().select(selectedRow);
         this.deviceSelected();
+        this.toggleNewDeviceBtn(false);
+        form.down('[name=deviceName]').focus();
         form.show();
+    },
+
+    toggleNewDeviceBtn: function(enabled) {
+        var btn = this.lookupReference('addNewBtn');
+        btn.setDisabled(!enabled);
     },
 
     removeDevice: function(id) {
@@ -40,6 +49,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesController', {
         var store = Ext.getStore('Devices');
         var selectedRow = store.findRecord('id', id);
         store.remove(selectedRow);
+        this.toggleNewDeviceBtn(true);
         form.hide();
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
     },
@@ -72,6 +82,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesController', {
         var store = Ext.getStore('Devices');
         store.rejectChanges();
         grid.getSelectionModel().deselectAll();
+        this.toggleNewDeviceBtn(true);
         form.hide();
     },
 
@@ -85,6 +96,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesController', {
         store.commitChanges();
         grid.getSelectionModel().deselectAll();
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
+        this.toggleNewDeviceBtn(true);
         form.hide();
     }
 });

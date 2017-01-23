@@ -18,6 +18,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.groups.GroupsController', {
         })[0];
         grid.getPlugin('rowexpander').toggleRow(0, newRec);
         grid.getSelectionModel().select(newRec);
+        this.toggleNewGroupBtn(false);
+        form.down('[name=groupName]').focus();
         form.show();
     },
 
@@ -27,7 +29,14 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.groups.GroupsController', {
         var store = Ext.getStore('Groups');
         var selectedRow = store.findRecord('id', id);
         grid.getSelectionModel().select(selectedRow);
+        this.toggleNewGroupBtn(false);
+        form.down('[name=groupName]').focus();
         form.show();
+    },
+
+    toggleNewGroupBtn: function(enabled) {
+        var btn = this.lookupReference('addNewBtn');
+        btn.setDisabled(!enabled);
     },
 
     removeGroup: function(id) {
@@ -35,6 +44,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.groups.GroupsController', {
         var store = Ext.getStore('Groups');
         var selectedRow = store.findRecord('id', id);
         store.remove(selectedRow);
+        this.toggleNewGroupBtn(true);
         form.hide();
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
     },
@@ -45,6 +55,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.groups.GroupsController', {
         var store = Ext.getStore('Groups');
         store.rejectChanges();
         grid.getSelectionModel().deselectAll();
+        this.toggleNewGroupBtn(true);
         form.hide();
     },
 
@@ -58,6 +69,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.groups.GroupsController', {
         store.commitChanges();
         grid.getSelectionModel().deselectAll();
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
+        this.toggleNewGroupBtn(true);
         form.hide();
     }
 

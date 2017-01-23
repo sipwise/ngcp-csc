@@ -32,6 +32,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.Devices', {
             items: [{
                     xtype: 'textfield',
                     bind: '{selection.name}',
+                    name:'deviceName',
                     fieldLabel: Ngcp.csc.locales.common.name[localStorage.getItem('languageSelected')]
                 }, {
                     xtype: 'combo',
@@ -94,6 +95,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.Devices', {
         }, {
             margin: 10,
             xtype: 'button',
+            reference:'addNewBtn',
             text: Ngcp.csc.locales.pbxconfig.add_new_device[localStorage.getItem('languageSelected')],
             handler: 'addDevice'
         }]
