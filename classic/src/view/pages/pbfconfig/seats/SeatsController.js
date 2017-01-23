@@ -14,7 +14,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsController', {
         var store = Ext.getStore('Seats');
         var newRec = store.insert(0, {
             id: Ext.id(),
-            expanded: true
+            expanded: true,
+            newRec: true
         })[0];
         grid.getPlugin('rowexpander').toggleRow(0, newRec);
         grid.getSelectionModel().select(newRec);
@@ -30,8 +31,13 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsController', {
         var selectedRow = store.findRecord('id', id);
         grid.getSelectionModel().select(selectedRow);
         this.toggleNewSeatBtn(false);
-        form.down('[name=seatName]').focus();
         form.show();
+        form.down('[name=seatName]').focus();
+    },
+
+    toggleNewSeatBtn: function(enabled) {
+        var btn = this.lookupReference('addNewBtn');
+        btn.setDisabled(!enabled);
     },
 
     toggleNewSeatBtn: function(enabled) {
@@ -53,7 +59,12 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsController', {
         var form = this.lookupReference('add-new-seat');
         var grid = this.getView().down('seats-grid');
         var store = Ext.getStore('Seats');
-        store.rejectChanges();
+        var selectedRec = grid.getSelectionModel().getSelection()[0];
+        if (selectedRec.get('newRec')) {
+            store.remove(selectedRec)
+        } else {
+            selectedRec.reject();
+        }
         grid.getSelectionModel().deselectAll();
         this.toggleNewSeatBtn(true);
         form.hide();
@@ -66,6 +77,11 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsController', {
         }
         var store = Ext.getStore('Seats');
         var grid = this.getView().down('seats-grid');
+        Ext.each(store.getModifiedRecords(), function(rec) {
+            if (rec.get('newRec')) {
+                rec.set('newRec', null);
+            }
+        });
         store.commitChanges();
         grid.getSelectionModel().deselectAll();
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
