@@ -33,7 +33,7 @@ Ext.define('NgcpCsc.view.pages.devices.DestinationsGrid', {
             flex: 2,
             dataIndex: 'destination',
             editor: 'textfield',
-            text: Ngcp.csc.locales.subscriberadmin.destination[localStorage.getItem('languageSelected')]
+            text: Ngcp.csc.locales.pbxconfig.destination[localStorage.getItem('languageSelected')]
         },{
             flex: 3,
             dataIndex: 'sound',

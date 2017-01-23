@@ -1,13 +1,13 @@
-Ext.define('NgcpCsc.view.pages.subscriberadmin.seats.Seats', {
+Ext.define('NgcpCsc.view.pages.pbxconfig.groups.Groups', {
     extend: 'Ext.panel.Panel',
 
-    xtype: 'seats',
+    xtype: 'groups',
 
-    viewModel: 'seats',
+    viewModel: 'groups',
 
-    controller: 'seats',
+    controller: 'groups',
 
-    title: Ngcp.csc.locales.subscriberadmin.title[localStorage.getItem('languageSelected')],
+    title: Ngcp.csc.locales.pbxconfig.title[localStorage.getItem('languageSelected')],
 
     layout: 'responsivecolumn',
 
@@ -16,14 +16,14 @@ Ext.define('NgcpCsc.view.pages.subscriberadmin.seats.Seats', {
         items: [{
             xtype: 'gridfilters',
             padding: 0,
-            _linkedStoreId: 'Seats',
-            _subscriberAdminSeats: true
+            _linkedStoreId: 'Groups',
+            _pbxconfigGroups: true
         }, {
             xtype:'form',
             ui: 'core-container',
             padding: 20,
             margin:10,
-            reference: 'add-new-seat',
+            reference: 'add-new-group',
             hidden: true,
             defaults: {
                 width: '98%'
@@ -41,13 +41,13 @@ Ext.define('NgcpCsc.view.pages.subscriberadmin.seats.Seats', {
             }, {
                 xtype: 'textfield',
                 labelAlign: 'top',
-                bind: '{selection.groups}',
-                fieldLabel: Ngcp.csc.locales.filters.groups[localStorage.getItem('languageSelected')]
+                bind: '{selection.hunt_policy}',
+                fieldLabel: Ngcp.csc.locales.filters.hunt_policy[localStorage.getItem('languageSelected')]
             }, {
                 xtype: 'textfield',
                 labelAlign: 'top',
-                bind: '{selection.pbx_devices}',
-                fieldLabel: Ngcp.csc.locales.filters.pbx_devices[localStorage.getItem('languageSelected')]
+                bind: '{selection.hunt_timeout}',
+                fieldLabel: Ngcp.csc.locales.filters.hunt_timeout[localStorage.getItem('languageSelected')]
             },{
                 layout: 'hbox',
                 xtype: 'container',
@@ -68,12 +68,12 @@ Ext.define('NgcpCsc.view.pages.subscriberadmin.seats.Seats', {
     }, {
         userCls: 'big-70 small-100',
         items: [{
-            xtype: 'seats-grid'
+            xtype: 'groups-grid'
         }, {
             margin: 10,
             xtype: 'button',
-            text: Ngcp.csc.locales.subscriberadmin.add_new_seat[localStorage.getItem('languageSelected')],
-            handler: 'addSeat'
+            text: Ngcp.csc.locales.pbxconfig.add_new_group[localStorage.getItem('languageSelected')],
+            handler: 'addGroup'
         }]
     }]
 });

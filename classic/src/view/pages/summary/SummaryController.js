@@ -5,7 +5,7 @@ Ext.define('NgcpCsc.view.pages.summary.SummaryController', {
 
     onConfigure:function(btn){
         var page = btn.up('summary-pie').name;
-        this.redirectTo('#subscriberadmin/' + page);
+        this.redirectTo('#pbxconfig/' + page);
     },
 
     reloadChart: function(btn){

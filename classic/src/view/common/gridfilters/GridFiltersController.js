@@ -21,14 +21,14 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
                     case me.getView()._searchTerm:
                         store.filterBy(me.searchText, me);
                         break;
-                    case me.getView()._subscriberAdmin:
-                        store.filterBy(me.applySubscriberFilters, me);
+                    case me.getView()._pbxconfig:
+                        store.filterBy(me.applyPbxconfigFilters, me);
                         break;
-                    case me.getView()._subscriberAdminGroups:
-                        store.filterBy(me.applySubscriberGroupsFilters, me);
+                    case me.getView()._pbxconfigGroups:
+                        store.filterBy(me.applyPbxconfigGroupsFilters, me);
                         break;
-                    case me.getView()._subscriberAdminDevices:
-                        store.filterBy(me.applySubscriberDevicesFilters, me);
+                    case me.getView()._pbxconfigDevices:
+                        store.filterBy(me.applyPbxconfigDevicesFilters, me);
                         break;
                 }
             })
@@ -74,7 +74,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
 
     },
 
-    applySubscriberFilters: function(record) {
+    applyPbxconfigFilters: function(record) {
         var vm = this.getViewModel();
         var name = vm.get('filtergrid.name') || "";
         var extensions = vm.get('filtergrid.extensions') ? vm.get('filtergrid.extensions').split(',') : [];
@@ -93,7 +93,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         return retVal;
     },
 
-    applySubscriberGroupsFilters: function(record) {
+    applyPbxconfigGroupsFilters: function(record) {
         var vm = this.getViewModel();
         var name = vm.get('filtergrid.name') || "";
         var extensions = vm.get('filtergrid.extensions') ? vm.get('filtergrid.extensions').split(',') : [];
@@ -110,7 +110,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         return retVal;
     },
 
-    applySubscriberDevicesFilters: function(record) {
+    applyPbxconfigDevicesFilters: function(record) {
         var vm = this.getViewModel();
         var name = vm.get('filtergrid.name') || "";
         var deviceProfile = vm.get('filtergrid.device') || "";

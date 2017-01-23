@@ -1358,13 +1358,13 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Pbx extensions for '
             }
         },
-        subscriberadmin: {
+        pbxconfig: {
             title: {
-                en: 'Your subscriber admin settings.',
-                it: 'Your subscriber admin settings.',
-                de: 'Your subscriber admin settings.',
-                fr: 'Your subscriber admin settings.',
-                sp: 'Your subscriber admin settings.'
+                en: 'Pbx Configuration.',
+                it: 'Pbx Configuration.',
+                de: 'Pbx Configuration.',
+                fr: 'Pbx Configuration.',
+                sp: 'Pbx Configuration.'
             },
             add_new_seat: {
                 en: 'ADD NEW SEAT',
