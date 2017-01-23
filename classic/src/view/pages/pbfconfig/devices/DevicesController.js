@@ -1,4 +1,4 @@
-Ext.define('NgcpCsc.view.pages.subscriberadmin.devices.DevicesController', {
+Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesController', {
     extend: 'Ext.app.ViewController',
 
     alias: 'controller.devices',
@@ -86,12 +86,5 @@ Ext.define('NgcpCsc.view.pages.subscriberadmin.devices.DevicesController', {
         grid.getSelectionModel().deselectAll();
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
         form.hide();
-    },
-    playDestination: function(grid, rowIndex, colIndex) {
-        var rec = grid.getStore().getAt(rowIndex);
-        var destinationSound = document.getElementById("destination");
-        destinationSound.src = rec.get('sound');
-        destinationSound.play();
-
     }
 });
