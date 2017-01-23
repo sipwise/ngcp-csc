@@ -11,11 +11,11 @@
         "answered": true,
         /* addressbook filters */
         "search_term": "",
-        /* subscriber admin filters */
+        /* Pbxconfig admin filters */
         "name":"",
         "extensions":"",
         "groups":"",
-        "pbx_devices":"",
+        "phone_devices":"",
         "hunt_policy":"",
         "hunt_timeout":"",
         "enabled" : true,

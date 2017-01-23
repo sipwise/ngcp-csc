@@ -44,7 +44,7 @@ Ext.define('NgcpCsc.view.pages.seats.SeatsGrid', {
                 '<div class="card-wrapper">',
                 '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.filters.extensions[localStorage.getItem('languageSelected')] + '</b>: {extension} </div>',
                 '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.filters.groups[localStorage.getItem('languageSelected')] + '</b>: {groups} </div>',
-                '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.filters.pbx_devices[localStorage.getItem('languageSelected')] + '</b>: {pbx_devices} </div>',
+                '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.filters.phone_devices[localStorage.getItem('languageSelected')] + '</b>: {phone_devices} </div>',
                 '<div class="card-icon-row">',
                 '<div id="{id}" class="card-icon" data-callback="editSeat"><i class="fa fa-edit green-icon fa-2x pointer" aria-hidden="true"></i></div>',
                 '<div id="{id}" class="card-icon" data-callback="removeSeat"><i class="fa fa-trash green-icon fa-2x pointer" aria-hidden="true"></i></div>',

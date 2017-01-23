@@ -1,4 +1,4 @@
-Ext.define('NgcpCsc.view.pages.subscriberadmin.devices.DevicesController', {
+Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesController', {
     extend: 'Ext.app.ViewController',
 
     alias: 'controller.devices',

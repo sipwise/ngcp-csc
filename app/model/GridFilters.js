@@ -11,7 +11,7 @@ Ext.define('NgcpCsc.model.GridFilters', {
         'search_term',
         'name', 'extensions',
         'groups',
-        'pbx_devices',
+        'phone_devices',
         'hunt_policy',
         'hunt_timeout',
         'enabled',
