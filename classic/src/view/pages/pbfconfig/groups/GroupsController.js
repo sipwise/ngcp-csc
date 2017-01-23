@@ -1,4 +1,4 @@
-Ext.define('NgcpCsc.view.pages.subscriberadmin.groups.GroupsController', {
+Ext.define('NgcpCsc.view.pages.pbxconfig.groups.GroupsController', {
     extend: 'Ext.app.ViewController',
 
     alias: 'controller.groups',
