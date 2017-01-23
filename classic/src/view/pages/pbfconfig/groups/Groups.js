@@ -31,6 +31,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.groups.Groups', {
             items: [{
                 xtype: 'textfield',
                 labelAlign: 'top',
+                name:'groupName',
                 bind: '{selection.name}',
                 fieldLabel: Ngcp.csc.locales.common.name[localStorage.getItem('languageSelected')]
             }, {
@@ -72,6 +73,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.groups.Groups', {
         }, {
             margin: 10,
             xtype: 'button',
+            reference:'addNewBtn',
             text: Ngcp.csc.locales.pbxconfig.add_new_group[localStorage.getItem('languageSelected')],
             handler: 'addGroup'
         }]
