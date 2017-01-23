@@ -14,13 +14,14 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.groups.GroupsController', {
         var store = Ext.getStore('Groups');
         var newRec = store.insert(0,{
             id: Ext.id(),
-            expanded: true
+            expanded: true,
+            newRec:true
         })[0];
         grid.getPlugin('rowexpander').toggleRow(0, newRec);
         grid.getSelectionModel().select(newRec);
         this.toggleNewGroupBtn(false);
-        form.down('[name=groupName]').focus();
         form.show();
+        form.down('[name=groupName]').focus();
     },
 
     editGroup: function(id) {
@@ -30,8 +31,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.groups.GroupsController', {
         var selectedRow = store.findRecord('id', id);
         grid.getSelectionModel().select(selectedRow);
         this.toggleNewGroupBtn(false);
-        form.down('[name=groupName]').focus();
         form.show();
+        form.down('[name=groupName]').focus();
     },
 
     toggleNewGroupBtn: function(enabled) {
@@ -53,7 +54,12 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.groups.GroupsController', {
         var form = this.lookupReference('add-new-group');
         var grid = this.getView().down('groups-grid');
         var store = Ext.getStore('Groups');
-        store.rejectChanges();
+        var selectedRec = grid.getSelectionModel().getSelection()[0];
+        if(selectedRec.get('newRec')){
+            store.remove(selectedRec)
+        }else{
+            selectedRec.reject();
+        }
         grid.getSelectionModel().deselectAll();
         this.toggleNewGroupBtn(true);
         form.hide();
@@ -66,6 +72,11 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.groups.GroupsController', {
         }
         var store = Ext.getStore('Groups');
         var grid = this.getView().down('groups-grid');
+        Ext.each(store.getModifiedRecords(), function(rec){
+            if(rec.get('newRec')){
+                rec.set('newRec', null);
+            }
+        });
         store.commitChanges();
         grid.getSelectionModel().deselectAll();
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
