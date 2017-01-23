@@ -1,4 +1,4 @@
-Ext.define('NgcpCsc.view.pages.subscriberadmin.seats.SeatsController', {
+Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsController', {
     extend: 'Ext.app.ViewController',
 
     alias: 'controller.seats',
