@@ -1,4 +1,4 @@
-Ext.define('NgcpCsc.view.pages.subscriberadmin.devices.DevicesModel', {
+Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.devices',
 

@@ -80,16 +80,16 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             acl: ['administrator'],
             leaf: true
         }, {
-            text: 'Subscriber admin',
+            text: 'Pbx Config',
             iconCls: 'x-fa fa-cog',
-            routeId: 'subscriberadmin',
+            routeId: 'pbxconfig',
             acl: ['administrator', 'restricted', 'host'],
             children: [
                 {
                 text: 'Seats',
                 iconCls: 'x-fa fa-home',
                 viewType: 'seats',
-                routeId: 'subscriberadmin/seats',
+                routeId: 'pbxconfig/seats',
                 acl: ['administrator'],
                 leaf: true
             },
@@ -97,7 +97,7 @@ Ext.define('NgcpCsc.store.NavigationTree', {
                 text: 'Groups',
                 iconCls: 'x-fa fa-users',
                 viewType: 'groups',
-                routeId: 'subscriberadmin/groups',
+                routeId: 'pbxconfig/groups',
                 acl: ['administrator'],
                 leaf: true
 
@@ -105,7 +105,7 @@ Ext.define('NgcpCsc.store.NavigationTree', {
                 text: 'Devices',
                 iconCls: 'x-fa fa-fax',
                 viewType: 'devices',
-                routeId: 'subscriberadmin/devices',
+                routeId: 'pbxconfig/devices',
                 acl: ['administrator'],
                 leaf: true
 

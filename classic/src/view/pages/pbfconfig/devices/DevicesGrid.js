@@ -42,7 +42,7 @@ Ext.define('NgcpCsc.view.pages.devices.DevicesGrid', {
             id: 'rowexpander',
             rowBodyTpl: new Ext.XTemplate(
                 '<div class="card-wrapper">',
-                '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.subscriberadmin.device_profile[localStorage.getItem('languageSelected')] + '</b>: {device} </div>',
+                '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.pbxconfig.device_profile[localStorage.getItem('languageSelected')] + '</b>: {device} </div>',
                 '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.filters.mac[localStorage.getItem('languageSelected')] + '</b>: {mac} </div>',
                 '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.filters.status[localStorage.getItem('languageSelected')] + '</b>: {status} </div>',
                 '<div class="img-row"><img src="{image}">',
