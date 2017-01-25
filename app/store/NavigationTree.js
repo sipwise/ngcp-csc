@@ -100,7 +100,6 @@ Ext.define('NgcpCsc.store.NavigationTree', {
                 routeId: 'pbxconfig/groups',
                 acl: ['administrator'],
                 leaf: true
-
             }, {
                 text: 'Devices',
                 iconCls: 'x-fa fa-fax',
@@ -108,7 +107,6 @@ Ext.define('NgcpCsc.store.NavigationTree', {
                 routeId: 'pbxconfig/devices',
                 acl: ['administrator'],
                 leaf: true
-
             }
         ]
         }, {
@@ -116,20 +114,6 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             iconCls: 'x-fa fa-microphone',
             viewType: 'autoattendant',
             routeId: 'autoattendant',
-            acl: ['administrator', 'restricted', 'host'],
-            leaf: true
-        }, {
-            text: 'Device provisioning',
-            iconCls: 'x-fa fa-fax',
-            viewType: 'deviceprovisioning',
-            routeId: 'deviceprovisioning',
-            acl: ['administrator', 'restricted', 'host'],
-            leaf: true
-        }, {
-            text: 'Hunt group',
-            iconCls: 'x-fa fa-users',
-            viewType: 'huntgroup',
-            routeId: 'huntgroup',
             acl: ['administrator', 'restricted', 'host'],
             leaf: true
         }, {
