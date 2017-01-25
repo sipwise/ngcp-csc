@@ -77,7 +77,7 @@ Ext.define('NgcpCsc.view.pages.calls.CallsGrid', {
                 '<tpl case="fax">', // fax tpl
                 '<div class="card-wrapper">',
                 '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.common.duration[localStorage.getItem('languageSelected')] + '</b>: {duration}</div>',
-                '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.faxspool.columns.pages[localStorage.getItem('languageSelected')] + '</b>: {pages}</div>',
+                '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.calls.pages[localStorage.getItem('languageSelected')] + '</b>: {pages}</div>',
                 '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.common.date[localStorage.getItem('languageSelected')] + '</b>: {[ Ext.util.Format.date(values.start_time, "d.m.Y h:i:s")]} </div>',
                 '<div class="card-icon-row">',
                 '<div id="{id}" class="card-icon"><a href="resources/docs/fax.pdf" target="_blank"><i class="fa fa-file-pdf-o green-icon fa-2x pointer" aria-hidden="true"></i></a></div>',

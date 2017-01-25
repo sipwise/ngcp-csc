@@ -17,7 +17,7 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
             _linkedStoreId: 'Calls',
             _callFilters: true
         }), {
-            title: Ngcp.csc.locales.voicemails.settings.title[localStorage.getItem('languageSelected')],
+            title: Ngcp.csc.locales.settings.title[localStorage.getItem('languageSelected')],
             xtype: 'core-container',
             padding: 0,
             collapsible: true,
@@ -32,11 +32,11 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
                     xtype: 'textfield',
                     labelAlign: 'top',
                     bind: '{settings.email}',
-                    fieldLabel: Ngcp.csc.locales.voicemails.settings.description[localStorage.getItem('languageSelected')]
+                    fieldLabel: Ngcp.csc.locales.settings.description[localStorage.getItem('languageSelected')]
                 }, {
                     xtype: 'checkbox',
                     bind: '{settings.attach_rec}',
-                    boxLabel: Ngcp.csc.locales.voicemails.settings.attach_recording[localStorage.getItem('languageSelected')]
+                    boxLabel: Ngcp.csc.locales.settings.attach_recording[localStorage.getItem('languageSelected')]
                 }, {
                     xtype: 'numberfield',
                     labelAlign: 'left',
@@ -44,9 +44,9 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
                     hideTrigger: true,
                     maxValue: 9999,
                     bind: '{settings.pin}',
-                    fieldLabel: Ngcp.csc.locales.voicemails.settings.pin[localStorage.getItem('languageSelected')]
+                    fieldLabel: Ngcp.csc.locales.settings.pin[localStorage.getItem('languageSelected')]
                 }, {
-                    html: Ngcp.csc.locales.voicemails.settings.pin_instructions[localStorage.getItem('languageSelected')]
+                    html: Ngcp.csc.locales.settings.pin_instructions[localStorage.getItem('languageSelected')]
                 }, {
                     margin: '10 0 0 0',
                     items: [{
