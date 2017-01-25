@@ -79,6 +79,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
                 _isNested: true
             }, {
                 xtype: 'core-container',
+                reference: 'cf-after-widget',
                 bind: {
                     title: '{active_widget}',
                     hidden: '{after_hours}'
@@ -110,6 +111,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
                 }]
             }, {
                 xtype: 'core-container',
+                reference: 'cf-company-widget',
                 bind: {
                     title: '{active_widget}',
                     hidden: '{company_hours}'
@@ -141,6 +143,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
                 }]
             }, {
                 xtype: 'core-container',
+                reference: 'cf-list-a-widget',
                 bind: {
                     title: '{active_widget}',
                     hidden: '{list_a}'
@@ -166,6 +169,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
                 }]
             }, {
                 xtype: 'core-container',
+                reference: 'cf-list-b-widget',
                 bind: {
                     title: '{active_widget}',
                     hidden: '{list_b}'

@@ -60,6 +60,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     changeWidget: function (target, vm) {
+        var me = this;
         vm.set('after_hours', true);
         vm.set('company_hours', true);
         vm.set('list_a', true);
@@ -68,18 +69,22 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             case 'afterHoursButton-btnIconEl':
                 vm.set('active_widget', Ngcp.csc.locales.callforward.after_hours[localStorage.getItem('languageSelected')]);
                 vm.set('after_hours', false);
+                me.lookupReference('cf-after-widget').expand();
                 break;
             case 'companyHoursButton-btnIconEl':
                 vm.set('active_widget', Ngcp.csc.locales.callforward.company_hours[localStorage.getItem('languageSelected')]);
                 vm.set('company_hours', false);
+                me.lookupReference('cf-company-widget').expand();
                 break;
             case 'listAButton-btnIconEl':
                 vm.set('active_widget', Ngcp.csc.locales.callforward.list_a[localStorage.getItem('languageSelected')]);
                 vm.set('list_a', false);
+                me.lookupReference('cf-list-a-widget').expand();
                 break;
             case 'listBButton-btnIconEl':
                 vm.set('active_widget', Ngcp.csc.locales.callforward.list_b[localStorage.getItem('languageSelected')]);
                 vm.set('list_b', false);
+                me.lookupReference('cf-list-b-widget').expand();
                 break;
         };
     },
