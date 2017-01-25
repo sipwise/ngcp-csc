@@ -20,67 +20,70 @@ Ext.define('NgcpCsc.view.pages.addressbook.Addressbook', {
             _searchTerm: true
         }, {
             xtype: 'core-container',
-            reference: 'contactForm',
-            defaults: {
-                xtype: 'textfield',
-                width: '95%'
-            },
             items: [{
-                focusable: true,
-                fieldLabel: Ngcp.csc.locales.addressbook.first_name[localStorage.getItem('languageSelected')],
-                id: 'contactFirstName',
-                bind: '{selection.firstname}',
-                allowBlank: false,
-                blankText: Ngcp.csc.locales.common.no_empty_value[localStorage.getItem('languageSelected')],
-                listeners: {
-                    change: 'capitalize'
-                }
-            }, {
-                fieldLabel: Ngcp.csc.locales.addressbook.last_name[localStorage.getItem('languageSelected')],
-                bind: '{selection.lastname}',
-                blankText: Ngcp.csc.locales.common.no_empty_value[localStorage.getItem('languageSelected')],
-                allowBlank: false,
-                listeners: {
-                    change: 'capitalize'
-                }
-            }, {
-                fieldLabel: Ngcp.csc.locales.addressbook.company[localStorage.getItem('languageSelected')],
-                bind: '{selection.company}'
-            }, {
-                fieldLabel: Ngcp.csc.locales.addressbook.home[localStorage.getItem('languageSelected')],
-                bind: '{selection.home}'
-            }, {
-                fieldLabel: Ngcp.csc.locales.addressbook.office[localStorage.getItem('languageSelected')],
-                bind: '{selection.office}'
-            }, {
-                fieldLabel: Ngcp.csc.locales.addressbook.mobile[localStorage.getItem('languageSelected')],
-                bind: '{selection.mobile}'
-            }, {
-                fieldLabel: Ngcp.csc.locales.addressbook.fax[localStorage.getItem('languageSelected')],
-                bind: '{selection.fax}'
-            }, {
-                fieldLabel: Ngcp.csc.locales.addressbook.e_mail[localStorage.getItem('languageSelected')],
-                bind: '{selection.e_mail}'
-            }, {
-                fieldLabel: Ngcp.csc.locales.addressbook.homepage[localStorage.getItem('languageSelected')],
-                bind: '{selection.homepage}'
-            }, {
-                layout: 'hbox',
-                xtype: 'container',
+                xtype: 'form',
+                reference: 'contactForm',
                 defaults: {
-                    xtype: 'button',
-                    flex: 1,
-                    bind: {
-                        hidden: '{!selection}'
-                    }
+                    xtype: 'textfield',
+                    width: '95%'
                 },
                 items: [{
-                    text: Ngcp.csc.locales.common.reset[localStorage.getItem('languageSelected')],
-                    margin: '0 5 0 0',
-                    handler: 'resetChanges'
+                    focusable: true,
+                    fieldLabel: Ngcp.csc.locales.addressbook.first_name[localStorage.getItem('languageSelected')],
+                    id: 'contactFirstName',
+                    bind: '{selection.firstname}',
+                    allowBlank: false,
+                    blankText: Ngcp.csc.locales.common.no_empty_value[localStorage.getItem('languageSelected')],
+                    listeners: {
+                        change: 'capitalize'
+                    }
                 }, {
-                    text: Ngcp.csc.locales.common.save[localStorage.getItem('languageSelected')],
-                    handler: 'saveChanges'
+                    fieldLabel: Ngcp.csc.locales.addressbook.last_name[localStorage.getItem('languageSelected')],
+                    bind: '{selection.lastname}',
+                    blankText: Ngcp.csc.locales.common.no_empty_value[localStorage.getItem('languageSelected')],
+                    allowBlank: false,
+                    listeners: {
+                        change: 'capitalize'
+                    }
+                }, {
+                    fieldLabel: Ngcp.csc.locales.addressbook.company[localStorage.getItem('languageSelected')],
+                    bind: '{selection.company}'
+                }, {
+                    fieldLabel: Ngcp.csc.locales.addressbook.home[localStorage.getItem('languageSelected')],
+                    bind: '{selection.home}'
+                }, {
+                    fieldLabel: Ngcp.csc.locales.addressbook.office[localStorage.getItem('languageSelected')],
+                    bind: '{selection.office}'
+                }, {
+                    fieldLabel: Ngcp.csc.locales.addressbook.mobile[localStorage.getItem('languageSelected')],
+                    bind: '{selection.mobile}'
+                }, {
+                    fieldLabel: Ngcp.csc.locales.addressbook.fax[localStorage.getItem('languageSelected')],
+                    bind: '{selection.fax}'
+                }, {
+                    fieldLabel: Ngcp.csc.locales.addressbook.e_mail[localStorage.getItem('languageSelected')],
+                    bind: '{selection.e_mail}'
+                }, {
+                    fieldLabel: Ngcp.csc.locales.addressbook.homepage[localStorage.getItem('languageSelected')],
+                    bind: '{selection.homepage}'
+                }, {
+                    layout: 'hbox',
+                    xtype: 'container',
+                    defaults: {
+                        xtype: 'button',
+                        flex: 1,
+                        bind: {
+                            hidden: '{!selection}'
+                        }
+                    },
+                    items: [{
+                        text: Ngcp.csc.locales.common.reset[localStorage.getItem('languageSelected')],
+                        margin: '0 5 0 0',
+                        handler: 'resetChanges'
+                    }, {
+                        text: Ngcp.csc.locales.common.save[localStorage.getItem('languageSelected')],
+                        handler: 'saveChanges'
+                    }]
                 }]
             }],
             bind: {
