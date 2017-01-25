@@ -84,20 +84,6 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Welcome to your personal desktop.',
                 sp: 'Welcome to your personal desktop.'
             },
-            account_balance: {
-                en: 'ACCOUNT BALANCE',
-                it: 'ACCOUNT BALANCE',
-                de: 'ACCOUNT BALANCE',
-                fr: 'ACCOUNT BALANCE',
-                sp: 'ACCOUNT BALANCE'
-            },
-            clients: {
-                en: 'CLIENTS',
-                it: 'CLIENTS',
-                de: 'CLIENTS',
-                fr: 'CLIENTS',
-                sp: 'CLIENTS'
-            },
             clients_label: {
                 en: 'client devices registered',
                 it: 'client devices registered',
@@ -119,19 +105,19 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'CALL FORWARDS',
                 sp: 'CALL FORWARDS'
             },
-            all_voicemails: {
-                en: 'all voicemails',
-                it: 'all voicemails',
-                de: 'all voicemails',
-                fr: 'all voicemails',
-                sp: 'all voicemails'
+            seats: {
+                en: 'Seats',
+                it: 'Seats',
+                de: 'Seats',
+                fr: 'Seats',
+                sp: 'Seats'
             },
-            reminder: {
-                en: 'view settings',
-                it: 'view settings',
-                de: 'view settings',
-                fr: 'view settings',
-                sp: 'view settings'
+            devices: {
+                en: 'Devices',
+                it: 'Devices',
+                de: 'Devices',
+                fr: 'Devices',
+                sp: 'Devices'
             }
         },
         calls: {
@@ -185,6 +171,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'all calls',
                 fr: 'all calls',
                 sp: 'all calls'
+            },
+            pages: {
+                en: 'pages',
+                it: 'pages',
+                de: 'pages',
+                fr: 'pages',
+                sp: 'pages'
             }
         },
         callbarring: {
@@ -630,13 +623,6 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'pbx image',
                 sp: 'pbx image'
             },
-            groups: {
-                en: 'groups',
-                it: 'groups',
-                de: 'groups',
-                fr: 'groups',
-                sp: 'groups'
-            },
             mac: {
                 en: 'mac address',
                 it: 'mac address',
@@ -694,78 +680,41 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'disabled'
             }
         },
-        voicemails: {
+        settings: {
             title: {
-                en: 'Your voicemail recordings.',
-                it: 'Your voicemail recordings.',
-                de: 'Your voicemail recordings.',
-                fr: 'Your voicemail recordings.',
-                sp: 'Your voicemail recordings.'
+                en: 'Settings',
+                it: 'Settings',
+                de: 'Settings',
+                fr: 'Settings',
+                sp: 'Settings'
             },
-            subtitle: {
-                en: 'RECEIVED VOICEMAILS',
-                it: 'RECEIVED VOICEMAILS',
-                de: 'RECEIVED VOICEMAILS',
-                fr: 'RECEIVED VOICEMAILS',
-                sp: 'RECEIVED VOICEMAILS'
+            description: {
+                en: 'Send notification of new messages to the following e-mail adddress',
+                it: 'Send notification of new messages to the following e-mail adddress',
+                de: 'Send notification of new messages to the following e-mail adddress',
+                fr: 'Send notification of new messages to the following e-mail adddress',
+                sp: 'Send notification of new messages to the following e-mail adddress'
             },
-            user_label: {
-                en: 'Voicemails for ',
-                it: 'Voicemails for ',
-                de: 'Voicemails for ',
-                fr: 'Voicemails for ',
-                sp: 'Voicemails for'
+            attach_recording: {
+                en: 'attach recording',
+                it: 'attach recording',
+                de: 'attach recording',
+                fr: 'attach recording',
+                sp: 'attach recording'
             },
-            by_months: {
-                en: 'VOICEMAILS BY MONTH',
-                it: 'VOICEMAILS BY MONTH',
-                de: 'VOICEMAILS BY MONTH',
-                fr: 'VOICEMAILS BY MONTH',
-                sp: 'VOICEMAILS BY MONTH'
+            pin: {
+                en: 'PIN code',
+                it: 'PIN code',
+                de: 'PIN code',
+                fr: 'PIN code',
+                sp: 'PIN code'
             },
-            settings: {
-                title: {
-                    en: 'Settings',
-                    it: 'Settings',
-                    de: 'Settings',
-                    fr: 'Settings',
-                    sp: 'Settings'
-                },
-                description: {
-                    en: 'Send notification of new messages to the following e-mail adddress',
-                    it: 'Send notification of new messages to the following e-mail adddress',
-                    de: 'Send notification of new messages to the following e-mail adddress',
-                    fr: 'Send notification of new messages to the following e-mail adddress',
-                    sp: 'Send notification of new messages to the following e-mail adddress'
-                },
-                attach_recording: {
-                    en: 'attach recording',
-                    it: 'attach recording',
-                    de: 'attach recording',
-                    fr: 'attach recording',
-                    sp: 'attach recording'
-                },
-                pin: {
-                    en: 'PIN code',
-                    it: 'PIN code',
-                    de: 'PIN code',
-                    fr: 'PIN code',
-                    sp: 'PIN code'
-                },
-                pin_instructions: {
-                    en: 'With your 4-digit PIN you may query your voicebox from any telephone.',
-                    it: 'With your 4-digit PIN you may query your voicebox from any telephone.',
-                    de: 'With your 4-digit PIN you may query your voicebox from any telephone.',
-                    fr: 'With your 4-digit PIN you may query your voicebox from any telephone.',
-                    sp: 'With your 4-digit PIN you may query your voicebox from any telephone.'
-                },
-                save: {
-                    en: 'save settings',
-                    it: 'save settings',
-                    de: 'save settings',
-                    fr: 'save settings',
-                    sp: 'save settings'
-                }
+            pin_instructions: {
+                en: 'With your 4-digit PIN you may query your voicebox from any telephone.',
+                it: 'With your 4-digit PIN you may query your voicebox from any telephone.',
+                de: 'With your 4-digit PIN you may query your voicebox from any telephone.',
+                fr: 'With your 4-digit PIN you may query your voicebox from any telephone.',
+                sp: 'With your 4-digit PIN you may query your voicebox from any telephone.'
             }
         },
         chat: {
@@ -1056,73 +1005,6 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Webrtc',
                 fr: 'Webrtc',
                 sp: 'Webrtc'
-            }
-        },
-        faxspool: {
-            title: {
-                en: 'Your faxes.',
-                it: 'Your faxes.',
-                de: 'Your faxes.',
-                fr: 'Your faxes.',
-                sp: 'Your faxes.'
-            },
-            subtitle: {
-                en: 'FAX SPOOL',
-                it: 'FAX SPOOL',
-                de: 'FAX SPOOL',
-                fr: 'FAX SPOOL',
-                sp: 'FAX SPOOL'
-            },
-            user_label: {
-                en: 'Faxes for ',
-                it: 'Faxes for ',
-                de: 'Faxes for ',
-                fr: 'Faxes for ',
-                sp: 'Faxes for '
-            },
-            columns: {
-                number: {
-                    en: '#',
-                    it: '#',
-                    de: '#',
-                    fr: '#',
-                    sp: '#'
-                },
-                timestamp: {
-                    en: 'timestamp',
-                    it: 'timestamp',
-                    de: 'timestamp',
-                    fr: 'timestamp',
-                    sp: 'timestamp'
-                },
-                status: {
-                    en: 'status',
-                    it: 'status',
-                    de: 'status',
-                    fr: 'status',
-                    sp: 'status'
-                },
-                direction: {
-                    en: 'direction',
-                    it: 'direction',
-                    de: 'direction',
-                    fr: 'direction',
-                    sp: 'direction'
-                },
-                callee: {
-                    en: 'callee',
-                    it: 'callee',
-                    de: 'callee',
-                    fr: 'callee',
-                    sp: 'callee'
-                },
-                pages: {
-                    en: 'pages',
-                    it: 'pages',
-                    de: 'pages',
-                    fr: 'pages',
-                    sp: 'pages'
-                }
             }
         },
         faxsend: {
@@ -1703,6 +1585,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'done',
                 fr: 'done',
                 sp: 'done'
+            },
+            groups: {
+                en: 'Groups',
+                it: 'Groups',
+                de: 'Groups',
+                fr: 'Groups',
+                sp: 'Groups'
             }
         }
     }

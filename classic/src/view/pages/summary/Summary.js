@@ -22,7 +22,7 @@ Ext.define('NgcpCsc.view.pages.summary.Summary', {
         }]
     },
     items: [{
-        title: 'Seats',
+        title: Ngcp.csc.locales.summary.seats[localStorage.getItem('languageSelected')],
         xtype: 'summary-pie',
         name:'seats',
         store: {
@@ -37,7 +37,7 @@ Ext.define('NgcpCsc.view.pages.summary.Summary', {
             }
         }
     }, {
-        title: 'Groups',
+        title: Ngcp.csc.locales.common.groups[localStorage.getItem('languageSelected')].toLowerCase(),
         xtype: 'summary-pie',
         name:'groups',
         store: {
@@ -52,7 +52,7 @@ Ext.define('NgcpCsc.view.pages.summary.Summary', {
             }
         }
     }, {
-        title: 'Devices',
+        title: Ngcp.csc.locales.summary.devices[localStorage.getItem('languageSelected')],
         xtype: 'summary-pie',
         name:'devices',
         store: {

@@ -113,7 +113,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 labelAlign: 'top',
                 bind: '{filtergrid.groups}',
                 hidden: !this._pbxconfigSeats,
-                fieldLabel: Ngcp.csc.locales.filters.groups[localStorage.getItem('languageSelected')]
+                fieldLabel: Ngcp.csc.locales.common.groups[localStorage.getItem('languageSelected')].toLowerCase()
             }, {
                 xtype: 'textfield',
                 labelAlign: 'top',
