@@ -19,4 +19,5 @@ Ext.define('NgcpCsc.view.pages.summary.SummaryController', {
         var assignedSlots = store.findRecord("name", 'Assigned');
         tooltip.setHtml(record.get('name') + ': ' + record.get('data') + ' of ' + (freeSlots.get('data') + assignedSlots.get('data')));
     }
+
 });

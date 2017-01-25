@@ -17,10 +17,10 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             acl: ['administrator', 'restricted', 'host'], //TODO define real roles, which should be delivered along with user info after successfull login
             leaf: true
         }, {
-            text: 'Calls',
+            text: 'Unified inbox',
             iconCls: 'x-fa fa-phone',
             viewType: 'calls',
-            routeId: 'callist',
+            routeId: 'inbox',
             acl: ['administrator', 'restricted'],
             leaf: true
         }, {

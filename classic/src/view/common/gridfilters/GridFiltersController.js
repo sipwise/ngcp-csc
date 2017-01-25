@@ -163,5 +163,10 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         vm.set('filtergrid.disabled', true);
         vm.set('filtergrid.device', '');
         vm.set('filtergrid.mac', '');
+    },
+
+    renderGroupsFilterText: function(value, metaData) {
+        return Ngcp.csc.locales.common.groups[localStorage.getItem('languageSelected')].toLowerCase();
     }
+
 });

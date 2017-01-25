@@ -71,7 +71,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsController', {
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
         this.toggleNewSeatBtn(true);
         form.hide();
-    }
+    },
 
+    renderSeatsText: function(value, metaData) {
+        return Ngcp.csc.locales.common.groups[localStorage.getItem('languageSelected')].toLowerCase();
+    }
 
 });
