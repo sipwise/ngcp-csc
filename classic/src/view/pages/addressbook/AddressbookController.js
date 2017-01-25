@@ -11,6 +11,11 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookController', {
         }
     },
 
+    onIconClicked: function(event, el) {
+        // eval is never the best option
+        Ext.Function.defer(eval('this.' + el.dataset.callback), 1, this, [el.id]);
+    },
+
     resetChanges: function() {
         var grid = this.lookupReference('addressBookGrid');
         var store = Ext.getStore('Addressbook');
@@ -52,9 +57,9 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookController', {
         return Ngcp.csc.locales.addressbook.company[localStorage.getItem('languageSelected')].toLowerCase();
     },
 
-    removeContact: function(grid, rowIndex, colIndex) {
-        var store = grid.getStore();
-        var rec = grid.getStore().getAt(rowIndex);
+    removeContact: function(id) {
+        var store = Ext.getStore('Addressbook');
+        var rec = store.findRecord('id', id);
         store.remove(rec);
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
     },

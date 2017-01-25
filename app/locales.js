@@ -853,11 +853,11 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'web'
             },
             new_contact: {
-                en: 'Create new contact',
-                it: 'Create new contact',
-                de: 'Create new contact',
-                fr: 'Create new contact',
-                sp: 'Create new contact'
+                en: 'ADD NEW CONTACT',
+                it: 'ADD NEW CONTACT',
+                de: 'ADD NEW CONTACT',
+                fr: 'ADD NEW CONTACT',
+                sp: 'ADD NEW CONTACT'
             },
             firstname: {
                 en: 'firstname',

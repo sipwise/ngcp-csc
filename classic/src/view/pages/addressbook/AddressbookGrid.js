@@ -11,54 +11,53 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookGrid', {
 
     listeners: {
         afterrender: 'onGridRendered',
-        cellclick: 'onCellClicked'
-    },
-
-    tbar: [{
-            xtype: 'label',
-            text: Ngcp.csc.locales.common.order_by[localStorage.getItem('languageSelected')]
-        }, {
-            xtype: 'container',
-            id: 'group-firstname',
-            padding: '0 10 0 0',
-            html: Ngcp.csc.locales.addressbook.firstname[localStorage.getItem('languageSelected')],
-            cls: 'link',
-            listeners: {
-                click: {
-                    element: 'el',
-                    fn: 'changeGroupField'
-                }
-            }
-        }, {
-            xtype: 'container',
-            id: 'group-lastname',
-            padding: '0 10 0 0',
-            html: Ngcp.csc.locales.addressbook.lastname[localStorage.getItem('languageSelected')],
-            cls: 'link no-underline',
-            listeners: {
-                click: {
-                    element: 'el',
-                    fn: 'changeGroupField'
-                }
-            }
-        }, {
-            xtype: 'container',
-            id: 'group-company',
-            padding: '0 10 0 0',
-            renderer: 'renderCompanyGroupText',
-            cls: 'link no-underline',
-            listeners: {
-                click: {
-                    element: 'el',
-                    fn: 'changeGroupField'
-                }
-            }
-        },
-        '->', {
-            text: Ngcp.csc.locales.addressbook.new_contact[localStorage.getItem('languageSelected')],
-            handler: 'createNewContact'
+        cellclick: 'onCellClicked',
+        click: {
+            fn: 'onIconClicked',
+            element: 'el',
+            delegate: 'div.card-icon'
         }
-    ],
+    },
+    tbar: [{
+        xtype: 'label',
+        text: Ngcp.csc.locales.common.order_by[localStorage.getItem('languageSelected')]
+    }, {
+        xtype: 'container',
+        id: 'group-firstname',
+        padding: '0 10 0 0',
+        html: Ngcp.csc.locales.addressbook.firstname[localStorage.getItem('languageSelected')],
+        cls: 'link',
+        listeners: {
+            click: {
+                element: 'el',
+                fn: 'changeGroupField'
+            }
+        }
+    }, {
+        xtype: 'container',
+        id: 'group-lastname',
+        padding: '0 10 0 0',
+        html: Ngcp.csc.locales.addressbook.lastname[localStorage.getItem('languageSelected')],
+        cls: 'link no-underline',
+        listeners: {
+            click: {
+                element: 'el',
+                fn: 'changeGroupField'
+            }
+        }
+    }, {
+        xtype: 'container',
+        id: 'group-company',
+        padding: '0 10 0 0',
+        renderer: 'renderCompanyGroupText',
+        cls: 'link no-underline',
+        listeners: {
+            click: {
+                element: 'el',
+                fn: 'changeGroupField'
+            }
+        }
+    }],
     columns: {
         defaults: {
             menuDisabled: true,
@@ -81,15 +80,6 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookGrid', {
         }, {
             flex: 1,
             dataIndex: 'mobile'
-        }, {
-            xtype: 'actioncolumn',
-            width: 30,
-            align: 'right',
-            items: [{
-                glyph: 'xf00d@FontAwesome',
-                tooltip: Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')],
-                handler: 'removeContact'
-            }]
         }]
     },
 
@@ -113,6 +103,11 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookGrid', {
             '<div class="content"><b>' + Ngcp.csc.locales.addressbook.web[localStorage.getItem('languageSelected')] + '</b>',
             '<p><div class="label">' + Ngcp.csc.locales.addressbook.e_mail[localStorage.getItem('languageSelected')] + ':</div><div> <a class="link" href="mailto:{e_mail}">{e_mail}</a></div></p>',
             '<p><div class="label">' + Ngcp.csc.locales.addressbook.homepage[localStorage.getItem('languageSelected')] + ':</div><div> <a target="_blank" class="link" href="{homepage}">{homepage}</a></div></p>',
+            '</div>',
+            '<div class="card-wrapper">',
+            '<div class="card-icon-row">',
+            '<div id="{id}" class="card-icon" data-callback="removeContact"><i class="fa fa-trash green-icon fa-2x pointer" aria-hidden="true"></i></div>',
+            '</div>',
             '</div>',
             '</div>')
     }]

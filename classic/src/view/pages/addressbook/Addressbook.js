@@ -90,7 +90,7 @@ Ext.define('NgcpCsc.view.pages.addressbook.Addressbook', {
                 hidden: '{!selection}'
             }
         }]
-    },{
+    }, {
         userCls: 'big-70 small-100',
         xtype: 'core-container',
         items: [{
@@ -102,6 +102,15 @@ Ext.define('NgcpCsc.view.pages.addressbook.Addressbook', {
             html: Ext.String.format('<div class="addressbook-heading">{0} {1}</div>', Ngcp.csc.locales.addressbook.user_label[localStorage.getItem('languageSelected')], localStorage.getItem('username'))
         }, {
             xtype: 'addressbook-grid'
+        }, {
+            margin: 10,
+            xtype: 'button',
+            reference: 'addNewBtn',
+            text: Ngcp.csc.locales.addressbook.new_contact[localStorage.getItem('languageSelected')],
+            handler: 'createNewContact',
+            bind: {
+                disabled: '{selection}'
+            }
         }]
     }]
 });
