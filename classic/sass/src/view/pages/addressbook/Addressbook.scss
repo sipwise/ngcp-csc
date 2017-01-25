@@ -1,5 +1,15 @@
 // custom rules
-
 .addressbook-heading {
     font-size: 24px;
+}
+.short-label{
+    float: left;
+    margin-right: 10px;
+}
+.contact-wrapper{
+    margin:15px;
+    .content{
+        width: 50%;
+        float: left;
+    }
 }
