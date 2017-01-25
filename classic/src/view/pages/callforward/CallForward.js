@@ -79,6 +79,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
                 _isNested: true
             }, {
                 xtype: 'core-container',
+                reference: 'cf-after-widget',
                 bind: {
                     title: '{active_widget}',
                     hidden: '{after_hours}'

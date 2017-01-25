@@ -25,7 +25,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsController', {
     },
 
     editSeat: function(id) {
-        var form = this.lookupReference('add-new-seat');
+        var form = this.lookupReference('add-new-seat'); // widget form
         var grid = this.getView().down('seats-grid');
         var store = Ext.getStore('Seats');
         var selectedRow = store.findRecord('id', id);

@@ -60,6 +60,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     changeWidget: function (target, vm) {
+        var form = this.lookupReference('cf-after-widget');
         vm.set('after_hours', true);
         vm.set('company_hours', true);
         vm.set('list_a', true);
@@ -68,6 +69,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             case 'afterHoursButton-btnIconEl':
                 vm.set('active_widget', Ngcp.csc.locales.callforward.after_hours[localStorage.getItem('languageSelected')]);
                 vm.set('after_hours', false);
+                form.show(); // Should show the widget expanded. Shows for a millisecond, and then collapses
                 break;
             case 'companyHoursButton-btnIconEl':
                 vm.set('active_widget', Ngcp.csc.locales.callforward.company_hours[localStorage.getItem('languageSelected')]);
