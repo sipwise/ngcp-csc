@@ -119,20 +119,6 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             acl: ['administrator', 'restricted', 'host'],
             leaf: true
         }, {
-            text: 'Device provisioning',
-            iconCls: 'x-fa fa-fax',
-            viewType: 'deviceprovisioning',
-            routeId: 'deviceprovisioning',
-            acl: ['administrator', 'restricted', 'host'],
-            leaf: true
-        }, {
-            text: 'Hunt group',
-            iconCls: 'x-fa fa-users',
-            viewType: 'huntgroup',
-            routeId: 'huntgroup',
-            acl: ['administrator', 'restricted', 'host'],
-            leaf: true
-        }, {
             text: 'Pbx extension',
             iconCls: 'x-fa fa-sign-out',
             viewType: 'pbxextension',
