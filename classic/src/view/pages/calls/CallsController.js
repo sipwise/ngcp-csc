@@ -42,7 +42,6 @@ Ext.define('NgcpCsc.view.pages.calls.CallsController', {
         return '<div class="voicemails-h2">' + val + '</div>';
     },
 
-
     removeCard: function(el) {
         var store = Ext.getStore('Calls');
         var rec = store.findRecord('id', el.id);

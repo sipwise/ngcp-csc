@@ -178,6 +178,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'pages',
                 fr: 'pages',
                 sp: 'pages'
+            },
+            folder: {
+                en: 'folder',
+                it: 'folder',
+                de: 'folder',
+                fr: 'folder',
+                sp: 'folder'
             }
         },
         callbarring: {
