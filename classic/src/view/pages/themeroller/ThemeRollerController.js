@@ -7,15 +7,15 @@ Ext.define('NgcpCsc.view.pages.themeroller.ThemeRollerController', {
         var vm = this.getViewModel();
         // defer is needded becuse binding is slower than change listener callback
         Ext.Function.defer(function() {
-            Fashion.css.setVariables({
-                'base-color': '#' + vm.get('basecolor'),
-                'color': '#' + vm.get('fontcolor'),
-                'body-background-color': '#' + vm.get('bodybgcolor'),
-                'font-family': vm.get('fontfamily'),
-                'font-weight': vm.get('fontweight'),
-                'font-size': vm.get('fontsize') + 'px',
-                'form-field-font-size': vm.get('fontsize') + 'px'
-            });
+            // Fashion.css.setVariables({
+            //     'base-color': '#' + vm.get('basecolor'),
+            //     'color': '#' + vm.get('fontcolor'),
+            //     'body-background-color': '#' + vm.get('bodybgcolor'),
+            //     'font-family': vm.get('fontfamily'),
+            //     'font-weight': vm.get('fontweight'),
+            //     'font-size': vm.get('fontsize') + 'px',
+            //     'form-field-font-size': vm.get('fontsize') + 'px'
+            // });
             this.getView().updateLayout()
         }, 300, this);
     },
