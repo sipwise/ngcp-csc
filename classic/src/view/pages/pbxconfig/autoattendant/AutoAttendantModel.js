@@ -1,4 +1,4 @@
-Ext.define('NgcpCsc.view.pages.autoattendant.AutoAttendantModel', {
+Ext.define('NgcpCsc.view.pages.pbxconfig.autoattendant.AutoAttendantModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.autoattendant',
 
