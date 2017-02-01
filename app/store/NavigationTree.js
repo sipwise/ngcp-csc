@@ -10,7 +10,7 @@ Ext.define('NgcpCsc.store.NavigationTree', {
     root: {
         expanded: true,
         children: [{
-            text: 'Unified inbox',
+            text: 'Unified Inbox',
             iconCls: 'x-fa fa-phone',
             viewType: 'calls',
             routeId: 'inbox',
@@ -31,24 +31,17 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             acl: ['administrator'],
             leaf: true
         }, {
-            text: 'Call forward',
-            iconCls: 'x-fa fa-mail-forward',
+            text: 'Call Forward',
+            iconCls: 'x-fa fa-angle-double-right',
             viewType: 'callforward',
             routeId: 'callforward',
             acl: ['administrator'],
             leaf: true
         }, {
-            text: 'Call barring',
+            text: 'Call Barring',
             iconCls: 'x-fa fa-ban',
             routeId: 'callblock',
             viewType: 'callbarring',
-            acl: ['administrator'],
-            leaf: true
-        }, {
-            text: 'Fax Send',
-            iconCls: 'x-fa fa-file-text',
-            viewType: 'faxsend',
-            routeId: 'faxsend',
             acl: ['administrator'],
             leaf: true
         }, {
@@ -66,7 +59,7 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             acl: ['administrator', 'restricted', 'host'],
             leaf: true
         }, {
-            text: 'Theme roller',
+            text: 'Theme Roller',
             iconCls: 'x-fa fa-paint-brush',
             viewType: 'themeroller',
             routeId: 'themeroller',
@@ -100,22 +93,15 @@ Ext.define('NgcpCsc.store.NavigationTree', {
                 routeId: 'pbxconfig/devices',
                 acl: ['administrator'],
                 leaf: true
+            }, {
+                text: 'Auto Attendant',
+                iconCls: 'x-fa fa-microphone',
+                viewType: 'autoattendant',
+                routeId: 'pbxconfig/autoattendant',
+                acl: ['administrator', 'restricted', 'host'],
+                leaf: true
             }
         ]
-        }, {
-            text: 'Auto attendant',
-            iconCls: 'x-fa fa-microphone',
-            viewType: 'autoattendant',
-            routeId: 'autoattendant',
-            acl: ['administrator', 'restricted', 'host'],
-            leaf: true
-        }, {
-            text: 'Pbx extension',
-            iconCls: 'x-fa fa-sign-out',
-            viewType: 'pbxextension',
-            routeId: 'pbxextension',
-            acl: ['administrator', 'restricted', 'host'],
-            leaf: true
         }, {
             text: 'Account',
             iconCls: 'x-fa fa-desktop',
