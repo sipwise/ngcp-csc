@@ -96,6 +96,12 @@
     }
 }
 
+.big-820 {
+    width: 820px;
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
+
 .big-100 {
     @include responsivecolumn-item(100%);
 }
