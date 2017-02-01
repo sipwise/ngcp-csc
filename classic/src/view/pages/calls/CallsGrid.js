@@ -50,7 +50,7 @@ Ext.define('NgcpCsc.view.pages.calls.CallsGrid', {
             ptype: 'rowexpander',
             id: 'rowexpander',
             selectRowOnExpand: false,
-            expandOnDblClick: true,
+            expandOnDblClick: false,
             rowBodyTpl: new Ext.XTemplate(
                 '<tpl switch="values.call_type">',
                 '<tpl case="call">', // call tpl

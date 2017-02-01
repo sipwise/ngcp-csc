@@ -1,7 +1,20 @@
-@include extjs-panel-ui( $ui: 'core-grid-cards' );
+@include extjs-panel-ui(
+    $ui: 'core-grid-cards'
+);
 
+$row-expander-expand-glyph : '';
+$row-expander-collapse-glyph: '';
+$grid-row-cell-focus-border-color: '#fff';
+
+.x-grid-cell-special{
+    border-right-width: 0px;
+}
 .x-panel-core-grid-cards {
     margin: 10px;
+
+    .x-grid-row td {
+        cursor: pointer;
+    }
 
     .x-grid-item {
         table-layout: auto;
