@@ -76,7 +76,7 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Logged in as '
             }
         },
-        summary: {
+        account: {
             title: {
                 en: 'Welcome to your personal desktop.',
                 it: 'Welcome to your personal desktop.',
@@ -294,7 +294,7 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'To block anonymous calls you may just submit the empty string.'
             }
         },
-        account: {
+        password: {
             title: {
                 en: 'Your personal settings.',
                 it: 'Your personal settings.',

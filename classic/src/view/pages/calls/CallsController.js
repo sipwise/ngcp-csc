@@ -1,5 +1,5 @@
 Ext.define('NgcpCsc.view.pages.calls.CallsController', {
-    extend: 'NgcpCsc.view.pages.summary.SummaryController',
+    extend: 'NgcpCsc.view.pages.account.AccountController',
 
     alias: 'controller.calls',
 

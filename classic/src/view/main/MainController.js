@@ -29,7 +29,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
             navigationList = refs.navigationTreeList,
             store = navigationList.getStore(),
             node = store.findNode('routeId', hashTag) ||
-            store.findNode('viewType', hashTag) || 'desktop',
+            store.findNode('viewType', hashTag) || 'inbox',
             view = (node && node.get('viewType')),
             lastView = me.lastView,
             existingItem = mainCard.child('component[routeId=' + hashTag + ']'),
@@ -155,7 +155,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
 
     onMainViewRender: function() {
         if (!window.location.hash) {
-            this.redirectTo("desktop");
+            this.redirectTo("inbox");
         }
     },
 

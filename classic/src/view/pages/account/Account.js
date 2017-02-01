@@ -3,47 +3,68 @@ Ext.define('NgcpCsc.view.pages.account.Account', {
 
     xtype: 'account',
 
-    controller: 'account',
-
     viewModel: 'account',
+
+    controller: 'account',
 
     title: Ngcp.csc.locales.account.title[localStorage.getItem('languageSelected')],
 
-    initComponent: function() {
-        this.items = [{
-            layout: 'responsivecolumn',
-            xtype:'core-container',
-            items: [{
-                    padding: '0 0 5 0',
-                    html: Ngcp.csc.locales.common.password[localStorage.getItem('languageSelected')].toUpperCase()
-                }, {
-                    padding: '0 0 5 0',
-                    html: Ngcp.csc.locales.account.password_instructions[localStorage.getItem('languageSelected')]
-                }, {
-                    userCls: 'big-66 small-100',
-                    items:[{
-                        xtype: 'accountform'
-                    },
-                    {
-                        layout: 'hbox',
-                        margin: '20 0 0 0',
-                        defaults: {
-                            xtype: 'button',
-                            flex: 1
-                        },
-                        items: [{
-                            text: Ngcp.csc.locales.account.change_password[localStorage.getItem('languageSelected')].toLowerCase(),
-                            margin: '0 5 0 0',
-                            handler: 'submitForm'
-                        }, {
-                            text: Ngcp.csc.locales.common.reset_form[localStorage.getItem('languageSelected')].toLowerCase(),
-                            handler: 'resetForm'
-                        }]
-                    }]
-                }
-            ]
-        }];
-        this.callParent();
-    }
+    layout: 'responsivecolumn',
 
+    defaults: {
+        ui: 'core-container',
+        margin: 10,
+        userCls: 'big-33 small-100',
+        bbar: [{
+            text: 'Configure',
+            handler: 'onConfigure',
+            margin: 20
+        }]
+    },
+    items: [{
+        title: Ngcp.csc.locales.account.seats[localStorage.getItem('languageSelected')],
+        xtype: 'account-pie',
+        name: 'seats',
+        store: {
+            type: 'Chart',
+            proxy: {
+                type: 'ajax',
+                url: '/resources/data/charts/seats.json',
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data'
+                }
+            }
+        }
+    }, {
+        title: Ngcp.csc.locales.common.groups[localStorage.getItem('languageSelected')],
+        xtype: 'account-pie',
+        name: 'groups',
+        store: {
+            type: 'Chart',
+            proxy: {
+                type: 'ajax',
+                url: '/resources/data/charts/groups.json',
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data'
+                }
+            }
+        }
+    }, {
+        title: Ngcp.csc.locales.account.devices[localStorage.getItem('languageSelected')],
+        xtype: 'account-pie',
+        name: 'devices',
+        store: {
+            type: 'Chart',
+            proxy: {
+                type: 'ajax',
+                url: '/resources/data/charts/devices.json',
+                reader: {
+                    type: 'json',
+                    rootProperty: 'data'
+                }
+            }
+        }
+    }]
 });

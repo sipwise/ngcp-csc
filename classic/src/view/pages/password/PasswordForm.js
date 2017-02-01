@@ -1,7 +1,7 @@
-Ext.define('NgcpCsc.view.pages.account.AccountForm', {
+Ext.define('NgcpCsc.view.pages.password.PasswordForm', {
     extend: 'Ext.form.Panel',
 
-    xtype: 'accountform',
+    xtype: 'passwordform',
 
     defaults: {
         width: '100%'
@@ -14,7 +14,7 @@ Ext.define('NgcpCsc.view.pages.account.AccountForm', {
     }, {
         xtype: 'textfield',
         inputType: 'password',
-        fieldLabel: Ngcp.csc.locales.account.field_labels.old_password[localStorage.getItem('languageSelected')],
+        fieldLabel: Ngcp.csc.locales.password.field_labels.old_password[localStorage.getItem('languageSelected')],
         name: 'account-old-password',
         bind: '{credentials.old_password}',
         listeners: {
@@ -28,7 +28,7 @@ Ext.define('NgcpCsc.view.pages.account.AccountForm', {
         },
         items: [{
             inputType: 'password',
-            fieldLabel: Ngcp.csc.locales.account.field_labels.new_password[localStorage.getItem('languageSelected')],
+            fieldLabel: Ngcp.csc.locales.password.field_labels.new_password[localStorage.getItem('languageSelected')],
             name: 'account-new-password',
             bind: '{credentials.new_password}',
             listeners: {
@@ -36,7 +36,7 @@ Ext.define('NgcpCsc.view.pages.account.AccountForm', {
             }
         }, {
             inputType: 'password',
-            fieldLabel: Ngcp.csc.locales.account.field_labels.repeat_password[localStorage.getItem('languageSelected')],
+            fieldLabel: Ngcp.csc.locales.password.field_labels.repeat_password[localStorage.getItem('languageSelected')],
             name: 'account-repeat-password',
             bind: '{credentials.repeat_password}',
             listeners: {

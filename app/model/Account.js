@@ -1,4 +1,4 @@
-Ext.define('NgcpCsc.model.Account', {
+Ext.define('NgcpCsc.model.Password', {
     extend: 'Ext.data.Model',
 
     fields: [{
@@ -14,7 +14,7 @@ Ext.define('NgcpCsc.model.Account', {
 
     proxy: {
         type: 'ajax',
-        url: '/resources/data/account.json',
+        url: '/resources/data/password.json',
         autoLoad: true,
         reader: {
             type: 'json',

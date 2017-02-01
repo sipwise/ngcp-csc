@@ -10,18 +10,11 @@ Ext.define('NgcpCsc.store.NavigationTree', {
     root: {
         expanded: true,
         children: [{
-            text: 'Desktop',
-            iconCls: 'x-fa fa-desktop',
-            viewType: 'summary',
-            routeId: 'desktop',
-            acl: ['administrator', 'restricted', 'host'], //TODO define real roles, which should be delivered along with user info after successfull login
-            leaf: true
-        }, {
             text: 'Unified inbox',
             iconCls: 'x-fa fa-phone',
             viewType: 'calls',
             routeId: 'inbox',
-            acl: ['administrator', 'restricted'],
+            acl: ['administrator', 'restricted'], //TODO define real roles, which should be delivered along with user info after successfull login
             leaf: true
         }, {
             text: 'Chat',
@@ -66,10 +59,10 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             acl: ['administrator'],
             leaf: true
         }, {
-            text: 'Account',
-            iconCls: 'x-fa fa-user',
-            viewType: 'account',
-            routeId: 'account',
+            text: 'Password',
+            iconCls: 'x-fa fa-key',
+            viewType: 'password',
+            routeId: 'password',
             acl: ['administrator', 'restricted', 'host'],
             leaf: true
         }, {
@@ -121,6 +114,13 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             iconCls: 'x-fa fa-sign-out',
             viewType: 'pbxextension',
             routeId: 'pbxextension',
+            acl: ['administrator', 'restricted', 'host'],
+            leaf: true
+        }, {
+            text: 'Account',
+            iconCls: 'x-fa fa-desktop',
+            viewType: 'account',
+            routeId: 'account',
             acl: ['administrator', 'restricted', 'host'],
             leaf: true
         }]

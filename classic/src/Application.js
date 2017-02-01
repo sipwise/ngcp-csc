@@ -38,7 +38,7 @@ Ext.define('NgcpCsc.Application', {
     launch: function() {
         // TODO to be replaced with request
         if(localStorage.getItem('remember_me')){
-            window.location.hash = '#desktop';
+            window.location.hash = '#inbox';
             Ext.create({
                 xtype: 'ngcp-main'
             });
