@@ -13,9 +13,11 @@ Ext.define('NgcpCsc.view.pages.calls.CallsGrid', {
     _groupCallsByMonth: false,
 
     listeners: {
-        click: 'onIconClicked',
-        element: 'el',
-        delegate: 'div.card-icon'
+        click: {
+            fn: 'onIconClicked',
+            element: 'el',
+            delegate: 'div.card-icon'
+        }
     },
 
     rowLines: false,
@@ -46,11 +48,12 @@ Ext.define('NgcpCsc.view.pages.calls.CallsGrid', {
     },
 
     initComponent: function() {
+
         this.plugins = [{
             ptype: 'rowexpander',
             id: 'rowexpander',
             selectRowOnExpand: false,
-            expandOnDblClick: true,
+            expandOnDblClick: false,
             rowBodyTpl: new Ext.XTemplate(
                 '<tpl switch="values.call_type">',
                 '<tpl case="call">', // call tpl
