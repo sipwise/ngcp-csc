@@ -7,18 +7,11 @@ Ext.define('NgcpCsc.view.pages.addressbook.Addressbook', {
 
     viewModel: 'addressbook',
 
-    layout: 'responsivecolumn',
-
     title: Ngcp.csc.locales.addressbook.title[localStorage.getItem('languageSelected')],
 
     items: [{
-        userCls: 'big-30 small-100',
+        userCls: Ext.os.is.Desktop ? 'big-30' : 'small-100',
         items: [{
-            xtype: 'gridfilters',
-            padding: 0,
-            _linkedStoreId: 'Addressbook',
-            _searchTerm: true
-        }, {
             xtype: 'core-container',
             items: [{
                 xtype: 'form',
@@ -91,7 +84,7 @@ Ext.define('NgcpCsc.view.pages.addressbook.Addressbook', {
             }
         }]
     }, {
-        userCls: 'big-70 small-100',
+        userCls: Ext.os.is.Desktop ? 'big-820' : 'small-100',
         xtype: 'core-container',
         items: [{
             padding: '0 0 10 20',

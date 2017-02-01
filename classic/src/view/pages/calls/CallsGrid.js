@@ -13,9 +13,11 @@ Ext.define('NgcpCsc.view.pages.calls.CallsGrid', {
     _groupCallsByMonth: false,
 
     listeners: {
-        click: 'onIconClicked',
-        element: 'el',
-        delegate: 'div.card-icon'
+        click: {
+            fn: 'onIconClicked',
+            element: 'el',
+            delegate: 'div.card-icon'
+        }
     },
 
     rowLines: false,
@@ -46,16 +48,17 @@ Ext.define('NgcpCsc.view.pages.calls.CallsGrid', {
     },
 
     initComponent: function() {
+
         this.plugins = [{
             ptype: 'rowexpander',
             id: 'rowexpander',
             selectRowOnExpand: false,
-            expandOnDblClick: true,
+            expandOnDblClick: false,
             rowBodyTpl: new Ext.XTemplate(
                 '<tpl switch="values.call_type">',
                 '<tpl case="call">', // call tpl
                 '<div class="card-wrapper">',
-                '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.common.duration[localStorage.getItem('languageSelected')] + '</b>: {duration}</div>',
+                '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.common.duration[localStorage.getItem('languageSelected')] + '</b><span contenteditable="true">: {duration}</span></div>',
                 '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.calls.charges[localStorage.getItem('languageSelected')] + '</b>: {charges} </div>',
                 '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.common.date[localStorage.getItem('languageSelected')] + '</b>: {[ Ext.util.Format.date(values.start_time, "d.m.Y h:i:s")]} </div>',
                 '<div class="card-icon-row">',

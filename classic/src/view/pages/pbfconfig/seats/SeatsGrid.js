@@ -38,7 +38,7 @@ Ext.define('NgcpCsc.view.pages.seats.SeatsGrid', {
         this.plugins = [{
             ptype: 'rowexpander',
             selectRowOnExpand: false,
-            expandOnDblClick: true,
+            expandOnDblClick: false,
             id:'rowexpander',
             rowBodyTpl: new Ext.XTemplate(
                 '<div class="card-wrapper">',
