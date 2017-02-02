@@ -7,8 +7,6 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.autoattendant.AutoAttendant', {
 
     controller: 'autoattendant',
 
-    title: Ngcp.csc.locales.pbxconfig.autoattendant.title[localStorage.getItem('languageSelected')],
-
     items: [{
         layout: 'responsivecolumn',
         xtype:'core-container',
