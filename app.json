@@ -187,6 +187,9 @@
      *
      */
     "js": [{
+        "path": "libs/libphonenumber-js.min.js",
+        "bundle": true
+    },{
         "path": "initLocalStorage.js",
         "bundle": true
     },{
@@ -281,7 +284,7 @@
             // you can add "?platformTags=fashion:1" to the URL to enable Fashion
             // without changing this file.
             //
-             "fashion"
+            // "fashion"
         ],
         "output": {
             "appCache": {
@@ -316,12 +319,13 @@
      * Settings specific to development builds.
      */
     "development": {
+
         "tags": [
             // You can add this tag to enable Fashion when using app watch or
             // you can add "?platformTags=fashion:1" to the URL to enable Fashion
             // without changing this file.
             //
-             "fashion"
+            // "fashion"
         ]
     },
 
