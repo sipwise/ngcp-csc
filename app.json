@@ -187,8 +187,11 @@
      *
      */
     "js": [{
+        "path": "libs/libphonenumber-js.min.js",
+        "includeInBundle": true
+    },{
         "path": "initLocalStorage.js",
-        "bundle": true
+        "includeInBundle": true
     },{
         "path": "app.js",
         "bundle": true
@@ -316,6 +319,7 @@
      * Settings specific to development builds.
      */
     "development": {
+
         "tags": [
             // You can add this tag to enable Fashion when using app watch or
             // you can add "?platformTags=fashion:1" to the URL to enable Fashion

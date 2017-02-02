@@ -1,4 +1,4 @@
-Ext.define('NgcpCsc.model.Call', {
+Ext.define('NgcpCsc.model.Conversation', {
     extend: 'Ext.data.Model',
 
     fields: [{
