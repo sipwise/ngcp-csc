@@ -1,0 +1,33 @@
+@include extjs-toolbar-ui(
+    $ui: 'conversations-actions-tbar',
+    $background-color: '#F6F6F6'
+);
+
+@include extjs-button-medium-ui(
+    $ui: 'conversations-actions-btn'
+    // btns customisations goes here
+);
+// custom rules
+.missed-call-color {
+    color: rgb(234, 80, 0);
+}
+
+.answered-call-color,
+.green-icon {
+    color: $base-color;
+}
+
+.fa-rotate-45 {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.sms-preview, .chat-preview {
+    padding: 16px;
+}
+.caller{
+    font-size: 16px;
+    text-align: right;
+}

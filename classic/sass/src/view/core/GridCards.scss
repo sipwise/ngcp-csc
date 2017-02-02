@@ -22,6 +22,7 @@ $grid-row-cell-focus-border-color: '#fff';
         margin-bottom: 3px;
         border-radius: 5px;
         margin-right: 11px;
+        padding:10px;
     }
 
     .x-grid-td {
@@ -92,7 +93,7 @@ $grid-row-cell-focus-border-color: '#fff';
 
         .card-icon {
             display: inline;
-            padding: 40px;
+            padding-left: 40px;
         }
     }
 
