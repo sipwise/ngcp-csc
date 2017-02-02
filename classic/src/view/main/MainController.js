@@ -160,7 +160,16 @@ Ext.define('NgcpCsc.view.main.MainController', {
     },
 
     onRouteChange: function(id) {
+        var vm = this.getViewModel();
         this.setCurrentView(id);
+        this.fireEvent('routeChange');
+        if (id == 'inbox' || id == 'pbxconfig/seats' || id == 'pbxconfig/groups' || id == 'pbxconfig/devices') {
+            vm.set('headerBarFieldHideState', false);
+            // TODO: Need to also hide filter form, but unsure how to best do
+            // this with value in different vm
+        } else {
+            vm.set('headerBarFieldHideState', true);
+        };
     },
 
     logout: function() {
@@ -224,6 +233,18 @@ Ext.define('NgcpCsc.view.main.MainController', {
             count++;
         });
         return count;
+    },
+
+    newSearch: function (el) {
+        this.fireEvent('newSearchFieldInput', el);
+    },
+
+    toggleFilter: function () {
+        this.fireEvent('toggleFilterForm');
+    },
+
+    toggleFree: function () {
+        this.fireEvent('toggleFreeSearch');
     }
 
 });

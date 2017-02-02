@@ -7,18 +7,11 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.Seats', {
 
     controller: 'seats',
 
-    title: Ngcp.csc.locales.pbxconfig.title[localStorage.getItem('languageSelected')],
-
     layout: 'responsivecolumn',
 
     items: [{
         userCls: 'big-30 small-100',
         items: [{
-            xtype: 'gridfilters',
-            padding: 0,
-            _linkedStoreId: 'Seats',
-            _pbxconfigSeats: true
-        }, {
             xtype: 'form',
             ui: 'core-container',
             padding: 20,
