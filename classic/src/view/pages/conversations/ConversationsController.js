@@ -1,7 +1,7 @@
-Ext.define('NgcpCsc.view.pages.calls.CallsController', {
+Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
     extend: 'NgcpCsc.view.pages.account.AccountController',
 
-    alias: 'controller.calls',
+    alias: 'controller.conversations',
 
     onIconClicked: function(event, el) {
         // eval is never the best option
@@ -43,7 +43,7 @@ Ext.define('NgcpCsc.view.pages.calls.CallsController', {
     },
 
     removeCard: function(el) {
-        var store = Ext.getStore('Calls');
+        var store = Ext.getStore('Conversations');
         var rec = store.findRecord('id', el.id);
         store.remove(rec);
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
@@ -71,16 +71,23 @@ Ext.define('NgcpCsc.view.pages.calls.CallsController', {
         el.dataset.callback = 'reproduceVoicemail';
         sample.pause();
     },
-    /*****/
 
     startCall:function(el){
-        var record = Ext.getStore('Calls').findRecord('id', el.id);
+        var record = Ext.getStore('Conversations').findRecord('id', el.id);
         this.fireEvent('initwebrtc', record, true);
     },
 
     startChat:function(el){
-        // TODO
         this.startCall(el);
+    },
+
+    openCallPanel: function(cmp){
+        this.fireEvent('initwebrtc', null, false, true);
+    },
+
+    expandConversation: function(grid, td, cellindex, record){
+        var row = document.getElementById(record.get('id'));
+        row.classList.contains('hidden')? row.classList.remove('hidden') : row.classList.add('hidden');
     },
 
     saveSettings: function() {
