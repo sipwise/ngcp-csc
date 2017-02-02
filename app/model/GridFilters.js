@@ -4,7 +4,7 @@ Ext.define('NgcpCsc.model.GridFilters', {
     fields: [
         'from_date',
         'to_date',
-        'type',
+        // 'type',
         'direction',
         'missed',
         'answered',
@@ -19,7 +19,12 @@ Ext.define('NgcpCsc.model.GridFilters', {
         'disabled',
         'device',
         'mac',
-        'status'
+        'status',
+        'headerBarFieldInput',
+        'call',
+        'voicemail',
+        'reminder',
+        'fax'
     ],
 
     proxy: {

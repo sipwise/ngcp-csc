@@ -224,6 +224,11 @@ Ext.define('NgcpCsc.view.main.MainController', {
             count++;
         });
         return count;
+    },
+
+    newSearch: function (el) {
+        // this.fireEvent('numberSearch', element);
+        this.fireEvent('newSearchFieldInput', el);
     }
 
 });
