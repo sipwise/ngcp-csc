@@ -6,20 +6,29 @@
         "incoming": true,
         "outgoing": true ,
         "number": null,
-        "type":["call", "voicemail", "reminder", "fax"],
+        "call": true,
+        "voicemail": true,
+        "reminder": true,
+        "fax": true,
         "missed": true,
         "answered": true,
         /* addressbook filters */
         "search_term": "",
         /* Pbx config  filters */
-        "name":"",
-        "extensions":"",
-        "groups":"",
-        "numbers":"",
-        "phone_devices":"",
-        "hunt_policy":"",
-        "hunt_timeout":"",
+        "name": "",
+        "extensions": "",
+        "groups": "",
+        "numbers": "",
+        "phone_devices": "",
+        "hunt_policy": "",
+        "hunt_timeout": "",
         "enabled" : true,
-        "disabled": true
+        "disabled": true,
+        "headerBarFieldInput": "",
+        "convFilterHideState": true,
+        "pbxSeatsFilterHideState": true,
+        "pbxGroupsFilterHideState": true,
+        "pbxDevicesFilterHideState": true,
+        "freeSearchState": false
     }]
 }

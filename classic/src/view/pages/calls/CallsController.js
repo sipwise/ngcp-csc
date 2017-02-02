@@ -86,4 +86,5 @@ Ext.define('NgcpCsc.view.pages.calls.CallsController', {
     saveSettings: function() {
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
     }
-});
+
+ });

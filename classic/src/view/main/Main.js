@@ -24,6 +24,13 @@ Ext.define('NgcpCsc.view.main.Main', {
         resize: 'setItemsSize'
     },
 
+    // DONE: 0. Locales
+    // DONE: 1. Organize the different forms (calls, pbx) properly, and toggle
+    // visibility of them depending on route
+    // TODO: 1b. Add listeners to all gridfilter form elements 
+    // TODO: 2. Style form and position of elements in headerBar
+    // TODO: 3. Fix delayed binds in formFilter, see submitFilters() in controller
+
     items: [{
         xtype: 'toolbar',
         cls: 'sencha-dash-dash-headerbar shadow',
@@ -42,6 +49,46 @@ Ext.define('NgcpCsc.view.main.Main', {
                 iconCls: 'x-fa fa-navicon',
                 id: 'main-navigation-btn',
                 handler: 'onToggleNavigationSize'
+            }, {
+                xtype: 'textfield',
+                bind: {
+                    hidden: '{headerBarFieldHideState}'
+                },
+                width: 500,
+                align: 'center',
+                listeners: {
+                    input: {
+                        element: 'el',
+                        fn: 'newSearch'
+                    }
+                }
+            }, {
+                iconCls: 'x-fa fa-header',
+                enableToggle: true,
+                tooltip: 'Search for text in card header only, or whole card.',
+                bind: {
+                    hidden: '{headerBarFieldHideState}'
+                },
+                listeners: {
+                    click: {
+                        element: 'el',
+                        fn: 'toggleFree'
+                    }
+                }
+            }, {
+
+                iconCls: 'x-fa fa-filter',
+                enableToggle: true,
+                tooltip: 'Show filters.',
+                bind: {
+                    hidden: '{headerBarFieldHideState}'
+                },
+                listeners: {
+                    click: {
+                        element: 'el',
+                        fn: 'toggleFilter'
+                    }
+                }
             },
             '->', {
                 iconCls: 'x-fa fa-th-large',
@@ -96,12 +143,16 @@ Ext.define('NgcpCsc.view.main.Main', {
             userCls: 'main-container',
             items: [{
                 region: 'center',
-                reference: 'mainCardPanel',
-                cls: 'sencha-dash-right-main-container',
-                itemId: 'contentPanel',
-                layout: {
-                    type: 'card'
-                }
+                items: [{
+                    xtype: 'gridfilters'
+                }, {
+                    reference: 'mainCardPanel',
+                    cls: 'sencha-dash-right-main-container',
+                    itemId: 'contentPanel',
+                    layout: {
+                        type: 'card'
+                    }
+                }]
             }, {
                 xtype: 'webrtc',
                 region: 'east',
