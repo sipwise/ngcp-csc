@@ -1,0 +1,23 @@
+{
+    "data": [{
+        "id" : 1,
+        "call_type": "voicemail",
+        "source_cli": "1234567",
+        "number" : 1234567,
+        "duration": 19.488,
+        "charges": 40.112,
+        "status": "missed",
+        "direction": "outgoing",
+        "folder": "INBOX",
+        "start_time": "2016-10-01T14:05:33.384000000+02:00"
+    },{
+        "id" : 2,
+        "call_type": "call",
+        "source_cli": "43991001",
+        "duration": 84.332,
+        "charges": 15.014,
+        "status": "missed",
+        "direction": "outgoing",
+        "start_time": "2016-10-02T15:05:35.384000000+02:00"
+    }]
+}
