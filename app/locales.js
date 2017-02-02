@@ -560,13 +560,6 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Filters',
                 sp: 'Filters'
             },
-            from: {
-                en: 'Time range (DD.MM.YYYY)',
-                it: 'Time range (DD.MM.YYYY)',
-                de: 'Time range (DD.MM.YYYY)',
-                fr: 'Time range (DD.MM.YYYY)',
-                sp: 'Time range (DD.MM.YYYY)'
-            },
             incoming: {
                 en: 'Incoming',
                 it: 'Incoming',
