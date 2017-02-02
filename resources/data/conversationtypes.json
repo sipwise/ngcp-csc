@@ -1,21 +1,21 @@
 {
     "data": [{
         "id" : "call",
-        "call_type": "Call"
+        "conversation_type": "Call"
     }, {
         "id" : "voicemail",
-        "call_type": "Voicemail"
+        "conversation_type": "Voicemail"
     }, {
         "id" : "reminder",
-        "call_type": "Reminder"
+        "conversation_type": "Reminder"
     }, {
         "id" : "fax",
-        "call_type": "Fax"
+        "conversation_type": "Fax"
     }, {
         "id" : "sms",
-        "call_type": "SMS"
+        "conversation_type": "SMS"
     }, {
         "id" : "chat",
-        "call_type": "Chat"
+        "conversation_type": "Chat"
     }]
 }
