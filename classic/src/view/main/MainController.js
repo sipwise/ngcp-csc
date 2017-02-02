@@ -159,8 +159,25 @@ Ext.define('NgcpCsc.view.main.MainController', {
         }
     },
 
+    mainContainerResized: function(cmp){
+        var navTree = this.lookupReference('navigationTreeList');
+        var filterTxtSearch = this.lookupReference('filterTxtSearch');
+        var offset = 100;
+        var leftMargin = (cmp.getWidth() / 2) - (filterTxtSearch.getWidth()/2) - offset;
+        if(leftMargin > 0 && Ext.os.is.Desktop){
+            filterTxtSearch.setMargin('0 0 0 ' + leftMargin);
+        }
+    },
+
     onRouteChange: function(id) {
+        var vm = this.getViewModel();
         this.setCurrentView(id);
+        this.fireEvent('routeChange');
+        if (id == 'inbox' || id == 'pbxconfig/seats' || id == 'pbxconfig/groups' || id == 'pbxconfig/devices') {
+            vm.set('headerBarFieldHideState', false);
+        } else {
+            vm.set('headerBarFieldHideState', true);
+        };
     },
 
     logout: function() {
@@ -224,6 +241,18 @@ Ext.define('NgcpCsc.view.main.MainController', {
             count++;
         });
         return count;
+    },
+
+    newSearch: function (el) {
+        this.fireEvent('newSearchFieldInput', el);
+    },
+
+    toggleFilter: function () {
+        this.fireEvent('toggleFilterForm');
+    },
+
+    toggleFree: function () {
+        this.fireEvent('toggleFreeSearch');
     }
 
 });

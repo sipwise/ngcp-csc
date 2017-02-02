@@ -42,6 +42,40 @@ Ext.define('NgcpCsc.view.main.Main', {
                 iconCls: 'x-fa fa-navicon',
                 id: 'main-navigation-btn',
                 handler: 'onToggleNavigationSize'
+            }, {
+                xtype: 'textfield',
+                reference: 'filterTxtSearch',
+                bind: {
+                    hidden: '{headerBarFieldHideState}'
+                },
+                width: 730,
+                listeners: {
+                    input: {
+                        element: 'el',
+                        fn: 'newSearch'
+                    }
+                }
+            }, {
+                iconCls: 'x-fa fa-header',
+                enableToggle: true,
+                tooltip: 'Search for text in card header only, or whole card.',
+                bind: {
+                    hidden: '{headerBarFieldHideState}'
+                },
+                listeners: {
+                    click: 'toggleFree'
+                }
+            }, {
+
+                iconCls: 'x-fa fa-filter',
+                enableToggle: true,
+                tooltip: 'Show filters.',
+                bind: {
+                    hidden: '{headerBarFieldHideState}'
+                },
+                listeners: {
+                    click: 'toggleFilter'
+                }
             },
             '->', {
                 iconCls: 'x-fa fa-th-large',
@@ -83,7 +117,7 @@ Ext.define('NgcpCsc.view.main.Main', {
             width: (Ext.isIE9m || !Ext.os.is.Desktop) ? 65 : 250,
             expanderFirst: false,
             expanderOnly: false,
-            micro:(Ext.isIE9m || !Ext.os.is.Desktop),
+            micro: (Ext.isIE9m || !Ext.os.is.Desktop),
             listeners: {
                 selectionchange: 'onNavigationTreeSelectionChange'
             }
@@ -95,22 +129,27 @@ Ext.define('NgcpCsc.view.main.Main', {
             layout: 'border',
             userCls: 'main-container',
             items: [{
+                region:'north',
+                xtype: 'gridfilters'
+            },{
                 region: 'center',
                 reference: 'mainCardPanel',
                 cls: 'sencha-dash-right-main-container',
                 itemId: 'contentPanel',
                 layout: {
                     type: 'card'
+                },
+                listeners: {
+                    resize: 'mainContainerResized'
                 }
-            }, {
-                xtype: 'webrtc',
-                region: 'east',
-                itemId: 'webrtcPanel',
-                hidden: true,
-                collapsed: true,
-                collapsible: true
             }]
-
+        },{
+            xtype: 'webrtc',
+            region: 'east',
+            itemId: 'webrtcPanel',
+            hidden: true,
+            collapsed: true,
+            collapsible: true
         }]
     }]
 });
