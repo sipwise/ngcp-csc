@@ -3,7 +3,7 @@
         "id" : "call",
         "call_type": "Call"
     }, {
-        "id" : "voicemail", // these codes are for call forwarding. TODO change
+        "id" : "voicemail",
         "call_type": "Voicemail"
     }, {
         "id" : "reminder",

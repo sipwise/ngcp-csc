@@ -560,13 +560,6 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Filters',
                 sp: 'Filters'
             },
-            from: {
-                en: 'Time range (DD.MM.YYYY)',
-                it: 'Time range (DD.MM.YYYY)',
-                de: 'Time range (DD.MM.YYYY)',
-                fr: 'Time range (DD.MM.YYYY)',
-                sp: 'Time range (DD.MM.YYYY)'
-            },
             incoming: {
                 en: 'Incoming',
                 it: 'Incoming',
@@ -603,11 +596,11 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Type'
             },
             search_term: {
-                en: 'search term',
-                it: 'search term',
-                de: 'search term',
-                fr: 'search term',
-                sp: 'search term'
+                en: 'Search term',
+                it: 'Search term',
+                de: 'Search term',
+                fr: 'Search term',
+                sp: 'Search term'
             },
             apply: {
                 en: 'Apply',
@@ -617,74 +610,95 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Apply'
             },
             extensions: {
-                en: 'extensions',
-                it: 'extensions',
-                de: 'extensions',
-                fr: 'extensions',
-                sp: 'extensions'
+                en: 'Extensions',
+                it: 'Extensions',
+                de: 'Extensions',
+                fr: 'Extensions',
+                sp: 'Extensions'
             },
             pbx_image: {
-                en: 'pbx image',
-                it: 'pbx image',
-                de: 'pbx image',
-                fr: 'pbx image',
-                sp: 'pbx image'
+                en: 'Pbx image',
+                it: 'Pbx image',
+                de: 'Pbx image',
+                fr: 'Pbx image',
+                sp: 'Pbx image'
             },
             mac: {
-                en: 'mac address',
-                it: 'mac address',
-                de: 'mac address',
-                fr: 'mac address',
-                sp: 'mac address'
+                en: 'Mac address',
+                it: 'Mac address',
+                de: 'Mac address',
+                fr: 'Mac address',
+                sp: 'Mac address'
             },
             numbers: {
-                en: 'numbers',
-                it: 'numbers',
-                de: 'numbers',
-                fr: 'numbers',
-                sp: 'numbers'
+                en: 'Numbers',
+                it: 'Numbers',
+                de: 'Numbers',
+                fr: 'Numbers',
+                sp: 'Numbers'
             },
             phone_devices: {
-                en: 'phone/devices',
-                it: 'phone/devices',
-                de: 'phone/devices',
-                fr: 'phone/devices',
-                sp: 'phone/devices'
+                en: 'Phone/devices',
+                it: 'Phone/devices',
+                de: 'Phone/devices',
+                fr: 'Phone/devices',
+                sp: 'Phone/devices'
             },
             hunt_policy: {
-                en: 'hunt policy',
-                it: 'hunt policy',
-                de: 'hunt policy',
-                fr: 'hunt policy',
-                sp: 'hunt policy'
+                en: 'Hunt policy',
+                it: 'Hunt policy',
+                de: 'Hunt policy',
+                fr: 'Hunt policy',
+                sp: 'Hunt policy'
             },
             hunt_timeout: {
-                en: 'hunt timeout',
-                it: 'hunt timeout',
-                de: 'hunt timeout',
-                fr: 'hunt timeout',
-                sp: 'hunt timeout'
+                en: 'Hunt timeout',
+                it: 'Hunt timeout',
+                de: 'Hunt timeout',
+                fr: 'Hunt timeout',
+                sp: 'Hunt timeout'
             },
             status: {
-                en: 'status',
-                it: 'status',
-                de: 'status',
-                fr: 'status',
-                sp: 'status'
+                en: 'Status',
+                it: 'Status',
+                de: 'Status',
+                fr: 'Status',
+                sp: 'Status'
             },
             enabled: {
-                en: 'enabled',
-                it: 'enabled',
-                de: 'enabled',
-                fr: 'enabled',
-                sp: 'enabled'
+                en: 'Enabled',
+                it: 'Enabled',
+                de: 'Enabled',
+                fr: 'Enabled',
+                sp: 'Enabled'
             },
             disabled: {
-                en: 'disabled',
-                it: 'disabled',
-                de: 'disabled',
-                fr: 'disabled',
-                sp: 'disabled'
+                en: 'Disabled',
+                it: 'Disabled',
+                de: 'Disabled',
+                fr: 'Disabled',
+                sp: 'Disabled'
+            },
+            voicemail: {
+                en: 'Voicemail',
+                it: 'Voicemail',
+                de: 'Voicemail',
+                fr: 'Voicemail',
+                sp: 'Voicemail'
+            },
+            reminder: {
+                en: 'Reminder',
+                it: 'Reminder',
+                de: 'Reminder',
+                fr: 'Reminder',
+                sp: 'Reminder'
+            },
+            groups: {
+                en: 'Groups',
+                it: 'Groups',
+                de: 'Groups',
+                fr: 'Groups',
+                sp: 'Groups'
             }
         },
         settings: {
@@ -914,13 +928,6 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Mobile',
                 fr: 'Mobile',
                 sp: 'Mobile'
-            },
-            fax: {
-                en: 'Fax',
-                it: 'Fax',
-                de: 'Fax',
-                fr: 'Fax',
-                sp: 'Fax'
             },
             e_mail: {
                 en: 'E-mail',
@@ -1220,11 +1227,11 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'device'
             },
             device_profile: {
-                en: 'device profile',
-                it: 'device profile',
-                de: 'device profile',
-                fr: 'device profile',
-                sp: 'device profile'
+                en: 'Device profile',
+                it: 'Device profile',
+                de: 'Device profile',
+                fr: 'Device profile',
+                sp: 'Device profile'
             },
             destination: {
                 en: 'Destination',
@@ -1530,6 +1537,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Groups',
                 fr: 'Groups',
                 sp: 'Groups'
+            },
+            fax: {
+                en: 'Fax',
+                it: 'Fax',
+                de: 'Fax',
+                fr: 'Fax',
+                sp: 'Fax'
             }
         }
     }
