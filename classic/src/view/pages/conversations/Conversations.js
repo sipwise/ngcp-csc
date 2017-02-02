@@ -7,8 +7,6 @@ Ext.define('NgcpCsc.view.pages.conversations.Conversations', {
 
     controller: 'conversations',
 
-    title: Ngcp.csc.locales.conversations.section_title[localStorage.getItem('languageSelected')],
-
     initComponent: function() {
 
         this.dockedItems = [{

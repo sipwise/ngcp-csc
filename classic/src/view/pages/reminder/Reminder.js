@@ -5,8 +5,6 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
 
     viewModel: 'reminder',
 
-    title: Ngcp.csc.locales.reminder.title[localStorage.getItem('languageSelected')],
-
     initComponent: function() {
         this.items = [{
             layout: 'responsivecolumn',

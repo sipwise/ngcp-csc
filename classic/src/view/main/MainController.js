@@ -159,8 +159,75 @@ Ext.define('NgcpCsc.view.main.MainController', {
         }
     },
 
+    mainContainerResized: function(cmp) {
+        var navTree = this.lookupReference('navigationTreeList');
+        var filterTxtSearch = this.lookupReference('filterTxtSearch');
+        var offset = 95;
+        var leftMargin = (cmp.getWidth() / 2) - (filterTxtSearch.getWidth() / 2) - offset;
+        if (leftMargin > 0 && Ext.os.is.Desktop) {
+            filterTxtSearch.setMargin('0 0 0 ' + leftMargin);
+        }
+    },
+
     onRouteChange: function(id) {
+        var vm = this.getViewModel();
         this.setCurrentView(id);
+        this.fireEvent('routeChange');
+        this.setSectionTitle(id);
+        if (id == 'inbox' || id == 'pbxconfig/seats' || id == 'pbxconfig/groups' || id == 'pbxconfig/devices') {
+            vm.set('headerBarFieldHideState', false);
+        } else {
+            vm.set('headerBarFieldHideState', true);
+        };
+    },
+
+    setSectionTitle: function(id) {
+        var vm = this.getViewModel();
+        var title;
+        switch (id) {
+            case 'inbox':
+                title = Ngcp.csc.locales.conversations.title[localStorage.getItem('languageSelected')];
+                break;
+            case 'chat':
+                title = Ngcp.csc.locales.chat.title[localStorage.getItem('languageSelected')];
+                break;
+            case 'addressbook':
+                title =  Ngcp.csc.locales.addressbook.title[localStorage.getItem('languageSelected')];
+                break;
+            case 'callforward':
+                title = Ngcp.csc.locales.callforward.title[localStorage.getItem('languageSelected')];
+                break;
+            case 'callblock':
+                title = Ngcp.csc.locales.callforward.title[localStorage.getItem('languageSelected')];
+                break;
+            case 'reminder':
+                title = Ngcp.csc.locales.reminder.title[localStorage.getItem('languageSelected')];
+                break;
+            case 'password':
+                title = Ngcp.csc.locales.password.title[localStorage.getItem('languageSelected')];
+                break;
+            case 'themeroller':
+                title = Ngcp.csc.locales.themeroller.title[localStorage.getItem('languageSelected')];
+                break;
+            case 'pbxconfig/seats':
+                title = Ngcp.csc.locales.pbxconfig.title[localStorage.getItem('languageSelected')] + Ngcp.csc.locales.pbxconfig.seat_title[localStorage.getItem('languageSelected')];
+                break;
+            case 'pbxconfig/groups':
+                title = Ngcp.csc.locales.pbxconfig.title[localStorage.getItem('languageSelected')] + Ngcp.csc.locales.pbxconfig.group_title[localStorage.getItem('languageSelected')];
+                break;
+            case 'pbxconfig/devices':
+                title = Ngcp.csc.locales.pbxconfig.title[localStorage.getItem('languageSelected')] + Ngcp.csc.locales.pbxconfig.device_title[localStorage.getItem('languageSelected')];
+                break;
+            case 'pbxconfig/autoattendant':
+                title = Ngcp.csc.locales.pbxconfig.title[localStorage.getItem('languageSelected')] + Ngcp.csc.locales.pbxconfig.autoattendant_title[localStorage.getItem('languageSelected')];
+                break;
+            case 'account':
+                title = Ngcp.csc.locales.account.title[localStorage.getItem('languageSelected')];
+                break;
+            default:
+                title = vm.get('sectionTitle');
+        }
+        vm.set('sectionTitle', title);
     },
 
     logout: function() {
@@ -194,11 +261,11 @@ Ext.define('NgcpCsc.view.main.MainController', {
         var nodes;
         if (currentItemsHeight > 42) { // == $panel-navigation-item-line-height in all.scss
             nodes = Ext.Array.merge(
-                                    navTree.getEl().query('.x-treelist-row'),
-                                    navTree.getEl().query('.x-treelist-item-tool'),
-                                    navTree.getEl().query('.x-treelist-item-text'),
-                                    navTree.getEl().query('.x-treelist-item-icon'),
-                                    navTree.getEl().query('.x-treelist-item-expander'));
+                navTree.getEl().query('.x-treelist-row'),
+                navTree.getEl().query('.x-treelist-item-tool'),
+                navTree.getEl().query('.x-treelist-item-text'),
+                navTree.getEl().query('.x-treelist-item-icon'),
+                navTree.getEl().query('.x-treelist-item-expander'));
             Ext.each(nodes, function(node) {
                 node.style.setProperty('height', currentItemsHeight + 'px', 'important');
                 node.style.setProperty('line-height', currentItemsHeight + 'px', 'important');
@@ -218,12 +285,24 @@ Ext.define('NgcpCsc.view.main.MainController', {
         var navTreeStore = navTree.getStore();
         var count = 0;
         Ext.each(parentNode ? parentNode.get('children') : navTreeStore.getRange(), function(node) {
-            if(!(node.leaf || node.get('leaf'))) {
+            if (!(node.leaf || node.get('leaf'))) {
                 count += me.getNavTreeNodesCount(node, me);
             }
             count++;
         });
         return count;
+    },
+
+    newSearch: function(el) {
+        this.fireEvent('newSearchFieldInput', el);
+    },
+
+    toggleFilter: function() {
+        this.fireEvent('toggleFilterForm');
+    },
+
+    toggleFree: function() {
+        this.fireEvent('toggleFreeSearch');
     }
 
 });
