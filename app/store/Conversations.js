@@ -1,9 +1,9 @@
-Ext.define('NgcpCsc.store.Calls', {
+Ext.define('NgcpCsc.store.Conversations', {
     extend: 'Ext.data.Store',
 
-    storeId: 'Calls',
+    storeId: 'Conversations',
 
-    model: 'NgcpCsc.model.Call',
+    model: 'NgcpCsc.model.Conversation',
 
     autoLoad: true,
 
@@ -11,7 +11,7 @@ Ext.define('NgcpCsc.store.Calls', {
 
     proxy: {
         type: 'ajax',
-        url: '/resources/data/calls.json',
+        url: '/resources/data/conversations.json',
         reader: {
             type: 'json',
             rootProperty: 'data'

@@ -120,7 +120,7 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Devices'
             }
         },
-        calls: {
+        conversations: {
             section_title: {
                 en: 'Unified inbox.',
                 it: 'Unified inbox.',

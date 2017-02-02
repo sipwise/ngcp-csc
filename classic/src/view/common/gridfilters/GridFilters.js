@@ -55,7 +55,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 hidden: !this._callFilters,
                 fieldLabel: Ngcp.csc.locales.filters.calltype[localStorage.getItem('languageSelected')],
                 store: {
-                    type: 'CallTypes'
+                    type: 'ConversationTypes'
                 },
                 displayField: 'call_type',
                 valueField: 'id',
