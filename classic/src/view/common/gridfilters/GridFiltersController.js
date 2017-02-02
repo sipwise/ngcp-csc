@@ -7,7 +7,6 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         var vm = this.getViewModel();
         var form = this.lookupReference('filterForm');
         var me = this;
-
         if (form.isValid()) {
             if (Ext.isString(this.getView()._linkedStoreId)) {
                 me.getView()._linkedStoreId = [me.getView()._linkedStoreId]; // both string and array should be allowed
@@ -167,6 +166,28 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
 
     renderGroupsFilterText: function(value, metaData) {
         return Ngcp.csc.locales.common.groups[localStorage.getItem('languageSelected')].toLowerCase();
+    },
+
+    filterSearchInput: function(element) {
+        var target = element.getTarget();
+        if (target.value.length === 0) {
+            this.resetFilters();
+        } else {
+            this.submitFilters();
+        };
+    },
+
+    showCalendar: function (field) {
+        field.el.on('click', function () {
+            field.onTriggerClick();
+        });
+    },
+
+    // TODO: Remove at the end when not needed anymore, unless we decide to keep
+    onEnterPressed: function (field, el) {
+        if (el.getKey() == el.ENTER) {
+            this.submitFilters();
+        };
     }
 
 });
