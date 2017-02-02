@@ -9,8 +9,6 @@ Ext.define('NgcpCsc.view.pages.chat.Chat', {
         margin: 10
     },
 
-    title: Ngcp.csc.locales.chat.title[localStorage.getItem('languageSelected')],
-
     initComponent: function() {
         this.items = [{
             xtype: 'chatlist',

@@ -7,8 +7,6 @@ Ext.define('NgcpCsc.view.pages.account.Account', {
 
     controller: 'account',
 
-    title: Ngcp.csc.locales.account.title[localStorage.getItem('languageSelected')],
-
     layout: 'responsivecolumn',
 
     defaults: {

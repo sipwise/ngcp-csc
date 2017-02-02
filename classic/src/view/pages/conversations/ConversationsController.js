@@ -24,24 +24,24 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
 
     renderPhoneIcon: function(value, meta, record) {
         var icon;
-        switch (record.get('call_type')) {
+        switch (record.get('conversation_type')) {
             case 'call':
-                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.call_types.call[localStorage.getItem('languageSelected')] + '"';
+                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.conversation_types.call[localStorage.getItem('languageSelected')] + '"';
                 icon = 'fa fa-phone green-icon pointer';
                 break;
             case 'voicemail':
                 icon = 'fa fa-folder-open-o green-icon pointer';
                 break;
             case 'sms':
-                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.call_types.sms[localStorage.getItem('languageSelected')] + '"';
+                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.conversation_types.sms[localStorage.getItem('languageSelected')] + '"';
                 icon = 'fa fa-envelope-o green-icon pointer';
                 break;
             case 'chat':
-                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.call_types.chat[localStorage.getItem('languageSelected')] + '"';
+                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.conversation_types.chat[localStorage.getItem('languageSelected')] + '"';
                 icon = 'fa fa-comment-o green-icon pointer';
                 break;
             case 'fax':
-                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.call_types.fax[localStorage.getItem('languageSelected')] + '"';
+                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.conversation_types.fax[localStorage.getItem('languageSelected')] + '"';
                 icon = 'fa fa-file-text-o green-icon pointer';
                 break;
         };
@@ -55,14 +55,14 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
         switch (record.get('direction')) {
             case 'incoming':
                 icon = color + ' fa fa-chevron-left';
-                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.call_type.incoming[localStorage.getItem('languageSelected')] + '"';
+                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.incoming[localStorage.getItem('languageSelected')] + '"';
                 break;
             case 'outgoing':
                 icon = color + ' fa fa-chevron-right';
-                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.call_type.outgoing[localStorage.getItem('languageSelected')] + '"';
+                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.outgoing[localStorage.getItem('languageSelected')] + '"';
                 break;
             case 'forwarded':
-                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.call_type.forwarded[localStorage.getItem('languageSelected')] + '"';
+                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.forwarded[localStorage.getItem('languageSelected')] + '"';
                 return '<div><span class="' + color + ' fa fa-chevron-right"></span><span class="' + color + ' fa fa-chevron-right"></span></div>';
                 break;
         };
@@ -75,7 +75,7 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
             case 'incoming':
                 switch(record.get('status')) {
                     case 'answered':
-                        switch(record.get('call_type')) {
+                        switch(record.get('conversation_type')) {
                             case 'call':
                                 desc = Ngcp.csc.locales.conversations.received_call_from[localStorage.getItem('languageSelected')];
                                 break;
@@ -94,7 +94,7 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
                         }
                         break;
                     case 'missed':
-                        switch(record.get('call_type')) {
+                        switch(record.get('conversation_type')) {
                             case 'call':
                                 desc = Ngcp.csc.locales.conversations.missed_call_from[localStorage.getItem('languageSelected')];
                                 break;
@@ -106,7 +106,7 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
             case 'outgoing':
                 switch(record.get('status')) {
                     case 'answered':
-                        switch(record.get('call_type')) {
+                        switch(record.get('conversation_type')) {
                             case 'call':
                                 desc = Ngcp.csc.locales.conversations.successful_call_to[localStorage.getItem('languageSelected')];
                                 break;
@@ -122,7 +122,7 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
                         }
                         break;
                     case 'missed':
-                        switch(record.get('call_type')) {
+                        switch(record.get('conversation_type')) {
                             case 'call':
                                 desc = Ngcp.csc.locales.conversations.unsuccessful_call_to[localStorage.getItem('languageSelected')];
                                 break;
@@ -137,7 +137,7 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
             case 'forwarded':
                 switch(record.get('status')) {
                     case 'answered':
-                        switch(record.get('call_type')) {
+                        switch(record.get('conversation_type')) {
                             case 'call':
                                 desc = Ngcp.csc.locales.conversations.successful_call_forward_to[localStorage.getItem('languageSelected')];
                                 break;
@@ -148,7 +148,7 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
                         }
                         break;
                     case 'missed':
-                        switch(record.get('call_type')) {
+                        switch(record.get('conversation_type')) {
                             case 'call':
                                 desc = Ngcp.csc.locales.conversations.unsuccessful_call_forward_to[localStorage.getItem('languageSelected')];
                                 break;
@@ -221,8 +221,8 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
             return;
         }
         if (cellindex == 4) {
-            // TODO different actions for different call_type
-            switch (record.get('call_type')) {
+            // TODO different actions for different conversation_type
+            switch (record.get('conversation_type')) {
                 case 'call':
                 case 'fax':
                 case 'sms':
@@ -260,7 +260,7 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
         if (record.get('expanded') == true) { // hide shortcut icons when card is collapsed
             return '';
         }
-        switch (record.get('call_type')) {
+        switch (record.get('conversation_type')) {
             case 'call':
                 icon = 'fa fa-phone-square green-icon pointer';
                 meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.recall[localStorage.getItem('languageSelected')] + '"';

@@ -5,7 +5,6 @@
 
 @include extjs-button-medium-ui(
     $ui: 'conversations-actions-btn'
-    // btns customisations goes here
 );
 
 // custom rules
@@ -58,4 +57,8 @@
     .x-btn-inner {
         color: $base-color;
     }
+}
+
+.conversations-btn-over {
+    background: white;
 }
