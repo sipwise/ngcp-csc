@@ -15,7 +15,31 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
 
     collapsed: !Ext.os.is.Desktop,
 
+    // TODO: Notes from Carlo:
+    // yes you can use a toolbar which contains the name of the section (replacing the section title) and a search texxtfield
+    // http://examples.sencha.com/extjs/6.2.0/examples/kitchensink/#toolbars
+    // and inside the toolbar (or just beneath), you can add a collapsible panel which contains the fields. to build more complex toolbars pls use
+    // http://docs.sencha.com/extjs/6.2.0/classic/Ext.panel.Panel.html#cfg-dockedItems (edited)
+    // Collapsible panels http://docs.sencha.com/extjs/6.2.0/classic/Ext.panel.Panel.html#cfg-collapsible
+    // regarding the logic, you have to intercept the keydown on the search field and trigger store filter of the current section
+    // and you have to toggle visibility of the search filter when section changes ( you can get it from url change or by adding a listener on navigation tree)
+
     initComponent: function() {
+        this.tools = [{
+            xtype: 'textfield',
+            width: 500,
+            listeners: {
+                input: {
+                    element: 'el',
+                    fn: 'filterSearchInput'
+                }
+            }
+        }, {
+            type: 'search'
+        }, {
+            type: 'caret', // TODO: Replace with right type/glyph
+            callback: 'toggleFilterPanel'
+        }];
 
         this.items = [{
             xtype: 'form',
@@ -46,7 +70,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 xtype: 'textfield',
                 labelAlign: 'top',
                 hidden: !this._callFilters,
-                bind: '{filtergrid.number}',
+                bind: '{filtergrid.number}', // TODO: Number field to move to title bar
                 fieldLabel: Ngcp.csc.locales.common.number[localStorage.getItem('languageSelected')]
             }, {
                 xtype: 'tagfield',
