@@ -2,12 +2,71 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.gridfilters',
 
+    listen: {
+        controller : {
+            '*' : {
+                newSearchFieldInput: 'filterBySearchFieldInput'
+            }
+        }
+    },
+
+    // TODO: Rewrite applySearchFilter, see below.
+
+    submitSearchFilter: function () {
+        var me = this;
+        var currentRoute = window.location.hash;
+        var linkedStore = me.getStoreFromRoute(currentRoute);
+        var store = Ext.getStore(linkedStore);
+        switch (true) {
+            case (routeVal == '#inbox'):
+                store.filterBy(me.applySearchFilter, me);
+                break;
+            case (routeVal == '#pbxconfig/devices'):
+                console.log('TODO: Rewrite applySearchFilter to get "name" record field instead of "source_cli"');
+                break;
+            case (routeVal == '#pbxconfig/groups'):
+                console.log('TODO: Rewrite applySearchFilter to get "name" record field instead of "source_cli"');
+                break;
+            case (routeVal == '#pbxconfig/seats'):
+                console.log('TODO: Rewrite applySearchFilter to get "name" record field instead of "source_cli"');
+                break;
+        };
+    },
+
+    getStoreFromRoute: function (routeVal) {
+        switch (true) {
+            case (routeVal == '#inbox'):
+                return 'Calls';
+                break;
+            case (routeVal == '#pbxconfig/devices'):
+                return 'Devices';
+                break;
+            case (routeVal == '#pbxconfig/groups'):
+                return 'Groups';
+                break;
+            case (routeVal == '#pbxconfig/seats'):
+                return 'Seats';
+                break;
+        };
+    },
+
+    applySearchFilter: function(record) {
+        var vm = this.getViewModel();
+        var store = Ext.getStore('Calls');
+        /* filters */
+        var number = vm.get('headerBarNumberInput');
+        var retVal = true;
+        if (number && record.get('source_cli').indexOf(number) == -1) {
+            retVal = false;
+        }
+        return retVal;
+    },
+
     submitFilters: function() {
         var store;
         var vm = this.getViewModel();
         var form = this.lookupReference('filterForm');
         var me = this;
-
         if (form.isValid()) {
             if (Ext.isString(this.getView()._linkedStoreId)) {
                 me.getView()._linkedStoreId = [me.getView()._linkedStoreId]; // both string and array should be allowed
@@ -16,7 +75,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
                 store = Ext.getStore(storeId);
                 switch (true) {
                     case me.getView()._callFilters:
-                        store.filterBy(me.applyCallFilters, me)
+                        store.filterBy(me.applyCallFilters, me);
                         break;
                     case me.getView()._searchTerm:
                         store.filterBy(me.searchText, me);
@@ -46,7 +105,6 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
             }
         });
         return retVal;
-
     },
 
     applyCallFilters: function(record) {
@@ -71,7 +129,6 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
             retVal = false;
         }
         return retVal;
-
     },
 
     applyPbxconfigSeatsFilters: function(record) {
@@ -167,6 +224,23 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
 
     renderGroupsFilterText: function(value, metaData) {
         return Ngcp.csc.locales.common.groups[localStorage.getItem('languageSelected')].toLowerCase();
+    },
+
+    filterBySearchFieldInput: function(el) {
+        var vm = this.getViewModel();
+        var val = el.getTarget().value;
+        vm.set('headerBarNumberInput', val);
+        if (val.length === 0) {
+            this.resetFilters();
+        } else {
+            this.submitSearchFilter();
+        };
+    },
+
+    showCalendar: function (field) {
+        field.el.on('click', function () {
+            field.onTriggerClick();
+        });
     }
 
 });

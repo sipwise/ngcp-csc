@@ -16,5 +16,8 @@ Ext.define('NgcpCsc.view.gridfilters.GridFiltersModel', {
         fromDateMax : function(get){
             return get('filtergrid.to_date') || new Date();
         }
+    },
+    data: {
+        headerBarNumberInput: ''
     }
 });

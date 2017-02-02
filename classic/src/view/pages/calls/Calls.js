@@ -7,7 +7,9 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
 
     viewModel: 'calls',
 
-    title: Ngcp.csc.locales.calls.section_title[localStorage.getItem('languageSelected')],
+    _callFilters: true,
+
+    _linkedStoreId: 'Calls',
 
     initComponent: function() {
         this.items = [{
@@ -17,4 +19,5 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
 
         this.callParent();
     }
+
 });

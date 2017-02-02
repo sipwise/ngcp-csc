@@ -1,5 +1,5 @@
 Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
-    extend: 'NgcpCsc.view.core.Container',
+    extend: 'Ext.panel.Panel',
 
     xtype: 'gridfilters',
 
@@ -7,52 +7,112 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
 
     viewModel: 'gridfilters',
 
-    title: Ngcp.csc.locales.filters.search[localStorage.getItem('languageSelected')],
-
     padding: 0,
 
-    collapsible: true,
-
-    collapsed: !Ext.os.is.Desktop,
+    flex: 1,
 
     initComponent: function() {
-
-        this.items = [{
+            this.items = [{
+            xtype: 'container',
+            layout: 'responsivecolumn',
+            userCls: 'small-100 big-50',
+            margin: 20,
+            items: [{
+                width: '100%',
+                items: [{
+                    xtype: 'datefield',
+                    format: 'd.m.Y',
+                    labelAlign: 'left',
+                    fieldLabel: Ngcp.csc.locales.common.from[localStorage.getItem('languageSelected')],
+                    name: 'from_date',
+                    bind: {
+                        value: '{filtergrid.from_date}',
+                        maxValue: '{fromDateMax}'
+                    },
+                    listeners: {
+                        render: 'showCalendar'
+                    }
+                }, {
+                    xtype: 'datefield',
+                    format: 'd.m.Y',
+                    labelAlign: 'left',
+                    fieldLabel: Ngcp.csc.locales.common.to[localStorage.getItem('languageSelected')],
+                    name: 'to_date',
+                    bind: '{filtergrid.to_date}',
+                    listeners: {
+                        render: 'showCalendar'
+                    },
+                    maxValue: new Date() // limited to the current date or prior
+                }, {
+                    xtype: 'checkboxgroup',
+                    labelAlign: 'left',
+                    layout: {
+                        type: 'hbox',
+                        align: 'left'
+                    },
+                    defaults: {
+                        margin: '0 10 0 0'
+                    },
+                    fieldLabel: Ngcp.csc.locales.filters.status[localStorage.getItem('languageSelected')], // TODO: Capital first char
+                    items: [{
+                        boxLabel: Ngcp.csc.locales.filters.incoming[localStorage.getItem('languageSelected')],
+                        inputValue: "incoming",
+                        bind: '{filtergrid.incoming}'
+                    }, {
+                        boxLabel: Ngcp.csc.locales.filters.outgoing[localStorage.getItem('languageSelected')],
+                        inputValue: "outgoing",
+                        bind: '{filtergrid.outgoing}'
+                    }, {
+                        boxLabel: Ngcp.csc.locales.filters.missed[localStorage.getItem('languageSelected')],
+                        inputValue: "missed",
+                        bind: '{filtergrid.missed}'
+                    }, {
+                        boxLabel: Ngcp.csc.locales.filters.answered[localStorage.getItem('languageSelected')],
+                        inputValue: "answered",
+                        bind: '{filtergrid.answered}'
+                    }]
+                }]
+            }, {
+                userCls: 'big-50 small-100',
+                items: [{
+                    xtype: 'checkboxgroup',
+                    labelAlign: 'left',
+                    layout: {
+                        type: 'vbox',
+                        align: 'left'
+                    },
+                    fieldLabel: Ngcp.csc.locales.filters.calltype[localStorage.getItem('languageSelected')], // TODO: Capital first char
+                    items: [{
+                        boxLabel: "Call", // TODO: Find/create locales
+                        inputValue: "Call"
+                        // ,bind: '{filtergrid.incoming}'
+                    }, {
+                        boxLabel: "Voicemail",
+                        inputValue: "Voicemail"
+                        // ,bind: '{filtergrid.outgoing}'
+                    }, {
+                        boxLabel: "Reminder",
+                        inputValue: "Reminder"
+                        // ,bind: '{filtergrid.missed}'
+                    }, {
+                        boxLabel: "Fax",
+                        inputValue: "Fax"
+                        // ,bind: '{filtergrid.answered}'
+                    }]
+                }]
+            }]
+        }, {
             xtype: 'form',
             reference: 'filterForm',
-            padding: 20,
+            // padding: 20,
             defaults: {
                 width: '100%'
             },
             items: [{
-                xtype: 'datefield',
-                format: 'd.m.Y',
-                labelAlign: 'top',
-                hidden: !this._callFilters,
-                fieldLabel: Ngcp.csc.locales.filters.from[localStorage.getItem('languageSelected')],
-                name: 'from_date',
-                bind: {
-                    value: '{filtergrid.from_date}',
-                    maxValue: '{fromDateMax}'
-                }
-            }, {
-                xtype: 'datefield',
-                format: 'd.m.Y',
-                hidden: !this._callFilters,
-                name: 'to_date',
-                bind: '{filtergrid.to_date}',
-                maxValue: new Date() // limited to the current date or prior
-            }, {
-                xtype: 'textfield',
-                labelAlign: 'top',
-                hidden: !this._callFilters,
-                bind: '{filtergrid.number}',
-                fieldLabel: Ngcp.csc.locales.common.number[localStorage.getItem('languageSelected')]
-            }, {
-                xtype: 'tagfield',
+                xtype: 'tagfield', // TODO: Remove when adjusted to checkboxes above
                 labelAlign: 'top',
                 reference: 'types',
-                hidden: !this._callFilters,
+                hidden: true,
                 fieldLabel: Ngcp.csc.locales.filters.calltype[localStorage.getItem('languageSelected')],
                 store: {
                     type: 'CallTypes'
@@ -70,32 +130,6 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 bind: '{filtergrid.search_term}',
                 hidden: !this._searchTerm,
                 fieldLabel: Ngcp.csc.locales.filters.search_term[localStorage.getItem('languageSelected')]
-            }, {
-                xtype: 'checkboxgroup',
-                hidden: !this._callFilters,
-                labelAlign: 'top',
-                items: [{
-                    boxLabel: Ngcp.csc.locales.filters.incoming[localStorage.getItem('languageSelected')],
-                    inputValue: "incoming",
-                    bind: '{filtergrid.incoming}'
-                }, {
-                    boxLabel: Ngcp.csc.locales.filters.outgoing[localStorage.getItem('languageSelected')],
-                    inputValue: "outgoing",
-                    bind: '{filtergrid.outgoing}'
-                }]
-            }, {
-                xtype: 'checkboxgroup',
-                hidden: !this._callFilters,
-                labelAlign: 'top',
-                items: [{
-                    boxLabel: Ngcp.csc.locales.filters.missed[localStorage.getItem('languageSelected')],
-                    inputValue: "missed",
-                    bind: '{filtergrid.missed}'
-                }, {
-                    boxLabel: Ngcp.csc.locales.filters.answered[localStorage.getItem('languageSelected')],
-                    inputValue: "answered",
-                    bind: '{filtergrid.answered}'
-                }]
             }, {
                 xtype: 'textfield',
                 labelAlign: 'top',
@@ -120,7 +154,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 bind: '{filtergrid.numbers}',
                 hidden: !this._pbxconfigSeats,
                 fieldLabel: Ngcp.csc.locales.filters.numbers[localStorage.getItem('languageSelected')]
-            },{
+            }, {
                 xtype: 'textfield',
                 labelAlign: 'top',
                 bind: '{filtergrid.phone_devices}',
@@ -167,21 +201,6 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                     boxLabel: Ngcp.csc.locales.filters.disabled[localStorage.getItem('languageSelected')],
                     inputValue: "disabled",
                     bind: '{filtergrid.disabled}'
-                }]
-            }, {
-                layout: 'hbox',
-                margin: '10 0 0 0',
-                defaults: {
-                    xtype: 'button',
-                    flex: 1
-                },
-                items: [{
-                    text: Ngcp.csc.locales.common.reset[localStorage.getItem('languageSelected')],
-                    handler: 'resetFilters',
-                    margin: '0 5 0 0'
-                },{
-                    text: Ngcp.csc.locales.filters.apply[localStorage.getItem('languageSelected')],
-                    handler: 'submitFilters'
                 }]
             }]
         }];

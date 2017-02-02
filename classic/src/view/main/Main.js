@@ -24,6 +24,14 @@ Ext.define('NgcpCsc.view.main.Main', {
         resize: 'setItemsSize'
     },
 
+    // TODO: 0. Rewrite applySearchFilter in GridFiltersController
+    // TODO: 1. Add listeners to all form elements for submitFilters
+    // TODO: 2. Implement working filters for the other fields, incl use of vm.get('headerBarNumberInput')
+    // TODO: 3. Toggle view of gridFilter sections when clicking filter icon
+    // TODO: 4. Toggle visibility of the search filter when section changes (get it from url change or by adding a listener on navigation tree)
+    // TODO: 5. Style
+    // TODO: 6. Either get rid of gridFilter, or clean it up / consolidate if still gonna be used as a comp
+
     items: [{
         xtype: 'toolbar',
         cls: 'sencha-dash-dash-headerbar shadow',
@@ -42,6 +50,20 @@ Ext.define('NgcpCsc.view.main.Main', {
                 iconCls: 'x-fa fa-navicon',
                 id: 'main-navigation-btn',
                 handler: 'onToggleNavigationSize'
+            }, {
+                xtype: 'textfield',
+                width: 500,
+                align: 'center',
+                listeners: {
+                    input: {
+                        element: 'el',
+                        fn: 'newSearch'
+                    }
+                }
+            }, {
+                iconCls: 'x-fa fa-filter',
+                tooltip: 'Show filters.'
+                // TODO: Listener/handler
             },
             '->', {
                 iconCls: 'x-fa fa-th-large',
@@ -96,12 +118,17 @@ Ext.define('NgcpCsc.view.main.Main', {
             userCls: 'main-container',
             items: [{
                 region: 'center',
-                reference: 'mainCardPanel',
-                cls: 'sencha-dash-right-main-container',
-                itemId: 'contentPanel',
-                layout: {
-                    type: 'card'
-                }
+                items: [{
+                    xtype: 'gridfilters'
+                    // html: 'hi'
+                }, {
+                    reference: 'mainCardPanel',
+                    cls: 'sencha-dash-right-main-container',
+                    itemId: 'contentPanel',
+                    layout: {
+                        type: 'card'
+                    }
+                }]
             }, {
                 xtype: 'webrtc',
                 region: 'east',
