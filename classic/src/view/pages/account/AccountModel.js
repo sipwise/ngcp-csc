@@ -24,7 +24,7 @@ Ext.define('NgcpCsc.view.pages.account.AccountModel', {
             return Ext.String.format('<span class="fa fa-rotate-left fa-3x"></span><span>{0} {1}</span>', Ngcp.csc.locales.account.call_forwards[localStorage.getItem('languageSelected')].toLowerCase(), active);
         },
         checkReminder: function() {
-            return Ext.String.format('<span class="fa fa-exclamation fa-3x"></span><span>{0}</span>', Ngcp.csc.locales.calls.call_type.forwarded[localStorage.getItem('languageSelected')]);
+            return Ext.String.format('<span class="fa fa-exclamation fa-3x"></span><span>{0}</span>', Ngcp.csc.locales.conversations.forwarded[localStorage.getItem('languageSelected')]);
         }
     }
 });
