@@ -2,7 +2,7 @@ Ext.define('NgcpCsc.model.Conversation', {
     extend: 'Ext.data.Model',
 
     fields: [{
-        name: 'call_type',
+        name: 'conversation_type',
         type: 'string'
     }, {
         name: 'source_cli',

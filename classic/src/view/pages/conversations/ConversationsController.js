@@ -24,24 +24,24 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
 
     renderPhoneIcon: function(value, meta, record) {
         var icon;
-        switch (record.get('call_type')) {
+        switch (record.get('conversation_type')) {
             case 'call':
-                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.call_types.call[localStorage.getItem('languageSelected')] + '"';
+                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.common.conversation_type.call[localStorage.getItem('languageSelected')] + '"';
                 icon = 'fa fa-phone-square green-icon fa-2x pointer';
                 break;
             case 'voicemail':
                 icon = 'fa fa-envelope green-icon fa-2x pointer';
                 break;
             case 'sms':
-                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.call_types.sms[localStorage.getItem('languageSelected')] + '"';
+                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.common.conversation_type.sms[localStorage.getItem('languageSelected')] + '"';
                 icon = 'fa fa-comment green-icon fa-2x pointer';
                 break;
             case 'chat':
-                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.call_types.chat[localStorage.getItem('languageSelected')] + '"';
+                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.common.conversation_type.chat[localStorage.getItem('languageSelected')] + '"';
                 icon = 'fa fa-wechat green-icon fa-2x pointer';
                 break;
             case 'fax':
-                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.call_types.fax[localStorage.getItem('languageSelected')] + '"';
+                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.common.conversation_type.fax[localStorage.getItem('languageSelected')] + '"';
                 icon = 'fa fa-file-text green-icon fa-2x pointer';
                 break;
         };
@@ -54,14 +54,14 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
         switch (record.get('direction')) {
             case 'incoming':
                 icon = color + ' fa fa-chevron-left fa-2x';
-                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.call_type.incoming[localStorage.getItem('languageSelected')] + '"';
+                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.direction.incoming[localStorage.getItem('languageSelected')] + '"';
                 break;
             case 'outgoing':
                 icon = color + ' fa fa-chevron-right fa-2x';
-                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.call_type.outgoing[localStorage.getItem('languageSelected')] + '"';
+                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.direction.outgoing[localStorage.getItem('languageSelected')] + '"';
                 break;
             case 'forwarded':
-                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.call_type.forwarded[localStorage.getItem('languageSelected')] + '"';
+                meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.direction.forwarded[localStorage.getItem('languageSelected')] + '"';
                 return '<div><span class="' + color + ' fa fa-chevron-right fa-2x"></span><span class="' + color + ' fa fa-chevron-right fa-2x"></span></div>';
                 break;
         };
@@ -128,8 +128,8 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
             return;
         }
         if (cellindex == 4) {
-            // TODO different actions for different call_type
-            switch (record.get('call_type')) {
+            // TODO different actions for different conversation_type
+            switch (record.get('conversation_type')) {
                 case 'call':
                 case 'fax':
                 case 'sms':
@@ -167,7 +167,7 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
         if (record.get('expanded') == true) { // hide shortcut icons when card is collapsed
             return '';
         }
-        switch (record.get('call_type')) {
+        switch (record.get('conversation_type')) {
             case 'call':
                 icon = 'fa fa-phone green-icon fa-2x pointer';
                 meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.recall[localStorage.getItem('languageSelected')] + '"';

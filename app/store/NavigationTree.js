@@ -17,13 +17,6 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             acl: ['administrator', 'restricted'], //TODO define real roles, which should be delivered along with user info after successfull login
             leaf: true
         }, {
-            text: 'Conversation with',
-            iconCls: 'x-fa fa-wechat',
-            viewType: 'chat',
-            routeId: 'chat',
-            acl: ['administrator', 'restricted'],
-            leaf: true
-        }, {
             text: 'Addressbook',
             iconCls: 'x-fa fa-book',
             viewType: 'addressbook',

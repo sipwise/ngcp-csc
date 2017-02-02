@@ -43,7 +43,7 @@ Ext.define('NgcpCsc.view.pages.conversations.CallsGrid', {
             renderer: 'renderPhoneIcon',
             width: 40
         }, {
-            dataIndex: 'call_type',
+            dataIndex: 'conversation_type',
             renderer: 'renderCallTypeIcons',
             width: 60
         }, {
@@ -68,7 +68,7 @@ Ext.define('NgcpCsc.view.pages.conversations.CallsGrid', {
                 var content;
                 var footer = "<div class='pointer' id='card-footer-" + record.get('id') + "'><div><hr class='fade'></div><div>" + Ngcp.csc.formatter.timeSince(record.get('start_time')) + " " + Ngcp.csc.locales.common.ago[localStorage.getItem('languageSelected')] + "</div></div>"
                 var previewCharNum = Ext.os.is.Desktop ? 110 : me.getWidth() / 7.5;
-                switch (record.get('call_type')) {
+                switch (record.get('conversation_type')) {
                     case 'call':
                         content = '<div class="card-wrapper hidden pointer" id=' + record.get('id') + '>' +
                             '<div class="card-data-row"><span></span><b>' + Ngcp.csc.locales.common.date[localStorage.getItem('languageSelected')] + '</b>: ' + Ext.util.Format.date(record.get('start_time'), "d.m.Y h:i:s") + ' </div>' +
