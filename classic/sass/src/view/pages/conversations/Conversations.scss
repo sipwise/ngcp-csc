@@ -1,3 +1,12 @@
+@include extjs-toolbar-ui(
+    $ui: 'conversations-actions-tbar',
+    $background-color: '#F6F6F6'
+);
+
+@include extjs-button-medium-ui(
+    $ui: 'conversations-actions-btn'
+    // btns customisations goes here
+);
 // custom rules
 
 .missed-call-color {

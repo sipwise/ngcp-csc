@@ -6,6 +6,7 @@ Ext.define('NgcpCsc.view.pages.themeroller.ThemeRollerController', {
     applyTheme: function() {
         var vm = this.getViewModel();
         // defer is needded becuse binding is slower than change listener callback
+        /*
         Ext.Function.defer(function() {
             Fashion.css.setVariables({
                 'base-color': '#' + vm.get('basecolor'),
@@ -18,6 +19,7 @@ Ext.define('NgcpCsc.view.pages.themeroller.ThemeRollerController', {
             });
             this.getView().updateLayout()
         }, 300, this);
+        */
     },
 
     resetTheme: function() {

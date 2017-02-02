@@ -1,7 +1,7 @@
-Ext.define('NgcpCsc.view.pages.calls.CallsController', {
+Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
     extend: 'NgcpCsc.view.pages.account.AccountController',
 
-    alias: 'controller.calls',
+    alias: 'controller.conversations',
 
     onIconClicked: function(event, el) {
         // eval is never the best option
@@ -43,7 +43,7 @@ Ext.define('NgcpCsc.view.pages.calls.CallsController', {
     },
 
     removeCard: function(el) {
-        var store = Ext.getStore('Calls');
+        var store = Ext.getStore('Conversations');
         var rec = store.findRecord('id', el.id);
         store.remove(rec);
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
@@ -56,10 +56,10 @@ Ext.define('NgcpCsc.view.pages.calls.CallsController', {
         elClassList.add('fa-pause');
         el.dataset.callback = 'stopVoicemail';
         sample.play();
-        sample.addEventListener("ended", function(){
-             sample.currentTime = 0;
-             elClassList.add('fa-play')
-             elClassList.remove('fa-pause');
+        sample.addEventListener("ended", function() {
+            sample.currentTime = 0;
+            elClassList.add('fa-play')
+            elClassList.remove('fa-pause');
         });
     },
 
@@ -71,16 +71,69 @@ Ext.define('NgcpCsc.view.pages.calls.CallsController', {
         el.dataset.callback = 'reproduceVoicemail';
         sample.pause();
     },
-    /*****/
 
-    startCall:function(el){
-        var record = Ext.getStore('Calls').findRecord('id', el.id);
+    startCall: function(el) {
+        var record = Ext.getStore('Conversations').findRecord('id', el.id);
         this.fireEvent('initwebrtc', record, true);
     },
 
-    startChat:function(el){
-        // TODO
+    startChat: function(el) {
         this.startCall(el);
+    },
+
+    openCallPanel: function(cmp) {
+        this.fireEvent('initwebrtc', null, false, true);
+    },
+
+    expandConversation: function(grid, td, cellindex, record, tr) {
+        if (cellindex == 4) { // todo
+            switch (record.get('call_type')) {
+                case 'call':
+                    this.openCallPanel();
+                    break;
+                case 'voicemail':
+                    this.openCallPanel();
+                    break;
+                case 'fax':
+                    this.openCallPanel();
+                    break;
+            };
+        } else {
+            var row = document.getElementById(record.get('id'));
+            var footer = document.getElementById('card-footer-' + record.get('id'));
+            if (row.classList.contains('hidden')) {
+                row.classList.remove('hidden');
+                footer.classList.add('hidden');
+            } else {
+                row.classList.add('hidden');
+                footer.classList.remove('hidden');
+            };
+        }
+
+    },
+    renderShortCut: function(value, meta, record) {
+        var icon;
+        switch (record.get('call_type')) {
+            case 'call':
+                icon = 'fa fa-phone green-icon fa-2x pointer';
+                break;
+            case 'voicemail':
+                icon = 'fa fa-play green-icon fa-2x pointer';
+                break;
+            case 'fax':
+                icon = 'fa fa-fax green-icon fa-2x pointer';
+                break;
+        };
+        return Ext.String.format('<div class="{0}"></div>', icon);
+    },
+
+    // libphonenumber returns country codes; did not find yet
+    // a free library which returns city name from areaCode
+    // +43123456 => {country:'AT', city:'Vienna'}
+    // https://github.com/halt-hammerzeit/libphonenumber-js
+    renderCity: function(value, meta, record) {
+        var lookupData = new libphonenumber.parse(record.get('source_cli'));
+        return lookupData.country;
     },
 
     saveSettings: function() {

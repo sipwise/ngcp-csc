@@ -2,7 +2,7 @@
     "data": [{
         "id" : 1,
         "call_type": "voicemail",
-        "source_cli": "1234567",
+        "source_cli": "+4312346",
         "number" : 1234567,
         "duration": 19.488,
         "charges": 40.112,
@@ -13,16 +13,25 @@
     },{
         "id" : 2,
         "call_type": "call",
-        "source_cli": "43991001",
+        "source_cli": "+4312346",
         "duration": 84.332,
         "charges": 15.014,
         "status": "missed",
         "direction": "outgoing",
         "start_time": "2016-10-07T15:05:35.384000000+02:00"
     }, {
+        "id" : 31,
+        "call_type": "sms",
+        "source_cli": "+4312346",
+        "number" : 1234567,
+        "text":"Heyo let's go!",
+        "charges": 0.05,
+        "direction": "incoming",
+        "start_time": "2016-10-07T15:45:16.184000000+02:00"
+    },{
         "id" : 3,
         "call_type": "voicemail",
-        "source_cli": "1234567",
+        "source_cli": "+4312346",
         "number" : 1234567,
         "duration": 11.342,
         "charges": 0.000,
@@ -33,7 +42,7 @@
     }, {
         "id" : 4,
         "call_type": "call",
-        "source_cli": "43991002",
+        "source_cli": "+4312346",
         "duration": 1.023,
         "charges": 123.040,
         "status": "answered",
@@ -42,7 +51,7 @@
     }, {
         "id" : 5,
         "call_type": "call",
-        "source_cli": "43991001",
+        "source_cli": "+4312346",
         "duration": 19.488,
         "charges": 40.112,
         "status": "answered",
@@ -51,7 +60,7 @@
     },{
         "id" : 6,
         "call_type": "call",
-        "source_cli": "43991003",
+        "source_cli": "+4312346",
         "duration": 84.332,
         "charges": 15.014,
         "status": "answered",
@@ -60,7 +69,7 @@
     }, {
         "id" : 7,
         "call_type": "voicemail",
-        "source_cli": "1234567",
+        "source_cli": "+4312346",
         "number" : 1234567,
         "duration": 11.342,
         "charges": 0.000,
@@ -71,7 +80,7 @@
     }, {
         "id" : 8,
         "call_type": "call",
-        "source_cli": "43991004",
+        "source_cli": "+4312346",
         "duration": 1.023,
         "charges": 123.040,
         "status": "missed",
@@ -80,16 +89,16 @@
     }, {
         "id" : 9,
         "call_type": "call",
-        "source_cli": "43991005",
+        "source_cli": "+4312346",
         "duration": 19.488,
         "charges": 40.112,
         "status": "missed",
         "direction": "outgoing",
-        "start_time": "2016-10-07T14:05:33.384000000+02:00"
+        "start_time": "2017-02-07T10:05:33.384000000+02:00"
     }, {
         "id" : 10,
         "call_type": "call",
-        "source_cli": "43991006",
+        "source_cli": "+4312346",
         "duration": 84.332,
         "charges": 15.014,
         "status": "missed",
@@ -98,7 +107,7 @@
     }, {
         "id" : 11,
         "call_type": "voicemail",
-        "source_cli": "1234567",
+        "source_cli": "+4312346",
         "number" : 1234567,
         "duration": 11.342,
         "charges": 0.000,
@@ -109,7 +118,7 @@
     }, {
         "id" : 12,
         "call_type": "call",
-        "source_cli": "439910017",
+        "source_cli": "+4312346",
         "duration": 1.023,
         "charges": 123.040,
         "status": "answered",
@@ -118,7 +127,7 @@
     }, {
         "id" : 13,
         "call_type": "fax",
-        "source_cli": "11228844",
+        "source_cli": "+4312346",
         "duration": 19.488,
         "status": "missed",
         "direction": "outgoing",
@@ -127,7 +136,7 @@
     }, {
         "id" : 14,
         "call_type": "fax",
-        "source_cli": "11223344",
+        "source_cli": "+4312346",
         "duration": 43.144,
         "status": "answered",
         "direction": "incoming",
@@ -136,7 +145,7 @@
     }, {
         "id" : 15,
         "call_type": "fax",
-        "source_cli": "11223344",
+        "source_cli": "+4312346",
         "duration": 231.743,
         "status": "answered",
         "direction": "incoming",
@@ -145,7 +154,7 @@
     }, {
         "id" : 16,
         "call_type": "fax",
-        "source_cli": "11228844",
+        "source_cli": "+4312346",
         "duration": 9.488,
         "status": "missed",
         "direction": "outgoing",
