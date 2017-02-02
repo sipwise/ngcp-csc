@@ -10,14 +10,14 @@ Ext.define('NgcpCsc.store.NavigationTree', {
     root: {
         expanded: true,
         children: [{
-            text: 'Unified Inbox',
+            text: 'Conversations',
             iconCls: 'x-fa fa-phone',
-            viewType: 'calls',
+            viewType: 'conversations',
             routeId: 'inbox',
             acl: ['administrator', 'restricted'], //TODO define real roles, which should be delivered along with user info after successfull login
             leaf: true
         }, {
-            text: 'Chat',
+            text: 'Conversation with',
             iconCls: 'x-fa fa-wechat',
             viewType: 'chat',
             routeId: 'chat',
@@ -70,16 +70,14 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             iconCls: 'x-fa fa-cog',
             routeId: 'pbxconfig',
             acl: ['administrator', 'restricted', 'host'],
-            children: [
-                {
+            children: [{
                 text: 'Seats',
                 iconCls: 'x-fa fa-home',
                 viewType: 'seats',
                 routeId: 'pbxconfig/seats',
                 acl: ['administrator'],
                 leaf: true
-            },
-            {
+            }, {
                 text: 'Groups',
                 iconCls: 'x-fa fa-users',
                 viewType: 'groups',
@@ -100,8 +98,7 @@ Ext.define('NgcpCsc.store.NavigationTree', {
                 routeId: 'pbxconfig/autoattendant',
                 acl: ['administrator', 'restricted', 'host'],
                 leaf: true
-            }
-        ]
+            }]
         }, {
             text: 'Account',
             iconCls: 'x-fa fa-desktop',

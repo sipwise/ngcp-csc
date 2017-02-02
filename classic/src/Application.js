@@ -16,8 +16,8 @@ Ext.define('NgcpCsc.Application', {
 
     stores: [
         'NavigationTree',
-        'Calls',
-        'CallTypes',
+        'Conversations',
+        'ConversationTypes',
         'VoiceMails',
         'Chat',
         'ChatList',
@@ -35,6 +35,7 @@ Ext.define('NgcpCsc.Application', {
     ],
 
     launch: function() {
+        Ext.tip.QuickTipManager.init();
         // TODO to be replaced with request
         if(localStorage.getItem('remember_me')){
             window.location.hash = '#inbox';

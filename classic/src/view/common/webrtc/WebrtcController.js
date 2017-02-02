@@ -16,17 +16,19 @@ Ext.define('NgcpCsc.view.common.webrtc.WebrtcController', {
         }
     },
 
-    showWebrtcPanel: function(record, switchVideoOn) {
+    showWebrtcPanel: function(record, switchVideoOn, newCall) {
         var panel = this.getView();
-        var vm = this.getViewModel();
-        var buddyUser = Ext.getStore('Chat').findRecord('uid', record.get('uid'));
-        var number = (buddyUser) ? buddyUser.get('number') : record.get('caller') || record.get('source_cli') || record.get('mobile');
-        this.getViewModel().set('title', Ext.String.format('{0}', number));
-        vm.set('thumbnail', (buddyUser) ? buddyUser.get('thumbnail') : this.getViewModel().get('defaultThumbnail'));
-        vm.set('status', Ext.String.format('calling {0} ...', (buddyUser) ? buddyUser.get('name') : ''));
-        vm.set('callEnabled', true);
-        vm.set('micEnabled', true);
-        vm.set('videoEnabled', switchVideoOn || false);
+        if(!newCall){
+            var vm = this.getViewModel();
+            var buddyUser = Ext.getStore('Chat').findRecord('uid', record.get('uid'));
+            var number = (buddyUser) ? buddyUser.get('number') : record.get('caller') || record.get('source_cli') || record.get('mobile');
+            this.getViewModel().set('title', Ext.String.format('{0}', number));
+            vm.set('thumbnail', (buddyUser) ? buddyUser.get('thumbnail') : this.getViewModel().get('defaultThumbnail'));
+            vm.set('status', Ext.String.format('calling {0} ...', (buddyUser) ? buddyUser.get('name') : ''));
+            vm.set('callEnabled', true);
+            vm.set('micEnabled', true);
+            vm.set('videoEnabled', switchVideoOn || false);
+        }
         panel.show().expand();
     },
 

@@ -120,13 +120,36 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Devices'
             }
         },
-        calls: {
+        conversations: {
+            btns:{
+                new_sms: {
+                    en: 'New SMS',
+                    it: 'New SMS',
+                    de: 'New SMS',
+                    fr: 'New SMS',
+                    sp: 'New SMS'
+                },
+                new_call: {
+                    en: 'New Call',
+                    it: 'New Call',
+                    de: 'New Call',
+                    fr: 'New Call',
+                    sp: 'New Call'
+                },
+                new_fax: {
+                    en: 'New Fax',
+                    it: 'New Fax',
+                    de: 'New Fax',
+                    fr: 'New Fax',
+                    sp: 'New Fax'
+                }
+            },
             section_title: {
-                en: 'Unified inbox.',
-                it: 'Unified inbox.',
-                de: 'Unified inbox.',
-                fr: 'Unified inbox.',
-                sp: 'Unified inbox.'
+                en: 'Conversations.',
+                it: 'Conversations.',
+                de: 'Conversations.',
+                fr: 'Conversations.',
+                sp: 'Conversations.'
             },
             recent_calls: {
                 en: 'RECENT CALLS',
@@ -144,25 +167,25 @@ Ext.define('Ngcp.csc.locales', {
             },
             call_type: {
                 incoming: {
-                    en: 'incoming',
-                    it: 'incoming',
-                    de: 'incoming',
-                    fr: 'incoming',
-                    sp: 'inoming'
+                    en: 'Incoming',
+                    it: 'Incoming',
+                    de: 'Incoming',
+                    fr: 'Incoming',
+                    sp: 'Incoming'
                 },
                 outgoing: {
-                    en: 'outgoing',
-                    it: 'outgoing',
-                    de: 'outgoing',
-                    fr: 'outgoing',
-                    sp: 'outgoing'
+                    en: 'Outgoing',
+                    it: 'Outgoing',
+                    de: 'Outgoing',
+                    fr: 'Outgoing',
+                    sp: 'Outgoing'
                 },
                 forwarded: {
-                    en: 'forwarded',
-                    it: 'forwarded',
-                    de: 'forwarded',
-                    fr: 'forwarded',
-                    sp: 'forwarded'
+                    en: 'Forwarded',
+                    it: 'Forwarded',
+                    de: 'Forwarded',
+                    fr: 'Forwarded',
+                    sp: 'Forwarded'
                 }
             },
             all_calls: {
@@ -185,6 +208,122 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'folder',
                 fr: 'folder',
                 sp: 'folder'
+            },
+            location:{
+                en: 'location',
+                it: 'location',
+                de: 'location',
+                fr: 'location',
+                sp: 'location'
+            },
+            direction:{
+                en: 'direction',
+                it: 'direction',
+                de: 'direction',
+                fr: 'direction',
+                sp: 'direction'
+            },
+            tooltips:{
+                call_types:{
+                    call:{
+                        en: 'Call',
+                        it: 'Call',
+                        de: 'Call',
+                        fr: 'Call',
+                        sp: 'Call'
+                    },
+                    sms:{
+                        en: 'SMS',
+                        it: 'SMS',
+                        de: 'SMS',
+                        fr: 'SMS',
+                        sp: 'SMS'
+                    },
+                    fax:{
+                        en: 'Fax',
+                        it: 'Fax',
+                        de: 'Fax',
+                        fr: 'Fax',
+                        sp: 'Fax'
+                    },
+                    voicemail:{
+                        en: 'Voicemail',
+                        it: 'Voicemail',
+                        de: 'Voicemail',
+                        fr: 'Voicemail',
+                        sp: 'Voicemail'
+                    },
+                    chat:{
+                        en: 'Chat',
+                        it: 'Chat',
+                        de: 'Chat',
+                        fr: 'Chat',
+                        sp: 'Chat'
+                    }
+                },
+                new_sms:{
+                    en: 'Create and send a new SMS.',
+                    it: 'Create and send a new SMS.',
+                    de: 'Create and send a new SMS.',
+                    fr: 'Create and send a new SMS.',
+                    sp: 'Create and send a new SMS.'
+                },
+                new_call:{
+                    en: 'Call a new or an existing number.',
+                    it: 'Call a new or an existing number.',
+                    de: 'Call a new or an existing number.',
+                    fr: 'Call a new or an existing number.',
+                    sp: 'Call a new or an existing number.'
+                },
+                new_fax:{
+                    en: 'Create and send a new fax.',
+                    it: 'Create and send a new fax.',
+                    de: 'Create and send a new fax.',
+                    fr: 'Create and send a new fax.',
+                    sp: 'Create and send a new fax.'
+                },
+                recall:{
+                    en: 'Call this number.',
+                    it: 'Call this number.',
+                    de: 'Call this number.',
+                    fr: 'Call this number.',
+                    sp: 'Call this number.'
+                },
+                listen:{
+                    en: 'Reproduce the message.',
+                    it: 'Reproduce the message.',
+                    de: 'Reproduce the message.',
+                    sp: 'Reproduce the message.',
+                    fr: 'Reproduce the message.'
+                },
+                send_fax:{
+                    en: 'Send a fax to this number.',
+                    it: 'Send a fax to this number.',
+                    de: 'Send a fax to this number.',
+                    fr: 'Send a fax to this number.',
+                    sp: 'Send a fax to this number.'
+                },
+                download_fax:{
+                    en: 'Download this fax.',
+                    it: 'Download this fax.',
+                    de: 'Download this fax.',
+                    fr: 'Download this fax.',
+                    sp: 'Download this fax.'
+                },
+                send_sms:{
+                    en: 'Send an sms to this number.',
+                    it: 'Send an sms to this number.',
+                    de: 'Send an sms to this number.',
+                    fr: 'Send an sms to this number.',
+                    sp: 'Send an sms to this number.'
+                },
+                chat :{
+                    en: 'Start a private conversation.',
+                    it: 'Start a private conversation.',
+                    de: 'Start a private conversation.',
+                    fr: 'Start a private conversation.',
+                    sp: 'Start a private conversation.'
+                }
             }
         },
         callbarring: {
@@ -1530,6 +1669,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Groups',
                 fr: 'Groups',
                 sp: 'Groups'
+            },
+            ago : {
+                en: 'ago',
+                it: 'ago',
+                de: 'ago',
+                fr: 'ago',
+                sp: 'ago'
             }
         }
     }
