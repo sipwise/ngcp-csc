@@ -1,7 +1,7 @@
-Ext.define('NgcpCsc.view.pages.calls.CallsController', {
+Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
     extend: 'NgcpCsc.view.pages.account.AccountController',
 
-    alias: 'controller.calls',
+    alias: 'controller.conversations',
 
     onIconClicked: function(event, el) {
         // eval is never the best option
@@ -71,8 +71,7 @@ Ext.define('NgcpCsc.view.pages.calls.CallsController', {
         el.dataset.callback = 'reproduceVoicemail';
         sample.pause();
     },
-    /*****/
-
+    
     startCall:function(el){
         var record = Ext.getStore('Calls').findRecord('id', el.id);
         this.fireEvent('initwebrtc', record, true);
