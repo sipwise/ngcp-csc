@@ -19,7 +19,17 @@ Ext.define('NgcpCsc.model.GridFilters', {
         'disabled',
         'device',
         'mac',
-        'status'
+        'status',
+        'headerBarFieldInput',
+        'call',
+        'voicemail',
+        'reminder',
+        'fax',
+        'convFilterHideState',
+        'pbxSeatsFilterHideState',
+        'pbxGroupsFilterHideState',
+        'pbxDevicesFilterHideState',
+        'freeSearchState'
     ],
 
     proxy: {

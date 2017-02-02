@@ -12,8 +12,6 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
 
     controller: 'callbarring',
 
-    title: Ngcp.csc.locales.callbarring.title[localStorage.getItem('languageSelected')],
-
     initComponent: function() {
         var incomingGrid = Ext.create('NgcpCsc.view.pages.callbarring.CallBarringIncomingGrid');
         var outgoingGrid = Ext.create('NgcpCsc.view.pages.callbarring.CallBarringOutgoingGrid');
@@ -21,9 +19,6 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
         this.items = [{
             xtype:'core-container',
             items:[{
-                height: 60,
-                html: Ngcp.csc.locales.callbarring.subtitle[localStorage.getItem('languageSelected')]
-            }, {
                 height: 60,
                 padding: '5 0 0 0',
                 html: Ext.String.format('<div class="callbarring-heading">{0} {1}</div>', Ngcp.csc.locales.callbarring.user_label[localStorage.getItem('languageSelected')], localStorage.getItem('username'))

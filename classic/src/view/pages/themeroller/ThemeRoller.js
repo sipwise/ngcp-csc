@@ -7,8 +7,6 @@ Ext.define('NgcpCsc.view.pages.themeroller.ThemeRoller', {
 
     controller: 'themeroller',
 
-    title: Ngcp.csc.locales.themeroller.title[localStorage.getItem('languageSelected')],
-
     items: [{
         defaults: {
             ui:'core-container',
