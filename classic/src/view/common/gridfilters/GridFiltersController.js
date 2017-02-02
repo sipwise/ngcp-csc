@@ -167,6 +167,11 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
 
     renderGroupsFilterText: function(value, metaData) {
         return Ngcp.csc.locales.common.groups[localStorage.getItem('languageSelected')].toLowerCase();
+    },
+
+    filterSearchInput: function(element) {
+        var target = element.getTarget();
+        console.log(target.value);
     }
 
 });

@@ -15,7 +15,29 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
 
     collapsed: !Ext.os.is.Desktop,
 
+    flex: 1,
+
+    // DONE: 0. Utilize dockedItems for now to display filter bar on top in main container. Might look into implementing this inside headerBar in ngcp-main instead later
+    // DONE: 1a. Intercept the input event on the search field..
+    // TODO: 1b. ..and trigger store filter
+    // TODO: 2. Rearrange fields according to wireframe
+    // TODO: 3. Style gridfilters to full with, no border, etc
+    // TODO: 4. Style x-tool position, colors, etc
+
     initComponent: function() {
+        this.tools = [{
+            xtype: 'textfield',
+            bind: '{filtergrid.number}',
+            width: 500,
+            listeners: {
+                input: {
+                    element: 'el',
+                    fn: 'filterSearchInput'
+                }
+            }
+        }, {
+            type: 'search' // TODO: Put in field instead
+        }];
 
         this.items = [{
             xtype: 'form',
@@ -42,13 +64,15 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 name: 'to_date',
                 bind: '{filtergrid.to_date}',
                 maxValue: new Date() // limited to the current date or prior
-            }, {
-                xtype: 'textfield',
-                labelAlign: 'top',
-                hidden: !this._callFilters,
-                bind: '{filtergrid.number}',
-                fieldLabel: Ngcp.csc.locales.common.number[localStorage.getItem('languageSelected')]
-            }, {
+            },
+            // {
+            //     xtype: 'textfield',
+            //     labelAlign: 'top',
+            //     hidden: !this._callFilters,
+            //     bind: '{filtergrid.number}', // TODO: Number field to move to title bar
+            //     fieldLabel: Ngcp.csc.locales.common.number[localStorage.getItem('languageSelected')]
+            // },
+            {
                 xtype: 'tagfield',
                 labelAlign: 'top',
                 reference: 'types',

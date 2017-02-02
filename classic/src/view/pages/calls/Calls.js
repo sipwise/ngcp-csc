@@ -7,7 +7,18 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
 
     viewModel: 'calls',
 
-    title: Ngcp.csc.locales.calls.section_title[localStorage.getItem('languageSelected')],
+    dockedItems: [{
+        xtype: 'toolbar',
+        dock: 'top',
+        items: [Ext.create('NgcpCsc.view.common.gridfilters.GridFilters', {
+            title: Ngcp.csc.locales.calls.section_title[localStorage.getItem('languageSelected')],
+            // Links filters with store. Calls is referring to conversations(/former unified inbox)
+            _linkedStoreId: 'Calls',
+            // Define what textfields to show, grouped by module. Available groupings are:
+            // _callFilters, _pbxconfigSeats, _pbxconfigGroups, _pbxconfigDevices
+            _callFilters: true
+        })]
+    }],
 
     initComponent: function() {
         this.items = [{
@@ -17,4 +28,5 @@ Ext.define('NgcpCsc.view.pages.calls.Calls', {
 
         this.callParent();
     }
+
 });
