@@ -10,14 +10,14 @@ Ext.define('NgcpCsc.store.NavigationTree', {
     root: {
         expanded: true,
         children: [{
-            text: 'Unified Inbox',
+            text: 'Conversations',
             iconCls: 'x-fa fa-phone',
-            viewType: 'calls',
+            viewType: 'conversations',
             routeId: 'inbox',
             acl: ['administrator', 'restricted'], //TODO define real roles, which should be delivered along with user info after successfull login
             leaf: true
         }, {
-            text: 'Chat',
+            text: 'History',
             iconCls: 'x-fa fa-wechat',
             viewType: 'chat',
             routeId: 'chat',

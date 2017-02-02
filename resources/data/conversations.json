@@ -1,0 +1,79 @@
+{
+    "data": [{
+        "id" : 1,
+        "call_type": "voicemail",
+        "source_cli": "+390290775544",
+        "number" : 1234567,
+        "duration": 19.488,
+        "charges": 40.112,
+        "status": "missed",
+        "direction": "outgoing",
+        "folder": "INBOX",
+        "start_time": "2017-02-09T12:05:33.384000000+02:00"
+    },{
+        "id" : 2,
+        "call_type": "call",
+        "source_cli": "+4312346",
+        "duration": 84.332,
+        "charges": 15.014,
+        "status": "missed",
+        "direction": "outgoing",
+        "start_time": "2017-02-09T10:05:33.384000000+02:00"
+    },{
+        "id" : 3,
+        "call_type": "call",
+        "source_cli": "+4912346",
+        "duration": 84.332,
+        "charges": 15.014,
+        "status": "answered",
+        "direction": "forwarded",
+        "start_time": "2017-02-08T10:05:33.384000000+02:00"
+    }, {
+        "id" : 4,
+        "call_type": "sms",
+        "source_cli": "+41588666600",
+        "number" : 1234567,
+        "text":"This is an sms. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+        "charges": 0.05,
+        "direction": "incoming",
+        "status": "answered",
+        "start_time": "2017-01-31T10:05:33+02:00"
+    },{
+        "id" : 5,
+        "call_type": "chat",
+        "uid": "840",
+        "text":"This is a chat message. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+        "direction": "incoming",
+        "status": "answered",
+        "start_time": "2017-01-30T10:05:33.384000000+02:00"
+    },{
+        "id" : 6,
+        "call_type": "voicemail",
+        "source_cli": "+4912346",
+        "number" : 1234567,
+        "duration": 11.342,
+        "charges": 0.000,
+        "status": "missed",
+        "direction": "incoming",
+        "folder": "Old",
+        "start_time": "2017-01-15T10:05:33.384000000+02:00"
+    }, {
+        "id" : 7,
+        "call_type": "fax",
+        "source_cli": "+390290775544",
+        "duration": 19.488,
+        "status": "missed",
+        "direction": "outgoing",
+        "start_time": "2017-01-10T10:05:33.384000000+02:00",
+        "pages": "7"
+    }, {
+        "id" : 8,
+        "call_type": "fax",
+        "source_cli": "+4312346",
+        "duration": 43.144,
+        "status": "answered",
+        "direction": "incoming",
+        "start_time": "2016-12-31T10:05:33.384000000+02:00",
+        "pages": "4"
+    }]
+}
