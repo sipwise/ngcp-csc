@@ -7,8 +7,6 @@ Ext.define('NgcpCsc.view.pages.password.Password', {
 
     viewModel: 'password',
 
-    title: Ngcp.csc.locales.password.title[localStorage.getItem('languageSelected')],
-
     initComponent: function() {
         this.items = [{
             layout: 'responsivecolumn',

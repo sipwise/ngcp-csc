@@ -7,8 +7,6 @@ Ext.define('NgcpCsc.view.pages.addressbook.Addressbook', {
 
     viewModel: 'addressbook',
 
-    title: Ngcp.csc.locales.addressbook.title[localStorage.getItem('languageSelected')],
-
     initComponent: function(){
         this.items = [{
             userCls: Ext.os.is.Desktop ? 'big-30' : 'small-100',
@@ -52,7 +50,7 @@ Ext.define('NgcpCsc.view.pages.addressbook.Addressbook', {
                         fieldLabel: Ngcp.csc.locales.addressbook.mobile[localStorage.getItem('languageSelected')],
                         bind: '{selection.mobile}'
                     }, {
-                        fieldLabel: Ngcp.csc.locales.addressbook.fax[localStorage.getItem('languageSelected')],
+                        fieldLabel: Ngcp.csc.locales.common.fax[localStorage.getItem('languageSelected')],
                         bind: '{selection.fax}'
                     }, {
                         fieldLabel: Ngcp.csc.locales.addressbook.e_mail[localStorage.getItem('languageSelected')],
