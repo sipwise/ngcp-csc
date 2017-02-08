@@ -10,6 +10,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
         },
         markDirty: false,
         emptyText: Ngcp.csc.locales.callforward.nowhere[localStorage.getItem('languageSelected')]
+
     },
 
     plugins: {

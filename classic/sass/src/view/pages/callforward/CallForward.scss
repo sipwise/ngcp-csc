@@ -16,8 +16,13 @@
 );
 
 /* custom css */
-.x-panel-cf-container .x-autocontainer-innerCt {
-    font-size: 120%;
+
+.x-panel-cf-mainform .cf-formtext {
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.x-panel-cf-mainform .cf-subheader  {
     padding-top: 20px;
 }
 
@@ -39,11 +44,38 @@
     float: left;
 }
 
-.cf-subheader {
-    font-weight: 600;
+.x-panel-cf-mainform .x-segmented-button {
+    white-space: nowrap;
 }
 
-.cf-subtitle {
+.x-panel-cf-mainform .x-segmented-button:first-child {
+    margin-bottom: 10px;
+}
+
+.x-panel-cf-mainform .x-segmented-button-item-horizontal {
+    display: inline-block;
+    width: 32%;
+    height: 35px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.x-panel-cf-mainform .x-segmented-button-item-horizontal.x-segmented-button-first {
+    margin-left: 10px
+}
+.x-panel-cf-mainform .x-segmented-button-item-horizontal.x-segmented-button-last {
+    margin-right: 0;
+}
+
+.x-panel-cf-mainform {
+    #onlineFirstRingFields,
+    #busyFirstRingFields,
+    #offlineFirstRingFields {
+        margin-bottom: 10px;
+    }
+}
+
+.cf-title {
     font-size: 110%;
     font-weight: 600;
 }

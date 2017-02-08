@@ -68,7 +68,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
             xtype: 'core-container',
             items: [{
                 padding: '0 0 20 0',
-                html: Ext.String.format('<div class="fa fa-mail-forward cf-subtitle"> {0}</div>', Ngcp.csc.locales.callforward.subtitle[localStorage.getItem('languageSelected')])
+                html: Ext.String.format('<div class="fa fa-mail-forward cf-title"> {0}</div>', Ngcp.csc.locales.callforward.subtitle[localStorage.getItem('languageSelected')])
             }, {
                 xtype: 'callforwardmainform'
             }]
