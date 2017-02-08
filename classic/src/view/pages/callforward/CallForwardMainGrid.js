@@ -3,23 +3,25 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
 
     selModel: 'cellmodel',
 
+    rowLines: false,
+    width: '100%',
+    hideHeaders: true,
+    ui: 'cf-grid',
+
     viewConfig: {
         plugins: {
             ptype: 'gridviewdragdrop',
             dragText: Ngcp.csc.locales.callforward.drag_text[localStorage.getItem('languageSelected')]
         },
         markDirty: false,
-        emptyText: Ngcp.csc.locales.callforward.nowhere[localStorage.getItem('languageSelected')]
+        emptyText: Ngcp.csc.locales.callforward.nowhere[localStorage.getItem('languageSelected')],
+        stripeRows: false
     },
 
     plugins: {
         ptype: 'cellediting',
         clicksToEdit: 1
     },
-
-    hideHeaders: true,
-
-    ui: 'cf-grid',
 
     initComponent: function() {
         var me = this;

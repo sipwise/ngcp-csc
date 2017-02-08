@@ -81,7 +81,6 @@ Ext.define('NgcpCsc.view.login.Login', {
                     'select': 'languageSelection'
                 }
             },
-            // TODO: remember me & forgotten pswd
             {
                 xtype: 'container',
                 layout: 'hbox',

@@ -8,7 +8,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
     },
 
     fieldDefaults: {
-        labelAlign: 'top'
+        labelSeparator : ''
     },
 
     margin: '0 10 0 0',
@@ -83,6 +83,10 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 iconAlign: 'right'
             }]
         }, {
+            xtype: 'container',
+            userCls: 'cf-formtext',
+            html: Ngcp.csc.locales.callforward.for_calling_parties[localStorage.getItem('languageSelected')]
+        }, {
             xtype: 'segmentedbutton',
             itemId: 'sourceButtons',
             value: 'everybody',
@@ -108,34 +112,27 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 iconAlign: 'right'
             }]
         }, {
-            xtype: 'panel',
-            userCls: 'cf-subheader-large',
-            html: Ngcp.csc.locales.callforward.when_phone_online[localStorage.getItem('languageSelected')] + '<hr>',
-            height: 50,
-            ui: 'cf-container',
-            margin: '0 0 10 0'
-        }, {
             xtype: 'container',
-            userCls: 'cf-subheader',
-            html: Ngcp.csc.locales.callforward.first_ring[localStorage.getItem('languageSelected')],
-            height: 25
+            userCls: 'cf-formtext cf-subheader',
+            html: Ngcp.csc.locales.callforward.when_phone_online[localStorage.getItem('languageSelected')]
         }, {
             xtype: 'panel',
             layout: 'hbox',
             id: 'onlineFirstRingFields',
-            height: 50,
             padding: '0 11 0 0',
+            margin: '0 0 0 50',
             items: [{
                 xtype: 'combo',
                 store: ['Own phone', 'Voicemail', 'Fax2Mail', 'None'],
                 id: 'onlineFirstDest',
+                fieldLabel: Ngcp.csc.locales.callforward.first_ring[localStorage.getItem('languageSelected')],
                 value: 'Own phone',
                 allowBlank: false,
                 editable: false,
                 listeners: {
                     change: 'selectFirstRing'
                 },
-                flex: 5
+                flex: 8
             }, {
                 xtype: 'combo',
                 store: ['for 10 secs', 'for 20 secs', 'for 30 secs', 'for 40 secs', 'for 50 secs', 'for 60 secs'],
@@ -143,18 +140,24 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 id: 'onlineFirstTimeout',
                 allowBlank: false,
                 editable: false,
-                flex: 1,
+                flex: 2,
+                margin: '0 0 0 10',
                 bind: {
                     hidden: '{online_timeout_hidden}'
                 }
             }]
         }, {
             xtype: 'container',
-            html: Ngcp.csc.locales.callforward.then_forward_to[localStorage.getItem('languageSelected')],
-            userCls: 'cf-subheader'
-        },
-            onlineGrid,
-        {
+            layout: 'hbox',
+            margin: '10 0 0 50',
+            items: [{
+                xtype: 'container',
+                html: Ngcp.csc.locales.callforward.then_forward_to[localStorage.getItem('languageSelected')],
+                userCls: 'cf-formtext'
+            },
+                onlineGrid
+            ]
+        }, {
             html: Ngcp.csc.locales.callforward.add_new_destination[localStorage.getItem('languageSelected')],
             xtype: 'button',
             id: 'onlineButton',
@@ -165,34 +168,27 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 click: 'addEmptyRow'
             }
         }, {
-            xtype: 'panel',
-            userCls: 'cf-subheader-large',
-            html: Ngcp.csc.locales.callforward.when_phone_busy[localStorage.getItem('languageSelected')] + '<hr>',
-            height: 50,
-            ui: 'cf-container',
-            margin: '0 0 10 0'
-        }, {
             xtype: 'container',
-            userCls: 'cf-subheader',
-            html: Ngcp.csc.locales.callforward.first_ring[localStorage.getItem('languageSelected')],
-            height: 25
+            userCls: 'cf-formtext cf-subheader',
+            html: Ngcp.csc.locales.callforward.when_phone_busy[localStorage.getItem('languageSelected')]
         }, {
             xtype: 'panel',
             layout: 'hbox',
             id: 'busyFirstRingFields',
-            height: 50,
             padding: '0 11 0 0',
+            margin: '0 0 0 50',
             items: [{
                 xtype: 'combo',
                 store: ['Own phone', 'Voicemail', 'Fax2Mail', 'None'],
                 id: 'busyFirstDest',
+                fieldLabel: Ngcp.csc.locales.callforward.first_ring[localStorage.getItem('languageSelected')],
                 value: 'None',
                 allowBlank: false,
                 editable: false,
                 listeners: {
                     change: 'selectFirstRing'
                 },
-                flex: 5
+                flex: 8
             }, {
                 xtype: 'combo',
                 store: ['for 10 secs', 'for 20 secs', 'for 30 secs', 'for 40 secs', 'for 50 secs', 'for 60 secs'],
@@ -200,18 +196,24 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 id: 'busyFirstTimeout',
                 allowBlank: false,
                 editable: false,
-                flex: 1,
+                flex: 2,
+                margin: '0 0 0 10',
                 bind: {
                     hidden: '{busy_timeout_hidden}'
                 }
             }]
         }, {
             xtype: 'container',
-            html: Ngcp.csc.locales.callforward.then_forward_to[localStorage.getItem('languageSelected')],
-            userCls: 'cf-subheader'
-        },
-            busyGrid,
-        {
+            layout: 'hbox',
+            margin: '10 0 0 50',
+            items: [{
+                xtype: 'container',
+                html: Ngcp.csc.locales.callforward.then_forward_to[localStorage.getItem('languageSelected')],
+                userCls: 'cf-formtext'
+            },
+                busyGrid
+            ]
+        }, {
             html: Ngcp.csc.locales.callforward.add_new_destination[localStorage.getItem('languageSelected')],
             xtype: 'button',
             id: 'busyButton',
@@ -222,34 +224,27 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 click: 'addEmptyRow'
             }
         }, {
-            xtype: 'panel',
-            userCls: 'cf-subheader-large',
-            html: Ngcp.csc.locales.callforward.when_phone_offline[localStorage.getItem('languageSelected')] + '<hr>',
-            height: 50,
-            ui: 'cf-container',
-            margin: '0 0 10 0'
-        }, {
             xtype: 'container',
-            userCls: 'cf-subheader',
-            html: Ngcp.csc.locales.callforward.first_ring[localStorage.getItem('languageSelected')],
-            height: 25
+            userCls: 'cf-formtext cf-subheader',
+            html: Ngcp.csc.locales.callforward.when_phone_offline[localStorage.getItem('languageSelected')]
         }, {
             xtype: 'panel',
             layout: 'hbox',
             id: 'offlineFirstRingFields',
-            height: 50,
             padding: '0 11 0 0',
+            margin: '0 0 0 50',
             items: [{
                 xtype: 'combo',
                 store: ['Own phone', 'Voicemail', 'Fax2Mail', 'None'],
                 id: 'offlineFirstDest',
+                fieldLabel: Ngcp.csc.locales.callforward.first_ring[localStorage.getItem('languageSelected')],
                 value: 'None',
                 allowBlank: false,
                 editable: false,
                 listeners: {
                     change: 'selectFirstRing'
                 },
-                flex: 5
+                flex: 8
             }, {
                 xtype: 'combo',
                 store: ['for 10 secs', 'for 20 secs', 'for 30 secs', 'for 40 secs', 'for 50 secs', 'for 60 secs'],
@@ -257,18 +252,24 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 id: 'offlineFirstTimeout',
                 allowBlank: false,
                 editable: false,
-                flex: 1,
+                flex: 2,
+                margin: '0 0 0 10',
                 bind: {
                     hidden: '{offline_timeout_hidden}'
                 }
             }]
         }, {
             xtype: 'container',
-            html: Ngcp.csc.locales.callforward.then_forward_to[localStorage.getItem('languageSelected')],
-            userCls: 'cf-subheader'
-        },
-            offlineGrid,
-        {
+            layout: 'hbox',
+            margin: '10 0 0 50',
+            items: [{
+                xtype: 'container',
+                html: Ngcp.csc.locales.callforward.then_forward_to[localStorage.getItem('languageSelected')],
+                userCls: 'cf-formtext'
+            },
+                offlineGrid
+            ]
+        }, {
             html: Ngcp.csc.locales.callforward.add_new_destination[localStorage.getItem('languageSelected')],
             xtype: 'button',
             id: 'offlineButton',
