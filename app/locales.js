@@ -550,6 +550,27 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'ADD NEW SOURCE',
                 fr: 'ADD NEW SOURCE',
                 sp: 'ADD NEW SOURCE'
+            },
+            nowhere: {
+                en: 'nowhere',
+                it: 'nowhere',
+                de: 'nowhere',
+                fr: 'nowhere',
+                sp: 'nowhere'
+            },
+            enter_number: {
+                en: 'Enter number',
+                it: 'Enter number',
+                de: 'Enter number',
+                fr: 'Enter number',
+                sp: 'Enter number'
+            },
+            enter_secs: {
+                en: 'Enter secs',
+                it: 'Enter secs',
+                de: 'Enter secs',
+                fr: 'Enter secs',
+                sp: 'Enter secs'
             }
         },
         filters: {
