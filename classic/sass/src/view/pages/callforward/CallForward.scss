@@ -11,6 +11,10 @@
     $ui: 'cf-mainform',
 );
 
+@include extjs-panel-ui (
+    $ui: 'cf-grid',
+);
+
 /* custom css */
 .x-panel-cf-container .x-autocontainer-innerCt {
     font-size: 120%;
@@ -46,4 +50,18 @@
 
 .cf-deactivate-day {
     color: #B4B8B3;
+}
+
+.x-panel-cf-grid .x-grid-cell-inner {
+    padding-top: 7px;
+    margin: 0;
+}
+
+.x-panel-cf-grid .cf-tpl-fa {
+    font-size: .7em;
+    margin: 0 4px;
+}
+
+.x-panel-cf-grid .x-grid-row {
+    height: 32px;
 }

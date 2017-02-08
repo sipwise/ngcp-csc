@@ -29,27 +29,28 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return target.indexOf(string) > -1;
     },
 
+    addRowToStore: function (store) {
+        var targetStore = Ext.getStore(store);
+        var record = targetStore.getAt(targetStore.getCount() - 1);
+        if (record == null || record.data.phone !== '') {
+            targetStore.add({ "phone": "", "active": false, "ring_for": "" });
+        };
+    },
+
     addEmptyRow: function (el) {
         var targetId = el.getTarget().id;
-        function addRowToStore(store) {
-            var targetStore = Ext.getStore(store);
-            var record = targetStore.getAt(targetStore.getCount() - 1);
-            if (record.data.phone !== '') {
-                targetStore.add({ "phone": "", "active": false, "ring_for": "0 secs" });
-            };
-        };
         if (this.checkIndexOf('onlineButton', targetId)) {
-            addRowToStore('CallForwardOnline');
+            this.addRowToStore('CallForwardOnline');
         } else if (this.checkIndexOf('busyButton', targetId)) {
-            addRowToStore('CallForwardBusy');
+            this.addRowToStore('CallForwardBusy');
         } else if (this.checkIndexOf('offlineButton', targetId)) {
-            addRowToStore('CallForwardOffline');
+            this.addRowToStore('CallForwardOffline');
         } else if (this.checkIndexOf('addListAButton', targetId)) {
             var grid = Ext.getCmp('cf-sourceset-list-a-grid');
-            addRowToStore(grid.getStore());
+            this.addRowToStore(grid.getStore());
         } else if (this.checkIndexOf('addListBButton', targetId)) {
             var grid = Ext.getCmp('cf-sourceset-list-b-grid');
-            addRowToStore(grid.getStore());
+            this.addRowToStore(grid.getStore());
         };
     },
 
@@ -163,6 +164,25 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var rec = grid.getStore().getAt(rowIndex);
         store.remove(rec);
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
+    },
+
+    renderPhoneColumn: function(value, metaData, record) {
+        if (!value) {
+            console.log(record.phantom);
+            return 'Enter number';
+        } else if (!isNaN(parseInt(value.charAt(0)))){
+            return '<i class="fa fa-circle cf-tpl-fa" aria-hidden="true"></i>' + '+' + value;
+        } else {
+            return '<i class="fa fa-circle cf-tpl-fa" aria-hidden="true"></i>' + value;
+        };
+    },
+
+    renderSecsColumn: function(value, metaData, record) {
+        if (!value) {
+            return 'Enter secs';
+        } else {
+            return 'and ring for ' + value + ' secs';
+        };
     }
 
 });

@@ -2,6 +2,6 @@
     "data": [{
         "phone": "43131586",
         "active": false,
-        "ring_for": "50 secs"
+        "ring_for": "50"
     }]
 }
