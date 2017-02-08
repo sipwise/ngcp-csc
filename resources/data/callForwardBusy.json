@@ -1,15 +1,3 @@
 {
-    "data": [{
-        "phone": "43144159",
-        "active": false,
-        "ring_for": "60 secs"
-    }, {
-        "phone": "43236655",
-        "active": false,
-        "ring_for": "50 secs"
-    }, {
-        "phone": "Voicemail",
-        "active": true,
-        "ring_for": "0 secs"
-    }]
+    "data": []
 }

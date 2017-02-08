@@ -9,8 +9,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
 
     layout: 'responsivecolumn',
 
-    title: Ngcp.csc.locales.callforward.title[localStorage.getItem('languageSelected')],
-
     initComponent: function () {
         var callForwardAfterGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
             id: 'cf-timeset-after-grid',
@@ -66,6 +64,15 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
         });
 
         this.items = [{
+            userCls: 'big-70 small-100',
+            xtype: 'core-container',
+            items: [{
+                padding: '0 0 20 0',
+                html: Ext.String.format('<div class="fa fa-mail-forward cf-title"> {0}</div>', Ngcp.csc.locales.callforward.subtitle[localStorage.getItem('languageSelected')])
+            }, {
+                xtype: 'callforwardmainform'
+            }]
+        }, {
             userCls: 'big-30 small-100',
             defaults: {
                 padding: 0,
@@ -73,11 +80,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
                 collapsed: !Ext.os.is.Desktop
             },
             items: [{
-                xtype: 'gridfilters',
-                _linkedStoreId: 'CallForward',
-                _hideDateFilters: true,
-                _isNested: true
-            }, {
                 xtype: 'core-container',
                 reference: 'cf-after-widget',
                 bind: {
@@ -193,15 +195,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForward', {
                         }
                     ]
                 }]
-            }]
-        }, {
-            userCls: 'big-70 small-100',
-            xtype: 'core-container',
-            items: [{
-                padding: '0 0 20 0',
-                html: Ext.String.format('<div class="fa fa-mail-forward cf-subtitle"> {0}</div>', Ngcp.csc.locales.callforward.subtitle[localStorage.getItem('languageSelected')])
-            }, {
-                xtype: 'callforwardmainform'
             }]
         }];
         this.callParent();

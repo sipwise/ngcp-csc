@@ -433,18 +433,18 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'List B'
             },
             first_ring: {
-                en: 'First ring:',
-                it: 'First ring:',
-                de: 'First ring:',
-                fr: 'First ring:',
-                sp: 'First ring:'
+                en: 'First ring',
+                it: 'First ring',
+                de: 'First ring',
+                fr: 'First ring',
+                sp: 'First ring'
             },
             then_forward_to: {
-                en: 'Then forward to:',
-                it: 'Then forward to:',
-                de: 'Then forward to:',
-                fr: 'Then forward to:',
-                sp: 'Then forward to:'
+                en: 'Then forward to',
+                it: 'Then forward to',
+                de: 'Then forward to',
+                fr: 'Then forward to',
+                sp: 'Then forward to'
             },
             add_new_destination: {
                 en: 'ADD NEW DESTINATION',
@@ -454,25 +454,25 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'ADD NEW DESTINATION'
             },
             when_phone_online: {
-                en: 'When My Phone is Online:',
-                it: 'When My Phone is Online:',
-                de: 'When My Phone is Online:',
-                fr: 'When My Phone is Online:',
-                sp: 'When My Phone is Online:'
+                en: 'When I am online ...',
+                it: 'When I am online ...',
+                de: 'When I am online ...',
+                fr: 'When I am online ...',
+                sp: 'When I am online ...'
             },
             when_phone_busy: {
-                en: 'When My Phone is Busy:',
-                it: 'When My Phone is Busy:',
-                de: 'When My Phone is Busy:',
-                fr: 'When My Phone is Busy:',
-                sp: 'When My Phone is Busy:'
+                en: 'When I am busy ...',
+                it: 'When I am busy ...',
+                de: 'When I am busy ...',
+                fr: 'When I am busy ...',
+                sp: 'When I am busy ...'
             },
             when_phone_offline: {
-                en: 'When My Phone is Offline:',
-                it: 'When My Phone is Offline:',
-                de: 'When My Phone is Offline:',
-                fr: 'When My Phone is Offline:',
-                sp: 'When My Phone is Offline:'
+                en: 'When I am offline ...',
+                it: 'When I am offline ...',
+                de: 'When I am offline ...',
+                fr: 'When I am offline ...',
+                sp: 'When I am offline ...'
             },
             drag_text: {
                 en: 'Drag and drop to move',
@@ -550,6 +550,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'ADD NEW SOURCE',
                 fr: 'ADD NEW SOURCE',
                 sp: 'ADD NEW SOURCE'
+            },
+            for_calling_parties: {
+                en: 'For calling parties ...',
+                it: 'For calling parties ...',
+                de: 'For calling parties ...',
+                fr: 'For calling parties ...',
+                sp: 'For calling parties ...'
             }
         },
         filters: {
