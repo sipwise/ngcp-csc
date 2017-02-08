@@ -18,7 +18,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
     ui: 'cf-mainform',
 
     initComponent: function() {
-        var busyGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
+        var busyTpl = Ext.create('NgcpCsc.view.pages.callforward.CallForwardTpl', {
             store: Ext.create('NgcpCsc.store.CallForward', {
                 storeId: 'CallForwardBusy',
                 proxy: {
@@ -31,7 +31,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 }
             })
         });
-        var onlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
+        var onlineTpl = Ext.create('NgcpCsc.view.pages.callforward.CallForwardTpl', {
             store: Ext.create('NgcpCsc.store.CallForward', {
                 storeId: 'CallForwardOnline',
                 proxy: {
@@ -44,7 +44,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 }
             })
         });
-        var offlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
+        var offlineTpl = Ext.create('NgcpCsc.view.pages.callforward.CallForwardTpl', {
             store: Ext.create('NgcpCsc.store.CallForward', {
                 storeId: 'CallForwardOffline',
                 proxy: {
@@ -153,7 +153,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             html: Ngcp.csc.locales.callforward.then_forward_to[localStorage.getItem('languageSelected')],
             userCls: 'cf-subheader'
         },
-            onlineGrid,
+            onlineTpl,
         {
             html: Ngcp.csc.locales.callforward.add_new_destination[localStorage.getItem('languageSelected')],
             xtype: 'button',
@@ -210,7 +210,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             html: Ngcp.csc.locales.callforward.then_forward_to[localStorage.getItem('languageSelected')],
             userCls: 'cf-subheader'
         },
-            busyGrid,
+            busyTpl,
         {
             html: Ngcp.csc.locales.callforward.add_new_destination[localStorage.getItem('languageSelected')],
             xtype: 'button',
@@ -267,7 +267,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             html: Ngcp.csc.locales.callforward.then_forward_to[localStorage.getItem('languageSelected')],
             userCls: 'cf-subheader'
         },
-            offlineGrid,
+            offlineTpl,
         {
             html: Ngcp.csc.locales.callforward.add_new_destination[localStorage.getItem('languageSelected')],
             xtype: 'button',
