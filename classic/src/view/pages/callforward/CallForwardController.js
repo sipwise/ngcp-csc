@@ -163,6 +163,23 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var rec = grid.getStore().getAt(rowIndex);
         store.remove(rec);
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
+    },
+
+    clickListItem: function(view, record, item, rowIndex, e, eOpts) {
+        console.log('clicked list item');
+        // var store = view.getStore();
+        // var rec = view.getStore().getAt(rowIndex);
+        // var target = e.getTarget();
+        // for (var item in target.classList) {
+        //     if (target.classList[item] === 'fa-file-audio-o') {
+        //         // TODO
+        //     } else if (target.classList[item] === 'fa-phone-square') {
+        //         // TODO
+        //     } else if (target.classList[item] === 'fa-remove') {
+        //         store.remove(rec);
+        //         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
+        //     };
+        // };
     }
 
 });

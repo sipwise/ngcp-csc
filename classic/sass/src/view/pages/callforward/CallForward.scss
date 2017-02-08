@@ -47,3 +47,21 @@
 .cf-deactivate-day {
     color: #B4B8B3;
 }
+
+.csc-tpl-li {
+  width: 400px
+}
+
+.csc-tpl-icns {
+  float: right;
+}
+
+.csc-tpl-li .fa {
+  margin-right: 10px;
+}
+
+.csc-tpl-ul .x-item-selected,
+.csc-tpl-ul .x-item-pressed,
+.csc-tpl-ul .x-view-item-focused {
+    outline-style: none!important;
+}

@@ -20,30 +20,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
         var me = this;
 
         me.columns = [{
-            text: Ngcp.csc.locales.callforward.phone[localStorage.getItem('languageSelected')],
-            dataIndex: 'phone',
+            xtype: 'templatecolumn',
+            dataIndex: 'sentence',
             flex: 2,
-            editor: 'textfield'
-        }, {
-            text: Ngcp.csc.locales.common.active[localStorage.getItem('languageSelected')],
-            xtype: 'actioncolumn',
-            flex: 1,
-            align: 'center',
-            dataIndex: 'active',
-            items: [{
-                getClass: 'toggleIconClass',
-                handler: 'toggleActive'
-            }]
-        }, {
-            text: Ngcp.csc.locales.callforward.ring_for[localStorage.getItem('languageSelected')],
-            flex: 1,
-            dataIndex: 'ring_for',
-            editor: {
-                xtype: 'combo',
-                editable: false,
-                value: '20 secs',
-                store: ['0 secs', '10 secs', '20 secs', '30 secs', '40 secs', '50 secs', '60 secs']
-            }
+            editor: 'textfield',
+            tpl: new Ext.XTemplate( '<ul><tpl><li>{[!isNaN(parseInt(values.phone.charAt(0))) ? "+" : ""]}{phone} and ring for {ring_for} secs</li></tpl></ul>' )
         }, {
             text: Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')],
             xtype: 'actioncolumn',
