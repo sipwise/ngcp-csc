@@ -38,7 +38,7 @@ Ext.define('NgcpCsc.Application', {
         Ext.tip.QuickTipManager.init();
         // TODO to be replaced with request
         if(localStorage.getItem('remember_me')){
-            window.location.hash = '#inbox';
+            window.location.hash = '#inbox'; // TODO x. remove
             Ext.create({
                 xtype: 'ngcp-main'
             });
