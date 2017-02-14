@@ -6,7 +6,7 @@
 @mixin icon($icon) {
     @include fa-icon;
     @extend .fa;
-    @extend .fa-#{$icon}::before;
+    @extend .fa-#{$icon}:before;
 };
 
 /* custom css */
@@ -15,18 +15,20 @@
     #busyFirstDest-labelTextEl,
     #offlineFirstDest-labelTextEl,
     #onlineFirstDest-labelTextEl,
-    .cf-formtext {
+    .cf-thentext,
+    .cf-text {
         font-weight: 600;
         margin-bottom: 7px;
     }
 }
 
-.x-panel-cf-mainform .cf-formtext:nth-child(2n+1) {
-    margin: 10px 40px 0 0;
+.x-panel-cf-mainform .cf-thentext {
+    margin: 10px 20px 0 0;
 }
 
 .x-panel-cf-mainform .cf-subheader {
-    padding-top: 20px;
+    padding-top: 30px;
+    margin-bottom: 20px;
 }
 
 .x-panel-cf-mainform {
@@ -55,7 +57,7 @@
 }
 
 .x-panel-cf-mainform .x-segmented-button:first-child {
-    margin-bottom: 10px;
+    // margin-bottom: 10px;
 }
 
 .x-panel-cf-mainform .x-segmented-button-item-horizontal {
@@ -74,7 +76,33 @@
     margin-right: 0;
 }
 
-/* 2. CallForwardMainForm grid */
+.x-panel-cf-mainform .cf-embed-row {
+    margin-left: 10px;
+}
+
+// TODO: Try adjusting width %, and see if you can eliminate need for padding
+.x-panel-cf-mainform .cf-embed-row .x-autocontainer-innerCt {
+    display: block;
+}
+
+.x-panel-cf-mainform .cf-embed-row #alwaysButtonBelow,
+.x-panel-cf-mainform .cf-embed-row #everybodyButtonBelow {
+    padding-right: 9px;
+}
+
+.x-panel-cf-mainform .cf-embed-row #afterHoursButtonBelow,
+.x-panel-cf-mainform .cf-embed-row #listAButtonBelow {
+    padding-left: 1px;
+    padding-right: 8px;
+}
+
+.x-panel-cf-mainform .cf-embed-row #companyHoursButtonBelow,
+.x-panel-cf-mainform .cf-embed-row #listBButtonBelow {
+    padding-left: 2px;
+    padding-right: 8px;
+}
+
+/* 3. CallForwardMainForm grid */
 .x-panel-cf-mainform div.x-grid-empty::before {
     @include icon(circle);
     font-size: 0.7em;
@@ -95,6 +123,7 @@
     margin: 0;
 }
 
+.x-panel-cf-mainform .cf-tpl-fa,
 .x-panel-cf-grid .cf-tpl-fa {
     font-size: 0.7em;
     margin: 0 4px;
@@ -104,7 +133,7 @@
     height: 32px;
 }
 
-/* 2. CallForwardMainForm other */
+/* 4. CallForwardMainForm other */
 .x-panel-cf-widget {
     border: solid 1px;
     border-color: #d0d0d0;
@@ -118,4 +147,10 @@
 .cf-title {
     font-size: 110%;
     font-weight: 600;
+}
+
+#onlineThenTimeout-labelEl,
+#busyThenTimeout-labelEl,
+#offline-then-timeout-labelEl {
+    padding-left: 15px;
 }

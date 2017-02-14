@@ -29,10 +29,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
         me.columns = [{
             dataIndex: 'phone',
             width: 105,
-            editor: {
-                xtype: 'textfield',
-                emptyText: Ngcp.csc.locales.callforward.enter_number[localStorage.getItem('languageSelected')]
-            },
             renderer: 'renderPhoneColumn'
         }, {
             dataIndex: 'ring_for',

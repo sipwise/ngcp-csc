@@ -9,48 +9,35 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             record === 'Own phone' ? vm.set(timeoutField, false) : vm.set(timeoutField, true);
         };
         if (component.getId() === 'onlineFirstDest') {
-            showHideTimeoutField('online_timeout_hidden');
+            showHideTimeoutField('online_first_timeout_hidden');
         } else if (component.getId() === 'busyFirstDest') {
-            showHideTimeoutField('busy_timeout_hidden');
+            showHideTimeoutField('busy_first_timeout_hidden');
         } else if (component.getId() === 'offlineFirstDest') {
-            showHideTimeoutField('offline_timeout_hidden');
+            showHideTimeoutField('offline_first_timeout_hidden');
         };
-    },
-
-    toggleIconClass: function (val, meta, rec) {
-        return rec.get('active') === true ? "x-fa fa-toggle-on" : "x-fa fa-toggle-off";
-    },
-
-    toggleActive: function(grid, rowIndex, colIndex, item, event, rec, row) {
-        rec.set('active', !rec.get('active'));
     },
 
     checkIndexOf: function(string, target) {
         return target.indexOf(string) > -1;
     },
 
-    addRowToStore: function (store) {
+    addEmptyRowToStore: function (store) {
         var targetStore = Ext.getStore(store);
         var record = targetStore.getAt(targetStore.getCount() - 1);
         if (record == null || record.data.phone !== '') {
             targetStore.add({ "phone": "", "active": false, "ring_for": "" });
         };
+        console.log('Button for ' + store + ' store clicked');
     },
 
     addEmptyRow: function (el) {
         var targetId = el.getTarget().id;
-        if (this.checkIndexOf('onlineButton', targetId)) {
-            this.addRowToStore('CallForwardOnline');
-        } else if (this.checkIndexOf('busyButton', targetId)) {
-            this.addRowToStore('CallForwardBusy');
-        } else if (this.checkIndexOf('offlineButton', targetId)) {
-            this.addRowToStore('CallForwardOffline');
-        } else if (this.checkIndexOf('addListAButton', targetId)) {
+        if (this.checkIndexOf('addListAButton', targetId)) {
             var grid = Ext.getCmp('cf-sourceset-list-a-grid');
-            this.addRowToStore(grid.getStore());
+            this.addEmptyRowToStore(grid.getStore());
         } else if (this.checkIndexOf('addListBButton', targetId)) {
             var grid = Ext.getCmp('cf-sourceset-list-b-grid');
-            this.addRowToStore(grid.getStore());
+            this.addEmptyRowToStore(grid.getStore());
         };
     },
 
@@ -58,6 +45,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var store = grid.getStore();
         var rec = grid.getStore().getAt(rowIndex);
         store.remove(rec);
+        this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
     },
 
     changeWidget: function (target, vm) {
@@ -68,24 +56,36 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         vm.set('list_b', true);
         switch (target) {
             case 'afterHoursButton-btnIconEl':
-                vm.set('active_widget', Ngcp.csc.locales.callforward.after_hours[localStorage.getItem('languageSelected')]);
-                vm.set('after_hours', false);
-                me.lookupReference('cf-after-widget').expand();
+                if (vm.get('active_widget') == 'After hours') {
+                    vm.set('after_hours', true);
+                } else {
+                    vm.set('active_widget', Ngcp.csc.locales.callforward.after_hours[localStorage.getItem('languageSelected')]);
+                    vm.set('after_hours', false);
+                };
                 break;
             case 'companyHoursButton-btnIconEl':
-                vm.set('active_widget', Ngcp.csc.locales.callforward.company_hours[localStorage.getItem('languageSelected')]);
-                vm.set('company_hours', false);
-                me.lookupReference('cf-company-widget').expand();
+                if (vm.get('active_widget') == 'Company hours') {
+                    vm.set('company_hours', true);
+                } else {
+                    vm.set('active_widget', Ngcp.csc.locales.callforward.company_hours[localStorage.getItem('languageSelected')]);
+                    vm.set('company_hours', false);
+                };
                 break;
             case 'listAButton-btnIconEl':
-                vm.set('active_widget', Ngcp.csc.locales.callforward.list_a[localStorage.getItem('languageSelected')]);
-                vm.set('list_a', false);
-                me.lookupReference('cf-list-a-widget').expand();
+                if (vm.get('active_widget') == 'List A') {
+                    vm.set('list_a', true);
+                } else {
+                    vm.set('active_widget', Ngcp.csc.locales.callforward.list_a[localStorage.getItem('languageSelected')]);
+                    vm.set('list_a', false);
+                };
                 break;
             case 'listBButton-btnIconEl':
-                vm.set('active_widget', Ngcp.csc.locales.callforward.list_b[localStorage.getItem('languageSelected')]);
-                vm.set('list_b', false);
-                me.lookupReference('cf-list-b-widget').expand();
+                if (vm.get('active_widget') == 'List B') {
+                    vm.set('list_a', true);
+                } else {
+                    vm.set('active_widget', Ngcp.csc.locales.callforward.list_b[localStorage.getItem('languageSelected')]);
+                    vm.set('list_b', false);
+                };
                 break;
         };
     },
@@ -177,10 +177,75 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     renderSecsColumn: function(value, metaData, record) {
-        if (!value) {
-            return 'Enter secs';
-        } else {
-            return 'and ring for ' + value + ' secs';
+        return 'and ring for ' + value + ' secs';
+    },
+
+    selectThenRing: function (component, record) {
+        var vm = this.getViewModel();
+        function showHideTimeoutField(timeoutField) {
+            record === 'Number' ? vm.set(timeoutField, false) : vm.set(timeoutField, true);
+        };
+        if (component.getId() === 'onlineThenDest') {
+            showHideTimeoutField('online_then_timeout_hidden');
+        } else if (component.getId() === 'busyThenDest') {
+            showHideTimeoutField('busy_then_timeout_hidden');
+        } else if (component.getId() === 'offlineThenDest') {
+            showHideTimeoutField('offline_then_timeout_hidden');
+        };
+    },
+
+    showNewDestinationForm: function (el) {
+        var vm = this.getViewModel();
+        var targetId = el.getTarget().id;
+        if (this.checkIndexOf('onlineButton', targetId)) {
+            vm.set('online_add_new_then_hidden', !vm.get('online_add_new_then_hidden'));
+        } else if (this.checkIndexOf('busyButton', targetId)) {
+            vm.set('busy_add_new_then_hidden', !vm.get('busy_add_new_then_hidden'));
+        } else if (this.checkIndexOf('offlineButton', targetId)) {
+            vm.set('offline_add_new_then_hidden', !vm.get('offline_add_new_then_hidden'));
+        };
+    },
+
+    saveDestinationToStore: function (store) {
+        var me = this;
+        var vm = me.getViewModel();
+        var targetStore = Ext.getStore(store);
+        var newPhone, newTimeout;
+        // TODO: a. Write switch case statement to account for different stores
+        switch (store) {
+            case 'CallForwardOnline':
+                var newDest = vm.get('online_then_dest');
+                var newNumber = vm.get('online_then_number');
+                var newTimeout = newDest === 'Number' ? vm.get('online_then_timeout') : '';
+                var newPhone = newDest === 'Number' ? newNumber : newDest;
+                targetStore.add({ "phone": newPhone, "ring_for": newTimeout });
+                break;
+            case 'CallForwardBusy':
+                var newDest = vm.get('busy_then_dest');
+                var newNumber = vm.get('busy_then_number');
+                var newTimeout = newDest === 'Number' ? vm.get('busy_then_timeout') : '';
+                var newPhone = newDest === 'Number' ? newNumber : newDest;
+                targetStore.add({ "phone": newPhone, "ring_for": newTimeout });
+                break;
+            case 'CallForwardOffline':
+                var newDest = vm.get('offline_then_dest');
+                var newNumber = vm.get('offline_then_number');
+                var newTimeout = newDest === 'Number' ? vm.get('offline_then_timeout') : '';
+                var newPhone = newDest === 'Number' ? newNumber : newDest;
+                targetStore.add({ "phone": newPhone, "ring_for": newTimeout });
+                break;
+        };
+        // TODO: b. Toggle visibility of destination form
+    },
+
+    addNewDestination: function (el) {
+        var targetId = el.getTarget().id;
+        if (this.checkIndexOf('onlineSaveButton', targetId)) {
+            this.saveDestinationToStore('CallForwardOnline');
+        } else if (this.checkIndexOf('busySaveButton', targetId)) {
+            this.saveDestinationToStore('CallForwardBusy');
+        } else if (this.checkIndexOf('offlineSaveButton', targetId)) {
+            this.saveDestinationToStore('CallForwardOffline');
         };
     }
 
