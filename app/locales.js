@@ -696,11 +696,11 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'first ring'
             },
             then_forward_to: {
-                en: 'then forward to',
-                it: 'then forward to',
-                de: 'then forward to',
-                fr: 'then forward to',
-                sp: 'then forward to'
+                en: 'then forward to ...',
+                it: 'then forward to ...',
+                de: 'then forward to ...',
+                fr: 'then forward to ...',
+                sp: 'then forward to ...'
             },
             add_new_destination: {
                 en: 'ADD NEW DESTINATION',
@@ -834,6 +834,27 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'For calling parties ...',
                 fr: 'For calling parties ...',
                 sp: 'For calling parties ...'
+            },
+            and_ring_for: {
+                en: 'and ring for',
+                it: 'and ring for',
+                de: 'and ring for',
+                fr: 'and ring for',
+                sp: 'and ring for'
+            },
+            secs: {
+                en: 'secs',
+                it: 'secs',
+                de: 'secs',
+                fr: 'secs',
+                sp: 'secs'
+            },
+            save: {
+                en: 'SAVE',
+                it: 'SAVE',
+                de: 'SAVE',
+                fr: 'SAVE',
+                sp: 'SAVE'
             }
         },
         filters: {
