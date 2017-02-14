@@ -187,9 +187,6 @@
      *
      */
     "js": [{
-        "path": "libs/libphonenumber-js.min.js",
-        "includeInBundle": true
-    },{
         "path": "initLocalStorage.js",
         "includeInBundle": true
     },{

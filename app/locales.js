@@ -2,7 +2,7 @@ Ext.define('Ngcp.csc.locales', {
     statics: {
         login: {
             title: {
-                en: 'Self Care Login',
+                en: 'Login to your Portal',
                 it: 'Connessione all\'Area di Amministrazione',
                 de: 'Ihr persönliches Portal',
                 fr: 'Connexion à l\'espace d\'administration',
@@ -145,11 +145,11 @@ Ext.define('Ngcp.csc.locales', {
                 }
             },
             section_title: {
-                en: 'Conversations.',
-                it: 'Conversations.',
-                de: 'Conversations.',
-                fr: 'Conversations.',
-                sp: 'Conversations.'
+                en: 'Conversations',
+                it: 'Conversations',
+                de: 'Conversations',
+                fr: 'Conversations',
+                sp: 'Conversations'
             },
             recent_calls: {
                 en: 'RECENT CALLS',
@@ -209,51 +209,156 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Folder',
                 sp: 'Folder'
             },
-            location:{
+            location: {
                 en: 'Location',
                 it: 'Location',
                 de: 'Location',
                 fr: 'Location',
                 sp: 'Location'
             },
-            direction:{
+            direction: {
                 en: 'Direction',
                 it: 'Direction',
                 de: 'Direction',
                 fr: 'Direction',
                 sp: 'Direction'
             },
-            tooltips:{
-                call_types:{
-                    call:{
+            received_call_from: {
+                en: 'Received call from',
+                it: 'Received call from',
+                de: 'Received call from',
+                fr: 'Received call from',
+                sp: 'Received call from'
+            },
+            received_fax_from: {
+                en: 'Received fax from',
+                it: 'Received fax from',
+                de: 'Received fax from',
+                fr: 'Received fax from',
+                sp: 'Received fax from'
+            },
+            received_sms_from: {
+                en: 'Received sms from',
+                it: 'Received sms from',
+                de: 'Received sms from',
+                fr: 'Received sms from',
+                sp: 'Received sms from'
+            },
+            received_chat_message_from: {
+                en: 'Received chat message from',
+                it: 'Received chat message from',
+                de: 'Received chat message from',
+                fr: 'Received chat message from',
+                sp: 'Received chat message from'
+            },
+            received_voice_mail_from: {
+                en: 'Received voice mail from',
+                it: 'Received voice mail from',
+                de: 'Received voice mail from',
+                fr: 'Received voice mail from',
+                sp: 'Received voice mail from'
+            },
+            missed_call_from: {
+                en: 'Missed call from',
+                it: 'Missed call from',
+                de: 'Missed call from',
+                fr: 'Missed call from',
+                sp: 'Missed call from'
+            },
+            successful_call_to: {
+                en: 'Successful call to',
+                it: 'Successful call to',
+                de: 'Successful call to',
+                fr: 'Successful call to',
+                sp: 'Successful call to'
+            },
+            successful_fax_to: {
+                en: 'Successful fax to',
+                it: 'Successful fax to',
+                de: 'Successful fax to',
+                fr: 'Successful fax to',
+                sp: 'Successful fax to'
+            },
+            successful_sms_to: {
+                en: 'Sent sms to',
+                it: 'Sent sms to',
+                de: 'Sent sms to',
+                fr: 'Sent sms to',
+                sp: 'Sent sms to'
+            },
+            sent_chat_message_to: {
+                en: 'Sent chat message to',
+                it: 'Sent chat message to',
+                de: 'Sent chat message to',
+                fr: 'Sent chat message to',
+                sp: 'Sent chat message to'
+            },
+            unsuccessful_call_to: {
+                en: 'Unsuccessful call to',
+                it: 'Unsuccessful call to',
+                de: 'Unsuccessful call to',
+                fr: 'Unsuccessful call to',
+                sp: 'Unsuccessful call to'
+            },
+            unsuccessful_fax_to: {
+                en: 'Unsuccessful fax to',
+                it: 'Unsuccessful fax to',
+                de: 'Unsuccessful fax to',
+                fr: 'Unsuccessful fax to',
+                sp: 'Unsuccessful fax to'
+            },
+            successful_call_forward_to: {
+                en: 'Successful call forward to',
+                it: 'Successful call forward to',
+                de: 'Successful call forward to',
+                fr: 'Successful call forward to',
+                sp: 'Successful call forward to'
+            },
+            successful_sms_forward_to: {
+                en: 'Successful sms forward to',
+                it: 'Successful sms forward to',
+                de: 'Successful sms forward to',
+                fr: 'Successful sms forward to',
+                sp: 'Successful sms forward to'
+            },
+            unsuccessful_call_forward_to: {
+                en: 'Unsuccessful call forward to',
+                it: 'Unsuccessful call forward to',
+                de: 'Unsuccessful call forward to',
+                fr: 'Unsuccessful call forward to',
+                sp: 'Unsuccessful call forward to'
+            },
+            tooltips: {
+                call_types: {
+                    call: {
                         en: 'Call',
                         it: 'Call',
                         de: 'Call',
                         fr: 'Call',
                         sp: 'Call'
                     },
-                    sms:{
+                    sms: {
                         en: 'SMS',
                         it: 'SMS',
                         de: 'SMS',
                         fr: 'SMS',
                         sp: 'SMS'
                     },
-                    fax:{
+                    fax: {
                         en: 'Fax',
                         it: 'Fax',
                         de: 'Fax',
                         fr: 'Fax',
                         sp: 'Fax'
                     },
-                    voicemail:{
+                    voicemail: {
                         en: 'Voicemail',
                         it: 'Voicemail',
                         de: 'Voicemail',
                         fr: 'Voicemail',
                         sp: 'Voicemail'
                     },
-                    chat:{
+                    chat: {
                         en: 'Chat',
                         it: 'Chat',
                         de: 'Chat',
@@ -261,68 +366,68 @@ Ext.define('Ngcp.csc.locales', {
                         sp: 'Chat'
                     }
                 },
-                new_sms:{
-                    en: 'Create and send a new SMS.',
-                    it: 'Create and send a new SMS.',
-                    de: 'Create and send a new SMS.',
-                    fr: 'Create and send a new SMS.',
-                    sp: 'Create and send a new SMS.'
+                new_sms: {
+                    en: 'Send a new SMS',
+                    it: 'Send a new SMS',
+                    de: 'Send a new SMS',
+                    fr: 'Send a new SMS',
+                    sp: 'Send a new SMS'
                 },
-                new_call:{
-                    en: 'Call a new or an existing number.',
-                    it: 'Call a new or an existing number.',
-                    de: 'Call a new or an existing number.',
-                    fr: 'Call a new or an existing number.',
-                    sp: 'Call a new or an existing number.'
+                new_call: {
+                    en: 'Place a new Call',
+                    it: 'Place a new Call',
+                    de: 'Place a new Call',
+                    fr: 'Place a new Call',
+                    sp: 'Place a new Call',
                 },
-                new_fax:{
-                    en: 'Create and send a new fax.',
-                    it: 'Create and send a new fax.',
-                    de: 'Create and send a new fax.',
-                    fr: 'Create and send a new fax.',
-                    sp: 'Create and send a new fax.'
+                new_fax: {
+                    en: 'Send a new Fax',
+                    it: 'Send a new Fax',
+                    de: 'Send a new Fax',
+                    fr: 'Send a new Fax',
+                    sp: 'Send a new Fax',
                 },
-                recall:{
-                    en: 'Call this number.',
-                    it: 'Call this number.',
-                    de: 'Call this number.',
-                    fr: 'Call this number.',
-                    sp: 'Call this number.'
+                recall: {
+                    en: 'Call',
+                    it: 'Call',
+                    de: 'Call',
+                    fr: 'Call',
+                    sp: 'Call'
                 },
-                listen:{
-                    en: 'Reproduce the message.',
-                    it: 'Reproduce the message.',
-                    de: 'Reproduce the message.',
-                    sp: 'Reproduce the message.',
-                    fr: 'Reproduce the message.'
+                listen: {
+                    en: 'Play Message',
+                    it: 'Play Message',
+                    de: 'Play Message',
+                    sp: 'Play Message',
+                    fr: 'Play Message'
                 },
-                send_fax:{
-                    en: 'Send a fax to this number.',
-                    it: 'Send a fax to this number.',
-                    de: 'Send a fax to this number.',
-                    fr: 'Send a fax to this number.',
-                    sp: 'Send a fax to this number.'
+                send_fax: {
+                    en: 'Send Fax',
+                    it: 'Send Fax',
+                    de: 'Send Fax',
+                    fr: 'Send Fax',
+                    sp: 'Send Fax',
                 },
-                download_fax:{
-                    en: 'Download this fax.',
-                    it: 'Download this fax.',
-                    de: 'Download this fax.',
-                    fr: 'Download this fax.',
-                    sp: 'Download this fax.'
+                download_fax: {
+                    en: 'Download',
+                    it: 'Download',
+                    de: 'Download',
+                    fr: 'Download',
+                    sp: 'Download',
                 },
-                send_sms:{
-                    en: 'Send an sms to this number.',
-                    it: 'Send an sms to this number.',
-                    de: 'Send an sms to this number.',
-                    fr: 'Send an sms to this number.',
-                    sp: 'Send an sms to this number.'
+                send_sms: {
+                    en: 'Send SMS',
+                    it: 'Send SMS',
+                    de: 'Send SMS',
+                    fr: 'Send SMS',
+                    sp: 'Send SMS',
                 },
-                chat :{
-                    en: 'Start a private conversation.',
-                    it: 'Start a private conversation.',
-                    de: 'Start a private conversation.',
-                    fr: 'Start a private conversation.',
-                    sp: 'Start a private conversation.'
+                chat: {
+                    en: 'Send Chat Message',
+                    it: 'Send Chat Message',
+                    de: 'Send Chat Message',
+                    fr: 'Send Chat Message',
+                    sp: 'Send Chat Message',
                 }
             }
         },

@@ -7,7 +7,7 @@
  *
  * Rowbodies are initially hidden unless you override {@link #getAdditionalData}.
  *
- * The events fired by RowBody are relayed to the owning 
+ * The events fired by RowBody are relayed to the owning
  * {@link Ext.view.Table grid view} (and subsequently the owning grid).
  *
  * # Example
@@ -17,7 +17,7 @@
  *         extend: 'Ext.data.Model',
  *         fields: ['name', 'latin', 'desc', 'lifespan']
  *     });
- *     
+ *
  *     Ext.create('Ext.grid.Panel', {
  *         width: 400,
  *         height: 300,
@@ -69,7 +69,7 @@
  *             rowbodyclick: function(view, rowEl, e, eOpts) {
  *                 var itemEl = Ext.get(rowEl).up(view.itemSelector),
  *                     rec = view.getRecord(itemEl);
- *                 
+ *
  *                 Ext.Msg.alert(rec.get('name') + ' life span', rec.get('lifespan'));
  *             }
  *         }
@@ -112,7 +112,7 @@ Ext.define('Ext.grid.feature.RowBody', {
             rowValues.rowBodyColspan = columns.length;
             rowValues.rowBodyCls = me.rowBodyCls;
             rowValues.rowIdCls = me.rowIdCls;
-            
+
             if (rowExpanderCol && rowExpanderCol.getView() === view) {
                 view.grid.removeCls(Ext.baseCSSPrefix + 'grid-hide-row-expander-spacer');
                 rowValues.addSpacerCell = true;
@@ -223,23 +223,23 @@ Ext.define('Ext.grid.feature.RowBody', {
      * Provides additional data to the prepareData call within the grid view.
      * The rowbody feature adds 3 additional variables into the grid view's template.
      * These are `rowBody`, `rowBodyCls`, and `rowBodyColspan`.
-     * 
-     *  - **rowBody:** *{String}* The HTML to display in the row body element.  Defaults 
+     *
+     *  - **rowBody:** *{String}* The HTML to display in the row body element.  Defaults
      * to *undefined*.
-     *  - **rowBodyCls:** *{String}* An optional CSS class (or multiple classes 
-     * separated by spaces) to apply to the row body element.  Defaults to 
+     *  - **rowBodyCls:** *{String}* An optional CSS class (or multiple classes
+     * separated by spaces) to apply to the row body element.  Defaults to
      * {@link #rowBodyCls}.
-     *  - **rowBodyColspan:** *{Number}* The number of columns that the row body element 
+     *  - **rowBodyColspan:** *{Number}* The number of columns that the row body element
      * should span.  Defaults to the number of visible columns.
-     * 
+     *
      * @param {Object} data The data for this particular record.
      * @param {Number} idx The row index for this record.
      * @param {Ext.data.Model} record The record instance
      * @param {Object} orig The original result from the prepareData call to massage.
-     * @return {Object} An object containing additional variables for use in the grid 
+     * @return {Object} An object containing additional variables for use in the grid
      * view's template
      */
-    
+
     /*
      * @private
      */
@@ -248,17 +248,17 @@ Ext.define('Ext.grid.feature.RowBody', {
             Ext.apply(rowValues, this.getAdditionalData(record.data, rowIndex, record, rowValues));
         }
     }
-    
+
     /**
      * @event beforerowbodymousedown
      * @preventable
      * @member Ext.view.Table
-     * Fires before the mousedown event on a row body element is processed. Return false 
+     * Fires before the mousedown event on a row body element is processed. Return false
      * to cancel the default action.
-     * 
-     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is 
+     *
+     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is
      * used.
-     * 
+     *
      * @param {Ext.view.View} view The rowbody's owning View
      * @param {HTMLElement} rowBodyEl The row body's element
      * @param {Ext.event.Event} e The raw event object
@@ -268,12 +268,12 @@ Ext.define('Ext.grid.feature.RowBody', {
      * @event beforerowbodymouseup
      * @preventable
      * @member Ext.view.Table
-     * Fires before the mouseup event on a row body element is processed. Return false 
+     * Fires before the mouseup event on a row body element is processed. Return false
      * to cancel the default action.
-     * 
-     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is 
+     *
+     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is
      * used.
-     * 
+     *
      * @inheritdoc #beforerowbodymousedown
      */
 
@@ -281,12 +281,12 @@ Ext.define('Ext.grid.feature.RowBody', {
      * @event beforerowbodyclick
      * @preventable
      * @member Ext.view.Table
-     * Fires before the click event on a row body element is processed. Return false to 
+     * Fires before the click event on a row body element is processed. Return false to
      * cancel the default action.
-     * 
-     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is 
+     *
+     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is
      * used.
-     * 
+     *
      * @inheritdoc #beforerowbodymousedown
      */
 
@@ -294,12 +294,12 @@ Ext.define('Ext.grid.feature.RowBody', {
      * @event beforerowbodydblclick
      * @preventable
      * @member Ext.view.Table
-     * Fires before the dblclick event on a row body element is processed. Return false 
+     * Fires before the dblclick event on a row body element is processed. Return false
      * to cancel the default action.
-     * 
-     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is 
+     *
+     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is
      * used.
-     * 
+     *
      * @inheritdoc #beforerowbodymousedown
      */
 
@@ -307,25 +307,25 @@ Ext.define('Ext.grid.feature.RowBody', {
      * @event beforerowbodycontextmenu
      * @preventable
      * @member Ext.view.Table
-     * Fires before the contextmenu event on a row body element is processed. Return 
+     * Fires before the contextmenu event on a row body element is processed. Return
      * false to cancel the default action.
-     * 
-     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is 
+     *
+     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is
      * used.
-     * 
+     *
      * @inheritdoc #beforerowbodymousedown
      */
-    
+
     /**
      * @event beforerowbodylongpress
      * @preventable
      * @member Ext.view.Table
-     * Fires before the longpress event on a row body element is processed. Return 
+     * Fires before the longpress event on a row body element is processed. Return
      * false to cancel the default action.
-     * 
-     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is 
+     *
+     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is
      * used.
-     * 
+     *
      * @inheritdoc #beforerowbodymousedown
      */
 
@@ -333,12 +333,12 @@ Ext.define('Ext.grid.feature.RowBody', {
      * @event beforerowbodykeydown
      * @preventable
      * @member Ext.view.Table
-     * Fires before the keydown event on a row body element is processed. Return false 
+     * Fires before the keydown event on a row body element is processed. Return false
      * to cancel the default action.
-     * 
-     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is 
+     *
+     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is
      * used.
-     * 
+     *
      * @inheritdoc #beforerowbodymousedown
      */
 
@@ -346,12 +346,12 @@ Ext.define('Ext.grid.feature.RowBody', {
      * @event beforerowbodykeyup
      * @preventable
      * @member Ext.view.Table
-     * Fires before the keyup event on a row body element is processed. Return false to 
+     * Fires before the keyup event on a row body element is processed. Return false to
      * cancel the default action.
-     * 
-     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is 
+     *
+     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is
      * used.
-     * 
+     *
      * @inheritdoc #beforerowbodymousedown
      */
 
@@ -359,12 +359,12 @@ Ext.define('Ext.grid.feature.RowBody', {
      * @event beforerowbodykeypress
      * @preventable
      * @member Ext.view.Table
-     * Fires before the keypress event on a row body element is processed. Return false 
+     * Fires before the keypress event on a row body element is processed. Return false
      * to cancel the default action.
-     * 
-     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is 
+     *
+     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is
      * used.
-     * 
+     *
      * @inheritdoc #beforerowbodymousedown
      */
 
@@ -372,10 +372,10 @@ Ext.define('Ext.grid.feature.RowBody', {
      * @event rowbodymousedown
      * @member Ext.view.Table
      * Fires when there is a mouse down on a row body element
-     * 
-     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is 
+     *
+     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is
      * used.
-     * 
+     *
      * @inheritdoc #beforerowbodymousedown
      */
 
@@ -383,10 +383,10 @@ Ext.define('Ext.grid.feature.RowBody', {
      * @event rowbodymouseup
      * @member Ext.view.Table
      * Fires when there is a mouse up on a row body element
-     * 
-     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is 
+     *
+     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is
      * used.
-     * 
+     *
      * @inheritdoc #beforerowbodymousedown
      */
 
@@ -394,10 +394,10 @@ Ext.define('Ext.grid.feature.RowBody', {
      * @event rowbodyclick
      * @member Ext.view.Table
      * Fires when a row body element is clicked
-     * 
-     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is 
+     *
+     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is
      * used.
-     * 
+     *
      * @inheritdoc #beforerowbodymousedown
      */
 
@@ -405,10 +405,10 @@ Ext.define('Ext.grid.feature.RowBody', {
      * @event rowbodydblclick
      * @member Ext.view.Table
      * Fires when a row body element is double clicked
-     * 
-     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is 
+     *
+     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is
      * used.
-     * 
+     *
      * @inheritdoc #beforerowbodymousedown
      */
 
@@ -416,21 +416,21 @@ Ext.define('Ext.grid.feature.RowBody', {
      * @event rowbodycontextmenu
      * @member Ext.view.Table
      * Fires when a row body element is right clicked
-     * 
-     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is 
+     *
+     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is
      * used.
-     * 
+     *
      * @inheritdoc #beforerowbodymousedown
      */
-    
+
     /**
      * @event rowbodylongpress
      * @member Ext.view.Table
      * Fires on a row body element longpress event
-     * 
-     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is 
+     *
+     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is
      * used.
-     * 
+     *
      * @inheritdoc #beforerowbodymousedown
      */
 
@@ -438,10 +438,10 @@ Ext.define('Ext.grid.feature.RowBody', {
      * @event rowbodykeydown
      * @member Ext.view.Table
      * Fires when a key is pressed down while a row body element is currently selected
-     * 
-     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is 
+     *
+     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is
      * used.
-     * 
+     *
      * @inheritdoc #beforerowbodymousedown
      */
 
@@ -449,10 +449,10 @@ Ext.define('Ext.grid.feature.RowBody', {
      * @event rowbodykeyup
      * @member Ext.view.Table
      * Fires when a key is released while a row body element is currently selected
-     * 
-     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is 
+     *
+     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is
      * used.
-     * 
+     *
      * @inheritdoc #beforerowbodymousedown
      */
 
@@ -460,10 +460,10 @@ Ext.define('Ext.grid.feature.RowBody', {
      * @event rowbodykeypress
      * @member Ext.view.Table
      * Fires when a key is pressed while a row body element is currently selected.
-     * 
-     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is 
+     *
+     * **Note:** This event is fired only when the Ext.grid.feature.RowBody feature is
      * used.
-     * 
+     *
      * @inheritdoc #beforerowbodymousedown
      */
 });

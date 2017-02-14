@@ -26,9 +26,10 @@ Ext.define('NgcpCsc.view.login.Login', {
             margin: '5 0'
         },
         items: [{
-                id: 'title',
-                panel: 'label',
-                title: Ngcp.csc.locales.login.title[localStorage.getItem('languageSelected')]
+                id: 'login-title',
+                padding: '20 0 20 0',
+                height: 70,
+                html: Ngcp.csc.locales.login.title[localStorage.getItem('languageSelected')]
             }, {
                 xtype: 'textfield',
                 name: 'username',
@@ -65,20 +66,6 @@ Ext.define('NgcpCsc.view.login.Login', {
                     glyphed: {
                         cls: 'auth-password-trigger'
                     }
-                }
-            }, {
-                xtype: 'combo',
-                emptyText: Ngcp.csc.locales.login.choose_language[localStorage.getItem('languageSelected')],
-                padding: '0 0 0 15',
-                store: 'Languages',
-                queryMode: 'local',
-                id: 'login-language',
-                valueField: 'id',
-                displayField: 'language',
-                editable: false,
-                value: localStorage.getItem('languageSelected'),
-                listeners: {
-                    'select': 'languageSelection'
                 }
             },
             {
