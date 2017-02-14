@@ -1,4 +1,4 @@
-/* mixins */
+// mixins
 @include extjs-panel-ui ( $ui: 'cf-container', );
 @include extjs-panel-ui ( $ui: 'cf-widget', );
 @include extjs-panel-ui ( $ui: 'cf-mainform', );
@@ -6,116 +6,126 @@
 @mixin icon($icon) {
     @include fa-icon;
     @extend .fa;
-    @extend .fa-#{$icon}::before;
+    @extend .fa-#{$icon}:before;
 };
 
-/* custom css */
-/* 1. CallForwardMainForm */
+// TODO: Use rem mixin suggested by mdanek:
+// http://paste.mgm.sipwise.com/show/2210/
+
+// cf-mainform text and headline
 .x-panel-cf-mainform {
+    #onlineThenTimeout-labelEl,
+    #busyThenTimeout-labelEl,
+    #offline-then-timeout-labelEl {
+        padding-left: 15px;
+    }
     #busyFirstDest-labelTextEl,
     #offlineFirstDest-labelTextEl,
     #onlineFirstDest-labelTextEl,
-    .cf-formtext {
+    .cf-thentext,
+    .cf-text {
         font-weight: 600;
         margin-bottom: 7px;
     }
-}
-
-.x-panel-cf-mainform .cf-formtext:nth-child(2n+1) {
-    margin: 10px 40px 0 0;
-}
-
-.x-panel-cf-mainform .cf-subheader {
-    padding-top: 20px;
-}
-
-.x-panel-cf-mainform {
+    .cf-thentext {
+        margin: 10px 20px 0 0;
+    }
+    .cf-subheader {
+        padding-top: 30px;
+        margin-bottom: 20px;
+    }
     #busyFirstRingFields,
     #offlineFirstRingFields,
     #onlineFirstRingFields {
-        margin-bottom: 10px;
+        margin: 0 0 10px 0;
+    }
+    .x-panel-cf-mainform .cf-embed-row {
+        margin: 0 0 0 10px;
     }
 }
 
-/* 2. CallForwardMainForm segmented buttons */
-.x-panel-cf-mainform .x-segmented-button .x-btn-button-default-small {
-    display: inline-block;
+// cf-mainform segmented buttons
+.x-panel-cf-mainform {
+    .x-segmented-button {
+        white-space: nowrap;
+        .x-btn-button-default-small {
+            display: inline-block;
+        }
+        .x-btn-icon-el-default-small {
+            float: right;
+        }
+        .x-btn-inner-default-small {
+            float: left;
+        }
+    }
+    .x-segmented-button-item-horizontal {
+        display: inline-block;
+        width: 32%;
+        height: 35px;
+        margin: 0 5px;
+    }
+    x-segmented-button-item-horizontal {
+        .x-segmented-button-first {
+            margin-left: 10px;
+        }
+        .x-segmented-button-last {
+            margin: 0 0 0 5px;
+        }
+    }
 }
 
-.x-panel-cf-mainform .x-segmented-button .x-btn-icon-el-default-small {
-    float: right;
+// cf-mainform time -and sourceset "embed"
+.x-panel-cf-mainform {
+    .cf-embed-row {
+        .x-autocontainer-innerCt {
+            display: block;
+        }
+        #alwaysButtonBelow,
+        #everybodyButtonBelow {
+            padding: 0 9px 0 0;
+        }
+        #afterHoursButtonBelow,
+        #listAButtonBelow {
+            padding: 0 1px 0 8px;
+        }
+        #companyHoursButtonBelow,
+        #listBButtonBelow {
+            padding: 0 2px 0 8px;
+      }
+      .cf-deactivate-day {
+          color: #B4B8B3;
+      }
+    }
 }
 
-.x-panel-cf-mainform .x-segmented-button .x-btn-inner-default-small {
-    float: left;
-}
-
-.x-panel-cf-mainform .x-segmented-button {
-    white-space: nowrap;
-}
-
-.x-panel-cf-mainform .x-segmented-button:first-child {
-    margin-bottom: 10px;
-}
-
-.x-panel-cf-mainform .x-segmented-button-item-horizontal {
-    display: inline-block;
-    width: 32%;
-    height: 35px;
-    margin-right: 5px;
-    margin-left: 5px;
-}
-
-.x-panel-cf-mainform .x-segmented-button-item-horizontal.x-segmented-button-first {
-    margin-left: 10px;
-}
-
-.x-panel-cf-mainform .x-segmented-button-item-horizontal.x-segmented-button-last {
-    margin-right: 0;
-}
-
-/* 2. CallForwardMainForm grid */
-.x-panel-cf-mainform div.x-grid-empty::before {
-    @include icon(circle);
-    font-size: 0.7em;
-    margin: 0 4px;
-}
-
-.x-panel-cf-mainform .x-grid-empty {
-    margin-top: -2px;
-    color: black;
-}
-
-.x-panel-cf-mainform .x-grid-row {
-    background: white;
-}
-
-.x-panel-cf-grid .x-grid-cell-inner {
-    padding-top: 7px;
-    margin: 0;
-}
-
-.x-panel-cf-grid .cf-tpl-fa {
-    font-size: 0.7em;
-    margin: 0 4px;
-}
-
-.x-panel-cf-grid .x-grid-row {
-    height: 32px;
-}
-
-/* 2. CallForwardMainForm other */
-.x-panel-cf-widget {
-    border: solid 1px;
-    border-color: #d0d0d0;
-    padding: 20px 10px;
-}
-
-.cf-deactivate-day {
-    color: #B4B8B3;
-}
-
-.cf-title {
-    font-size: 110%;
-    font-weight: 600;
+// cf-mainform grid panel
+.x-panel-cf-mainform {
+    .x-grid-empty {
+        margin-top: -2px;
+        color: black;
+    }
+    .x-grid-row {
+        background: white;
+    }
+    div.x-grid-empty::before {
+        @include icon(circle);
+        font-size: 0.7em;
+        margin: 0 4px;
+    }
+    .x-panel-cf-grid .x-grid-cell-inner {
+        padding-top: 7px;
+        margin: 0;
+    }
+    .x-panel-cf-grid .cf-tpl-fa {
+        font-size: 0.7em;
+        margin: 0 4px;
+    }
+    .x-panel-cf-grid .x-grid-row {
+        height: 32px;
+    }
+    .x-panel-cf-widget {
+        border: solid 1px;
+        border-color: #d0d0d0;
+        padding: 20px 10px;
+    }
 }
