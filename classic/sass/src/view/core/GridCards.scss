@@ -20,12 +20,14 @@ $grid-row-cell-focus-border-color: '#fff';
         table-layout: auto;
         border: 1px solid lightgray;
         margin-bottom: 10px;
-        border-radius: 5px;
+        border-radius: 1px;
         margin-right: 11px;
         padding:10px;
+        /*
         -webkit-box-shadow: 0 8px 6px -6px lightgray;
         -moz-box-shadow: 0 8px 6px -6px lightgray;
         box-shadow: 0 8px 6px -6px lightgray;
+        */
     }
 
     .x-grid-td {

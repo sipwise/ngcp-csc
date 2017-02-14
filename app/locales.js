@@ -2,7 +2,7 @@ Ext.define('Ngcp.csc.locales', {
     statics: {
         login: {
             title: {
-                en: 'Self Care Login',
+                en: 'Login to your Portal',
                 it: 'Connessione all\'Area di Amministrazione',
                 de: 'Ihr persönliches Portal',
                 fr: 'Connexion à l\'espace d\'administration',
@@ -145,11 +145,11 @@ Ext.define('Ngcp.csc.locales', {
                 }
             },
             section_title: {
-                en: 'Conversations.',
-                it: 'Conversations.',
-                de: 'Conversations.',
-                fr: 'Conversations.',
-                sp: 'Conversations.'
+                en: 'Conversations',
+                it: 'Conversations',
+                de: 'Conversations',
+                fr: 'Conversations',
+                sp: 'Conversations'
             },
             recent_calls: {
                 en: 'RECENT CALLS',
@@ -262,67 +262,67 @@ Ext.define('Ngcp.csc.locales', {
                     }
                 },
                 new_sms:{
-                    en: 'Create and send a new SMS.',
-                    it: 'Create and send a new SMS.',
-                    de: 'Create and send a new SMS.',
-                    fr: 'Create and send a new SMS.',
-                    sp: 'Create and send a new SMS.'
+                    en: 'Send a new SMS',
+                    it: 'Send a new SMS',
+                    de: 'Send a new SMS',
+                    fr: 'Send a new SMS',
+                    sp: 'Send a new SMS'
                 },
                 new_call:{
-                    en: 'Call a new or an existing number.',
-                    it: 'Call a new or an existing number.',
-                    de: 'Call a new or an existing number.',
-                    fr: 'Call a new or an existing number.',
-                    sp: 'Call a new or an existing number.'
+                    en: 'Place a new Call',
+                    it: 'Place a new Call',
+                    de: 'Place a new Call',
+                    fr: 'Place a new Call',
+                    sp: 'Place a new Call',
                 },
                 new_fax:{
-                    en: 'Create and send a new fax.',
-                    it: 'Create and send a new fax.',
-                    de: 'Create and send a new fax.',
-                    fr: 'Create and send a new fax.',
-                    sp: 'Create and send a new fax.'
+                    en: 'Send a new Fax',
+                    it: 'Send a new Fax',
+                    de: 'Send a new Fax',
+                    fr: 'Send a new Fax',
+                    sp: 'Send a new Fax',
                 },
                 recall:{
-                    en: 'Call this number.',
-                    it: 'Call this number.',
-                    de: 'Call this number.',
-                    fr: 'Call this number.',
-                    sp: 'Call this number.'
+                    en: 'Call',
+                    it: 'Call',
+                    de: 'Call',
+                    fr: 'Call',
+                    sp: 'Call'
                 },
                 listen:{
-                    en: 'Reproduce the message.',
-                    it: 'Reproduce the message.',
-                    de: 'Reproduce the message.',
-                    sp: 'Reproduce the message.',
-                    fr: 'Reproduce the message.'
+                    en: 'Play Message',
+                    it: 'Play Message',
+                    de: 'Play Message',
+                    sp: 'Play Message',
+                    fr: 'Play Message'
                 },
                 send_fax:{
-                    en: 'Send a fax to this number.',
-                    it: 'Send a fax to this number.',
-                    de: 'Send a fax to this number.',
-                    fr: 'Send a fax to this number.',
-                    sp: 'Send a fax to this number.'
+                    en: 'Send Fax',
+                    it: 'Send Fax',
+                    de: 'Send Fax',
+                    fr: 'Send Fax',
+                    sp: 'Send Fax',
                 },
                 download_fax:{
-                    en: 'Download this fax.',
-                    it: 'Download this fax.',
-                    de: 'Download this fax.',
-                    fr: 'Download this fax.',
-                    sp: 'Download this fax.'
+                    en: 'Download',
+                    it: 'Download',
+                    de: 'Download',
+                    fr: 'Download',
+                    sp: 'Download',
                 },
                 send_sms:{
-                    en: 'Send an sms to this number.',
-                    it: 'Send an sms to this number.',
-                    de: 'Send an sms to this number.',
-                    fr: 'Send an sms to this number.',
-                    sp: 'Send an sms to this number.'
+                    en: 'Send SMS',
+                    it: 'Send SMS',
+                    de: 'Send SMS',
+                    fr: 'Send SMS',
+                    sp: 'Send SMS',
                 },
                 chat :{
-                    en: 'Start a private conversation.',
-                    it: 'Start a private conversation.',
-                    de: 'Start a private conversation.',
-                    fr: 'Start a private conversation.',
-                    sp: 'Start a private conversation.'
+                    en: 'Send Chat Message',
+                    it: 'Send Chat Message',
+                    de: 'Send Chat Message',
+                    fr: 'Send Chat Message',
+                    sp: 'Send Chat Message',
                 }
             }
         },

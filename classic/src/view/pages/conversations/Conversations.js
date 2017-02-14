@@ -35,7 +35,7 @@ Ext.define('NgcpCsc.view.pages.conversations.Conversations', {
                 items: [{
                     text: Ngcp.csc.locales.conversations.btns.new_sms[localStorage.getItem('languageSelected')],
                     itemId: 'newSms',
-                    iconCls: 'x-fa fa-comment fa-2x',
+                    iconCls: 'x-fa fa-envelope fa-2x',
                     margin: '0 20 0 0',
                     tooltip: Ngcp.csc.locales.conversations.tooltips.new_sms[localStorage.getItem('languageSelected')]
                 }, {
@@ -48,7 +48,7 @@ Ext.define('NgcpCsc.view.pages.conversations.Conversations', {
                 }, {
                     text: Ngcp.csc.locales.conversations.btns.new_fax[localStorage.getItem('languageSelected')],
                     itemId: 'newfax',
-                    iconCls: 'x-fa fa-fax fa-2x',
+                    iconCls: 'x-fa fa-file-text fa-2x',
                     tooltip: Ngcp.csc.locales.conversations.tooltips.new_fax[localStorage.getItem('languageSelected')]
                 }]
             }]
