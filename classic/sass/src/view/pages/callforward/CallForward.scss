@@ -6,7 +6,7 @@
 @mixin icon($icon) {
     @include fa-icon;
     @extend .fa;
-    @extend .fa-#{$icon}::before;
+    @extend .fa-#{$icon}:before;
 };
 
 /* custom css */
@@ -22,7 +22,7 @@
 }
 
 .x-panel-cf-mainform .cf-formtext:nth-child(2n+1) {
-    margin: 10px 40px 0 0;
+    margin: 10px 20px 0 0;
 }
 
 .x-panel-cf-mainform .cf-subheader {
@@ -55,7 +55,7 @@
 }
 
 .x-panel-cf-mainform .x-segmented-button:first-child {
-    margin-bottom: 10px;
+    // margin-bottom: 10px;
 }
 
 .x-panel-cf-mainform .x-segmented-button-item-horizontal {
@@ -72,6 +72,32 @@
 
 .x-panel-cf-mainform .x-segmented-button-item-horizontal.x-segmented-button-last {
     margin-right: 0;
+}
+
+.x-panel-cf-mainform .cf-embed-row {
+    margin-left: 10px;
+}
+
+// TODO: Try adjusting width %, and see if you can eliminate need for padding
+.x-panel-cf-mainform .cf-embed-row .x-autocontainer-innerCt {
+    display: block;
+}
+
+.x-panel-cf-mainform .cf-embed-row #alwaysButtonBelow,
+.x-panel-cf-mainform .cf-embed-row #everybodyButtonBelow {
+    padding-right: 9px;
+}
+
+.x-panel-cf-mainform .cf-embed-row #afterHoursButtonBelow,
+.x-panel-cf-mainform .cf-embed-row #listAButtonBelow {
+    padding-left: 1px;
+    padding-right: 8px;
+}
+
+.x-panel-cf-mainform .cf-embed-row #companyHoursButtonBelow,
+.x-panel-cf-mainform .cf-embed-row #listBButtonBelow {
+    padding-left: 2px;
+    padding-right: 8px;
 }
 
 /* 2. CallForwardMainForm grid */
@@ -95,6 +121,7 @@
     margin: 0;
 }
 
+.x-panel-cf-mainform .cf-tpl-fa,
 .x-panel-cf-grid .cf-tpl-fa {
     font-size: 0.7em;
     margin: 0 4px;
