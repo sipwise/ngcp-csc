@@ -27,22 +27,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
         var me = this;
 
         me.columns = [{
-            dataIndex: 'phone',
-            width: 105,
-            editor: {
-                xtype: 'textfield',
-                emptyText: Ngcp.csc.locales.callforward.enter_number[localStorage.getItem('languageSelected')]
-            },
+            dataIndex: 'phone', // Renderer also uses ring_for value
+            width: 285,
             renderer: 'renderPhoneColumn'
-        }, {
-            dataIndex: 'ring_for',
-            align: 'left',
-            width: 180,
-            editor: {
-                xtype: 'textfield',
-                emptyText: Ngcp.csc.locales.callforward.enter_secs[localStorage.getItem('languageSelected')]
-            },
-            renderer: 'renderSecsColumn'
         }, {
             text: Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')],
             xtype: 'actioncolumn',

@@ -1,11 +1,9 @@
 {
     "data": [{
         "phone": "43792601",
-        "active": true,
         "ring_for": "60"
     }, {
         "phone": "Voicemail",
-        "active": false,
-        "ring_for": "0"
+        "ring_for": ""
     }]
 }
