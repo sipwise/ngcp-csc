@@ -30,11 +30,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     addRowToStore: function (store) {
-        var targetStore = Ext.getStore(store);
-        var record = targetStore.getAt(targetStore.getCount() - 1);
-        if (record == null || record.data.phone !== '') {
-            targetStore.add({ "phone": "", "active": false, "ring_for": "" });
-        };
+        // TODO: Rewrite to work with form instead
+        // var targetStore = Ext.getStore(store);
+        // var record = targetStore.getAt(targetStore.getCount() - 1);
+        // if (record == null || record.data.phone !== '') {
+        //     targetStore.add({ "phone": "", "active": false, "ring_for": "" });
+        // };
+        console.log('Button for ' + store + ' store clicked');
     },
 
     addEmptyRow: function (el) {
@@ -58,6 +60,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var store = grid.getStore();
         var rec = grid.getStore().getAt(rowIndex);
         store.remove(rec);
+        this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
     },
 
     changeWidget: function (target, vm) {
@@ -68,24 +71,36 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         vm.set('list_b', true);
         switch (target) {
             case 'afterHoursButton-btnIconEl':
-                vm.set('active_widget', Ngcp.csc.locales.callforward.after_hours[localStorage.getItem('languageSelected')]);
-                vm.set('after_hours', false);
-                me.lookupReference('cf-after-widget').expand();
+                if (vm.get('active_widget') == 'After hours') {
+                    vm.set('after_hours', true);
+                } else {
+                    vm.set('active_widget', Ngcp.csc.locales.callforward.after_hours[localStorage.getItem('languageSelected')]);
+                    vm.set('after_hours', false);
+                };
                 break;
             case 'companyHoursButton-btnIconEl':
-                vm.set('active_widget', Ngcp.csc.locales.callforward.company_hours[localStorage.getItem('languageSelected')]);
-                vm.set('company_hours', false);
-                me.lookupReference('cf-company-widget').expand();
+                if (vm.get('active_widget') == 'Company hours') {
+                    vm.set('company_hours', true);
+                } else {
+                    vm.set('active_widget', Ngcp.csc.locales.callforward.company_hours[localStorage.getItem('languageSelected')]);
+                    vm.set('company_hours', false);
+                };
                 break;
             case 'listAButton-btnIconEl':
-                vm.set('active_widget', Ngcp.csc.locales.callforward.list_a[localStorage.getItem('languageSelected')]);
-                vm.set('list_a', false);
-                me.lookupReference('cf-list-a-widget').expand();
+                if (vm.get('active_widget') == 'List A') {
+                    vm.set('list_a', true);
+                } else {
+                    vm.set('active_widget', Ngcp.csc.locales.callforward.list_a[localStorage.getItem('languageSelected')]);
+                    vm.set('list_a', false);
+                };
                 break;
             case 'listBButton-btnIconEl':
-                vm.set('active_widget', Ngcp.csc.locales.callforward.list_b[localStorage.getItem('languageSelected')]);
-                vm.set('list_b', false);
-                me.lookupReference('cf-list-b-widget').expand();
+                if (vm.get('active_widget') == 'List B') {
+                    vm.set('list_a', true);
+                } else {
+                    vm.set('active_widget', Ngcp.csc.locales.callforward.list_b[localStorage.getItem('languageSelected')]);
+                    vm.set('list_b', false);
+                };
                 break;
         };
     },
@@ -177,11 +192,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     renderSecsColumn: function(value, metaData, record) {
-        if (!value) {
-            return 'Enter secs';
-        } else {
-            return 'and ring for ' + value + ' secs';
-        };
+        return 'and ring for ' + value + ' secs';
+        // TODO: Remove once new "add new" functionality in place
+        // if (!value) {
+        //     return 'Enter secs';
+        // } else {
+        //     return 'and ring for ' + value + ' secs';
+        // };
     }
 
 });
