@@ -99,9 +99,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             targetId = event.getTarget().id,
             buttonValue = button.value,
             buttonType = button.findParentByType('segmentedbutton').itemId,
-            storesArray = ['CallForwardOnline', 'CallForwardBusy', 'CallForwardOffline'];
+            storesArray = ['CallForwardOnline', 'CallForwardBusy', 'CallForwardOffline'],
+            loadingBar = me.lookupReference('loadingBar');
         me.changeWidget(targetId, vm);
         vm.set(me.getSelectedSet(buttonType), buttonValue);
+        loadingBar.showBusy();
         Ext.Ajax.request({
             url: '/resources/data/callForwardCombinations.json',
             success: function(response, opts) {
@@ -118,6 +120,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                             store.add(records);
                         };
                     };
+                    Ext.defer(function () {
+                        loadingBar.clearStatus();
+                    }, 300);
                 });
             },
             failure: function(response, opts) {
@@ -245,10 +250,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         } else if (this.checkIndexOf('offlineSaveButton', targetId)) {
             this.saveDestinationToStore('CallForwardOffline');
         };
-    },
-
-    renderSaveText: function () {
-        return 'YOLO';
     }
 
 });
