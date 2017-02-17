@@ -109,10 +109,6 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
     },
 
     submitFilters: function() {
-        // TODO: Changes are applied when form changes, but values are "delayed"
-        // (unchecking "missed" treats it as checked/true, and checking it
-        // treats it as unchecked/false. Tried setTimeout() without luck, and
-        // doublechecked that bind does not explicitly need to declare value:
         var store;
         var me = this;
         var vm = me.getViewModel();

@@ -100,6 +100,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             buttonValue = button.value,
             buttonType = button.findParentByType('segmentedbutton').itemId,
             storesArray = ['CallForwardOnline', 'CallForwardBusy', 'CallForwardOffline'];
+        this.showLoadingIndicator();
         me.changeWidget(targetId, vm);
         vm.set(me.getSelectedSet(buttonType), buttonValue);
         Ext.Ajax.request({
@@ -247,8 +248,34 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
-    renderSaveText: function () {
-        return 'YOLO';
+    toggleEnableButtons: function (buttons, state) {
+        if (state === 'disable') {
+            buttons.forEach(function (button) {
+                button.disable();
+            });
+        } else if (state === 'enable') {
+            buttons.forEach(function (button) {
+                button.enable();
+            });
+        }
+    },
+
+    showLoadingIndicator: function() {
+        var me = this;
+        var vm = me.getViewModel();
+        var loadingBar = me.lookupReference('loadingBar');
+        var buttons = [me.lookupReference('alwaysButton'),
+            me.lookupReference('afterHoursButton'),
+            me.lookupReference('companyHoursButton'),
+            me.lookupReference('everybodyButton'),
+            me.lookupReference('listAButton'),
+            me.lookupReference('listBButton')];
+        me.toggleEnableButtons(buttons, 'disable');
+        loadingBar.showBusy();
+        Ext.defer(function () {
+            loadingBar.clearStatus();
+            me.toggleEnableButtons(buttons, 'enable');
+        }, 300);
     }
 
 });
