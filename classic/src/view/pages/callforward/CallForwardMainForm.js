@@ -120,16 +120,19 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             items: [{
                 value: 'always',
                 id: 'alwaysButton',
+                reference: 'alwaysButton',
                 text: Ngcp.csc.locales.callforward.time_one[localStorage.getItem('languageSelected')]
             }, {
                 value: 'afterHours',
                 id: 'afterHoursButton',
+                reference: 'afterHoursButton',
                 text: Ngcp.csc.locales.callforward.time_two[localStorage.getItem('languageSelected')],
                 iconCls: 'x-fa fa-pencil',
                 iconAlign: 'right'
             }, {
                 value: 'companyHours',
                 id: 'companyHoursButton',
+                reference: 'companyHoursButton',
                 text: Ngcp.csc.locales.callforward.time_three[localStorage.getItem('languageSelected')],
                 iconCls: 'x-fa fa-pencil',
                 iconAlign: 'right'
@@ -219,16 +222,19 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             items: [{
                 value: 'everybody',
                 id: 'everybodyButton',
+                reference: 'everybodyButton',
                 text: Ngcp.csc.locales.callforward.source_one[localStorage.getItem('languageSelected')]
             }, {
                 value: 'listA',
                 id: 'listAButton',
+                reference: 'listAButton',
                 text: Ngcp.csc.locales.callforward.source_two[localStorage.getItem('languageSelected')],
                 iconCls: 'x-fa fa-pencil',
                 iconAlign: 'right'
             }, {
                 value: 'listB',
                 id: 'listBButton',
+                reference: 'listBButton',
                 text: Ngcp.csc.locales.callforward.source_three[localStorage.getItem('languageSelected')],
                 iconCls: 'x-fa fa-pencil',
                 iconAlign: 'right'
@@ -298,6 +304,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                     }]
                 }]
             }]
+        }, {
+            xtype: 'statusbar',
+            reference: 'loadingBar'
         }, {
             xtype: 'container',
             userCls: 'cf-text cf-subheader',

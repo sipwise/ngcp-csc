@@ -9,7 +9,6 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
 
     ui: 'core-container',
 
-
     initComponent: function() {
         this.items = [{
             xtype: 'form',

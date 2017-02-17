@@ -100,6 +100,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             buttonValue = button.value,
             buttonType = button.findParentByType('segmentedbutton').itemId,
             storesArray = ['CallForwardOnline', 'CallForwardBusy', 'CallForwardOffline'];
+        this.showLoadingIndicator();
         me.changeWidget(targetId, vm);
         vm.set(me.getSelectedSet(buttonType), buttonValue);
         Ext.Ajax.request({
@@ -247,8 +248,39 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
-    renderSaveText: function () {
-        return 'YOLO';
+    showLoadingIndicator: function() {
+        var vm = this.getViewModel();
+        var loadingBar = this.lookupReference('loadingBar');
+        var buttons = [this.lookupReference('alwaysButton'),
+            this.lookupReference('afterHoursButton'),
+            this.lookupReference('companyHoursButton'),
+            this.lookupReference('everybodyButton'),
+            this.lookupReference('listAButton'),
+            this.lookupReference('listBButton')];
+        buttons.forEach(function (button) {
+            button.disable();
+        });
+        loadingBar.showBusy();
+        Ext.defer(function () {
+            if (!loadingBar.destroyed) {
+                loadingBar.clearStatus();
+                buttons.forEach(function (button) {
+                    button.enable();
+                });
+            }
+        }, 600);
+        // new Ext.Promise(function(resolve, reject) {
+        //     setTimeout(function() {
+        //         resolve();
+        //     }, 1000);
+        // }).then(function() {
+        //     loadingBar.clearStatus();
+        // });
+    },
+
+    clearLoading: function () {
+        var loadingBar = this.lookupReference('loadingBar');
+        loadingBar.clearStatus();
     }
 
 });
