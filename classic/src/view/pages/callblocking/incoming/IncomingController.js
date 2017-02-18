@@ -1,7 +1,7 @@
-Ext.define('NgcpCsc.view.pages.callbarring.CallBarringController', {
+Ext.define('NgcpCsc.view.pages.callblocking.incoming.IncomingController', {
     extend: 'Ext.app.ViewController',
 
-    alias: 'controller.callbarring',
+    alias: 'controller.incoming',
 
     onEnterPressed: function (field, el) {
         if (el.getKey() == el.ENTER) {
@@ -34,7 +34,7 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarringController', {
 
     toggleEnabled: function(grid, rowIndex, colIndex, item, event, record, row) {
         record.set('enabled', !record.get('enabled'));
-        this.fireEvent('showmessage', true, Ngcp.csc.locales.callbarring.enabled_success[localStorage.getItem('languageSelected')]);
+        this.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.enabled_success[localStorage.getItem('languageSelected')]);
         this.renderBarrNumber(record.get('enabled'), null, record);
     },
 
@@ -46,11 +46,11 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarringController', {
             field = field.currentTarget.id;
         };
         if (fieldArrayIncoming.indexOf(field) > -1) {
-            store = Ext.getStore('CallBarringIncoming');
-            newNumber = vm.get('callbarring.new_in_number');
+            store = Ext.getStore('CallBlockingIncoming');
+            newNumber = vm.get('callblocking.new_in_number');
         } else if (fieldArrayOutgoing.indexOf(field) > -1){
-            store = Ext.getStore('CallBarringOutgoing');
-            newNumber = vm.get('callbarring.new_out_number');
+            store = Ext.getStore('CallBlockingOutgoing');
+            newNumber = vm.get('callblocking.new_out_number');
         };
         var acceptedCharacters = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '?'];
         var invalidCheck;
@@ -84,9 +84,9 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarringController', {
             this.fireEvent('showmessage', false, Ngcp.csc.locales.common.save_unsuccess[localStorage.getItem('languageSelected')]);
         };
         if (fieldArrayIncoming.indexOf(field) > -1) {
-            vm.set('callbarring.new_in_number', '');
+            vm.set('callblocking.new_in_number', '');
         } else if (fieldArrayOutgoing.indexOf(field) > -1){
-            vm.set('callbarring.new_out_number', '');
+            vm.set('callblocking.new_out_number', '');
         };
     },
 

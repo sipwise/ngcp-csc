@@ -1,0 +1,11 @@
+// mixins
+@include extjs-panel-ui ( $ui: 'callblocking-main', );
+
+// custom rules
+.callblocking-heading {
+    font-size: 24px;
+}
+
+.x-panel-callblocking-main {
+    // TODO: Position center
+}
