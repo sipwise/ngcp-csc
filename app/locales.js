@@ -443,7 +443,7 @@ Ext.define('Ngcp.csc.locales', {
                 }
             }
         },
-        callbarring: {
+        callblocking: {
             title: {
                 en: 'Call barring for incoming and outgoing calls.',
                 it: 'Call barring for incoming and outgoing calls.',
@@ -522,11 +522,18 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'HIDE OWN NUMBER ON OUTGOING CALLS'
             },
             enabled_success: {
-                en: 'Enable/disable successfully toggled.',
-                it: 'Enable/disable successfully toggled.',
-                de: 'Enable/disable successfully toggled.',
-                fr: 'Enable/disable successfully toggled.',
-                sp: 'Enable/disable successfully toggled.'
+                en: 'Successfully enabled number.',
+                it: 'Successfully enabled number.',
+                de: 'Successfully enabled number.',
+                fr: 'Successfully enabled number.',
+                sp: 'Successfully enabled number.'
+            },
+            disabled_success: {
+                en: 'Successfully disabled number.',
+                it: 'Successfully disabled number.',
+                de: 'Successfully disabled number.',
+                fr: 'Successfully disabled number.',
+                sp: 'Successfully disabled number.'
             },
             new_entry: {
                 en: 'NEW ENTRY',
@@ -548,6 +555,34 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'To block anonymous calls you may just submit the empty string.',
                 fr: 'To block anonymous calls you may just submit the empty string.',
                 sp: 'To block anonymous calls you may just submit the empty string.'
+            },
+            allow_mode_success: {
+                en: 'Allow mode successfully set.',
+                it: 'Allow mode successfully set.',
+                de: 'Allow mode successfully set.',
+                fr: 'Allow mode successfully set.',
+                sp: 'Allow mode successfully set.'
+            },
+            block_mode_success: {
+                en: 'Block mode successfully set.',
+                it: 'Block mode successfully set.',
+                de: 'Block mode successfully set.',
+                fr: 'Block mode successfully set.',
+                sp: 'Block mode successfully set.'
+            },
+            enable_or_disable: {
+                en: 'Enable or disable number',
+                it: 'Enable or disable number',
+                de: 'Enable or disable number',
+                fr: 'Enable or disable number',
+                sp: 'Enable or disable number'
+            },
+            delete_number: {
+                en: 'Delete number',
+                it: 'Delete number',
+                de: 'Delete number',
+                fr: 'Delete number',
+                sp: 'Delete number'
             }
         },
         password: {

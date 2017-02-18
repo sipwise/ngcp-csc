@@ -1,8 +1,8 @@
-Ext.define('NgcpCsc.model.CallBarringOutgoing', {
+Ext.define('NgcpCsc.model.CallBlockingIncoming', {
     extend: 'Ext.data.Model',
 
     fields: [{
-        name: 'block_out_list',
+        name: 'block_in_list',
         type: 'string'
     }, {
         name: 'enabled',

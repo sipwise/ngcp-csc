@@ -15,6 +15,7 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
             !event.target.classList.contains('fa-play') &&
             !event.target.classList.contains('fa-pause')){
             // Register the new tip with an element's ID
+            console.log(el.id);
             Ext.tip.QuickTipManager.register({
                 target: el.id, // Target button's ID
                 text: el.dataset.tooltip // Tip content
