@@ -224,6 +224,15 @@ Ext.define('NgcpCsc.view.main.MainController', {
             case 'account':
                 title = Ngcp.csc.locales.account.title[localStorage.getItem('languageSelected')];
                 break;
+            case 'callblocking/incoming':
+                title = Ngcp.csc.locales.callblocking.title[localStorage.getItem('languageSelected')] + Ngcp.csc.locales.callblocking.incoming_title[localStorage.getItem('languageSelected')];
+                break;
+            case 'callblocking/outgoing':
+                title = Ngcp.csc.locales.callblocking.title[localStorage.getItem('languageSelected')] + Ngcp.csc.locales.callblocking.outgoing_title[localStorage.getItem('languageSelected')];
+                break;
+            case 'callblocking/privacy':
+                title = Ngcp.csc.locales.callblocking.title[localStorage.getItem('languageSelected')] + Ngcp.csc.locales.callblocking.privacy_title[localStorage.getItem('languageSelected')];
+                break;
             default:
                 title = vm.get('sectionTitle');
         }

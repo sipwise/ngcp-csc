@@ -443,97 +443,48 @@ Ext.define('Ngcp.csc.locales', {
                 }
             }
         },
-        callbarring: {
+        callblocking: {
             title: {
-                en: 'Call barring for incoming and outgoing calls.',
-                it: 'Call barring for incoming and outgoing calls.',
-                de: 'Call barring for incoming and outgoing calls.',
-                fr: 'Call barring for incoming and outgoing calls.',
-                sp: 'Call barring for incoming and outgoing calls.'
+                en: 'Call Blocking',
+                it: 'Call Blocking',
+                de: 'Call Blocking',
+                fr: 'Call Blocking',
+                sp: 'Call Blocking'
             },
-            subtitle: {
-                en: 'CALL BARRING',
-                it: 'CALL BARRING',
-                de: 'CALL BARRING',
-                fr: 'CALL BARRING',
-                sp: 'CALL BARRING'
+            incoming_title: {
+                en: ' - Incoming',
+                it: ' - Incoming',
+                de: ' - Incoming',
+                fr: ' - Incoming',
+                sp: ' - Incoming'
             },
-            user_label: {
-                en: 'Settings for ',
-                it: 'Settings for ',
-                de: 'Settings for ',
-                fr: 'Settings for ',
-                sp: 'Settings for '
+            outgoing_title: {
+                en: ' - Outgoing',
+                it: ' - Outgoing',
+                de: ' - Outgoing',
+                fr: ' - Outgoing',
+                sp: ' - Outgoing'
             },
-            incoming_calls: {
-                en: 'INCOMING CALLS',
-                it: 'INCOMING CALLS',
-                de: 'INCOMING CALLS',
-                fr: 'INCOMING CALLS',
-                sp: 'INCOMING CALLS'
-            },
-            outgoing_calls: {
-                en: 'OUTGOING CALLS',
-                it: 'OUTGOING CALLS',
-                de: 'OUTGOING CALLS',
-                fr: 'OUTGOING CALLS',
-                sp: 'OUTGOING CALLS'
-            },
-            add_number: {
-                en: 'ADD NUMBER',
-                it: 'ADD NUMBER',
-                de: 'ADD NUMBER',
-                fr: 'ADD NUMBER',
-                sp: 'ADD NUMBER'
-            },
-            disable: {
-                en: 'DISABLE',
-                it: 'DISABLE',
-                de: 'DISABLE',
-                fr: 'DISABLE',
-                sp: 'DISABLE'
-            },
-            enable: {
-                en: 'ENABLE',
-                it: 'ENABLE',
-                de: 'ENABLE',
-                fr: 'ENABLE',
-                sp: 'ENABLE'
-            },
-            block_everything: {
-                en: 'Block everything except ...',
-                it: 'Block everything except ...',
-                de: 'Block everything except ...',
-                fr: 'Block everything except ...',
-                sp: 'Block everything except ...'
-            },
-            allow_everything: {
-                en: 'Allow everything except ...',
-                it: 'Allow everything except ...',
-                de: 'Allow everything except ...',
-                fr: 'Allow everything except ...',
-                sp: 'Allow everything except ...'
-            },
-            hide_own: {
-                en: 'HIDE OWN NUMBER ON OUTGOING CALLS',
-                it: 'HIDE OWN NUMBER ON OUTGOING CALLS',
-                de: 'HIDE OWN NUMBER ON OUTGOING CALLS',
-                fr: 'HIDE OWN NUMBER ON OUTGOING CALLS',
-                sp: 'HIDE OWN NUMBER ON OUTGOING CALLS'
+            privacy_title: {
+                en: ' - Privacy',
+                it: ' - Privacy',
+                de: ' - Privacy',
+                fr: ' - Privacy',
+                sp: ' - Privacy'
             },
             enabled_success: {
-                en: 'Enable/disable successfully toggled.',
-                it: 'Enable/disable successfully toggled.',
-                de: 'Enable/disable successfully toggled.',
-                fr: 'Enable/disable successfully toggled.',
-                sp: 'Enable/disable successfully toggled.'
+                en: 'Successfully enabled number.',
+                it: 'Successfully enabled number.',
+                de: 'Successfully enabled number.',
+                fr: 'Successfully enabled number.',
+                sp: 'Successfully enabled number.'
             },
-            new_entry: {
-                en: 'NEW ENTRY',
-                it: 'NEW ENTRY',
-                de: 'NEW ENTRY',
-                fr: 'NEW ENTRY',
-                sp: 'NEW ENTRY'
+            disabled_success: {
+                en: 'Successfully disabled number.',
+                it: 'Successfully disabled number.',
+                de: 'Successfully disabled number.',
+                fr: 'Successfully disabled number.',
+                sp: 'Successfully disabled number.'
             },
             new_entry_instructions: {
                 en: 'Please use digits only and include the area code of the number. You may use the wildcard characters "?" for one and "*" for an indefinite number of arbitrary digits.',
@@ -548,6 +499,41 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'To block anonymous calls you may just submit the empty string.',
                 fr: 'To block anonymous calls you may just submit the empty string.',
                 sp: 'To block anonymous calls you may just submit the empty string.'
+            },
+            allow_mode_success: {
+                en: 'Allow mode successfully set.',
+                it: 'Allow mode successfully set.',
+                de: 'Allow mode successfully set.',
+                fr: 'Allow mode successfully set.',
+                sp: 'Allow mode successfully set.'
+            },
+            block_mode_success: {
+                en: 'Block mode successfully set.',
+                it: 'Block mode successfully set.',
+                de: 'Block mode successfully set.',
+                fr: 'Block mode successfully set.',
+                sp: 'Block mode successfully set.'
+            },
+            enable_or_disable: {
+                en: 'Enable or disable number',
+                it: 'Enable or disable number',
+                de: 'Enable or disable number',
+                fr: 'Enable or disable number',
+                sp: 'Enable or disable number'
+            },
+            delete_number: {
+                en: 'Delete number',
+                it: 'Delete number',
+                de: 'Delete number',
+                fr: 'Delete number',
+                sp: 'Delete number'
+            },
+            please_enter_number: {
+                en: 'Please enter a number.',
+                it: 'Please enter a number.',
+                de: 'Please enter a number.',
+                fr: 'Please enter a number.',
+                sp: 'Please enter a number.'
             }
         },
         password: {
