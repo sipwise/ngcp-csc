@@ -1,12 +1,12 @@
-Ext.define('NgcpCsc.view.pages.callbarring.CallBarringOutgoingGrid', {
+Ext.define('NgcpCsc.view.pages.callblocking.incoming.IncomingGrid', {
     extend: 'Ext.grid.Panel',
 
-    xtype: 'callbarring-outgoing-grid',
+    xtype: 'incoming-grid',
 
     layout: 'fit',
 
     bind: {
-        store: '{outgoingCalls}'
+        store: '{incomingCalls}'
     },
 
     padding: 10,
@@ -18,7 +18,7 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarringOutgoingGrid', {
         },
         items: [{
             flex: 1,
-            dataIndex: 'block_out_list',
+            dataIndex: 'block_in_list',
             renderer: 'renderBarrNumber'
         },
         {

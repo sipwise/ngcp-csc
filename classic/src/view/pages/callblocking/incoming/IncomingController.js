@@ -1,7 +1,7 @@
-Ext.define('NgcpCsc.view.pages.callbarring.CallBarringController', {
+Ext.define('NgcpCsc.view.pages.callblocking.incoming.IncomingController', {
     extend: 'Ext.app.ViewController',
 
-    alias: 'controller.callbarring',
+    alias: 'controller.incoming',
 
     onEnterPressed: function (field, el) {
         if (el.getKey() == el.ENTER) {

@@ -1,7 +1,7 @@
-Ext.define('NgcpCsc.view.pages.callbarring.CallBarringModel', {
+Ext.define('NgcpCsc.view.pages.callblocking.outgoing.OutgoingModel', {
     extend: 'Ext.app.ViewModel',
 
-    alias: 'viewmodel.callbarring',
+    alias: 'viewmodel.outgoing',
 
     links:{
         callbarring:{
@@ -11,7 +11,6 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarringModel', {
     },
 
     stores: {
-        incomingCalls: 'CallBarringIncoming',
         outgoingCalls: 'CallBarringOutgoing'
     }
 });

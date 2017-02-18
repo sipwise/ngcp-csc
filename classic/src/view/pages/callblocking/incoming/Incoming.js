@@ -1,20 +1,22 @@
-Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
+Ext.define('NgcpCsc.view.pages.callblocking.incoming.Incoming', {
     extend: 'Ext.panel.Panel',
 
-    xtype: 'callbarring',
+    xtype: 'incoming',
 
-    viewModel: 'callbarring',
+    viewModel: 'incoming',
 
-    requires: [
+    requires: [ // TODO: Check if we can remove
         'Ext.form.FieldContainer',
         'Ext.form.field.Radio'
     ],
 
-    controller: 'callbarring',
+    controller: 'incoming',
+
+    // TODO: Rename/change main model and store
+    // TODO: Change layout
 
     initComponent: function() {
-        var incomingGrid = Ext.create('NgcpCsc.view.pages.callbarring.CallBarringIncomingGrid');
-        var outgoingGrid = Ext.create('NgcpCsc.view.pages.callbarring.CallBarringOutgoingGrid');
+        var incomingGrid = Ext.create('NgcpCsc.view.pages.callblocking.incoming.IncomingGrid');
 
         this.items = [{
             xtype:'core-container',
@@ -90,80 +92,6 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarring', {
                             xtype: 'container',
                             padding: '0 0 10 10',
                             html: Ngcp.csc.locales.callbarring.new_entry_instructions[localStorage.getItem('languageSelected')] + ' ' + Ngcp.csc.locales.callbarring.new_entry_anonymous[localStorage.getItem('languageSelected')]
-                        }
-                    ]
-                }, {
-                    userCls: 'big-50 small-100',
-                    title:Ngcp.csc.locales.callbarring.outgoing_calls[localStorage.getItem('languageSelected')],
-                    items: [{
-                            xtype: 'checkboxfield',
-                            boxLabel: Ngcp.csc.locales.callbarring.hide_own[localStorage.getItem('languageSelected')].toLowerCase(),
-                            name: 'hidebox',
-                            bind: '{callbarring.clir}'
-                        }, {
-                            xtype: 'fieldcontainer',
-                            defaultType: 'radiofield',
-                            items: [{
-                                boxLabel: Ngcp.csc.locales.callbarring.allow_everything[localStorage.getItem('languageSelected')],
-                                name: 'outgoing',
-                                inputValue: 'outgoing-allow',
-                                id: 'outgoing1',
-                                bind: '{callbarring.block_out_mode}'
-                            }, {
-                                boxLabel: Ngcp.csc.locales.callbarring.block_everything[localStorage.getItem('languageSelected')],
-                                name: 'outgoing',
-                                inputValue: 'outgoing-block',
-                                id: 'outgoing2'
-                            }]
-                        }, {
-                            layout: 'hbox',
-                            margin: '0 0 0 5',
-                            defaults: {
-                                xtype: 'button'
-                            },
-                            items: [{
-                                text: Ngcp.csc.locales.common.save_settings[localStorage.getItem('languageSelected')],
-                                margin: '0 0 20 0',
-                                handler: 'saveBarrSettings'
-                            }]
-                        },
-                        outgoingGrid, {
-                            flex: 1,
-                            defaults: {
-                                padding: '0 20 0 20'
-                            }
-                        }, {
-                            xtype: 'textfield',
-                            id: 'outgoing-new-enter',
-                            padding: '10 0 0 10',
-                            bind: '{callbarring.new_out_number}',
-                            fieldLabel: Ngcp.csc.locales.callbarring.new_entry[localStorage.getItem('languageSelected')].toLowerCase(),
-                            listeners: {
-                                specialKey: 'onEnterPressed'
-                            }
-                        },
-                        {
-                            layout: 'hbox',
-                            margin: '0 0 0 5',
-                            defaults: {
-                                xtype: 'button'
-                            },
-                            items: [{
-                                text:  Ngcp.csc.locales.callbarring.add_number[localStorage.getItem('languageSelected')].toLowerCase(),
-                                margin: '10 0 20 0',
-                                id: 'outgoing-new-btn',
-                                listeners: {
-                                    click: {
-                                        element: 'el',
-                                        fn: 'saveNumber'
-                                    }
-                                }
-                            }]
-                        },
-                        {
-                            xtype: 'container',
-                            padding: '0 20 10 10',
-                            html: Ngcp.csc.locales.callbarring.new_entry_instructions[localStorage.getItem('languageSelected')]
                         }
                     ]
                 }]

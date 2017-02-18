@@ -31,12 +31,32 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             acl: ['administrator'],
             leaf: true
         }, {
-            text: 'Call Barring',
+            text: 'Call Blocking',
             iconCls: 'x-fa fa-ban',
-            routeId: 'callblock',
-            viewType: 'callbarring',
+            routeId: 'callblocking',
             acl: ['administrator'],
-            leaf: true
+            children: [{
+                text: 'Incoming',
+                iconCls: 'x-fa fa-users',
+                viewType: 'incoming',
+                routeId: 'callblocking/incoming',
+                acl: ['administrator'],
+                leaf: true
+            }, {
+                text: 'Outgoing',
+                iconCls: 'x-fa fa-users',
+                viewType: 'outgoing',
+                routeId: 'callblocking/outgoing',
+                acl: ['administrator'],
+                leaf: true
+            }, {
+                text: 'Privacy',
+                iconCls: 'x-fa fa-users',
+                viewType: 'privacy',
+                routeId: 'callblocking/privacy',
+                acl: ['administrator'],
+                leaf: true
+            }]
         }, {
             text: 'Reminder',
             iconCls: 'x-fa fa-sticky-note',
