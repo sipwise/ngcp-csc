@@ -443,7 +443,7 @@ Ext.define('Ngcp.csc.locales', {
                 }
             }
         },
-        callbarring: {
+        callblocking: {
             title: {
                 en: 'Call barring for incoming and outgoing calls.',
                 it: 'Call barring for incoming and outgoing calls.',
