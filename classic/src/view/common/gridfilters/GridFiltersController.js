@@ -171,7 +171,6 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
     },
 
     applyPbxconfigSeatsFilters: function(record) {
-        // TODO: Numbers field is searchable, but not the others.. Fix
         var vm = this.getViewModel();
         var fieldInput = vm.get('filtergrid.headerBarFieldInput') || "";
         var extensions = vm.get('filtergrid.extensions') ? vm.get('filtergrid.extensions').split(',') : [];
