@@ -1,8 +1,10 @@
 {
     "data": [{
+        "id": "1",
         "block_in_list": "+439910013322",
         "enabled": true
     }, {
+        "id": "2",
         "block_in_list": "+439910044572",
         "enabled": false
     }]
