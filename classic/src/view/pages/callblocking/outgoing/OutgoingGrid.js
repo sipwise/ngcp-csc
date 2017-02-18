@@ -1,12 +1,12 @@
-Ext.define('NgcpCsc.view.pages.callbarring.CallBarringIncomingGrid', {
+Ext.define('NgcpCsc.view.pages.callblocking.outgoing.OutgoingGrid', {
     extend: 'Ext.grid.Panel',
 
-    xtype: 'callbarring-incoming-grid',
+    xtype: 'outgoing-grid',
 
     layout: 'fit',
 
     bind: {
-        store: '{incomingCalls}'
+        store: '{outgoingCalls}'
     },
 
     padding: 10,
@@ -18,7 +18,7 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarringIncomingGrid', {
         },
         items: [{
             flex: 1,
-            dataIndex: 'block_in_list',
+            dataIndex: 'block_out_list',
             renderer: 'renderBarrNumber'
         },
         {
@@ -27,7 +27,7 @@ Ext.define('NgcpCsc.view.pages.callbarring.CallBarringIncomingGrid', {
             align: 'right',
             items: [
                 {
-                    tooltip: Ngcp.csc.locales.callbarring.enable[localStorage.getItem('languageSelected')],
+                    tooltip: Ngcp.csc.locales.callblocking.enable[localStorage.getItem('languageSelected')],
                     getClass: 'getActionClass',
                     handler: 'toggleEnabled'
                 }
