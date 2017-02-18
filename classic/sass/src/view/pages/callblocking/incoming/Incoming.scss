@@ -1,0 +1,13 @@
+// mixins
+//@include extjs-panel-ui ( $ui: 'callblocking-main', );
+@include extjs-toolbar-ui(
+    $ui: 'callblocking-tbar',
+    $background-color: '#F6F6F6'
+);
+
+// custom rules
+.x-toolbar-callblocking-tbar .callblocking-header .x-autocontainer-innerCt {
+    // font-size: 16px;
+    color: $base-color;
+    font: 500 14px/18px var(--font-family);
+}

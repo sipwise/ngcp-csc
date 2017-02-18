@@ -62,7 +62,7 @@ Ext.define('NgcpCsc.view.pages.conversations.CallsGrid', {
         var me = this;
         me.features = [{
             ftype: 'rowbody',
-            getAdditionalData: function(data, idx, record, orig) {
+            getAdditionalData: function(data, idx, record) {
                 var content;
                 var footer = "<div class='pointer card-footer' id='card-footer-" + record.get('id') + "'><div></div><div>" + Ngcp.csc.formatter.timeSince(record.get('start_time')) + " " + Ngcp.csc.locales.common.ago[localStorage.getItem('languageSelected')] + "</div></div>"
                 var previewCharNum = Ext.os.is.Desktop ? 110 : me.getWidth() / 7.5;
