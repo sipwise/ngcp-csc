@@ -1,4 +1,4 @@
-Ext.define('NgcpCsc.view.webrtc.WebrtcModel', {
+Ext.define('NgcpCsc.view.common.webrtc.WebrtcModel', {
     extend: 'Ext.app.ViewModel',
 
     alias: 'viewmodel.webrtc',

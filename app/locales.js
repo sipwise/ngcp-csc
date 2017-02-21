@@ -1620,6 +1620,15 @@ Ext.define('Ngcp.csc.locales', {
                 }
             }
         },
+        contacts: {
+            title: {
+                en: 'Contacts',
+                it: 'Contacts',
+                de: 'Contacts',
+                fr: 'Contacts',
+                sp: 'Contacts'
+            }
+        },
         common: {
             today: {
                 en: 'Today',

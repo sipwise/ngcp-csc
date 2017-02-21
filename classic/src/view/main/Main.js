@@ -82,6 +82,14 @@ Ext.define('NgcpCsc.view.main.Main', {
                     }
                 },
                 '->', {
+                    // Temporary button for development purposes
+                    iconCls: 'x-fa fa-users',
+                    emableToggle: true,
+                    tooltip: 'Show contacts sidebar panel',
+                    listeners: {
+                        click: 'toggleContacts'
+                    }
+                }, {
                     xtype: 'tbtext',
                     bind: {
                         text: Ngcp.csc.locales.main.logged_in_as[localStorage.getItem('languageSelected')] + '{username}'
@@ -153,6 +161,13 @@ Ext.define('NgcpCsc.view.main.Main', {
                 xtype: 'webrtc',
                 region: 'east',
                 itemId: 'webrtcPanel',
+                hidden: true,
+                collapsed: true,
+                collapsible: true
+            }, {
+                xtype: 'contacts',
+                region: 'east',
+                itemId: 'contactsPanel',
                 hidden: true,
                 collapsed: true,
                 collapsible: true

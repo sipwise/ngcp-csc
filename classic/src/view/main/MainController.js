@@ -303,6 +303,11 @@ Ext.define('NgcpCsc.view.main.MainController', {
 
     toggleFree: function() {
         this.fireEvent('toggleFreeSearch');
+    },
+
+    toggleContacts: function () {
+        console.log('click listener');
+        this.fireEvent('initcontacts');
     }
 
 });

@@ -3,7 +3,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
     alias: 'controller.gridfilters',
 
     listen: {
-        controller : {
+        controller: {
             '*' : {
                 newSearchFieldInput: 'filterBySearchFieldInput',
                 toggleFilterForm: 'toggleFilterForm',
