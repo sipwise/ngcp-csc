@@ -17,6 +17,17 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             acl: ['administrator', 'restricted'], //TODO define real roles, which should be delivered along with user info after successfull login
             leaf: true
         }, {
+<<<<<<< HEAD
+=======
+            text: 'Conversation with',
+            iconCls: 'x-fa fa-wechat',
+            viewType: 'chat',
+            routeId: 'conversation-with',
+            acl: ['administrator', 'restricted'],
+            visible: false,
+            leaf: true
+        }, {
+>>>>>>> c9454b4... TT#10029 Ngcp-csc Call sidebar
             text: 'Addressbook',
             iconCls: 'x-fa fa-book',
             viewType: 'addressbook',

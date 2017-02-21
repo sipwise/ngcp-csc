@@ -106,7 +106,7 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookController', {
 
     onCellClicked: function(view, td, cellindex, record, tr, rowindex, ev){
         if(cellindex == 4){ // phone column, TODO update in case new columns are added, or repositioned
-            this.fireEvent('initwebrtc', record);
+            this.fireEvent('initrtc', record);
         }
     }
 

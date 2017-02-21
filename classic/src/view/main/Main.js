@@ -81,6 +81,7 @@ Ext.define('NgcpCsc.view.main.Main', {
                         click: 'toggleFilter'
                     }
                 },
+<<<<<<< HEAD
                 '->', {
                     xtype: 'tbtext',
                     bind: {
@@ -152,12 +153,82 @@ Ext.define('NgcpCsc.view.main.Main', {
             }, {
                 xtype: 'webrtc',
                 region: 'east',
+=======
+                cls: 'top-user-name'
+            }, {
+                xtype: 'tbseparator'
+            }, {
+                html: Ngcp.csc.locales.common.logout[localStorage.getItem('languageSelected')],
+                tooltip: Ngcp.csc.locales.common.logout[localStorage.getItem('languageSelected')],
+                handler: 'logout'
+            }, {
+                xtype: 'image',
+                cls: 'header-right-profile-image',
+                height: 35,
+                width: 35,
+                alt: 'current user image',
+                src: 'resources/images/user-profile/2.png'
+            }
+        ]
+    }, {
+        xtype: 'maincontainerwrap',
+        id: 'main-view-detail-wrap',
+        reference: 'mainContainerWrap',
+        items: [{
+            xtype: 'treelist',
+            reference: 'navigationTreeList',
+            itemId: 'navigationTreeList',
+            ui: 'navigation',
+            store: 'NavigationTree',
+            width: (Ext.isIE9m || !Ext.os.is.Desktop) ? 65 : 250,
+            expanderFirst: false,
+            expanderOnly: false,
+            micro: (Ext.isIE9m || !Ext.os.is.Desktop),
+            listeners: {
+                selectionchange: 'onNavigationTreeSelectionChange'
+            }
+        }, {
+            xtype: 'container',
+            flex: 1, // combined with hbox stretch, it takes all the available space
+            id: 'mainContainer',
+            layout: {
+                type: 'hbox'
+            },
+            defaults: {
+                height: '100%',
+                scrollable: true
+            },
+            userCls: 'main-container',
+            items: [{
+                flex: 5,
+                reference: 'mainCardPanel',
+                cls: 'sencha-dash-right-main-container',
+                itemId: 'contentPanel',
+                layout: {
+                    type: 'card'
+                }
+            }, {
+                flex: 3,
+                resizable: true,
+                xtype: 'rtc',
+>>>>>>> c9454b4... TT#10029 Ngcp-csc Call sidebar
                 itemId: 'webrtcPanel',
                 hidden: true,
                 collapsed: true,
                 collapsible: true
+            }, {
+                width: 250,
+                resizable: true,
+                xtype: 'chatlist',
+                ui: 'core-container',
+                margin:'0 0 20 0'
             }]
+<<<<<<< HEAD
         }];
         this.callParent();
     }
+=======
+        }]
+    }]
+>>>>>>> c9454b4... TT#10029 Ngcp-csc Call sidebar
 });

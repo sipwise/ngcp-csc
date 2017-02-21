@@ -1059,8 +1059,18 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'With your 4-digit PIN you may query your voicebox from any telephone.'
             }
         },
+        contacts:{
+            title:{
+                en: 'Contacts',
+                it: 'Contacts',
+                de: 'Contacts',
+                fr: 'Contacts',
+                sp: 'Conversation with'
+            }
+        },
         chat: {
             title: {
+<<<<<<< HEAD
                 en: 'Conversations with',
                 it: 'Conversations with ',
                 de: 'Conversations with',
@@ -1073,6 +1083,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Buddy List.',
                 fr: 'Buddy List.',
                 sp: 'Buddy List.'
+=======
+                en: 'Conversation with',
+                it: 'Conversation with',
+                de: 'Conversation with',
+                fr: 'Conversation with',
+                sp: 'Conversation with'
+>>>>>>> c9454b4... TT#10029 Ngcp-csc Call sidebar
             },
             new_group: {
                 en: 'Create new team',

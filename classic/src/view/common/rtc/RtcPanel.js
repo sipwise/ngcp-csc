@@ -1,11 +1,11 @@
-Ext.define('NgcpCsc.view.common.webrtc.WebrtcPanel', {
+Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
     extend: 'Ext.panel.Panel',
 
-    xtype: 'webrtc',
+    xtype: 'rtc',
 
-    controller: 'webrtc',
+    controller: 'rtc',
 
-    viewModel: 'webrtc',
+    viewModel: 'rtc',
 
     padding: '0 0 0 1',
 
@@ -35,13 +35,13 @@ Ext.define('NgcpCsc.view.common.webrtc.WebrtcPanel', {
                 pack: 'center'
             },
             defaults: {
-                cls: 'webrtc-container'
+                cls: 'rtc-container'
             },
             items: [{
-                cls: 'webrtc-avatar-container',
+                cls: 'rtc-avatar-container',
                 items: {
                     xtype: 'image',
-                    cls: 'webrtc-avatar',
+                    cls: 'rtc-avatar',
                     bind: {
                         src: '{thumbnail}'
                     }
@@ -52,7 +52,7 @@ Ext.define('NgcpCsc.view.common.webrtc.WebrtcPanel', {
                 bind: '{status}'
             }, {
                 xtype: 'container',
-                cls: 'webrtc-btns-container',
+                cls: 'rtc-btns-container',
                 layout: {
                     type: 'hbox',
                     align: 'stretch',
@@ -60,7 +60,7 @@ Ext.define('NgcpCsc.view.common.webrtc.WebrtcPanel', {
                 },
                 defaults: {
                     xtype: 'button',
-                    cls: 'webrtc-icons',
+                    cls: 'rtc-icons',
                     enableToggle: true
                 },
                 items: [{
@@ -88,7 +88,7 @@ Ext.define('NgcpCsc.view.common.webrtc.WebrtcPanel', {
             }]
         }, Ext.create('NgcpCsc.view.pages.chat.ChatContainer', {
             flex: 3,
-            cls: 'webrtc-chat-tbar',
+            cls: 'rtc-chat-tbar',
             bind: {
                 hidden: '{!chatEnabled}'
             },

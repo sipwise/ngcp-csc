@@ -25,7 +25,7 @@ Ext.define('NgcpCsc.view.pages.conversations.Conversations', {
                 defaults: {
                     xtype: 'button',
                     flex: 1,
-                    handler: 'openCallPanel',
+                    handler: 'openSideCallPanel',
                     iconAlign: 'top',
                     scale: 'medium',
                     ui: 'conversations-actions-btn'

@@ -1,11 +1,10 @@
-Ext.define('NgcpCsc.view.common.webrtc.WebrtcController', {
+Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.webrtc',
-
+    alias: 'controller.rtc',
     listen: {
         controller: {
             '*': {
-                initwebrtc: 'showWebrtcPanel',
+                initrtc: 'showRtcPanel',
                 startcall: 'startCall',
                 pausecall: 'pauseCall',
                 endcall: 'endCall',
@@ -16,13 +15,13 @@ Ext.define('NgcpCsc.view.common.webrtc.WebrtcController', {
         }
     },
 
-    showWebrtcPanel: function(record, switchVideoOn, newCall) {
+    showRtcPanel: function(record, switchVideoOn, newCall) {
         var panel = this.getView();
         if(!newCall){
             var vm = this.getViewModel();
             var buddyUser = Ext.getStore('Chat').findRecord('uid', record.get('uid'));
             var number = (buddyUser) ? buddyUser.get('number') : record.get('caller') || record.get('source_cli') || record.get('mobile');
-            this.getViewModel().set('title', Ext.String.format('{0}', number));
+            vm.set('title', Ext.String.format('{0}', number));
             vm.set('thumbnail', (buddyUser) ? buddyUser.get('thumbnail') : this.getViewModel().get('defaultThumbnail'));
             vm.set('status', Ext.String.format('calling {0} ...', (buddyUser) ? buddyUser.get('name') : ''));
             vm.set('callEnabled', true);

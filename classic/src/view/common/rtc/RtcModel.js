@@ -1,7 +1,7 @@
-Ext.define('NgcpCsc.view.webrtc.WebrtcModel', {
+Ext.define('NgcpCsc.view.rtc.RtcModel', {
     extend: 'Ext.app.ViewModel',
 
-    alias: 'viewmodel.webrtc',
+    alias: 'viewmodel.rtc',
 
     data: {
         title: 123456789,
