@@ -1,21 +1,27 @@
-Ext.define('NgcpCsc.view.pages.chat.ChatList', {
+Ext.define('NgcpCsc.view.pages.contacts.Contacts', {
     extend: 'Ext.tree.Panel',
 
-    alias: 'widget.chatlist',
+    alias: 'widget.contacts',
 
-    controller: 'chatlist',
+    controller: 'contacts',
 
-    itemId: 'chatlist',
-
-    title: Ngcp.csc.locales.chat.title[localStorage.getItem('languageSelected')],
+    itemId: 'contacts',
 
     hideHeaders: true,
 
-    cls: 'chat-list',
+    cls: 'contacts',
 
-    store: 'ChatList',
+    store: 'Contacts',
 
     rootVisible: false,
+
+    scrollable:true,
+
+    collapsible:true,
+
+    collapseDirection:'left',
+
+    title: Ngcp.csc.locales.contacts.title[localStorage.getItem('languageSelected')],
 
     viewConfig: {
         listeners: {
@@ -28,22 +34,20 @@ Ext.define('NgcpCsc.view.pages.chat.ChatList', {
         checkchange: 'onNodeChecked'
     },
 
-    header: {
-        items: [{
-            xtype: 'button',
-            text: Ngcp.csc.locales.chat.new_group[localStorage.getItem('languageSelected')],
-            handler: 'showTabBar'
-        }]
-    },
 
     dockedItems: [{
         xtype: 'toolbar',
         dock: 'top',
-        hidden: true,
         items: [{
+            xtype: 'button',
+            name: 'showNewChatBtn',
+            text: Ngcp.csc.locales.chat.new_group[localStorage.getItem('languageSelected')],
+            handler: 'showCreationFields',
+            align:'right'
+        },{
             xtype: 'textfield',
             name: 'newChatName',
-            width: '80%',
+            hidden: true,
             emptyText: Ngcp.csc.locales.chat.provide_name[localStorage.getItem('languageSelected')],
             minLength: 1,
             enableKeyEvents: true,
@@ -53,7 +57,7 @@ Ext.define('NgcpCsc.view.pages.chat.ChatList', {
         }, {
             xtype: 'button',
             name: 'newChatBtn',
-            width: '20%',
+            hidden: true,
             text: Ngcp.csc.locales.common.add[localStorage.getItem('languageSelected')],
             handler: 'createNewChannel'
         }]
@@ -62,7 +66,6 @@ Ext.define('NgcpCsc.view.pages.chat.ChatList', {
         name: 'commitChangesBtn',
         text: Ngcp.csc.locales.common.done[localStorage.getItem('languageSelected')],
         handler: 'save',
-        width: '20%',
         hidden: true
     }],
 
