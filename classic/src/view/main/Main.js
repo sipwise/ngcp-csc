@@ -82,6 +82,13 @@ Ext.define('NgcpCsc.view.main.Main', {
                     }
                 },
                 '->', {
+                    iconCls: 'x-fa fa-users',
+                    emableToggle: true,
+                    tooltip: 'Show/hide contacts',
+                    listeners: {
+                        click: 'toggleContacts'
+                    }
+                }, {
                     xtype: 'tbtext',
                     bind: {
                         text: Ngcp.csc.locales.main.logged_in_as[localStorage.getItem('languageSelected')] + '{username}'
