@@ -1,0 +1,34 @@
+// Custom rules
+
+.rtc-container {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.rtc-avatar-container {
+    height: 300px;
+}
+
+.rtc-avatar {
+    border-radius: 50%;
+    width: 100px !important;
+    margin: 0 auto !important;
+    display: block;
+    position: relative !important;
+}
+
+.rtc-icons {
+    border-radius: 50%;
+    margin-right: 10px;
+    width: 35px;
+}
+
+.rtc-btns-container {
+    text-align: center;
+}
+
+.rtc-chat-tbar {
+    .x-tab-bar {
+        display: none;
+    }
+}

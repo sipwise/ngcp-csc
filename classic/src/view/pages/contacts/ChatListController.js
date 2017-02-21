@@ -1,4 +1,4 @@
-Ext.define('NgcpCsc.view.pages.chat.ChatListController', {
+Ext.define('NgcpCsc.view.pages.contacts.ChatListController', {
     extend: 'Ext.app.ViewController',
 
     alias: 'controller.chatlist',
@@ -26,11 +26,15 @@ Ext.define('NgcpCsc.view.pages.chat.ChatListController', {
             }
         });
     },
-    showTabBar: function() {
+    showCreationFields: function(btn) {
         var chatList = this.getView();
         var tbar = chatList.getDockedItems('toolbar[dock="top"]')[0];
-        tbar.show();
-        tbar.down('[name=newChatName]').focus();
+        var newChatName = tbar.down('[name=newChatName]');
+        var newChatBtn = tbar.down('[name=newChatBtn]');
+        btn.hide();
+        newChatName.show();
+        newChatBtn.show();
+        newChatName.focus();
     },
     addUser: function(view, rowIndex, colIndex, item, ev, record) {
         var chatList = this.getView();
@@ -45,7 +49,7 @@ Ext.define('NgcpCsc.view.pages.chat.ChatListController', {
         });
         done.show();
     },
-    onPressEnter: function(field, e){
+    onPressEnter: function(field, e) {
         if (e.getKey() == e.ENTER) {
             this.createNewChannel();
         }
@@ -53,7 +57,9 @@ Ext.define('NgcpCsc.view.pages.chat.ChatListController', {
     createNewChannel: function() {
         var chatList = this.getView();
         var tbar = chatList.getDockedItems('toolbar[dock="top"]')[0];
+        var createGroupBtn = tbar.down('[name=showNewChatBtn]');
         var newChatName = tbar.down('[name=newChatName]');
+        var newChatBtn = tbar.down('[name=newChatBtn]');
         if (newChatName.getValue().length < 1) {
             this.fireEvent('showmessage', false, Ngcp.csc.locales.chat.alerts.choose_valid_name[localStorage.getItem('languageSelected')]);
             return;
@@ -67,7 +73,9 @@ Ext.define('NgcpCsc.view.pages.chat.ChatListController', {
         });
         chatList.getStore().sort('online', 'DESC');
         this.fireEvent('showmessage', true, Ngcp.csc.locales.chat.alerts.channel_created[localStorage.getItem('languageSelected')]);
-        tbar.hide();
+        createGroupBtn.show();
+        newChatName.hide();
+        newChatBtn.hide();
         newChatName.reset();
     },
     preventTabOpen: function(view, cell, cellIdx, record, row, rowIdx, eOpts) {
@@ -83,11 +91,11 @@ Ext.define('NgcpCsc.view.pages.chat.ChatListController', {
     },
     startCall: function(grid, rowIndex, colIndex, item, e, record) {
         if (record.get('online'))
-            this.fireEvent('initwebrtc', record);
+            this.fireEvent('initrtc', 'startCall', record);
     },
     startVideoCall: function(grid, rowIndex, colIndex, item, e, record) {
         if (record.get('online'))
-            this.fireEvent('initwebrtc', record, true);
+            this.fireEvent('initrtc', 'startVideoCall', record, true);
     },
     nodeClicked: function(node, record, item, index, e) {
         if (record.get('checked') != null)
@@ -119,16 +127,11 @@ Ext.define('NgcpCsc.view.pages.chat.ChatListController', {
     save: function(btn) {
         var store = this.getView().getStore();
         var tbar = this.getView().getDockedItems('toolbar[dock="top"]')[0];
-        var newChatName = tbar.down('[name=newChatName]');
-        var newChatBtn = tbar.down('[name=newChatBtn]');
         store.each(function(rec) {
             rec.set('checked', null);
         });
         store.sort('online', 'DESC');
         store.commitChanges();
-        tbar.hide();
-        newChatName.show();
-        newChatBtn.show();
         btn.hide();
         this.getView().getView().refresh();
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
