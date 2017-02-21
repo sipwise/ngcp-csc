@@ -5,6 +5,8 @@ Ext.define('NgcpCsc.store.Chat', {
 
     model: 'NgcpCsc.model.ChatNotification',
 
+    autoLoad:true,
+
     proxy: {
         type: 'ajax',
         url: '/resources/data/chat.json',
