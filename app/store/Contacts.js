@@ -1,13 +1,13 @@
-Ext.define('NgcpCsc.store.ChatList', {
+Ext.define('NgcpCsc.store.Contacts', {
     extend: 'Ext.data.TreeStore',
 
-    alias: 'store.chatlist',
+    alias: 'store.contacts',
 
-    storeId: 'ChatList',
+    storeId: 'Contacts',
 
     proxy: {
         type: 'ajax',
-        url: 'resources/data/chatlist.json'
+        url: 'resources/data/contacts.json'
     },
 
     sorters: [{

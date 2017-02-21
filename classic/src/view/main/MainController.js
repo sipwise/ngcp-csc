@@ -49,7 +49,6 @@ Ext.define('NgcpCsc.view.main.MainController', {
         if (!existingItem) {
             newView = Ext.create({
                 xtype: view,
-                scrollable: true,
                 cls: 'section-container',
                 routeId: hashTag, // for existingItem search later
                 hideMode: 'offsets'
@@ -190,9 +189,6 @@ Ext.define('NgcpCsc.view.main.MainController', {
         switch (id) {
             case 'inbox':
                 title = Ngcp.csc.locales.conversations.title[localStorage.getItem('languageSelected')];
-                break;
-            case 'chat':
-                title = Ngcp.csc.locales.chat.title[localStorage.getItem('languageSelected')];
                 break;
             case 'addressbook':
                 title =  Ngcp.csc.locales.addressbook.title[localStorage.getItem('languageSelected')];

@@ -5,7 +5,7 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
 
     listen: {
         controller: {
-            '#chatlist': {
+            '#contacts': {
                 openpmtab: 'openPM',
                 openchanneltab: 'openChat',
                 destroytab: 'closeChat'
@@ -83,6 +83,7 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
         }
         this.getView().setActiveTab(tab);
         this.toggleTextArea(true);
+        this.redirectTo('conversation-with');
 
     },
     openChat: function(rec) {
@@ -113,12 +114,12 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
 
     closeChat: function(tabToClose) {
         var tabToClose = this.getView().down('[name=' + tabToClose + ']');
-        var chatList = this.getView().down('#chatlist');
+        var contacts = this.getView().down('#contacts');
         if (tabToClose) {
             tabToClose.destroy();
         }
-        if(chatList){
-            chatList.getView().refresh()
+        if(contacts){
+            contacts.getView().refresh()
         }
     },
 
