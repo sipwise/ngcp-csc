@@ -1,0 +1,46 @@
+// Custom rules
+$border-radius : 50%;
+.rtc-container {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.rtc-avatar-container {
+    height: 300px;
+}
+
+.rtc-avatar {
+    border-radius: $border-radius ;
+    width: 100px !important;
+    margin: 0 auto !important;
+    display: block;
+    position: relative !important;
+}
+
+.rtc-icons {
+    border-radius: $border-radius ;
+    margin-right: 10px;
+    width: 35px;
+}
+
+.rtc-icons-big {
+    border-radius: $border-radius ;
+    .x-fa:before{
+        margin-left: -7px;
+    }
+}
+
+.rtc-btns-container {
+    text-align: center;
+}
+
+.rtc-chat-tbar {
+    .x-tab-bar {
+        display: none;
+    }
+}
+.rtc-digit {
+    .x-btn-inner-default-small{
+        font-size:16px;
+    }
+}
