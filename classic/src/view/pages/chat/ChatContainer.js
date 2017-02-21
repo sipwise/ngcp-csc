@@ -1,3 +1,12 @@
+// TODO
+// . when call, sms or fax are sent/triggered add entry in chat
+// . when chat is opened, display topbar (add fax, sms, call to chat data)
+// . create multiple submit text btn (chat, sms, call)
+// . change how contacts look like in mobile
+// . chat should not be a tabpanel anymore
+// . apply filters on conversationwith
+// . clicking on user in chat opens conversationwith
+// . rename the module from chat to conversationwith
 Ext.define('NgcpCsc.view.pages.chat.ChatContainer', {
     extend: 'Ext.tab.Panel',
     xtype: 'chatcontainer',

@@ -24,7 +24,9 @@ Ext.define('NgcpCsc.view.main.Main', {
         resize: 'setItemsSize'
     },
 
-    initComponent: function(){
+    name:'mainView',
+
+    initComponent: function() {
         var vm = this.getViewModel();
         this.items = [{
             xtype: 'toolbar',
@@ -122,40 +124,55 @@ Ext.define('NgcpCsc.view.main.Main', {
                 }
             }, {
                 xtype: 'container',
-                height: 1, // (any) height is required by border layout
                 flex: 1, // combined with hbox stretch, it takes all the available space
                 id: 'mainContainer',
-                layout: 'border',
+                layout: {
+                    type: 'hbox'
+                },
                 userCls: 'main-container',
+                defaults:{
+                    scrollable: true,
+                    height:'100%'
+                },
                 items: [{
-                    region: 'north',
+                    flex: 5,
+                    scrollable:false,
+                    id:'mainContainerInner',
                     items: [{
                         reference: 'sectionTitle',
-                        bind:{
+                        bind: {
                             title: '{sectionTitle}'
                         }
                     }, {
                         xtype: 'gridfilters'
+                    }, {
+                        reference: 'mainCardPanel',
+                        cls: 'sencha-dash-right-main-container',
+                        id: 'contentPanel',
+                        layout: {
+                            type: 'card'
+                        },
+                        listeners: {
+                            resize: 'mainContainerResized'
+                        },
+                        defaults:{
+                            scrollable:true,
+                            height: screen.height - (Ext.os.is.Desktop ? 200 : 100) // - header + filters height
+                        }
                     }]
                 }, {
-                    region: 'center',
-                    reference: 'mainCardPanel',
-                    cls: 'sencha-dash-right-main-container',
-                    itemId: 'contentPanel',
-                    layout: {
-                        type: 'card'
-                    },
-                    listeners: {
-                        resize: 'mainContainerResized'
-                    }
+                    flex: 3,
+                    resizable: Ext.os.is.Desktop,
+                    xtype: 'rtc',
+                    itemId: 'webrtcPanel',
+                    hidden: true
+                }, {
+                    width: 250,
+                    resizable: Ext.os.is.Desktop,
+                    xtype: 'contacts',
+                    ui: 'core-container',
+                    margin: '0 0 20 0'
                 }]
-            }, {
-                xtype: 'webrtc',
-                region: 'east',
-                itemId: 'webrtcPanel',
-                hidden: true,
-                collapsed: true,
-                collapsible: true
             }]
         }];
         this.callParent();

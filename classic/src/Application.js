@@ -10,9 +10,7 @@ Ext.define('NgcpCsc.Application', {
 
     views: [
         'NgcpCsc.view.main.Main',
-        'NgcpCsc.view.login.Login',
-        'NgcpCsc.view.common.webrtc.WebrtcPanel'
-
+        'NgcpCsc.view.login.Login'
     ],
 
     stores: [
@@ -21,7 +19,7 @@ Ext.define('NgcpCsc.Application', {
         'ConversationTypes',
         'VoiceMails',
         'Chat',
-        'ChatList',
+        'Contacts',
         'Languages',
         'CallBlockingOutgoing',
         'CallBlockingIncoming',

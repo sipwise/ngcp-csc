@@ -122,11 +122,11 @@ Ext.define('Ngcp.csc.locales', {
         },
         conversations: {
             title: {
-                en: 'Conversations.',
-                it: 'Conversations.',
-                de: 'Conversations.',
-                fr: 'Conversations.',
-                sp: 'Conversations.'
+                en: 'Conversations',
+                it: 'Conversations',
+                de: 'Conversations',
+                fr: 'Conversations',
+                sp: 'Conversations'
             },
             btns: {
                 new_sms: {
@@ -1150,20 +1150,22 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'With your 4-digit PIN you may query your voicebox from any telephone.'
             }
         },
+        contacts:{
+            title:{
+                en: 'Contacts',
+                it: 'Contacts',
+                de: 'Contacts',
+                fr: 'Contacts',
+                sp: 'Contacts'
+            }
+        },
         chat: {
             title: {
-                en: 'Conversations with',
-                it: 'Conversations with ',
-                de: 'Conversations with',
-                fr: 'Conversations with',
-                sp: 'Conversations with '
-            },
-            buddy_list: {
-                en: 'Buddy List.',
-                it: 'Buddy List.',
-                de: 'Buddy List.',
-                fr: 'Buddy List.',
-                sp: 'Buddy List.'
+                en: 'Conversation with',
+                it: 'Conversation with',
+                de: 'Conversation with',
+                fr: 'Conversation with',
+                sp: 'Conversation with'
             },
             new_group: {
                 en: 'Create new team',
@@ -1431,13 +1433,27 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'every day'
             }
         },
-        webrtc: {
-            title: {
-                en: 'Webrtc',
-                it: 'Webrtc',
-                de: 'Webrtc',
-                fr: 'Webrtc',
-                sp: 'Webrtc'
+        rtc: {
+            call_in_progress: {
+                en: 'Please terminate current call before starting a new one.',
+                it: 'Please terminate current call before starting a new one.',
+                de: 'Please terminate current call before starting a new one.',
+                fr: 'Please terminate current call before starting a new one.',
+                sp: 'Please terminate current call before starting a new one.'
+            },
+            fax_sent: {
+                en: 'Fax sent.',
+                de: 'Fax sent.',
+                it: 'Fax sent.',
+                fr: 'Fax sent.',
+                sp: 'Fax sent.'
+            },
+            sms_sent: {
+                en: 'Sms sent.',
+                de: 'Sms sent.',
+                it: 'Sms sent.',
+                fr: 'Sms sent.',
+                sp: 'Sms sent.'
             }
         },
         faxsend: {
@@ -1851,6 +1867,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Missing or invalid input found',
                 fr: 'Missing or invalid input found',
                 sp: 'Missing or invalid input found'
+            },
+            invalid_form: {
+                en: 'Invalid or missing fields.',
+                it: 'Invalid or missing fields.',
+                de: 'Invalid or missing fields.',
+                fr: 'Invalid or missing fields.',
+                sp: 'Invalid or missing fields.'
             },
             when: {
                 en: 'When',
