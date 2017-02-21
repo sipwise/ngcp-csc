@@ -11,9 +11,9 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
     },
 
     onIconHovered: function(event, el) {
-        if( !event.target.classList.contains('play') &&
+        if (!event.target.classList.contains('play') &&
             !event.target.classList.contains('fa-play') &&
-            !event.target.classList.contains('fa-pause')){
+            !event.target.classList.contains('fa-pause')) {
             // Register the new tip with an element's ID
             Ext.tip.QuickTipManager.register({
                 target: el.id, // Target button's ID
@@ -73,9 +73,9 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
         var desc;
         switch (record.get('direction')) {
             case 'incoming':
-                switch(record.get('status')) {
+                switch (record.get('status')) {
                     case 'answered':
-                        switch(record.get('conversation_type')) {
+                        switch (record.get('conversation_type')) {
                             case 'call':
                                 desc = Ngcp.csc.locales.conversations.received_call_from[localStorage.getItem('languageSelected')];
                                 break;
@@ -94,19 +94,19 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
                         }
                         break;
                     case 'missed':
-                        switch(record.get('conversation_type')) {
+                        switch (record.get('conversation_type')) {
                             case 'call':
                                 desc = Ngcp.csc.locales.conversations.missed_call_from[localStorage.getItem('languageSelected')];
                                 break;
-                            // there shouldn't be other missed types
+                                // there shouldn't be other missed types
                         }
                         break;
                 }
                 break;
             case 'outgoing':
-                switch(record.get('status')) {
+                switch (record.get('status')) {
                     case 'answered':
-                        switch(record.get('conversation_type')) {
+                        switch (record.get('conversation_type')) {
                             case 'call':
                                 desc = Ngcp.csc.locales.conversations.successful_call_to[localStorage.getItem('languageSelected')];
                                 break;
@@ -122,37 +122,37 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
                         }
                         break;
                     case 'missed':
-                        switch(record.get('conversation_type')) {
+                        switch (record.get('conversation_type')) {
                             case 'call':
                                 desc = Ngcp.csc.locales.conversations.unsuccessful_call_to[localStorage.getItem('languageSelected')];
                                 break;
                             case 'fax':
                                 desc = Ngcp.csc.locales.conversations.unsuccessful_fax_to[localStorage.getItem('languageSelected')];
                                 break;
-                            // there shouldn't be other missed types
+                                // there shouldn't be other missed types
                         }
                         break;
                 }
                 break;
             case 'forwarded':
-                switch(record.get('status')) {
+                switch (record.get('status')) {
                     case 'answered':
-                        switch(record.get('conversation_type')) {
+                        switch (record.get('conversation_type')) {
                             case 'call':
                                 desc = Ngcp.csc.locales.conversations.successful_call_forward_to[localStorage.getItem('languageSelected')];
                                 break;
                             case 'sms':
                                 desc = Ngcp.csc.locales.conversations.successful_sms_forward_to[localStorage.getItem('languageSelected')];
                                 break;
-                            // there shouldn't be other forwarded types
+                                // there shouldn't be other forwarded types
                         }
                         break;
                     case 'missed':
-                        switch(record.get('conversation_type')) {
+                        switch (record.get('conversation_type')) {
                             case 'call':
                                 desc = Ngcp.csc.locales.conversations.unsuccessful_call_forward_to[localStorage.getItem('languageSelected')];
                                 break;
-                            // there shouldn't be other missed types
+                                // there shouldn't be other missed types
                         }
                         break;
                 }
@@ -197,61 +197,59 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
 
     startCall: function(el) {
         var record = Ext.getStore('Conversations').findRecord('id', el.id.split('-')[1]);
-        this.fireEvent('initwebrtc', record, true);
+        this.fireEvent('initrtc', record, 'startCall');
     },
 
     sendSms: function(el) {
-        this.startCall(el);
-    },
-
-    startChat: function(el) {
-        this.startCall(el);
+        var record = Ext.getStore('Conversations').findRecord('id', el.id.split('-')[1]);
+        this.fireEvent('initrtc', record, 'smsComposer');
     },
 
     sendFax: function(el) {
-        this.startCall(el);
+        var record = Ext.getStore('Conversations').findRecord('id', el.id.split('-')[1]);
+        this.fireEvent('initrtc', record, 'faxComposer');
     },
 
-    openCallPanel: function(cmp) {
-        this.fireEvent('initwebrtc', null, false, true);
+    startChat: function(el) {
+        this.fireEvent('initrtc', record, 'startCall');
+    },
+
+    composeSms: function() {
+        this.fireEvent('initrtc', null, 'smsComposer');
+    },
+
+    composeCall: function() {
+        this.fireEvent('initrtc', null, 'phoneComposer');
+    },
+
+    composeFax: function() {
+        this.fireEvent('initrtc', null, 'faxComposer');
     },
 
     expandConversation: function(view, td, cellindex, record, tr) {
-        if(cellindex.target && cellindex.target.classList.contains('green-icon')){
+        if (cellindex.target && cellindex.target.classList.contains('green-icon')) {
             return;
         }
-        if (cellindex == 4) {
-            // TODO different actions for different conversation_type
-            switch (record.get('conversation_type')) {
-                case 'call':
-                case 'fax':
-                case 'sms':
-                case 'chat':
-                    this.openCallPanel();
-                break;
-            };
+        var record = record.isModel ? record : view.getRecord(Ext.get(td).up(view.itemSelector));
+        var id = record.get('id');
+        var row = document.getElementById(id);
+        var footer = document.getElementById('card-footer-' + id);
+        var msgPreview = document.getElementById('msg-preview-' + id);
+        if (row.classList.contains('hidden')) {
+            record.set('expanded', true);
+            row.classList.remove('hidden');
+            footer.classList.add('hidden');
+            if (msgPreview) {
+                msgPreview.classList.add('hidden');
+            }
         } else {
-            var record = record.isModel ? record : view.getRecord(Ext.get(td).up(view.itemSelector));
-            var id = record.get('id');
-            var row = document.getElementById(id);
-            var footer = document.getElementById('card-footer-' + id);
-            var msgPreview = document.getElementById('msg-preview-' + id);
-            if (row.classList.contains('hidden')) {
-                record.set('expanded', true);
-                row.classList.remove('hidden');
-                footer.classList.add('hidden');
-                if (msgPreview) {
-                    msgPreview.classList.add('hidden');
-                }
-            } else {
-                record.set('expanded', false);
-                row.classList.add('hidden');
-                footer.classList.remove('hidden');
-                if (msgPreview) {
-                    msgPreview.classList.remove('hidden');
-                }
-            };
-        }
+            record.set('expanded', false);
+            row.classList.add('hidden');
+            footer.classList.remove('hidden');
+            if (msgPreview) {
+                msgPreview.classList.remove('hidden');
+            }
+        };
         view.grid.updateLayout();
     },
 
