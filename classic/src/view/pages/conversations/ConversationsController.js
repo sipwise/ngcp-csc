@@ -197,7 +197,7 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
 
     startCall: function(el) {
         var record = Ext.getStore('Conversations').findRecord('id', el.id.split('-')[1]);
-        this.fireEvent('initwebrtc', record, true);
+        this.fireEvent('initrtc', record, true);
     },
 
     sendSms: function(el) {
@@ -212,8 +212,9 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
         this.startCall(el);
     },
 
-    openCallPanel: function(cmp) {
-        this.fireEvent('initwebrtc', null, false, true);
+    openSideCallPanel: function(cmp) {
+        this.redirectTo('conversation-with');
+        this.fireEvent('initrtc', null, false, true);
     },
 
     expandConversation: function(view, td, cellindex, record, tr) {
@@ -227,7 +228,7 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
                 case 'fax':
                 case 'sms':
                 case 'chat':
-                    this.openCallPanel();
+                    this.openSideCallPanel();
                 break;
             };
         } else {
