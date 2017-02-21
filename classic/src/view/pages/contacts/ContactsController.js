@@ -1,9 +1,9 @@
-Ext.define('NgcpCsc.view.pages.chat.ChatListController', {
+Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
     extend: 'Ext.app.ViewController',
 
-    alias: 'controller.chatlist',
+    alias: 'controller.contacts',
 
-    id: 'chatlist', // needed as reference in ChatController listeners
+    id: 'contacts', // needed as reference in ChatController listeners
 
     renderStatus: function(val, meta, rec) {
         if (rec.get('leaf')) {
@@ -14,28 +14,34 @@ Ext.define('NgcpCsc.view.pages.chat.ChatListController', {
 
     onNodeChecked: function(node, checked, ev) {
         var selectedRec = node;
-        var chatListStore = this.getView().getStore('ChatList');
-        var destination = chatListStore.findRecord('id', selectedRec.get('addTo'));
-
+        var contactsStore = this.getView().getStore('Contacts');
+        var destination = contactsStore.findRecord('id', selectedRec.get('addTo'));
+        var nodeAdded = destination.appendChild(selectedRec.copy(null));
+        var nodeEl = Ext.get(this.getView().view.getNode(nodeAdded));
+        if(nodeEl){
+            nodeEl.scrollIntoView(this.getView().view.el, false, true);
+        }
         selectedRec.set('checked', null);
-        destination.insertChild(0, selectedRec.copy(null));
-
-        chatListStore.each(function(rec) {
+        contactsStore.each(function(rec) {
             if (rec.get('uid') === selectedRec.get('uid')) { // checks if user is already in group
                 rec.set('checked', null);
             }
         });
     },
-    showTabBar: function() {
-        var chatList = this.getView();
-        var tbar = chatList.getDockedItems('toolbar[dock="top"]')[0];
-        tbar.show();
-        tbar.down('[name=newChatName]').focus();
+    showCreationFields: function(btn) {
+        var contacts = this.getView();
+        var tbar = contacts.getDockedItems('toolbar[dock="top"]')[0];
+        var newChatName = tbar.down('[name=newChatName]');
+        var newChatBtn = tbar.down('[name=newChatBtn]');
+        btn.hide();
+        newChatName.show();
+        newChatBtn.show();
+        newChatName.focus();
     },
     addUser: function(view, rowIndex, colIndex, item, ev, record) {
-        var chatList = this.getView();
-        var done = chatList.down('[name=commitChangesBtn]');
-        var store = chatList.getStore();
+        var contacts = this.getView();
+        var done = contacts.down('[name=commitChangesBtn]');
+        var store = contacts.getStore();
 
         store.each(function(rec) {
             if (rec.get('leaf') && rec.get('parentId') !== record.get('id') && !record.findChild("uid", rec.get('uid'))) {
@@ -45,29 +51,33 @@ Ext.define('NgcpCsc.view.pages.chat.ChatListController', {
         });
         done.show();
     },
-    onPressEnter: function(field, e){
+    onPressEnter: function(field, e) {
         if (e.getKey() == e.ENTER) {
             this.createNewChannel();
         }
     },
     createNewChannel: function() {
-        var chatList = this.getView();
-        var tbar = chatList.getDockedItems('toolbar[dock="top"]')[0];
+        var contacts = this.getView();
+        var tbar = contacts.getDockedItems('toolbar[dock="top"]')[0];
+        var createGroupBtn = tbar.down('[name=showNewChatBtn]');
         var newChatName = tbar.down('[name=newChatName]');
+        var newChatBtn = tbar.down('[name=newChatBtn]');
         if (newChatName.getValue().length < 1) {
             this.fireEvent('showmessage', false, Ngcp.csc.locales.chat.alerts.choose_valid_name[localStorage.getItem('languageSelected')]);
             return;
         }
 
-        var newNode = chatList.getRootNode().insertChild(chatList.getStore().getCount(), {
+        var newNode = contacts.getRootNode().insertChild(contacts.getStore().getCount(), {
             "name": newChatName.getValue(),
             "iconCls": "x-fa fa-wechat",
             "expanded": true,
             "children": []
         });
-        chatList.getStore().sort('online', 'DESC');
+        contacts.getStore().sort('online', 'DESC');
         this.fireEvent('showmessage', true, Ngcp.csc.locales.chat.alerts.channel_created[localStorage.getItem('languageSelected')]);
-        tbar.hide();
+        createGroupBtn.show();
+        newChatName.hide();
+        newChatBtn.hide();
         newChatName.reset();
     },
     preventTabOpen: function(view, cell, cellIdx, record, row, rowIdx, eOpts) {
@@ -83,21 +93,21 @@ Ext.define('NgcpCsc.view.pages.chat.ChatListController', {
     },
     startCall: function(grid, rowIndex, colIndex, item, e, record) {
         if (record.get('online'))
-            this.fireEvent('initwebrtc', record);
+            this.fireEvent('initrtc', record, 'startCall');
     },
     startVideoCall: function(grid, rowIndex, colIndex, item, e, record) {
         if (record.get('online'))
-            this.fireEvent('initwebrtc', record, true);
+            this.fireEvent('initrtc', record, 'startVideoCall', true);
     },
     nodeClicked: function(node, record, item, index, e) {
         if (record.get('checked') != null)
             return;
+        this.redirectTo('conversation-with');
         if (!record.get('leaf'))
             this.fireEvent('openchanneltab', record);
         else
             this.fireEvent('openpmtab', null, record);
         return false;
-
     },
     deleteNode: function(grid, rowIndex, colIndex, item, ev) {
         var nodeToDelete = grid.getStore().getAt(rowIndex);
@@ -119,16 +129,11 @@ Ext.define('NgcpCsc.view.pages.chat.ChatListController', {
     save: function(btn) {
         var store = this.getView().getStore();
         var tbar = this.getView().getDockedItems('toolbar[dock="top"]')[0];
-        var newChatName = tbar.down('[name=newChatName]');
-        var newChatBtn = tbar.down('[name=newChatBtn]');
         store.each(function(rec) {
             rec.set('checked', null);
         });
         store.sort('online', 'DESC');
         store.commitChanges();
-        tbar.hide();
-        newChatName.show();
-        newChatBtn.show();
         btn.hide();
         this.getView().getView().refresh();
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
