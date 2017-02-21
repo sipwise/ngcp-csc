@@ -1,0 +1,42 @@
+Ext.define('NgcpCsc.view.common.composer.Sms', {
+    extend: 'Ext.panel.Panel',
+
+    alias: 'widget.sms-composer',
+
+    bind: {
+        hidden: '{smsComposerHidden}'
+    },
+    defaults:{
+        width: '90%',
+        margin:20,
+    },
+    items:[{
+        xtype:'textarea',
+        allowBlank:false,
+        bind:'{smsText}',
+        fieldLabel:'Content',
+        emptyText:'Max 140 digits.'
+    },{
+        xtype:'container',
+        layout:'center',
+        margin:'40 20 20 20',
+        items:[{
+            xtype:'button',
+            cls:'rtc-icons-big',
+            bind:{
+                disabled: '{disableSmsSubmit}'
+            },
+            width:60,
+            height:60,
+            margin: '50 0 10 0',
+            iconCls: 'x-fa fa-send fa-2x',
+            cls: 'rtc-icons-big',
+            listeners:{
+                click:{
+                    fn:'sendSms',
+                    el:'element'
+                }
+            }
+        }]
+    }]
+})
