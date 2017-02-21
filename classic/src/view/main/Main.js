@@ -24,7 +24,9 @@ Ext.define('NgcpCsc.view.main.Main', {
         resize: 'setItemsSize'
     },
 
-    initComponent: function(){
+    name:'mainView',
+
+    initComponent: function() {
         var vm = this.getViewModel();
         this.items = [{
             xtype: 'toolbar',
@@ -122,40 +124,51 @@ Ext.define('NgcpCsc.view.main.Main', {
                 }
             }, {
                 xtype: 'container',
-                height: 1, // (any) height is required by border layout
                 flex: 1, // combined with hbox stretch, it takes all the available space
                 id: 'mainContainer',
-                layout: 'border',
+                layout: {
+                    type: 'hbox'
+                },
                 userCls: 'main-container',
+                defaults:{
+                    height: '100%',
+                    scrollable: true
+                },
                 items: [{
-                    region: 'north',
+                    flex: 5,
+                    scrollable:false,
+                    id:'mainContainerInner',
                     items: [{
                         reference: 'sectionTitle',
-                        bind:{
+                        bind: {
                             title: '{sectionTitle}'
                         }
                     }, {
                         xtype: 'gridfilters'
+                    }, {
+                        reference: 'mainCardPanel',
+                        cls: 'sencha-dash-right-main-container',
+                        id: 'contentPanel',
+                        layout: {
+                            type: 'card'
+                        },
+                        listeners: {
+                            resize: 'mainContainerResized'
+                        }
                     }]
                 }, {
-                    region: 'center',
-                    reference: 'mainCardPanel',
-                    cls: 'sencha-dash-right-main-container',
-                    itemId: 'contentPanel',
-                    layout: {
-                        type: 'card'
-                    },
-                    listeners: {
-                        resize: 'mainContainerResized'
-                    }
+                    flex: 3,
+                    resizable: true,
+                    xtype: 'rtc',
+                    itemId: 'webrtcPanel',
+                    hidden: true
+                }, {
+                    width: 250,
+                    resizable: true,
+                    xtype: 'chatlist',
+                    ui: 'core-container',
+                    margin: '0 0 0 0'
                 }]
-            }, {
-                xtype: 'webrtc',
-                region: 'east',
-                itemId: 'webrtcPanel',
-                hidden: true,
-                collapsed: true,
-                collapsible: true
             }]
         }];
         this.callParent();
