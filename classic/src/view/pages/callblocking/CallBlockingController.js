@@ -99,16 +99,23 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         vm.set('new_number', '');
     },
 
-    clickModeButton: function () {
+    clickAllowModeButton: function () {
         var vm = this.getViewModel();
         var blockAllowMode = vm.get('block_mode');
         if (blockAllowMode === 'allow') {
             this.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.allow_mode_success[localStorage.getItem('languageSelected')]);
         } else if (blockAllowMode === 'block') {
             this.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.block_mode_success[localStorage.getItem('languageSelected')]);
-        } else {
-            this.fireEvent('showmessage'
-            , false, Ngcp.csc.locales.common.save_unsuccess[localStorage.getItem('languageSelected')]);
+        };
+    },
+
+    clickHideModeButton: function () {
+        var vm = this.getViewModel();
+        var hideMode = vm.get('hide_mode');
+        if (hideMode === 'on') {
+            this.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.hide_mode_on[localStorage.getItem('languageSelected')]);
+        } else if (hideMode === 'off') {
+            this.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.hide_mode_off[localStorage.getItem('languageSelected')]);
         };
     },
 

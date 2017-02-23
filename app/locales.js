@@ -534,6 +534,69 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Please enter a number.',
                 fr: 'Please enter a number.',
                 sp: 'Please enter a number.'
+            },
+            hide_own: {
+                en: 'Hide own number on outgoing calls',
+                it: 'Hide own number on outgoing calls',
+                de: 'Hide own number on outgoing calls',
+                fr: 'Hide own number on outgoing calls',
+                sp: 'Hide own number on outgoing calls'
+            },
+            mode: {
+                en: 'Mode',
+                it: 'Mode',
+                de: 'Mode',
+                fr: 'Mode',
+                sp: 'Mode'
+            },
+            hide_mode_on: {
+                en: 'Hide mode succcessfully turned on.',
+                it: 'Hide mode succcessfully turned on.',
+                de: 'Hide mode succcessfully turned on.',
+                fr: 'Hide mode succcessfully turned on.',
+                sp: 'Hide mode succcessfully turned on.'
+            },
+            hide_mode_off: {
+                en: 'Hide mode succcessfully turned off.',
+                it: 'Hide mode succcessfully turned off.',
+                de: 'Hide mode succcessfully turned off.',
+                fr: 'Hide mode succcessfully turned off.',
+                sp: 'Hide mode succcessfully turned off.'
+            },
+            allow: {
+                en: 'Allow',
+                it: 'Allow',
+                de: 'Allow',
+                fr: 'Allow',
+                sp: 'Allow'
+            },
+            block: {
+                en: 'Block',
+                it: 'Block',
+                de: 'Block',
+                fr: 'Block',
+                sp: 'Block'
+            },
+            on: {
+                en: 'On',
+                it: 'On',
+                de: 'On',
+                fr: 'On',
+                sp: 'On'
+            },
+            off: {
+                en: 'Off',
+                it: 'Off',
+                de: 'Off',
+                fr: 'Off',
+                sp: 'Off'
+            },
+            add_number: {
+                en: 'Add number',
+                it: 'Add number',
+                de: 'Add number',
+                fr: 'Add number',
+                sp: 'Add number'
             }
         },
         password: {

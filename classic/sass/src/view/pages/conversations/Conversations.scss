@@ -59,6 +59,8 @@
     }
 }
 
-.conversations-btn-over {
-    background: white;
+.conversations-btn-over,
+.x-btn-focus.x-btn-conversations-actions-btn-medium {
+    background: white !important;
+    box-shadow: none !important;
 }

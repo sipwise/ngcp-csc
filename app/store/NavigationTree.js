@@ -52,7 +52,7 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             }, {
                 text: 'Privacy',
                 iconCls: 'x-fa fa-user-secret',
-                viewType: 'pageblank',
+                viewType: 'privacy',
                 routeId: 'callblocking/privacy',
                 acl: ['administrator'],
                 leaf: true

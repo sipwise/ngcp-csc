@@ -21,40 +21,69 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlocking', {
                 width: Ext.os.is.Desktop ? 810 : '100%',
                 items: [{
                     userCls: 'callblocking-header',
-                    html: 'Mode',
-                    margin: '0 0 10 0'
+                    html: Ngcp.csc.locales.callblocking.mode[localStorage.getItem('languageSelected')],
+                    margin: '0 0 10 0',
+                    hidden: !this._displayIncomingOutgoingSection
                 }, {
                     items: [{
                         xtype: 'segmentedbutton',
                         allowMultiple: false,
+                        hidden: !this._displayIncomingOutgoingSection,
                         bind: {
                             value: '{block_mode}'
                         },
                         defaults: {
-                            handler: 'clickModeButton'
+                            handler: 'clickAllowModeButton'
                         },
                         items: [{
-                            text: 'Allow',
+                            text: Ngcp.csc.locales.callblocking.allow[localStorage.getItem('languageSelected')],
                             value: 'allow'
                         }, {
-                            text: 'Block',
+                            text: Ngcp.csc.locales.callblocking.block[localStorage.getItem('languageSelected')],
                             value: 'block'
                         }]
                     }]
                 }, {
                     userCls: 'callblocking-header',
-                    html: 'Add number',
-                    margin: '20 0 10 0'
+                    html: Ngcp.csc.locales.callblocking.hide_own[localStorage.getItem('languageSelected')],
+                    margin: '0 0 10 0',
+                    hidden: !this._displayPrivacySection
+                }, {
+                    items: [{
+                        xtype: 'segmentedbutton',
+                        allowMultiple: false,
+                        hidden: !this._displayPrivacySection,
+                        bind: {
+                            value: '{hide_mode}'
+                        },
+                        defaults: {
+                            handler: 'clickHideModeButton'
+                        },
+                        items: [{
+                            text: Ngcp.csc.locales.callblocking.on[localStorage.getItem('languageSelected')],
+                            value: 'on'
+                        }, {
+                            text: Ngcp.csc.locales.callblocking.off[localStorage.getItem('languageSelected')],
+                            value: 'off'
+                        }]
+                    }]
+                }, {
+                    userCls: 'callblocking-header',
+                    html: Ngcp.csc.locales.callblocking.add_number[localStorage.getItem('languageSelected')],
+                    margin: '20 0 10 0',
+                    hidden: !this._displayIncomingOutgoingSection
                 }, {
                     xtype: 'textfield',
                     width: 300,
                     bind: '{new_number}',
                     listeners: {
                         specialkey: 'onEnterPressed'
-                    }
+                    },
+                    hidden: !this._displayIncomingOutgoingSection
                 }, {
                     xtype: 'container',
-                    html: instructionText
+                    html: instructionText,
+                    hidden: !this._displayIncomingOutgoingSection
                 }]
             }]
         }];
