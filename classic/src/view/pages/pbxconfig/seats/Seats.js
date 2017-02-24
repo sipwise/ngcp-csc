@@ -31,7 +31,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.Seats', {
                 xtype: 'textfield',
                 labelAlign: 'top',
                 bind: '{selection.extension}',
-                fieldLabel: Ngcp.csc.locales.filters.extensions[localStorage.getItem('languageSelected')]
+                fieldLabel: Ngcp.csc.locales.filters.extension[localStorage.getItem('languageSelected')]
             }, {
                 xtype: 'textfield',
                 labelAlign: 'top',
