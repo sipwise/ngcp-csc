@@ -921,6 +921,48 @@ Ext.define('Ngcp.csc.locales', {
                     de: 'Show filters.',
                     fr: 'Show filters.',
                     sp: 'Show filters.'
+                },
+                edit_group: {
+                    en: 'Edit group',
+                    it: 'Edit group',
+                    de: 'Edit group',
+                    fr: 'Edit group',
+                    sp: 'Edit group'
+                },
+                remove_group: {
+                    en: 'Remove group',
+                    it: 'Remove group',
+                    de: 'Remove group',
+                    fr: 'Remove group',
+                    sp: 'Remove group'
+                },
+                edit_seat: {
+                    en: 'Edit seat',
+                    it: 'Edit seat',
+                    de: 'Edit seat',
+                    fr: 'Edit seat',
+                    sp: 'Edit seat'
+                },
+                remove_seat: {
+                    en: 'Remove seat',
+                    it: 'Remove seat',
+                    de: 'Remove seat',
+                    fr: 'Remove seat',
+                    sp: 'Remove seat'
+                },
+                edit_device: {
+                    en: 'Edit device',
+                    it: 'Edit device',
+                    de: 'Edit device',
+                    fr: 'Edit device',
+                    sp: 'Edit device'
+                },
+                remove_device: {
+                    en: 'Remove device',
+                    it: 'Remove device',
+                    de: 'Remove device',
+                    fr: 'Remove device',
+                    sp: 'Remove device'
                 }
             },
             search: {
@@ -979,12 +1021,12 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Apply',
                 sp: 'Apply'
             },
-            extensions: {
-                en: 'Extensions',
-                it: 'Extensions',
-                de: 'Extensions',
-                fr: 'Extensions',
-                sp: 'Extensions'
+            extension: {
+                en: 'Extension',
+                it: 'Extension',
+                de: 'Extension',
+                fr: 'Extension',
+                sp: 'Extension'
             },
             pbx_image: {
                 en: 'Pbx image',

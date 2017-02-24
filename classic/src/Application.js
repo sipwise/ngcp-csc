@@ -12,6 +12,7 @@ Ext.define('NgcpCsc.Application', {
         'NgcpCsc.view.main.Main',
         'NgcpCsc.view.login.Login',
         'NgcpCsc.view.common.webrtc.WebrtcPanel'
+
     ],
 
     stores: [
