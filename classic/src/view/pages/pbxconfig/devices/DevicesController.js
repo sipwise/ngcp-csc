@@ -8,6 +8,23 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesController', {
         Ext.Function.defer(eval('this.' + el.dataset.callback), 1, this, [el.id, el.dataset.destination || null]);
     },
 
+    expandConversation: function(view, td, cellindex, record, tr) {
+        if(cellindex.target && cellindex.target.classList.contains('green-icon')){
+            return;
+        }
+        var record = record.isModel ? record : view.getRecord(Ext.get(td).up(view.itemSelector));
+        var id = record.get('id');
+        var row = document.getElementById(id);
+        if (row.classList.contains('hidden')) {
+            record.set('expanded', true);
+            row.classList.remove('hidden');
+        } else {
+            record.set('expanded', false);
+            row.classList.add('hidden');
+        };
+        view.grid.updateLayout();
+    },
+
     addDevice: function() {
         var grid = this.getView().down('devices-grid');
         var form = this.lookupReference('add-new-device');
