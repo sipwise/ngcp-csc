@@ -253,8 +253,8 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
             };
         }
         view.grid.updateLayout();
-
     },
+
     renderShortCut: function(value, meta, record) {
         var retVal;
         if (record.get('expanded') == true) { // hide shortcut icons when card is collapsed

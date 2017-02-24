@@ -1,28 +1,25 @@
 Ext.define('NgcpCsc.view.pages.devices.DevicesGrid', {
-
     extend: 'NgcpCsc.view.core.GridCards',
-
     xtype: 'devices-grid',
-
     reference: 'devicesGrid',
-
     store: 'Devices',
-
     cls: 'card-grid',
-
-    listeners: {
-        click: 'onIconClicked',
-        element: 'el',
-        delegate: 'div.card-icon, div.number-circle'
-    },
-
+    header: false,
     rowLines: false,
-
+    listeners: {
+        click: {
+            fn: 'onIconClicked',
+            element: 'el',
+            delegate: 'div.card-icon, div.number-circle'
+        },
+        cellclick: 'expandPbxCard',
+        rowbodyclick: 'expandPbxCard'
+    },
     viewConfig: {
         stripeRows: false,
-        columnLines: false
+        columnLines: false,
+        enableTextSelection: true
     },
-
     columns: {
         defaults: {
             menuDisabled: true,
@@ -33,28 +30,35 @@ Ext.define('NgcpCsc.view.pages.devices.DevicesGrid', {
             dataIndex: 'name'
         }]
     },
+    userCls: Ext.os.is.Desktop ? 'big-820' : 'small-100',
+
+    // XXX: Cvenusino: For devices, a) We need new specs from andreas, and b)
+    // No matter what the new specs are, we either need to use child nodes,
+    // and/or pull data from other endpoints/data resources for the destinations
+    // and positioning of the destinations data on the images. As these anyways
+    // depend on the specs to know 100% what we need to account for in the
+    // implementation, I propose we leave this module as is for this iteration,
+    // and await specs for new devices task.
 
     initComponent: function() {
-        this.plugins = [{
-            ptype: 'rowexpander',
-            selectRowOnExpand: false,
-            expandOnDblClick: false,
-            id: 'rowexpander',
-            rowBodyTpl: new Ext.XTemplate(
-                '<div class="card-wrapper">',
-                '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.pbxconfig.device_profile[localStorage.getItem('languageSelected')] + '</b>: {device} </div>',
-                '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.filters.mac[localStorage.getItem('languageSelected')] + '</b>: {mac} </div>',
-                '<div class="card-data-row"><span class="fa fa-file-text-o"></span><b>' + Ngcp.csc.locales.filters.status[localStorage.getItem('languageSelected')] + '</b>: {status} </div>',
-                '<div class="img-row"><img src="{image}">',
-                '<tpl for="destinations">', // interrogate the kids property within the data
-                '<div id="{id}" class="number-circle pointer" data-callback="editDevice" data-destination="{order}" style="top:{position.top};left:{position.left}">{order}</div>',
-                '</tpl>',
-                '</div>',
-                '<div class="card-icon-row">',
-                '<div id="{id}" class="card-icon" data-callback="editDevice"><i class="fa fa-edit green-icon fa-2x pointer" aria-hidden="true"></i></div>',
-                '<div id="{id}" class="card-icon" data-callback="removeDevice"><i class="fa fa-trash green-icon fa-2x pointer" aria-hidden="true"></i></div>',
-                '</div></div>'
-            )
+        var me = this;
+
+        me.features = [{
+            ftype: 'rowbody',
+            getAdditionalData: function(data, idx, record) {
+                var content = '<div class="card-wrapper hidden pointer" id="devicesCard-' + record.get('id') + '">' +
+                    '<div class="card-data-row"><span></span><b>' + Ngcp.csc.locales.pbxconfig.device_profile[localStorage.getItem('languageSelected')] + '</b>: ' + record.get('device') + '</div>' +
+                    '<div class="card-data-row"><span></span><b>' + Ngcp.csc.locales.filters.mac[localStorage.getItem('languageSelected')] + '</b>: ' + record.get('mac') + '</div>' +
+                    '<div class="card-data-row"><span></span><b>' + Ngcp.csc.locales.filters.status[localStorage.getItem('languageSelected')] + '</b>: ' + record.get('status') + '</div>' +
+                    '<div class="img-row"><img src="' + record.get('image') + '"></div>' +
+                    '<div class="card-icon-row">' +
+                    '<div id="editGroup-' + record.get('id') + '" class="card-icon" data-callback="editDevice" data-qtip="' + Ngcp.csc.locales.filters.tooltips.edit_device[localStorage.getItem('languageSelected')] + '"><i class="fa fa-edit green-icon fa-2x pointer" aria-hidden="true"></i></div>' +
+                    '<div id="removeDevice-' + record.get('id') + '" class="card-icon" data-callback="removeDevice" data-qtip="' + Ngcp.csc.locales.filters.tooltips.remove_device[localStorage.getItem('languageSelected')] + '"><i class="fa fa-trash green-icon fa-2x pointer" aria-hidden="true"></i></div>' +
+                    '</div></div>';
+                return {
+                    rowBody: content
+                };
+            }
         }];
         this.callParent();
     }

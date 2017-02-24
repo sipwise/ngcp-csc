@@ -7,90 +7,31 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.Devices', {
 
     controller: 'devices',
 
-    layout: 'responsivecolumn',
+    initComponent: function() {
 
-    items: [{
-        userCls: 'big-30 small-100',
-        items: [{
-            xtype: 'form',
-            ui: 'core-container',
-            padding: 20,
-            margin: 10,
-            reference: 'add-new-device',
-            hidden: true,
-            defaults: {
-                width: '98%',
-                labelAlign: 'top'
-            },
+        this.dockedItems = [{
+            xtype: 'toolbar',
+            dock: 'top',
+            layout: 'center',
+            ui: 'devices-tbar',
             items: [{
-                    xtype: 'textfield',
-                    bind: '{selection.name}',
-                    name:'deviceName',
-                    fieldLabel: Ngcp.csc.locales.common.name[localStorage.getItem('languageSelected')]
-                }, {
-                    xtype: 'combo',
-                    store: 'DevicesList',
-                    fieldLabel: Ngcp.csc.locales.pbxconfig.device_profile[localStorage.getItem('languageSelected')],
-                    name: 'deviceCombo',
-                    displayField: 'name',
-                    valueField: 'name', // here we will use the ids most probablys
-                    editable: false,
-                    bind: '{selection.device}',
-                    listeners: {
-                        select: 'deviceSelected'
-                    }
-                }, {
-                    xtype: 'textfield',
-                    bind: '{selection.mac}',
-                    fieldLabel: Ngcp.csc.locales.filters.mac[localStorage.getItem('languageSelected')]
-                },
-                {
-                    xtype: 'destinations-grid',
-                    width: '100%',
-                    margin: '15 0 10 0',
-                    bind:{
-                        disabled:'{!selection.device}'
-                    }
-                },
-                {
-                    xtype: 'radiogroup',
-                    bind: '{selection.status}',
-                    simpleValue: true,
-                    items: [{
-                        boxLabel: Ngcp.csc.locales.filters.enabled[localStorage.getItem('languageSelected')],
-                        inputValue: 'enabled'
-                    }, {
-                        boxLabel: Ngcp.csc.locales.filters.disabled[localStorage.getItem('languageSelected')],
-                        inputValue: 'disabled'
-                    }]
-                }, {
-                    layout: 'hbox',
-                    xtype: 'container',
-                    defaults: {
-                        xtype: 'button',
-                        flex: 1
-                    },
-                    items: [{
-                        text: Ngcp.csc.locales.common.reset[localStorage.getItem('languageSelected')],
-                        margin: '0 5 0 0',
-                        handler: 'resetChanges'
-                    }, {
-                        text: Ngcp.csc.locales.common.save[localStorage.getItem('languageSelected')],
-                        handler: 'saveChanges'
-                    }]
-                }
-            ]
-        }]
-    }, {
-        userCls: 'big-70 small-100',
-        items: [{
+                xtype: 'core-container',
+                margin: Ext.os.is.Desktop ? '-5 0 0 20' : '-5 0 0 0',
+                width: Ext.os.is.Desktop ? 810 : '100%',
+                items: [{
+                    margin: 10,
+                    xtype: 'button',
+                    reference:'addNewBtn',
+                    text: Ngcp.csc.locales.pbxconfig.add_new_group[localStorage.getItem('languageSelected')]
+                    // ,handler: 'addDevice'
+                }]
+            }]
+        }];
+
+        this.items = [{
             xtype: 'devices-grid'
-        }, {
-            margin: 10,
-            xtype: 'button',
-            reference:'addNewBtn',
-            text: Ngcp.csc.locales.pbxconfig.add_new_device[localStorage.getItem('languageSelected')],
-            handler: 'addDevice'
-        }]
-    }]
+        }];
+
+        this.callParent();
+    }
 });

@@ -7,73 +7,31 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.Seats', {
 
     controller: 'seats',
 
-    layout: 'responsivecolumn',
+    initComponent: function() {
 
-    items: [{
-        userCls: 'big-30 small-100',
-        items: [{
-            xtype: 'form',
-            ui: 'core-container',
-            padding: 20,
-            margin: 10,
-            reference: 'add-new-seat',
-            hidden: true,
-            defaults: {
-                width: '98%'
-            },
+        this.dockedItems = [{
+            xtype: 'toolbar',
+            dock: 'top',
+            layout: 'center',
+            ui: 'seats-tbar',
             items: [{
-                xtype: 'textfield',
-                labelAlign: 'top',
-                bind: '{selection.name}',
-                name:'seatName',
-                fieldLabel: Ngcp.csc.locales.common.name[localStorage.getItem('languageSelected')]
-            }, {
-                xtype: 'textfield',
-                labelAlign: 'top',
-                bind: '{selection.extension}',
-                fieldLabel: Ngcp.csc.locales.filters.extensions[localStorage.getItem('languageSelected')]
-            }, {
-                xtype: 'textfield',
-                labelAlign: 'top',
-                bind: '{selection.groups}',
-                renderer: 'renderSeatsText'
-            }, {
-                xtype: 'textfield',
-                labelAlign: 'top',
-                bind: '{selection.numbers}',
-                fieldLabel: Ngcp.csc.locales.filters.numbers[localStorage.getItem('languageSelected')]
-            }, {
-                xtype: 'textfield',
-                labelAlign: 'top',
-                bind: '{selection.phone_devices}',
-                fieldLabel: Ngcp.csc.locales.filters.phone_devices[localStorage.getItem('languageSelected')]
-            }, {
-                layout: 'hbox',
-                xtype: 'container',
-                defaults: {
-                    xtype: 'button',
-                    flex: 1
-                },
+                xtype: 'core-container',
+                margin: Ext.os.is.Desktop ? '-5 0 0 20' : '-5 0 0 0',
+                width: Ext.os.is.Desktop ? 810 : '100%',
                 items: [{
-                    text: Ngcp.csc.locales.common.reset[localStorage.getItem('languageSelected')],
-                    margin: '0 5 0 0',
-                    handler: 'resetChanges'
-                }, {
-                    text: Ngcp.csc.locales.common.save[localStorage.getItem('languageSelected')],
-                    handler: 'saveChanges'
+                    margin: 10,
+                    xtype: 'button',
+                    reference:'addNewBtn',
+                    text: Ngcp.csc.locales.pbxconfig.add_new_group[localStorage.getItem('languageSelected')]
+                    // ,handler: 'addSeat'
                 }]
             }]
-        }]
-    }, {
-        userCls: 'big-70 small-100',
-        items: [{
+        }];
+
+        this.items = [{
             xtype: 'seats-grid'
-        }, {
-            margin: 10,
-            xtype: 'button',
-            reference:'addNewBtn',
-            text: Ngcp.csc.locales.pbxconfig.add_new_seat[localStorage.getItem('languageSelected')],
-            handler: 'addSeat'
-        }]
-    }]
+        }];
+
+        this.callParent();
+    }
 });

@@ -7,68 +7,31 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.groups.Groups', {
 
     controller: 'groups',
 
-    layout: 'responsivecolumn',
+    initComponent: function() {
 
-    items: [{
-        userCls: 'big-30 small-100',
-        items: [{
-            xtype:'form',
-            ui: 'core-container',
-            padding: 20,
-            margin:10,
-            reference: 'add-new-group',
-            hidden: true,
-            defaults: {
-                width: '98%'
-            },
+        this.dockedItems = [{
+            xtype: 'toolbar',
+            dock: 'top',
+            layout: 'center',
+            ui: 'groups-tbar',
             items: [{
-                xtype: 'textfield',
-                labelAlign: 'top',
-                name:'groupName',
-                bind: '{selection.name}',
-                fieldLabel: Ngcp.csc.locales.common.name[localStorage.getItem('languageSelected')]
-            }, {
-                xtype: 'textfield',
-                labelAlign: 'top',
-                bind: '{selection.extension}',
-                fieldLabel: Ngcp.csc.locales.filters.extensions[localStorage.getItem('languageSelected')]
-            }, {
-                xtype: 'textfield',
-                labelAlign: 'top',
-                bind: '{selection.hunt_policy}',
-                fieldLabel: Ngcp.csc.locales.filters.hunt_policy[localStorage.getItem('languageSelected')]
-            }, {
-                xtype: 'textfield',
-                labelAlign: 'top',
-                bind: '{selection.hunt_timeout}',
-                fieldLabel: Ngcp.csc.locales.filters.hunt_timeout[localStorage.getItem('languageSelected')]
-            },{
-                layout: 'hbox',
-                xtype: 'container',
-                defaults: {
-                    xtype: 'button',
-                    flex: 1
-                },
+                xtype: 'core-container',
+                margin: Ext.os.is.Desktop ? '-5 0 0 20' : '-5 0 0 0',
+                width: Ext.os.is.Desktop ? 810 : '100%',
                 items: [{
-                    text: Ngcp.csc.locales.common.reset[localStorage.getItem('languageSelected')],
-                    margin: '0 5 0 0',
-                    handler: 'resetChanges'
-                }, {
-                    text: Ngcp.csc.locales.common.save[localStorage.getItem('languageSelected')],
-                    handler: 'saveChanges'
+                    margin: 10,
+                    xtype: 'button',
+                    reference:'addNewBtn',
+                    text: Ngcp.csc.locales.pbxconfig.add_new_group[localStorage.getItem('languageSelected')]
+                    // ,handler: 'addGroup'
                 }]
             }]
-        }]
-    }, {
-        userCls: 'big-70 small-100',
-        items: [{
+        }];
+
+        this.items = [{
             xtype: 'groups-grid'
-        }, {
-            margin: 10,
-            xtype: 'button',
-            reference:'addNewBtn',
-            text: Ngcp.csc.locales.pbxconfig.add_new_group[localStorage.getItem('languageSelected')],
-            handler: 'addGroup'
-        }]
-    }]
+        }];
+
+        this.callParent();
+    }
 });

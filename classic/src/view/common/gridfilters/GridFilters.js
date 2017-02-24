@@ -151,8 +151,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                     xtype: 'textfield',
                     labelAlign: 'top',
                     bind: '{filtergrid.extensions}',
-                    fieldLabel: Ngcp.csc.locales.filters.extensions[localStorage.getItem('languageSelected')]
-
+                    fieldLabel: Ngcp.csc.locales.filters.extension[localStorage.getItem('languageSelected')]
                 }, {
                     xtype: 'textfield',
                     labelAlign: 'top',

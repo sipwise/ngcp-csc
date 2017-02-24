@@ -1,0 +1,5 @@
+// mixins
+@include extjs-toolbar-ui(
+    $ui: 'devices-tbar',
+    $background-color: '#F6F6F6'
+);
