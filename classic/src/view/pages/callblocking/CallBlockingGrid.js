@@ -10,11 +10,6 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingGrid', {
             fn: 'onIconClicked',
             element: 'el',
             delegate: 'div.card-icon'
-        },
-        mouseover: {
-            fn: 'onIconHovered',
-            element: 'el',
-            delegate: 'div.card-icon'
         }
     },
 
@@ -47,8 +42,8 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingGrid', {
             ftype: 'rowbody',
             getAdditionalData: function(data, idx, record) {
                 var enabledState = data.enabled ? 'on' : 'off';
-                var enabledIcon = '<div id="enableNumberBlocking-' + record.get('id') + '" class="card-icon" data-callback="enableNumberBlocking" data-tooltip="' + Ngcp.csc.locales.callblocking.enable_or_disable[localStorage.getItem('languageSelected')] + '"><i id="enableNumberBlocking" class="fa fa-toggle-' + enabledState + ' fa-2x" aria-hidden="true"></i>';
-                var deleteIcon = '<div id="deleteRecord-' + record.get('id') + '" class="card-icon" data-callback="deleteRecord" data-tooltip="' + Ngcp.csc.locales.callblocking.delete_number[localStorage.getItem('languageSelected')] + '"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></div>';
+                var enabledIcon = '<div id="enableNumberBlocking-' + record.get('id') + '" class="card-icon" data-callback="enableNumberBlocking"><i id="enableNumberBlocking" class="fa fa-toggle-' + enabledState + ' fa-2x" aria-hidden="true" data-qtip="' + Ngcp.csc.locales.callblocking.enable_or_disable[localStorage.getItem('languageSelected')] + '"></i>';
+                var deleteIcon = '<div id="deleteRecord-' + record.get('id') + '" class="card-icon" data-callback="deleteRecord"><i class="fa fa-trash fa-2x" aria-hidden="true" data-qtip="' + Ngcp.csc.locales.callblocking.delete_number[localStorage.getItem('languageSelected')] + '"></i></div>';
                 return {
                     rowBody: Ext.String.format('<div class="card-wrapper pointer" id=' + record.get('id') + '><div class="card-icon-row callblocking-footer">{0}{1}</div></div>', enabledIcon, deleteIcon)
                 };

@@ -119,18 +119,6 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         };
     },
 
-    onIconHovered: function (event, el) {
-        if (!event.target.classList.contains('fa-toggle-on') &&
-            !event.target.classList.contains('fa-toggle-off') &&
-            !event.target.classList.contains('fa-trash')){
-            // Register the new tip with an element's ID
-            Ext.tip.QuickTipManager.register({
-                target: el.id, // Target button's ID
-                text: el.dataset.tooltip // Tip content
-            });
-        }
-    },
-
     deleteRecord: function(event) {
         var rec = event.record;
         var currentRoute = window.location.hash;
