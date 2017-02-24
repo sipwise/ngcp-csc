@@ -20,7 +20,8 @@ Ext.define('NgcpCsc.view.pages.groups.GroupsGrid', {
 
     viewConfig: {
         stripeRows: false,
-        columnLines: false
+        columnLines: false,
+        enableTextSelection: true
     },
 
     columns: {
@@ -35,6 +36,9 @@ Ext.define('NgcpCsc.view.pages.groups.GroupsGrid', {
     },
 
     initComponent: function() {
+        // TODO: 1a. Replace with rowbody
+        // TODO: 1b. Check how it looks and behavior
+        // TODO: 1c. Implement rowbody controllers based on conversations
         this.plugins = [{
             ptype: 'rowexpander',
             selectRowOnExpand: false,
