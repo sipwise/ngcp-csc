@@ -8,6 +8,51 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.groups.GroupsController', {
         Ext.Function.defer(eval('this.' + el.dataset.callback), 1, this, [el.id]);
     },
 
+    onIconHovered: function () {
+        // TODO: Implement qtips in a simpler way, at least for now
+    },
+
+    expandConversation: function(view, td, cellindex, record, tr) {
+        // TODO: Rework this function one from ConversationsController
+        // if(cellindex.target && cellindex.target.classList.contains('green-icon')){
+        //     return;
+        // }
+        // if (cellindex == 4) {
+        //     // XXX different actions for different conversation_type
+        //     // TODO Refactor/remove
+        //     switch (record.get('conversation_type')) {
+        //         case 'call':
+        //         case 'fax':
+        //         case 'sms':
+        //         case 'chat':
+        //             this.openCallPanel();
+        //         break;
+        //     };
+        // } else {
+            var record = record.isModel ? record : view.getRecord(Ext.get(td).up(view.itemSelector));
+            var id = record.get('id');
+            var row = document.getElementById(id);
+            // var footer = document.getElementById('card-footer-' + id);
+            // var msgPreview = document.getElementById('msg-preview-' + id);
+            if (row.classList.contains('hidden')) {
+                record.set('expanded', true);
+                row.classList.remove('hidden');
+                // footer.classList.add('hidden');
+                // if (msgPreview) {
+                    // msgPreview.classList.add('hidden');
+                // }
+            } else {
+                record.set('expanded', false);
+                row.classList.add('hidden');
+                // footer.classList.remove('hidden');
+                // if (msgPreview) {
+                    // msgPreview.classList.remove('hidden');
+                // }
+            };
+        // }
+        view.grid.updateLayout();
+    },
+
     addGroup: function() {
         var grid = this.getView().down('groups-grid');
         var form = this.lookupReference('add-new-group');
