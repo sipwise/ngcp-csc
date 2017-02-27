@@ -91,6 +91,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
                 node.parentNode.expand();
             }
             this.redirectTo(to);
+            this.mainContainerResized();
         }
     },
     onToggleNavigationSize: function() {
@@ -160,10 +161,12 @@ Ext.define('NgcpCsc.view.main.MainController', {
     },
 
     mainContainerResized: function(cmp) {
+        var cmp = cmp || this.lookupReference('mainCardPanel');
         var navTree = this.lookupReference('navigationTreeList');
         var filterTxtSearch = this.lookupReference('filterTxtSearch');
+        var filterTxtSearchWidth = (filterTxtSearch.getWidth() > 0) ? filterTxtSearch.getWidth() : 730;
         var offset = 95;
-        var leftMargin = (cmp.getWidth() / 2) - (filterTxtSearch.getWidth() / 2) - offset;
+        var leftMargin = (cmp.getWidth() / 2) - ( filterTxtSearchWidth / 2) - offset;
         if (leftMargin > 0 && Ext.os.is.Desktop) {
             filterTxtSearch.setMargin('0 0 0 ' + leftMargin);
         }
