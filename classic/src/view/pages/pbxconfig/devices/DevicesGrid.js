@@ -32,14 +32,6 @@ Ext.define('NgcpCsc.view.pages.devices.DevicesGrid', {
     },
     userCls: Ext.os.is.Desktop ? 'big-820' : 'small-100',
 
-    // XXX: Cvenusino: For devices, a) We need new specs from andreas, and b)
-    // No matter what the new specs are, we either need to use child nodes,
-    // and/or pull data from other endpoints/data resources for the destinations
-    // and positioning of the destinations data on the images. As these anyways
-    // depend on the specs to know 100% what we need to account for in the
-    // implementation, I propose we leave this module as is for this iteration,
-    // and await specs for new devices task.
-
     initComponent: function() {
         var me = this;
 

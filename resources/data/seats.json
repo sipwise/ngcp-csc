@@ -8,23 +8,23 @@
         "phone_devices": "dev1"
     },{
         "id" : 2,
-        "name":"Seat2",
+        "name": "Seat2",
         "extension": "ext2",
-        "groups":"group3",
+        "groups": "group3",
         "numbers": "123, 345, 789",
         "phone_devices": "dev3"
     }, {
         "id" : 3,
-        "name":"Seat3",
+        "name": "Seat3",
         "extension": "ext3",
-        "groups":"group4",
+        "groups": "group4",
         "numbers": "123, 345, 789",
         "phone_devices": "dev2"
     }, {
         "id" : 4,
-        "name":"Seat4",
+        "name": "Seat4",
         "extension": "ext4",
-        "groups":"group4",
+        "groups": "group4",
         "numbers": "123, 345, 789",
         "phone_devices": "dev4"
     }]

@@ -9,6 +9,12 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
 
     ui: 'core-container',
 
+    // DONE: 1. All devices filters seem to work. Check to verify.
+    // DONE: 2. All other filters for pbx modules are not working, but field in
+    // headerBar is working for both names and free search. Fix.
+    // DONE: 3. Implement case insensitive search by default.
+    // DONE: 4. Check and fix "empty field should reset".
+
     initComponent: function() {
         this.items = [{
             xtype: 'form',
@@ -139,46 +145,36 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
             items: [{
                 flex: 1,
                 userCls: 'small-100 big-50',
-                defaults: {
-                    listeners: {
-                        input: {
-                            element: 'el',
-                            fn: 'submitFilters'
-                        }
-                    }
-                },
                 items: [{
                     xtype: 'textfield',
                     labelAlign: 'top',
-                    bind: '{filtergrid.extensions}',
-                    fieldLabel: Ngcp.csc.locales.filters.extension[localStorage.getItem('languageSelected')]
+                    bind: '{filtergrid.seats_extension}',
+                    fieldLabel: Ngcp.csc.locales.filters.extension[localStorage.getItem('languageSelected')],
+                    listeners: {
+                        delay: 100,
+                        change: 'submitFilters'
+                    }
                 }, {
                     xtype: 'textfield',
                     labelAlign: 'top',
                     bind: '{filtergrid.groups}',
-                    fieldLabel: Ngcp.csc.locales.filters.groups[localStorage.getItem('languageSelected')]
+                    fieldLabel: Ngcp.csc.locales.filters.groups[localStorage.getItem('languageSelected')],
+                    listeners: {
+                        delay: 100,
+                        change: 'submitFilters'
+                    }
                 }]
             }, {
                 flex: 1,
                 userCls: 'small-100 big-50',
-                defaults: {
-                    listeners: {
-                        input: {
-                            element: 'el',
-                            fn: 'submitFilters'
-                        }
-                    }
-                },
                 items: [{
                     xtype: 'textfield',
                     labelAlign: 'top',
                     bind: '{filtergrid.numbers}',
                     fieldLabel: Ngcp.csc.locales.filters.numbers[localStorage.getItem('languageSelected')],
-                    input: {
-                        listeners: {
-                            delay: 100,
-                            change: 'submitFilters'
-                        }
+                    listeners: {
+                        delay: 100,
+                        change: 'submitFilters'
                     }
                 }, {
                     xtype: 'textfield',
@@ -186,10 +182,8 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                     bind: '{filtergrid.phone_devices}',
                     fieldLabel: Ngcp.csc.locales.filters.phone_devices[localStorage.getItem('languageSelected')],
                     listeners: {
-                        listeners: {
-                            delay: 100,
-                            change: 'submitFilters'
-                        }
+                        delay: 100,
+                        change: 'submitFilters'
                     }
                 }]
             }]
@@ -205,6 +199,15 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 flex: 1,
                 userCls: 'small-100 big-50',
                 items: [{
+                    xtype: 'textfield',
+                    labelAlign: 'top',
+                    bind: '{filtergrid.groups_extension}',
+                    fieldLabel: Ngcp.csc.locales.filters.extension[localStorage.getItem('languageSelected')],
+                    listeners: {
+                        delay: 100,
+                        change: 'submitFilters'
+                    }
+                }, {
                     xtype: 'textfield',
                     labelAlign: 'top',
                     bind: '{filtergrid.hunt_policy}',
