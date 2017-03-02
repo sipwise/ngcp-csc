@@ -41,10 +41,10 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
 
     applyFreeSearchFilter: function(record) {
         var vm = this.getViewModel();
-        var search_term = vm.get('filtergrid.headerBarFieldInput') || "";
+        var search_term = vm.get('filtergrid.headerBarFieldInput').toLowerCase() || "";
         var retVal = false;
         Ext.Object.each(record.data, function(key, val) {
-            if (Ext.isString(val) && val.indexOf(search_term) > -1) {
+            if (Ext.isString(val) && val.toLowerCase().indexOf(search_term) > -1) {
                 retVal = true;
                 return;
             }
@@ -72,9 +72,9 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
     applyConvSearchFilter: function(record) {
         var vm = this.getViewModel();
         var store = Ext.getStore('Conversations');
-        var fieldInput = vm.get('filtergrid.headerBarFieldInput');
+        var fieldInput = vm.get('filtergrid.headerBarFieldInput').toLowerCase();
         var retVal = true;
-        if (fieldInput && record.get('source_cli').indexOf(fieldInput) == -1) {
+        if (fieldInput && record.get('source_cli').toLowerCase().indexOf(fieldInput) == -1) {
             retVal = false;
         }
         return retVal;
@@ -83,9 +83,9 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
     applyPbxSearchFilter: function(record) {
         var vm = this.getViewModel();
         var store = Ext.getStore('Conversations');
-        var fieldInput = vm.get('filtergrid.headerBarFieldInput');
+        var fieldInput = vm.get('filtergrid.headerBarFieldInput').toLowerCase();
         var retVal = true;
-        if (fieldInput && record.get('name').indexOf(fieldInput) == -1) {
+        if (fieldInput && record.get('name').toLowerCase().indexOf(fieldInput) == -1) {
             retVal = false;
         }
         return retVal;
@@ -150,7 +150,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         var direction = [vm.get('filtergrid.incoming') ? 'incoming' : null, vm.get('filtergrid.outgoing') ? 'outgoing' : null];
         var status = [vm.get('filtergrid.missed') ? 'missed' : null, vm.get('filtergrid.answered') ? 'answered' : null];
         var answered = vm.get('filtergrid.answered');
-        var fieldInput = vm.get('filtergrid.headerBarFieldInput');
+        var fieldInput = vm.get('filtergrid.headerBarFieldInput').toLowerCase();
         var types = [vm.get('filtergrid.call') ? 'call' : null,
                     vm.get('filtergrid.voicemail') ? 'voicemail' : null,
                     vm.get('filtergrid.sms') ? 'sms' : null,
@@ -160,7 +160,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
 
         if (new Date(record.get('start_time')) < new Date(fromFilter) ||
             new Date(record.get('start_time')) >  new Date(toFilter).setHours(23,59,59,999) ||
-            fieldInput && record.get('source_cli').indexOf(fieldInput) == -1 ||
+            fieldInput && record.get('source_cli').toLowerCase().indexOf(fieldInput) == -1 ||
             types.length > 0 && types.indexOf(record.get('conversation_type')) == -1 ||
             direction.length > 0 && direction.indexOf(record.get('direction')) == -1 ||
             status.length > 0 && status.indexOf(record.get('status')) == -1
@@ -173,16 +173,16 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
     applyPbxconfigSeatsFilters: function(record) {
         var vm = this.getViewModel();
         var fieldInput = vm.get('filtergrid.headerBarFieldInput') || "";
-        var extensions = vm.get('filtergrid.extensions') ? vm.get('filtergrid.extensions').split(',') : [];
-        var groups = vm.get('filtergrid.groups') ? vm.get('filtergrid.groups').split(',') : [];
+        var extension = vm.get('filtergrid.seats_extension') ? vm.get('filtergrid.seats_extension').toLowerCase().split(',') : [];
+        var groups = vm.get('filtergrid.groups') ? vm.get('filtergrid.groups').toLowerCase().split(',') : [];
         var numbers = vm.get('filtergrid.numbers') || "";
-        var phone_devices = vm.get('filtergrid.phone_devices') ? vm.get('filtergrid.phone_devices').split(',') : [];
+        var phone_devices = vm.get('filtergrid.phone_devices') ? vm.get('filtergrid.phone_devices').toLowerCase().split(',') : [];
         var retVal = true;
-        if (fieldInput && record.get('name').indexOf(fieldInput) == -1 ||
-            extensions.length > 0 && extensions.indexOf(record.get('extension')) == -1 ||
-            groups.length > 0 && groups.indexOf(record.get('groups')) == -1 ||
-            numbers && record.get('numbers').indexOf(numbers) == -1 ||
-            phone_devices.length > 0 && phone_devices.indexOf(record.get('phone_devices')) == -1
+        if (fieldInput && record.get('name').toLowerCase().indexOf(fieldInput) == -1 ||
+            extension && record.get('extension').toLowerCase().indexOf(extension) == -1 ||
+            groups && record.get('groups').toLowerCase().indexOf(groups) == -1 ||
+            numbers && record.get('numbers').toLowerCase().indexOf(numbers) == -1 ||
+            phone_devices && record.get('phone_devices').toLowerCase().indexOf(phone_devices) == -1
         ) {
             retVal = false;
         }
@@ -191,15 +191,15 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
 
     applyPbxconfigGroupsFilters: function(record) {
         var vm = this.getViewModel();
-        var fieldInput = vm.get('filtergrid.headerBarFieldInput') || "";
-        var extensions = vm.get('filtergrid.extensions') ? vm.get('filtergrid.extensions').split(',') : [];
-        var hunt_policy = vm.get('filtergrid.hunt_policy') ? vm.get('filtergrid.hunt_policy').split(',') : [];
-        var hunt_timeout = vm.get('filtergrid.hunt_timeout') ? vm.get('filtergrid.hunt_timeout').split(',') : [];
+        var fieldInput = vm.get('filtergrid.headerBarFieldInput').toLowerCase() || "";
+        var extension = vm.get('filtergrid.groups_extension') ? vm.get('filtergrid.groups_extension').toLowerCase().split(',') : [];
+        var hunt_policy = vm.get('filtergrid.hunt_policy') ? vm.get('filtergrid.hunt_policy').toLowerCase().split(',') : [];
+        var hunt_timeout = vm.get('filtergrid.hunt_timeout') ? vm.get('filtergrid.hunt_timeout').toLowerCase().split(',') : [];
         var retVal = true;
-        if (fieldInput && record.get('name').indexOf(fieldInput) == -1 ||
-            extensions.length > 0 && extensions.indexOf(record.get('extension')) == -1 ||
-            hunt_policy.length > 0 && hunt_policy.indexOf(record.get('hunt_policy')) == -1 ||
-            hunt_timeout.length > 0 && hunt_timeout.indexOf(record.get('hunt_timeout')) == -1
+        if (fieldInput && record.get('name').toLowerCase().indexOf(fieldInput) == -1 ||
+            extension && record.get('extension').toLowerCase().indexOf(extension) == -1 ||
+            hunt_policy && record.get('hunt_policy').toLowerCase().indexOf(hunt_policy) == -1 ||
+            hunt_timeout && record.get('hunt_timeout').toLowerCase().indexOf(hunt_timeout) == -1
         ) {
             retVal = false;
         }
@@ -208,14 +208,14 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
 
     applyPbxconfigDevicesFilters: function(record) {
         var vm = this.getViewModel();
-        var fieldInput = vm.get('filtergrid.headerBarFieldInput') || "";
+        var fieldInput = vm.get('filtergrid.headerBarFieldInput').toLowerCase() || "";
         var deviceProfile = vm.get('filtergrid.device') || "";
         var mac = vm.get('filtergrid.mac') || "";
         var status = [vm.get('filtergrid.enabled') ? 'enabled' : null, vm.get('filtergrid.disabled') ? 'disabled' : null];
 
         var retVal = true;
 
-        if (fieldInput && record.get('name').indexOf(fieldInput) == -1 ||
+        if (fieldInput && record.get('name').toLowerCase().indexOf(fieldInput) == -1 ||
             deviceProfile && record.get('device').indexOf(deviceProfile) == -1 ||
             mac && record.get('mac').indexOf(mac) == -1 ||
             status.length > 0 && status.indexOf(record.get('status')) == -1
@@ -252,7 +252,8 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         vm.set('filtergrid.answered', true);
         vm.set('filtergrid.search_term', '');
         vm.set('filtergrid.name', '');
-        vm.set('filtergrid.extensions', '');
+        vm.set('filtergrid.seats_extension', '');
+        vm.set('filtergrid.groups_extension', '');
         vm.set('filtergrid.groups', '');
         vm.set('filtergrid.phone_devices', '');
         vm.set('filtergrid.enabled', true);
@@ -263,7 +264,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
 
     filterBySearchFieldInput: function(el) {
         var vm = this.getViewModel();
-        var val = el.getTarget().value;
+        var val = el.getTarget().value.toLowerCase();
         vm.set('filtergrid.headerBarFieldInput', val);
         if (val.length === 0) {
             this.resetFilters();
@@ -320,9 +321,17 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         vm.set('filtergrid.pbxDevicesFilterHideState', true);
     },
 
-    toggleFreeSearch: function () {
+    toggleFreeSearch: function (pressed) {
         var vm = this.getViewModel();
-        vm.set('freeSearchState', !vm.get('freeSearchState'));
+        var currentFreeSearchState = vm.get('freeSearchState');
+        switch (!pressed) {
+            case (true):
+                vm.set('freeSearchState', !currentFreeSearchState);
+                break;
+            case (false):
+                vm.set('freeSearchState', true);
+                break;
+        };
     }
 
 });

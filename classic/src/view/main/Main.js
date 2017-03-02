@@ -63,7 +63,9 @@ Ext.define('NgcpCsc.view.main.Main', {
                     }
                 }, {
                     iconCls: 'x-fa fa-header',
+                    reference: 'headerToggleButton',
                     enableToggle: true,
+                    pressed: false,
                     tooltip: Ngcp.csc.locales.filters.tooltips.search_toggle[localStorage.getItem('languageSelected')],
                     margin: '0 2 0 3',
                     bind: {

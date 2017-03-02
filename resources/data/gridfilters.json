@@ -18,7 +18,8 @@
         "search_term": "",
         /* Pbx config  filters */
         "name": "",
-        "extensions": "",
+        "seats_extension": "",
+        "groups_extension": "",
         "groups": "",
         "numbers": "",
         "phone_devices": "",

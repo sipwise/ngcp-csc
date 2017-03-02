@@ -139,46 +139,36 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
             items: [{
                 flex: 1,
                 userCls: 'small-100 big-50',
-                defaults: {
-                    listeners: {
-                        input: {
-                            element: 'el',
-                            fn: 'submitFilters'
-                        }
-                    }
-                },
                 items: [{
                     xtype: 'textfield',
                     labelAlign: 'top',
-                    bind: '{filtergrid.extensions}',
-                    fieldLabel: Ngcp.csc.locales.filters.extension[localStorage.getItem('languageSelected')]
+                    bind: '{filtergrid.seats_extension}',
+                    fieldLabel: Ngcp.csc.locales.filters.extension[localStorage.getItem('languageSelected')],
+                    listeners: {
+                        delay: 100,
+                        change: 'submitFilters'
+                    }
                 }, {
                     xtype: 'textfield',
                     labelAlign: 'top',
                     bind: '{filtergrid.groups}',
-                    fieldLabel: Ngcp.csc.locales.filters.groups[localStorage.getItem('languageSelected')]
+                    fieldLabel: Ngcp.csc.locales.filters.groups[localStorage.getItem('languageSelected')],
+                    listeners: {
+                        delay: 100,
+                        change: 'submitFilters'
+                    }
                 }]
             }, {
                 flex: 1,
                 userCls: 'small-100 big-50',
-                defaults: {
-                    listeners: {
-                        input: {
-                            element: 'el',
-                            fn: 'submitFilters'
-                        }
-                    }
-                },
                 items: [{
                     xtype: 'textfield',
                     labelAlign: 'top',
                     bind: '{filtergrid.numbers}',
                     fieldLabel: Ngcp.csc.locales.filters.numbers[localStorage.getItem('languageSelected')],
-                    input: {
-                        listeners: {
-                            delay: 100,
-                            change: 'submitFilters'
-                        }
+                    listeners: {
+                        delay: 100,
+                        change: 'submitFilters'
                     }
                 }, {
                     xtype: 'textfield',
@@ -186,10 +176,8 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                     bind: '{filtergrid.phone_devices}',
                     fieldLabel: Ngcp.csc.locales.filters.phone_devices[localStorage.getItem('languageSelected')],
                     listeners: {
-                        listeners: {
-                            delay: 100,
-                            change: 'submitFilters'
-                        }
+                        delay: 100,
+                        change: 'submitFilters'
                     }
                 }]
             }]
@@ -205,6 +193,15 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 flex: 1,
                 userCls: 'small-100 big-50',
                 items: [{
+                    xtype: 'textfield',
+                    labelAlign: 'top',
+                    bind: '{filtergrid.groups_extension}',
+                    fieldLabel: Ngcp.csc.locales.filters.extension[localStorage.getItem('languageSelected')],
+                    listeners: {
+                        delay: 100,
+                        change: 'submitFilters'
+                    }
+                }, {
                     xtype: 'textfield',
                     labelAlign: 'top',
                     bind: '{filtergrid.hunt_policy}',
@@ -247,11 +244,11 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                     name: 'deviceCombo',
                     displayField: 'name',
                     valueField: 'name', // here we will use the ids most probablys
-                    editable: false,
+                    editable: true,
                     bind: '{filtergrid.device}',
                     listeners: {
                         delay: 100,
-                        select: 'submitFilters'
+                        change: 'submitFilters'
                     }
                 }, {
                     xtype: 'textfield',
