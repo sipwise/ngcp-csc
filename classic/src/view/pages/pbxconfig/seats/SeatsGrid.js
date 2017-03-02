@@ -32,13 +32,6 @@ Ext.define('NgcpCsc.view.pages.seats.SeatsGrid', {
     },
     userCls: Ext.os.is.Desktop ? 'big-820' : 'small-100',
 
-    // XXX: Cvenusino: For seats cards, numbers and phone/devices should be in a
-    // list (not comma separated), and stored in data as child nodes. For this,
-    // we need a solution for how to best iterate over child nodes within the
-    // records. We had a solution for this with rowexpander and rowBodyTpl (see
-    // example with DevicesGrid.js in current master), but with this new rowbody
-    // implementation I am not sure how to tacle this. Please advice
-
     initComponent: function() {
         var me = this;
         me.features = [{

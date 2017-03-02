@@ -4,7 +4,7 @@
         "name":"Device1",
         "device": "Cisco Pbx 1",
         "mac":"00-14-22-01-23-41",
-        "status": "enabled",
+        "status": "disabled",
         "image": "/resources/images/pbx.png",
         "destinations": [{
             "name": "destination1",

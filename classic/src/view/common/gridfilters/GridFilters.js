@@ -9,6 +9,12 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
 
     ui: 'core-container',
 
+    // TODO: 1. All devices filters seem to work. Check to verify.
+    // TODO: 2. All other filters for pbx modules are not working, but field in
+    // headerBar is working for both names and free search. Fix.
+    // TODO: 3. Implement case insensitive search by default.
+    // TODO: 4. Check and fix "empty field should reset".
+
     initComponent: function() {
         this.items = [{
             xtype: 'form',
@@ -150,7 +156,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 items: [{
                     xtype: 'textfield',
                     labelAlign: 'top',
-                    bind: '{filtergrid.extensions}',
+                    bind: '{filtergrid.seats_extension}',
                     fieldLabel: Ngcp.csc.locales.filters.extension[localStorage.getItem('languageSelected')]
                 }, {
                     xtype: 'textfield',
@@ -205,6 +211,15 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 flex: 1,
                 userCls: 'small-100 big-50',
                 items: [{
+                    xtype: 'textfield',
+                    labelAlign: 'top',
+                    bind: '{filtergrid.groups_extension}',
+                    fieldLabel: Ngcp.csc.locales.filters.extension[localStorage.getItem('languageSelected')],
+                    listeners: {
+                        delay: 100,
+                        change: 'submitFilters'
+                    }
+                }, {
                     xtype: 'textfield',
                     labelAlign: 'top',
                     bind: '{filtergrid.hunt_policy}',
