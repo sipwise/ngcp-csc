@@ -174,6 +174,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
 
     onRouteChange: function(id) {
         var vm = this.getViewModel();
+        var toggleButton = this.lookupReference('headerToggleButton');
         this.setCurrentView(id);
         this.fireEvent('routeChange');
         this.setSectionTitle(id);
@@ -181,6 +182,10 @@ Ext.define('NgcpCsc.view.main.MainController', {
             vm.set('headerBarFieldHideState', false);
         } else {
             vm.set('headerBarFieldHideState', true);
+        };
+        if (id == 'pbxconfig/seats' || id == 'pbxconfig/groups' || id == 'pbxconfig/devices') {
+            this.toggleFree('pressed');
+            toggleButton.setPressed(true);
         };
     },
 
@@ -313,8 +318,8 @@ Ext.define('NgcpCsc.view.main.MainController', {
         this.fireEvent('toggleFilterForm');
     },
 
-    toggleFree: function() {
-        this.fireEvent('toggleFreeSearch');
+    toggleFree: function(pressed) {
+        this.fireEvent('toggleFreeSearch', pressed);
     }
 
 });

@@ -22,6 +22,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.groups.Groups', {
                     margin: 10,
                     xtype: 'button',
                     reference:'addNewBtn',
+                    disabled: true,
                     text: Ngcp.csc.locales.pbxconfig.add_new_group[localStorage.getItem('languageSelected')]
                     // ,handler: 'addGroup'
                 }]
