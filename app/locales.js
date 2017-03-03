@@ -1156,10 +1156,10 @@ Ext.define('Ngcp.csc.locales', {
                 it: 'Contacts',
                 de: 'Contacts',
                 fr: 'Contacts',
-                sp: 'Conversation with'
+                sp: 'Contacts'
             }
         },
-        chat: {
+        conversationwith: {
             title: {
                 en: 'Conversation with',
                 it: 'Conversation with',
@@ -1995,11 +1995,11 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'To'
             },
             done: {
-                en: 'done',
-                it: 'done',
-                de: 'done',
-                fr: 'done',
-                sp: 'done'
+                en: 'Done',
+                it: 'Done',
+                de: 'Done',
+                fr: 'Done',
+                sp: 'Done'
             },
             groups: {
                 en: 'Groups',
