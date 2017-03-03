@@ -20,12 +20,70 @@
         "groups": "group4",
         "numbers": "421",
         "phone_devices": "dev2"
-    }, {
+    }
+    /*, {
         "id" : 4,
         "name": "Seat4",
         "extension": "ext4",
         "groups": "group4",
         "numbers": "444, 123, 954",
         "phone_devices": "dev4"
-    }]
+    }, {
+        "id" : 5,
+        "name": "Seat5",
+        "extension": "ext1",
+        "groups": "group2",
+        "numbers": "345, 789",
+        "phone_devices": "dev1"
+    }, {
+        "id" : 6,
+        "name": "Seat6",
+        "extension": "ext2",
+        "groups": "group3",
+        "numbers": "123",
+        "phone_devices": "dev3"
+    }, {
+        "id" : 7,
+        "name": "Seat7",
+        "extension": "ext3",
+        "groups": "group4",
+        "numbers": "421",
+        "phone_devices": "dev2"
+    }, {
+        "id" : 8,
+        "name": "Seat8",
+        "extension": "ext4",
+        "groups": "group4",
+        "numbers": "444, 123, 954",
+        "phone_devices": "dev4"
+    }, {
+        "id" : 9,
+        "name": "Seat9",
+        "extension": "ext1",
+        "groups": "group2",
+        "numbers": "345, 789",
+        "phone_devices": "dev1"
+    }, {
+        "id" : 10,
+        "name": "Seat10",
+        "extension": "ext2",
+        "groups": "group3",
+        "numbers": "123",
+        "phone_devices": "dev3"
+    }, {
+        "id" : 11,
+        "name": "Seat11",
+        "extension": "ext3",
+        "groups": "group4",
+        "numbers": "421",
+        "phone_devices": "dev2"
+    }, {
+        "id" : 12,
+        "name": "Seat12",
+        "extension": "ext4",
+        "groups": "group4",
+        "numbers": "444, 123, 954",
+        "phone_devices": "dev4"
+    }*/
+    ]
 }

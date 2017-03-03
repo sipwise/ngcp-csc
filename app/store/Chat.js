@@ -5,7 +5,7 @@ Ext.define('NgcpCsc.store.Chat', {
 
     model: 'NgcpCsc.model.ChatNotification',
 
-    autoLoad:true,
+    autoLoad: true,
 
     proxy: {
         type: 'ajax',
