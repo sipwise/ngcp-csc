@@ -1700,6 +1700,83 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Destination',
                 sp: 'Destination'
             },
+            extension: {
+                en: 'Extension:',
+                it: 'Extension:',
+                de: 'Extension:',
+                fr: 'Extension:',
+                sp: 'Extension:'
+            },
+            mac: {
+                en: 'Mac address:',
+                it: 'Mac address:',
+                de: 'Mac address:',
+                fr: 'Mac address:',
+                sp: 'Mac address:'
+            },
+            numbers: {
+                en: 'Numbers:',
+                it: 'Numbers:',
+                de: 'Numbers:',
+                fr: 'Numbers:',
+                sp: 'Numbers:'
+            },
+            phone_devices: {
+                en: 'Phone/devices:',
+                it: 'Phone/devices:',
+                de: 'Phone/devices:',
+                fr: 'Phone/devices:',
+                sp: 'Phone/devices:'
+            },
+            hunt_policy: {
+                en: 'Hunt policy:',
+                it: 'Hunt policy:',
+                de: 'Hunt policy:',
+                fr: 'Hunt policy:',
+                sp: 'Hunt policy:'
+            },
+            hunt_timeout: {
+                en: 'Hunt timeout:',
+                it: 'Hunt timeout:',
+                de: 'Hunt timeout:',
+                fr: 'Hunt timeout:',
+                sp: 'Hunt timeout'
+            },
+            status: {
+                en: 'Status:',
+                it: 'Status:',
+                de: 'Status:',
+                fr: 'Status:',
+                sp: 'Status:'
+            },
+            groups: {
+                en: 'Groups:',
+                it: 'Groups:',
+                de: 'Groups:',
+                fr: 'Groups:',
+                sp: 'Groups:'
+            },
+            no_changes_saved: {
+                en: 'No changes saved.',
+                it: 'No changes saved.',
+                de: 'No changes saved.',
+                fr: 'No changes saved.',
+                sp: 'No changes saved.'
+            },
+            changes_saved: {
+                en: 'Changes saved.',
+                it: 'Changes saved.',
+                de: 'Changes saved.',
+                fr: 'Changes saved.',
+                sp: 'Changes saved.'
+            },
+            name: {
+                en: 'Name:',
+                it: 'Name:',
+                de: 'Name:',
+                fr: 'Name:',
+                sp: 'Name:'
+            },
             autoattendant: {
                 title: {
                     en: 'Your auto attendants.',
@@ -1794,6 +1871,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Something went wrong. Please retry later',
                 fr: 'Something went wrong. Please retry later',
                 sp: 'Something went wrong. Please retry later'
+            },
+            fields_required: {
+                en: 'All fields are required. Please fill and try again.',
+                it: 'All fields are required. Please fill and try again.',
+                de: 'All fields are required. Please fill and try again.',
+                fr: 'All fields are required. Please fill and try again.',
+                sp: 'All fields are required. Please fill and try again.'
             },
             add_success: {
                 en: 'Successfully added.',

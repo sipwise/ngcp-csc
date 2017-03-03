@@ -10,7 +10,7 @@ Ext.define('NgcpCsc.view.pages.password.Password', {
     initComponent: function() {
         this.items = [{
             layout: 'responsivecolumn',
-            xtype:'core-container',
+            xtype: 'core-container',
             items: [{
                     padding: '0 0 5 0',
                     html: Ngcp.csc.locales.common.password[localStorage.getItem('languageSelected')].toUpperCase()

@@ -17,7 +17,7 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWith', {
         height:60,
         cls: 'toolbar-cont',
         items:['->',{
-            text:'Older',
+            text: 'Older',
             handler: 'loadOlderMsg'
         },'->']
     }
@@ -38,7 +38,7 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWith', {
                 // bind is dynamically set in controller (search for ".setBind")
                 xtype: 'textfield',
                 cls: 'new-message',
-                reference:'newmessage',
+                reference: 'newmessage',
                 enableKeyEvents: true,
                 flex: 1,
                 emptyText: Ngcp.csc.locales.conversationwith.msg_box.empty_text[localStorage.getItem('languageSelected')],
@@ -50,14 +50,14 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWith', {
                 xtype: 'button',
                 menu: {
                     defaults:{
-                        handler:'onPressSubmitBtn'
+                        handler: 'onPressSubmitBtn'
                     },
                     items:[{
                         text: 'Send as SMS',
-                        value:'sms'
+                        value: 'sms'
                     }, {
                         text: 'Send as chat message',
-                        value:'chat'
+                        value: 'chat'
                     }]
                 },
                 bind:{
@@ -68,9 +68,9 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWith', {
                 width:35,
                 xtype: 'button',
                 margin : '0 0 0 5',
-                cls:'rtc-icons',
+                cls: 'rtc-icons',
                 iconCls: 'x-fa fa-phone',
-                handler:'onPressCallBtn'
+                handler: 'onPressCallBtn'
             }]
         }]
     }]

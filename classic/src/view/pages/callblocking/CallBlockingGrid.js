@@ -40,7 +40,7 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingGrid', {
 
         me.features = [{
             ftype: 'rowbody',
-            getAdditionalData: function(data, idx, record) {
+            getAdditionalData: function(data, idx, record, orig) {
                 var enabledState = data.enabled ? 'on' : 'off';
                 var enabledIcon = '<div id="enableNumberBlocking-' + record.get('id') + '" class="card-icon" data-callback="enableNumberBlocking"><i id="enableNumberBlocking" class="'+Ngcp.csc.icons.toggle[enabledState + '2x']+'" aria-hidden="true" data-qtip="' + Ngcp.csc.locales.callblocking.enable_or_disable[localStorage.getItem('languageSelected')] + '"></i>';
                 var deleteIcon = '<div id="deleteRecord-' + record.get('id') + '" class="card-icon" data-callback="deleteRecord"><i class="'+Ngcp.csc.icons.trash2x+'" aria-hidden="true" data-qtip="' + Ngcp.csc.locales.callblocking.delete_number[localStorage.getItem('languageSelected')] + '"></i></div>';
