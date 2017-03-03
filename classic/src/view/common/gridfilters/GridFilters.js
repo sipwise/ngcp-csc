@@ -15,6 +15,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
             reference: 'conversationsFilterForm',
             margin: '20 20 0 20',
             layout: 'responsivecolumn',
+            hidden:true,
             bind: {
                 hidden: '{filtergrid.convFilterHideState}'
             },
@@ -131,6 +132,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
         }, {
             xtype: 'form',
             reference: 'pbxSeatsFilterForm',
+            hidden:true,
             bind: {
                 hidden: '{filtergrid.pbxSeatsFilterHideState}'
             },
@@ -183,6 +185,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
             }]
         }, {
             xtype: 'form',
+            hidden:true,
             reference: 'pbxGroupsFilterForm',
             bind: {
                 hidden: '{filtergrid.pbxGroupsFilterHideState}'
@@ -227,6 +230,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
             }]
         }, {
             xtype: 'form',
+            hidden:true,
             reference: 'pbxDevicesFilterForm',
             bind: {
                 hidden: '{filtergrid.pbxDevicesFilterHideState}'
