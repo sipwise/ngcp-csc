@@ -28,7 +28,7 @@ Ext.define('NgcpCsc.view.pages.devices.DestinationsGrid', {
         items: [{
             flex: 1,
             dataIndex: 'position',
-            text:'#'
+            text: '#'
         },{
             flex: 5,
             dataIndex: 'destination',

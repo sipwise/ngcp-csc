@@ -9,7 +9,7 @@ Ext.define('NgcpCsc.view.pages.themeroller.ThemeRoller', {
 
     items: [{
         defaults: {
-            ui:'core-container',
+            ui: 'core-container',
             collapsible: true,
             collapsed: false,
             layout: 'responsivecolumn',
