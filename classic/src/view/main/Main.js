@@ -172,8 +172,7 @@ Ext.define('NgcpCsc.view.main.Main', {
                     width: 250,
                     resizable: Ext.os.is.Desktop,
                     xtype: 'contacts',
-                    ui: 'core-container',
-                    margin: '0 0 20 0'
+                    ui: 'core-container'
                 }]
             }]
         }];

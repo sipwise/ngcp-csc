@@ -6,31 +6,37 @@
         "uid": 840,
         "online": true,
         "name": "Jil Sanchez",
+        "thumbnail": "resources/images/user-profile/9.png",
         "leaf": true
     }, {
         "uid": 1,
         "online": false,
         "name": "Oneill Franklin",
+        "thumbnail": "resources/images/user-profile/6.png",
         "leaf": true
     }, {
         "uid": 3,
         "online": false,
         "name": "Branch Allison",
+        "thumbnail": "resources/images/user-profile/8.png",
         "leaf": true
     }, {
         "uid": 252,
         "online": true,
         "name": "Ben Wright",
+        "thumbnail": "resources/images/user-profile/10.png",
         "leaf": true
     }, {
         "uid": 162,
         "online": true,
         "name": "Allen Morris",
+        "thumbnail": "resources/images/user-profile/11.png",
         "leaf": true
     }, {
         "uid": 5,
         "online": false,
         "name": "Suzette Powell",
+        "thumbnail": "resources/images/user-profile/7.png",
         "leaf": true
     }]
 }, {
@@ -41,21 +47,25 @@
         "uid": 162,
         "online": true,
         "name": "Allen Morris",
+        "thumbnail": "resources/images/user-profile/11.png",
         "leaf": true
     },{
         "uid": 840,
         "online": true,
         "name": "Jil Sanchez",
+        "thumbnail": "resources/images/user-profile/9.png",
         "leaf": true
     },{
         "uid": 252,
         "online": true,
         "name": "Ben Wright",
+        "thumbnail": "resources/images/user-profile/10.png",
         "leaf": true
     }, {
         "uid": 5,
         "online": false,
         "name": "Suzette Powell",
+        "thumbnail": "resources/images/user-profile/7.png",
         "leaf": true
     }]
 }, {
@@ -66,11 +76,13 @@
         "uid": 162,
         "online": true,
         "name": "Allen Morris",
+        "thumbnail": "resources/images/user-profile/11.png",
         "leaf": true
     }, {
         "uid": 5,
         "online": false,
         "name": "Suzette Powell",
+        "thumbnail": "resources/images/user-profile/7.png",
         "leaf": true
     }]
 }]

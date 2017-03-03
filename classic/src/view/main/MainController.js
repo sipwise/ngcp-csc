@@ -8,7 +8,8 @@ Ext.define('NgcpCsc.view.main.MainController', {
                 unmatchedroute: 'onRouteChange'
             },
             '*': {
-                showmessage: 'showMessage'
+                showmessage: 'showMessage',
+                updateconversationtitle: 'setSectionTitle'
             }
         }
     },
@@ -188,12 +189,18 @@ Ext.define('NgcpCsc.view.main.MainController', {
         };
     },
 
-    setSectionTitle: function(id) {
+    setSectionTitle: function(id, record) {
         var vm = this.getViewModel();
         var title;
         switch (id) {
             case 'inbox':
                 title = Ngcp.csc.locales.conversations.title[localStorage.getItem('languageSelected')];
+                break;
+            case 'conversation-with':
+                if(!record){
+                    return;
+                }
+                title = Ngcp.csc.locales.conversationwith.title[localStorage.getItem('languageSelected')] +' '+ record.get('name')
                 break;
             case 'addressbook':
                 title =  Ngcp.csc.locales.addressbook.title[localStorage.getItem('languageSelected')];

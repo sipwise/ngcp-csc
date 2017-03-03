@@ -1,5 +1,5 @@
 Ext.define('NgcpCsc.view.common.composer.Sms', {
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.form.Panel',
 
     alias: 'widget.sms-composer',
 
