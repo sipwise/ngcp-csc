@@ -92,7 +92,8 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
             items: [{
                 iconCls: 'x-fa fa-phone',
                 bind: {
-                    pressed: '{callEnabled}'
+                    pressed: '{callEnabled}',
+                    userCls: '{setuserCls}'
                 },
                 handler:'toggleCall'
             }, {
@@ -120,10 +121,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
                 handler:'toggleAudioVideo'
             }, {
                 iconCls: 'x-fa fa-comment',
-                bind: {
-                    pressed: '{chatEnabled}',
-                    disabled: '{!connected}'
-                },
+                enableToggle: false,
                 handler: 'toogleChat'
             }]
         }]

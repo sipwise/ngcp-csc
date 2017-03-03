@@ -18,7 +18,7 @@ Ext.define('NgcpCsc.Application', {
         'Conversations',
         'ConversationTypes',
         'VoiceMails',
-        'Chat',
+        'Notifications',
         'Contacts',
         'Languages',
         'CallBlockingOutgoing',
