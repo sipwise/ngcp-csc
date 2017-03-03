@@ -5,6 +5,8 @@ Ext.define('NgcpCsc.store.Destinations', {
 
     model: 'NgcpCsc.model.Destination',
 
+    autoLoad: true,
+
     proxy: {
         type: 'ajax',
         url: '/resources/data/destinations.json',

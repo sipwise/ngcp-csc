@@ -5,7 +5,7 @@ Ext.define('NgcpCsc.view.main.MainModel', {
     data: {
         currentView: null,
         headerBarFieldHideState: true,
-        sectionTitle:''
+        sectionTitle: ''
     },
 
     formulas: {
