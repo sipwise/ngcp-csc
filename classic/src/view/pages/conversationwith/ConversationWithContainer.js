@@ -7,13 +7,13 @@
 // . apply filters on conversationwith
 // . clicking on user in chat opens conversationwith
 // . rename the module from chat to conversationwith
-Ext.define('NgcpCsc.view.pages.chat.ChatContainer', {
+Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWithContainer', {
     extend: 'Ext.tab.Panel',
-    xtype: 'chatcontainer',
+    xtype: 'conversationwith-container',
     cls: 'chat-container',
     plugins: 'tabreorderer',
-    viewModel: 'chat',
-    controller: 'chat',
+    viewModel: 'conversationwith',
+    controller: 'conversationwith',
     title: null,
     listeners: {
         remove: 'tabRemoved'
@@ -40,7 +40,7 @@ Ext.define('NgcpCsc.view.pages.chat.ChatContainer', {
             enableKeyEvents: true,
             height: 100,
             flex: 8,
-            emptyText: Ngcp.csc.locales.chat.msg_box.empty_text[localStorage.getItem('languageSelected')],
+            emptyText: Ngcp.csc.locales.conversationwith.msg_box.empty_text[localStorage.getItem('languageSelected')],
             listeners: {
                 keypress: 'onPressEnter'
             }

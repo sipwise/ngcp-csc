@@ -1,7 +1,7 @@
-Ext.define('NgcpCsc.view.pages.chat.Chat', {
+Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWith', {
     extend: 'Ext.panel.Panel',
 
-    xtype: 'chat',
+    xtype: 'conversationwith',
 
     layout: 'fit',
 
@@ -11,7 +11,7 @@ Ext.define('NgcpCsc.view.pages.chat.Chat', {
 
     initComponent: function() {
         this.items = [{
-            xtype: 'chatcontainer'
+            xtype: 'conversationwith-container'
         }];
         this.callParent();
     }

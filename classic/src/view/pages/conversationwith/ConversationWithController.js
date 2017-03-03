@@ -1,7 +1,7 @@
-Ext.define('NgcpCsc.view.pages.chat.ChatController', {
+Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWithController', {
     extend: 'Ext.app.ViewController',
 
-    alias: 'controller.chat',
+    alias: 'controller.conversationwith',
 
     listen: {
         controller: {
@@ -68,16 +68,16 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
             return;
         if (!tab) {
             tab = this.getView().add({
-                xtype: 'chat-notifications',
+                xtype: 'notifications',
                 title: rec.get('name'),
                 closable: true,
                 scrollable: true,
                 cls: 'private-conversation-text',
                 deferEmptyText: false,
-                emptyText: Ext.String.format(Ngcp.csc.locales.chat.start_conversation[localStorage.getItem('languageSelected')], rec.get('name')),
+                emptyText: Ext.String.format(Ngcp.csc.locales.conversationwith.start_conversation[localStorage.getItem('languageSelected')], rec.get('name')),
                 name: rec.get('uid'),
                 store: Ext.create('Ext.data.Store', {
-                    model: 'NgcpCsc.model.ChatNotification'
+                    model: 'NgcpCsc.model.Notification'
                 })
             });
         }
@@ -88,7 +88,7 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
     },
     openChat: function(rec) {
         var tab = this.getView().down('[name=' + rec.get('name') + ']');
-        var messages = Ext.create('NgcpCsc.store.Chat');
+        var messages = Ext.create('NgcpCsc.store.Notifications');
         messages.load({callback:function(records){
             Ext.each(records, function(message){
                 if(!rec.findChild('uid',message.get('uid'))){
@@ -98,11 +98,11 @@ Ext.define('NgcpCsc.view.pages.chat.ChatController', {
         }});
         if (!tab) {
             tab = this.getView().add({
-                xtype: 'chat-notifications',
+                xtype: 'notifications',
                 title: rec.get('name'),
                 name: rec.get('name'),
                 closable: true,
-                emptyText: Ngcp.csc.locales.chat.start_group_conversation[localStorage.getItem('languageSelected')],
+                emptyText: Ngcp.csc.locales.conversationwith.start_group_conversation[localStorage.getItem('languageSelected')],
                 store: messages
             });
         }

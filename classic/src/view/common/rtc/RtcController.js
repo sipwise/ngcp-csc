@@ -21,7 +21,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         switch (action) {
             case 'startCall':
             case 'startVideoCall':
-                var buddyUser = Ext.getStore('Chat').findRecord('uid', record.get('uid'));
+                var buddyUser = Ext.getStore('Notifications').findRecord('uid', record.get('uid'));
                 var number = (buddyUser) ? buddyUser.get('number') : record.get('caller') || record.get('source_cli') || record.get('mobile');
                 var mainView = Ext.ComponentQuery.query('[name=mainView]')[0];
                 vm.set('title', Ext.String.format('Call with {0}', number));
