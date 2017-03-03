@@ -1,0 +1,25 @@
+{
+    "data": [{
+        "id": 5,
+        "conversation_type": "fax",
+        "source_cli": "+390290775544",
+        "status": "missed",
+        "direction": "outgoing",
+        "start_time": "2017-01-10T10:05:33.384000000+02:00",
+        "pages": "7"
+    }, {
+        "id": 4,
+        "conversation_type": "chat",
+        "text": "This is a chat message. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+        "direction": "incoming",
+        "status": "answered",
+        "start_time": "2017-01-30T10:05:33.384000000+02:00"
+    }, {
+        "id": 3,
+        "conversation_type": "sms",
+        "text": "This is an sms. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
+        "direction": "incoming",
+        "status": "answered",
+        "start_time": "2017-01-31T10:05:33+02:00"
+    }]
+}

@@ -4,6 +4,7 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
     alias: 'viewmodel.rtc',
 
     data: {
+        uid:'',
         title: 123456789,
         defaultThumbnail: 'resources/images/icons/phoneicon.png',
         thumbnail: 'resources/images/icons/phoneicon.png',
@@ -39,6 +40,9 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
         },
         disableSmsSubmit: function(get) {
             return get('smsText').length > 140 || get('smsText').length < 1;
+        },
+        setuserCls:function(get){
+            return get('callEnabled') ? '' : 'fa-rotate-180';
         }
     }
 });
