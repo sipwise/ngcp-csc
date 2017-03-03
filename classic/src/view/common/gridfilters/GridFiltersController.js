@@ -18,8 +18,8 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         var me = this;
         var vm = me.getViewModel();
         var currentRoute = window.location.hash;
-        var linkedStore = me.getStoreFromRoute(currentRoute);
-        var store = Ext.getStore(linkedStore);
+        var storeName = me.getStoreFromRoute(currentRoute);
+        var store = Ext.getStore(storeName);
         if (vm.get('freeSearchState')) {
             store.filterBy(me.applyFreeSearchFilter, me);
         } else {
@@ -134,12 +134,12 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         var vm = me.getViewModel();
         var currentRoute = window.location.hash;
         var form = this.getFormReference(currentRoute);
-        var linkedStore = me.getStoreFromRoute(currentRoute);
+        var storeName = me.getStoreFromRoute(currentRoute);
         if (form.isValid()) {
-            if (Ext.isString(linkedStore)) {
-                linkedStore = [linkedStore]; // both string and array should be allowed
+            if (Ext.isString(storeName)) {
+                storeName = [storeName]; // both string and array should be allowed
             }
-            Ext.each(linkedStore, function(storeId) {
+            Ext.each(storeName, function(storeId) {
                 store = Ext.getStore(storeId);
                 switch (true) {
                     case (currentRoute == '#inbox'):
@@ -164,8 +164,8 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
     applyCallFilters: function(record) {
         var vm = this.getViewModel();
         var currentRoute = window.location.hash;
-        var linkedStore = this.getStoreFromRoute(currentRoute);
-        var store = Ext.getStore(linkedStore);
+        var storeName = this.getStoreFromRoute(currentRoute);
+        var store = Ext.getStore(storeName);
         /* filters */
         var fromFilter = vm.get('filtergrid.from_date');
         var toFilter = vm.get('filtergrid.to_date') || Date.now();
@@ -196,13 +196,13 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         var vm = this.getViewModel();
         var fieldInput = vm.get('filtergrid.headerBarFieldInput') || "";
         var extension = vm.get('filtergrid.seats_extension') ? vm.get('filtergrid.seats_extension').toLowerCase().split(',') : [];
-        var groups = vm.get('filtergrid.groups') ? vm.get('filtergrid.groups').toLowerCase().split(',') : [];
+        var group = vm.get('filtergrid.group') ? vm.get('filtergrid.group').toLowerCase().split(',') : [];
         var numbers = vm.get('filtergrid.numbers') || "";
         var phone_devices = vm.get('filtergrid.phone_devices') ? vm.get('filtergrid.phone_devices').toLowerCase().split(',') : [];
         var retVal = true;
         if (fieldInput && record.get('name').toLowerCase().indexOf(fieldInput) == -1 ||
             extension && record.get('extension').toLowerCase().indexOf(extension) == -1 ||
-            groups && record.get('groups').toLowerCase().indexOf(groups) == -1 ||
+            group && record.get('group').toLowerCase().indexOf(group) == -1 ||
             numbers && record.get('numbers').toLowerCase().indexOf(numbers) == -1 ||
             phone_devices && record.get('phone_devices').toLowerCase().indexOf(phone_devices) == -1
         ) {
@@ -251,11 +251,11 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         var store;
         var me = this;
         var currentRoute = window.location.hash;
-        var linkedStore = me.getStoreFromRoute(currentRoute);
-        if (Ext.isString(linkedStore)) {
-            linkedStore = [linkedStore]; // both string and array should be allowed
+        var storeName = me.getStoreFromRoute(currentRoute);
+        if (Ext.isString(storeName)) {
+            storeName = [storeName]; // both string and array should be allowed
         }
-        Ext.each(linkedStore, function(storeId) {
+        Ext.each(storeName, function(storeId) {
             store = Ext.getStore(storeId);
             me.resetVM(store);
         })
@@ -282,7 +282,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         vm.set('filtergrid.name', '');
         vm.set('filtergrid.seats_extension', '');
         vm.set('filtergrid.groups_extension', '');
-        vm.set('filtergrid.groups', '');
+        vm.set('filtergrid.group', '');
         vm.set('filtergrid.phone_devices', '');
         vm.set('filtergrid.enabled', true);
         vm.set('filtergrid.disabled', true);

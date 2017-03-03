@@ -1592,11 +1592,11 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'ADD NEW DEVICE'
             },
             device: {
-                en: 'device',
-                it: 'device',
-                de: 'device',
-                fr: 'device',
-                sp: 'device'
+                en: 'Device',
+                it: 'Device',
+                de: 'Device',
+                fr: 'Device',
+                sp: 'Device'
             },
             device_profile: {
                 en: 'Device profile',
@@ -1611,6 +1611,146 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Destination',
                 fr: 'Destination',
                 sp: 'Destination'
+            },
+            extension: {
+                en: 'Extension:',
+                it: 'Extension:',
+                de: 'Extension:',
+                fr: 'Extension:',
+                sp: 'Extension:'
+            },
+            mac: {
+                en: 'Mac address:',
+                it: 'Mac address:',
+                de: 'Mac address:',
+                fr: 'Mac address:',
+                sp: 'Mac address:'
+            },
+            numbers: {
+                en: 'Numbers:',
+                it: 'Numbers:',
+                de: 'Numbers:',
+                fr: 'Numbers:',
+                sp: 'Numbers:'
+            },
+            phone_devices: {
+                en: 'Phone/devices:',
+                it: 'Phone/devices:',
+                de: 'Phone/devices:',
+                fr: 'Phone/devices:',
+                sp: 'Phone/devices:'
+            },
+            hunt_policy: {
+                en: 'Hunt policy:',
+                it: 'Hunt policy:',
+                de: 'Hunt policy:',
+                fr: 'Hunt policy:',
+                sp: 'Hunt policy:'
+            },
+            hunt_timeout: {
+                en: 'Hunt timeout:',
+                it: 'Hunt timeout:',
+                de: 'Hunt timeout:',
+                fr: 'Hunt timeout:',
+                sp: 'Hunt timeout'
+            },
+            status: {
+                en: 'Status:',
+                it: 'Status:',
+                de: 'Status:',
+                fr: 'Status:',
+                sp: 'Status:'
+            },
+            no_changes_saved: {
+                en: 'No changes saved.',
+                it: 'No changes saved.',
+                de: 'No changes saved.',
+                fr: 'No changes saved.',
+                sp: 'No changes saved.'
+            },
+            changes_saved: {
+                en: 'Changes saved.',
+                it: 'Changes saved.',
+                de: 'Changes saved.',
+                fr: 'Changes saved.',
+                sp: 'Changes saved.'
+            },
+            name: {
+                en: 'Name:',
+                it: 'Name:',
+                de: 'Name:',
+                fr: 'Name:',
+                sp: 'Name:'
+            },
+            enter_new_name: {
+                en: 'Enter new name',
+                it: 'Enter new name',
+                de: 'Enter new name',
+                fr: 'Enter new name',
+                sp: 'Enter new name'
+            },
+            enter_new_extension: {
+                en: 'Enter new extension',
+                it: 'Enter new extension',
+                de: 'Enter new extension',
+                fr: 'Enter new extension',
+                sp: 'Enter new extension'
+            },
+            enter_new_groups: {
+                en: 'Enter new groups',
+                it: 'Enter new groups',
+                de: 'Enter new groups',
+                fr: 'Enter new groups',
+                sp: 'Enter new groups'
+            },
+            enter_new_numbers: {
+                en: 'Enter new numbers',
+                it: 'Enter new numbers',
+                de: 'Enter new numbers',
+                fr: 'Enter new numbers',
+                sp: 'Enter new numbers'
+            },
+            enter_new_phone: {
+                en: 'Enter new phone',
+                it: 'Enter new phone',
+                de: 'Enter new phone',
+                fr: 'Enter new phone',
+                sp: 'Enter new phone'
+            },
+            enter_new_hunt_policy: {
+                en: 'Enter new hunt policy',
+                it: 'Enter new hunt policy',
+                de: 'Enter new hunt policy',
+                fr: 'Enter new hunt policy',
+                sp: 'Enter new hunt policy'
+            },
+            enter_new_hunt_timeout: {
+                en: 'Enter new hunt timeout',
+                it: 'Enter new hunt timeout',
+                de: 'Enter new hunt timeout',
+                fr: 'Enter new hunt timeout',
+                sp: 'Enter new hunt timeout'
+            },
+            enter_new_device: {
+                en: 'Enter new device',
+                it: 'Enter new device',
+                de: 'Enter new device',
+                fr: 'Enter new device',
+                sp: 'Enter new device'
+            },
+            enter_new_mac_address: {
+                en: 'Enter new mac address',
+                it: 'Enter new mac address',
+                de: 'Enter new mac address',
+                fr: 'Enter new mac address',
+                sp: 'Enter new mac address'
+            },
+            enter_new_status: {
+                en: 'Enter new status',
+                it: 'Enter new status',
+                de: 'Enter new status',
+                fr: 'Enter new status',
+                sp: 'Enter new status'
             },
             autoattendant: {
                 title: {
@@ -1706,6 +1846,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Something went wrong. Please retry later',
                 fr: 'Something went wrong. Please retry later',
                 sp: 'Something went wrong. Please retry later'
+            },
+            fields_required: {
+                en: 'All fields are required. Please fill and try again.',
+                it: 'All fields are required. Please fill and try again.',
+                de: 'All fields are required. Please fill and try again.',
+                fr: 'All fields are required. Please fill and try again.',
+                sp: 'All fields are required. Please fill and try again.'
             },
             add_success: {
                 en: 'Successfully added.',
@@ -1918,11 +2065,18 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Done'
             },
             groups: {
-                en: 'Groups',
-                it: 'Groups',
-                de: 'Groups',
-                fr: 'Groups',
-                sp: 'Groups'
+                en: 'Groups:',
+                it: 'Groups:',
+                de: 'Groups:',
+                fr: 'Groups:',
+                sp: 'Groups:'
+            },
+            group: {
+                en: 'Group:',
+                it: 'Group:',
+                de: 'Group:',
+                fr: 'Group:',
+                sp: 'Group:'
             },
             ago: {
                 en: 'ago',

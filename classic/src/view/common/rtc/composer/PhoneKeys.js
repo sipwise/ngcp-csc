@@ -19,7 +19,7 @@ Ext.define('NgcpCsc.view.common.composer.PhoneKeys', {
         layout: {
             type: 'hbox',
             align: 'stretch',
-            pack:'center'
+            pack: 'center'
         },
         defaults: {
             xtype: 'button',

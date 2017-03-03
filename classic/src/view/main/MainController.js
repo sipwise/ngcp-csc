@@ -10,7 +10,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
             '*': {
                 showmessage: 'showMessage',
                 updateconversationtitle: 'setSectionTitle',
-                setcardheight:'setCardHeight'
+                setcardheight: 'setCardHeight'
             }
         }
     },
