@@ -100,13 +100,16 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
             this.fireEvent('initrtc', record, 'startVideoCall', true);
     },
     nodeClicked: function(node, record, item, index, e) {
+        var me = this;
         if (record.get('checked') != null || record.get('name') == 'Buddies')
             return;
-        this.redirectTo('conversation-with');
-        if (!record.get('leaf'))
-            this.fireEvent('openchanneltab', record);
-        else
-            this.fireEvent('openpmtab', null, record);
+        this.fireEvent('updateconversationtitle', 'conversation-with', record);
+        if (record.get('leaf')){
+            this.redirectTo('conversation-with');
+            Ext.Function.defer(function(){
+                me.fireEvent('openpmtab', null, record);
+            }, 100);
+        }
         return false;
     },
     deleteNode: function(grid, rowIndex, colIndex, item, ev) {

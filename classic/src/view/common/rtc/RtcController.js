@@ -21,7 +21,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         switch (action) {
             case 'startCall':
             case 'startVideoCall':
-                var buddyUser = Ext.getStore('Chat').findRecord('uid', record.get('uid'));
+                var buddyUser = Ext.getStore('Notifications').findRecord('uid', record.get('uid'));
                 var number = (buddyUser) ? buddyUser.get('number') : record.get('caller') || record.get('source_cli') || record.get('mobile');
                 var mainView = Ext.ComponentQuery.query('[name=mainView]')[0];
                 vm.set('title', Ext.String.format('Call with {0}', number));
@@ -36,6 +36,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                 vm.set('videoEnabled', switchVideoOn || false);
                 mainView.getViewModel().set('sectionTitle', 'Conversation with ' + number);
                 this.redirectTo('conversation-with');
+                this.fireEvent('openpmtab', null, record);
                 this.emulateCall(true, action == 'startVideoCall');
                 break;
             case 'phoneComposer':
@@ -248,6 +249,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         if(faxForm.isValid()){
             mainView.getViewModel().set('sectionTitle', 'Conversation with ' + vm.get('numberToCall'));
             this.redirectTo('conversation-with');
+            this.fireEvent('openpmtab', null, record);
             faxForm.reset();
             this.fireEvent('showmessage', true, Ngcp.csc.locales.rtc.fax_sent[localStorage.getItem('languageSelected')]);
         }else{
@@ -260,6 +262,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         var mainView = Ext.ComponentQuery.query('[name=mainView]')[0];
         mainView.getViewModel().set('sectionTitle', 'Conversation with ' + vm.get('numberToCall'));
         this.redirectTo('conversation-with');
+        this.fireEvent('openpmtab', null, record);
         this.fireEvent('showmessage', true, Ngcp.csc.locales.rtc.sms_sent[localStorage.getItem('languageSelected')]);
     }
 });
