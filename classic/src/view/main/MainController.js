@@ -8,7 +8,9 @@ Ext.define('NgcpCsc.view.main.MainController', {
                 unmatchedroute: 'onRouteChange'
             },
             '*': {
-                showmessage: 'showMessage'
+                showmessage: 'showMessage',
+                updateconversationtitle: 'setSectionTitle',
+                setcardheight:'setCardHeight'
             }
         }
     },
@@ -78,6 +80,10 @@ Ext.define('NgcpCsc.view.main.MainController', {
         if (newView.isFocusable(true)) {
             newView.focus();
         }
+
+        me.toggleFilter();
+
+        me.fireEvent('resetFilters');
 
         me.lastView = newView;
     },
@@ -177,7 +183,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
         this.setCurrentView(id);
         this.fireEvent('routeChange');
         this.setSectionTitle(id);
-        if (id == 'inbox' || id == 'pbxconfig/seats' || id == 'pbxconfig/groups' || id == 'pbxconfig/devices') {
+        if (id == 'inbox' || id == 'conversation-with' || id == 'pbxconfig/seats' || id == 'pbxconfig/groups' || id == 'pbxconfig/devices') {
             vm.set('headerBarFieldHideState', false);
         } else {
             vm.set('headerBarFieldHideState', true);
@@ -188,12 +194,18 @@ Ext.define('NgcpCsc.view.main.MainController', {
         };
     },
 
-    setSectionTitle: function(id) {
+    setSectionTitle: function(id, record) {
         var vm = this.getViewModel();
         var title;
         switch (id) {
             case 'inbox':
                 title = Ngcp.csc.locales.conversations.title[localStorage.getItem('languageSelected')];
+                break;
+            case 'conversation-with':
+                if(!record){
+                    return;
+                }
+                title = Ngcp.csc.locales.conversationwith.title[localStorage.getItem('languageSelected')] +' '+ record.get('name')
                 break;
             case 'addressbook':
                 title =  Ngcp.csc.locales.addressbook.title[localStorage.getItem('languageSelected')];
@@ -304,6 +316,14 @@ Ext.define('NgcpCsc.view.main.MainController', {
             count++;
         });
         return count;
+    },
+
+    setCardHeight:function(){
+        var activeTab = this.lookupReference('mainCardPanel').getLayout().getActiveItem();
+        var gridFiltersHeight = this.lookupReference('gridFilters').getHeight();
+        var newHeight = screen.height - (Ext.os.is.Desktop ? 200 : 100) - gridFiltersHeight;
+        activeTab.setHeight(newHeight);
+        this.fireEvent('focusLastMsg')
     },
 
     newSearch: function(el) {

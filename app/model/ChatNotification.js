@@ -1,20 +1,4 @@
-Ext.define('NgcpCsc.model.ChatNotification', {
+Ext.define('NgcpCsc.model.Message', {
     extend: 'Ext.data.Model',
-    fields: [{
-        name: '_id'
-    }, {
-        name: 'parent_id'
-    }, {
-        name: 'name'
-    }, {
-        name: 'source'
-    }, {
-        name: 'date'
-    }, {
-        name: 'isActive'
-    }, {
-        name: 'time'
-    }, {
-        name: 'content'
-    }]
+    fields: ['_id', 'new_message']
 });

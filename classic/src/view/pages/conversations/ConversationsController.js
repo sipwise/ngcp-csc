@@ -1,7 +1,9 @@
 Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
-    extend: 'NgcpCsc.view.pages.account.AccountController',
+    extend: 'Ext.app.ViewController',
 
     alias: 'controller.conversations',
+
+    id:'conversations',
 
     onIconClicked: function(event, el) {
         if (el.dataset.callback) {
@@ -161,8 +163,8 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
         return '<div class="conv-description">' + desc + '</div>';
     },
 
-    renderCaller: function(val) {
-        return '<div class="caller">' + val + '</div>';
+    renderCallee: function(val) {
+        return '<div class="callee">' + val + '</div>';
     },
 
     removeCard: function(el) {
@@ -211,7 +213,12 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
     },
 
     startChat: function(el) {
-        this.fireEvent('initrtc', record, 'startCall');
+        var record = Ext.getStore('Conversations').findRecord('id', el.id.split('-')[1]);
+        var me = this;
+        me.redirectTo('conversation-with');
+        Ext.Function.defer(function(){
+            me.fireEvent('openpmtab', null, record, true);
+        }, 100);
     },
 
     composeSms: function() {
