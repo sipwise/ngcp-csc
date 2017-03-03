@@ -54,7 +54,7 @@ Ext.define('NgcpCsc.view.pages.conversations.CallsGrid', {
         }, {
             text: (this._groupCallsByMonth) ? Ngcp.csc.locales.common.number[localStorage.getItem('languageSelected')] : '',
             dataIndex: 'source_cli',
-            renderer: 'renderCaller',
+            renderer: 'renderCallee',
             flex: 3
         }]
     },

@@ -1,6 +1,7 @@
 Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.rtc',
+    id:'rtc',
     listen: {
         controller: {
             '*': {
@@ -15,18 +16,27 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     intervalId: '',
 
     showRtcPanel: function(record, action, switchVideoOn) {
+        var me = this;
         var panel = this.getView();
         var vm = this.getViewModel();
         vm.set('numberToCall', '');
         switch (action) {
             case 'startCall':
             case 'startVideoCall':
-                var buddyUser = Ext.getStore('Chat').findRecord('uid', record.get('uid'));
-                var number = (buddyUser) ? buddyUser.get('number') : record.get('caller') || record.get('source_cli') || record.get('mobile');
+                var number = record.get('name') || record.get('source_cli') || record.get('callee');
                 var mainView = Ext.ComponentQuery.query('[name=mainView]')[0];
+                var notification = Ext.create('NgcpCsc.model.Notification',{
+                    'id' : Ext.id(),
+                    'conversation_type' :'call',
+                    'name':number,
+                    'direction':'outgoing',
+                    'status':'answered',
+                    'start_time' : Date.now()
+                });
+                vm.set('uid', record.get('uid') || number);
                 vm.set('title', Ext.String.format('Call with {0}', number));
-                vm.set('thumbnail', (buddyUser) ? buddyUser.get('thumbnail') : this.getViewModel().get('defaultThumbnail'));
-                vm.set('status', Ext.String.format('calling {0} ...', (buddyUser) ? buddyUser.get('name') : ''));
+                vm.set('thumbnail', record.get('thumbnail') || this.getViewModel().get('defaultThumbnail'));
+                vm.set('status', Ext.String.format('calling {0} ...', number));
                 vm.set('callEnabled', false);
                 vm.set('micEnabled', false);
                 vm.set('phoneComposerHidden', true);
@@ -35,8 +45,11 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                 vm.set('callPanelHidden', false);
                 vm.set('videoEnabled', switchVideoOn || false);
                 mainView.getViewModel().set('sectionTitle', 'Conversation with ' + number);
-                this.redirectTo('conversation-with');
                 this.emulateCall(true, action == 'startVideoCall');
+                this.redirectTo('conversation-with');
+                Ext.Function.defer(function(){
+                    me.fireEvent('openpmtab', null, record);
+                }, 100);
                 break;
             case 'phoneComposer':
                 if(vm.get('connected')){
@@ -74,7 +87,18 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     },
 
     toogleChat: function(btn) {
-        this.fireEvent('togglechat', btn.pressed);
+        var me = this;
+        var vm = this.getViewModel();
+        var contactsStore = Ext.getStore('Contacts');
+        var contact = contactsStore.findRecord('uid', vm.get('uid')) || Ext.create('Ext.data.Model',{
+                id:vm.get('uid'),
+                name:vm.get('number')
+        });
+        me.fireEvent('updateconversationtitle', 'conversation-with', contact);
+        me.redirectTo('conversation-with');
+        Ext.Function.defer(function(){
+            me.fireEvent('openpmtab', null, contact, true);
+        }, 100);
     },
 
     toggleFullscreen: function() {
@@ -103,7 +127,9 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         this.getView().hide();
         vm.set('status', '');
         clearInterval(this.intervalId);
-        this.endCall();
+        if(vm.get('connected')){
+            this.endCall();
+        }
         return false;
     },
     emulateCall: function(audioOn, videoOn) {
@@ -163,10 +189,8 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     },
     toggleCall: function(btn) {
         if (btn.pressed) { // this can be also checked against vm.get('callEnabled')
-            btn.removeCls('fa-rotate-180');
             this.emulateCall(true, false);
         } else {
-            btn.addCls('fa-rotate-180');
             this.endCall();
         }
     },
@@ -187,6 +211,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         }
         vm.set('status', 'Call ended.');
         vm.set('connected', false);
+        this.fireEvent('notify', 'call');
     },
 
     startMedia: function(audio, video) {
@@ -236,30 +261,58 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     startNewCall: function() {
         var vm = this.getViewModel();
         var currentNum = vm.get('numberToCall');
-        var record = Ext.create('NgcpCsc.model.Conversation', {
-            caller: currentNum
+        var record = Ext.create('Ext.data.Model', {
+            callee: currentNum
         });
         this.showRtcPanel(record, 'startCall');
     },
     sendFax: function() {
-        var vm = this.getViewModel();
+        var me = this;
+        var vm = me.getViewModel();
         var mainView = Ext.ComponentQuery.query('[name=mainView]')[0];
-        var faxForm = this.getView().down('fax-composer');
+        var faxForm = me.getView().down('fax-composer');
+        var record = Ext.create('NgcpCsc.model.Notification',{
+            'id' : Ext.id(),
+            'conversation_type' :'fax',
+            'name' : vm.get('numberToCall'),
+            'direction':'outgoing',
+            'status':'answered',
+            'start_time' : Date.now()
+        });
         if(faxForm.isValid()){
             mainView.getViewModel().set('sectionTitle', 'Conversation with ' + vm.get('numberToCall'));
-            this.redirectTo('conversation-with');
+            me.redirectTo('conversation-with');
+            Ext.Function.defer(function(){
+                me.fireEvent('openpmtab', null, record);
+                me.fireEvent('notify', 'fax');
+            }, 100);
             faxForm.reset();
-            this.fireEvent('showmessage', true, Ngcp.csc.locales.rtc.fax_sent[localStorage.getItem('languageSelected')]);
+            me.fireEvent('showmessage', true, Ngcp.csc.locales.rtc.fax_sent[localStorage.getItem('languageSelected')]);
         }else{
-            this.fireEvent('showmessage', false, Ngcp.csc.locales.common.invalid_form[localStorage.getItem('languageSelected')]);
+            me.fireEvent('showmessage', false, Ngcp.csc.locales.common.invalid_form[localStorage.getItem('languageSelected')]);
         }
-
     },
     sendSms: function() {
-        var vm = this.getViewModel();
+        var me = this;
+        var vm = me.getViewModel();
         var mainView = Ext.ComponentQuery.query('[name=mainView]')[0];
+        var smsForm = me.getView().down('sms-composer');
+        var record = Ext.create('NgcpCsc.model.Notification',{
+            'id' : Ext.id(),
+            'conversation_type' :'sms',
+            'name' : vm.get('numberToCall'),
+            'direction':'outgoing',
+            'status':'answered',
+            'text' : vm.get('smsText'),
+            'start_time' : Date.now()
+        });
         mainView.getViewModel().set('sectionTitle', 'Conversation with ' + vm.get('numberToCall'));
-        this.redirectTo('conversation-with');
+        me.redirectTo('conversation-with');
+        Ext.Function.defer(function(){
+            me.fireEvent('openpmtab', null, record);
+            me.fireEvent('notify', 'sms', vm.get('smsText'));
+        }, 100);
+        smsForm.reset();
         this.fireEvent('showmessage', true, Ngcp.csc.locales.rtc.sms_sent[localStorage.getItem('languageSelected')]);
     }
 });
