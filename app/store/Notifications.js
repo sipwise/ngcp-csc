@@ -1,15 +1,15 @@
-Ext.define('NgcpCsc.store.Chat', {
+Ext.define('NgcpCsc.store.Notifications', {
     extend: 'Ext.data.Store',
 
-    storeId: 'Chat',
+    storeId: 'Notifications',
 
-    model: 'NgcpCsc.model.ChatNotification',
+    model: 'NgcpCsc.model.Notification',
 
     autoLoad:true,
 
     proxy: {
         type: 'ajax',
-        url: '/resources/data/chat.json',
+        url: '/resources/data/notifications.json',
         reader: {
             type: 'json',
             rootProperty: 'data'

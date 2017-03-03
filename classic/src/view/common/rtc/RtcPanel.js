@@ -120,10 +120,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
                 handler:'toggleAudioVideo'
             }, {
                 iconCls: 'x-fa fa-comment',
-                bind: {
-                    pressed: '{chatEnabled}',
-                    disabled: '{!connected}'
-                },
+                enableToggle: false,
                 handler: 'toogleChat'
             }]
         }]
