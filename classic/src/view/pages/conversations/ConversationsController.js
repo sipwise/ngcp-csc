@@ -3,7 +3,7 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
 
     alias: 'controller.conversations',
 
-    id:'conversations',
+    id: 'conversations',
 
     onIconClicked: function(event, el) {
         if (el.dataset.callback) {

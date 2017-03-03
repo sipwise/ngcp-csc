@@ -1,7 +1,7 @@
 Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.rtc',
-    id:'rtc',
+    id: 'rtc',
     listen: {
         controller: {
             '*': {
@@ -27,11 +27,11 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                 var mainView = Ext.ComponentQuery.query('[name=mainView]')[0];
                 var notification = Ext.create('NgcpCsc.model.Notification',{
                     'id' : Ext.id(),
-                    'conversation_type' :'call',
-                    'name':number,
-                    'direction':'outgoing',
-                    'status':'answered',
-                    'start_time' : Date.now()
+                    'conversation_type': 'call',
+                    'name': number,
+                    'direction': 'outgoing',
+                    'status': 'answered',
+                    'start_time': Date.now()
                 });
                 vm.set('uid', record.get('uid') || number);
                 vm.set('title', Ext.String.format('Call with {0}', number));
@@ -94,8 +94,8 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         var vm = this.getViewModel();
         var contactsStore = Ext.getStore('Contacts');
         var contact = contactsStore.findRecord('uid', vm.get('uid')) || Ext.create('Ext.data.Model',{
-                id:vm.get('uid'),
-                name:vm.get('number')
+                id: vm.get('uid'),
+                name: vm.get('number')
         });
         me.fireEvent('updateconversationtitle', 'conversation-with', contact);
         me.redirectTo('conversation-with');
@@ -168,8 +168,8 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                 if (hours == 24) {
                     hours = 0;
                 }
-                var duration = ((hours < 10) ? '0' + hours : hours) + ':' +
-                    ((minutes < 10) ? '0' + minutes : minutes) + ':' +
+                var duration = ((hours < 10) ? '0' + hours : hours) + ': ' +
+                    ((minutes < 10) ? '0' + minutes : minutes) + ': ' +
                     ((seconds < 10) ? '0' + seconds : seconds);
                 vm.set('status', 'connected ' + duration);
             }, 1000);
@@ -276,12 +276,12 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         var mainView = Ext.ComponentQuery.query('[name=mainView]')[0];
         var faxForm = me.getView().down('fax-composer');
         var record = Ext.create('NgcpCsc.model.Notification',{
-            'id' : Ext.id(),
-            'conversation_type' :'fax',
-            'name' : vm.get('numberToCall'),
-            'direction':'outgoing',
-            'status':'answered',
-            'start_time' : Date.now()
+            'id': Ext.id(),
+            'conversation_type': 'fax',
+            'name': vm.get('numberToCall'),
+            'direction': 'outgoing',
+            'status': 'answered',
+            'start_time': Date.now()
         });
         if(faxForm.isValid()){
             mainView.getViewModel().set('sectionTitle', 'Conversation with ' + vm.get('numberToCall'));
@@ -302,13 +302,13 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         var mainView = Ext.ComponentQuery.query('[name=mainView]')[0];
         var smsForm = me.getView().down('sms-composer');
         var record = Ext.create('NgcpCsc.model.Notification',{
-            'id' : Ext.id(),
-            'conversation_type' :'sms',
-            'name' : vm.get('numberToCall'),
-            'direction':'outgoing',
-            'status':'answered',
-            'text' : vm.get('smsText'),
-            'start_time' : Date.now()
+            'id': Ext.id(),
+            'conversation_type': 'sms',
+            'name': vm.get('numberToCall'),
+            'direction': 'outgoing',
+            'status': 'answered',
+            'text': vm.get('smsText'),
+            'start_time': Date.now()
         });
         mainView.getViewModel().set('sectionTitle', 'Conversation with ' + vm.get('numberToCall'));
         me.redirectTo('conversation-with');
