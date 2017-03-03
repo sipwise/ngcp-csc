@@ -19,7 +19,7 @@ Ext.define('NgcpCsc.store.NavigationTree', {
         }, {
             text: 'Conversation with',
             iconCls: 'x-fa fa-wechat',
-            viewType: 'chat',
+            viewType: 'conversationwith',
             routeId: 'conversation-with',
             acl: ['administrator', 'restricted'],
             visible: false,

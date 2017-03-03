@@ -103,6 +103,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         if (record.get('checked') != null || record.get('name') == 'Buddies')
             return;
         this.redirectTo('conversation-with');
+        this.fireEvent('updateconversationtitle', 'conversation-with', record);
         if (!record.get('leaf'))
             this.fireEvent('openchanneltab', record);
         else
