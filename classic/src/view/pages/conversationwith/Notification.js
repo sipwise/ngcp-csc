@@ -1,6 +1,6 @@
-Ext.define('NgcpCsc.view.pages.chat.ChatNotifications', {
+Ext.define('NgcpCsc.view.pages.conversationwith.Notifications', {
     extend: 'Ext.DataView',
-    xtype: 'chat-notifications',
+    xtype: 'notifications',
 
     cls: 'user-notifications',
 
