@@ -1,0 +1,127 @@
+.user-notifications {
+    padding: 15px;
+    background: #fff;
+
+    .x-view-item-focused {
+        outline: 0 !important;
+    }
+}
+
+.icon:before {
+    font-family: FontAwesome;
+    color: $base-color;
+}
+
+.call-icon,
+.chat-icon,
+.sms-icon,
+.voicemail-icon,
+.fax-icon,
+.incoming-answered-icon,
+.incoming-missed-icon,
+.outgoing-answered-icon,
+.outgoing-missed-icon
+ {
+    float: left;
+    margin-right: 10px;
+}
+
+.incoming-answered-icon:before {
+    @extend .icon:before;
+    content: "\f053";
+    color:#66a648;
+}
+.incoming-missed-icon:before {
+    @extend .icon:before;
+    content: "\f053";
+    color:#ea5000;
+}
+.outgoing-answered-icon:before {
+    @extend .icon:before;
+    content: "\f054";
+    color:#66a648;
+}
+.outgoing-missed-icon:before {
+    @extend .icon:before;
+    content: "\f054";
+    color:#ea5000;
+}
+
+.call-icon:before {
+    @extend .icon:before;
+    content: "\f095";
+}
+
+.chat-icon:before {
+    @extend .icon:before;
+    content: "\f0e5";
+}
+
+.sms-icon:before {
+    @extend .icon:before;
+    content: "\f003";
+}
+
+.voicemail-icon:before {
+    @extend .icon:before;
+    content: "\f115";
+}
+
+.fax-icon:before {
+    @extend .icon:before;
+    content: "\f0f6";
+}
+
+.notification {
+    margin-bottom: 20px;
+    .text {
+        margin-left:40px;
+    }
+}
+.menu-item-common {
+    padding-right: 20px;
+    position: absolute;
+    font-family: FontAwesome;
+    right: 0;
+}
+
+.new-message-cont {
+    margin-right: 10px;
+}
+
+.submit-new-message {
+    float: right;
+    top: 0 !important;
+}
+
+.hide-pm {
+    display: none;
+}
+
+.private-conversation-text {
+    padding: 30px;
+}
+
+.online-user {
+    color: $online-menu-item-color !important;
+}
+
+.offline-user {
+    color: $offline-menu-item-color !important;
+}
+
+.chat-container {
+    // replace core-container $ui , because tabpanel has no mixin/variables
+    border: 1px solid lightgray;
+    border-radius: 10px;
+
+    .x-panel-body {
+        background-color: $body-background-color;
+    }
+}
+
+.chat-default-msg-cont {
+    font-size: 16px;
+    text-align: center;
+    margin-top: 30px;
+}
