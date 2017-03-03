@@ -13,9 +13,9 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
 
     closable: true,
 
-    collapseDirection:'left',
+    collapseDirection: 'left',
 
-    cls:'rtc-panel',
+    cls: 'rtc-panel',
 
     bind: {
         title: '{title}'
@@ -25,7 +25,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
         glyph: 'xf065@FontAwesome',
         callback: 'toggleFullscreen',
         bind:{
-            hidden:'{!videoEnabled}'
+            hidden: '{!videoEnabled}'
         }
     },{
         type: 'minimize',
@@ -59,12 +59,12 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
         {
             margin:20,
             hidden:true,
-            width:'100%',
-            reference:'videoObj',
+            width: '100%',
+            reference: 'videoObj',
             html:"<video width=100% id=videoTag height=240></video>"
         },{
             cls: 'rtc-avatar-container',
-            reference:'avatar',
+            reference: 'avatar',
             items: {
                 xtype: 'image',
                 cls: 'rtc-avatar',
@@ -95,7 +95,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
                     pressed: '{callEnabled}',
                     userCls: '{setuserCls}'
                 },
-                handler:'toggleCall'
+                handler: 'toggleCall'
             }, {
                 iconCls: Ngcp.csc.icons.microphone,
                 bind: {
@@ -103,7 +103,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
                     disabled: '{!connected}',
                     hidden: '{!micEnabled}'
                 },
-                handler:'toggleAudioVideo'
+                handler: 'toggleAudioVideo'
             },{
                 iconCls: Ngcp.csc.icons.microphone_slash,
                 bind: {
@@ -111,14 +111,14 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
                     disabled: '{!connected}',
                     hidden: '{micEnabled}'
                 },
-                handler:'toggleAudioVideo'
+                handler: 'toggleAudioVideo'
             },  {
                 iconCls: Ngcp.csc.icons.video,
                 bind: {
                     pressed: '{videoEnabled}',
                     disabled: '{!connected}'
                 },
-                handler:'toggleAudioVideo'
+                handler: 'toggleAudioVideo'
             }, {
                 iconCls: Ngcp.csc.icons.comment,
                 bind: {
