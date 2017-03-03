@@ -33,6 +33,7 @@ Ext.define('Ngcp.csc.icons', {
         faxpaper2x: "x-fa fa-file-text fa-2x",
         faxpaper_transparent: "x-fa fa-file-text-o",
         filter: "x-fa fa-filter",
+        floppy: "x-fa fa-floppy-o",
         folder: "x-fa fa-folder-open-o",
         home: "x-fa fa-home",
         key: "x-fa fa-key",

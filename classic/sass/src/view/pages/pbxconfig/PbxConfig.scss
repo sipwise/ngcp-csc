@@ -1,0 +1,29 @@
+// mixins
+@include extjs-toolbar-ui(
+    $ui: 'pbxconfig-tbar',
+    $background-color: '#F6F6F6'
+);
+
+.pbx-widget-grid {
+    .x-box-inner,
+    .x-grid-item-selected,
+    .x-grid-item-over,
+    .card-icon-row {
+        background: white;
+        .hidden {
+            display: none;
+        }
+    }
+    .x-panel-body-core-grid-cards {
+        // From GridCards.scss, what creates the top border. Removing it is not
+        // an option, as the top row then appears to have no top border
+    }
+    .pbx-data-value {
+        color: #606060;
+        font-weight: bold;
+    }
+    .x-grid-cell-inner {
+        font-size: 15px;
+        margin-left: -10px;
+    }
+}
