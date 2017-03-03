@@ -2,7 +2,7 @@ Ext.define('NgcpCsc.model.VoiceMail', {
     extend: 'Ext.data.Model',
 
     fields: [{
-        name: 'caller',
+        name: 'callee',
         type: 'string'
     }, {
         name: 'duration',

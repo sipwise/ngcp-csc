@@ -63,7 +63,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         var newChatName = tbar.down('[name=newChatName]');
         var newChatBtn = tbar.down('[name=newChatBtn]');
         if (newChatName.getValue().length < 1) {
-            this.fireEvent('showmessage', false, Ngcp.csc.locales.chat.alerts.choose_valid_name[localStorage.getItem('languageSelected')]);
+            this.fireEvent('showmessage', false, Ngcp.csc.locales.conversationwith.alerts.choose_valid_name[localStorage.getItem('languageSelected')]);
             return;
         }
 
@@ -74,7 +74,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
             "children": []
         });
         contacts.getStore().sort('online', 'DESC');
-        this.fireEvent('showmessage', true, Ngcp.csc.locales.chat.alerts.channel_created[localStorage.getItem('languageSelected')]);
+        this.fireEvent('showmessage', true, Ngcp.csc.locales.conversationwith.alerts.channel_created[localStorage.getItem('languageSelected')]);
         createGroupBtn.show();
         newChatName.hide();
         newChatBtn.hide();
@@ -100,13 +100,16 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
             this.fireEvent('initrtc', record, 'startVideoCall', true);
     },
     nodeClicked: function(node, record, item, index, e) {
+        var me = this;
         if (record.get('checked') != null || record.get('name') == 'Buddies')
             return;
-        this.redirectTo('conversation-with');
-        if (!record.get('leaf'))
-            this.fireEvent('openchanneltab', record);
-        else
-            this.fireEvent('openpmtab', null, record);
+        this.fireEvent('updateconversationtitle', 'conversation-with', record);
+        if (record.get('leaf')){
+            this.redirectTo('conversation-with');
+            Ext.Function.defer(function(){
+                me.fireEvent('openpmtab', null, record);
+            }, 100);
+        }
         return false;
     },
     deleteNode: function(grid, rowIndex, colIndex, item, ev) {
@@ -115,7 +118,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         if (nodeToDelete.get('leaf'))
             return;
         Ext.Msg.show({
-            message: Ext.String.format(Ngcp.csc.locales.chat.alerts.channel_delete[localStorage.getItem('languageSelected')], nodeToDelete.get('name')),
+            message: Ext.String.format(Ngcp.csc.locales.conversationwith.alerts.channel_delete[localStorage.getItem('languageSelected')], nodeToDelete.get('name')),
             buttons: Ext.Msg.YESNO,
             icon: Ext.Msg.QUESTION,
             fn: function(btn) {

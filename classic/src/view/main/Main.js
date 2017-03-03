@@ -24,7 +24,7 @@ Ext.define('NgcpCsc.view.main.Main', {
         resize: 'setItemsSize'
     },
 
-    name:'mainView',
+    name: 'mainView',
 
     initComponent: function() {
         var vm = this.getViewModel();
@@ -132,21 +132,26 @@ Ext.define('NgcpCsc.view.main.Main', {
                     type: 'hbox'
                 },
                 userCls: 'main-container',
-                defaults:{
+                defaults: {
                     scrollable: true,
-                    height:'100%'
+                    height: '100%'
                 },
                 items: [{
                     flex: 5,
-                    scrollable:false,
-                    id:'mainContainerInner',
+                    scrollable: false,
+                    id: 'mainContainerInner',
                     items: [{
                         reference: 'sectionTitle',
                         bind: {
                             title: '{sectionTitle}'
                         }
                     }, {
-                        xtype: 'gridfilters'
+                        xtype: 'gridfilters',
+                        reference: 'gridFilters',
+                        listeners:{
+                            show:'setCardHeight',
+                            hide:'setCardHeight'
+                        }
                     }, {
                         reference: 'mainCardPanel',
                         cls: 'sencha-dash-right-main-container',
@@ -157,9 +162,8 @@ Ext.define('NgcpCsc.view.main.Main', {
                         listeners: {
                             resize: 'mainContainerResized'
                         },
-                        defaults:{
-                            scrollable:true,
-                            height: screen.height - (Ext.os.is.Desktop ? 200 : 100) // - header + filters height
+                        defaults: {
+                            scrollable: true
                         }
                     }]
                 }, {
@@ -172,8 +176,7 @@ Ext.define('NgcpCsc.view.main.Main', {
                     width: 250,
                     resizable: Ext.os.is.Desktop,
                     xtype: 'contacts',
-                    ui: 'core-container',
-                    margin: '0 0 20 0'
+                    ui: 'core-container'
                 }]
             }]
         }];

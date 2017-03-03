@@ -26,6 +26,10 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
                 case (currentRoute == '#inbox'):
                     store.filterBy(me.applyConvSearchFilter, me);
                     break;
+                case (currentRoute == '#conversation-with'):
+                    store.filterBy(me.applyConvWithSearchFilter, me);
+                    break;
+                break
                 case (currentRoute == '#pbxconfig/devices'):
                     store.filterBy(me.applyPbxSearchFilter, me);
                     break;
@@ -57,6 +61,9 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
             case (currentRoute == '#inbox'):
                 return 'Conversations';
                 break;
+            case (currentRoute == '#conversation-with'):
+                return 'Notifications';
+                break;
             case (currentRoute == '#pbxconfig/devices'):
                 return 'Devices';
                 break;
@@ -80,6 +87,17 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         return retVal;
     },
 
+    applyConvWithSearchFilter: function(record) {
+        var vm = this.getViewModel();
+        var store = Ext.getStore('Notifications');
+        var fieldInput = vm.get('filtergrid.headerBarFieldInput').toLowerCase();
+        var retVal = true;
+        if (fieldInput && record.get('text').indexOf(fieldInput) == -1) {
+            retVal = false;
+        }
+        return retVal;
+    },
+
     applyPbxSearchFilter: function(record) {
         var vm = this.getViewModel();
         var store = Ext.getStore('Conversations');
@@ -94,6 +112,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
     getFormReference: function (currentRoute) {
         switch (true) {
             case (currentRoute == '#inbox'):
+            case (currentRoute == '#conversation-with'):
                 return this.lookupReference('conversationsFilterForm');
                 break;
             case (currentRoute == '#pbxconfig/seats'):
@@ -123,6 +142,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
                 store = Ext.getStore(storeId);
                 switch (true) {
                     case (currentRoute == '#inbox'):
+                    case (currentRoute == '#conversation-with'):
                         store.filterBy(me.applyCallFilters, me);
                         break;
                     case (currentRoute == '#pbxconfig/seats'):
@@ -296,8 +316,10 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
     toggleFilterForm: function () {
         var vm = this.getViewModel();
         var currentRoute = window.location.hash;
+        var me = this;
         switch (true) {
             case (currentRoute == '#inbox'):
+            case (currentRoute == '#conversation-with'):
                 vm.set('filtergrid.convFilterHideState', !vm.get('filtergrid.convFilterHideState'));
                 break;
             case (currentRoute == '#pbxconfig/seats'):
@@ -311,6 +333,10 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
                 break;
         };
         vm.set('headerBarFieldHideState', !vm.get('headerBarFieldHideState'));
+        // we need to resize the section container when the filterpanel toggles
+        Ext.Function.defer(function(){
+            me.fireEvent('setCardHeight');
+        }, 100);
     },
 
     hideFilterForms: function () {

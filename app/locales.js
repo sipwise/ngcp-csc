@@ -1156,10 +1156,10 @@ Ext.define('Ngcp.csc.locales', {
                 it: 'Contacts',
                 de: 'Contacts',
                 fr: 'Contacts',
-                sp: 'Conversation with'
+                sp: 'Contacts'
             }
         },
-        chat: {
+        conversationwith: {
             title: {
                 en: 'Conversation with',
                 it: 'Conversation with',
@@ -1191,11 +1191,11 @@ Ext.define('Ngcp.csc.locales', {
                 }
             },
             start_conversation: {
-                en: 'You can start a private conversation with {0} here.',
-                it: 'You can start a private conversation with {0} here.',
-                de: 'You can start a private conversation with {0} here.',
-                fr: 'You can start a private conversation with {0} here.',
-                sp: 'You can start a private conversation with {0} here.'
+                en: '',
+                it: 'You can start a conversation with {0} here.',
+                de: 'You can start a conversation with {0} here.',
+                fr: 'You can start a conversation with {0} here.',
+                sp: 'You can start a conversation with {0} here.'
             },
             start_group_conversation: {
                 en: 'You can start a group conversation here.',
@@ -1924,12 +1924,12 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Duration',
                 sp: 'Duration'
             },
-            caller: {
-                en: 'Caller',
-                it: 'Caller',
-                de: 'Caller',
-                fr: 'Caller',
-                sp: 'Caller'
+            callee: {
+                en: 'Callee',
+                it: 'Callee',
+                de: 'Callee',
+                fr: 'Callee',
+                sp: 'Callee'
             },
             callee: {
                 en: 'Callee',
@@ -1995,11 +1995,11 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'To'
             },
             done: {
-                en: 'done',
-                it: 'done',
-                de: 'done',
-                fr: 'done',
-                sp: 'done'
+                en: 'Done',
+                it: 'Done',
+                de: 'Done',
+                fr: 'Done',
+                sp: 'Done'
             },
             groups: {
                 en: 'Groups',
