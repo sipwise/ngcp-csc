@@ -8,6 +8,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.Seats', {
     controller: 'seats',
 
     initComponent: function() {
+        var seatsGrid = Ext.create('NgcpCsc.view.pages.PbxConfigGrid', {
+            reference: 'seatsGrid',
+            store: 'Seats'
+        });
 
         this.dockedItems = [{
             xtype: 'toolbar',
@@ -29,9 +33,9 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.Seats', {
             }]
         }];
 
-        this.items = [{
-            xtype: 'seats-grid'
-        }];
+        this.items = [
+            seatsGrid
+        ];
 
         this.callParent();
     }

@@ -8,6 +8,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.groups.Groups', {
     controller: 'groups',
 
     initComponent: function() {
+        var groupsGrid = Ext.create('NgcpCsc.view.pages.PbxConfigGrid', {
+            reference: 'groupsGrid',
+            store: 'Groups'
+        });
 
         this.dockedItems = [{
             xtype: 'toolbar',
@@ -29,10 +33,27 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.groups.Groups', {
             }]
         }];
 
-        this.items = [{
-            xtype: 'groups-grid'
-        }];
+        this.items = [
+            groupsGrid
+        ];
 
         this.callParent();
     }
 });
+
+// Ext.define('NgcpCsc.view.pages.callblocking.outgoing.Outgoing', {
+//     extend: 'NgcpCsc.view.pages.callblocking.CallBlocking',
+//
+//     xtype: 'outgoing',
+//
+//     _displayIncomingOutgoingSection: true,
+//
+//     initComponent: function () {
+//         var outgoingGrid = Ext.create('NgcpCsc.view.pages.callblocking.CallBlockingGrid', {
+//             store: 'CallBlockingOutgoing'
+//         });
+//         this.items = [outgoingGrid];
+//         this.callParent();
+//     }
+//
+// });
