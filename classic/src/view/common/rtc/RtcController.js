@@ -21,7 +21,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         switch (action) {
             case 'startCall':
             case 'startVideoCall':
-                var buddyUser = Ext.getStore('Chat').findRecord('uid', record.get('uid'));
+                var buddyUser = Ext.getStore('Notifications').findRecord('uid', record.get('uid'));
                 var number = (buddyUser) ? buddyUser.get('number') : record.get('caller') || record.get('source_cli') || record.get('mobile');
                 var mainView = Ext.ComponentQuery.query('[name=mainView]')[0];
                 vm.set('title', Ext.String.format('Call with {0}', number));
@@ -36,6 +36,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                 vm.set('videoEnabled', switchVideoOn || false);
                 mainView.getViewModel().set('sectionTitle', 'Conversation with ' + number);
                 this.redirectTo('conversation-with');
+                this.fireEvent('openpmtab', null, record);
                 this.emulateCall(true, action == 'startVideoCall');
                 break;
             case 'phoneComposer':
@@ -242,24 +243,46 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         this.showRtcPanel(record, 'startCall');
     },
     sendFax: function() {
-        var vm = this.getViewModel();
+        var me = this;
+        var vm = me.getViewModel();
         var mainView = Ext.ComponentQuery.query('[name=mainView]')[0];
-        var faxForm = this.getView().down('fax-composer');
+        var faxForm = me.getView().down('fax-composer');
+        var record = Ext.create('NgcpCsc.model.Notification',{
+            'id' : Ext.id(),
+            'conversation_type' :'fax',
+            'direction':'outgoing',
+            'status':'answered',
+            'start_time' : Date.now()
+        });
         if(faxForm.isValid()){
             mainView.getViewModel().set('sectionTitle', 'Conversation with ' + vm.get('numberToCall'));
-            this.redirectTo('conversation-with');
+            me.redirectTo('conversation-with');
+            Ext.Function.defer(function(){
+                me.fireEvent('openpmtab', null, record);
+            }, 300);
             faxForm.reset();
-            this.fireEvent('showmessage', true, Ngcp.csc.locales.rtc.fax_sent[localStorage.getItem('languageSelected')]);
+            me.fireEvent('showmessage', true, Ngcp.csc.locales.rtc.fax_sent[localStorage.getItem('languageSelected')]);
         }else{
-            this.fireEvent('showmessage', false, Ngcp.csc.locales.common.invalid_form[localStorage.getItem('languageSelected')]);
+            me.fireEvent('showmessage', false, Ngcp.csc.locales.common.invalid_form[localStorage.getItem('languageSelected')]);
         }
-
     },
     sendSms: function() {
-        var vm = this.getViewModel();
+        var me = this;
+        var vm = me.getViewModel();
         var mainView = Ext.ComponentQuery.query('[name=mainView]')[0];
+        var record = Ext.create('NgcpCsc.model.Notification',{
+            'id' : Ext.id(),
+            'conversation_type' :'sms',
+            'direction':'outgoing',
+            'status':'answered',
+            'text' : vm.get('smsText'),
+            'start_time' : Date.now()
+        });
         mainView.getViewModel().set('sectionTitle', 'Conversation with ' + vm.get('numberToCall'));
-        this.redirectTo('conversation-with');
+        me.redirectTo('conversation-with');
+        Ext.Function.defer(function(){
+            me.fireEvent('openpmtab', null, record);
+        }, 300);
         this.fireEvent('showmessage', true, Ngcp.csc.locales.rtc.sms_sent[localStorage.getItem('languageSelected')]);
     }
 });

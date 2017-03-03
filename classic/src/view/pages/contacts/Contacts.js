@@ -41,14 +41,14 @@ Ext.define('NgcpCsc.view.pages.contacts.Contacts', {
         items: [{
             xtype: 'button',
             name: 'showNewChatBtn',
-            text: Ngcp.csc.locales.chat.new_group[localStorage.getItem('languageSelected')],
+            text: Ngcp.csc.locales.conversationwith.new_group[localStorage.getItem('languageSelected')],
             handler: 'showCreationFields',
             align:'right'
         },{
             xtype: 'textfield',
             name: 'newChatName',
             hidden: true,
-            emptyText: Ngcp.csc.locales.chat.provide_name[localStorage.getItem('languageSelected')],
+            emptyText: Ngcp.csc.locales.conversationwith.provide_name[localStorage.getItem('languageSelected')],
             minLength: 1,
             enableKeyEvents: true,
             listeners: {
