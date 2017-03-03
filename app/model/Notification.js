@@ -1,4 +1,4 @@
-Ext.define('NgcpCsc.model.Chat', {
+Ext.define('NgcpCsc.model.Notification', {
     extend: 'Ext.data.Model',
 
     fields: [{
