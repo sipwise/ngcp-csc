@@ -17,8 +17,8 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         var me = this;
         var vm = me.getViewModel();
         var currentRoute = window.location.hash;
-        var linkedStore = me.getStoreFromRoute(currentRoute);
-        var store = Ext.getStore(linkedStore);
+        var storeName = me.getStoreFromRoute(currentRoute);
+        var store = Ext.getStore(storeName);
         if (vm.get('freeSearchState')) {
             store.filterBy(me.applyFreeSearchFilter, me);
         } else {
@@ -114,12 +114,12 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         var vm = me.getViewModel();
         var currentRoute = window.location.hash;
         var form = this.getFormReference(currentRoute);
-        var linkedStore = me.getStoreFromRoute(currentRoute);
+        var storeName = me.getStoreFromRoute(currentRoute);
         if (form.isValid()) {
-            if (Ext.isString(linkedStore)) {
-                linkedStore = [linkedStore]; // both string and array should be allowed
+            if (Ext.isString(storeName)) {
+                storeName = [storeName]; // both string and array should be allowed
             }
-            Ext.each(linkedStore, function(storeId) {
+            Ext.each(storeName, function(storeId) {
                 store = Ext.getStore(storeId);
                 switch (true) {
                     case (currentRoute == '#inbox'):
@@ -142,8 +142,8 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
     applyCallFilters: function(record) {
         var vm = this.getViewModel();
         var currentRoute = window.location.hash;
-        var linkedStore = this.getStoreFromRoute(currentRoute);
-        var store = Ext.getStore(linkedStore);
+        var storeName = this.getStoreFromRoute(currentRoute);
+        var store = Ext.getStore(storeName);
         /* filters */
         var fromFilter = vm.get('filtergrid.from_date');
         var toFilter = vm.get('filtergrid.to_date') || Date.now();
@@ -229,11 +229,11 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         var store;
         var me = this;
         var currentRoute = window.location.hash;
-        var linkedStore = me.getStoreFromRoute(currentRoute);
-        if (Ext.isString(linkedStore)) {
-            linkedStore = [linkedStore]; // both string and array should be allowed
+        var storeName = me.getStoreFromRoute(currentRoute);
+        if (Ext.isString(storeName)) {
+            storeName = [storeName]; // both string and array should be allowed
         }
-        Ext.each(linkedStore, function(storeId) {
+        Ext.each(storeName, function(storeId) {
             store = Ext.getStore(storeId);
             me.resetVM(store);
         })
