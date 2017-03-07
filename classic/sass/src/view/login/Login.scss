@@ -34,7 +34,7 @@
 
         &.password-trigger:before,
         &.auth-password-trigger:before {
-            content: "\f023";
+            content: $lock;
         }
         &.auth-user-trigger:before {
             content: "\f007";

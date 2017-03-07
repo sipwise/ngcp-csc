@@ -27,22 +27,22 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
         switch (record.get('conversation_type')) {
             case 'call':
                 meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.conversation_types.call[localStorage.getItem('languageSelected')] + '"';
-                icon = 'fa fa-phone green-icon pointer';
+                icon = Ngcp.csc.icons.phone + ' green-icon pointer';
                 break;
             case 'voicemail':
-                icon = 'fa fa-folder-open-o green-icon pointer';
+                icon = Ngcp.csc.icons.folder + ' green-icon pointer';
                 break;
             case 'sms':
                 meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.conversation_types.sms[localStorage.getItem('languageSelected')] + '"';
-                icon = 'fa fa-envelope-o green-icon pointer';
+                icon = Ngcp.csc.icons.envelope_transparent + ' green-icon pointer';
                 break;
             case 'chat':
                 meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.conversation_types.chat[localStorage.getItem('languageSelected')] + '"';
-                icon = 'fa fa-comment-o green-icon pointer';
+                icon = Ngcp.csc.icons.comment + ' green-icon pointer';
                 break;
             case 'fax':
                 meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.conversation_types.fax[localStorage.getItem('languageSelected')] + '"';
-                icon = 'fa fa-file-text-o green-icon pointer';
+                icon = Ngcp.csc.icons.faxpaper_transparent + ' green-icon pointer';
                 break;
         };
         return Ext.String.format('<div class="{0}"></div>', icon);
@@ -54,16 +54,16 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
             direction = record.get('direction');
         switch (record.get('direction')) {
             case 'incoming':
-                icon = color + ' fa fa-chevron-left';
+                icon = color + ' ' + Ngcp.csc.icons.chevronleft;
                 meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.incoming[localStorage.getItem('languageSelected')] + '"';
                 break;
             case 'outgoing':
-                icon = color + ' fa fa-chevron-right';
+                icon = color + ' ' + Ngcp.csc.icons.chevronright;
                 meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.outgoing[localStorage.getItem('languageSelected')] + '"';
                 break;
             case 'forwarded':
                 meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.forwarded[localStorage.getItem('languageSelected')] + '"';
-                return '<div><span class="' + color + ' fa fa-chevron-right"></span><span class="' + color + ' fa fa-chevron-right"></span></div>';
+                return '<div><span class="' + color + ' ' + Ngcp.csc.icons.chevronright + '"></span><span class="' + color + ' ' + Ngcp.csc.icons.chevronright + '"></span></div>';
                 break;
         };
         return Ext.String.format('<div class="{0}"></div>', icon);
@@ -260,23 +260,23 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
         }
         switch (record.get('conversation_type')) {
             case 'call':
-                icon = 'fa fa-phone-square green-icon pointer';
+                icon = Ngcp.csc.icons.phonesquare + 'green-icon pointer';
                 meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.recall[localStorage.getItem('languageSelected')] + '"';
                 break;
             case 'voicemail':
-                return '<div id="voicemail-' + record.get('id') + '" class="card-icon play" data-callback="reproduceVoicemail"><i class="fa fa-play green-icon pointer" aria-hidden="true"></i></div>'
+                return '<div id="voicemail-' + record.get('id') + '" class="card-icon play" data-callback="reproduceVoicemail"><i class="'+Ngcp.csc.icons.play+' green-icon pointer" aria-hidden="true"></i></div>'
                 break;
             case 'fax':
                 meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.send_fax[localStorage.getItem('languageSelected')] + '"';
-                icon = 'fa fa-file-text green-icon pointer';
+                icon = Ngcp.csc.icons.faxpaper + 'green-icon pointer';
                 break;
             case 'sms':
                 meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.send_sms[localStorage.getItem('languageSelected')] + '"';
-                icon = 'fa fa-envelope green-icon pointer';
+                icon = Ngcp.csc.icons.envelope + ' green-icon pointer';
                 break;
             case 'chat':
                 meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.chat[localStorage.getItem('languageSelected')] + '"';
-                icon = 'fa fa-comment green-icon pointer';
+                icon = Ngcp.csc.icons.comment + ' green-icon pointer';
                 break;
         };
         return Ext.String.format('<div class="{0}"></div>', icon);
