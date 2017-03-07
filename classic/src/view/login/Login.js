@@ -92,7 +92,7 @@ Ext.define('NgcpCsc.view.login.Login', {
                 width: '100%',
                 scale: 'large',
                 iconAlign: 'right',
-                iconCls: 'x-fa fa-angle-right',
+                iconCls: Ngcp.csc.icons.angleright,
                 bind: {
                     disabled: '{!authValid}'
                 },

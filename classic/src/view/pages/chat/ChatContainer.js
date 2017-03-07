@@ -47,7 +47,7 @@ Ext.define('NgcpCsc.view.pages.chat.ChatContainer', {
         }, {
             flex: 1,
             xtype: 'button',
-            iconCls: 'fa fa-send',
+            iconCls: Ngcp.csc.icons.send,
             cls: 'submit-new-message',
             handler: 'onPressSubmitBtn'
         }]

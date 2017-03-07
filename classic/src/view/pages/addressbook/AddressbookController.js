@@ -46,7 +46,7 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookController', {
     },
 
     renderPhoneIcon: function(value, metaData) {
-        return '<div class="fa fa-phone-square pointer"></div>';
+        return '<div class="'+Ngcp.csc.icons.phone+' pointer"></div>';
     },
 
     renderToggleDetailsIcon: function(value, metaData) {

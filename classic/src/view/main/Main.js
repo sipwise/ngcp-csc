@@ -75,7 +75,7 @@ Ext.define('NgcpCsc.view.main.Main', {
                         click: 'toggleFree'
                     }
                 }, {
-                    iconCls: 'x-fa fa-filter',
+                    iconCls: Ngcp.csc.icons.filter,
                     enableToggle: true,
                     tooltip: Ngcp.csc.locales.filters.tooltips.show_filter[localStorage.getItem('languageSelected')],
                     bind: {
