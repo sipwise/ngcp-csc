@@ -43,8 +43,8 @@ Ext.define('NgcpCsc.view.pages.seats.SeatsGrid', {
                     '<div class="card-data-row"><span></span><b>' + Ngcp.csc.locales.filters.numbers[localStorage.getItem('languageSelected')] + '</b>: ' + record.get('numbers') + '</div>' +
                     '<div class="card-data-row"><span></span><b>' + Ngcp.csc.locales.filters.phone_devices[localStorage.getItem('languageSelected')] + '</b>: ' + record.get('phone_devices') + '</div>' +
                     '<div class="card-icon-row">' +
-                    '<div id="editSeat-' + record.get('id') + '" class="card-icon" data-callback="editSeat" data-qtip="' + Ngcp.csc.locales.filters.tooltips.edit_seat[localStorage.getItem('languageSelected')] + '"><i class="fa fa-edit green-icon fa-2x pointer" aria-hidden="true"></i></div>' +
-                    '<div id="removeSeat-' + record.get('id') + '" class="card-icon" data-callback="removeSeat" data-qtip="' + Ngcp.csc.locales.filters.tooltips.remove_seat[localStorage.getItem('languageSelected')] + '"><i class="fa fa-trash green-icon fa-2x pointer" aria-hidden="true"></i></div>' +
+                    '<div id="editSeat-' + record.get('id') + '" class="card-icon" data-callback="editSeat" data-qtip="' + Ngcp.csc.locales.filters.tooltips.edit_seat[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.edit2x+' green-icon pointer" aria-hidden="true"></i></div>' +
+                    '<div id="removeSeat-' + record.get('id') + '" class="card-icon" data-callback="removeSeat" data-qtip="' + Ngcp.csc.locales.filters.tooltips.remove_seat[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.trash2x+' green-icon pointer" aria-hidden="true"></i></div>' +
                     '</div></div>';
                 return {
                     rowBody: content

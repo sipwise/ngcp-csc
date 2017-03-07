@@ -24,7 +24,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
 
     renderStatus: function(val, meta, rec) {
         if (rec.get('leaf')) {
-            rec.set('iconCls', 'x-fa fa-circle ' + (rec.get('online') ? 'online-user' : 'offline-user'));
+            rec.set('iconCls', Ngcp.csc.icons.circle + ' ' + (rec.get('online') ? 'online-user' : 'offline-user'));
         }
         return val;
     },
@@ -86,7 +86,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
 
         var newNode = contacts.getRootNode().insertChild(contacts.getStore().getCount(), {
             "name": newChatName.getValue(),
-            "iconCls": "x-fa fa-wechat",
+            "iconCls": Ngcp.csc.icons.multichat,
             "expanded": true,
             "children": []
         });

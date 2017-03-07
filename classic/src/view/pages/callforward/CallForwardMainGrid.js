@@ -36,7 +36,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             width: 30,
             align: 'right',
 
-            iconCls: 'x-fa fa-trash',
+            iconCls: Ngcp.csc.icons.trash,
             handler: 'removeEntry'
         }, {
             text: Ngcp.csc.locales.callforward.move[localStorage.getItem('languageSelected')],
@@ -44,7 +44,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             width: 30,
             align: 'right',
             disabled: true,
-            iconCls: 'x-fa fa-arrows'
+            iconCls: Ngcp.csc.icons.move
         }];
 
         me.callParent();
