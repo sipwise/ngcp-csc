@@ -42,3 +42,51 @@ $wizard-two-button-background-color: #925e8b;
 
 $wizard-three-primary-background-color: #9cc96b;
 $wizard-three-button-background-color: #9cc96b;
+
+//--------------------------------------------------
+// Font Awesome Unicodes
+//
+// ex. of usage
+//  .yourclass:before {
+//    font-family: FontAwesome;
+//    content: $add-user;
+//  }
+//
+// Every variable should have a correspondent
+// entry in ./app/utils/icons/js
+
+$add-user: "\f234";
+$arrow-left: "\f053";
+$arrow-right: "\f054";
+$bell: "\f0f3";
+$block: "\f05e";
+$book: "\xf02d";
+$download: "\f019";
+$chat: "\f075";
+$desktop: "\xf108";
+$double-arrow-right: "\f101";
+$edit: "\xf044";
+$fax:"\xf1ac";
+$fax-paper:"\f15c";
+$filter: "\f0b0";
+$folder: "\f115";
+$incoming: "\f053";
+$home: "\xf015";
+$key: "\f084";
+$lock: "\f023";
+$microphone: "\xf130";
+$menu: "\xf0c9";
+$move: "\f047";
+$paint: "";
+$outgoing: "\xf054;";
+$paint-brush: "\f1fc";
+$pause: "\xf04c";
+$pencil: "\f040";
+$play: "\xf04b";
+$phone: "\xf095";
+$privacy: "\f21b";
+$settings: "\f013";
+$sms: "\f0e0";
+$trash: "\f1f8";
+$user: "\xf007";
+$users: "\xf0c0";
