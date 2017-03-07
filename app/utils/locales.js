@@ -542,13 +542,6 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Hide own number on outgoing calls',
                 sp: 'Hide own number on outgoing calls'
             },
-            mode: {
-                en: 'Mode',
-                it: 'Mode',
-                de: 'Mode',
-                fr: 'Mode',
-                sp: 'Mode'
-            },
             hide_mode_on: {
                 en: 'Hide mode succcessfully turned on.',
                 it: 'Hide mode succcessfully turned on.',
@@ -597,6 +590,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Add number',
                 fr: 'Add number',
                 sp: 'Add number'
+            },
+            mode: {
+                en: 'Mode',
+                it: 'Mode',
+                de: 'Mode',
+                fr: 'Mode',
+                sp: 'Mode'
             }
         },
         password: {
@@ -1373,20 +1373,6 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Set your personal alarm.',
                 sp: 'Set your personal alarm.'
             },
-            subtitle: {
-                en: 'Reminder',
-                it: 'Reminder',
-                de: 'Reminder',
-                fr: 'Reminder',
-                sp: 'Reminder'
-            },
-            settings: {
-                en: 'Settings for',
-                it: 'Settings for',
-                de: 'Settings for',
-                fr: 'Settings for',
-                sp: 'Settings for'
-            },
             is: {
                 en: 'Reminder is',
                 it: 'Reminder is',
@@ -1408,7 +1394,6 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Recurrence',
                 sp: 'Recurrence'
             },
-
             never: {
                 en: 'never',
                 it: 'never',
@@ -1416,7 +1401,6 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'never',
                 sp: 'never'
             },
-
             weekdays: {
                 en: 'on weekdays',
                 it: 'on weekdays',
@@ -1424,13 +1408,26 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'on weekdays',
                 sp: 'on weekdays'
             },
-
             always: {
                 en: 'every day',
                 it: 'every day',
                 de: 'every day',
                 fr: 'every day',
                 sp: 'every day'
+            },
+            reminder_set_to_inactive: {
+                en: 'Reminder set to inactive.',
+                it: 'Reminder set to inactive.',
+                de: 'Reminder set to inactive.',
+                fr: 'Reminder set to inactive.',
+                sp: 'Reminder set to inactive.'
+            },
+            reminder_set_to_active: {
+                en: 'Reminder set to active.',
+                it: 'Reminder set to active.',
+                de: 'Reminder set to active.',
+                fr: 'Reminder set to active.',
+                sp: 'Reminder set to active.'
             }
         },
         rtc: {
