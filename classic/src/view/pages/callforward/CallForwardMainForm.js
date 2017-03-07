@@ -127,14 +127,14 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 id: 'afterHoursButton',
                 reference: 'afterHoursButton',
                 text: Ngcp.csc.locales.callforward.time_two[localStorage.getItem('languageSelected')],
-                iconCls: 'x-fa fa-pencil',
+                iconCls: Ngcp.csc.icons.pencil,
                 iconAlign: 'right'
             }, {
                 value: 'companyHours',
                 id: 'companyHoursButton',
                 reference: 'companyHoursButton',
                 text: Ngcp.csc.locales.callforward.time_three[localStorage.getItem('languageSelected')],
-                iconCls: 'x-fa fa-pencil',
+                iconCls: Ngcp.csc.icons.pencil,
                 iconAlign: 'right'
             }]
         }, {
@@ -229,14 +229,14 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 id: 'listAButton',
                 reference: 'listAButton',
                 text: Ngcp.csc.locales.callforward.source_two[localStorage.getItem('languageSelected')],
-                iconCls: 'x-fa fa-pencil',
+                iconCls: Ngcp.csc.icons.pencil,
                 iconAlign: 'right'
             }, {
                 value: 'listB',
                 id: 'listBButton',
                 reference: 'listBButton',
                 text: Ngcp.csc.locales.callforward.source_three[localStorage.getItem('languageSelected')],
-                iconCls: 'x-fa fa-pencil',
+                iconCls: Ngcp.csc.icons.pencil,
                 iconAlign: 'right'
             }]
         }, {

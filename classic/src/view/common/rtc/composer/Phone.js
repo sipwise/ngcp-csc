@@ -18,7 +18,7 @@ Ext.define('NgcpCsc.view.common.composer.Phone', {
         }, {
             xtype: 'button',
             enableToggle: true,
-            iconCls: 'x-fa fa-fax',
+            iconCls: Ngcp.csc.icons.fax,
             width: '20%',
             handler: 'showPhoneComposer'
         }]
@@ -40,7 +40,7 @@ Ext.define('NgcpCsc.view.common.composer.Phone', {
             width: 60,
             height: 60,
             margin: '50 0 10 0',
-            iconCls: 'x-fa fa-phone fa-3x',
+            iconCls: Ngcp.csc.icons.phone + ' fa-3x',
             cls: 'rtc-icons-big',
             listeners: {
                 click: {

@@ -90,13 +90,13 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
                 enableToggle: true
             },
             items: [{
-                iconCls: 'x-fa fa-phone',
+                iconCls: Ngcp.csc.icons.phone,
                 bind: {
                     pressed: '{callEnabled}'
                 },
                 handler:'toggleCall'
             }, {
-                iconCls: 'x-fa fa-microphone',
+                iconCls: Ngcp.csc.icons.microphone,
                 bind: {
                     pressed: '{micEnabled}',
                     disabled: '{!connected}',
@@ -104,7 +104,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
                 },
                 handler:'toggleAudioVideo'
             },{
-                iconCls: 'x-fa fa-microphone-slash',
+                iconCls: Ngcp.csc.icons.microphonemute,
                 bind: {
                     pressed: '{micEnabled}',
                     disabled: '{!connected}',
@@ -112,14 +112,14 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
                 },
                 handler:'toggleAudioVideo'
             },  {
-                iconCls: 'x-fa fa-video-camera',
+                iconCls: Ngcp.csc.icons.video,
                 bind: {
                     pressed: '{videoEnabled}',
                     disabled: '{!connected}'
                 },
                 handler:'toggleAudioVideo'
             }, {
-                iconCls: 'x-fa fa-comment',
+                iconCls: Ngcp.csc.icons.chat,
                 bind: {
                     pressed: '{chatEnabled}',
                     disabled: '{!connected}'

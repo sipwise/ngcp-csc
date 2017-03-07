@@ -32,7 +32,7 @@ Ext.define('NgcpCsc.view.pages.conversations.Conversations', {
                 items: [{
                     text: Ngcp.csc.locales.conversations.btns.new_sms[localStorage.getItem('languageSelected')],
                     itemId: 'newSms',
-                    iconCls: 'x-fa fa-envelope fa',
+                    iconCls: Ngcp.csc.icons.sms,
                     overCls: 'conversations-btn-over',
                     margin: '0 20 0 0',
                     handler: 'composeSms',
@@ -41,7 +41,7 @@ Ext.define('NgcpCsc.view.pages.conversations.Conversations', {
 
                     text: Ngcp.csc.locales.conversations.btns.new_call[localStorage.getItem('languageSelected')],
                     itemId: 'newCall',
-                    iconCls: 'x-fa fa-phone fa',
+                    iconCls: Ngcp.csc.icons.phone,
                     overCls: 'conversations-btn-over',
                     margin: '0 20 0 0',
                     handler: 'composeCall',
@@ -49,7 +49,7 @@ Ext.define('NgcpCsc.view.pages.conversations.Conversations', {
                 }, {
                     text: Ngcp.csc.locales.conversations.btns.new_fax[localStorage.getItem('languageSelected')],
                     itemId: 'newfax',
-                    iconCls: 'x-fa fa-file-text fa',
+                    iconCls: Ngcp.csc.icons.faxpaper,
                     overCls: 'conversations-btn-over',
                     handler: 'composeFax',
                     tooltip: Ngcp.csc.locales.conversations.tooltips.new_fax[localStorage.getItem('languageSelected')]

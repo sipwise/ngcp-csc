@@ -95,10 +95,10 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookGrid', {
         rowBodyTpl: new Ext.XTemplate(
             '<div class="contact-wrapper">',
             '<div class="content"><b>' + Ngcp.csc.locales.addressbook.phone_numbers[localStorage.getItem('languageSelected')] + '</b>',
-            '<p><div class="short-label">' + Ngcp.csc.locales.addressbook.home[localStorage.getItem('languageSelected')] + ':</div><div>{home} <span class="fa fa-phone-square pointer"></span></div></p>',
-            '<p><div class="short-label">' + Ngcp.csc.locales.addressbook.office[localStorage.getItem('languageSelected')] + ':</div><div> {office} <span class="fa fa-phone-square pointer"></span></div></p>',
-            '<p><div class="short-label">' + Ngcp.csc.locales.addressbook.mobile[localStorage.getItem('languageSelected')] + ':</div><div> {mobile} <span class="fa fa-phone-square pointer"></span></div></p>',
-            '<p><div class="short-label">' + Ngcp.csc.locales.common.fax[localStorage.getItem('languageSelected')] + ':</div><div> {fax} <span class="fa fa-phone-square pointer"></span></div></p>',
+            '<p><div class="short-label">' + Ngcp.csc.locales.addressbook.home[localStorage.getItem('languageSelected')] + ':</div><div>{home} <span class="'+Ngcp.csc.icons.phone+' pointer"></span></div></p>',
+            '<p><div class="short-label">' + Ngcp.csc.locales.addressbook.office[localStorage.getItem('languageSelected')] + ':</div><div> {office} <span class="'+Ngcp.csc.icons.phone+'pointer"></span></div></p>',
+            '<p><div class="short-label">' + Ngcp.csc.locales.addressbook.mobile[localStorage.getItem('languageSelected')] + ':</div><div> {mobile} <span class="'+Ngcp.csc.icons.phone+' pointer"></span></div></p>',
+            '<p><div class="short-label">' + Ngcp.csc.locales.common.fax[localStorage.getItem('languageSelected')] + ':</div><div> {fax} <span class="'+Ngcp.csc.icons.phone+' pointer"></span></div></p>',
             '</div>',
             '<div class="content"><b>' + Ngcp.csc.locales.addressbook.web[localStorage.getItem('languageSelected')] + '</b>',
             '<p><div class="label">' + Ngcp.csc.locales.addressbook.e_mail[localStorage.getItem('languageSelected')] + ':</div><div> <a class="link" href="mailto:{e_mail}">{e_mail}</a></div></p>',
@@ -106,7 +106,7 @@ Ext.define('NgcpCsc.view.pages.addressbook.AddressbookGrid', {
             '</div>',
             '<div class="card-wrapper">',
             '<div class="card-icon-row">',
-            '<div id="{id}" class="card-icon" data-callback="removeContact"><i class="fa fa-trash green-icon fa-2x pointer" aria-hidden="true"></i></div>',
+            '<div id="{id}" class="card-icon" data-callback="removeContact"><i class="'+Ngcp.csc.icons.trash+' green-icon fa-2x pointer" aria-hidden="true"></i></div>',
             '</div>',
             '</div>',
             '</div>')
