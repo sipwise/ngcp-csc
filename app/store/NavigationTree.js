@@ -67,10 +67,10 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             }]
         }, {
             text: 'Reminder',
-            iconCls: 'x-fa fa-sticky-note',
+            iconCls: 'x-fa fa-bell',
             viewType: 'reminder',
             routeId: 'reminder',
-            acl: ['administrator'],
+            acl: ['administrator', 'restricted', 'host'],
             leaf: true
         }, {
             text: 'Password',

@@ -3,68 +3,33 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
 
     xtype: 'reminder',
 
+    controller: 'reminder',
+
     viewModel: 'reminder',
 
     initComponent: function() {
-        this.items = [{
-            layout: 'responsivecolumn',
-            xtype:'core-container',
+
+        this.dockedItems = [{
+            xtype: 'toolbar',
+            dock: 'top',
+            layout: 'center',
+            ui: 'reminder-tbar',
             items: [{
-                userCls: 'big-66 small-100',
-                xtype: 'form',
-                defaults: {
-                    width: '100%'
-                },
+                xtype: 'core-container',
+                margin: Ext.os.is.Desktop ? '-5 0 0 20' : '-5 0 0 0',
+                width: Ext.os.is.Desktop ? 810 : '100%',
                 items: [{
-                    height: 60,
-                    html: Ngcp.csc.locales.reminder.subtitle[localStorage.getItem('languageSelected')].toUpperCase()
-                }, {
-                    height: 70,
-                    html: Ext.String.format('<div class="voicemails-heading">{0} {1}</div>', Ngcp.csc.locales.reminder.settings[localStorage.getItem('languageSelected')], localStorage.getItem('username'))
-                }, {
-                    height: 60,
-                    html: Ngcp.csc.locales.common.when[localStorage.getItem('languageSelected')].toUpperCase()
-                }, {
-                    xtype: 'timefield',
-                    fieldLabel: Ngcp.csc.locales.reminder.time[localStorage.getItem('languageSelected')],
-                    format: 'H:i',
-                    minValue: '0:00',
-                    maxValue: '23:50',
-                    increment: 10,
-                    editable: false,
-                    bind: {
-                        value: '{reminder.timer}',
-                        disabled: '{!reminder.reminder_status}'
-                    }
-                }, {
-                    xtype: 'radiogroup',
-                    fieldLabel: Ngcp.csc.locales.reminder.recurrence[localStorage.getItem('languageSelected')],
-                    vertical: true,
-                    columns: 1,
-                    simpleValue: true,
-                    bind: {
-                        value: '{reminder.recurrence}',
-                        disabled: '{!reminder.reminder_status}'
-                    },
-                    defaults: {
-                        name: 'value'
-                    },
-                    items: [{
-                        boxLabel: Ngcp.csc.locales.reminder.never[localStorage.getItem('languageSelected')],
-                        inputValue: 'never'
-                    }, {
-                        boxLabel: Ngcp.csc.locales.reminder.weekdays[localStorage.getItem('languageSelected')],
-                        inputValue: 'weekdays'
-                    }, {
-                        boxLabel: Ngcp.csc.locales.reminder.always[localStorage.getItem('languageSelected')],
-                        inputValue: 'always'
-                    }]
+                    userCls: 'reminder-header',
+                    html: Ngcp.csc.locales.reminder.is[localStorage.getItem('languageSelected')],
+                    margin: '0 0 10 0'
                 }, {
                     xtype: 'segmentedbutton',
-                    margin: '20 0 0 0',
+                    margin: '0 0 20 0',
+                    defaults: {
+                        handler: 'clickActiveInactiveButton'
+                    },
                     items: [{
                         text: Ngcp.csc.locales.common.active[localStorage.getItem('languageSelected')],
-                        margin: '0 5 0 0',
                         bind: {
                             pressed: '{reminder.reminder_status}'
                         }
@@ -73,6 +38,50 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
                         bind: {
                             pressed: '{!reminder.reminder_status}'
                         }
+                    }]
+                }, {
+                    xtype: 'form',
+                    layout: 'responsivecolumn',
+                    items: [{
+                        flex: 1,
+                        userCls: 'small-100 big-50',
+                        xtype: 'timefield',
+                        fieldLabel: Ngcp.csc.locales.reminder.time[localStorage.getItem('languageSelected')],
+                        format: 'H:i',
+                        minValue: '0:00',
+                        maxValue: '23:50',
+                        increment: 10,
+                        editable: false,
+                        bind: {
+                            value: '{reminder.timer}',
+                            disabled: '{!reminder.reminder_status}'
+                        }
+                    }, {
+                        flex: 1,
+                        userCls: 'small-100 big-50',
+                        xtype: 'radiogroup',
+                        margin: '0 0 0 40',
+                        fieldLabel: Ngcp.csc.locales.reminder.recurrence[localStorage.getItem('languageSelected')],
+                        vertical: true,
+                        columns: 1,
+                        simpleValue: true,
+                        bind: {
+                            value: '{reminder.recurrence}',
+                            disabled: '{!reminder.reminder_status}'
+                        },
+                        defaults: {
+                            name: 'value'
+                        },
+                        items: [{
+                            boxLabel: Ngcp.csc.locales.reminder.never[localStorage.getItem('languageSelected')],
+                            inputValue: 'never'
+                        }, {
+                            boxLabel: Ngcp.csc.locales.reminder.weekdays[localStorage.getItem('languageSelected')],
+                            inputValue: 'weekdays'
+                        }, {
+                            boxLabel: Ngcp.csc.locales.reminder.always[localStorage.getItem('languageSelected')],
+                            inputValue: 'always'
+                        }]
                     }]
                 }]
             }]

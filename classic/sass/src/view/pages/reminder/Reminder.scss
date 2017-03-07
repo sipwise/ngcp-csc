@@ -1,0 +1,11 @@
+// mixins
+@include extjs-toolbar-ui(
+    $ui: 'reminder-tbar',
+    $background-color: '#F6F6F6'
+);
+
+// custom rules
+.x-toolbar-reminder-tbar .reminder-header .x-autocontainer-innerCt {
+    color: $base-color;
+    font: 500 14px/18px var(--font-family);
+}
