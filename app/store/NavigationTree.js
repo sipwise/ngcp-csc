@@ -73,13 +73,6 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             acl: ['administrator', 'restricted', 'host'],
             leaf: true
         }, {
-            text: 'Password',
-            iconCls: Ngcp.csc.icons.key,
-            viewType: 'password',
-            routeId: 'password',
-            acl: ['administrator', 'restricted', 'host'],
-            leaf: true
-        }, {
             text: 'Theme Roller',
             iconCls: Ngcp.csc.icons.paintbrush,
             viewType: 'themeroller',
