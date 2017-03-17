@@ -5,7 +5,7 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
 
     onEnterPressed: function (field, el) {
         if (el.getKey() == el.ENTER) {
-            this.addNewNumber(field, el);
+            this.addNewNumber();
         };
     },
 
@@ -41,7 +41,7 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         return ['1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '?'];
     },
 
-    addNewNumber: function (field, el) {
+    addNewNumber: function () {
         var me = this;
         var vm = me.getViewModel();
         var invalidCheck = 0;

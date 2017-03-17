@@ -897,13 +897,6 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'secs',
                 fr: 'secs',
                 sp: 'secs'
-            },
-            save: {
-                en: 'SAVE',
-                it: 'SAVE',
-                de: 'SAVE',
-                fr: 'SAVE',
-                sp: 'SAVE'
             }
         },
         filters: {
@@ -1843,6 +1836,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Save',
                 fr: 'Save',
                 sp: 'Save'
+            },
+            save_caps: {
+                en: 'SAVE',
+                it: 'SAVE',
+                de: 'SAVE',
+                fr: 'SAVE',
+                sp: 'SAVE'
             },
             reset: {
                 en: 'Reset',

@@ -73,13 +73,25 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlocking', {
                     margin: '20 0 10 0',
                     hidden: !this._displayIncomingOutgoingSection
                 }, {
-                    xtype: 'textfield',
-                    width: 300,
-                    bind: '{new_number}',
-                    listeners: {
-                        specialkey: 'onEnterPressed'
-                    },
-                    hidden: !this._displayIncomingOutgoingSection
+                    xtype: 'container',
+                    layout: 'hbox',
+                    hidden: !this._displayIncomingOutgoingSection,
+                    margin: '0 0 10 0',
+                    items: [{
+                        xtype: 'textfield',
+                        width: 300,
+                        bind: '{new_number}',
+                        height: 35,
+                        listeners: {
+                            specialkey: 'onEnterPressed'
+                        }
+                    }, {
+                        xtype: 'button',
+                        height: 35,
+                        margin: '0 0 0 10',
+                        text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
+                        handler: 'addNewNumber'
+                    }]
                 }, {
                     xtype: 'container',
                     html: instructionText,

@@ -408,7 +408,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 }
             }, {
                 xtype: 'button',
-                text: Ngcp.csc.locales.callforward.save[localStorage.getItem('languageSelected')],
+                text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
                 id: 'onlineSaveButton',
                 width: 100,
                 listeners: {
@@ -525,7 +525,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 }
             }, {
                 xtype: 'button',
-                text: Ngcp.csc.locales.callforward.save[localStorage.getItem('languageSelected')],
+                text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
                 id: 'busySaveButton',
                 width: 100,
                 listeners: {
@@ -642,7 +642,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 }
             }, {
                 xtype: 'button',
-                text: Ngcp.csc.locales.callforward.save[localStorage.getItem('languageSelected')],
+                text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
                 id: 'offlineSaveButton',
                 width: 100,
                 listeners: {
