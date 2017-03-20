@@ -7,18 +7,19 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         controller: {
             '*': {
                 collapseContacts: 'collapseContacts',
-                expandContacts: 'expandContacts'
+                expandContacts: 'expandContacts',
+                resizeContactPanel: 'resizeContactPanel'
             }
         }
     },
 
     id: 'contacts', // needed as reference in ChatController listeners
 
-    collapseContacts:function(){
+    collapseContacts: function() {
         this.getView().collapse();
     },
 
-    expandContacts:function(){
+    expandContacts: function() {
         this.getView().expand();
     },
 
@@ -35,7 +36,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         var destination = contactsStore.findRecord('id', selectedRec.get('addTo'));
         var nodeAdded = destination.appendChild(selectedRec.copy(null));
         var nodeEl = Ext.get(this.getView().view.getNode(nodeAdded));
-        if(nodeEl){
+        if (nodeEl) {
             nodeEl.scrollIntoView(this.getView().view.el, false, true);
         }
         selectedRec.set('checked', null);
@@ -118,15 +119,13 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
     },
     nodeClicked: function(node, record, item, index, e) {
         var me = this;
-        if (record.get('checked') != null || record.get('name') == 'Buddies')
+        if (record.get('checked') != null)
             return;
         this.fireEvent('updateconversationtitle', 'conversation-with', record);
-        if (record.get('leaf')){
-            this.redirectTo('conversation-with');
-            Ext.Function.defer(function(){
-                me.fireEvent('openpmtab', null, record);
-            }, 100);
-        }
+        this.redirectTo('conversation-with');
+        Ext.Function.defer(function() {
+            me.fireEvent('openpmtab', null, record);
+        }, 100);
         return false;
     },
     deleteNode: function(grid, rowIndex, colIndex, item, ev) {
@@ -157,5 +156,8 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         btn.hide();
         this.getView().getView().refresh();
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
+    },
+    resizeContactPanel: function(newHeight) {
+        this.getView().setHeight(newHeight);
     }
 });
