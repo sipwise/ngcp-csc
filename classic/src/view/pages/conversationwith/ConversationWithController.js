@@ -44,6 +44,18 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWithController', {
         this.fireEvent('initrtc', record, 'startCall', false, true);
     },
 
+    onPressFaxBtn: function(){
+        var vm = this.getViewModel();
+        var contact = Ext.getStore('Contacts').findRecord("uid", vm.get('activeUserId'));
+        var record = Ext.create('Ext.data.Model', {
+            id: vm.get('activeUserId'),
+            callee: vm.get('activeUserName'),
+            thumbnail: contact ? contact.get('thumbnail') : null
+        });
+        this.fireEvent('initrtc', record, 'faxComposer');
+
+    },
+
     hideTabBar: function(panel) {
         panel.getTabBar().hide();
     },
@@ -91,7 +103,7 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWithController', {
             vm.set('newmessage-' + id, '');
             tab = this.getView().add({
                 xtype: 'notifications',
-                title: rec.get('name'),
+                title: rec.get('name') || rec.get('source_cli'),
                 closable: false,
                 cls: 'private-conversation-text',
                 deferEmptyText: false,
