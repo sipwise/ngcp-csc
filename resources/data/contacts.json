@@ -1,6 +1,7 @@
 [{
     "name": "Buddies",
     "iconCls": "x-fa fa-group",
+    "uid": "buddies",
     "expanded": true,
     "children": [{
         "uid": 840,
@@ -41,6 +42,7 @@
     }]
 }, {
     "name": "Development",
+    "uid": "development",
     "iconCls": "x-fa fa-wechat",
     "expanded": true,
     "children": [{
@@ -70,6 +72,7 @@
     }]
 }, {
     "name": "Operations",
+    "uid": "operations",
     "iconCls": "x-fa fa-wechat",
     "expanded": true,
     "children": [{

@@ -118,15 +118,13 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
     },
     nodeClicked: function(node, record, item, index, e) {
         var me = this;
-        if (record.get('checked') != null || record.get('name') == 'Buddies')
+        if (record.get('checked') != null)
             return;
         this.fireEvent('updateconversationtitle', 'conversation-with', record);
-        if (record.get('leaf')){
-            this.redirectTo('conversation-with');
-            Ext.Function.defer(function(){
-                me.fireEvent('openpmtab', null, record);
-            }, 100);
-        }
+        this.redirectTo('conversation-with');
+        Ext.Function.defer(function(){
+            me.fireEvent('openpmtab', null, record);
+        }, 100);
         return false;
     },
     deleteNode: function(grid, rowIndex, colIndex, item, ev) {
