@@ -14,7 +14,8 @@ Ext.define('NgcpCsc.view.common.composer.Phone', {
             emptyText: 'Allowed digits are 0-9, +, # and *.',
             hideTrigger: true,
             width: '80%',
-            bind: '{numberToCall}'
+            bind: '{numberToCall}',
+            reference:'callNumberInput'
         }, {
             xtype: 'button',
             enableToggle: true,

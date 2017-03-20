@@ -6,27 +6,15 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWith', {
     viewModel: 'conversationwith',
     controller: 'conversationwith',
     title: null,
-    scrollable:false,
+    scrollable: false,
     listeners: {
         render: 'hideTabBar'
     },
-    dockedItems: [Ext.create('NgcpCsc.view.pages.conversations.ConversationsToolbar'),
-    {
-        xtype: 'toolbar',
-        dock: 'top',
-        height:60,
-        cls: 'toolbar-cont',
-        items:['->',{
-            text: 'Older',
-            handler: 'loadOlderMsg'
-        },'->']
-    }
-    , {
+    dockedItems: [{
         xtype: 'toolbar',
         reference: 'chat-bottom-bar',
         cls: 'toolbar-cont',
         fixed: true,
-        margin: '0 5 5 5',
         dock: 'bottom',
         items: [{
             width: '100%',
@@ -46,13 +34,13 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWith', {
                     keypress: 'onPressEnter'
                 }
             }, {
-                width:50,
+                width: 50,
                 xtype: 'button',
                 menu: {
-                    defaults:{
+                    defaults: {
                         handler: 'onPressSubmitBtn'
                     },
-                    items:[{
+                    items: [{
                         text: 'Send as SMS',
                         value: 'sms'
                     }, {
@@ -60,17 +48,24 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWith', {
                         value: 'chat'
                     }]
                 },
-                bind:{
+                bind: {
                     iconCls: '{iconcls}'
                 },
                 cls: 'submit-new-message'
-            },{
-                width:35,
+            }, {
+                width: 35,
                 xtype: 'button',
-                margin : '0 0 0 5',
+                margin: '0 0 0 5',
                 cls: 'rtc-icons',
-                iconCls: 'x-fa fa-phone',
+                iconCls: Ngcp.csc.icons.phone,
                 handler: 'onPressCallBtn'
+            }, {
+                width: 35,
+                xtype: 'button',
+                margin: '0 0 0 5',
+                cls: 'rtc-icons',
+                iconCls: Ngcp.csc.icons.fax,
+                handler: 'onPressFaxBtn'
             }]
         }]
     }]

@@ -343,7 +343,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         vm.set('headerBarFieldHideState', !vm.get('headerBarFieldHideState'));
         // we need to resize the section container when the filterpanel toggles
         Ext.Function.defer(function(){
-            me.fireEvent('setCardHeight');
+            me.fireEvent('setCentralContentHeight');
         }, 100);
     },
 

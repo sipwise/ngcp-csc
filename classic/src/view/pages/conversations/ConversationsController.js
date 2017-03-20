@@ -202,23 +202,21 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
         this.fireEvent('initrtc', record, 'startCall');
     },
 
-    sendSms: function(el) {
+    sendMsg: function(el) {
+        var mainView = Ext.ComponentQuery.query('[name=mainView]')[0];
         var record = Ext.getStore('Conversations').findRecord('id', el.id.split('-')[1]);
-        this.fireEvent('initrtc', record, 'smsComposer');
+        var me = this;
+        var msgType = el.dataset.type;
+        this.redirectTo('conversation-with');
+        mainView.getViewModel().set('sectionTitle', 'Conversation with ' + record.get('source_cli'));
+        Ext.Function.defer(function() {
+            me.fireEvent('openpmtab', null, record, true, msgType);
+        }, 100);
     },
 
     sendFax: function(el) {
         var record = Ext.getStore('Conversations').findRecord('id', el.id.split('-')[1]);
         this.fireEvent('initrtc', record, 'faxComposer');
-    },
-
-    startChat: function(el) {
-        var record = Ext.getStore('Conversations').findRecord('id', el.id.split('-')[1]);
-        var me = this;
-        me.redirectTo('conversation-with');
-        Ext.Function.defer(function(){
-            me.fireEvent('openpmtab', null, record, true);
-        }, 100);
     },
 
     composeSms: function() {
@@ -271,7 +269,7 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
                 meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.recall[localStorage.getItem('languageSelected')] + '"';
                 break;
             case 'voicemail':
-                return '<div id="voicemail-' + record.get('id') + '" class="card-icon play" data-callback="reproduceVoicemail"><i class="'+Ngcp.csc.icons.play+' green-icon pointer" aria-hidden="true"></i></div>'
+                return '<div id="voicemail-' + record.get('id') + '" class="card-icon play" data-callback="reproduceVoicemail"><i class="' + Ngcp.csc.icons.play + ' green-icon pointer" aria-hidden="true"></i></div>'
                 break;
             case 'fax':
                 meta.tdAttr = 'data-qtip="' + Ngcp.csc.locales.conversations.tooltips.send_fax[localStorage.getItem('languageSelected')] + '"';

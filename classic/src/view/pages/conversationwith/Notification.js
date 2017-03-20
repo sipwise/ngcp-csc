@@ -10,7 +10,15 @@ Ext.define('NgcpCsc.view.pages.conversationwith.Notifications', {
 
     itemTpl: [
         "<div class='notification'>",
+        "<div class='thumbnail'>",
+        "<tpl if='thumbnail'>",
+        "<img class='profile-icon' src={thumbnail}>",
+        "<tpl else>",
+        "<img class='profile-icon' src=/resources/images/avatar.png>",
+        "</tpl>",
+        "</div>",
         "<div class='{conversation_type}-icon'></div>",
+        "<div class='author'>{author}</div>",
         "<div class='{direction}-{status}-icon'></div>",
         "<div>{[Ngcp.csc.formatter.timeSince(values.start_time)]} " + Ngcp.csc.locales.common.ago[localStorage.getItem('languageSelected')] + "</div>",
         "<div class='text'>",
