@@ -203,8 +203,25 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
     },
 
     sendSms: function(el) {
+        var mainView = Ext.ComponentQuery.query('[name=mainView]')[0];
         var record = Ext.getStore('Conversations').findRecord('id', el.id.split('-')[1]);
-        this.fireEvent('initrtc', record, 'smsComposer');
+        var me = this;
+        this.redirectTo('conversation-with');
+        mainView.getViewModel().set('sectionTitle', 'Conversation with ' + record.get('source_cli'));
+        Ext.Function.defer(function(){
+            me.fireEvent('openpmtab', null, record);
+        }, 100);
+    },
+
+    startChat: function(el) {
+        var mainView = Ext.ComponentQuery.query('[name=mainView]')[0];
+        var record = Ext.getStore('Conversations').findRecord('id', el.id.split('-')[1]);
+        var me = this;
+        me.redirectTo('conversation-with');
+        mainView.getViewModel().set('sectionTitle', 'Conversation with ' + record.get('source_cli'));
+        Ext.Function.defer(function(){
+            me.fireEvent('openpmtab', null, record, true);
+        }, 100);
     },
 
     sendFax: function(el) {
@@ -212,14 +229,7 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
         this.fireEvent('initrtc', record, 'faxComposer');
     },
 
-    startChat: function(el) {
-        var record = Ext.getStore('Conversations').findRecord('id', el.id.split('-')[1]);
-        var me = this;
-        me.redirectTo('conversation-with');
-        Ext.Function.defer(function(){
-            me.fireEvent('openpmtab', null, record, true);
-        }, 100);
-    },
+
 
     composeSms: function() {
         this.fireEvent('initrtc', null, 'smsComposer');
