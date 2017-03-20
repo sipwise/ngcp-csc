@@ -4,12 +4,16 @@
         "conversation_type": "call",
         "status": "missed",
         "direction": "outgoing",
-        "start_time": "2017-03-07T13:05:33.384000000+02:00"
+        "start_time": "2017-03-07T13:05:33.384000000+02:00",
+        "author": "Administrator",
+        "thumbnail": "resources/images/user-profile/2.png"
     }, {
         "id": 21,
         "conversation_type": "voicemail",
         "status": "answered",
         "direction": "incoming",
-        "start_time": "2017-03-07T14:05:33.384000000+02:00"
+        "start_time": "2017-03-07T14:05:33.384000000+02:00",
+        "author": "Allen Morris",
+        "thumbnail": "resources/images/user-profile/11.png"
     }]
 }

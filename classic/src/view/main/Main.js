@@ -32,6 +32,7 @@ Ext.define('NgcpCsc.view.main.Main', {
             xtype: 'toolbar',
             cls: 'sencha-dash-dash-headerbar shadow',
             height: 64,
+            reference: 'mainToolbar',
             itemId: 'headerBar',
             items: [{
                     xtype: 'container',

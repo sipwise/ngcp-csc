@@ -67,7 +67,7 @@ Ext.define('NgcpCsc.view.pages.contacts.Contacts', {
         text: Ngcp.csc.locales.common.done[localStorage.getItem('languageSelected')],
         handler: 'save',
         hidden: true,
-        margin: '0 10 40 0'
+        margin: '0 10 5 0'
     }],
 
     defaults: {

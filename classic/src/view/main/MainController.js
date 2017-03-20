@@ -171,7 +171,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
         var filterTxtSearch = this.lookupReference('filterTxtSearch');
         var filterTxtSearchWidth = (filterTxtSearch.getWidth() > 0) ? filterTxtSearch.getWidth() : 730;
         var offset = 95;
-        var leftMargin = (cmp.getWidth() / 2) - ( filterTxtSearchWidth / 2) - offset;
+        var leftMargin = (cmp.getWidth() / 2) - (filterTxtSearchWidth / 2) - offset;
         if (leftMargin > 0 && Ext.os.is.Desktop) {
             filterTxtSearch.setMargin('0 0 0 ' + leftMargin);
         }
@@ -202,13 +202,13 @@ Ext.define('NgcpCsc.view.main.MainController', {
                 title = Ngcp.csc.locales.conversations.title[localStorage.getItem('languageSelected')];
                 break;
             case 'conversation-with':
-                if(!record){
+                if (!record) {
                     return;
-                }
-                title = Ngcp.csc.locales.conversationwith.title[localStorage.getItem('languageSelected')] +' '+ record.get('name')
+                };
+                title = Ngcp.csc.locales.conversationwith.title[localStorage.getItem('languageSelected')] + ' ' + record.get('name');
                 break;
             case 'addressbook':
-                title =  Ngcp.csc.locales.addressbook.title[localStorage.getItem('languageSelected')];
+                title = Ngcp.csc.locales.addressbook.title[localStorage.getItem('languageSelected')];
                 break;
             case 'callforward':
                 title = Ngcp.csc.locales.callforward.title[localStorage.getItem('languageSelected')];
@@ -301,6 +301,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
             document.styleSheets[0].addRule('.x-treelist-item-tool:after', 'height:' + currentItemsHeight + 'px !important');
             document.styleSheets[0].addRule('.x-treelist-item-tool::before', 'line-height:' + currentItemsHeight + 'px !important');
         }
+        this.setCardHeight();
 
     },
 
@@ -318,12 +319,25 @@ Ext.define('NgcpCsc.view.main.MainController', {
         return count;
     },
 
-    setCardHeight:function(){
+    setCardHeight: function() {
+        var docBody = document.body,
+            docElement = document.documentElement,
+            height;
+        if (typeof document.height !== 'undefined') {
+            height = document.height // For webkit browsers
+        } else {
+            height = Math.max(docBody.scrollHeight, docBody.offsetHeight, docElement.clientHeight, docElement.scrollHeight, docElement.offsetHeight);
+        }
+        var mainToolbarHeight = this.lookupReference('mainToolbar').getHeight();
+        var titleHeight = this.lookupReference('sectionTitle').getHeight();
         var activeTab = this.lookupReference('mainCardPanel').getLayout().getActiveItem();
         var gridFiltersHeight = this.lookupReference('gridFilters').getHeight();
-        var newHeight = screen.height - (Ext.os.is.Desktop ? 200 : 100) - gridFiltersHeight;
-        activeTab.setHeight(newHeight);
-        this.fireEvent('focusLastMsg')
+        var newHeight = height - mainToolbarHeight - titleHeight - gridFiltersHeight;
+        if (activeTab) {
+            activeTab.setHeight(newHeight);
+            this.fireEvent('focusLastMsg');
+            this.fireEvent('resizeContactPanel', newHeight + titleHeight);
+        }
     },
 
     newSearch: function(el) {
