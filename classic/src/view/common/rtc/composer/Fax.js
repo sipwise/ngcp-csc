@@ -18,7 +18,8 @@ Ext.define('NgcpCsc.view.common.composer.Fax', {
             emptyText: 'Allowed digits are 0-9, +, # and *.',
             hideTrigger: true,
             width: '80%',
-            bind: '{numberToCall}'
+            bind: '{numberToCall}',
+            reference: 'faxNumberInput'
         }, {
             xtype: 'button',
             enableToggle: true,

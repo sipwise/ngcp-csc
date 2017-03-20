@@ -19,6 +19,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         var me = this;
         var panel = this.getView();
         var vm = this.getViewModel();
+        var fieldToFocus;
         vm.set('numberToCall', '');
         switch (action) {
             case 'startCall':
@@ -31,7 +32,9 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                     'name': number,
                     'direction': 'outgoing',
                     'status': 'answered',
-                    'start_time': Date.now()
+                    'start_time': Date.now(),
+                    "author": "Administrator",
+                    "thumbnail": "resources/images/user-profile/2.png"
                 });
                 vm.set('uid', record.get('uid') || number);
                 vm.set('title', Ext.String.format('Call with {0}', number));
@@ -63,6 +66,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                 vm.set('faxComposerHidden', true);
                 vm.set('smsComposerHidden', true);
                 vm.set('callPanelHidden', true);
+                fieldToFocus = this.lookupReference('callNumberInput');
                 break;
             case 'faxComposer':
                 if (record) {
@@ -73,6 +77,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                 vm.set('faxComposerHidden', false);
                 vm.set('smsComposerHidden', true);
                 vm.set('callPanelHidden', true);
+                fieldToFocus = this.lookupReference('faxNumberInput');
                 break;
             case 'smsComposer':
                 if (record) {
@@ -83,9 +88,15 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                 vm.set('faxComposerHidden', true);
                 vm.set('smsComposerHidden', false);
                 vm.set('callPanelHidden', true);
+                fieldToFocus = this.lookupReference('smsTextArea');
                 break;
         }
         panel.show().expand();
+        if(fieldToFocus){
+            Ext.Function.defer(function(){ // needs to be executed when field is visible
+                fieldToFocus.focus();
+            }, 50)
+        }
         this.fireEvent('collapseContacts');
     },
 
@@ -281,7 +292,9 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
             'name': vm.get('numberToCall'),
             'direction': 'outgoing',
             'status': 'answered',
-            'start_time': Date.now()
+            'start_time': Date.now(),
+            "name": "Administrator",
+            "thumbnail": "resources/images/user-profile/2.png"
         });
         if(faxForm.isValid()){
             mainView.getViewModel().set('sectionTitle', 'Conversation with ' + vm.get('numberToCall'));
@@ -295,6 +308,8 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         }else{
             me.fireEvent('showmessage', false, Ngcp.csc.locales.common.invalid_form[localStorage.getItem('languageSelected')]);
         }
+        this.getView().close();
+
     },
     sendSms: function() {
         var me = this;
@@ -308,15 +323,18 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
             'direction': 'outgoing',
             'status': 'answered',
             'text': vm.get('smsText'),
-            'start_time': Date.now()
+            'start_time': Date.now(),
+            "author": "Administrator",
+            "thumbnail": "resources/images/user-profile/2.png"
         });
         mainView.getViewModel().set('sectionTitle', 'Conversation with ' + vm.get('numberToCall'));
         me.redirectTo('conversation-with');
         Ext.Function.defer(function(){
             me.fireEvent('openpmtab', null, record);
             me.fireEvent('notify', 'sms', vm.get('smsText'));
+            smsForm.reset();
+            me.getView().close();
         }, 100);
-        smsForm.reset();
         this.fireEvent('showmessage', true, Ngcp.csc.locales.rtc.sms_sent[localStorage.getItem('languageSelected')]);
     }
 });

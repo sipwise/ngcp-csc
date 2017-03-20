@@ -32,10 +32,10 @@ Ext.define('NgcpCsc.view.common.composer.Sms', {
         }
     }, {
         xtype: 'textarea',
-        allowBlank: false,
         bind: '{smsText}',
         fieldLabel: 'Content',
-        emptyText: 'Max 140 digits.'
+        emptyText: 'Max 140 digits.',
+        reference:'smsTextArea'
     }, {
         xtype: 'container',
         layout: 'center',

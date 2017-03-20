@@ -39,7 +39,7 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
             };
         },
         disableSmsSubmit: function(get) {
-            return get('smsText').length > 140 || get('smsText').length < 1;
+            return get('numberToCall').length < 1;
         },
         setuserCls:function(get){
             return get('callEnabled') ? '' : 'fa-rotate-180';
