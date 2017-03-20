@@ -204,7 +204,11 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
 
     sendSms: function(el) {
         var record = Ext.getStore('Conversations').findRecord('id', el.id.split('-')[1]);
-        this.fireEvent('initrtc', record, 'smsComposer');
+        var me = this;
+        me.redirectTo('conversation-with');
+        Ext.Function.defer(function(){
+            me.fireEvent('openpmtab', null, record, true);
+        }, 100);
     },
 
     sendFax: function(el) {
