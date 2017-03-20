@@ -1,3 +1,8 @@
+/*
+TODO
+1. the textfield at the bottom of the section should be always visible
+2. add names and avatars to one-to-one notifications
+*/
 Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWithController', {
     extend: 'NgcpCsc.view.pages.conversations.ConversationsController',
 
@@ -44,6 +49,18 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWithController', {
         this.fireEvent('initrtc', record, 'startCall', false, true);
     },
 
+    onPressFaxBtn: function(){
+        var vm = this.getViewModel();
+        var contact = Ext.getStore('Contacts').findRecord("uid", vm.get('activeUserId'));
+        var record = Ext.create('Ext.data.Model', {
+            id: vm.get('activeUserId'),
+            callee: vm.get('activeUserName'),
+            thumbnail: contact ? contact.get('thumbnail') : null
+        });
+        this.fireEvent('initrtc', record, 'faxComposer');
+
+    },
+
     hideTabBar: function(panel) {
         panel.getTabBar().hide();
     },
@@ -76,11 +93,6 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWithController', {
 
     },
 
-    loadOlderMsg: function(btn) {
-        var chatCmp = this.getView().getActiveTab();
-        chatCmp.getEl().scroll('t', Infinity, true);
-    },
-
     openPM: function(item, rec, focusTextarea) {
         var id = rec.get('uid') || rec.get('id');
         var tab = this.getView().down('[name=' + id + ']');
@@ -91,7 +103,7 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWithController', {
             vm.set('newmessage-' + id, '');
             tab = this.getView().add({
                 xtype: 'notifications',
-                title: rec.get('name'),
+                title: rec.get('name') || rec.get('source_cli'),
                 closable: false,
                 cls: 'private-conversation-text',
                 deferEmptyText: false,
