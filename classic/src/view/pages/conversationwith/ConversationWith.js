@@ -10,8 +10,7 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWith', {
     listeners: {
         render: 'hideTabBar'
     },
-    dockedItems: [Ext.create('NgcpCsc.view.pages.conversations.ConversationsToolbar'),
-    {
+    dockedItems: [{
         xtype: 'toolbar',
         dock: 'top',
         height:60,
@@ -69,8 +68,15 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWith', {
                 xtype: 'button',
                 margin : '0 0 0 5',
                 cls:'rtc-icons',
-                iconCls: 'x-fa fa-phone',
+                iconCls: Ngcp.csc.icons.phone,
                 handler:'onPressCallBtn'
+            },{
+                width:35,
+                xtype: 'button',
+                margin : '0 0 0 5',
+                cls:'rtc-icons',
+                iconCls:  Ngcp.csc.icons.fax,
+                handler:'onPressFaxBtn'
             }]
         }]
     }]

@@ -1,3 +1,9 @@
+/*
+3. the textfield at the bottom of the section should be always visible
+5. clicking on a Group (ex. Development) in Contacts list should open a conversation with the group, and name and avatar if available should be there
+6. remove the older button if no scrollable content
+7. add names and avatars to notifications
+*/
 Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWithController', {
     extend: 'NgcpCsc.view.pages.conversations.ConversationsController',
 
@@ -42,6 +48,18 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWithController', {
             thumbnail: contact ? contact.get('thumbnail') : null
         });
         this.fireEvent('initrtc', record, 'startCall', false, true);
+    },
+
+    onPressFaxBtn: function(){
+        var vm = this.getViewModel();
+        var contact = Ext.getStore('Contacts').findRecord("uid", vm.get('activeUserId'));
+        var record = Ext.create('Ext.data.Model', {
+            id: vm.get('activeUserId'),
+            callee: vm.get('activeUserName'),
+            thumbnail: contact ? contact.get('thumbnail') : null
+        });
+        this.fireEvent('initrtc', record, 'faxComposer');
+
     },
 
     hideTabBar: function(panel) {
@@ -91,7 +109,7 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWithController', {
             vm.set('newmessage-' + id, '');
             tab = this.getView().add({
                 xtype: 'notifications',
-                title: rec.get('name'),
+                title: rec.get('name') || rec.get('source_cli'),
                 closable: false,
                 cls: 'private-conversation-text',
                 deferEmptyText: false,
