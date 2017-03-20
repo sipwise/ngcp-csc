@@ -21,6 +21,17 @@
     float: left;
     margin-right: 10px;
 }
+.author
+ {
+    float: left;
+    margin-right: 10px;
+    font-weight: bold;
+}
+.thumbnail
+{
+    @extend .author;
+    margin-top: -15px;
+}
 
 .incoming-answered-icon:before {
     @extend .icon:before;
@@ -69,9 +80,9 @@
 }
 
 .notification {
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     .text {
-        margin-left:40px;
+        margin-left:60px;
     }
 
 }
@@ -118,4 +129,12 @@
     .x-panel-body {
         background-color: $body-background-color;
     }
+}
+
+img.profile-icon {
+    height: 50px;
+    width: 50px;
+    border: 2px solid $base-border-color;
+    @include border-radius($circle-border-radius);
+    float: left;
 }
