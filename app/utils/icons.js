@@ -12,6 +12,8 @@ Ext.define('Ngcp.csc.icons', {
         bell: "x-fa fa-bell",
         block: "x-fa fa-ban",
         book: "x-fa fa-book",
+        building: "x-fa fa-building",
+        calendar: "x-fa fa-calendar",
         chevronleft: "x-fa fa-chevron-left",
         chevronight: "x-fa fa-chevron-right",
         circle: "x-fa fa-circle",
@@ -54,6 +56,8 @@ Ext.define('Ngcp.csc.icons', {
         phonesquare: "x-fa fa-phone-square",
         send: "x-fa fa-send",
         send2x: "x-fa fa-send fa-2x",
+        star: "x-fa fa-star",
+        timescircle: "x-fa fa-times-circle",
         toggle: {
             off: 'x-fa fa-toggle-off',
             off2x: 'x-fa fa-toggle-off fa-2x',
