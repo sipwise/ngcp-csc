@@ -3,11 +3,6 @@
 @include extjs-panel-ui ( $ui: 'cf-widget', );
 @include extjs-panel-ui ( $ui: 'cf-mainform', );
 @include extjs-panel-ui ( $ui: 'cf-grid', );
-@mixin icon($icon) {
-    @include fa-icon;
-    @extend .fa;
-    @extend .fa-#{$icon}:before;
-};
 
 // TODO: Use rem mixin suggested by mdanek:
 // http://paste.mgm.sipwise.com/show/2210/
@@ -24,7 +19,6 @@
     #onlineFirstDest-labelTextEl,
     .cf-thentext,
     .cf-text {
-        font-weight: 600;
         margin-bottom: 7px;
     }
     .cf-thentext {
@@ -91,10 +85,17 @@
         #companyHoursButtonBelow,
         #listBButtonBelow {
             padding: 0 2px 0 8px;
-      }
-      .cf-deactivate-day {
-          color: #B4B8B3;
-      }
+        }
+        #listAButtonBelow,
+        #listBButtonBelow {
+            padding: 0 2px 0 8px;
+            .x-grid-cell-inner {
+              cursor: pointer;
+            }
+        }
+        .cf-deactivate-day {
+            color: #B4B8B3;
+        }
     }
 }
 
@@ -107,14 +108,10 @@
     .x-grid-row {
         background: white;
     }
-    div.x-grid-empty::before {
-        @include icon(circle);
-        font-size: 0.7em;
-        margin: 0 4px;
-    }
     .x-panel-cf-grid .x-grid-cell-inner {
         padding-top: 7px;
         margin: 0;
+        cursor: pointer;
     }
     .x-panel-cf-grid .cf-tpl-fa,
     .cf-tpl-fa {

@@ -362,9 +362,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             id: 'onlineThenRingFields',
             layout: 'hbox',
             items: [{
-                html: '<i class="fa fa-circle cf-tpl-fa" aria-hidden="true"></i>',
-                margin: '8 0 0 0'
-            }, {
                 xtype: 'combo',
                 store: ['Number', 'Voicemail', 'Fax2Mail'],
                 id: 'onlineThenDest',
@@ -479,9 +476,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             id: 'busyThenRingFields',
             layout: 'hbox',
             items: [{
-                html: '<i class="fa fa-circle cf-tpl-fa" aria-hidden="true"></i>',
-                margin: '8 0 0 0'
-            }, {
                 xtype: 'combo',
                 store: ['Number', 'Voicemail', 'Fax2Mail'],
                 id: 'busyThenDest',
@@ -596,9 +590,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             id: 'offlineThenRingFields',
             layout: 'hbox',
             items: [{
-                html: '<i class="fa fa-circle cf-tpl-fa" aria-hidden="true"></i>',
-                margin: '8 0 0 0'
-            }, {
                 xtype: 'combo',
                 store: ['Number', 'Voicemail', 'Fax2Mail'],
                 id: 'offlineThenDest',
