@@ -33,7 +33,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
             var storeName = this.getStoreFromRoute(currentRoute);
             var recId = field.id.split("-")[3];
             var iconDivId = 'edit' + storeName.slice(0, -1) + '-' + recId;
-            var iconDiv = document.getElementById(iconDivId)
+            var iconDiv = document.getElementById(iconDivId);
             me.saveCard(iconDiv);
         };
     },

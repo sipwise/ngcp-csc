@@ -726,7 +726,7 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Move',
                 sp: 'Move'
             },
-            closed: {
+            full_day: {
                 en: 'Closed',
                 it: 'Closed',
                 de: 'Closed',
@@ -803,6 +803,27 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'For calling parties ...',
                 sp: 'For calling parties ...'
             },
+            for_calls_during_always: {
+                en: 'For calls during always ...',
+                it: 'For calls during always ...',
+                de: 'For calls during always ...',
+                fr: 'For calls during always ...',
+                sp: 'For calls during always ...'
+            },
+            for_calls_during_after_hours: {
+                en: 'For calls during after hours ...',
+                it: 'For calls during after hours ...',
+                de: 'For calls during after hours ...',
+                fr: 'For calls during after hours ...',
+                sp: 'For calls during after hours ...'
+            },
+            for_calls_during_company_hours: {
+                en: 'For calls during company hours ...',
+                it: 'For calls during company hours ...',
+                de: 'For calls during company hours ...',
+                fr: 'For calls during company hours ...',
+                sp: 'For calls during company hours ...'
+            },
             and_ring_for: {
                 en: 'and ring for',
                 it: 'and ring for',
@@ -816,6 +837,20 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'secs',
                 fr: 'secs',
                 sp: 'secs'
+            },
+            sourceset_title: {
+                en: 'Sourceset title',
+                it: 'Sourceset title',
+                de: 'Sourceset title',
+                fr: 'Sourceset title',
+                sp: 'Sourceset title'
+            },
+            change_title: {
+                en: 'CHANGE TITLE',
+                it: 'CHANGE TITLE',
+                de: 'CHANGE TITLE',
+                fr: 'CHANGE TITLE',
+                sp: 'CHANGE TITLE'
             }
         },
         filters: {

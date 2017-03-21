@@ -16,8 +16,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardModel', {
         online_add_new_then_hidden: true,
         busy_add_new_then_hidden: true,
         offline_add_new_then_hidden: true,
-        active_widget: '',
-        row_elements_disabled: false,
         selected_timeset: 'always',
         selected_sourceset: 'everybody',
         online_then_dest: 'Number',
@@ -28,7 +26,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardModel', {
         busy_then_timeout: '10',
         offline_then_dest: 'Number',
         offline_then_number: '',
-        offline_then_timeout: '10'
+        offline_then_timeout: '10',
+        source_lista_title: 'List A',
+        source_listb_title: 'List B',
+        hide_lista_titleField: true,
+        hide_listb_titleField: true
     }
 
 });

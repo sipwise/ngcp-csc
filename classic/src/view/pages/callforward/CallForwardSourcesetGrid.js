@@ -1,18 +1,19 @@
 Ext.define('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
     extend: 'Ext.grid.Panel',
 
-    xtype: 'callforwardsourcesetgrid',
-
     viewConfig: {
         markDirty: false
     },
 
     plugins: {
+        pluginId: 'celleditingTime',
         ptype: 'cellediting',
         clicksToEdit: 1
     },
 
     hideHeaders: true,
+
+    width: 500,
 
     initComponent: function() {
         this.columns = {
