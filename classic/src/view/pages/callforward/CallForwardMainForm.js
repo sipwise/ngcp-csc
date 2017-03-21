@@ -316,6 +316,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             layout: 'hbox',
             id: 'onlineFirstRingFields',
             padding: '0 11 0 0',
+            width: 500,
             margin: '0 0 0 50',
             items: [{
                 xtype: 'combo',
@@ -328,18 +329,27 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 listeners: {
                     change: 'selectFirstRing'
                 },
-                flex: 8
+                flex: 4
             }, {
                 xtype: 'combo',
-                store: ['for 0 secs', 'for 10 secs', 'for 20 secs', 'for 30 secs', 'for 40 secs', 'for 50 secs', 'for 60 secs', 'for 70 secs', 'for 80 secs', 'for 90 secs', 'for 100 secs', 'for 110 secs', 'for 120 secs', 'for 130 secs', 'for 140 secs', 'for 150 secs', 'for 160 secs', 'for 170 secs', 'for 180 secs', 'for 190 secs', 'for 200 secs', 'for 210 secs', 'for 220 secs', 'for 230 secs', 'for 240 secs', 'for 250 secs', 'for 260 secs', 'for 270 secs', 'for 280 secs', 'for 290 secs', 'for 300 secs'],
-                value: 'for 10 secs',
+                store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
+                value: '10',
                 id: 'onlineFirstTimeout',
                 allowBlank: false,
                 editable: false,
-                flex: 2,
+                flex: 3,
                 margin: '0 0 0 10',
                 bind: {
-                    hidden: '{online_timeout_hidden}'
+                    hidden: '{online_first_timeout_hidden}'
+                },
+                fieldLabel: Ngcp.csc.locales.callforward.and_ring_for[localStorage.getItem('languageSelected')]
+            }, {
+                xtype: 'container',
+                html: Ngcp.csc.locales.callforward.secs[localStorage.getItem('languageSelected')],
+                padding: '7 0 0 20',
+                flex: 1,
+                bind: {
+                    hidden: '{online_first_timeout_hidden}'
                 }
             }]
         }, {
@@ -355,16 +365,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             ]
         }, {
             xtype: 'panel',
-            margin: '10 0 0 194',
+            margin: '10 7 0 155',
             bind: {
                 hidden: '{online_add_new_then_hidden}'
             },
             id: 'onlineThenRingFields',
             layout: 'hbox',
             items: [{
-                html: '<i class="fa fa-circle cf-tpl-fa" aria-hidden="true"></i>',
-                margin: '8 0 0 0'
-            }, {
                 xtype: 'combo',
                 store: ['Number', 'Voicemail', 'Fax2Mail'],
                 id: 'onlineThenDest',
@@ -384,6 +391,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 bind: {
                     hidden: '{online_then_timeout_hidden}',
                     value: '{online_then_number}'
+                },
+                listeners: {
+                    specialkey: 'onEnterPressed'
                 }
             }, {
                 xtype: 'combo',
@@ -396,7 +406,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 },
                 allowBlank: false,
                 editable: false,
-                flex: 2,
+                flex: 3,
                 margin: '0 0 0 10'
             }, {
                 xtype: 'container',
@@ -434,6 +444,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             id: 'busyFirstRingFields',
             padding: '0 11 0 0',
             margin: '0 0 0 50',
+            width: 500,
             items: [{
                 xtype: 'combo',
                 store: ['Own phone', 'Voicemail', 'Fax2Mail', 'None'],
@@ -445,16 +456,25 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 listeners: {
                     change: 'selectFirstRing'
                 },
-                flex: 8
+                flex: 4
             }, {
                 xtype: 'combo',
-                store: ['for 0 secs', 'for 10 secs', 'for 20 secs', 'for 30 secs', 'for 40 secs', 'for 50 secs', 'for 60 secs', 'for 70 secs', 'for 80 secs', 'for 90 secs', 'for 100 secs', 'for 110 secs', 'for 120 secs', 'for 130 secs', 'for 140 secs', 'for 150 secs', 'for 160 secs', 'for 170 secs', 'for 180 secs', 'for 190 secs', 'for 200 secs', 'for 210 secs', 'for 220 secs', 'for 230 secs', 'for 240 secs', 'for 250 secs', 'for 260 secs', 'for 270 secs', 'for 280 secs', 'for 290 secs', 'for 300 secs'],
-                value: 'for 10 secs',
+                store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
+                value: '10',
                 id: 'busyFirstTimeout',
                 allowBlank: false,
                 editable: false,
-                flex: 2,
+                flex: 3,
                 margin: '0 0 0 10',
+                bind: {
+                    hidden: '{busy_first_timeout_hidden}'
+                },
+                fieldLabel: Ngcp.csc.locales.callforward.and_ring_for[localStorage.getItem('languageSelected')]
+            }, {
+                xtype: 'container',
+                html: Ngcp.csc.locales.callforward.secs[localStorage.getItem('languageSelected')],
+                padding: '7 0 0 20',
+                flex: 1,
                 bind: {
                     hidden: '{busy_first_timeout_hidden}'
                 }
@@ -472,16 +492,14 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             ]
         }, {
             xtype: 'panel',
-            margin: '10 0 0 194',
+            margin: '10 7 0 155',
             bind: {
                 hidden: '{busy_add_new_then_hidden}'
             },
             id: 'busyThenRingFields',
             layout: 'hbox',
+            height: 31,
             items: [{
-                html: '<i class="fa fa-circle cf-tpl-fa" aria-hidden="true"></i>',
-                margin: '8 0 0 0'
-            }, {
                 xtype: 'combo',
                 store: ['Number', 'Voicemail', 'Fax2Mail'],
                 id: 'busyThenDest',
@@ -513,7 +531,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 },
                 allowBlank: false,
                 editable: false,
-                flex: 2,
+                flex: 3,
                 margin: '0 0 0 10'
             }, {
                 xtype: 'container',
@@ -551,6 +569,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             id: 'offlineFirstRingFields',
             padding: '0 11 0 0',
             margin: '0 0 0 50',
+            width: 500,
             items: [{
                 xtype: 'combo',
                 store: ['Own phone', 'Voicemail', 'Fax2Mail', 'None'],
@@ -562,16 +581,25 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 listeners: {
                     change: 'selectFirstRing'
                 },
-                flex: 8
+                flex: 4
             }, {
                 xtype: 'combo',
-                store: ['for 0 secs', 'for 10 secs', 'for 20 secs', 'for 30 secs', 'for 40 secs', 'for 50 secs', 'for 60 secs', 'for 70 secs', 'for 80 secs', 'for 90 secs', 'for 100 secs', 'for 110 secs', 'for 120 secs', 'for 130 secs', 'for 140 secs', 'for 150 secs', 'for 160 secs', 'for 170 secs', 'for 180 secs', 'for 190 secs', 'for 200 secs', 'for 210 secs', 'for 220 secs', 'for 230 secs', 'for 240 secs', 'for 250 secs', 'for 260 secs', 'for 270 secs', 'for 280 secs', 'for 290 secs', 'for 300 secs'],
-                value: 'for 10 secs',
+                store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
+                value: '10',
                 id: 'offlineFirstTimeout',
                 allowBlank: false,
                 editable: false,
-                flex: 2,
+                flex: 3,
                 margin: '0 0 0 10',
+                bind: {
+                    hidden: '{offline_first_timeout_hidden}'
+                },
+                fieldLabel: Ngcp.csc.locales.callforward.and_ring_for[localStorage.getItem('languageSelected')]
+            }, {
+                xtype: 'container',
+                html: Ngcp.csc.locales.callforward.secs[localStorage.getItem('languageSelected')],
+                padding: '7 0 0 20',
+                flex: 1,
                 bind: {
                     hidden: '{offline_first_timeout_hidden}'
                 }
@@ -589,16 +617,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             ]
         }, {
             xtype: 'panel',
-            margin: '10 0 0 194',
+            margin: '10 7 0 155',
             bind: {
                 hidden: '{offline_add_new_then_hidden}'
             },
             id: 'offlineThenRingFields',
             layout: 'hbox',
             items: [{
-                html: '<i class="fa fa-circle cf-tpl-fa" aria-hidden="true"></i>',
-                margin: '8 0 0 0'
-            }, {
                 xtype: 'combo',
                 store: ['Number', 'Voicemail', 'Fax2Mail'],
                 id: 'offlineThenDest',
@@ -630,7 +655,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 },
                 allowBlank: false,
                 editable: false,
-                flex: 2,
+                flex: 3,
                 margin: '0 0 0 10'
             }, {
                 xtype: 'container',
