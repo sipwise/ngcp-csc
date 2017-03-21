@@ -27,10 +27,30 @@ Ext.define('NgcpCsc.store.NavigationTree', {
         }, {
             text: 'Call Forward',
             iconCls: Ngcp.csc.icons.doubleangleright,
-            viewType: 'callforward',
             routeId: 'callforward',
             acl: ['administrator'],
-            leaf: true
+            children: [{
+                text: 'Always',
+                iconCls: Ngcp.csc.icons.star,
+                viewType: 'always',
+                routeId: 'callforward/always',
+                acl: ['administrator'],
+                leaf: true
+            }, {
+                text: 'After Hours',
+                iconCls: Ngcp.csc.icons.timescircle,
+                viewType: 'afterhours',
+                routeId: 'callforward/afterhours',
+                acl: ['administrator'],
+                leaf: true
+            }, {
+                text: 'Company Hours',
+                iconCls: Ngcp.csc.icons.building,
+                viewType: 'companyhours',
+                routeId: 'callforward/companyhours',
+                acl: ['administrator'],
+                leaf: true
+            }]
         }, {
             text: 'Call Blocking',
             iconCls: Ngcp.csc.icons.block,
