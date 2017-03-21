@@ -3,11 +3,6 @@
 @include extjs-panel-ui ( $ui: 'cf-widget', );
 @include extjs-panel-ui ( $ui: 'cf-mainform', );
 @include extjs-panel-ui ( $ui: 'cf-grid', );
-@mixin icon($icon) {
-    @include fa-icon;
-    @extend .fa;
-    @extend .fa-#{$icon}:before;
-};
 
 // TODO: Use rem mixin suggested by mdanek:
 // http://paste.mgm.sipwise.com/show/2210/
@@ -16,7 +11,10 @@
 .x-panel-cf-mainform {
     #onlineThenTimeout-labelEl,
     #busyThenTimeout-labelEl,
-    #offline-then-timeout-labelEl {
+    #offlineThenTimeout-labelEl,
+    #onlineFirstTimeout-labelEl,
+    #busyFirstTimeout-labelEl,
+    #offlineFirstTimeout-labelEl {
         padding-left: 15px;
     }
     #busyFirstDest-labelTextEl,
@@ -24,7 +22,6 @@
     #onlineFirstDest-labelTextEl,
     .cf-thentext,
     .cf-text {
-        font-weight: 600;
         margin-bottom: 7px;
     }
     .cf-thentext {
@@ -44,7 +41,7 @@
     }
 }
 
-// cf-mainform segmented buttons
+// cf-mainform segmented buttons // TODO: Possibly remove some here
 .x-panel-cf-mainform {
     .x-segmented-button {
         white-space: nowrap;
@@ -74,7 +71,7 @@
     }
 }
 
-// cf-mainform time -and sourceset "embed"
+// cf-mainform time -and sourceset "embed" // TODO: Possibly remove some here
 .x-panel-cf-mainform {
     .cf-embed-row {
         .x-autocontainer-innerCt {
@@ -91,10 +88,17 @@
         #companyHoursButtonBelow,
         #listBButtonBelow {
             padding: 0 2px 0 8px;
-      }
-      .cf-deactivate-day {
-          color: #B4B8B3;
-      }
+        }
+        #listAButtonBelow,
+        #listBButtonBelow {
+            padding: 0 2px 0 8px;
+            .x-grid-cell-inner {
+              cursor: pointer;
+            }
+        }
+        .cf-deactivate-day {
+            color: #B4B8B3;
+        }
     }
 }
 
@@ -107,14 +111,10 @@
     .x-grid-row {
         background: white;
     }
-    div.x-grid-empty::before {
-        @include icon(circle);
-        font-size: 0.7em;
-        margin: 0 4px;
-    }
     .x-panel-cf-grid .x-grid-cell-inner {
         padding-top: 7px;
         margin: 0;
+        cursor: pointer;
     }
     .x-panel-cf-grid .cf-tpl-fa,
     .cf-tpl-fa {
@@ -128,5 +128,23 @@
         border: solid 1px;
         border-color: #d0d0d0;
         padding: 20px 10px;
+    }
+}
+
+// cf-mainform timeset panel
+.x-panel-cf-mainform {
+    .cf-calls-during {
+        margin: 7px 15px 0 0;
+    }
+    .cf-calendar-button,
+    .cf-calendar-button .x-btn-icon-el-default-small {
+        margin-right: 5px;
+    }
+    .cf-calendar-button,
+    .cf-calendar-button .x-btn-icon-el-default-small,
+    .cf-calls-curing-section .x-btn.x-btn-pressed.x-btn-default-small {
+        background: white;
+        color: $base-color;
+        border: none;
     }
 }
