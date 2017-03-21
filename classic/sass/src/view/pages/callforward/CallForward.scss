@@ -3,20 +3,15 @@
 @include extjs-panel-ui ( $ui: 'cf-widget', );
 @include extjs-panel-ui ( $ui: 'cf-mainform', );
 @include extjs-panel-ui ( $ui: 'cf-grid', );
-@mixin icon($icon) {
-    @include fa-icon;
-    @extend .fa;
-    @extend .fa-#{$icon}:before;
-};
-
-// TODO: Use rem mixin suggested by mdanek:
-// http://paste.mgm.sipwise.com/show/2210/
 
 // cf-mainform text and headline
 .x-panel-cf-mainform {
     #onlineThenTimeout-labelEl,
     #busyThenTimeout-labelEl,
-    #offline-then-timeout-labelEl {
+    #offlineThenTimeout-labelEl,
+    #onlineFirstTimeout-labelEl,
+    #busyFirstTimeout-labelEl,
+    #offlineFirstTimeout-labelEl {
         padding-left: 15px;
     }
     #busyFirstDest-labelTextEl,
@@ -24,7 +19,6 @@
     #onlineFirstDest-labelTextEl,
     .cf-thentext,
     .cf-text {
-        font-weight: 600;
         margin-bottom: 7px;
     }
     .cf-thentext {
@@ -44,60 +38,6 @@
     }
 }
 
-// cf-mainform segmented buttons
-.x-panel-cf-mainform {
-    .x-segmented-button {
-        white-space: nowrap;
-        .x-btn-button-default-small {
-            display: inline-block;
-        }
-        .x-btn-icon-el-default-small {
-            float: right;
-        }
-        .x-btn-inner-default-small {
-            float: left;
-        }
-    }
-    .x-segmented-button-item-horizontal {
-        display: inline-block;
-        width: 32%;
-        height: 35px;
-        margin: 0 5px;
-    }
-    x-segmented-button-item-horizontal {
-        .x-segmented-button-first {
-            margin-left: 10px;
-        }
-        .x-segmented-button-last {
-            margin: 0 0 0 5px;
-        }
-    }
-}
-
-// cf-mainform time -and sourceset "embed"
-.x-panel-cf-mainform {
-    .cf-embed-row {
-        .x-autocontainer-innerCt {
-            display: block;
-        }
-        #alwaysButtonBelow,
-        #everybodyButtonBelow {
-            padding: 0 9px 0 0;
-        }
-        #afterHoursButtonBelow,
-        #listAButtonBelow {
-            padding: 0 1px 0 8px;
-        }
-        #companyHoursButtonBelow,
-        #listBButtonBelow {
-            padding: 0 2px 0 8px;
-      }
-      .cf-deactivate-day {
-          color: #B4B8B3;
-      }
-    }
-}
-
 // cf-mainform grid panel
 .x-panel-cf-mainform {
     .x-grid-empty {
@@ -107,14 +47,10 @@
     .x-grid-row {
         background: white;
     }
-    div.x-grid-empty::before {
-        @include icon(circle);
-        font-size: 0.7em;
-        margin: 0 4px;
-    }
     .x-panel-cf-grid .x-grid-cell-inner {
         padding-top: 7px;
         margin: 0;
+        cursor: pointer;
     }
     .x-panel-cf-grid .cf-tpl-fa,
     .cf-tpl-fa {
@@ -128,5 +64,23 @@
         border: solid 1px;
         border-color: #d0d0d0;
         padding: 20px 10px;
+    }
+}
+
+// cf-mainform timeset panel
+.x-panel-cf-mainform {
+    .cf-calls-during {
+        margin: 7px 15px 0 0;
+    }
+    .cf-calendar-button,
+    .cf-calendar-button .x-btn-icon-el-default-small {
+        margin-right: 5px;
+    }
+    .cf-calendar-button,
+    .cf-calendar-button .x-btn-icon-el-default-small,
+    .cf-calls-curing-section .x-btn.x-btn-pressed.x-btn-default-small {
+        background: white;
+        color: $base-color;
+        border: none;
     }
 }
