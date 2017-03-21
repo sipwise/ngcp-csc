@@ -726,7 +726,7 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Move',
                 sp: 'Move'
             },
-            closed: {
+            full_day: {
                 en: 'Closed',
                 it: 'Closed',
                 de: 'Closed',

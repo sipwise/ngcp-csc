@@ -43,7 +43,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
                     }
                 }
             }, {
-                text: Ngcp.csc.locales.callforward.closed[localStorage.getItem('languageSelected')],
+                text: Ngcp.csc.locales.callforward.full_day[localStorage.getItem('languageSelected')],
                 dataIndex: 'closed',
                 xtype: 'actioncolumn',
                 align: 'center',

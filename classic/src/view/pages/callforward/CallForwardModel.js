@@ -28,7 +28,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardModel', {
         busy_then_timeout: '10',
         offline_then_dest: 'Number',
         offline_then_number: '',
-        offline_then_timeout: '10'
+        offline_then_timeout: '10',
+        source_lista_title: 'List A',
+        source_listb_title: 'List B',
+        hide_lista_titleField: true,
+        hide_listb_titleField: true
     }
 
 });

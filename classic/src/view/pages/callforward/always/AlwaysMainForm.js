@@ -1,7 +1,7 @@
-Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
+Ext.define('NgcpCsc.view.pages.callforward.always.AlwaysMainForm', {
     extend: 'Ext.form.Panel',
 
-    xtype: 'callforwardmainform',
+    xtype: 'alwaysmainform',
 
     defaults: {
         width: '100%'
@@ -17,10 +17,38 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
 
     ui: 'cf-mainform',
 
+    _prefix: null,
+
     initComponent: function() {
+        var callForwardListAGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardSourcesetListAGrid', {
+            id: this._prefix + 'always-cf-sourceset-list-a-grid',
+            store: Ext.create('NgcpCsc.store.CallForwardSourceset', {
+                proxy: {
+                    type: 'ajax',
+                    url: '/resources/data/callForwardListA.json',
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    }
+                }
+            })
+        });
+        var callForwardListBGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardSourcesetListBGrid', {
+            id: this._prefix + 'always-cf-sourceset-list-b-grid',
+            store: Ext.create('NgcpCsc.store.CallForwardSourceset', {
+                proxy: {
+                    type: 'ajax',
+                    url: '/resources/data/callForwardListB.json',
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    }
+                }
+            })
+        });
         var busyGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             store: Ext.create('NgcpCsc.store.CallForward', {
-                storeId: 'CallForwardBusy',
+                storeId: this._prefix + 'always-CallForwardBusy',
                 proxy: {
                     type: 'ajax',
                     url: '/resources/data/callForwardBusy.json',
@@ -33,7 +61,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
         });
         var onlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             store: Ext.create('NgcpCsc.store.CallForward', {
-                storeId: 'CallForwardOnline',
+                storeId: this._prefix + 'always-CallForwardOnline',
                 proxy: {
                     type: 'ajax',
                     url: '/resources/data/callForwardOnline.json',
@@ -46,7 +74,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
         });
         var offlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             store: Ext.create('NgcpCsc.store.CallForward', {
-                storeId: 'CallForwardOffline',
+                storeId: this._prefix + 'always-CallForwardOffline',
                 proxy: {
                     type: 'ajax',
                     url: '/resources/data/callForwardOffline.json',
@@ -57,256 +85,93 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 }
             })
         });
-        var callForwardAfterGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
-            id: 'cf-timeset-after-grid',
-            store: Ext.create('NgcpCsc.store.CallForwardTimeset', {
-                proxy: {
-                    type: 'ajax',
-                    url: '/resources/data/callForwardAfter.json',
-                    reader: {
-                        type: 'json',
-                        rootProperty: 'data'
-                    }
-                }
-            })
-        });
-        var callForwardCompanyGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
-            id: 'cf-timeset-company-grid',
-            store: Ext.create('NgcpCsc.store.CallForwardTimeset', {
-                proxy: {
-                    type: 'ajax',
-                    url: '/resources/data/callForwardCompany.json',
-                    reader: {
-                        type: 'json',
-                        rootProperty: 'data'
-                    }
-                }
-            })
-        });
-        var callForwardListAGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
-            id: 'cf-sourceset-list-a-grid',
-            store: Ext.create('NgcpCsc.store.CallForwardSourceset', {
-                proxy: {
-                    type: 'ajax',
-                    url: '/resources/data/callForwardListA.json',
-                    reader: {
-                        type: 'json',
-                        rootProperty: 'data'
-                    }
-                }
-            })
-        });
-        var callForwardListBGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
-            id: 'cf-sourceset-list-b-grid',
-            store: Ext.create('NgcpCsc.store.CallForwardSourceset', {
-                proxy: {
-                    type: 'ajax',
-                    url: '/resources/data/callForwardListB.json',
-                    reader: {
-                        type: 'json',
-                        rootProperty: 'data'
-                    }
-                }
-            })
-        });
 
         this.items = [{
-            xtype: 'segmentedbutton',
-            itemId: 'timeButtons',
-            value: 'always',
-            defaults: {
-                handler: 'clickSegmentedButton'
+            xtype: 'form',
+            layout: 'hbox',
+            bind: {
+                hidden: '{hide_lista_titleField}'
             },
             items: [{
-                value: 'always',
-                id: 'alwaysButton',
-                reference: 'alwaysButton',
-                text: Ngcp.csc.locales.callforward.time_one[localStorage.getItem('languageSelected')]
+                xtype: 'textfield',
+                fieldLabel: 'Change title', // TODO: Locales
+                width: 200,
+                bind: '{source_lista_title}'
             }, {
-                value: 'afterHours',
-                id: 'afterHoursButton',
-                reference: 'afterHoursButton',
-                text: Ngcp.csc.locales.callforward.time_two[localStorage.getItem('languageSelected')],
-                iconCls: Ngcp.csc.icons.pencil,
-                iconAlign: 'right'
-            }, {
-                value: 'companyHours',
-                id: 'companyHoursButton',
-                reference: 'companyHoursButton',
-                text: Ngcp.csc.locales.callforward.time_three[localStorage.getItem('languageSelected')],
-                iconCls: Ngcp.csc.icons.pencil,
-                iconAlign: 'right'
+                xtype: 'button',
+                html: 'SAVE', // TODO: Locales
+                id: this._prefix + 'always-lista_titleField-saveButton',
+                margin: '0 0 0 10',
+                handler: 'saveNewTitle'
             }]
+        },
+                callForwardListAGrid,
+            {
+                xtype: 'panel',
+                layout: 'hbox',
+                margin: '15 0 0 0',
+                bind: {
+                    hidden: '{list_a}'
+                },
+                items: [{
+                    text: Ngcp.csc.locales.callforward.add_new_source[localStorage.getItem('languageSelected')],
+                    xtype: 'button',
+                    id: this._prefix + 'always-addListAButton',
+                    width: 135,
+                    margin: '0 0 0 0',
+                    listeners: {
+                        click: 'addEmptyRow'
+                    }
+                }, {
+                    xtype: 'button',
+                    html: 'CHANGE TITLE', // TODO: Locales
+                    id: this._prefix + 'always-lista_titleField-showButton',
+                    margin: '0 0 0 10',
+                    handler: 'toggleChangeTitle'
+                }]
         }, {
-            xtype: 'container',
-            userCls: 'cf-embed-row',
-            layout: {
-                type: 'hbox',
-                align: 'stretch'
-            },
-            defaults: {
-                width: '33.5%'
+            xtype: 'form',
+            layout: 'hbox',
+            bind: {
+                hidden: '{hide_listb_titleField}'
             },
             items: [{
-                id: 'alwaysButtonBelow'
+                xtype: 'textfield',
+                fieldLabel: 'Change title', // TODO: Locales
+                width: 200,
+                bind: '{source_listb_title}'
             }, {
-                id: 'afterHoursButtonBelow',
-                items: [{
-                    reference: 'cf-after-widget',
-                    bind: {
-                        hidden: '{after_hours}'
-                    },
-                    items: [
-                        callForwardAfterGrid,
-                        {
-                            layout: 'hbox',
-                            width: '100%',
-                            margin: '10 0 0 0',
-                            defaults: {
-                                xtype: 'button',
-                                flex: 1
-                            },
-                            items: [{
-                                text: Ngcp.csc.locales.common.save[localStorage.getItem('languageSelected')],
-                                margin: '0 5 0 0'
-                            }, {
-                                text: Ngcp.csc.locales.common.reset[localStorage.getItem('languageSelected')],
-                                id: 'resetAfter',
-                                handler: 'resetTimesetWidget'
-                            }]
-                        }
-                    ]
-                }]
-            }, {
-                id: 'companyHoursButtonBelow',
-                items: [{
-                    reference: 'cf-company-widget',
-                    bind: {
-                        hidden: '{company_hours}'
-                    },
-                    items: [
-                        callForwardCompanyGrid,
-                        {
-                            layout: 'hbox',
-                            width: '100%',
-                            margin: '10 0 0 0',
-                            defaults: {
-                                xtype: 'button',
-                                flex: 1
-                            },
-                            items: [{
-                                text: Ngcp.csc.locales.common.save[localStorage.getItem('languageSelected')],
-                                margin: '0 5 0 0'
-                            }, {
-                                text: Ngcp.csc.locales.common.reset[localStorage.getItem('languageSelected')],
-                                id: 'resetCompany',
-                                handler: 'resetTimesetWidget'
-                            }]
-                        }
-                    ]
-                }]
+                xtype: 'button',
+                html: 'SAVE', // TODO: Locales
+                id: this._prefix + 'always-listb_titleField-saveButton',
+                margin: '0 0 0 10',
+                handler: 'saveNewTitle'
             }]
-        }, {
-            xtype: 'container',
-            userCls: 'cf-text',
-            html: Ngcp.csc.locales.callforward.for_calling_parties[localStorage.getItem('languageSelected')],
-            margin: '10 0 10 0'
-        }, {
-            xtype: 'segmentedbutton',
-            itemId: 'sourceButtons',
-            value: 'everybody',
-            defaults: {
-                handler: 'clickSegmentedButton'
-            },
-            ui: 'cf-segmentedbutton',
-            items: [{
-                value: 'everybody',
-                id: 'everybodyButton',
-                reference: 'everybodyButton',
-                text: Ngcp.csc.locales.callforward.source_one[localStorage.getItem('languageSelected')]
-            }, {
-                value: 'listA',
-                id: 'listAButton',
-                reference: 'listAButton',
-                text: Ngcp.csc.locales.callforward.source_two[localStorage.getItem('languageSelected')],
-                iconCls: Ngcp.csc.icons.pencil,
-                iconAlign: 'right'
-            }, {
-                value: 'listB',
-                id: 'listBButton',
-                reference: 'listBButton',
-                text: Ngcp.csc.locales.callforward.source_three[localStorage.getItem('languageSelected')],
-                iconCls: Ngcp.csc.icons.pencil,
-                iconAlign: 'right'
-            }]
-        }, {
-            xtype: 'container',
-            userCls: 'cf-embed-row',
-            layout: {
-                type: 'hbox',
-                align: 'stretch'
-            },
-            defaults: {
-                width: '33.5%'
-            },
-            items: [{
-                id: 'everybodyButtonBelow'
-            }, {
-                id: 'listAButtonBelow',
+        },
+                callForwardListBGrid,
+            {
+                xtype: 'panel',
+                layout: 'hbox',
+                margin: '15 0 0 0',
+                bind: {
+                    hidden: '{list_b}'
+                },
                 items: [{
-                    reference: 'cf-list-a-widget',
-                    bind: {
-                        hidden: '{list_a}'
-                    },
-                    items: [{
-                        xtype: 'panel',
-                        ui: 'cf-widget',
-                        width: '100%',
-                        items: [
-                            callForwardListAGrid,
-                            {
-                                text: Ngcp.csc.locales.callforward.add_new_source[localStorage.getItem('languageSelected')],
-                                xtype: 'button',
-                                id: 'addListAButton',
-                                width: 135,
-                                margin: '15 0 0 0',
-                                listeners: {
-                                    click: 'addEmptyRow'
-                                }
-                            }
-                        ]
-                    }]
+                    text: Ngcp.csc.locales.callforward.add_new_source[localStorage.getItem('languageSelected')],
+                    xtype: 'button',
+                    id: this._prefix + 'always-addListBButton',
+                    width: 135,
+                    margin: '0 0 0 0',
+                    listeners: {
+                        click: 'addEmptyRow'
+                    }
+                }, {
+                    xtype: 'button',
+                    html: 'CHANGE TITLE', // TODO: Locales
+                    id: this._prefix + 'always-listb_titleField-showButton',
+                    margin: '0 0 0 10',
+                    handler: 'toggleChangeTitle'
                 }]
-            }, {
-                id: 'listBHoursButtonBelow',
-                items: [{
-                    reference: 'cf-list-b-widget',
-                    bind: {
-                        hidden: '{list_b}'
-                    },
-                    items: [{
-                        xtype: 'panel',
-                        ui: 'cf-widget',
-                        width: '100%',
-                        items: [
-                            callForwardListBGrid,
-                            {
-                                text: Ngcp.csc.locales.callforward.add_new_source[localStorage.getItem('languageSelected')],
-                                xtype: 'button',
-                                id: 'addListBButton',
-                                width: 135,
-                                margin: '15 0 0 0',
-                                listeners: {
-                                    click: 'addEmptyRow'
-                                }
-                            }
-                        ]
-                    }]
-                }]
-            }]
-        }, {
-            xtype: 'statusbar',
-            reference: 'loadingBar'
         }, {
             xtype: 'container',
             userCls: 'cf-text cf-subheader',
@@ -314,14 +179,14 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
         }, {
             xtype: 'panel',
             layout: 'hbox',
-            id: 'onlineFirstRingFields',
+            id: this._prefix + 'always-onlineFirstRingFields', // TODO:
             padding: '0 11 0 0',
             width: 500,
             margin: '0 0 0 50',
             items: [{
                 xtype: 'combo',
                 store: ['Own phone', 'Voicemail', 'Fax2Mail', 'None'],
-                id: 'onlineFirstDest',
+                id: this._prefix + 'always-onlineFirstDest',
                 fieldLabel: Ngcp.csc.locales.callforward.first_ring[localStorage.getItem('languageSelected')],
                 value: 'Own phone',
                 allowBlank: false,
@@ -334,7 +199,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 xtype: 'combo',
                 store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
                 value: '10',
-                id: 'onlineFirstTimeout',
+                id: this._prefix + 'always-onlineFirstTimeout',
                 allowBlank: false,
                 editable: false,
                 flex: 3,
@@ -369,12 +234,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             bind: {
                 hidden: '{online_add_new_then_hidden}'
             },
-            id: 'onlineThenRingFields',
+            id: this._prefix + 'always-onlineThenRingFields',
             layout: 'hbox',
             items: [{
                 xtype: 'combo',
                 store: ['Number', 'Voicemail', 'Fax2Mail'],
-                id: 'onlineThenDest',
+                id: this._prefix + 'always-onlineThenDest',
                 bind: '{online_then_dest}',
                 allowBlank: false,
                 editable: false,
@@ -386,7 +251,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             }, {
                 xtype: 'textfield',
                 flex: 2,
-                id: 'onlineThenNumber',
+                id: this._prefix + 'always-onlineThenNumber',
                 emptyText: Ngcp.csc.locales.callforward.enter_number[localStorage.getItem('languageSelected')],
                 bind: {
                     hidden: '{online_then_timeout_hidden}',
@@ -399,7 +264,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 xtype: 'combo',
                 store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
                 fieldLabel: Ngcp.csc.locales.callforward.and_ring_for[localStorage.getItem('languageSelected')],
-                id: 'onlineThenTimeout',
+                id: this._prefix + 'always-onlineThenTimeout',
                 bind: {
                     value: '{online_then_timeout}',
                     hidden: '{online_then_timeout_hidden}'
@@ -419,7 +284,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             }, {
                 xtype: 'button',
                 text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
-                id: 'onlineSaveButton',
+                id: this._prefix + 'always-onlineSaveButton',
                 width: 100,
                 listeners: {
                     click: 'addNewDestination'
@@ -428,7 +293,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
         }, {
             html: Ngcp.csc.locales.callforward.add_new_destination[localStorage.getItem('languageSelected')],
             xtype: 'button',
-            id: 'onlineButton',
+            id: this._prefix + 'always-onlineButton',
             width: 165,
             margin: '15 0 0 0',
             listeners: {
@@ -441,14 +306,14 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
         }, {
             xtype: 'panel',
             layout: 'hbox',
-            id: 'busyFirstRingFields',
+            id: this._prefix + 'always-busyFirstRingFields',
             padding: '0 11 0 0',
             margin: '0 0 0 50',
             width: 500,
             items: [{
                 xtype: 'combo',
                 store: ['Own phone', 'Voicemail', 'Fax2Mail', 'None'],
-                id: 'busyFirstDest',
+                id: this._prefix + 'always-busyFirstDest',
                 fieldLabel: Ngcp.csc.locales.callforward.first_ring[localStorage.getItem('languageSelected')],
                 value: 'None',
                 allowBlank: false,
@@ -461,7 +326,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 xtype: 'combo',
                 store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
                 value: '10',
-                id: 'busyFirstTimeout',
+                id: this._prefix + 'always-busyFirstTimeout',
                 allowBlank: false,
                 editable: false,
                 flex: 3,
@@ -496,13 +361,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             bind: {
                 hidden: '{busy_add_new_then_hidden}'
             },
-            id: 'busyThenRingFields',
+            id: this._prefix + 'always-busyThenRingFields',
             layout: 'hbox',
             height: 31,
             items: [{
                 xtype: 'combo',
                 store: ['Number', 'Voicemail', 'Fax2Mail'],
-                id: 'busyThenDest',
+                id: this._prefix + 'always-busyThenDest',
                 bind: '{busy_then_dest}',
                 allowBlank: false,
                 editable: false,
@@ -514,7 +379,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             }, {
                 xtype: 'textfield',
                 flex: 2,
-                id: 'busyThenNumber',
+                id: this._prefix + 'always-busyThenNumber',
                 emptyText: Ngcp.csc.locales.callforward.enter_number[localStorage.getItem('languageSelected')],
                 bind: {
                     hidden: '{busy_then_timeout_hidden}',
@@ -524,7 +389,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 xtype: 'combo',
                 store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
                 fieldLabel: Ngcp.csc.locales.callforward.and_ring_for[localStorage.getItem('languageSelected')],
-                id: 'busyThenTimeout',
+                id: this._prefix + 'always-busyThenTimeout',
                 bind: {
                     value: '{busy_then_timeout}',
                     hidden: '{busy_then_timeout_hidden}'
@@ -544,7 +409,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             }, {
                 xtype: 'button',
                 text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
-                id: 'busySaveButton',
+                id: this._prefix + 'always-busySaveButton',
                 width: 100,
                 listeners: {
                     click: 'addNewDestination'
@@ -553,7 +418,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
         }, {
             html: Ngcp.csc.locales.callforward.add_new_destination[localStorage.getItem('languageSelected')],
             xtype: 'button',
-            id: 'busyButton',
+            id: this._prefix + 'always-busyButton',
             width: 165,
             margin: '15 0 0 0',
             listeners: {
@@ -566,14 +431,14 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
         }, {
             xtype: 'panel',
             layout: 'hbox',
-            id: 'offlineFirstRingFields',
+            id: this._prefix + 'always-offlineFirstRingFields',
             padding: '0 11 0 0',
             margin: '0 0 0 50',
             width: 500,
             items: [{
                 xtype: 'combo',
                 store: ['Own phone', 'Voicemail', 'Fax2Mail', 'None'],
-                id: 'offlineFirstDest',
+                id: this._prefix + 'always-offlineFirstDest',
                 fieldLabel: Ngcp.csc.locales.callforward.first_ring[localStorage.getItem('languageSelected')],
                 value: 'None',
                 allowBlank: false,
@@ -586,7 +451,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 xtype: 'combo',
                 store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
                 value: '10',
-                id: 'offlineFirstTimeout',
+                id: this._prefix + 'always-offlineFirstTimeout',
                 allowBlank: false,
                 editable: false,
                 flex: 3,
@@ -621,12 +486,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             bind: {
                 hidden: '{offline_add_new_then_hidden}'
             },
-            id: 'offlineThenRingFields',
+            id: this._prefix + 'always-offlineThenRingFields',
             layout: 'hbox',
             items: [{
                 xtype: 'combo',
                 store: ['Number', 'Voicemail', 'Fax2Mail'],
-                id: 'offlineThenDest',
+                id: this._prefix + 'always-offlineThenDest',
                 bind: '{offline_then_dest}',
                 allowBlank: false,
                 editable: false,
@@ -638,7 +503,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             }, {
                 xtype: 'textfield',
                 flex: 2,
-                id: 'offlineThenNumber',
+                id: this._prefix + 'always-offlineThenNumber',
                 emptyText: Ngcp.csc.locales.callforward.enter_number[localStorage.getItem('languageSelected')],
                 bind: {
                     hidden: '{offline_then_timeout_hidden}',
@@ -648,7 +513,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 xtype: 'combo',
                 store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
                 fieldLabel: Ngcp.csc.locales.callforward.and_ring_for[localStorage.getItem('languageSelected')],
-                id: 'offlineThenTimeout',
+                id: this._prefix + 'always-offlineThenTimeout',
                 bind: {
                     value: '{offline_then_timeout}',
                     hidden: '{offline_then_timeout_hidden}'
@@ -668,7 +533,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             }, {
                 xtype: 'button',
                 text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
-                id: 'offlineSaveButton',
+                id: this._prefix + 'always-offlineSaveButton',
                 width: 100,
                 listeners: {
                     click: 'addNewDestination'
@@ -677,7 +542,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
         }, {
             html: Ngcp.csc.locales.callforward.add_new_destination[localStorage.getItem('languageSelected')],
             xtype: 'button',
-            id: 'offlineButton',
+            id: this._prefix + 'always-offlineButton',
             width: 165,
             margin: '15 0 0 0',
             listeners: {
