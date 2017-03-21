@@ -3,10 +3,6 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
 
     alias: 'controller.pbxconfig',
 
-    // DONE: clicking on edit enables editing of all expanded cards, instead of only the card which contains the clicked button
-    // DONE: (related to 1) expanding a card while editing is in progress on another card causes textfields to become labels, while the edit button remains in "save mode". i think the user should be able to copy values from other cards while editing, therefore i would leave the edit in progress while others card are expanded/edited
-    // DONE: pls rename Add new Group to Add new Seat in Seat section
-    // DONE: Remove console.logs and comments
     listen: {
         controller: {
             '*': {
@@ -37,7 +33,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
             var storeName = this.getStoreFromRoute(currentRoute);
             var recId = field.id.split("-")[3];
             var iconDivId = 'edit' + storeName.slice(0, -1) + '-' + recId;
-            var iconDiv = document.getElementById(iconDivId)
+            var iconDiv = document.getElementById(iconDivId);
             me.saveCard(iconDiv);
         };
     },

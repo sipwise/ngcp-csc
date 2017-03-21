@@ -3,6 +3,28 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
 
     alias: 'controller.callforward',
 
+    onEnterPressed: function (field, el) {
+        var me = this;
+        if (el.getKey() == el.ENTER) {
+            me.addNewDestination(field);
+        };
+    },
+
+    onEditClicked: function (el) {
+        var classList = el.target.classList;
+        switch (true) {
+            case (classList.contains('afterhours-tab-everybody')):
+                console.log('everybody');
+                break;
+            case (classList.contains('afterhours-tab-list-a')):
+                console.log('list a');
+                break;
+            case (classList.contains('afterhours-tab-list-b')):
+                console.log('list b');
+                break;
+        };
+    },
+
     selectFirstRing: function(component, record) {
         var vm = this.getViewModel();
         function showHideTimeoutField(timeoutField) {
@@ -21,22 +43,28 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return target.indexOf(string) > -1;
     },
 
-    addEmptyRowToStore: function (store) {
+    saveEmptyRowToStore: function (grid) {
+        var store = grid.getStore();
+        var plugin = grid.getPlugin('celleditingTime');
         var targetStore = Ext.getStore(store);
+        var newRowIndex = store.getCount() + 1;
         var record = targetStore.getAt(targetStore.getCount() - 1);
         if (record == null || record.data.phone !== '') {
             targetStore.add({ "phone": "", "active": false, "ring_for": "" });
         };
+        plugin.startEditByPosition({ row: newRowIndex, column: 0 });
     },
 
     addEmptyRow: function (button) {
-        var targetId = button.id;
-        if (this.checkIndexOf('addListAButton', targetId)) {
-            var grid = Ext.getCmp('cf-sourceset-list-a-grid');
-            this.addEmptyRowToStore(grid.getStore());
-        } else if (this.checkIndexOf('addListBButton', targetId)) {
-            var grid = Ext.getCmp('cf-sourceset-list-b-grid');
-            this.addEmptyRowToStore(grid.getStore());
+        switch (button.id) {
+            case 'addListAButton':
+                var grid = Ext.getCmp('cf-sourceset-list-a-grid');
+                this.saveEmptyRowToStore(grid);
+                break;
+            case 'addListBButton':
+                var grid = Ext.getCmp('cf-sourceset-list-b-grid');
+                this.saveEmptyRowToStore(grid);
+                break;
         };
     },
 
@@ -47,30 +75,14 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
     },
 
-    changeWidget: function (target, vm) {
+    changeWidget: function (target, vm, view) {
         var me = this;
-        vm.set('after_hours', true);
-        vm.set('company_hours', true);
+        // vm.set('after_hours', true);
+        // vm.set('company_hours', true);
         vm.set('list_a', true);
         vm.set('list_b', true);
         switch (target) {
-            case 'afterHoursButton-btnIconEl':
-                if (vm.get('active_widget') == 'After hours') {
-                    vm.set('after_hours', true);
-                } else {
-                    vm.set('active_widget', Ngcp.csc.locales.callforward.after_hours[localStorage.getItem('languageSelected')]);
-                    vm.set('after_hours', false);
-                };
-                break;
-            case 'companyHoursButton-btnIconEl':
-                if (vm.get('active_widget') == 'Company hours') {
-                    vm.set('company_hours', true);
-                } else {
-                    vm.set('active_widget', Ngcp.csc.locales.callforward.company_hours[localStorage.getItem('languageSelected')]);
-                    vm.set('company_hours', false);
-                };
-                break;
-            case 'listAButton-btnIconEl':
+            case view + '-listAButton-btnIconEl':
                 if (vm.get('active_widget') == 'List A') {
                     vm.set('list_a', true);
                 } else {
@@ -78,7 +90,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     vm.set('list_a', false);
                 };
                 break;
-            case 'listBButton-btnIconEl':
+            case view + '-listBButton-btnIconEl':
                 if (vm.get('active_widget') == 'List B') {
                     vm.set('list_a', true);
                 } else {
@@ -93,15 +105,31 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return type == 'timeButtons' ? 'selected_timeset' : 'selected_sourceset';
     },
 
+    getViewFromRoute: function(currentRoute) {
+        switch (true) {
+            case (currentRoute == '#callforward/always'):
+                return 'always';
+                break;
+            case (currentRoute == '#callforward/afterhours'):
+                return 'afterHours';
+                break;
+            case (currentRoute == '#callforward/companyhours'):
+                return 'companyHours';
+                break;
+        };
+    },
+
     clickSegmentedButton: function (button, event) {
-        var me = this,
-            vm = me.getViewModel(),
-            targetId = event.getTarget().id,
-            buttonValue = button.value,
-            buttonType = button.findParentByType('segmentedbutton').itemId,
-            storesArray = ['CallForwardOnline', 'CallForwardBusy', 'CallForwardOffline'],
-            loadingBar = me.lookupReference('loadingBar');
-        me.changeWidget(targetId, vm);
+        var me = this;
+        var vm = me.getViewModel();
+        var targetId = event.getTarget().id;
+        var buttonValue = button.value;
+        var buttonType = button.findParentByType('segmentedbutton').itemId;
+        var storesArray = ['CallForwardOnline', 'CallForwardBusy', 'CallForwardOffline'];
+        var loadingBar = me.lookupReference('loadingBar');
+        var currentRoute = window.location.hash;
+        var view = me.getViewFromRoute(currentRoute);
+        me.changeWidget(targetId, vm, view);
         vm.set(me.getSelectedSet(buttonType), buttonValue);
         loadingBar.showBusy();
         Ext.Ajax.request({
@@ -109,7 +137,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             success: function(response, opts) {
                 var obj = Ext.decode(response.responseText),
                     combinationStore = obj.data[0],
-                    selectedTimeset = vm.get('selected_timeset'),
+                    selectedTimeset = view,
                     selectedSourceset = vm.get('selected_sourceset');
                 storesArray.map(function (storeName) {
                     var store = Ext.getStore(storeName);
@@ -172,11 +200,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
 
     renderPhoneColumn: function(value, metaData, record) {
         if (record.get('ring_for') === '' && !Ext.isNumber(parseInt(value))) {
-            return Ext.String.format('<i class="fa fa-circle cf-tpl-fa" aria-hidden="true"></i>{0}', value);
+            return Ext.String.format('{0}', value);
         } else if (Ext.isNumber(parseInt(value))) {
-            return Ext.String.format('<i class="fa fa-circle cf-tpl-fa" aria-hidden="true"></i>+{0} and ring for {1} secs', value, record.get('ring_for'));
+            return Ext.String.format('+{0} and ring for {1} secs', value, record.get('ring_for'));
         } else {
-            return Ext.String.format('<i class="fa fa-circle cf-tpl-fa" aria-hidden="true"></i>{0} and ring for {1} secs', value, record.get('ring_for'));
+            return Ext.String.format('{0} and ring for {1} secs', value, record.get('ring_for'));
         };
     },
 
@@ -185,71 +213,205 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         function showHideTimeoutField(timeoutField) {
             record === 'Number' ? vm.set(timeoutField, false) : vm.set(timeoutField, true);
         };
-        if (component.getId() === 'onlineThenDest') {
-            showHideTimeoutField('online_then_timeout_hidden');
-        } else if (component.getId() === 'busyThenDest') {
-            showHideTimeoutField('busy_then_timeout_hidden');
-        } else if (component.getId() === 'offlineThenDest') {
-            showHideTimeoutField('offline_then_timeout_hidden');
+        switch (component.getId()) {
+            case 'always-onlineThenDest':
+            case 'afterhours-onlineThenDest':
+            case 'companyhours-onlineThenDest':
+                showHideTimeoutField('online_then_timeout_hidden');
+                break;
+            case 'always-busyThenDest':
+            case 'afterhours-busyThenDest':
+            case 'companyhours-busyThenDest':
+                showHideTimeoutField('busy_then_timeout_hidden');
+                break;
+            case 'always-offlineThenDest':
+            case 'afterhours-offlineThenDest':
+            case 'companyhours-offlineThenDest':
+                showHideTimeoutField('offline_then_timeout_hidden');
+                break;
         };
+        // if (component.getId() === 'onlineThenDest') {
+        //     showHideTimeoutField('online_then_timeout_hidden');
+        // } else if (component.getId() === 'busyThenDest') {
+        //     showHideTimeoutField('busy_then_timeout_hidden');
+        // } else if (component.getId() === 'offlineThenDest') {
+        //     showHideTimeoutField('offline_then_timeout_hidden');
+        // };
     },
 
     showNewDestinationForm: function (button) {
         var vm = this.getViewModel();
         var targetId = button.id;
-        if (this.checkIndexOf('onlineButton', targetId)) {
-            vm.set('online_add_new_then_hidden', !vm.get('online_add_new_then_hidden'));
-        } else if (this.checkIndexOf('busyButton', targetId)) {
-            vm.set('busy_add_new_then_hidden', !vm.get('busy_add_new_then_hidden'));
-        } else if (this.checkIndexOf('offlineButton', targetId)) {
-            vm.set('offline_add_new_then_hidden', !vm.get('offline_add_new_then_hidden'));
+        switch (targetId) {
+            case 'always-onlineButton':
+            case 'afterhours-onlineButton':
+            case 'companyhours-onlineButton':
+                vm.set('online_add_new_then_hidden', !vm.get('online_add_new_then_hidden'));
+                break;
+            case 'always-busyButton':
+            case 'afterhours-busyButton':
+            case 'companyhours-busyButton':
+                vm.set('busy_add_new_then_hidden', !vm.get('busy_add_new_then_hidden'));
+                break;
+            case 'always-offlineButton':
+            case 'afterhours-offlineButton':
+            case 'companyhours-offlineButton':
+                vm.set('offline_add_new_then_hidden', !vm.get('offline_add_new_then_hidden'));
+                break;
+        };
+        // if (this.checkIndexOf('onlineButton', targetId)) {
+        //     vm.set('online_add_new_then_hidden', !vm.get('online_add_new_then_hidden'));
+        // } else if (this.checkIndexOf('busyButton', targetId)) {
+        //     vm.set('busy_add_new_then_hidden', !vm.get('busy_add_new_then_hidden'));
+        // } else if (this.checkIndexOf('offlineButton', targetId)) {
+        //     vm.set('offline_add_new_then_hidden', !vm.get('offline_add_new_then_hidden'));
+        // };
+    },
+
+    getNumberFromViewModelByStoreName: function (vm, storeName) {
+        switch (storeName) {
+            case 'CallForwardOnline':
+                return vm.get('online_then_number');
+                break;
+            case 'CallForwardBusy':
+                return vm.get('busy_then_number');
+                break;
+            case 'CallForwardOffline':
+                return vm.get('offline_then_number');
+                break;
         };
     },
 
-    saveDestinationToStore: function (store) {
-        var me = this;
-        var vm = me.getViewModel();
-        var targetStore = Ext.getStore(store);
-        var newPhone, newTimeout;
-        switch (store) {
+    getDestFromViewModelByStoreName: function (vm, storeName) {
+        switch (storeName) {
             case 'CallForwardOnline':
-                var newDest = vm.get('online_then_dest');
-                var newNumber = vm.get('online_then_number');
-                var newTimeout = newDest === 'Number' ? vm.get('online_then_timeout') : '';
-                var newPhone = newDest === 'Number' ? newNumber : newDest;
-                targetStore.add({ "phone": newPhone, "ring_for": newTimeout });
+                return vm.get('online_then_dest');
+                break;
+            case 'CallForwardBusy':
+                return vm.get('busy_then_dest');
+                break;
+            case 'CallForwardOffline':
+                return vm.get('offline_then_dest');
+                break;
+        };
+    },
 
+    hideThenFieldsByStoreName: function (vm, storeName) {
+        switch (storeName) {
+            case 'CallForwardOnline':
                 vm.set('online_add_new_then_hidden', true);
                 break;
             case 'CallForwardBusy':
-                var newDest = vm.get('busy_then_dest');
-                var newNumber = vm.get('busy_then_number');
-                var newTimeout = newDest === 'Number' ? vm.get('busy_then_timeout') : '';
-                var newPhone = newDest === 'Number' ? newNumber : newDest;
-                targetStore.add({ "phone": newPhone, "ring_for": newTimeout });
                 vm.set('busy_add_new_then_hidden', true);
                 break;
             case 'CallForwardOffline':
-                var newDest = vm.get('offline_then_dest');
-                var newNumber = vm.get('offline_then_number');
-                var newTimeout = newDest === 'Number' ? vm.get('offline_then_timeout') : '';
-                var newPhone = newDest === 'Number' ? newNumber : newDest;
-                targetStore.add({ "phone": newPhone, "ring_for": newTimeout });
                 vm.set('offline_add_new_then_hidden', true);
                 break;
         };
-        this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
     },
 
-    addNewDestination: function (button) {
-        var targetId = button.id;
-        if (this.checkIndexOf('onlineSaveButton', targetId)) {
-            this.saveDestinationToStore('CallForwardOnline');
-        } else if (this.checkIndexOf('busySaveButton', targetId)) {
-            this.saveDestinationToStore('CallForwardBusy');
-        } else if (this.checkIndexOf('offlineSaveButton', targetId)) {
-            this.saveDestinationToStore('CallForwardOffline');
+    resetNumberField: function (vm, storeName) {
+        switch (storeName) {
+            case 'CallForwardOnline':
+                return vm.set('online_then_number', '');
+                break;
+            case 'CallForwardBusy':
+                return vm.set('busy_then_number', '');
+                break;
+            case 'CallForwardOffline':
+                return vm.set('offline_then_number', '');
+                break;
         };
+    },
+
+    saveDestinationToStore: function (storeName) {
+        var me = this;
+        var vm = me.getViewModel();
+        var targetStore = Ext.getStore(storeName);
+        var newDest = me.getDestFromViewModelByStoreName(vm, storeName);
+        var newNumber = me.getNumberFromViewModelByStoreName(vm, storeName);
+        var newPhone, newTimeout;
+        switch (Ext.isEmpty(newNumber) || newDest === 'Voicemail' || newDest === 'Fax2Mail') {
+            case true:
+                switch (newDest) {
+                    case '':
+                        me.fireEvent('showmessage', false, 'Number is required. Please retry.');
+                        break;
+                    case 'Voicemail':
+                        console.log('Voicemail');
+                        // TODO
+                        break;
+                    case 'Fax2Mail':
+                        console.log('Fax2Mail');
+                        // TODO
+                        break;
+                }
+                break;
+            case false:
+                switch (Ext.isNumber(parseInt(newNumber))) {
+                    case false:
+                        me.fireEvent('showmessage', false, 'Only numbers allowed. Please retry.');
+                        me.resetNumberField(vm, storeName);
+                        break;
+                    case true:
+                        switch (storeName) {
+                            case 'CallForwardOnline':
+                                var newTimeout = newDest === 'Number' ? vm.get('online_then_timeout') : '';
+                                var newPhone = newDest === 'Number' ? newNumber : newDest;
+                                break;
+                            case 'CallForwardBusy':
+                                var newTimeout = newDest === 'Number' ? vm.get('busy_then_timeout') : '';
+                                var newPhone = newDest === 'Number' ? newNumber : newDest;
+                                break;
+                            case 'CallForwardOffline':
+                                var newTimeout = newDest === 'Number' ? vm.get('offline_then_timeout') : '';
+                                var newPhone = newDest === 'Number' ? newNumber : newDest;
+                                break;
+                        };
+                        targetStore.add({ "phone": newPhone, "ring_for": newTimeout });
+                        me.resetNumberField(vm, storeName);
+                        me.hideThenFieldsByStoreName(vm, storeName);
+                        me.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
+                        break;
+                };
+                break;
+        };
+    },
+
+    addNewDestination: function (element) {
+        var me = this;
+        var targetId = element.id;
+        switch (targetId) {
+            case 'always-onlineThenNumber':
+            case 'always-onlineSaveButton':
+            case 'afterhours-onlineThenNumber':
+            case 'afterhours-onlineSaveButton':
+            case 'companyhours-onlineThenNumber':
+            case 'companyhours-onlineSaveButton':
+                me.saveDestinationToStore('CallForwardOnline');
+                break;
+            case 'always-busyThenNumber':
+            case 'always-busySaveButton':
+            case 'afterhours-busyThenNumber':
+            case 'afterhours-busySaveButton':
+            case 'companyhours-busyThenNumber':
+            case 'companyhours-busySaveButton':
+                me.saveDestinationToStore('CallForwardBusy');
+                break;
+            case 'always-offlineThenNumber':
+            case 'always-offlineSaveButton':
+            case 'afterhours-offlineThenNumber':
+            case 'afterhours-offlineSaveButton':
+            case 'companyhours-offlineThenNumber':
+            case 'companyhours-offlineSaveButton':
+                me.saveDestinationToStore('CallForwardOffline');
+                break;
+        };
+    },
+
+    toggleAfterTimesetGrid: function () {
+        var vm = this.getViewModel();
+        vm.set('after_hours', !vm.get('after_hours'));
     }
 
 });

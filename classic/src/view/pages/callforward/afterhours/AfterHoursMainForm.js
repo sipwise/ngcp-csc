@@ -1,0 +1,631 @@
+Ext.define('NgcpCsc.view.pages.callforward.afterhours.AfterHoursMainForm', {
+    extend: 'Ext.form.Panel',
+
+    xtype: 'afterhoursmainform',
+
+    defaults: {
+        width: '100%'
+    },
+
+    fieldDefaults: {
+        labelSeparator: ''
+    },
+
+    margin: '0 10 0 0',
+
+    defaultType: 'textfield',
+
+    ui: 'cf-mainform',
+
+    initComponent: function() {
+        var busyGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
+            store: Ext.create('NgcpCsc.store.CallForward', {
+                storeId: 'CallForwardBusy',
+                proxy: {
+                    type: 'ajax',
+                    url: '/resources/data/callForwardBusy.json',
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    }
+                }
+            })
+        });
+        var onlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
+            store: Ext.create('NgcpCsc.store.CallForward', {
+                storeId: 'CallForwardOnline',
+                proxy: {
+                    type: 'ajax',
+                    url: '/resources/data/callForwardOnline.json',
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    }
+                }
+            })
+        });
+        var offlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
+            store: Ext.create('NgcpCsc.store.CallForward', {
+                storeId: 'CallForwardOffline',
+                proxy: {
+                    type: 'ajax',
+                    url: '/resources/data/callForwardOffline.json',
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    }
+                }
+            })
+        });
+        var callForwardAfterGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
+            id: 'cf-timeset-after-grid',
+            store: Ext.create('NgcpCsc.store.CallForwardTimeset', {
+                proxy: {
+                    type: 'ajax',
+                    url: '/resources/data/callForwardAfter.json',
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    }
+                }
+            })
+        });
+        var callForwardListAGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
+            id: 'afterhours-cf-sourceset-list-a-grid',
+            store: Ext.create('NgcpCsc.store.CallForwardSourceset', {
+                proxy: {
+                    type: 'ajax',
+                    url: '/resources/data/callForwardListA.json',
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    }
+                }
+            })
+        });
+        var callForwardListBGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
+            id: 'afterhours-cf-sourceset-list-b-grid',
+            store: Ext.create('NgcpCsc.store.CallForwardSourceset', {
+                proxy: {
+                    type: 'ajax',
+                    url: '/resources/data/callForwardListB.json',
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data'
+                    }
+                }
+            })
+        });
+
+        this.items = [{
+                layout: 'responsivecolumn',
+                xtype: 'container',
+                items: [{
+                    xtype: 'panel',
+                    userCls: 'big-33 small-100 cf-calls-curing-section',
+                    items: [{
+                        layout: 'hbox',
+                        items: [{
+                            xtype: 'container',
+                            userCls: 'cf-calls-during',
+                            html: 'For calls during always ...' // TODO: Locales
+                        }, {
+                            xtype: 'button',
+                            userCls: 'cf-calendar-button',
+                            iconCls: Ngcp.csc.icons.calendar2x,
+                            handler: 'toggleAfterTimesetGrid'
+                        }]
+                    }]
+                }, {
+                    xtype: 'panel',
+                    userCls: 'big-66 small-100',
+                    bind: {
+                        hidden: '{after_hours}'
+                    },
+                    items: [
+                        callForwardAfterGrid
+                    ]
+                }]
+            },
+            {
+                xtype: 'container',
+                userCls: 'cf-text',
+                html: Ngcp.csc.locales.callforward.for_calling_parties[localStorage.getItem('languageSelected')],
+                margin: '10 0 10 0'
+            },
+            {
+                xtype: 'segmentedbutton',
+                itemId: 'sourceButtons',
+                value: 'everybody',
+                defaults: {
+                    handler: 'clickSegmentedButton'
+                },
+                ui: 'cf-segmentedbutton',
+                items: [{
+                    value: 'everybody',
+                    id: 'afterhours-everybodyButton',
+                    reference: 'everybodyButton',
+                    text: Ngcp.csc.locales.callforward.source_one[localStorage.getItem('languageSelected')]
+                }, {
+                    value: 'listA',
+                    id: 'afterhours-listAButton',
+                    reference: 'listAButton',
+                    text: Ngcp.csc.locales.callforward.source_two[localStorage.getItem('languageSelected')],
+                    iconCls: Ngcp.csc.icons.pencil,
+                    iconAlign: 'right'
+                }, {
+                    value: 'listB',
+                    id: 'afterhours-listBButton',
+                    reference: 'listBButton',
+                    text: Ngcp.csc.locales.callforward.source_three[localStorage.getItem('languageSelected')],
+                    iconCls: Ngcp.csc.icons.pencil,
+                    iconAlign: 'right'
+                }]
+            }, {
+                xtype: 'container',
+                userCls: 'cf-embed-row',
+                layout: {
+                    type: 'hbox',
+                    align: 'stretch'
+                },
+                defaults: {
+                    width: '33.5%'
+                },
+                items: [{
+                    id: 'afterhours-everybodyButtonBelow'
+                }, {
+                    id: 'afterhours-listAButtonBelow',
+                    items: [{
+                        reference: 'cf-list-a-widget',
+                        bind: {
+                            hidden: '{list_a}'
+                        },
+                        items: [{
+                            xtype: 'panel',
+                            ui: 'cf-widget',
+                            width: '100%',
+                            items: [
+                                callForwardListAGrid,
+                                {
+                                    text: Ngcp.csc.locales.callforward.add_new_source[localStorage.getItem('languageSelected')],
+                                    xtype: 'button',
+                                    id: 'afterhours-addListAButton',
+                                    width: 135,
+                                    margin: '15 0 0 0',
+                                    listeners: {
+                                        click: 'addEmptyRow'
+                                    }
+                                }
+                            ]
+                        }]
+                    }]
+                }, {
+                    id: 'afterhours-listBHoursButtonBelow',
+                    items: [{
+                        reference: 'cf-list-b-widget',
+                        bind: {
+                            hidden: '{list_b}'
+                        },
+                        items: [{
+                            xtype: 'panel',
+                            ui: 'cf-widget',
+                            width: '100%',
+                            items: [
+                                callForwardListBGrid,
+                                {
+                                    text: Ngcp.csc.locales.callforward.add_new_source[localStorage.getItem('languageSelected')],
+                                    xtype: 'button',
+                                    id: 'afterhours-addListBButton',
+                                    width: 135,
+                                    margin: '15 0 0 0',
+                                    listeners: {
+                                        click: 'addEmptyRow'
+                                    }
+                                }
+                            ]
+                        }]
+                    }]
+                }]
+            },
+            {
+                xtype: 'statusbar',
+                reference: 'loadingBar'
+            }, {
+                xtype: 'afterhourstabpanel'
+            }, {
+                xtype: 'container',
+                userCls: 'cf-text cf-subheader',
+                html: Ngcp.csc.locales.callforward.when_phone_online[localStorage.getItem('languageSelected')]
+            },
+            {
+                xtype: 'panel',
+                layout: 'hbox',
+                id: 'afterhours-onlineFirstRingFields',
+                padding: '0 11 0 0',
+                width: 500,
+                margin: '0 0 0 50',
+                items: [{
+                    xtype: 'combo',
+                    store: ['Own phone', 'Voicemail', 'Fax2Mail', 'None'],
+                    id: 'afterhours-onlineFirstDest',
+                    fieldLabel: Ngcp.csc.locales.callforward.first_ring[localStorage.getItem('languageSelected')],
+                    value: 'Own phone',
+                    allowBlank: false,
+                    editable: false,
+                    listeners: {
+                        change: 'selectFirstRing'
+                    },
+                    flex: 4
+                }, {
+                    xtype: 'combo',
+                    store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
+                    value: '10',
+                    id: 'afterhours-onlineFirstTimeout',
+                    allowBlank: false,
+                    editable: false,
+                    flex: 3,
+                    margin: '0 0 0 10',
+                    bind: {
+                        hidden: '{online_first_timeout_hidden}'
+                    },
+                    fieldLabel: Ngcp.csc.locales.callforward.and_ring_for[localStorage.getItem('languageSelected')]
+                }, {
+                    xtype: 'container',
+                    html: Ngcp.csc.locales.callforward.secs[localStorage.getItem('languageSelected')],
+                    padding: '7 0 0 20',
+                    flex: 1,
+                    bind: {
+                        hidden: '{online_first_timeout_hidden}'
+                    }
+                }]
+            },
+            {
+                xtype: 'container',
+                layout: 'hbox',
+                margin: '10 0 0 50',
+                items: [{
+                        xtype: 'container',
+                        html: Ngcp.csc.locales.callforward.then_forward_to[localStorage.getItem('languageSelected')],
+                        userCls: 'cf-thentext'
+                    },
+                    onlineGrid
+                ]
+            },
+            {
+                xtype: 'panel',
+                margin: '10 7 0 155',
+                bind: {
+                    hidden: '{online_add_new_then_hidden}'
+                },
+                id: 'afterhours-onlineThenRingFields',
+                layout: 'hbox',
+                items: [{
+                    xtype: 'combo',
+                    store: ['Number', 'Voicemail', 'Fax2Mail'],
+                    id: 'afterhours-onlineThenDest',
+                    bind: '{online_then_dest}',
+                    allowBlank: false,
+                    editable: false,
+                    flex: 2,
+                    margin: '0 10 0 0',
+                    listeners: {
+                        change: 'selectThenRing'
+                    }
+                }, {
+                    xtype: 'textfield',
+                    flex: 2,
+                    id: 'afterhours-onlineThenNumber',
+                    emptyText: Ngcp.csc.locales.callforward.enter_number[localStorage.getItem('languageSelected')],
+                    bind: {
+                        hidden: '{online_then_timeout_hidden}',
+                        value: '{online_then_number}'
+                    },
+                    listeners: {
+                        specialkey: 'onEnterPressed'
+                    }
+                }, {
+                    xtype: 'combo',
+                    store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
+                    fieldLabel: Ngcp.csc.locales.callforward.and_ring_for[localStorage.getItem('languageSelected')],
+                    id: 'afterhours-onlineThenTimeout',
+                    bind: {
+                        value: '{online_then_timeout}',
+                        hidden: '{online_then_timeout_hidden}'
+                    },
+                    allowBlank: false,
+                    editable: false,
+                    flex: 3,
+                    margin: '0 0 0 10'
+                }, {
+                    xtype: 'container',
+                    html: Ngcp.csc.locales.callforward.secs[localStorage.getItem('languageSelected')],
+                    padding: '7 0 0 20',
+                    flex: 1,
+                    bind: {
+                        hidden: '{online_then_timeout_hidden}'
+                    }
+                }, {
+                    xtype: 'button',
+                    text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
+                    id: 'afterhours-onlineSaveButton',
+                    width: 100,
+                    listeners: {
+                        click: 'addNewDestination'
+                    }
+                }]
+            },
+            {
+                html: Ngcp.csc.locales.callforward.add_new_destination[localStorage.getItem('languageSelected')],
+                xtype: 'button',
+                id: 'afterhours-onlineButton',
+                width: 165,
+                margin: '15 0 0 0',
+                listeners: {
+                    click: 'showNewDestinationForm'
+                }
+            },
+            {
+                xtype: 'container',
+                userCls: 'cf-text cf-subheader',
+                html: Ngcp.csc.locales.callforward.when_phone_busy[localStorage.getItem('languageSelected')]
+            },
+            {
+                xtype: 'panel',
+                layout: 'hbox',
+                id: 'afterhours-busyFirstRingFields',
+                padding: '0 11 0 0',
+                margin: '0 0 0 50',
+                width: 500,
+                items: [{
+                    xtype: 'combo',
+                    store: ['Own phone', 'Voicemail', 'Fax2Mail', 'None'],
+                    id: 'afterhours-busyFirstDest',
+                    fieldLabel: Ngcp.csc.locales.callforward.first_ring[localStorage.getItem('languageSelected')],
+                    value: 'None',
+                    allowBlank: false,
+                    editable: false,
+                    listeners: {
+                        change: 'selectFirstRing'
+                    },
+                    flex: 4
+                }, {
+                    xtype: 'combo',
+                    store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
+                    value: '10',
+                    id: 'afterhours-busyFirstTimeout',
+                    allowBlank: false,
+                    editable: false,
+                    flex: 3,
+                    margin: '0 0 0 10',
+                    bind: {
+                        hidden: '{busy_first_timeout_hidden}'
+                    },
+                    fieldLabel: Ngcp.csc.locales.callforward.and_ring_for[localStorage.getItem('languageSelected')]
+                }, {
+                    xtype: 'container',
+                    html: Ngcp.csc.locales.callforward.secs[localStorage.getItem('languageSelected')],
+                    padding: '7 0 0 20',
+                    flex: 1,
+                    bind: {
+                        hidden: '{busy_first_timeout_hidden}'
+                    }
+                }]
+            },
+            {
+                xtype: 'container',
+                layout: 'hbox',
+                margin: '10 0 0 50',
+                items: [{
+                        xtype: 'container',
+                        html: Ngcp.csc.locales.callforward.then_forward_to[localStorage.getItem('languageSelected')],
+                        userCls: 'cf-thentext'
+                    },
+                    busyGrid
+                ]
+            },
+            {
+                xtype: 'panel',
+                margin: '10 7 0 155',
+                bind: {
+                    hidden: '{busy_add_new_then_hidden}'
+                },
+                id: 'afterhours-busyThenRingFields',
+                layout: 'hbox',
+                height: 31,
+                items: [{
+                    xtype: 'combo',
+                    store: ['Number', 'Voicemail', 'Fax2Mail'],
+                    id: 'afterhours-busyThenDest',
+                    bind: '{busy_then_dest}',
+                    allowBlank: false,
+                    editable: false,
+                    flex: 2,
+                    margin: '0 10 0 0',
+                    listeners: {
+                        change: 'selectThenRing'
+                    }
+                }, {
+                    xtype: 'textfield',
+                    flex: 2,
+                    id: 'afterhours-busyThenNumber',
+                    emptyText: Ngcp.csc.locales.callforward.enter_number[localStorage.getItem('languageSelected')],
+                    bind: {
+                        hidden: '{busy_then_timeout_hidden}',
+                        value: '{busy_then_number}'
+                    }
+                }, {
+                    xtype: 'combo',
+                    store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
+                    fieldLabel: Ngcp.csc.locales.callforward.and_ring_for[localStorage.getItem('languageSelected')],
+                    id: 'afterhours-busyThenTimeout',
+                    bind: {
+                        value: '{busy_then_timeout}',
+                        hidden: '{busy_then_timeout_hidden}'
+                    },
+                    allowBlank: false,
+                    editable: false,
+                    flex: 3,
+                    margin: '0 0 0 10'
+                }, {
+                    xtype: 'container',
+                    html: Ngcp.csc.locales.callforward.secs[localStorage.getItem('languageSelected')],
+                    padding: '7 0 0 20',
+                    flex: 1,
+                    bind: {
+                        hidden: '{online_then_timeout_hidden}'
+                    }
+                }, {
+                    xtype: 'button',
+                    text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
+                    id: 'afterhours-busySaveButton',
+                    width: 100,
+                    listeners: {
+                        click: 'addNewDestination'
+                    }
+                }]
+            },
+            {
+                html: Ngcp.csc.locales.callforward.add_new_destination[localStorage.getItem('languageSelected')],
+                xtype: 'button',
+                id: 'afterhours-busyButton',
+                width: 165,
+                margin: '15 0 0 0',
+                listeners: {
+                    click: 'showNewDestinationForm'
+                }
+            },
+            {
+                xtype: 'container',
+                userCls: 'cf-text cf-subheader',
+                html: Ngcp.csc.locales.callforward.when_phone_offline[localStorage.getItem('languageSelected')]
+            },
+            {
+                xtype: 'panel',
+                layout: 'hbox',
+                id: 'afterhours-offlineFirstRingFields',
+                padding: '0 11 0 0',
+                margin: '0 0 0 50',
+                width: 500,
+                items: [{
+                    xtype: 'combo',
+                    store: ['Own phone', 'Voicemail', 'Fax2Mail', 'None'],
+                    id: 'afterhours-offlineFirstDest',
+                    fieldLabel: Ngcp.csc.locales.callforward.first_ring[localStorage.getItem('languageSelected')],
+                    value: 'None',
+                    allowBlank: false,
+                    editable: false,
+                    listeners: {
+                        change: 'selectFirstRing'
+                    },
+                    flex: 4
+                }, {
+                    xtype: 'combo',
+                    store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
+                    value: '10',
+                    id: 'afterhours-offlineFirstTimeout',
+                    allowBlank: false,
+                    editable: false,
+                    flex: 3,
+                    margin: '0 0 0 10',
+                    bind: {
+                        hidden: '{offline_first_timeout_hidden}'
+                    },
+                    fieldLabel: Ngcp.csc.locales.callforward.and_ring_for[localStorage.getItem('languageSelected')]
+                }, {
+                    xtype: 'container',
+                    html: Ngcp.csc.locales.callforward.secs[localStorage.getItem('languageSelected')],
+                    padding: '7 0 0 20',
+                    flex: 1,
+                    bind: {
+                        hidden: '{offline_first_timeout_hidden}'
+                    }
+                }]
+            },
+            {
+                xtype: 'container',
+                layout: 'hbox',
+                margin: '10 0 0 50',
+                items: [{
+                        xtype: 'container',
+                        html: Ngcp.csc.locales.callforward.then_forward_to[localStorage.getItem('languageSelected')],
+                        userCls: 'cf-thentext'
+                    },
+                    offlineGrid
+                ]
+            },
+            {
+                xtype: 'panel',
+                margin: '10 7 0 155',
+                bind: {
+                    hidden: '{offline_add_new_then_hidden}'
+                },
+                id: 'afterhours-offlineThenRingFields',
+                layout: 'hbox',
+                items: [{
+                    xtype: 'combo',
+                    store: ['Number', 'Voicemail', 'Fax2Mail'],
+                    id: 'afterhours-offlineThenDest',
+                    bind: '{offline_then_dest}',
+                    allowBlank: false,
+                    editable: false,
+                    flex: 2,
+                    margin: '0 10 0 0',
+                    listeners: {
+                        change: 'selectThenRing'
+                    }
+                }, {
+                    xtype: 'textfield',
+                    flex: 2,
+                    id: 'afterhours-offlineThenNumber',
+                    emptyText: Ngcp.csc.locales.callforward.enter_number[localStorage.getItem('languageSelected')],
+                    bind: {
+                        hidden: '{offline_then_timeout_hidden}',
+                        value: '{offline_then_number}'
+                    }
+                }, {
+                    xtype: 'combo',
+                    store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
+                    fieldLabel: Ngcp.csc.locales.callforward.and_ring_for[localStorage.getItem('languageSelected')],
+                    id: 'afterhours-offlineThenTimeout',
+                    bind: {
+                        value: '{offline_then_timeout}',
+                        hidden: '{offline_then_timeout_hidden}'
+                    },
+                    allowBlank: false,
+                    editable: false,
+                    flex: 3,
+                    margin: '0 0 0 10'
+                }, {
+                    xtype: 'container',
+                    html: Ngcp.csc.locales.callforward.secs[localStorage.getItem('languageSelected')],
+                    padding: '7 0 0 20',
+                    flex: 1,
+                    bind: {
+                        hidden: '{offline_then_timeout_hidden}'
+                    }
+                }, {
+                    xtype: 'button',
+                    text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
+                    id: 'afterhours-offlineSaveButton',
+                    width: 100,
+                    listeners: {
+                        click: 'addNewDestination'
+                    }
+                }]
+            },
+            {
+                html: Ngcp.csc.locales.callforward.add_new_destination[localStorage.getItem('languageSelected')],
+                xtype: 'button',
+                id: 'afterhours-offlineButton',
+                width: 165,
+                margin: '15 0 0 0',
+                listeners: {
+                    click: 'showNewDestinationForm'
+                }
+            }
+        ];
+
+        this.callParent();
+    }
+
+});
