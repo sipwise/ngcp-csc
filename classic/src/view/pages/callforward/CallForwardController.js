@@ -21,22 +21,28 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return target.indexOf(string) > -1;
     },
 
-    addEmptyRowToStore: function (store) {
+    saveEmptyRowToStore: function (grid) {
+        var store = grid.getStore();
+        var plugin = grid.getPlugin('celleditingTime');
         var targetStore = Ext.getStore(store);
+        var newRowIndex = store.getCount() + 1;
         var record = targetStore.getAt(targetStore.getCount() - 1);
         if (record == null || record.data.phone !== '') {
             targetStore.add({ "phone": "", "active": false, "ring_for": "" });
         };
+        plugin.startEditByPosition({ row: newRowIndex, column: 0 });
     },
 
     addEmptyRow: function (button) {
-        var targetId = button.id;
-        if (this.checkIndexOf('addListAButton', targetId)) {
-            var grid = Ext.getCmp('cf-sourceset-list-a-grid');
-            this.addEmptyRowToStore(grid.getStore());
-        } else if (this.checkIndexOf('addListBButton', targetId)) {
-            var grid = Ext.getCmp('cf-sourceset-list-b-grid');
-            this.addEmptyRowToStore(grid.getStore());
+        switch (button.id) {
+            case 'addListAButton':
+                var grid = Ext.getCmp('cf-sourceset-list-a-grid');
+                this.saveEmptyRowToStore(grid);
+                break;
+            case 'addListBButton':
+                var grid = Ext.getCmp('cf-sourceset-list-b-grid');
+                this.saveEmptyRowToStore(grid);
+                break;
         };
     },
 
@@ -172,11 +178,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
 
     renderPhoneColumn: function(value, metaData, record) {
         if (record.get('ring_for') === '' && !Ext.isNumber(parseInt(value))) {
-            return Ext.String.format('<i class="fa fa-circle cf-tpl-fa" aria-hidden="true"></i>{0}', value);
+            return Ext.String.format('{0}', value);
         } else if (Ext.isNumber(parseInt(value))) {
-            return Ext.String.format('<i class="fa fa-circle cf-tpl-fa" aria-hidden="true"></i>+{0} and ring for {1} secs', value, record.get('ring_for'));
+            return Ext.String.format('+{0} and ring for {1} secs', value, record.get('ring_for'));
         } else {
-            return Ext.String.format('<i class="fa fa-circle cf-tpl-fa" aria-hidden="true"></i>{0} and ring for {1} secs', value, record.get('ring_for'));
+            return Ext.String.format('{0} and ring for {1} secs', value, record.get('ring_for'));
         };
     },
 
@@ -206,39 +212,102 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
-    saveDestinationToStore: function (store) {
-        var me = this;
-        var vm = me.getViewModel();
-        var targetStore = Ext.getStore(store);
-        var newPhone, newTimeout;
-        switch (store) {
+    getNumberFromViewModelByStoreName: function (vm, storeName) {
+        switch (storeName) {
             case 'CallForwardOnline':
-                var newDest = vm.get('online_then_dest');
-                var newNumber = vm.get('online_then_number');
-                var newTimeout = newDest === 'Number' ? vm.get('online_then_timeout') : '';
-                var newPhone = newDest === 'Number' ? newNumber : newDest;
-                targetStore.add({ "phone": newPhone, "ring_for": newTimeout });
+                return vm.get('online_then_number');
+                break;
+            case 'CallForwardBusy':
+                return vm.get('busy_then_number');
+                break;
+            case 'CallForwardOffline':
+                return vm.get('offline_then_number');
+                break;
+        };
+    },
 
+    getDestFromViewModelByStoreName: function (vm, storeName) {
+        switch (storeName) {
+            case 'CallForwardOnline':
+                return vm.get('online_then_dest');
+                break;
+            case 'CallForwardBusy':
+                return vm.get('busy_then_dest');
+                break;
+            case 'CallForwardOffline':
+                return vm.get('offline_then_dest');
+                break;
+        };
+    },
+
+    hideThenFieldsByStoreName: function (vm, storeName) {
+        switch (storeName) {
+            case 'CallForwardOnline':
                 vm.set('online_add_new_then_hidden', true);
                 break;
             case 'CallForwardBusy':
-                var newDest = vm.get('busy_then_dest');
-                var newNumber = vm.get('busy_then_number');
-                var newTimeout = newDest === 'Number' ? vm.get('busy_then_timeout') : '';
-                var newPhone = newDest === 'Number' ? newNumber : newDest;
-                targetStore.add({ "phone": newPhone, "ring_for": newTimeout });
                 vm.set('busy_add_new_then_hidden', true);
                 break;
             case 'CallForwardOffline':
-                var newDest = vm.get('offline_then_dest');
-                var newNumber = vm.get('offline_then_number');
-                var newTimeout = newDest === 'Number' ? vm.get('offline_then_timeout') : '';
-                var newPhone = newDest === 'Number' ? newNumber : newDest;
-                targetStore.add({ "phone": newPhone, "ring_for": newTimeout });
                 vm.set('offline_add_new_then_hidden', true);
                 break;
         };
-        this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
+    },
+
+    resetNumberField: function (vm, storeName) {
+        switch (storeName) {
+            case 'CallForwardOnline':
+                return vm.set('online_then_number', '');
+                break;
+            case 'CallForwardBusy':
+                return vm.set('busy_then_number', '');
+                break;
+            case 'CallForwardOffline':
+                return vm.set('offline_then_number', '');
+                break;
+        };
+    },
+
+    saveDestinationToStore: function (storeName) {
+        var me = this;
+        var vm = me.getViewModel();
+        var targetStore = Ext.getStore(storeName);
+        var newDest = me.getDestFromViewModelByStoreName(vm, storeName);
+        var newNumber = me.getNumberFromViewModelByStoreName(vm, storeName);
+        var newPhone, newTimeout;
+        switch (Ext.isEmpty(newNumber)) {
+            case true:
+                me.fireEvent('showmessage', false, 'Number is required. Please retry.');
+                break;
+            case false:
+                switch (Ext.isNumber(parseInt(newNumber))) {
+                    case false:
+                        me.fireEvent('showmessage', false, 'Only numbers allowed. Please retry.');
+                        me.resetNumberField(vm, storeName);
+                        break;
+                    case true:
+                        switch (storeName) {
+                            case 'CallForwardOnline':
+                                var newTimeout = newDest === 'Number' ? vm.get('online_then_timeout') : '';
+                                var newPhone = newDest === 'Number' ? newNumber : newDest;
+                                break;
+                            case 'CallForwardBusy':
+                                var newTimeout = newDest === 'Number' ? vm.get('busy_then_timeout') : '';
+                                var newPhone = newDest === 'Number' ? newNumber : newDest;
+                                break;
+                            case 'CallForwardOffline':
+                                var newTimeout = newDest === 'Number' ? vm.get('offline_then_timeout') : '';
+                                var newPhone = newDest === 'Number' ? newNumber : newDest;
+                                break;
+                        };
+                        targetStore.add({ "phone": newPhone, "ring_for": newTimeout });
+                        me.resetNumberField(vm, storeName);
+                        me.hideThenFieldsByStoreName(vm, storeName);
+                        me.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
+                        break;
+                };
+                break;
+        };
     },
 
     addNewDestination: function (button) {
