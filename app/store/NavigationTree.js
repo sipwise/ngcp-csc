@@ -25,13 +25,6 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             visible: false,
             leaf: true
         }, {
-            text: 'Addressbook',
-            iconCls: Ngcp.csc.icons.book,
-            viewType: 'addressbook',
-            routeId: 'addressbook',
-            acl: ['administrator'],
-            leaf: true
-        }, {
             text: 'Call Forward',
             iconCls: Ngcp.csc.icons.doubleangleright,
             viewType: 'callforward',

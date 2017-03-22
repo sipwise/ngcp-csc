@@ -23,7 +23,6 @@ Ext.define('NgcpCsc.Application', {
         'Languages',
         'CallBlockingOutgoing',
         'CallBlockingIncoming',
-        'Addressbook',
         'Chart',
         'Groups',
         'Seats',
