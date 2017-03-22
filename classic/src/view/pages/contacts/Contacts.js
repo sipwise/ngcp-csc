@@ -86,23 +86,30 @@ Ext.define('NgcpCsc.view.pages.contacts.Contacts', {
         items: [{
             tooltip: Ngcp.csc.locales.common.call[localStorage.getItem('languageSelected')],
             getClass: function(value, context) {
-                return (context.record && context.record.get('leaf') && context.record.get('online')) ? 'x-phone-display' : '';
+                var extraMarginRight = context.record && context.record.parentNode && context.record.parentNode.get('id') == "addressbook"  ? '-extra-margin' : '';
+                return ((context.record && context.record.get('leaf') && context.record.get('online')) ? 'x-phone-display' : '') + extraMarginRight;
             },
             handler: 'startCall'
         }, {
             tooltip: Ngcp.csc.locales.common.videocall[localStorage.getItem('languageSelected')],
             getClass: function(value, context) {
-                return (context.record && context.record.get('leaf') && context.record.get('online')) ? 'x-video-display' : '';
+                var extraMarginRight = context.record && context.record.parentNode && context.record.parentNode.get('id') == "addressbook"  ? '-extra-margin' : '';
+                return ((context.record && context.record.get('leaf') && context.record.get('online')) ? 'x-video-display' : '' ) + extraMarginRight;
             },
             handler: 'startVideoCall'
         }, {
             getClass: function(value, context) {
-                return (context.record && !context.record.get('leaf') && context.record.get('name') !== 'Buddies') ? 'x-add-user-display' : '';
+                return (context.record && !context.record.get('leaf')) ? 'x-add-user-display' : '';
             },
             handler: 'addUser'
         }, {
             getClass: function(value, context) {
-                return (context.record && !context.record.get('leaf') && context.record.get('name') !== 'Buddies') ? 'x-drop-display' : '';
+                return (context.record && context.record.get('leaf') && context.record.parentNode.get('id') == "addressbook") ? 'x-remove-user-display' : '';
+            },
+            handler: 'deleteUser'
+        }, {
+            getClass: function(value, context) {
+                return (context.record && !context.record.get('leaf')) ? 'x-drop-display' : '';
             },
             handler: 'deleteNode'
         }]
