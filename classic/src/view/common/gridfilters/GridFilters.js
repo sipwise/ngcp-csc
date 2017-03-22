@@ -153,8 +153,8 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 }, {
                     xtype: 'textfield',
                     labelAlign: 'top',
-                    bind: '{filtergrid.groups}',
-                    fieldLabel: Ngcp.csc.locales.filters.groups[localStorage.getItem('languageSelected')],
+                    bind: '{filtergrid.group}',
+                    fieldLabel: Ngcp.csc.locales.common.group[localStorage.getItem('languageSelected')],
                     listeners: {
                         delay: 100,
                         change: 'submitFilters'

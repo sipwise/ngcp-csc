@@ -4,7 +4,7 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
     alias: 'viewmodel.rtc',
 
     data: {
-        uid:'',
+        uid: '',
         title: 123456789,
         defaultThumbnail: 'resources/images/icons/phoneicon.png',
         thumbnail: 'resources/images/icons/phoneicon.png',

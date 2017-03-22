@@ -60,13 +60,30 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         var done = contacts.down('[name=commitChangesBtn]');
         var store = contacts.getStore();
 
-        store.each(function(rec) {
-            if (rec.get('leaf') && rec.get('parentId') !== record.get('id') && !record.findChild("uid", rec.get('uid'))) {
-                rec.set('checked', false);
-                rec.set('addTo', record.get('id'));
-            }
-        });
-        done.show();
+        if(record.get('id') == "addressbook"){
+            this.addContact();
+        }else{
+            store.each(function(rec) {
+                if (rec.get('leaf') && rec.get('parentId') !== record.get('id') && !record.findChild("uid", rec.get('uid'))) {
+                    rec.set('checked', false);
+                    rec.set('addTo', record.get('id'));
+                }
+            });
+            done.show();
+        }
+
+
+    },
+    addContact: function(record){
+        var newContact = {
+
+                "online": 0,
+                "name": "Allen Morris",
+                "thumbnail": "resources/images/user-profile/11.png",
+                "leaf": true
+
+        };
+        //record.appendChild
     },
     onPressEnter: function(field, e) {
         if (e.getKey() == e.ENTER) {

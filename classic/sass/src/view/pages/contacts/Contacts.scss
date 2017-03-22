@@ -1,9 +1,9 @@
 .contacts {
     .x-tool-expand-right:before{
-        content:'\f0d9' !important
+        content: '\f0d9' !important
     }
     .x-tool-collapse-left:before{
-        content:'\f0da' !important
+        content: '\f0da' !important
     }
     .x-grid-row:hover {
         .x-phone-display {
@@ -15,9 +15,28 @@
             }
         }
 
+        .x-phone-display-extra-margin {
+            position: relative;
+            right: 10px;
+
+            &:before {
+                font-family: FontAwesome;
+                content: "\f095";
+            }
+        }
+
         .x-video-display {
             margin-left: 10px;
 
+            &:before {
+                font-family: FontAwesome;
+                content: "\f03d";
+            }
+        }
+
+        .x-video-display-extra-margin {
+            position: relative;
+            right: 5px;
             &:before {
                 font-family: FontAwesome;
                 content: "\f03d";
@@ -41,6 +60,15 @@
             &:before {
                 font-family: FontAwesome;
                 content: $add-user;
+            }
+        }
+
+        .x-remove-user-display {
+            position: relative;
+            right: 15px;
+            &:before {
+                font-family: FontAwesome;
+                content: $trash;
             }
         }
     }
