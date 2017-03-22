@@ -207,9 +207,6 @@ Ext.define('NgcpCsc.view.main.MainController', {
                 };
                 title = Ngcp.csc.locales.conversationwith.title[localStorage.getItem('languageSelected')] + ' ' + record.get('name');
                 break;
-            case 'addressbook':
-                title = Ngcp.csc.locales.addressbook.title[localStorage.getItem('languageSelected')];
-                break;
             case 'callforward':
                 title = Ngcp.csc.locales.callforward.title[localStorage.getItem('languageSelected')];
                 break;
