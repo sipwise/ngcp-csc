@@ -37,9 +37,9 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                     "thumbnail": "resources/images/user-profile/2.png"
                 });
                 vm.set('uid', record.get('uid') || number);
-                vm.set('title', Ext.String.format('Call with {0}', number));
+                vm.set('title', Ext.String.format(Ngcp.csc.locales.rtc.calling[localStorage.getItem('languageSelected')], number));
                 vm.set('thumbnail', record.get('thumbnail') || this.getViewModel().get('defaultThumbnail'));
-                vm.set('status', Ext.String.format('calling {0} ...', number));
+                vm.set('status', Ext.String.format(Ngcp.csc.locales.rtc.calling[localStorage.getItem('languageSelected')] + ' ...', number));
                 vm.set('callEnabled', false);
                 vm.set('micEnabled', false);
                 vm.set('phoneComposerHidden', true);

@@ -6,15 +6,15 @@
     border-radius: 50%;
 }
 
-body .x-mask {
-    background: url(/resources/images/background.jpg) no-repeat center center fixed;
+#login-title-body {
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.login-container {
+    background: url("/resources/images/background.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-}
-
-#login-title-body {
-    text-align: center;
-    font-size: 1.5em;
 }

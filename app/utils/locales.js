@@ -341,6 +341,13 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Unsuccessful call forward to'
             },
             tooltips: {
+                addressbook: {
+                    en: 'Add to personal addressbook',
+                    it: 'Add to personal addressbook',
+                    de: 'Add to personal addressbook',
+                    fr: 'Add to personal addressbook',
+                    sp: 'Add to personal addressbook'
+                },
                 conversation_types: {
                     call: {
                         en: 'Call',
@@ -1069,6 +1076,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Contacts',
                 fr: 'Contacts',
                 sp: 'Contacts'
+            },
+            delete_user:{
+                en: 'Do you really want to delete {0} from your Personal Addressbook?',
+                it: 'Do you really want to delete {0} from your Personal Addressbook?',
+                de: 'Do you really want to delete {0} from your Personal Addressbook?',
+                fr: 'Do you really want to delete {0} from your Personal Addressbook?',
+                sp: 'Do you really want to delete {0} from your Personal Addressbook?'
             }
         },
         conversationwith: {
@@ -1163,120 +1177,6 @@ Ext.define('Ngcp.csc.locales', {
                 }
             }
         },
-        addressbook: {
-            title: {
-                en: 'Your personal addressbook.',
-                it: 'Your personal addressbook.',
-                de: 'Your personal addressbook.',
-                fr: 'Your personal addressbook.',
-                sp: 'Your personal addressbook.'
-            },
-            subtitle: {
-                en: 'CONTACTS',
-                it: 'CONTACTS',
-                de: 'CONTACTS',
-                fr: 'CONTACTS',
-                sp: 'CONTACTS'
-            },
-            user_label: {
-                en: 'Contacts for ',
-                it: 'Contacts for ',
-                de: 'Contacts for ',
-                fr: 'Contacts for ',
-                sp: 'Contacts for '
-            },
-            phone_numbers: {
-                en: 'phone numbers',
-                it: 'phone numbers',
-                de: 'phone numbers',
-                fr: 'phone numbers',
-                sp: 'phone numbers'
-            },
-            web: {
-                en: 'web',
-                it: 'web',
-                de: 'web',
-                fr: 'web',
-                sp: 'web'
-            },
-            new_contact: {
-                en: 'ADD NEW CONTACT',
-                it: 'ADD NEW CONTACT',
-                de: 'ADD NEW CONTACT',
-                fr: 'ADD NEW CONTACT',
-                sp: 'ADD NEW CONTACT'
-            },
-            firstname: {
-                en: 'firstname',
-                it: 'firstname',
-                de: 'firstname',
-                fr: 'firstname',
-                sp: 'firstname'
-            },
-            lastname: {
-                en: 'lastname',
-                it: 'lastname',
-                de: 'lastname',
-                fr: 'lastname',
-                sp: 'lastname'
-            },
-            first_name: {
-                en: 'First name',
-                it: 'First name',
-                de: 'First name',
-                fr: 'First name',
-                sp: 'First name'
-            },
-            last_name: {
-                en: 'Last name',
-                it: 'Last name',
-                de: 'Last name',
-                fr: 'Last name',
-                sp: 'Last name'
-            },
-            company: {
-                en: 'Company',
-                it: 'Company',
-                de: 'Company',
-                fr: 'Company',
-                sp: 'Company'
-            },
-            home: {
-                en: 'Home',
-                it: 'Home',
-                de: 'Home',
-                fr: 'Home',
-                sp: 'Home'
-            },
-            office: {
-                en: 'Office',
-                it: 'Office',
-                de: 'Office',
-                fr: 'Office',
-                sp: 'Office'
-            },
-            mobile: {
-                en: 'Mobile',
-                it: 'Mobile',
-                de: 'Mobile',
-                fr: 'Mobile',
-                sp: 'Mobile'
-            },
-            e_mail: {
-                en: 'E-mail',
-                it: 'E-mail',
-                de: 'E-mail',
-                fr: 'E-mail',
-                sp: 'E-mail'
-            },
-            homepage: {
-                en: 'Homepage',
-                it: 'Homepage',
-                de: 'Homepage',
-                fr: 'Homepage',
-                sp: 'Homepage'
-            }
-        },
         reminder: {
             title: {
                 en: 'Set your personal alarm.',
@@ -1343,6 +1243,13 @@ Ext.define('Ngcp.csc.locales', {
             }
         },
         rtc: {
+            calling: {
+                en: 'Calling {0}',
+                it: 'Calling {0}',
+                de: 'Calling {0}',
+                fr: 'Calling {0}',
+                sp: 'Calling {0}'
+            },
             call_in_progress: {
                 en: 'Please terminate current call before starting a new one.',
                 it: 'Please terminate current call before starting a new one.',
@@ -1833,6 +1740,13 @@ Ext.define('Ngcp.csc.locales', {
             }
         },
         common: {
+            edit: {
+                en: 'Edit',
+                it: 'Edit',
+                de: 'Edit',
+                fr: 'Edit',
+                sp: 'Edit'
+            },
             today: {
                 en: 'Today',
                 it: 'Today',
@@ -1910,6 +1824,13 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'All fields are required. Please fill and try again.',
                 sp: 'All fields are required. Please fill and try again.'
             },
+            field_required: {
+                en: '{0} cannot be empty.',
+                it: '{0} cannot be empty.',
+                de: '{0} cannot be empty.',
+                fr: '{0} cannot be empty.',
+                sp: '{0} cannot be empty.'
+            },
             add_success: {
                 en: 'Successfully added.',
                 it: 'Successfully added.',
@@ -1932,11 +1853,11 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'submit'
             },
             add: {
-                en: 'add',
-                it: 'add',
-                de: 'add',
-                fr: 'add',
-                sp: 'add'
+                en: 'Add',
+                it: 'Add',
+                de: 'Add',
+                fr: 'Add',
+                sp: 'Add'
             },
             call: {
                 en: 'Call',

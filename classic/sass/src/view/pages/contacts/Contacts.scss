@@ -15,9 +15,28 @@
             }
         }
 
+        .x-phone-display-extra-margin {
+            position: relative;
+            right: 10px;
+
+            &:before {
+                font-family: FontAwesome;
+                content: "\f095";
+            }
+        }
+
         .x-video-display {
             margin-left: 10px;
 
+            &:before {
+                font-family: FontAwesome;
+                content: "\f03d";
+            }
+        }
+
+        .x-video-display-extra-margin {
+            position: relative;
+            right: 10px;
             &:before {
                 font-family: FontAwesome;
                 content: "\f03d";
@@ -41,6 +60,25 @@
             &:before {
                 font-family: FontAwesome;
                 content: $add-user;
+            }
+        }
+
+        .x-edit-display {
+            position: relative;
+            right: 10px;
+
+            &:before {
+                font-family: FontAwesome;
+                content: $edit;
+            }
+        }
+
+        .x-remove-user-display {
+            position: relative;
+            right: 40px;
+            &:before {
+                font-family: FontAwesome;
+                content: $trash;
             }
         }
     }

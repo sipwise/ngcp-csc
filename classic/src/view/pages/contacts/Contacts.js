@@ -31,7 +31,11 @@ Ext.define('NgcpCsc.view.pages.contacts.Contacts', {
 
     listeners: {
         beforeitemclick: 'nodeClicked',
-        checkchange: 'onNodeChecked'
+        checkchange: 'onNodeChecked',
+        beforeitemexpand: 'resizePanel',
+        beforeitemcollapse: 'resizePanel',
+        itemexpand: 'nodeExpanded',
+        itemcollapse: 'nodeCollapsed'
     },
 
 
@@ -74,11 +78,27 @@ Ext.define('NgcpCsc.view.pages.contacts.Contacts', {
         menuDisabled: true
     },
 
+    plugins: [
+        Ext.create('Ext.grid.plugin.CellEditing', {
+            id: 'celledit',
+            clicksToEdit: 1,
+            listeners: {
+                edit: 'validateFields'
+            }
+        })
+    ],
+
     columns: [{
         xtype: 'treecolumn',
         dataIndex: 'name',
         renderer: 'renderStatus',
-        flex: 2
+        flex: 6
+    }, {
+        dataIndex: 'fieldValue',
+        editor: 'textfield',
+        reference: 'userContactFields',
+        flex: 10,
+        hidden: true
     }, {
         xtype: 'actioncolumn',
         text: 'actions',
@@ -86,25 +106,35 @@ Ext.define('NgcpCsc.view.pages.contacts.Contacts', {
         items: [{
             tooltip: Ngcp.csc.locales.common.call[localStorage.getItem('languageSelected')],
             getClass: function(value, context) {
-                return (context.record && context.record.get('leaf') && context.record.get('online')) ? 'x-phone-display' : '';
+                var extraMarginRight = context.record && context.record.parentNode && context.record.parentNode.get('id') == "addressbook" ? '-extra-margin' : '';
+                return ((context.record && (context.record.get('leaf') || context.record.get('isAddressBookContact')) && context.record.get('online')) ? 'x-phone-display' : '') + extraMarginRight;
             },
             handler: 'startCall'
         }, {
             tooltip: Ngcp.csc.locales.common.videocall[localStorage.getItem('languageSelected')],
             getClass: function(value, context) {
-                return (context.record && context.record.get('leaf') && context.record.get('online')) ? 'x-video-display' : '';
+                var extraMarginRight = context.record && context.record.parentNode && context.record.parentNode.get('id') == "addressbook" ? '-extra-margin' : '';
+                return ((context.record && (context.record.get('leaf') || context.record.get('isAddressBookContact')) && context.record.get('online')) ? 'x-video-display' : '') + extraMarginRight;
             },
             handler: 'startVideoCall'
         }, {
+            tooltip: Ngcp.csc.locales.common.edit[localStorage.getItem('languageSelected')],
             getClass: function(value, context) {
-                return (context.record && !context.record.get('leaf') && context.record.get('name') !== 'Buddies') ? 'x-add-user-display' : '';
+                return (context.record && context.record.parentNode && context.record.parentNode.parentNode && context.record.parentNode.parentNode.get('id') == "addressbook") ? 'x-edit-display' : '';
+            },
+            handler: 'editContactField'
+        }, {
+            tooltip: Ngcp.csc.locales.common.add[localStorage.getItem('languageSelected')],
+            getClass: function(value, context) {
+                return (context.record && !context.record.get('leaf') && context.record.parentNode.get('id') !== "addressbook") ? 'x-add-user-display' : '';
             },
             handler: 'addUser'
         }, {
+            tooltip: Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')],
             getClass: function(value, context) {
-                return (context.record && !context.record.get('leaf') && context.record.get('name') !== 'Buddies') ? 'x-drop-display' : '';
+                return (context.record && context.record.parentNode && context.record.parentNode.get('id') == "addressbook") ? 'x-remove-user-display' : '';
             },
-            handler: 'deleteNode'
+            handler: 'deleteUser'
         }]
     }]
 });
