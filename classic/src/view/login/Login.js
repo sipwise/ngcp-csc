@@ -1,7 +1,7 @@
 Ext.define('NgcpCsc.view.login.Login', {
     extend: 'Ext.window.Window',
-    xtype: 'ngcp-login',
     controller: 'login',
+    autoShow: true,
     bodyPadding: 20,
     closable: false,
     autoShow: true,
@@ -12,7 +12,6 @@ Ext.define('NgcpCsc.view.login.Login', {
     draggable: false,
     header: false,
     cls: 'auth-dialog',
-    modal: true,
     items: {
         xtype: 'form',
         reference: 'login-form',

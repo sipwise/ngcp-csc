@@ -13,6 +13,7 @@ Ext.define('Ngcp.csc.icons', {
         block: "x-fa fa-ban",
         block2x: "x-fa fa-ban fa-2x",
         book: "x-fa fa-book",
+        book2x: "x-fa fa-book fa-2x",
         chevronleft: "x-fa fa-chevron-left",
         chevronight: "x-fa fa-chevron-right",
         circle: "x-fa fa-circle",
