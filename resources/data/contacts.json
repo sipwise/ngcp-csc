@@ -10,18 +10,6 @@
         "thumbnail": "resources/images/user-profile/9.png",
         "leaf": true
     }, {
-        "uid": 1,
-        "online": false,
-        "name": "Oneill Franklin",
-        "thumbnail": "resources/images/user-profile/6.png",
-        "leaf": true
-    }, {
-        "uid": 3,
-        "online": false,
-        "name": "Branch Allison",
-        "thumbnail": "resources/images/user-profile/8.png",
-        "leaf": true
-    }, {
         "uid": 252,
         "online": true,
         "name": "Ben Wright",
@@ -32,12 +20,6 @@
         "online": true,
         "name": "Allen Morris",
         "thumbnail": "resources/images/user-profile/11.png",
-        "leaf": true
-    }, {
-        "uid": 5,
-        "online": false,
-        "name": "Suzette Powell",
-        "thumbnail": "resources/images/user-profile/7.png",
         "leaf": true
     }]
 }, {
@@ -51,18 +33,6 @@
         "name": "Allen Morris",
         "thumbnail": "resources/images/user-profile/11.png",
         "leaf": true
-    },{
-        "uid": 840,
-        "online": true,
-        "name": "Jil Sanchez",
-        "thumbnail": "resources/images/user-profile/9.png",
-        "leaf": true
-    },{
-        "uid": 252,
-        "online": true,
-        "name": "Ben Wright",
-        "thumbnail": "resources/images/user-profile/10.png",
-        "leaf": true
     }, {
         "uid": 5,
         "online": false,
@@ -72,7 +42,6 @@
     }]
 }, {
     "name": "Operations",
-    "uid": "operations",
     "iconCls": "x-fa fa-wechat",
     "expanded": true,
     "children": [{
@@ -87,5 +56,146 @@
         "name": "Suzette Powell",
         "thumbnail": "resources/images/user-profile/7.png",
         "leaf": true
+    }]
+}, {
+    "name": "Personal addressbook",
+    "id": "addressbook",
+    "iconCls": "x-fa fa-book",
+    "expanded": true,
+    "children": [{
+        "uid": 162,
+        "online": true,
+        "name": "Allen Morris",
+        "thumbnail": "resources/images/user-profile/11.png",
+        "isAddressBookContact": true,
+        "children": [{
+            "name": "First Name :",
+            "isFirstName": true,
+            "fieldValue": "Allen",
+            "leaf": true
+        }, {
+            "name": "Second Name :",
+            "isSecondName": true,
+            "fieldValue": "Morris",
+            "leaf": true
+        }, {
+            "name": "Company :",
+            "fieldValue": "Sipwise",
+            "leaf": true
+        }, {
+            "name": "Home :",
+            "fieldValue": "+43 1234567",
+            "leaf": true
+        }, {
+            "name": "Office :",
+            "fieldValue": "+43 1234567",
+            "leaf": true
+        }, {
+            "name": "Mobile :",
+            "fieldValue": "+436601234567",
+            "leaf": true
+        }, {
+            "name": "Fax :",
+            "fieldValue": "+43 1234567",
+            "leaf": true
+        }, {
+            "name": "E-mail :",
+            "fieldValue": "amorris@sipwise.com",
+            "leaf": true
+        }, {
+            "name": "Homepage :",
+            "fieldValue": " ",
+            "leaf": true
+        }]
+    }, {
+        "uid": 5,
+        "online": false,
+        "name": "Suzette Powell",
+        "thumbnail": "resources/images/user-profile/7.png",
+        "isAddressBookContact": true,
+        "children": [{
+            "name": "First Name :",
+            "isFirstName": true,
+            "fieldValue": "Suzette",
+            "leaf": true
+        }, {
+            "name": "Second Name :",
+            "isSecondName": true,
+            "fieldValue": "Powell",
+            "leaf": true
+        }, {
+            "name": "Company :",
+            "fieldValue": "Microsoft",
+            "leaf": true
+        }, {
+            "name": "Home :",
+            "fieldValue": "+1234567",
+            "leaf": true
+        }, {
+            "name": "Office :",
+            "fieldValue": "+1234567",
+            "leaf": true
+        }, {
+            "name": "Mobile :",
+            "fieldValue": "+1234567",
+            "leaf": true
+        }, {
+            "name": "Fax :",
+            "fieldValue": "+1234567",
+            "leaf": true
+        }, {
+            "name": "E-mail :",
+            "fieldValue": "spowell@microsoft.com",
+            "leaf": true
+        }, {
+            "name": "Homepage :",
+            "fieldValue": "www.spowell.com",
+            "leaf": true
+        }]
+    }, {
+        "uid": 840,
+        "online": true,
+        "name": "Jil Sanchez",
+        "thumbnail": "resources/images/user-profile/9.png",
+        "isAddressBookContact": true,
+        "children": [{
+            "name": "First Name :",
+            "isFirstName": true,
+            "fieldValue": "Jil",
+            "leaf": true
+        }, {
+            "name": "Second Name :",
+            "isSecondName": true,
+            "fieldValue": "Sanchez",
+            "leaf": true
+        }, {
+            "name": "Company :",
+            "fieldValue": "Google",
+            "leaf": true
+        }, {
+            "name": "Home :",
+            "fieldValue": "+7654321",
+            "leaf": true
+        }, {
+            "name": "Office :",
+            "fieldValue": "+7654321",
+            "leaf": true
+        }, {
+            "name": "Mobile :",
+            "fieldValue": "+7654321",
+            "leaf": true
+        }, {
+            "name": "Fax :",
+            "fieldValue": "+7654321",
+            "leaf": true
+        }, {
+            "name": "E-mail :",
+            "fieldValue": "jsanchez@gmail.com",
+            "leaf": true
+        }, {
+            "name": "Homepage :",
+            "fieldValue": "www.jsanchez.com",
+            "leaf": true
+        }]
     }]
 }]
