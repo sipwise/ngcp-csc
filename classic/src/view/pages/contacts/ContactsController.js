@@ -8,7 +8,8 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
             '*': {
                 collapseContacts: 'collapseContacts',
                 expandContacts: 'expandContacts',
-                resizeContactPanel: 'resizeContactPanel'
+                resizeContactPanel: 'resizeContactPanel',
+                addContact: 'addContact'
             }
         }
     },
@@ -24,8 +25,15 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
     },
 
     renderStatus: function(val, meta, rec) {
-        if (rec.get('leaf')) {
+        if ((rec.get('leaf') && !rec.parentNode.get('isAddressBookContact')) || rec.parentNode.id == 'addressbook') {
             rec.set('iconCls', Ngcp.csc.icons.circle + ' ' + (rec.get('online') ? 'online-user' : 'offline-user'));
+        } else if (rec.parentNode.get('isAddressBookContact')) {
+            rec.set('iconCls', Ngcp.csc.icons.text + ' addressbook-contact ');
+        }
+        if (rec.get('isAddressBookContact')) {
+            var firstNameNode = rec.findChild('isFirstName', true);
+            var secondNameNode = rec.findChild('isSecondName', true);
+            val = Ext.String.format('{0} {1}', firstNameNode ? firstNameNode.get('fieldValue') : '', secondNameNode ? secondNameNode.get('fieldValue') : '');
         }
         return val;
     },
@@ -60,14 +68,122 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         var contacts = this.getView();
         var done = contacts.down('[name=commitChangesBtn]');
         var store = contacts.getStore();
+        if (record.get('id') == "addressbook") {
+            this.addContact(record);
+        } else {
+            store.each(function(rec) {
+                if (rec.get('leaf') && rec.get('parentId') !== record.get('id') && !record.parentNode.get('isAddressBookContact') && !record.findChild("uid", rec.get('uid'))) {
+                    rec.set('checked', false);
+                    rec.set('addTo', record.get('id'));
+                    rec.parentNode.expand();
+                }
+            });
+            done.show();
+        }
+    },
+    addContact: function(record) {
+        var me = this;
+        var rootNode = Ext.getStore('Contacts').findRecord('id', 'addressbook');
+        var newContact = { // TODO to be moved in model once we have API endpoint
+                "online": 0,
+                "name": "",
+                "expanded": true,
+                "isAddressBookContact": true,
+                "children": [{
+                    "name": "First Name :",
+                    "isFirstName": true,
+                    "fieldValue": record.get('uid') ? record.get('source_cli').split(" ")[0] : " ", // TODO to b improved (user can have multiple first names)
+                    "leaf": true
+                }, {
+                    "name": "Second Name :",
+                    "isSecondName": true,
+                    "fieldValue": record.get('uid') ? record.get('source_cli').split(" ")[1] : " ", // TODO to b improved (user can have multiple first names)
+                    "leaf": true
+                }, {
+                    "name": "Company :",
+                    "fieldValue": " ",
+                    "leaf": true
+                }, {
+                    "name": "Home :",
+                    "fieldValue": (record.get('source_cli') && !record.get('uid')) ? record.get('source_cli') : " ",
+                    "leaf": true
+                }, {
+                    "name": "Office :",
+                    "fieldValue": " ",
+                    "leaf": true
+                }, {
+                    "name": "Mobile :",
+                    "fieldValue": " ",
+                    "leaf": true
+                }, {
+                    "name": "Fax :",
+                    "fieldValue": " ",
+                    "leaf": true
+                }, {
+                    "name": "E-mail :",
+                    "fieldValue": " ",
+                    "leaf": true
+                }, {
+                    "name": "Homepage :",
+                    "fieldValue": " ",
+                    "leaf": true
+                }]
+            },
+            lastNode;
+        lastNode = rootNode.appendChild(newContact, false, true);
+        if (me.getView().collapsed) {
+            me.getView().expand();
+        }
+        Ext.Function.defer(function(){
+            me.getView().view.focusRow(lastNode.lastChild);
+        },50)
+    },
 
-        store.each(function(rec) {
-            if (rec.get('leaf') && rec.get('parentId') !== record.get('id') && !record.findChild("uid", rec.get('uid'))) {
-                rec.set('checked', false);
-                rec.set('addTo', record.get('id'));
+    resizePanel: function(rec) {
+        var contactFields, store, keepExpanded, newWidth,
+            minWidth = 300,
+            maxWidth = 600;
+        if (rec.parentNode && rec.parentNode.id == 'addressbook') {
+            contactFields = this.lookupReference('userContactFields');
+            store = Ext.getStore('Contacts').findRecord();
+            keepExpanded = false;
+            rec.parentNode.eachChild(function(node) {
+                if (node.get('expanded') && node.get('id') !== rec.get('id')) {
+                    keepExpanded = true;
+                }
+            });
+            newWidth = this.getView().getWidth() > minWidth && !keepExpanded ? minWidth : maxWidth;
+            this.getView().setWidth(newWidth);
+            contactFields.setVisible(keepExpanded ? keepExpanded : contactFields.isHidden());
+        }
+    },
+    nodeCollapsed: function(){
+        this.getView().view.refresh();
+    },
+    nodeExpanded:function(node){
+        var me = this;
+        if(node && node.hasChildNodes()){
+            Ext.Function.defer(function(){
+                me.getView().view.focusRow(node.lastChild);
+            },50);
+        }
+    },
+    deleteUser: function(view, rowIndex, colIndex, item, ev, record) {
+        var contactStore = Ext.getStore('Contacts');
+        var me = this;
+        Ext.Msg.show({
+            title: Ngcp.csc.locales.common.save[localStorage.getItem('languageSelected')],
+            message: Ext.String.format(Ngcp.csc.locales.contacts.delete_user[localStorage.getItem('languageSelected')], record.get('name')),
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            fn: function(btn) {
+                if (btn === 'yes') {
+                    contactStore.remove(record);
+                    me.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
+                    me.getView().view.refresh();
+                }
             }
         });
-        done.show();
     },
     onPressEnter: function(field, e) {
         if (e.getKey() == e.ENTER) {
@@ -84,8 +200,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
             this.fireEvent('showmessage', false, Ngcp.csc.locales.conversationwith.alerts.choose_valid_name[localStorage.getItem('languageSelected')]);
             return;
         }
-
-        var newNode = contacts.getRootNode().insertChild(contacts.getStore().getCount(), {
+        var newNode = contacts.getRootNode().insertChild(0, {
             "name": newChatName.getValue(),
             "iconCls": Ngcp.csc.icons.multichat,
             "expanded": true,
@@ -94,6 +209,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         contacts.getStore().sort('online', 'DESC');
         this.fireEvent('showmessage', true, Ngcp.csc.locales.conversationwith.alerts.channel_created[localStorage.getItem('languageSelected')]);
         createGroupBtn.show();
+        contacts.view.focusRow(newNode);
         newChatName.hide();
         newChatBtn.hide();
         newChatName.reset();
@@ -117,10 +233,23 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         if (record.get('online'))
             this.fireEvent('initrtc', record, 'startVideoCall', true);
     },
+    editContactField: function(grid, rowIndex, colIndex, item, e, record) {
+        var me = this;
+        var editableColumnIndex;
+        Ext.each(this.getView().getColumns(), function(col, index) {
+            if (col.dataIndex == 'fieldValue') {
+                editableColumnIndex = index;
+            }
+        });
+        Ext.Function.defer(function() {
+            me.getView().getPlugin('celledit').startEdit(record, editableColumnIndex);
+        }, 50);
+    },
     nodeClicked: function(node, record, item, index, e) {
         var me = this;
-        if (record.get('checked') != null)
+        if (record.get('checked') != null || record.get('fieldValue') || record.get('id') == 'addressbook') {
             return;
+        }
         this.fireEvent('updateconversationtitle', 'conversation-with', record);
         this.redirectTo('conversation-with');
         Ext.Function.defer(function() {
@@ -145,7 +274,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
             }
         });
     },
-    save: function(btn) {
+    save: function(btn, p2, p3) {
         var store = this.getView().getStore();
         var tbar = this.getView().getDockedItems('toolbar[dock="top"]')[0];
         store.each(function(rec) {
@@ -153,8 +282,10 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         });
         store.sort('online', 'DESC');
         store.commitChanges();
-        btn.hide();
-        this.getView().getView().refresh();
+        if (!p3) {
+            btn.hide();
+        }
+        this.getView().view.refresh(); // TODO this cause the scrollbar to jump to top sometimes. Seems a framework bug; let's keep eventual workaround/investigation in a separate task
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
     },
     resizeContactPanel: function(newHeight) {

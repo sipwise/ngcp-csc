@@ -118,6 +118,10 @@
     color: $offline-menu-item-color !important;
 }
 
+.addressbook-contact {
+    color: white !important;
+}
+
 .conversation-with-container {
     // replace core-container $ui , because tabpanel has no mixin/variables
     border: 1px solid lightgray;

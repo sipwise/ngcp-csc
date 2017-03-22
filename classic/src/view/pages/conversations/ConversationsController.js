@@ -202,6 +202,11 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
         this.fireEvent('initrtc', record, 'startCall');
     },
 
+    addToAddressbook: function(el){
+        var record = Ext.getStore('Conversations').findRecord('id', el.id.split('-')[1]);
+        this.fireEvent('addContact', record);
+    },
+
     sendMsg: function(el) {
         var mainView = Ext.ComponentQuery.query('[name=mainView]')[0];
         var record = Ext.getStore('Conversations').findRecord('id', el.id.split('-')[1]);
