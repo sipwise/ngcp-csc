@@ -296,6 +296,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var storeName = this.getStoreFromRoute(currentRoute);
         var recId = el.id.split("-")[1];
         var elClassList = el.firstChild.classList;
+        this.toggleCancelCard(el); // TODO
         // Workaround with split(), since classList.add() does not allow strings
         // with spaces (https://developer.mozilla.org/en/docs/Web/API/Element/classList)
         elClassList.remove(Ngcp.csc.icons.edit.split(' ')[1]);
@@ -314,6 +315,16 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var selectedRow = store.findRecord('id', recId);
         store.remove(selectedRow);
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
+    },
+
+    toggleCancelCard: function (el, recId) { // TODO
+        var cancelCardId = el.id.replace('edit', 'cancel');
+        var cancelCard = Ext.ComponentQuery.query('#' + cancelCardId)[0];
+        console.log(cancelCardId);
+    },
+
+    cancelCard: function () { // TODO
+        console.log('cancel clicked');
     }
 
 });
