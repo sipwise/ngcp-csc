@@ -1745,6 +1745,13 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Enter new status',
                 sp: 'Enter new status'
             },
+            cancel_operation: {
+                en: 'Cancel operation',
+                it: 'Cancel operation',
+                de: 'Cancel operation',
+                fr: 'Cancel operation',
+                sp: 'Cancel operation'
+            },
             autoattendant: {
                 title: {
                     en: 'Your auto attendants.',
