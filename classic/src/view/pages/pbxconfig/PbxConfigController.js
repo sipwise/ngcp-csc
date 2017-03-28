@@ -3,10 +3,6 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
 
     alias: 'controller.pbxconfig',
 
-    // DONE: clicking on edit enables editing of all expanded cards, instead of only the card which contains the clicked button
-    // DONE: (related to 1) expanding a card while editing is in progress on another card causes textfields to become labels, while the edit button remains in "save mode". i think the user should be able to copy values from other cards while editing, therefore i would leave the edit in progress while others card are expanded/edited
-    // DONE: pls rename Add new Group to Add new Seat in Seat section
-    // DONE: Remove console.logs and comments
     listen: {
         controller: {
             '*': {
@@ -118,6 +114,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         elClassList.add(Ngcp.csc.icons.edit.split(' ')[1]);
         el.dataset.callback = 'editCard';
         this.showHideFocusFieldsById(recId, storeName, 'hide');
+        this.toggleCancelCard(el, 'off');
     },
 
     saveCard: function(el) {
@@ -201,6 +198,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
             elClassList.add(Ngcp.csc.icons.floppy.split(' ')[1]);
             el.dataset.callback = 'saveCard';
             grid.updateLayout();
+            me.toggleCancelCard(el, 'on');
         }, 50);
     },
 
@@ -296,6 +294,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var storeName = this.getStoreFromRoute(currentRoute);
         var recId = el.id.split("-")[1];
         var elClassList = el.firstChild.classList;
+        this.toggleCancelCard(el, 'on');
         // Workaround with split(), since classList.add() does not allow strings
         // with spaces (https://developer.mozilla.org/en/docs/Web/API/Element/classList)
         elClassList.remove(Ngcp.csc.icons.edit.split(' ')[1]);
@@ -314,6 +313,44 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var selectedRow = store.findRecord('id', recId);
         store.remove(selectedRow);
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
+    },
+
+    toggleCancelCard: function (el, state) {
+        var cancelCardId = el.id.replace(/edit|save/, 'cancel');
+        var cancelCard = document.getElementById(cancelCardId);
+        var elClassList = cancelCard.classList;
+        switch (state) {
+            case 'on':
+                elClassList.remove('hidden');
+                break;
+            case 'off':
+                elClassList.add('hidden');
+                break;
+        };
+    },
+
+    cancelCard: function (el, abortAdd) {
+        var me = this;
+        var currentRoute = window.location.hash;
+        var storeName = this.getStoreFromRoute(currentRoute);
+        var store = Ext.getStore(storeName);
+        var recId = el.id.split("-")[1];
+        var editCard = document.getElementById('edit' + storeName.slice(0, -1) + '-' + recId);
+        var currentRoute = window.location.hash;
+        var selectedRow = store.findRecord('id', recId);
+        var nameRecord = selectedRow.get('name');
+        switch (nameRecord === '') {
+            case true:
+                me.removeCard(el);
+                break;
+            case false:
+                me.showHideFocusFieldsById(recId, storeName, 'hide');
+                me.toggleCancelCard(el, 'off');
+                editCard.firstChild.classList.remove(Ngcp.csc.icons.floppy.split(' ')[1]);
+                editCard.firstChild.classList.add(Ngcp.csc.icons.edit.split(' ')[1]);
+                editCard.dataset.callback = 'editCard';
+                break;
+        }
     }
 
 });
