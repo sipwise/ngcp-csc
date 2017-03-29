@@ -1634,11 +1634,11 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Phone/devices:'
             },
             hunt_policy: {
-                en: 'Hunt policy:',
-                it: 'Hunt policy:',
-                de: 'Hunt policy:',
-                fr: 'Hunt policy:',
-                sp: 'Hunt policy:'
+                en: 'Hunt Policy:',
+                it: 'Hunt Policy:',
+                de: 'Hunt Policy:',
+                fr: 'Hunt Policy:',
+                sp: 'Hunt Policy:'
             },
             hunt_timeout: {
                 en: 'Hunt timeout:',
@@ -1751,6 +1751,62 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Cancel operation',
                 fr: 'Cancel operation',
                 sp: 'Cancel operation'
+            },
+            enter_new_group_name: {
+                en: 'Enter new group name',
+                it: 'Enter new group name',
+                de: 'Enter new group name',
+                fr: 'Enter new group name',
+                sp: 'Enter new group name'
+            },
+            choose_one_or_more_alias_numbers: {
+                en: 'Choose one or more alias numbers',
+                it: 'Choose one or more alias numbers',
+                de: 'Choose one or more alias numbers',
+                fr: 'Choose one or more alias numbers',
+                sp: 'Choose one or more alias numbers'
+            },
+            choose_new_primary_number: {
+                en: 'Choose new primary number',
+                it: 'Choose new primary number',
+                de: 'Choose new primary number',
+                fr: 'Choose new primary number',
+                sp: 'Choose new primary number'
+            },
+            primary_number: {
+                en: 'Primary Number:',
+                it: 'Primary Number:',
+                de: 'Primary Number:',
+                fr: 'Primary Number:',
+                sp: 'Primary Number:'
+            },
+            alias_numbers: {
+                en: 'Alias Numbers:',
+                it: 'Alias Numbers:',
+                de: 'Alias Numbers:',
+                fr: 'Alias Numbers:',
+                sp: 'Alias Numbers:'
+            },
+            group_name: {
+                en: 'Group Name:',
+                it: 'Group Name:',
+                de: 'Group Name:',
+                fr: 'Group Name:',
+                sp: 'Group Name:'
+            },
+            seconds: {
+                en: 'seconds',
+                it: 'seconds',
+                de: 'seconds',
+                fr: 'seconds',
+                sp: 'seconds'
+            },
+            for: {
+                en: 'for',
+                it: 'for',
+                de: 'for',
+                fr: 'for',
+                sp: 'for'
             },
             autoattendant: {
                 title: {
