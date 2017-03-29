@@ -1,0 +1,21 @@
+{
+    "data": [{
+            "group": "Marketing"
+        },
+        {
+            "group": "Sales"
+        },
+        {
+            "group": "Development"
+        },
+        {
+            "group": "Operations"
+        },
+        {
+            "group": "Administration"
+        },
+        {
+            "group": "Customer Support"
+        }
+    ]
+}

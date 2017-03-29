@@ -348,6 +348,11 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
                 editCard.dataset.callback = 'editCard';
                 break;
         }
+    },
+
+    renderAliasNumbers: function (el) {
+        console.log(el);
+        console.log(el.id);
     }
 
 });

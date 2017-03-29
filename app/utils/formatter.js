@@ -33,6 +33,10 @@ Ext.define('Ngcp.csc.formatter', {
                 return interval + " minutes";
             }
             return Math.floor(seconds) + " seconds";
+        },
+        splitData: function (data) {
+            // return data + ' test'; // Works
+            return data.replace(/,/g, ", "); // Does not work
         }
     }
-})
+});

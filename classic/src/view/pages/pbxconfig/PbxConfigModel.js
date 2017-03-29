@@ -4,6 +4,12 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigModel', {
 
     data: {
         add_new_button: 'ADD NEW SEAT'
+    },
+
+    formulas: {
+        splitAlias: function (get) {
+            return get('alias_numbers').replace(/,/g, ", ");
+        }
     }
 
 });
