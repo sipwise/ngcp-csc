@@ -63,13 +63,6 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                     text: Ngcp.csc.locales.pbxconfig.name[localStorage.getItem('languageSelected')],
                     width: 120
                 }, {
-                    xtype: 'label',
-                    hidden: true,
-                    bind: {
-                        id: 'devices-label-name-{record.id}',
-                        text: '{record.name}'
-                    }
-                }, {
                     xtype: 'textfield',
                     required: true,
                     hidden: true,
@@ -78,9 +71,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                         id: 'devices-textfield-name-{record.id}'
                     },
                     listeners: {
-                        // NOTE: Workaround. Issue when binding is used, any
-                        // change in any record field triggers a layout break in
-                        // the row which looks like row collapse, but is not
+                        // Workaround. Issue when binding is used, any change in any record field triggers a
+                        // layout break in the row which looks like row collapse, but is not
                         focus: {
                             fn: 'setFieldValue'
                         },
@@ -99,10 +91,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                     width: 120
                 }, {
                     xtype: 'label',
+                    hidden: false,
                     bind: {
                         id: 'devices-label-device-{record.id}',
-                        text: '{record.device}',
-                        hidden: false
+                        text: '{record.device}'
                     }
                 }, {
                     xtype: 'textfield',
@@ -110,8 +102,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                     hidden: true,
                     emptyText: Ngcp.csc.locales.pbxconfig.enter_new_device[localStorage.getItem('languageSelected')],
                     bind: {
-                        id: 'devices-textfield-device-{record.id}',
-                        hidden: true
+                        id: 'devices-textfield-device-{record.id}'
                     },
                     listeners: {
                         focus: {
@@ -132,10 +123,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                     width: 120
                 }, {
                     xtype: 'label',
+                    hidden: false,
                     bind: {
                         id: 'devices-label-mac-{record.id}',
-                        text: '{record.mac}',
-                        hidden: false
+                        text: '{record.mac}'
                     }
                 }, {
                     xtype: 'textfield',
@@ -143,8 +134,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                     hidden: true,
                     emptyText: Ngcp.csc.locales.pbxconfig.enter_new_mac_address[localStorage.getItem('languageSelected')],
                     bind: {
-                        id: 'devices-textfield-mac-{record.id}',
-                        hidden: true
+                        id: 'devices-textfield-mac-{record.id}'
                     },
                     listeners: {
                         focus: {
@@ -165,10 +155,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                     width: 120
                 }, {
                     xtype: 'label',
+                    hidden: false,
                     bind: {
                         id: 'devices-label-status-{record.id}',
-                        text: '{record.status}',
-                        hidden: false
+                        text: '{record.status}'
                     }
                 }, {
                     xtype: 'textfield',
@@ -176,8 +166,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                     hidden: true,
                     emptyText: Ngcp.csc.locales.pbxconfig.enter_new_status[localStorage.getItem('languageSelected')],
                     bind: {
-                        id: 'devices-textfield-status-{record.id}',
-                        hidden: true
+                        id: 'devices-textfield-status-{record.id}'
                     },
                     listeners: {
                         focus: {

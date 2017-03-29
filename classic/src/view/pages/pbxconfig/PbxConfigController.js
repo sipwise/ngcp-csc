@@ -160,7 +160,6 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
                 break;
             case false:
                 me.fireEvent('showmessage', false, Ngcp.csc.locales.common.fields_required[localStorage.getItem('languageSelected')]);
-                me.showHideFocusFieldsById(recId, storeName, 'show');
                 break;
         };
     },
@@ -227,7 +226,6 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var deviceField = Ext.ComponentQuery.query('#' + viewName + '-textfield-device-' + id) || '';
         var macField = Ext.ComponentQuery.query('#' + viewName + '-textfield-mac-' + id) || '';
         var statusField = Ext.ComponentQuery.query('#' + viewName + '-textfield-status-' + id) || '';
-        var nameLabel = Ext.ComponentQuery.query('#' + viewName + '-label-name-' + id) || '';
         var extensionLabel = Ext.ComponentQuery.query('#' + viewName + '-label-extension-' + id) || '';
         var groupLabel = Ext.ComponentQuery.query('#' + viewName + '-label-group-' + id) || '';
         var numbersLabel = Ext.ComponentQuery.query('#' + viewName + '-label-numbers-' + id) || '';
@@ -237,10 +235,11 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var deviceLabel = Ext.ComponentQuery.query('#' + viewName + '-label-device-' + id) || '';
         var macLabel = Ext.ComponentQuery.query('#' + viewName + '-label-mac-' + id) || '';
         var statusLabel = Ext.ComponentQuery.query('#' + viewName + '-label-status-' + id) || '';
-        mainNameLabel[0].setHidden(false);
+        // To make sure we always hide name label and field when not editing
+        hideOrShow === 'hide' ? mainNameLabel[0].setHidden(true) : mainNameLabel[0].setHidden(false);
+        hideOrShow === 'hide' ? nameField[0].setHidden(true) : nameField[0].setHidden(false);
         switch (viewName) {
             case 'seats':
-                nameLabel[0].setHidden(labelHide);
                 extensionLabel[0].setHidden(labelHide);
                 groupLabel[0].setHidden(labelHide);
                 numbersLabel[0].setHidden(labelHide);
@@ -250,7 +249,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
                 groupField[0].setHidden(fieldHide);
                 numbersField[0].setHidden(fieldHide);
                 phoneField[0].setHidden(fieldHide);
-                // Due to focus listener workaround
+                // Due to focus listener workaround. Focus listener fires setFieldValue() function
                 phoneField[0].focus();
                 numbersField[0].focus();
                 groupField[0].focus();
@@ -258,7 +257,6 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
                 nameField[0].focus();
                 break;
             case 'groups':
-                nameLabel[0].setHidden(labelHide);
                 extensionLabel[0].setHidden(labelHide);
                 huntPolicyLabel[0].setHidden(labelHide);
                 huntTimeoutLabel[0].setHidden(labelHide);
@@ -272,7 +270,6 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
                 nameField[0].focus();
                 break;
             case 'devices':
-                nameLabel[0].setHidden(labelHide);
                 deviceLabel[0].setHidden(labelHide);
                 macLabel[0].setHidden(labelHide);
                 statusLabel[0].setHidden(labelHide);

@@ -61,14 +61,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                     cls: 'pbx-data-value',
                     text: Ngcp.csc.locales.pbxconfig.name[localStorage.getItem('languageSelected')],
                     width: 120
-                }, {
-                    xtype: 'label',
-                    hidden: true,
-                    bind: {
-                        id: 'seats-label-name-{record.id}',
-                        text: '{record.name}'
-                    }
-                }, {
+                },
+                {
                     xtype: 'textfield',
                     required: true,
                     hidden: true,
@@ -95,10 +89,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                     width: 120
                 }, {
                     xtype: 'label',
+                    hidden: false,
                     bind: {
                         id: 'seats-label-extension-{record.id}',
-                        text: '{record.extension}',
-                        hidden: false
+                        text: '{record.extension}'
                     }
                 }, {
                     xtype: 'textfield',
@@ -106,8 +100,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                     hidden: true,
                     emptyText: Ngcp.csc.locales.pbxconfig.enter_new_extension[localStorage.getItem('languageSelected')],
                     bind: {
-                        id: 'seats-textfield-extension-{record.id}',
-                        hidden: true
+                        id: 'seats-textfield-extension-{record.id}'
                     },
                     listeners: {
                         focus: {
@@ -128,10 +121,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                     width: 120
                 }, {
                     xtype: 'label',
+                    hidden: false,
                     bind: {
                         id: 'seats-label-group-{record.id}',
-                        text: '{record.group}',
-                        hidden: false
+                        text: '{record.group}'
                     }
                 }, {
                     xtype: 'textfield',
@@ -139,8 +132,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                     hidden: true,
                     emptyText: Ngcp.csc.locales.pbxconfig.enter_new_groups[localStorage.getItem('languageSelected')],
                     bind: {
-                        id: 'seats-textfield-group-{record.id}',
-                        hidden: true
+                        id: 'seats-textfield-group-{record.id}'
                     },
                     listeners: {
                         focus: {
@@ -161,10 +153,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                     width: 120
                 }, {
                     xtype: 'label',
+                    hidden: false,
                     bind: {
                         id: 'seats-label-numbers-{record.id}',
-                        text: '{record.numbers}',
-                        hidden: false
+                        text: '{record.numbers}'
                     }
                 }, {
                     xtype: 'textfield',
@@ -172,8 +164,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                     hidden: true,
                     emptyText: Ngcp.csc.locales.pbxconfig.enter_new_numbers[localStorage.getItem('languageSelected')],
                     bind: {
-                        id: 'seats-textfield-numbers-{record.id}',
-                        hidden: true
+                        id: 'seats-textfield-numbers-{record.id}'
                     },
                     listeners: {
                         focus: {
@@ -194,10 +185,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                     width: 120
                 }, {
                     xtype: 'label',
+                    hidden: false,
                     bind: {
                         id: 'seats-label-phone_devices-{record.id}',
-                        text: '{record.phone_devices}',
-                        hidden: false
+                        text: '{record.phone_devices}'
                     }
                 }, {
                     xtype: 'textfield',
@@ -205,8 +196,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                     hidden: true,
                     emptyText: Ngcp.csc.locales.pbxconfig.enter_new_phone[localStorage.getItem('languageSelected')],
                     bind: {
-                        id: 'seats-textfield-phone_devices-{record.id}',
-                        hidden: true
+                        id: 'seats-textfield-phone_devices-{record.id}'
                     },
                     listeners: {
                         focus: {
