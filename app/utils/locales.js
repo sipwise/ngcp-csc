@@ -1065,6 +1065,20 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Groups',
                 fr: 'Groups',
                 sp: 'Groups'
+            },
+            primary_number: {
+                en: 'Primary number',
+                it: 'Primary number',
+                de: 'Primary number',
+                fr: 'Primary number',
+                sp: 'Primary number'
+            },
+            alias_numbers: {
+                en: 'Alias numbers',
+                it: 'Alias numbers',
+                de: 'Alias numbers',
+                fr: 'Alias numbers',
+                sp: 'Alias numbers'
             }
         },
         settings: {
@@ -1652,12 +1666,12 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Enter new phone',
                 sp: 'Enter new phone'
             },
-            enter_new_hunt_policy: {
-                en: 'Enter new hunt policy',
-                it: 'Enter new hunt policy',
-                de: 'Enter new hunt policy',
-                fr: 'Enter new hunt policy',
-                sp: 'Enter new hunt policy'
+            choose_new_hunt_policy: {
+                en: 'Choose new hunt policy',
+                it: 'Choose new hunt policy',
+                de: 'Choose new hunt policy',
+                fr: 'Choose new hunt policy',
+                sp: 'Choose new hunt policy'
             },
             enter_new_hunt_timeout: {
                 en: 'Enter new hunt timeout',
@@ -1694,12 +1708,12 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Cancel operation',
                 sp: 'Cancel operation'
             },
-            enter_new_group_name: {
-                en: 'Enter new group name',
-                it: 'Enter new group name',
-                de: 'Enter new group name',
-                fr: 'Enter new group name',
-                sp: 'Enter new group name'
+            choose_one_or_more_groups: {
+                en: 'Choose one or more group names',
+                it: 'Choose one or more group names',
+                de: 'Choose one or more group names',
+                fr: 'Choose one or more group names',
+                sp: 'Choose one or more group names'
             },
             choose_one_or_more_alias_numbers: {
                 en: 'Choose one or more alias numbers',

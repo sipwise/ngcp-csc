@@ -1,89 +1,87 @@
 {
     "data": [{
-        "id" : 1,
+        "id": 1,
         "name": "Seat1",
-        "extension": "ext1",
-        "group": "group2",
-        "numbers": "345, 789",
-        "phone_devices": "dev1"
-    },{
-        "id" : 2,
+        "extension": "202",
+        "primary_number": "43991001",
+        "alias_numbers": ["012341", "012342"],
+        "groups": ["Marketing", "Sales"]
+    }, {
+        "id": 2,
         "name": "Seat2",
-        "extension": "ext2",
-        "group": "group3",
-        "numbers": "123",
-        "phone_devices": "dev3"
+        "extension": "402",
+        "primary_number": "43991019",
+        "alias_numbers": ["012343", "012344", "012345"],
+        "groups": ["Marketing", "Operations", "Sales"]
     }, {
-        "id" : 3,
+        "id": 3,
         "name": "Seat3",
-        "extension": "ext3",
-        "group": "group4",
-        "numbers": "421",
-        "phone_devices": "dev2"
-    }
-    , {
-        "id" : 4,
+        "extension": "302",
+        "primary_number": "43991021",
+        "alias_numbers": ["012346"],
+        "groups": ["Marketing"]
+    }, {
+        "id": 4,
         "name": "Seat4",
-        "extension": "ext4",
-        "group": "group4",
-        "numbers": "444, 123, 954",
-        "phone_devices": "dev4"
+        "extension": "602",
+        "primary_number": "43991008",
+        "alias_numbers": ["012347", "012348"],
+        "groups": ["Marketing", "Sales"]
     }, {
-        "id" : 5,
+        "id": 5,
         "name": "Seat5",
-        "extension": "ext1",
-        "group": "group2",
-        "numbers": "345, 789",
-        "phone_devices": "dev1"
+        "extension": "303",
+        "primary_number": "43991005",
+        "alias_numbers": ["012349"],
+        "groups": ["Marketing", "Sales"]
     }, {
-        "id" : 6,
+        "id": 6,
         "name": "Seat6",
-        "extension": "ext2",
-        "group": "group3",
-        "numbers": "123",
-        "phone_devices": "dev3"
+        "extension": "603",
+        "primary_number": "43991020",
+        "alias_numbers": ["012350", "012351", "012352", "012353"],
+        "groups": ["Development", "Operations"]
     }, {
-        "id" : 7,
+        "id": 7,
         "name": "Seat7",
-        "extension": "ext3",
-        "group": "group4",
-        "numbers": "421",
-        "phone_devices": "dev2"
+        "extension": "403",
+        "primary_number": "43991016",
+        "alias_numbers": ["012354"],
+        "groups": ["Development", "Operations"]
     }, {
-        "id" : 8,
+        "id": 8,
         "name": "Seat8",
-        "extension": "ext4",
-        "group": "group4",
-        "numbers": "444, 123, 954",
-        "phone_devices": "dev4"
+        "extension": "304",
+        "primary_number": "43991013",
+        "alias_numbers": ["012355"],
+        "groups": ["Development",  "Operations"]
     }, {
-        "id" : 9,
+        "id": 9,
         "name": "Seat9",
-        "extension": "ext1",
-        "group": "group2",
-        "numbers": "345, 789",
-        "phone_devices": "dev1"
+        "extension": "203",
+        "primary_number": "43991023",
+        "alias_numbers": ["012356"],
+        "groups": ["Sales"]
     }, {
-        "id" : 10,
+        "id": 10,
         "name": "Seat10",
-        "extension": "ext2",
-        "group": "group3",
-        "numbers": "123",
-        "phone_devices": "dev3"
+        "extension": "305",
+        "primary_number": "43991004",
+        "alias_numbers": ["012357", "012358"],
+        "groups": ["Sales"]
     }, {
-        "id" : 11,
+        "id": 11,
         "name": "Seat11",
-        "extension": "ext3",
-        "group": "group4",
-        "numbers": "421",
-        "phone_devices": "dev2"
+        "extension": "204",
+        "primary_number": "43991011",
+        "alias_numbers": ["012359", "012360", "012361"],
+        "groups": ["Sales"]
     }, {
-        "id" : 12,
+        "id": 12,
         "name": "Seat12",
-        "extension": "ext4",
-        "group": "group4",
-        "numbers": "444, 123, 954",
-        "phone_devices": "dev4"
-    }
-    ]
+        "extension": "404",
+        "primary_number": "43991018",
+        "alias_numbers": ["012362"],
+        "groups": ["Marketing"]
+    }]
 }
