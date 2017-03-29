@@ -132,7 +132,6 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var formFields = form.query('textfield');
         var invalidCheck = 0;
         for (var field in formFields) {
-            var recKey = formFields[field].id.split('-')[2];
             var fieldValue = formFields[field].value;
             if (Ext.isEmpty(formFields[field].value)) invalidCheck ++;
         };
@@ -218,20 +217,22 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var mainNameLabel = Ext.ComponentQuery.query('#' + viewName + '-label-mainname-' + id) || '';
         var nameField = Ext.ComponentQuery.query('#' + viewName + '-textfield-name-' + id) || '';
         var extensionField = Ext.ComponentQuery.query('#' + viewName + '-textfield-extension-' + id) || '';
-        var groupField = Ext.ComponentQuery.query('#' + viewName + '-textfield-group-' + id) || '';
-        var numbersField = Ext.ComponentQuery.query('#' + viewName + '-textfield-numbers-' + id) || '';
-        var phoneField = Ext.ComponentQuery.query('#' + viewName + '-textfield-phone_devices-' + id) || '';
-        var huntPolicyField = Ext.ComponentQuery.query('#' + viewName + '-textfield-hunt_policy-' + id) || '';
+        var primaryNumberField = Ext.ComponentQuery.query('#' + viewName + '-combo-primary_number-' + id) || '';
+        var aliasNumbersField = Ext.ComponentQuery.query('#' + viewName + '-tagfield-alias_numbers-' + id) || '';
+        var groupsField = Ext.ComponentQuery.query('#' + viewName + '-tagfield-groups-' + id) || '';
+        var huntPolicyField = Ext.ComponentQuery.query('#' + viewName + '-combo-hunt_policy-' + id) || '';
         var huntTimeoutField = Ext.ComponentQuery.query('#' + viewName + '-textfield-hunt_timeout-' + id) || '';
         var deviceField = Ext.ComponentQuery.query('#' + viewName + '-textfield-device-' + id) || '';
         var macField = Ext.ComponentQuery.query('#' + viewName + '-textfield-mac-' + id) || '';
         var statusField = Ext.ComponentQuery.query('#' + viewName + '-textfield-status-' + id) || '';
         var extensionLabel = Ext.ComponentQuery.query('#' + viewName + '-label-extension-' + id) || '';
-        var groupLabel = Ext.ComponentQuery.query('#' + viewName + '-label-group-' + id) || '';
-        var numbersLabel = Ext.ComponentQuery.query('#' + viewName + '-label-numbers-' + id) || '';
-        var phoneLabel = Ext.ComponentQuery.query('#' + viewName + '-label-phone_devices-' + id) || '';
+        var groupsLabel = Ext.ComponentQuery.query('#' + viewName + '-label-groups-' + id) || '';
+        var primaryNumberLabel = Ext.ComponentQuery.query('#' + viewName + '-label-primary_number-' + id) || '';
+        var aliasNumbersLabel = Ext.ComponentQuery.query('#' + viewName + '-label-alias_numbers-' + id) || '';
         var huntPolicyLabel = Ext.ComponentQuery.query('#' + viewName + '-label-hunt_policy-' + id) || '';
         var huntTimeoutLabel = Ext.ComponentQuery.query('#' + viewName + '-label-hunt_timeout-' + id) || '';
+        var huntTimeoutPreLabel = Ext.ComponentQuery.query('#' + viewName + '-prelabel-hunt_timeout-' + id) || '';
+        var huntTimeoutPostLabel = Ext.ComponentQuery.query('#' + viewName + '-postlabel-hunt_timeout-' + id) || '';
         var deviceLabel = Ext.ComponentQuery.query('#' + viewName + '-label-device-' + id) || '';
         var macLabel = Ext.ComponentQuery.query('#' + viewName + '-label-mac-' + id) || '';
         var statusLabel = Ext.ComponentQuery.query('#' + viewName + '-label-status-' + id) || '';
@@ -241,18 +242,17 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         switch (viewName) {
             case 'seats':
                 extensionLabel[0].setHidden(labelHide);
-                groupLabel[0].setHidden(labelHide);
-                numbersLabel[0].setHidden(labelHide);
-                phoneLabel[0].setHidden(labelHide);
-                nameField[0].setHidden(fieldHide);
+                primaryNumberLabel[0].setHidden(labelHide);
+                aliasNumbersLabel[0].setHidden(labelHide);
+                groupsLabel[0].setHidden(labelHide);
                 extensionField[0].setHidden(fieldHide);
-                groupField[0].setHidden(fieldHide);
-                numbersField[0].setHidden(fieldHide);
-                phoneField[0].setHidden(fieldHide);
+                primaryNumberField[0].setHidden(fieldHide);
+                aliasNumbersField[0].setHidden(fieldHide);
+                groupsField[0].setHidden(fieldHide);
                 // Due to focus listener workaround. Focus listener fires setFieldValue() function
-                phoneField[0].focus();
-                numbersField[0].focus();
-                groupField[0].focus();
+                groupsField[0].focus();
+                aliasNumbersField[0].focus();
+                primaryNumberField[0].focus();
                 extensionField[0].focus();
                 nameField[0].focus();
                 break;
@@ -260,7 +260,9 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
                 extensionLabel[0].setHidden(labelHide);
                 huntPolicyLabel[0].setHidden(labelHide);
                 huntTimeoutLabel[0].setHidden(labelHide);
-                nameField[0].setHidden(fieldHide);
+                // To adjust a little bit 'for' and 'seconds' labels downwards when fields are shown
+                huntTimeoutPreLabel[0].toggleCls('pbx-margin-top');
+                huntTimeoutPostLabel[0].toggleCls('pbx-margin-top');
                 extensionField[0].setHidden(fieldHide);
                 huntPolicyField[0].setHidden(fieldHide);
                 huntTimeoutField[0].setHidden(fieldHide);
@@ -273,7 +275,6 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
                 deviceLabel[0].setHidden(labelHide);
                 macLabel[0].setHidden(labelHide);
                 statusLabel[0].setHidden(labelHide);
-                nameField[0].setHidden(fieldHide);
                 deviceField[0].setHidden(fieldHide);
                 macField[0].setHidden(fieldHide);
                 statusField[0].setHidden(fieldHide);

@@ -151,10 +151,14 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                         change: 'submitFilters'
                     }
                 }, {
-                    xtype: 'textfield',
+                    xtype: 'combo',
                     labelAlign: 'top',
-                    bind: '{filtergrid.group}',
-                    fieldLabel: Ngcp.csc.locales.common.group[localStorage.getItem('languageSelected')],
+                    store: 'PrimaryNumbers',
+                    bind: '{filtergrid.primary_number}',
+                    displayField: 'number',
+                    valueField: 'number',
+                    editable: false,
+                    fieldLabel: Ngcp.csc.locales.filters.primary_number[localStorage.getItem('languageSelected')],
                     listeners: {
                         delay: 100,
                         change: 'submitFilters'
@@ -164,19 +168,27 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 flex: 1,
                 userCls: 'small-100 big-50',
                 items: [{
-                    xtype: 'textfield',
+                    xtype: 'tagfield',
                     labelAlign: 'top',
-                    bind: '{filtergrid.numbers}',
-                    fieldLabel: Ngcp.csc.locales.filters.numbers[localStorage.getItem('languageSelected')],
+                    store: 'AliasNumbers',
+                    displayField: 'number',
+                    valueField: 'number',
+                    width: 250,
+                    bind: '{filtergrid.alias_numbers}',
+                    fieldLabel: Ngcp.csc.locales.filters.alias_numbers[localStorage.getItem('languageSelected')],
                     listeners: {
                         delay: 100,
                         change: 'submitFilters'
                     }
                 }, {
-                    xtype: 'textfield',
+                    xtype: 'tagfield',
                     labelAlign: 'top',
-                    bind: '{filtergrid.phone_devices}',
-                    fieldLabel: Ngcp.csc.locales.filters.phone_devices[localStorage.getItem('languageSelected')],
+                    store: 'GroupNames',
+                    displayField: 'group',
+                    valueField: 'group',
+                    width: 250,
+                    bind: '{filtergrid.groups}',
+                    fieldLabel: Ngcp.csc.locales.filters.groups[localStorage.getItem('languageSelected')],
                     listeners: {
                         delay: 100,
                         change: 'submitFilters'
@@ -205,8 +217,12 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                         change: 'submitFilters'
                     }
                 }, {
-                    xtype: 'textfield',
+                    xtype: 'combo',
                     labelAlign: 'top',
+                    store: 'HuntPolicies',
+                    displayField: 'policy',
+                    valueField: 'policy',
+                    editable: false,
                     bind: '{filtergrid.hunt_policy}',
                     fieldLabel: Ngcp.csc.locales.filters.hunt_policy[localStorage.getItem('languageSelected')],
                     listeners: {

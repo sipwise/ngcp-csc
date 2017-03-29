@@ -8,13 +8,30 @@ Ext.define('NgcpCsc.model.Seat', {
         name: 'extension',
         type: 'string'
     }, {
-        name: 'groups',
-        type: 'string'
-    },{
-        name: 'numbers',
+        name: 'primary_number',
         type: 'string'
     }, {
-        name: 'phone_devices',
+        name: 'alias_numbers',
         type: 'string'
+    }, {
+        name: 'groups',
+        type: 'string'
+    }, {
+        name: 'alias_numbers_split',
+        type: 'string',
+        depends: ['alias_numbers'],
+        convert: function (v, record) {
+            var dataToSplit = record.data.alias_numbers.toString();
+            return dataToSplit.replace(/,/g, ", ");
+        }
+    }, {
+        name: 'groups_split',
+        type: 'string',
+        depends: ['groups'],
+        convert: function (v, record) {
+            var dataToSplit = record.data.groups.toString();
+            return dataToSplit.replace(/,/g, ", ");
+        }
     }]
+
 });

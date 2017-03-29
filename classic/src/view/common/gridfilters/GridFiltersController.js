@@ -179,7 +179,6 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
                     vm.get('filtergrid.chat') ? 'chat' : null,
                     vm.get('filtergrid.fax') ? 'fax' : null];
         var retVal = true;
-
         if (new Date(record.get('start_time')) < new Date(fromFilter) ||
             new Date(record.get('start_time')) >  new Date(toFilter).setHours(23,59,59,999) ||
             fieldInput && record.get('source_cli').toLowerCase().indexOf(fieldInput) == -1 ||
@@ -194,17 +193,17 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
 
     applyPbxconfigSeatsFilters: function(record) {
         var vm = this.getViewModel();
-        var fieldInput = vm.get('filtergrid.headerBarFieldInput') || "";
+        var fieldInput = vm.get('filtergrid.headerBarFieldInput').toLowerCase() || "";
         var extension = vm.get('filtergrid.seats_extension') ? vm.get('filtergrid.seats_extension').toLowerCase().split(',') : [];
-        var group = vm.get('filtergrid.group') ? vm.get('filtergrid.group').toLowerCase().split(',') : [];
-        var numbers = vm.get('filtergrid.numbers') || "";
-        var phone_devices = vm.get('filtergrid.phone_devices') ? vm.get('filtergrid.phone_devices').toLowerCase().split(',') : [];
+        var primary_number = vm.get('filtergrid.primary_number') ? vm.get('filtergrid.primary_number').split(',') : [];
+        var alias_numbers = vm.get('filtergrid.alias_numbers') ? vm.get('filtergrid.alias_numbers').toString().split(',') : [];
+        var groups = vm.get('filtergrid.groups') ? vm.get('filtergrid.groups').toString().split(',') : [];
         var retVal = true;
         if (fieldInput && record.get('name').toLowerCase().indexOf(fieldInput) == -1 ||
             extension && record.get('extension').toLowerCase().indexOf(extension) == -1 ||
-            group && record.get('group').toLowerCase().indexOf(group) == -1 ||
-            numbers && record.get('numbers').toLowerCase().indexOf(numbers) == -1 ||
-            phone_devices && record.get('phone_devices').toLowerCase().indexOf(phone_devices) == -1
+            primary_number && record.get('primary_number').indexOf(primary_number) == -1 ||
+            alias_numbers && record.get('alias_numbers').indexOf(alias_numbers) == -1 ||
+            groups && record.get('groups').indexOf(groups) == -1
         ) {
             retVal = false;
         }
@@ -234,9 +233,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         var deviceProfile = vm.get('filtergrid.device') || "";
         var mac = vm.get('filtergrid.mac') || "";
         var status = [vm.get('filtergrid.enabled') ? 'enabled' : null, vm.get('filtergrid.disabled') ? 'disabled' : null];
-
         var retVal = true;
-
         if (fieldInput && record.get('name').toLowerCase().indexOf(fieldInput) == -1 ||
             deviceProfile && record.get('device').indexOf(deviceProfile) == -1 ||
             mac && record.get('mac').indexOf(mac) == -1 ||
