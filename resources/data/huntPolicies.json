@@ -1,0 +1,12 @@
+{
+    "data": [{
+            "policy": "Serial"
+        },
+        {
+            "policy": "Sequential"
+        },
+        {
+            "policy": "Parallel"
+        }
+    ]
+}
