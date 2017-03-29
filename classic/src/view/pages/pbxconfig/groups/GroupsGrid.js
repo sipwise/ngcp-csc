@@ -59,13 +59,13 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                     },
                     hidden: true,
                     cls: 'pbx-data-value',
-                    text: Ngcp.csc.locales.pbxconfig.name[localStorage.getItem('languageSelected')],
+                    text: Ngcp.csc.locales.pbxconfig.group_name[localStorage.getItem('languageSelected')],
                     width: 120
                 }, {
                     xtype: 'textfield',
                     required: true,
                     hidden: true,
-                    emptyText: Ngcp.csc.locales.pbxconfig.enter_new_name[localStorage.getItem('languageSelected')],
+                    emptyText: Ngcp.csc.locales.pbxconfig.choose_one_or_more_groups[localStorage.getItem('languageSelected')],
                     bind: {
                         id: 'groups-textfield-name-{record.id}'
                     },
@@ -126,10 +126,13 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                         text: '{record.hunt_policy}'
                     }
                 }, {
-                    xtype: 'textfield',
+                    xtype: 'combo',
+                    store: ['Serial', 'Sequential', 'Parallel'],
                     required: true,
-                    hidden: true,
-                    emptyText: Ngcp.csc.locales.pbxconfig.enter_new_hunt_policy[localStorage.getItem('languageSelected')],
+                    editable: false,
+                    width: 250,
+                    // hidden: true,
+                    emptyText: Ngcp.csc.locales.pbxconfig.choose_new_hunt_policy[localStorage.getItem('languageSelected')],
                     bind: {
                         id: 'groups-textfield-hunt_policy-{record.id}'
                     },
@@ -147,8 +150,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                 },
                 items: [{
                     xtype: 'label',
-                    cls: 'pbx-data-value',
-                    text: Ngcp.csc.locales.pbxconfig.hunt_timeout[localStorage.getItem('languageSelected')],
+                    cls: 'some-pbx-class', // TODO
+                    text: Ngcp.csc.locales.pbxconfig.for[localStorage.getItem('languageSelected')],
                     width: 120
                 }, {
                     xtype: 'label',
@@ -157,6 +160,11 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                         id: 'groups-label-hunt_timeout-{record.id}',
                         text: '{record.hunt_timeout}'
                     }
+                }, {
+                    xtype: 'label',
+                    cls: 'some-pbx-class', // TODO
+                    text: Ngcp.csc.locales.pbxconfig.seconds[localStorage.getItem('languageSelected')],
+                    width: 120
                 }, {
                     xtype: 'textfield',
                     required: true,
