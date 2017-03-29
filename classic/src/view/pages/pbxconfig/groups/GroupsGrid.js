@@ -62,13 +62,6 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                     text: Ngcp.csc.locales.pbxconfig.name[localStorage.getItem('languageSelected')],
                     width: 120
                 }, {
-                    xtype: 'label',
-                    hidden: true,
-                    bind: {
-                        id: 'groups-label-name-{record.id}',
-                        text: '{record.name}'
-                    }
-                }, {
                     xtype: 'textfield',
                     required: true,
                     hidden: true,
@@ -95,10 +88,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                     width: 120
                 }, {
                     xtype: 'label',
+                    hidden: false,
                     bind: {
                         id: 'groups-label-extension-{record.id}',
-                        text: '{record.extension}',
-                        hidden: false
+                        text: '{record.extension}'
                     }
                 }, {
                     xtype: 'textfield',
@@ -106,8 +99,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                     hidden: true,
                     emptyText: Ngcp.csc.locales.pbxconfig.enter_new_extension[localStorage.getItem('languageSelected')],
                     bind: {
-                        id: 'groups-textfield-extension-{record.id}',
-                        hidden: true
+                        id: 'groups-textfield-extension-{record.id}'
                     },
                     listeners: {
                         focus: {
@@ -128,10 +120,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                     width: 120
                 }, {
                     xtype: 'label',
+                    hidden: false,
                     bind: {
                         id: 'groups-label-hunt_policy-{record.id}',
-                        text: '{record.hunt_policy}',
-                        hidden: false
+                        text: '{record.hunt_policy}'
                     }
                 }, {
                     xtype: 'textfield',
@@ -139,8 +131,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                     hidden: true,
                     emptyText: Ngcp.csc.locales.pbxconfig.enter_new_hunt_policy[localStorage.getItem('languageSelected')],
                     bind: {
-                        id: 'groups-textfield-hunt_policy-{record.id}',
-                        hidden: true
+                        id: 'groups-textfield-hunt_policy-{record.id}'
                     },
                     listeners: {
                         focus: {
@@ -161,10 +152,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                     width: 120
                 }, {
                     xtype: 'label',
+                    hidden: false,
                     bind: {
                         id: 'groups-label-hunt_timeout-{record.id}',
-                        text: '{record.hunt_timeout}',
-                        hidden: false
+                        text: '{record.hunt_timeout}'
                     }
                 }, {
                     xtype: 'textfield',
@@ -172,8 +163,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                     hidden: true,
                     emptyText: Ngcp.csc.locales.pbxconfig.enter_new_hunt_timeout[localStorage.getItem('languageSelected')],
                     bind: {
-                        id: 'groups-textfield-hunt_timeout-{record.id}',
-                        hidden: true
+                        id: 'groups-textfield-hunt_timeout-{record.id}'
                     },
                     listeners: {
                         focus: {
