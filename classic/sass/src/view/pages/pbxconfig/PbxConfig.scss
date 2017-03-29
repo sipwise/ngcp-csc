@@ -3,6 +3,10 @@
     $ui: 'pbxconfig-tbar',
     $background-color: '#F6F6F6'
 );
+@include extjs-toolbar-ui(
+    $ui: 'pbxconfig-tbar',
+    $background-color: '#F6F6F6'
+);
 
 .pbx-widget-grid {
     .x-box-inner,
@@ -25,5 +29,22 @@
     .x-grid-cell-inner {
         font-size: 15px;
         margin-left: -10px;
+    }
+
+    .x-box-item {
+        .x-autocontainer-innerCt,
+        .x-panel-body,
+        label {
+            background: white;
+        }
+    }
+
+    .pbx-hunt-labels-and-fields {
+        display: inline-block;
+        float: left;
+    }
+
+    .pbx-margin-top {
+        margin-top: 5px !important;
     }
 }

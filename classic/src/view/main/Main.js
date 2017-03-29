@@ -174,6 +174,7 @@ Ext.define('NgcpCsc.view.main.Main', {
                     resizable: Ext.os.is.Desktop,
                     xtype: 'contacts',
                     ui: 'core-container'
+                    ,hidden: true // TODO: Remove
                 }]
             }]
         }];

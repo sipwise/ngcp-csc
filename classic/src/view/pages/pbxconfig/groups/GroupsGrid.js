@@ -59,13 +59,13 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                     },
                     hidden: true,
                     cls: 'pbx-data-value',
-                    text: Ngcp.csc.locales.pbxconfig.name[localStorage.getItem('languageSelected')],
-                    width: 120
+                    text: Ngcp.csc.locales.pbxconfig.group_name[localStorage.getItem('languageSelected')],
+                    width: 130
                 }, {
                     xtype: 'textfield',
                     required: true,
                     hidden: true,
-                    emptyText: Ngcp.csc.locales.pbxconfig.enter_new_name[localStorage.getItem('languageSelected')],
+                    emptyText: Ngcp.csc.locales.pbxconfig.choose_one_or_more_groups[localStorage.getItem('languageSelected')],
                     bind: {
                         id: 'groups-textfield-name-{record.id}'
                     },
@@ -85,7 +85,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                     xtype: 'label',
                     cls: 'pbx-data-value',
                     text: Ngcp.csc.locales.pbxconfig.extension[localStorage.getItem('languageSelected')],
-                    width: 120
+                    // TODO: This width does not work. I can see it set in the DOM, but it has no effect
+                    width: 130
                 }, {
                     xtype: 'label',
                     hidden: false,
@@ -109,68 +110,94 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                     }
                 }]
             }, {
-                name: 'hunt_policy',
-                defaults: {
-                    padding: '0 0 15 0'
-                },
+                xtype: 'container',
+                layout: 'hbox',
+                userCls: 'hunt-hbox',
                 items: [{
-                    xtype: 'label',
-                    cls: 'pbx-data-value',
-                    text: Ngcp.csc.locales.pbxconfig.hunt_policy[localStorage.getItem('languageSelected')],
-                    width: 120
-                }, {
-                    xtype: 'label',
-                    hidden: false,
-                    bind: {
-                        id: 'groups-label-hunt_policy-{record.id}',
-                        text: '{record.hunt_policy}'
-                    }
-                }, {
-                    xtype: 'textfield',
-                    required: true,
-                    hidden: true,
-                    emptyText: Ngcp.csc.locales.pbxconfig.enter_new_hunt_policy[localStorage.getItem('languageSelected')],
-                    bind: {
-                        id: 'groups-textfield-hunt_policy-{record.id}'
+                    name: 'hunt_policy',
+                    defaults: {
+                        padding: '0 0 15 0'
                     },
-                    listeners: {
-                        focus: {
-                            fn: 'setFieldValue'
+                    items: [{
+                        xtype: 'label',
+                        cls: 'pbx-hunt-labels-and-fields pbx-data-value',
+                        text: Ngcp.csc.locales.pbxconfig.hunt_policy[localStorage.getItem('languageSelected')],
+                        width: 130
+                    }, {
+                        xtype: 'label',
+                        cls: 'pbx-hunt-labels-and-fields',
+                        hidden: false,
+                        // margin: '0 10 0 0',
+                        bind: {
+                            id: 'groups-label-hunt_policy-{record.id}',
+                            text: '{record.hunt_policy}'
+                        }
+                    }, {
+                        xtype: 'combo',
+                        cls: 'pbx-hunt-labels-and-fields',
+                        store: 'HuntPolicies',
+                        required: true,
+                        editable: false,
+                        displayField: 'policy',
+                        valueField: 'policy',
+                        hidden: true,
+                        emptyText: Ngcp.csc.locales.pbxconfig.choose_new_hunt_policy[localStorage.getItem('languageSelected')],
+                        bind: {
+                            id: 'groups-combo-hunt_policy-{record.id}',
+                            value: '{record.hunt_policy}'
                         },
-                        specialkey: 'onEnterPressed'
-                    }
-                }]
-            }, {
-                name: 'hunt_timeout',
-                defaults: {
-                    padding: '0 0 15 0'
-                },
-                items: [{
-                    xtype: 'label',
-                    cls: 'pbx-data-value',
-                    text: Ngcp.csc.locales.pbxconfig.hunt_timeout[localStorage.getItem('languageSelected')],
-                    width: 120
+                        listeners: {
+                            focus: {
+                                fn: 'setFieldValue'
+                            },
+                            specialkey: 'onEnterPressed'
+                        }
+                    }]
                 }, {
-                    xtype: 'label',
-                    hidden: false,
-                    bind: {
-                        id: 'groups-label-hunt_timeout-{record.id}',
-                        text: '{record.hunt_timeout}'
-                    }
-                }, {
-                    xtype: 'textfield',
-                    required: true,
-                    hidden: true,
-                    emptyText: Ngcp.csc.locales.pbxconfig.enter_new_hunt_timeout[localStorage.getItem('languageSelected')],
-                    bind: {
-                        id: 'groups-textfield-hunt_timeout-{record.id}'
+                    name: 'hunt_timeout',
+                    defaults: {
+                        padding: '0 0 15 0'
                     },
-                    listeners: {
-                        focus: {
-                            fn: 'setFieldValue'
+                    items: [{
+                        xtype: 'label',
+                        cls: 'pbx-hunt-labels-and-fields pbx-hunttimeout-labels',
+                        margin: '0 10 0 10',
+                        text: Ngcp.csc.locales.pbxconfig.for[localStorage.getItem('languageSelected')],
+                        bind: {
+                            id: 'groups-prelabel-hunt_timeout-{record.id}'
+                        }
+                    }, {
+                        xtype: 'label',
+                        cls: 'pbx-hunt-labels-and-fields',
+                        bind: {
+                            id: 'groups-label-hunt_timeout-{record.id}',
+                            text: '{record.hunt_timeout}'
+                        }
+                    }, {
+                        xtype: 'textfield',
+                        cls: 'pbx-hunt-labels-and-fields',
+                        required: true,
+                        hidden: true,
+                        emptyText: Ngcp.csc.locales.pbxconfig.enter_new_hunt_timeout[localStorage.getItem('languageSelected')],
+                        bind: {
+                            id: 'groups-textfield-hunt_timeout-{record.id}'
                         },
-                        specialkey: 'onEnterPressed'
-                    }
+                        listeners: {
+                            focus: {
+                                fn: 'setFieldValue'
+                            },
+                            specialkey: 'onEnterPressed'
+                        }
+                    }, {
+                        xtype: 'label',
+                        cls: 'pbx-hunt-labels-and-fields pbx-hunttimeout-labels',
+                        margin: '0 0 0 10',
+                        text: Ngcp.csc.locales.pbxconfig.seconds[localStorage.getItem('languageSelected')],
+                        width: 130,
+                        bind: {
+                            id: 'groups-postlabel-hunt_timeout-{record.id}'
+                        }
+                    }]
                 }]
             }, {
                 xtype: 'label',
