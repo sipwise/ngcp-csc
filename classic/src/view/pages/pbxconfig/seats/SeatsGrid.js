@@ -110,29 +110,34 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                     }
                 }]
             }, {
-                name: 'group',
+                name: 'primary_number',
                 defaults: {
                     padding: '0 0 15 0'
                 },
                 items: [{
                     xtype: 'label',
                     cls: 'pbx-data-value',
-                    text: Ngcp.csc.locales.common.group[localStorage.getItem('languageSelected')],
+                    text: Ngcp.csc.locales.pbxconfig.primary_number[localStorage.getItem('languageSelected')],
                     width: 120
                 }, {
                     xtype: 'label',
-                    hidden: false,
                     bind: {
                         id: 'seats-label-group-{record.id}',
-                        text: '{record.group}'
+                        text: '{record.primary_number}',
+                        hidden: false
                     }
                 }, {
-                    xtype: 'textfield',
-                    required: true,
-                    hidden: true,
-                    emptyText: Ngcp.csc.locales.pbxconfig.enter_new_groups[localStorage.getItem('languageSelected')],
+                    xtype: 'combo',
+                    store: 'PrimaryNumbers',
+                    editable: false,
+                    width: 250,
+                    displayField: 'number',
+                    valueField: 'number',
+                    // hidden: true,
+                    emptyText: Ngcp.csc.locales.pbxconfig.choose_new_primary_number[localStorage.getItem('languageSelected')],
                     bind: {
-                        id: 'seats-textfield-group-{record.id}'
+                        id: 'seats-textfield-primary_number-{record.id}',
+                        value: '{record.primary_number}'
                     },
                     listeners: {
                         focus: {
@@ -142,29 +147,35 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                     }
                 }]
             }, {
-                name: 'numbers',
+                name: 'alias_numbers',
                 defaults: {
                     padding: '0 0 15 0'
                 },
                 items: [{
                     xtype: 'label',
                     cls: 'pbx-data-value',
-                    text: Ngcp.csc.locales.pbxconfig.numbers[localStorage.getItem('languageSelected')],
+                    text: Ngcp.csc.locales.pbxconfig.alias_numbers[localStorage.getItem('languageSelected')],
                     width: 120
                 }, {
                     xtype: 'label',
-                    hidden: false,
                     bind: {
-                        id: 'seats-label-numbers-{record.id}',
-                        text: '{record.numbers}'
+                        id: 'seats-label-alias_numbers-{record.id}',
+                        text: '{record.alias_numbers}',
+                        hidden: false
                     }
                 }, {
-                    xtype: 'textfield',
-                    required: true,
-                    hidden: true,
-                    emptyText: Ngcp.csc.locales.pbxconfig.enter_new_numbers[localStorage.getItem('languageSelected')],
+                    xtype: 'tagfield',
+                    valueField: 'number',
+                    queryMode: 'local',
+                    publishes: 'value',
+                    store: 'AliasNumbers',
+                    width: 250,
+                    displayField: 'number',
+                    // hidden: true,
+                    emptyText: Ngcp.csc.locales.pbxconfig.choose_one_or_more_alias_numbers[localStorage.getItem('languageSelected')],
                     bind: {
-                        id: 'seats-textfield-numbers-{record.id}'
+                        id: 'seats-textfield-alias_numbers-{record.id}',
+                        value: '{record.alias_numbers}'
                     },
                     listeners: {
                         focus: {
@@ -174,29 +185,35 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                     }
                 }]
             }, {
-                name: 'phone_devices',
+                name: 'groups',
                 defaults: {
                     padding: '0 0 15 0'
                 },
                 items: [{
                     xtype: 'label',
                     cls: 'pbx-data-value',
-                    text: Ngcp.csc.locales.pbxconfig.phone_devices[localStorage.getItem('languageSelected')],
+                    text: Ngcp.csc.locales.common.groups[localStorage.getItem('languageSelected')],
                     width: 120
                 }, {
                     xtype: 'label',
-                    hidden: false,
                     bind: {
-                        id: 'seats-label-phone_devices-{record.id}',
-                        text: '{record.phone_devices}'
+                        id: 'seats-label-group-{record.id}',
+                        text: '{record.groups}',
+                        hidden: false
                     }
                 }, {
-                    xtype: 'textfield',
-                    required: true,
-                    hidden: true,
-                    emptyText: Ngcp.csc.locales.pbxconfig.enter_new_phone[localStorage.getItem('languageSelected')],
+                    xtype: 'tagfield',
+                    valueField: 'group',
+                    queryMode: 'local',
+                    publishes: 'value',
+                    store: 'GroupNames',
+                    width: 250,
+                    displayField: 'group',
+                    // hidden: true,
+                    emptyText: Ngcp.csc.locales.pbxconfig.choose_one_or_more_groups[localStorage.getItem('languageSelected')],
                     bind: {
-                        id: 'seats-textfield-phone_devices-{record.id}'
+                        id: 'seats-textfield-group-{record.id}',
+                        value: '{record.groups}'
                     },
                     listeners: {
                         focus: {

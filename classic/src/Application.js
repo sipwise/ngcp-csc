@@ -29,7 +29,11 @@ Ext.define('NgcpCsc.Application', {
         'Devices',
         'DevicesList',
         'Destinations',
-        'Sounds'
+        'Sounds',
+        'AliasNumbers',
+        'GroupNames',
+        'PrimaryNumbers',
+        'HuntPolicies'
     ],
 
     launch: function() {

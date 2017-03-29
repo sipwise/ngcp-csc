@@ -1652,7 +1652,7 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Enter new phone',
                 sp: 'Enter new phone'
             },
-            enter_new_hunt_policy: {
+            choose_new_hunt_policy: {
                 en: 'Enter new hunt policy',
                 it: 'Enter new hunt policy',
                 de: 'Enter new hunt policy',
@@ -1694,7 +1694,7 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Cancel operation',
                 sp: 'Cancel operation'
             },
-            enter_new_group_name: {
+            choose_one_or_more_groups: {
                 en: 'Enter new group name',
                 it: 'Enter new group name',
                 de: 'Enter new group name',
