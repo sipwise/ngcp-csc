@@ -110,6 +110,43 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                     }
                 }]
             }, {
+                name: 'primary_number',
+                defaults: {
+                    padding: '0 0 15 0'
+                },
+                items: [{
+                    xtype: 'label',
+                    cls: 'pbx-data-value',
+                    text: Ngcp.csc.locales.pbxconfig.primary_number[localStorage.getItem('languageSelected')],
+                    width: 120
+                },
+                // {
+                //     xtype: 'label',
+                //     bind: {
+                //         id: 'seats-label-group-{record.id}',
+                //         text: '{record.group}',
+                //         hidden: false
+                //     }
+                // }
+                , {
+                    xtype: 'combo',
+                    store: ['43991001', '43991002', '43991003', '43991004', '43991005', '43991006'],
+                    required: true,
+                    editable: false,
+                    value: '',
+                    hidden: true,
+                    emptyText: Ngcp.csc.locales.pbxconfig.choose_new_primary_number[localStorage.getItem('languageSelected')],
+                    bind: {
+                        id: 'seats-textfield-primary_number-{record.id}'
+                    },
+                    listeners: {
+                        focus: {
+                            fn: 'setFieldValue'
+                        },
+                        specialkey: 'onEnterPressed'
+                    }
+                }]
+            }, {
                 name: 'group',
                 defaults: {
                     padding: '0 0 15 0'
