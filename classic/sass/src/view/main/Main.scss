@@ -46,6 +46,8 @@
     $row-indicator-over-color: transparent
 );
 
+
+
 // override of extjs classes to add css variables defined in sass/var/view/main:
 .x-form-text-default {
     color: var(--color);
