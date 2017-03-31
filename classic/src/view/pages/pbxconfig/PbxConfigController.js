@@ -11,7 +11,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         }
     },
 
-    onRouteChange: function () {
+    onRouteChange: function() {
         var vm = this.getViewModel();
         switch (window.location.hash) {
             case '#pbxconfig/seats':
@@ -26,7 +26,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         };
     },
 
-    onEnterPressed: function (field, el) {
+    onEnterPressed: function(field, el) {
         var me = this;
         if (el.getKey() == el.ENTER) {
             var currentRoute = window.location.hash;
@@ -45,7 +45,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         };
     },
 
-    nameRenderer: function (value, record) {
+    nameRenderer: function(value, record) {
         if (value == '') {
             return Ngcp.csc.locales.pbxconfig.enter_new_name[localStorage.getItem('languageSelected')];
         } else {
@@ -74,9 +74,32 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var store = Ext.getStore(storeName);
         var plugin = view.grid.getPlugin('rowwidget' + storeName);
         plugin.toggleRow(store.indexOf(record), record);
-        Ext.defer(function () {
+        Ext.defer(function() {
             view.grid.updateLayout();
         }, 50);
+        if (currentRoute == '#pbxconfig/devices') {
+            var grid = this.lookupReference('devicesGrid');
+            var nodes = plugin.view.getNodes();
+
+            grid.getSelectionModel().select(record);
+            store.each(function(rec, index){
+                var node = Ext.fly(nodes[index]);
+                if(rec.get('id') !== record.get('id') && node.getHeight() > 50){
+                    plugin.toggleRow(index, store.getAt(index)); // collapse all cards but the active one
+                }
+            });
+
+        }
+    },
+
+    // Workaround, to prevent row from collapsings
+    keepRowExpanded: function(grid, rec) {
+        var currentRoute = window.location.hash;
+        var storeName = this.getStoreFromRoute(currentRoute);
+        var plugin = grid.getPlugin('rowwidget' + storeName);
+        var store = Ext.getStore(storeName);
+        plugin.toggleRow(store.indexOf(rec), rec);
+        plugin.toggleRow(store.indexOf(rec), rec);
     },
 
     getFieldComponent: function(view, key, id) {
@@ -107,9 +130,9 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var elClassList = el.firstChild.classList;
         var recId = el.id.split("-")[1];
         var store = Ext.getStore(storeName);
-        saved === true
-            ? this.fireEvent('showmessage', true, Ngcp.csc.locales.pbxconfig.changes_saved[localStorage.getItem('languageSelected')])
-            : this.fireEvent('showmessage', false, Ngcp.csc.locales.pbxconfig.no_changes_saved[localStorage.getItem('languageSelected')]);
+        saved === true ?
+            this.fireEvent('showmessage', true, Ngcp.csc.locales.pbxconfig.changes_saved[localStorage.getItem('languageSelected')]) :
+            this.fireEvent('showmessage', false, Ngcp.csc.locales.pbxconfig.no_changes_saved[localStorage.getItem('languageSelected')]);
         elClassList.remove(Ngcp.csc.icons.floppy.split(' ')[1]);
         elClassList.add(Ngcp.csc.icons.edit.split(' ')[1]);
         el.dataset.callback = 'editCard';
@@ -127,13 +150,15 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var rec = store.findRecord('id', recId);
         var currentNameInRecord = rec.get("name");
         var grid = this.lookupReference(storeName.toLowerCase() + 'Grid');
-        var plugin = grid.getPlugin('rowwidget' + storeName);
         var form = Ext.ComponentQuery.query('#' + storeName.toLowerCase() + '-' + recId)[0];
-        var formFields = form.query('textfield');
+        var labels = form.query('label');
+        var formFields = form.query('textfield, combo');
         var invalidCheck = 0;
         for (var field in formFields) {
             var fieldValue = formFields[field].value;
-            if (Ext.isEmpty(formFields[field].value)) invalidCheck ++;
+            if (!formFields[field]._skipSaveValidation && Ext.isEmpty(formFields[field].value)) {
+                invalidCheck++;
+            }
         };
         switch (invalidCheck === 0) {
             case true:
@@ -147,9 +172,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
                 switch (rec.dirty) {
                     case true:
                         store.commitChanges();
-                        // Workaround, to prevent row from collapsing
-                        plugin.toggleRow(store.indexOf(rec), rec);
-                        plugin.toggleRow(store.indexOf(rec), rec);
+                        this.keepRowExpanded(grid, rec);
                         me.showMsgSwitchIconHideFields(storeName, el, true);
                         break;
                     case false:
@@ -163,18 +186,41 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         };
     },
 
-    addNewEmptyRowToGrid: function (store, storeName, newId) {
+    addNewEmptyRowToGrid: function(store, storeName, newId) {
+        var newRec;
         switch (storeName) {
             case 'Seats':
-                store.add({ "id": newId, "name": "", "extension": "", "group": "", "numbers": "", "phone_devices": "" });
+                newRec = store.add({
+                    "id": newId,
+                    "name": "",
+                    "extension": "",
+                    "group": "",
+                    "numbers": "",
+                    "phone_devices": ""
+                });
                 break;
             case 'Groups':
-                store.add({ "id": newId, "name": "", "extension": "", "hunt_policy": "", "hunt_timeout": "" });
+                newRec = store.add({
+                    "id": newId,
+                    "name": "",
+                    "extension": "",
+                    "hunt_policy": "",
+                    "hunt_timeout": ""
+                });
                 break;
             case 'Devices':
-                store.add({ "id": newId, "name": "", "device": "", "mac": "", "status": "" });
+                newRec = store.add({
+                    "id": newId,
+                    "name": "",
+                    "device": "",
+                    "mac": "",
+                    "status": "",
+                    "extension":"",
+                    "extension2":""
+                });
                 break;
         }
+        this.getView().down('grid').getSelectionModel().select(newRec);
     },
 
     addPbx: function() {
@@ -188,7 +234,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         me.addNewEmptyRowToGrid(store, storeName, newId);
         var rec = store.findRecord('id', newId);
         plugin.toggleRow(store.indexOf(rec), rec);
-        Ext.defer(function () {
+        Ext.defer(function() {
             me.showHideFocusFieldsById(newId, storeName, 'show');
             var el = document.getElementById('edit' + storeName.slice(0, -1) + '-' + newId);
             var elClassList = el.firstChild.classList;
@@ -200,14 +246,16 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         }, 50);
     },
 
-    setFieldValue: function (cmp) {
+    setFieldValue: function(cmp) {
         var recId = cmp.id.split("-")[3];
         var recKey = cmp.id.split("-")[2];
         var currentRoute = window.location.hash;
         var storeName = this.getStoreFromRoute(currentRoute);
         var store = Ext.getStore(storeName);
         var rec = store.findRecord('id', recId);
-        cmp.setValue(rec.get(recKey));
+        if (!cmp.getValue()) {
+            cmp.setValue(rec.get(recKey));
+        }
     },
 
     showHideFocusFieldsById: function(id, storeName, hideOrShow) {
@@ -217,6 +265,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var mainNameLabel = Ext.ComponentQuery.query('#' + viewName + '-label-mainname-' + id) || '';
         var nameField = Ext.ComponentQuery.query('#' + viewName + '-textfield-name-' + id) || '';
         var extensionField = Ext.ComponentQuery.query('#' + viewName + '-textfield-extension-' + id) || '';
+        var extensionField2 = Ext.ComponentQuery.query('#' + viewName + '-textfield-extension2-' + id) || '';
         var primaryNumberField = Ext.ComponentQuery.query('#' + viewName + '-combo-primary_number-' + id) || '';
         var aliasNumbersField = Ext.ComponentQuery.query('#' + viewName + '-tagfield-alias_numbers-' + id) || '';
         var groupsField = Ext.ComponentQuery.query('#' + viewName + '-tagfield-groups-' + id) || '';
@@ -229,6 +278,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var groupsLabel = Ext.ComponentQuery.query('#' + viewName + '-label-groups-' + id) || '';
         var primaryNumberLabel = Ext.ComponentQuery.query('#' + viewName + '-label-primary_number-' + id) || '';
         var aliasNumbersLabel = Ext.ComponentQuery.query('#' + viewName + '-label-alias_numbers-' + id) || '';
+        var extensionLabel2 = Ext.ComponentQuery.query('#' + viewName + '-label-extension2-' + id) || '';
         var huntPolicyLabel = Ext.ComponentQuery.query('#' + viewName + '-label-hunt_policy-' + id) || '';
         var huntTimeoutLabel = Ext.ComponentQuery.query('#' + viewName + '-label-hunt_timeout-' + id) || '';
         var huntTimeoutPreLabel = Ext.ComponentQuery.query('#' + viewName + '-prelabel-hunt_timeout-' + id) || '';
@@ -274,14 +324,20 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
             case 'devices':
                 deviceLabel[0].setHidden(labelHide);
                 macLabel[0].setHidden(labelHide);
-                statusLabel[0].setHidden(labelHide);
+                nameField[0].setHidden(fieldHide);
                 deviceField[0].setHidden(fieldHide);
                 macField[0].setHidden(fieldHide);
-                statusField[0].setHidden(fieldHide);
-                statusField[0].focus();
+                extensionLabel[0].setHidden(labelHide);
+                extensionField[0].setHidden(fieldHide);
+                extensionLabel2[0].setHidden(labelHide);
+                extensionField2[0].setHidden(fieldHide);
                 macField[0].focus();
                 deviceField[0].focus();
-                nameField[0].focus();
+                extensionField[0].focus();
+                extensionField2[0].focus();
+                Ext.defer(function() {
+                    nameField[0].focus();
+                }, 100)
                 break;
         };
     },
@@ -298,7 +354,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         elClassList.remove(Ngcp.csc.icons.edit.split(' ')[1]);
         elClassList.add(Ngcp.csc.icons.floppy.split(' ')[1]);
         el.dataset.callback = 'saveCard';
-        Ext.defer(function () {
+        Ext.defer(function() {
             me.showHideFocusFieldsById(recId, storeName, 'show');
         }, 50);
     },
@@ -313,7 +369,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
     },
 
-    toggleCancelCard: function (el, state) {
+    toggleCancelCard: function(el, state) {
         var cancelCardId = el.id.replace(/edit|save/, 'cancel');
         var cancelCard = document.getElementById(cancelCardId);
         var elClassList = cancelCard.classList;
@@ -327,7 +383,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         };
     },
 
-    cancelCard: function (el, abortAdd) {
+    cancelCard: function(el, abortAdd) {
         var me = this;
         var currentRoute = window.location.hash;
         var storeName = this.getStoreFromRoute(currentRoute);
