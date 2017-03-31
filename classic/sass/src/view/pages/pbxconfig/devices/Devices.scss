@@ -1,0 +1,55 @@
+.devices {
+    .x-panel-body {
+        background: white;
+    }
+    .device-img {
+        display: block;
+    }
+
+    .circle-number {
+        position:absolute;
+        border-radius: 50%;
+        width: 12px;
+        height: 12px;
+        border: 2px #fff;
+        color: #fff;
+        text-align: center;
+        font-size: 12px;
+    }
+    .assigned-button {
+        @extend .circle-number;
+        background: red;
+    }
+    .free-button {
+        @extend .circle-number;
+        background: gray;
+    }
+    .button-info {
+        position: absolute;
+        background:white;
+        border: 1px solid red;
+        padding: 4px;
+        z-index: 1;
+    }
+    .connection-left-right {
+        margin-top: 5px;
+        position: absolute;
+        border-top: 1px solid red;
+        background-color:rgba(255,0,0,0);
+    }
+    .connection-top-bottom {
+        position: absolute;
+        border-left: 1px solid red;
+        background-color:rgba(255,0,0,0);
+    }
+    .edit-panel {
+        background: #F6F6F6;
+    }
+    .seat-name {
+        margin-left: 20px;
+    }
+    .x-btn-group-default-framed {
+        border-color: #F6F6F6;
+        border-width: 0px;
+    }
+}
