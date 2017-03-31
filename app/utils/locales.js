@@ -1823,9 +1823,8 @@ Ext.define('Ngcp.csc.locales', {
                         de: 'Click to assign',
                         fr: 'Click to assign',
                         sp: 'Click to assign'
-                    },
+                    }
                 }
-
             }
         },
         common: {
@@ -1933,6 +1932,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Successfully removed.',
                 fr: 'Successfully removed.',
                 sp: 'Successfully removed.'
+            },
+            remove_confirm: {
+                en: 'Do you really want to delete this item?',
+                it: 'Do you really want to delete this item?',
+                de: 'Do you really want to delete this item?',
+                fr: 'Do you really want to delete this item?',
+                sp: 'Do you really want to delete this item?'
             },
             submit: {
                 en: 'submit',

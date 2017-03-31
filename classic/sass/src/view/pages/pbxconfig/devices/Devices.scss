@@ -18,31 +18,67 @@
     }
     .assigned-button {
         @extend .circle-number;
-        background: red;
+        background: $assigned_color;
     }
     .free-button {
         @extend .circle-number;
-        background: yellow;
+        background: $unassigned_color;
     }
     .button-info {
         position: absolute;
         background: white;
-        border: 1px solid red;
-        padding: 0px 5px 0 5px;
+        padding: 0px 5px 0 0px;
         z-index: 1;
         min-width: 60px;
         font-size: 11px;
     }
+    .button-info-order {
+        padding: 1px 8px 2px 5px;
+        margin-right: 10px;
+        font-size: 14px;
+    }
+    .button-info-order-assigned {
+        @extend .button-info-order;
+        color:white;
+        background-color: $assigned_color;
+    }
+    .button-info-order-unassigned {
+        @extend .button-info-order;
+        color: black;
+        background-color: $unassigned_color;
+    }
+    .button-info-assigned {
+        @extend .button-info;
+        border: 1px solid $assigned_color;
+    }
+    .button-info-unassigned {
+        @extend .button-info;
+        border: 1px solid $unassigned_color;
+    }
     .connection-left-right {
         margin-top: 5px;
         position: absolute;
-        border-top: 1px solid red;
         background-color:rgba(255,0,0,0);
+    }
+    .connection-left-right-assigned {
+        @extend .connection-left-right;
+        border-top: 1px solid $assigned_color;
+    }
+    .connection-left-right-unassigned {
+        @extend .connection-left-right;
+        border-top: 1px solid $unassigned_color;
     }
     .connection-top-bottom {
         position: absolute;
-        border-left: 1px solid red;
         background-color:rgba(255,0,0,0);
+    }
+    .connection-top-bottom-assigned {
+        @extend .connection-top-bottom;
+        border-left: 1px solid $assigned_color;
+    }
+    .connection-top-bottom-unassigned {
+        @extend .connection-top-bottom;
+        border-left: 1px solid $unassigned_color;
     }
     .edit-panel {
         background: #F6F6F6;
@@ -55,6 +91,14 @@
         border-width: 0px;
     }
     .devices-seat-fieldset {
-        border: 1px solid red !important;
+        z-index: 1;
+    }
+    .devices-seat-fieldset-assigned {
+        @extend .devices-seat-fieldset;
+        border: 1px solid $assigned_color !important;
+    }
+    .devices-seat-fieldset-unassigned {
+        @extend .devices-seat-fieldset;
+        border: 1px solid $unassigned_color !important;
     }
 }

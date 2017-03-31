@@ -26,8 +26,17 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
             element: 'el',
             delegate: '.card-icon'
         },
+        mouseleave: {
+            fn: 'onMouseLeave',
+            element: 'el',
+            delegate: '.card-icon'
+        },
         cellclick: 'expandRow',
-        rowbodyclick: 'expandRow'
+        rowbodyclick: 'expandRow',
+        focus: function() {
+            var scrollPosition = grid.getEl().down('.x-grid-view').getScroll();
+            grid.getEl().down('.x-grid-view').scrollTo('top', scrollPosition.top, false);
+        }
     },
 
     columns: {
@@ -144,6 +153,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                         required: true,
                         autoSelect: false,
                         hidden: true,
+                        editable: false,
                         emptyText: Ngcp.csc.locales.pbxconfig.enter_new_device[localStorage.getItem('languageSelected')],
                         bind: {
                             id: 'devices-textfield-device-{record.id}'
@@ -251,47 +261,28 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                         margin: '200 0 0 0',
                         collapsible: false,
                         hidden: true,
+                        cls: 'devices-seat-fieldset',
                         defaults: {
                             xtype: 'label',
                             labelWidth: 50,
-                            anchor: '100%',
+                            anchor: '100%'
                         },
                         bind: {
                             id: 'seat-show-panel-{record.id}'
                         },
                         items: [{
                             name: 'typeValue'
-                        }, {
-                            xtype: 'buttongroup',
-                            name: 'editBtns',
-                            columns: 3,
-                            hidden: true,
-                            cls: 'edit-panel',
-                            border: 0,
-                            defaults: {
-                                width: 75
-                            },
-                            items: [{
-                                iconCls: Ngcp.csc.icons.edit,
-                                handler: 'editSeat',
-                                tooltip: Ngcp.csc.locales.common.edit[localStorage.getItem('languageSelected')]
-                            }, {
-                                iconCls: Ngcp.csc.icons.trash,
-                                handler: 'deleteSeat',
-                                name: 'deleteBtn',
-                                tooltip: Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')]
-                            }]
                         }]
                     }, {
                         xtype: 'fieldset',
                         margin: '200 0 0 0',
-                        cls: 'devices-seat-fieldset',
+                        padding: '20 10 10 10',
                         width: 200,
                         collapsible: false,
                         hidden: true,
                         defaults: {
                             labelWidth: 40,
-                            anchor: '100%',
+                            anchor: '100%'
                         },
                         bind: {
                             id: 'seat-edit-panel-{record.id}'
@@ -319,7 +310,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                             cls: 'edit-panel',
                             border: 0,
                             defaults: {
-                                width: 75
+                                width: 50
                             },
                             items: [{
                                 iconCls: Ngcp.csc.icons.floppy,
@@ -329,6 +320,11 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                                 iconCls: Ngcp.csc.icons.block,
                                 handler: 'discardChanges',
                                 tooltip: Ngcp.csc.locales.common.reset[localStorage.getItem('languageSelected')]
+                            }, {
+                                iconCls: Ngcp.csc.icons.trash,
+                                handler: 'deleteSeat',
+                                name: 'deleteBtn',
+                                tooltip: Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')]
                             }]
                         }]
                     }]
