@@ -27,7 +27,6 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfig', {
                 }]
             }]
         }];
-
         this.callParent();
     }
 });

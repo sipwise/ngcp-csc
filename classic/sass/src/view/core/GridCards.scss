@@ -49,26 +49,6 @@ $grid-row-cell-focus-border-color: '#fff';
     width: 100%;
     color: $base-color;
 
-    .img-row {
-        position:relative;
-        padding: 20;
-        img {
-            width: 100%;
-        }
-        .number-circle {
-            position:absolute;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            padding: 4px;
-            background: #fff;
-            border: 2px solid $base-color;
-            color: $base-color;
-            text-align: center;
-            font-size: 16px;
-        }
-    }
-
     .fa {
         margin-right: 10px;
         color: $base-color;
