@@ -1527,11 +1527,11 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'ADD NEW DEVICE'
             },
             device: {
-                en: 'Device',
-                it: 'Device',
-                de: 'Device',
-                fr: 'Device',
-                sp: 'Device'
+                en: 'Phone Model:',
+                it: 'Phone Model:',
+                de: 'Phone Model:',
+                fr: 'Phone Model:',
+                sp: 'Phone Model:'
             },
             device_profile: {
                 en: 'Device profile',
@@ -1548,11 +1548,11 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Destination'
             },
             extension: {
-                en: 'Extension:',
-                it: 'Extension:',
-                de: 'Extension:',
-                fr: 'Extension:',
-                sp: 'Extension:'
+                en: 'Extension',
+                it: 'Extension',
+                de: 'Extension',
+                fr: 'Extension',
+                sp: 'Extension'
             },
             mac: {
                 en: 'Mac address:',
@@ -1616,6 +1616,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Name:',
                 fr: 'Name:',
                 sp: 'Name:'
+            },
+            station_name: {
+                en: 'Station name:',
+                it: 'Station name:',
+                de: 'Station name:',
+                fr: 'Station name:',
+                sp: 'Station name:'
             },
             enter_new_name: {
                 en: 'Enter new name',
@@ -1686,6 +1693,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Enter new status',
                 fr: 'Enter new status',
                 sp: 'Enter new status'
+            },
+            enter_new_extension: {
+                en: 'Enter new extension',
+                it: 'Enter new extension',
+                de: 'Enter new extension',
+                fr: 'Enter new extension',
+                sp: 'Enter new extension'
             },
             cancel_operation: {
                 en: 'Cancel operation',
@@ -1771,6 +1785,15 @@ Ext.define('Ngcp.csc.locales', {
                     de: 'Auto attendants for ',
                     fr: 'Auto attendants for ',
                     sp: 'Auto attendants for '
+                }
+            },
+            devices: {
+                delete_assignment:{
+                    en: 'Do you really want to unassign button {0}?',
+                    it: 'Do you really want to unassign button {0}?',
+                    de: 'Do you really want to unassign button {0}?',
+                    fr: 'Do you really want to unassign button {0}?',
+                    sp: 'Do you really want to unassign button {0}?'
                 }
             }
         },

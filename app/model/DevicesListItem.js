@@ -7,5 +7,11 @@ Ext.define('NgcpCsc.model.DevicesListItem', {
     }, {
         name: 'name',
         type: 'string'
+    },{
+        name: 'img',
+        type: 'string'
+    },{
+        name: 'destinations',
+        type: 'auto'
     }]
 });
