@@ -1,146 +1,189 @@
 {
     "data": [{
         "id": 1,
-        "name":"Device1",
+        "name": "Device1",
         "device": "Cisco Pbx 1",
-        "mac":"00-14-22-01-23-41",
-        "status": "disabled",
-        "image": "/resources/images/pbx.png",
+        "mac": "00-14-22-01-23-41",
+        "extension": "Ext2",
+        "extension2": "Ext1",
+        "image": "/resources/images/cisco1.jpg",
         "destinations": [{
-            "name": "destination1",
-            "sound": "resources/audio/voicemail.mp3",
+            "name": "User1 (130)",
+            "type": "Shared",
             "order": 1,
             "position": {
-                "top": "14%",
-                "left": "45%"
+                "top": "12%",
+                "left": "52%",
+                "anchor": "right"
             }
         }, {
-            "name": "destination2",
-            "sound": "resources/audio/voicemail.mp3",
             "order": 2,
             "position": {
-                "top": "18%",
-                "left": "45%"
+                "top": "16%",
+                "left": "52%",
+                "anchor": "right"
             }
         }, {
-            "name": "destination3",
-            "sound": "resources/audio/voicemail.mp3",
+            "name": "User3",
             "order": 3,
+            "type": "Speed dial",
             "position": {
-                "top": "22%",
-                "left": "45%"
+                "top": "19%",
+                "left": "52%",
+                "anchor": "right"
             }
         }, {
-            "name": "destination4",
-            "sound": "resources/audio/voicemail.mp3",
+            "name": "User4",
             "order": 4,
+            "type": "Shared",
             "position": {
-                "top": "41%",
-                "left": "54%"
+                "top": "30%",
+                "left": "60%",
+                "anchor": "top"
             }
         }, {
-            "name": "destination5",
-            "sound": "resources/audio/voicemail.mp3",
+            "name": "User5",
             "order": 5,
+            "type": "Speed dial",
             "position": {
-                "top": "41%",
-                "left": "61%"
+                "top": "30%",
+                "left": "67%",
+                "anchor": "top"
             }
         }, {
-            "name": "destination6",
-            "sound": "resources/audio/voicemail.mp3",
+            "name": "User6",
             "order": 6,
+            "type": "Busy lamp",
             "position": {
-                "top": "41%",
-                "left": "67%"
+                "top": "30%",
+                "left": "74%",
+                "anchor": "top"
             }
         }]
     }, {
         "id": 2,
-        "name":"Device2",
+        "name": "Device2",
         "device": "Cisco Pbx 2",
-        "mac":"00-14-22-01-23-42",
-        "status": "enabled",
+        "mac": "00-14-22-01-23-42",
+        "extension": "Ext2",
+        "extension2": "Ext1",
         "image": "/resources/images/cisco2.jpg",
         "destinations": [{
-            "name": "destination1",
-            "sound": "resources/audio/voicemail.mp3",
+            "name": "User1",
             "order": 1,
+            "type": "Busy lamp",
             "position": {
-                "top": "13%",
-                "left": "86%"
+                "top": "15%",
+                "left": "90%",
+                "anchor": "left"
             }
         }, {
-            "name": "destination2",
-            "sound": "resources/audio/voicemail.mp3",
+            "name": "User2",
             "order": 2,
+            "type": "Speed dial",
             "position": {
-                "top": "17%",
-                "left": "86%"
+                "top": "18%",
+                "left": "90%",
+                "anchor": "left"
             }
         }, {
-            "name": "destination3",
-            "sound": "resources/audio/voicemail.mp3",
+            "name": "User3",
             "order": 3,
+            "type": "Shared",
             "position": {
-                "top": "21%",
-                "left": "86%"
+                "top": "22%",
+                "left": "90%",
+                "anchor": "left"
             }
         }]
     }, {
         "id": 3,
-        "name":"Device3",
+        "name": "Device3",
         "device": "Cisco Pbx 3",
-        "mac":"00-14-22-01-23-43",
-        "status": "enabled",
+        "mac": "00-14-22-01-23-43",
+        "extension": "Ext2",
+        "extension2": "Ext1",
         "image": "/resources/images/cisco3.jpg",
         "destinations": [{
-            "name": "destination1",
-            "sound": "resources/audio/voicemail.mp3",
+            "name": "User1",
             "order": 1,
+            "type": "Busy lamp",
             "position": {
-                "top": "34%",
-                "left": "56%"
+                "top": "35%",
+                "left": "59%",
+                "anchor": "top"
             }
         }, {
-            "name": "destination2",
-            "sound": "resources/audio/voicemail.mp3",
+            "name": "User2",
             "order": 2,
+            "type": "Shared",
             "position": {
-                "top": "34%",
-                "left": "83%"
+                "top": "35%",
+                "left": "81%",
+                "anchor": "top"
             }
         }]
     }, {
         "id": 4,
-        "name":"Device4",
-        "device": "Cisco Pbx 4",
-        "mac":"00-14-22-01-23-44",
-        "status": "enabled",
+        "name": "Device4",
+        "device": "Cisco Pbx 1",
+        "mac": "00-14-22-01-23-44",
+        "extension": "Ext2",
+        "extension2": "Ext1",
         "image": "/resources/images/cisco1.jpg",
         "destinations": [{
-            "name": "destination1",
-            "sound": "resources/audio/voicemail.mp3",
+            "name": "User1",
+            "type": "Shared",
             "order": 1,
             "position": {
-                "top": "11%",
-                "left": "49%"
+                "top": "12%",
+                "left": "52%",
+                "anchor": "right"
             }
         }, {
-            "name": "destination2",
-            "sound": "resources/audio/voicemail.mp3",
+            "name": "User2",
             "order": 2,
+            "type": "Busy lamp",
             "position": {
-                "top": "22%",
-                "left": "49%"
+                "top": "16%",
+                "left": "52%",
+                "anchor": "right"
             }
         }, {
-            "name": "destination3",
-            "sound": "resources/audio/voicemail.mp3",
+            "name": "User3",
             "order": 3,
+            "type": "Speed dial",
             "position": {
-                "top": "38%",
-                "left": "67%"
+                "top": "19%",
+                "left": "52%",
+                "anchor": "right"
+            }
+        }, {
+            "name": "User4",
+            "order": 4,
+            "type": "Shared",
+            "position": {
+                "top": "30%",
+                "left": "60%",
+                "anchor": "top"
+            }
+        }, {
+            "name": "User5",
+            "order": 5,
+            "type": "Speed dial",
+            "position": {
+                "top": "30%",
+                "left": "67%",
+                "anchor": "top"
+            }
+        }, {
+            "name": "User6",
+            "order": 6,
+            "type": "Busy lamp",
+            "position": {
+                "top": "30%",
+                "left": "74%",
+                "anchor": "top"
             }
         }]
     }]
