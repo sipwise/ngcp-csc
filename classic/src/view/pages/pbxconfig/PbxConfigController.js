@@ -218,6 +218,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var mainNameLabel = Ext.ComponentQuery.query('#' + viewName + '-label-mainname-' + id) || '';
         var nameField = Ext.ComponentQuery.query('#' + viewName + '-textfield-name-' + id) || '';
         var extensionField = Ext.ComponentQuery.query('#' + viewName + '-textfield-extension-' + id) || '';
+        var extensionField2 = Ext.ComponentQuery.query('#' + viewName + '-textfield-extension2-' + id) || '';
         var groupField = Ext.ComponentQuery.query('#' + viewName + '-textfield-group-' + id) || '';
         var numbersField = Ext.ComponentQuery.query('#' + viewName + '-textfield-numbers-' + id) || '';
         var phoneField = Ext.ComponentQuery.query('#' + viewName + '-textfield-phone_devices-' + id) || '';
@@ -227,6 +228,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var macField = Ext.ComponentQuery.query('#' + viewName + '-textfield-mac-' + id) || '';
         var statusField = Ext.ComponentQuery.query('#' + viewName + '-textfield-status-' + id) || '';
         var extensionLabel = Ext.ComponentQuery.query('#' + viewName + '-label-extension-' + id) || '';
+        var extensionLabel2 = Ext.ComponentQuery.query('#' + viewName + '-label-extension2-' + id) || '';
         var groupLabel = Ext.ComponentQuery.query('#' + viewName + '-label-group-' + id) || '';
         var numbersLabel = Ext.ComponentQuery.query('#' + viewName + '-label-numbers-' + id) || '';
         var phoneLabel = Ext.ComponentQuery.query('#' + viewName + '-label-phone_devices-' + id) || '';
@@ -272,15 +274,18 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
             case 'devices':
                 deviceLabel[0].setHidden(labelHide);
                 macLabel[0].setHidden(labelHide);
-                statusLabel[0].setHidden(labelHide);
                 nameField[0].setHidden(fieldHide);
                 deviceField[0].setHidden(fieldHide);
                 macField[0].setHidden(fieldHide);
-                statusField[0].setHidden(fieldHide);
-                statusField[0].focus();
+                extensionLabel[0].setHidden(labelHide);
+                extensionField[0].setHidden(fieldHide);
+                extensionLabel2[0].setHidden(labelHide);
+                extensionField2[0].setHidden(fieldHide);
                 macField[0].focus();
                 deviceField[0].focus();
                 nameField[0].focus();
+                extensionField[0].focus();
+                extensionField2[0].focus();
                 break;
         };
     },
