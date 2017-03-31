@@ -253,7 +253,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var storeName = this.getStoreFromRoute(currentRoute);
         var store = Ext.getStore(storeName);
         var rec = store.findRecord('id', recId);
-        if (!cmp.getValue()) {
+        if (!cmp.getValue() || cmp.getValue().length == 0) {
             cmp.setValue(rec.get(recKey));
         }
     },
@@ -360,13 +360,23 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
     },
 
     removeCard: function(el) {
+        var me = this;
         var currentRoute = window.location.hash;
         var storeName = this.getStoreFromRoute(currentRoute);
         var store = Ext.getStore(storeName);
         var recId = el.id.split("-")[1];
         var selectedRow = store.findRecord('id', recId);
-        store.remove(selectedRow);
-        this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
+        Ext.Msg.show({
+            message: Ext.String.format(Ngcp.csc.locales.common.remove_confirm[localStorage.getItem('languageSelected')]),
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            fn: function(btn) {
+                if (btn === 'yes') {
+                    store.remove(selectedRow);
+                    me.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
+                }
+            }
+        });
     },
 
     toggleCancelCard: function(el, state) {

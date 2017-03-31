@@ -22,27 +22,48 @@
     }
     .free-button {
         @extend .circle-number;
-        background: yellow;
+        background: #CCCC00;
     }
     .button-info {
         position: absolute;
         background: white;
-        border: 1px solid red;
         padding: 0px 5px 0 5px;
         z-index: 1;
         min-width: 60px;
         font-size: 11px;
     }
+    .button-info-assigned {
+        @extend .button-info;
+        border: 1px solid red;
+    }
+    .button-info-unassigned {
+        @extend .button-info;
+        border: 1px solid #CCCC00;
+    }
     .connection-left-right {
         margin-top: 5px;
         position: absolute;
-        border-top: 1px solid red;
         background-color:rgba(255,0,0,0);
+    }
+    .connection-left-right-assigned {
+        @extend .connection-left-right;
+        border-top: 1px solid red;
+    }
+    .connection-left-right-unassigned {
+        @extend .connection-left-right;
+        border-top: 1px solid #CCCC00;
     }
     .connection-top-bottom {
         position: absolute;
-        border-left: 1px solid red;
         background-color:rgba(255,0,0,0);
+    }
+    .connection-top-bottom-assigned {
+        @extend .connection-top-bottom;
+        border-left: 1px solid red;
+    }
+    .connection-top-bottom-unassigned {
+        @extend .connection-top-bottom;
+        border-left: 1px solid #CCCC00;
     }
     .edit-panel {
         background: #F6F6F6;
