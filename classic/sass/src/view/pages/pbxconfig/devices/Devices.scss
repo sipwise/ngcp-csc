@@ -1,0 +1,30 @@
+.devices {
+    .x-panel-body {
+        background: white;
+    }
+    .device-img {
+        display: block;
+    }
+
+    .number-circle {
+        position:absolute;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        background: red;
+        border: 2px #fff;
+        color: #fff;
+        text-align: center;
+        font-size: 12px;
+    }
+    .edit-panel {
+        background: #F6F6F6;
+    }
+    .seat-name {
+        margin-left: 20px;
+    }
+    .x-btn-group-default-framed {
+        border-color: #F6F6F6;
+        border-width: 0px;
+    }
+}
