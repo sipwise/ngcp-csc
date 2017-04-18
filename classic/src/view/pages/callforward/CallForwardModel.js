@@ -31,6 +31,24 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardModel', {
         source_listb_title: 'List B',
         hide_lista_titleField: true,
         hide_listb_titleField: true
+    },
+
+    formulas: {
+        panelIsCollapsed: function (get) {
+            var store = Ext.getStore('CallForwardLocalStorage');
+            // If local storage object afterHoursCollapsed does not exist, we
+            // return false and write false default value to local storage
+            if (!store.findRecord('afterHoursCollapsed', false) && !store.findRecord('afterHoursCollapsed', true)) {
+                store.add({afterHoursCollapsed: false});
+                store.sync();
+                return false;
+            }
+            // If local storage value object with afterHoursCollapsed and
+            // true exists, we return true
+            if (store.findRecord('afterHoursCollapsed', true)) {
+                return true;
+            }
+        }
     }
 
 });

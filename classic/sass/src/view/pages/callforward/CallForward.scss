@@ -60,6 +60,9 @@
     .x-panel-cf-grid .x-grid-row {
         height: 32px;
     }
+    .x-panel-cf-grid .x-action-col-cell .x-item-disabled {
+        opacity: 1;
+    }
     .x-panel-cf-widget {
         border: solid 1px;
         border-color: #d0d0d0;

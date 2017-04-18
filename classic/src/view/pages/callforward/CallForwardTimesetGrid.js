@@ -26,6 +26,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
                 flex: 1,
                 widget: {
                     xtype: 'timefield',
+                    tooltip: 'Change time from', // TODO: Locales
                     bind: {
                         disabled: '{record.closed}'
                     }
@@ -38,6 +39,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
                 flex: 1,
                 widget: {
                     xtype: 'timefield',
+                    tooltip: 'Change time to', // TODO: Locales
                     bind: {
                         disabled: '{record.closed}'
                     }
@@ -49,6 +51,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
                 align: 'center',
                 width: 80,
                 items: [{
+                    tooltip: 'Close day', // TODO: Locales
                     getClass: 'toggleClosedClass',
                     handler: 'toggleClosedState'
                 }]

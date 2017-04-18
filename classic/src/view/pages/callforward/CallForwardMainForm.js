@@ -98,7 +98,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             items: [{
                 xtype: 'textfield',
                 fieldLabel: Ngcp.csc.locales.callforward.sourceset_title[localStorage.getItem('languageSelected')],
-                width: 200,
+                width: 450,
                 bind: '{source_lista_title}'
             }, {
                 xtype: 'button',
