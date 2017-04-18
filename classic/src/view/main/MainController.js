@@ -207,8 +207,14 @@ Ext.define('NgcpCsc.view.main.MainController', {
                 };
                 title = Ngcp.csc.locales.conversationwith.title[localStorage.getItem('languageSelected')] + ' ' + record.get('name');
                 break;
-            case 'callforward':
-                title = Ngcp.csc.locales.callforward.title[localStorage.getItem('languageSelected')];
+            case 'callforward/always':
+                title = Ngcp.csc.locales.callforward.title[localStorage.getItem('languageSelected')] + Ngcp.csc.locales.callforward.always_title[localStorage.getItem('languageSelected')];
+                break;
+            case 'callforward/afterhours':
+                title = Ngcp.csc.locales.callforward.title[localStorage.getItem('languageSelected')] + Ngcp.csc.locales.callforward.afterhours_title[localStorage.getItem('languageSelected')];
+                break;
+            case 'callforward/companyhours':
+                title = Ngcp.csc.locales.callforward.title[localStorage.getItem('languageSelected')] + Ngcp.csc.locales.callforward.companyhours_title[localStorage.getItem('languageSelected')];
                 break;
             case 'callblock':
                 title = Ngcp.csc.locales.callforward.title[localStorage.getItem('languageSelected')];
