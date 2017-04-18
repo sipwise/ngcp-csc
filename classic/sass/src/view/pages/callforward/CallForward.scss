@@ -60,6 +60,9 @@
     .x-panel-cf-grid .x-grid-row {
         height: 32px;
     }
+    .x-panel-cf-grid .x-action-col-cell .x-item-disabled {
+        opacity: 1;
+    }
     .x-panel-cf-widget {
         border: solid 1px;
         border-color: #d0d0d0;
@@ -78,7 +81,7 @@
     }
     .cf-calendar-button,
     .cf-calendar-button .x-btn-icon-el-default-small,
-    .cf-calls-curing-section .x-btn.x-btn-pressed.x-btn-default-small {
+    .cf-calls-during-section .x-btn.x-btn-pressed.x-btn-default-small {
         background: white;
         color: $base-color;
         border: none;
