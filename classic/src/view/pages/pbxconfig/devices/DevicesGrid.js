@@ -254,7 +254,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                         defaults: {
                             xtype: 'label',
                             labelWidth: 50,
-                            anchor: '100%',
+                            anchor: '100%'
                         },
                         bind: {
                             id: 'seat-show-panel-{record.id}'
@@ -291,7 +291,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                         hidden: true,
                         defaults: {
                             labelWidth: 40,
-                            anchor: '100%',
+                            anchor: '100%'
                         },
                         bind: {
                             id: 'seat-edit-panel-{record.id}'

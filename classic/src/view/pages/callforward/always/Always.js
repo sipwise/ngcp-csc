@@ -5,36 +5,21 @@ Ext.define('NgcpCsc.view.pages.callforward.always.Always', {
 
     ui: 'cf-mainform',
 
-    initComponent: function () {
+    viewModel: 'callforward',
+
+    initComponent: function() {
 
         this.items = [{
             userCls: Ext.os.is.Desktop ? 'big-820' : 'small-100',
             xtype: 'core-container',
             items: [{
-                    layout: 'responsivecolumn',
-                    xtype: 'container',
-                    items: [{
-                        xtype: 'panel',
-                        userCls: 'big-33 small-100 cf-calls-curing-section',
-                        items: [{
-                            layout: 'hbox',
-                            items: [{
-                                xtype: 'container',
-                                userCls: 'cf-calls-during',
-                                html: Ngcp.csc.locales.callforward.for_calls_during_always[localStorage.getItem('languageSelected')],
-                                margin: '10 0 0 0'
-                            }]
-                        }]
-                    }]
-                }, {
-                    xtype: 'container',
-                    userCls: 'cf-text',
-                    html: Ngcp.csc.locales.callforward.for_calling_parties[localStorage.getItem('languageSelected')],
-                    margin: '10 0 10 0'
-                }, {
-                    xtype: 'statusbar',
-                    reference: 'loadingBar'
-                }, {
+                xtype: 'statusbar',
+                reference: 'loadingBar'
+            }, {
+                xtype: 'panel',
+                width: '100%',
+                title: Ngcp.csc.locales.callforward.for_calling_parties[localStorage.getItem('languageSelected')]
+            }, {
                 xtype: 'alwaystabs'
             }]
         }];

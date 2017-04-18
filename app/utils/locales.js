@@ -608,11 +608,32 @@ Ext.define('Ngcp.csc.locales', {
         },
         callforward: {
             title: {
-                en: 'Call forward settings.',
-                it: 'Call forward settings.',
-                de: 'Call forward settings.',
-                fr: 'Call forward settings.',
-                sp: 'Call forward settings.'
+                en: 'Call Forward ',
+                it: 'Call Forward ',
+                de: 'Call Forward ',
+                fr: 'Call Forward ',
+                sp: 'Call Forward '
+            },
+            always_title: {
+                en: '- Always',
+                it: '- Always',
+                de: '- Always',
+                fr: '- Always',
+                sp: '- Always'
+            },
+            afterhours_title: {
+                en: '- After Hours',
+                it: '- After Hours',
+                de: '- After Hours',
+                fr: '- After Hours',
+                sp: '- After Hours'
+            },
+            companyhours_title: {
+                en: '- Company Hours',
+                it: '- Company Hours',
+                de: '- Company Hours',
+                fr: '- Company Hours',
+                sp: '- Company Hours'
             },
             subtitle: {
                 en: 'CALL FORWARD',
@@ -734,11 +755,11 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Move'
             },
             full_day: {
-                en: 'Closed',
-                it: 'Closed',
-                de: 'Closed',
-                fr: 'Closed',
-                sp: 'Closed'
+                en: 'Full Day',
+                it: 'Full Day',
+                de: 'Full Day',
+                fr: 'Full Day',
+                sp: 'Full Day'
             },
             after_hours: {
                 en: 'After hours',
@@ -846,11 +867,11 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'secs'
             },
             sourceset_title: {
-                en: 'Sourceset title',
-                it: 'Sourceset title',
-                de: 'Sourceset title',
-                fr: 'Sourceset title',
-                sp: 'Sourceset title'
+                en: 'Title:',
+                it: 'Title:',
+                de: 'Title:',
+                fr: 'Title:',
+                sp: 'Title:'
             },
             change_title: {
                 en: 'CHANGE TITLE',
@@ -858,6 +879,43 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'CHANGE TITLE',
                 fr: 'CHANGE TITLE',
                 sp: 'CHANGE TITLE'
+            },
+            tooltips: {
+                change_time_from: {
+                    en: 'Change time from',
+                    it: 'Change time from',
+                    de: 'Change time from',
+                    fr: 'Change time from',
+                    sp: 'Change time from'
+                },
+                change_time_to: {
+                    en: 'Change time to',
+                    it: 'Change time to',
+                    de: 'Change time to',
+                    fr: 'Change time to',
+                    sp: 'Change time to'
+                },
+                close_day: {
+                    en: 'Close day',
+                    it: 'Close day',
+                    de: 'Close day',
+                    fr: 'Close day',
+                    sp: 'Close day'
+                },
+                save_phone_number: {
+                    en: 'Save phone number',
+                    it: 'Save phone number',
+                    de: 'Save phone number',
+                    fr: 'Save phone number',
+                    sp: 'Save phone number'
+                },
+                delete_phone_number: {
+                    en: 'Delete phone number',
+                    it: 'Delete phone number',
+                    de: 'Delete phone number',
+                    fr: 'Delete phone number',
+                    sp: 'Delete phone number'
+                }
             }
         },
         filters: {
@@ -1823,7 +1881,7 @@ Ext.define('Ngcp.csc.locales', {
                         de: 'Click to assign',
                         fr: 'Click to assign',
                         sp: 'Click to assign'
-                    },
+                    }
                 }
 
             }
@@ -1975,6 +2033,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'SAVE',
                 fr: 'SAVE',
                 sp: 'SAVE'
+            },
+            cancel_caps: {
+                en: 'CANCEL',
+                it: 'CANCEL',
+                de: 'CANCEL',
+                fr: 'CANCEL',
+                sp: 'CANCEL'
             },
             reset: {
                 en: 'Reset',

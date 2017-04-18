@@ -3,6 +3,43 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
 
     alias: 'controller.callforward',
 
+    editingPhoneDone: function(editor, context) {
+        var record = context.record;
+        var grid = context.grid;
+        record.set("edit", false);
+        grid.getView().refresh();
+    },
+
+    collapsePanel: function (el) {
+        var panelId = el.id.split('-')[1];
+        var isCollapsed = el.collapsed === false ? false : true;
+        var store = Ext.getStore('CallForwardLocalStorage');
+        var localStorageRecord = store.getAt(0);
+        switch (panelId) {
+            case 'afterHours':
+                switch (isCollapsed) {
+                    case true:
+                        localStorageRecord.set('afterHoursCollapsed', true);
+                    break;
+                    case false:
+                        localStorageRecord.set('afterHoursCollapsed', false);
+                    break;
+                }
+                break;
+            case 'companyHours':
+                switch (isCollapsed) {
+                    case true:
+                        localStorageRecord.set('companyHoursCollapsed', true);
+                    break;
+                    case false:
+                        localStorageRecord.set('companyHoursCollapsed', false);
+                    break;
+                }
+                break;
+        };
+        store.sync();
+    },
+
     onEnterPressed: function (field, el) {
         var me = this;
         if (el.getKey() == el.ENTER) {
@@ -47,11 +84,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     saveEmptyRowToStore: function (grid) {
         var store = grid.getStore();
         var plugin = grid.getPlugin('celleditingTime');
-        var targetStore = Ext.getStore(store);
         var newRowIndex = store.getCount() + 1;
-        var record = targetStore.getAt(targetStore.getCount() - 1);
-        if (record == null || record.data.phone !== '') {
-            targetStore.add({ "phone": "", "active": false, "ring_for": "" });
+        var record = store.getAt(store.getCount() - 1);
+        if (record == null || (record.data.phone !== ' ' && record.data.phone !== '')) {
+            // Need to add whitespace in record when using widgetcolumn
+            store.add({ "phone": " ", "edit": true });
         };
         plugin.startEditByPosition({ row: newRowIndex, column: 0 });
     },
@@ -271,14 +308,8 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
-    toggleAfterTimesetGrid: function () {
-        var vm = this.getViewModel();
-        vm.set('after_hours', !vm.get('after_hours'));
-    },
-
-    toggleCompanyTimesetGrid: function () {
-        var vm = this.getViewModel();
-        vm.set('company_hours', !vm.get('company_hours'));
+    saveGrid: function (el) {
+        this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
     }
 
 });

@@ -4,6 +4,9 @@ Ext.define('NgcpCsc.model.CallForwardSourceset', {
     fields: [{
         name: 'phone',
         type: 'string'
+    }, {
+        name: 'edit',
+        type: 'boolean'
     }]
 
 });
