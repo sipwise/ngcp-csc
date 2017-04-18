@@ -31,6 +31,33 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardModel', {
         source_listb_title: 'List B',
         hide_lista_titleField: true,
         hide_listb_titleField: true
+    },
+
+    formulas: {
+        afterPanelIsCollapsed: function (get) {
+            var store = Ext.getStore('CallForwardLocalStorage');
+            var localStorageRecord = store.getAt(0);
+            if (store.getRange().length < 1) {
+                store.add({afterHoursCollapsed: false, companyHoursCollapsed: false});
+                store.sync();
+                return false;
+            } else {
+                var currentState = localStorageRecord.get('afterHoursCollapsed');
+                return currentState;
+            }
+        },
+        companyPanelIsCollapsed: function (get) {
+            var store = Ext.getStore('CallForwardLocalStorage');
+            var localStorageRecord = store.getAt(0);
+            if (store.getRange().length < 1) {
+                store.add({afterHoursCollapsed: false, companyHoursCollapsed: false});
+                store.sync();
+                return false;
+            } else {
+                var currentState = localStorageRecord.get('companyHoursCollapsed');
+                return currentState;
+            }
+        }
     }
 
 });
