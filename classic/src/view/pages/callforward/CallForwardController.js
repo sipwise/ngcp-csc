@@ -279,6 +279,17 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     toggleCompanyTimesetGrid: function () {
         var vm = this.getViewModel();
         vm.set('company_hours', !vm.get('company_hours'));
+    },
+
+    cancelTimeset: function (el) {
+        // TODO: Refactor into one cancelTitle() function
+        console.log(el.id);
+        this.fireEvent('showmessage', false, 'Cancelled'); // TODO: Locales
+    },
+
+    saveTimeset: function (el) {
+        console.log(el.id);
+        this.fireEvent('showmessage', true, 'Time settings saved'); // TODO: Locales
     }
 
 });

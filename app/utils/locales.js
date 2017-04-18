@@ -608,11 +608,32 @@ Ext.define('Ngcp.csc.locales', {
         },
         callforward: {
             title: {
-                en: 'Call forward settings.',
-                it: 'Call forward settings.',
-                de: 'Call forward settings.',
-                fr: 'Call forward settings.',
-                sp: 'Call forward settings.'
+                en: 'Call Forward ',
+                it: 'Call Forward ',
+                de: 'Call Forward ',
+                fr: 'Call Forward ',
+                sp: 'Call Forward '
+            },
+            always_title: {
+                en: '- Always',
+                it: '- Always',
+                de: '- Always',
+                fr: '- Always',
+                sp: '- Always'
+            },
+            afterhours_title: {
+                en: '- After Hours',
+                it: '- After Hours',
+                de: '- After Hours',
+                fr: '- After Hours',
+                sp: '- After Hours'
+            },
+            companyhours_title: {
+                en: '- Company Hours',
+                it: '- Company Hours',
+                de: '- Company Hours',
+                fr: '- Company Hours',
+                sp: '- Company Hours'
             },
             subtitle: {
                 en: 'CALL FORWARD',
@@ -734,11 +755,11 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Move'
             },
             full_day: {
-                en: 'Closed',
-                it: 'Closed',
-                de: 'Closed',
-                fr: 'Closed',
-                sp: 'Closed'
+                en: 'Full Day',
+                it: 'Full Day',
+                de: 'Full Day',
+                fr: 'Full Day',
+                sp: 'Full Day'
             },
             after_hours: {
                 en: 'After hours',
@@ -846,11 +867,11 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'secs'
             },
             sourceset_title: {
-                en: 'Sourceset title',
-                it: 'Sourceset title',
-                de: 'Sourceset title',
-                fr: 'Sourceset title',
-                sp: 'Sourceset title'
+                en: 'Title',
+                it: 'Title',
+                de: 'Title',
+                fr: 'Title',
+                sp: 'Title'
             },
             change_title: {
                 en: 'CHANGE TITLE',
