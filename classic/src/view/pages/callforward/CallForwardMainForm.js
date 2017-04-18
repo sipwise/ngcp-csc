@@ -98,7 +98,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             items: [{
                 xtype: 'textfield',
                 fieldLabel: Ngcp.csc.locales.callforward.sourceset_title[localStorage.getItem('languageSelected')],
-                width: 200,
+                flex: 1,
                 bind: '{source_lista_title}'
             }, {
                 xtype: 'button',
@@ -121,7 +121,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                     xtype: 'button',
                     id: this._firstprefix + this._secondprefix + 'addListAButton',
                     width: 135,
-                    margin: '0 0 0 0',
+                    margin: '0 0 0 500',
                     listeners: {
                         click: 'addEmptyRow'
                     }
@@ -141,7 +141,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             items: [{
                 xtype: 'textfield',
                 fieldLabel: Ngcp.csc.locales.callforward.sourceset_title[localStorage.getItem('languageSelected')],
-                width: 200,
+                flex: 1,
                 bind: '{source_listb_title}'
             }, {
                 xtype: 'button',
@@ -164,7 +164,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                     xtype: 'button',
                     id: this._firstprefix + this._secondprefix + 'addListBButton',
                     width: 135,
-                    margin: '0 0 0 0',
+                    margin: '0 0 0 500',
                     listeners: {
                         click: 'addEmptyRow'
                     }

@@ -33,7 +33,8 @@ Ext.define('NgcpCsc.Application', {
         'AliasNumbers',
         'GroupNames',
         'PrimaryNumbers',
-        'HuntPolicies'
+        'HuntPolicies',
+        'CallForwardLocalStorage'
     ],
 
     launch: function() {

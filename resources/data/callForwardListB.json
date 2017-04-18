@@ -1,13 +1,18 @@
 {
     "data": [{
         "phone": "King Cole",
+        "edit": false
     }, {
         "phone": "11656143",
+        "edit": false
     }, {
         "phone": "Carla James",
+        "edit": false
     }, {
         "phone": "43806401",
+        "edit": false
     }, {
         "phone": "11656142",
+        "edit": false
     }]
 }
