@@ -15,6 +15,10 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
 
     width: 500,
 
+    listeners: {
+        edit: 'editingPhoneDone'
+    },
+
     initComponent: function() {
         this.columns = {
             defaults: {
@@ -26,6 +30,14 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
                 dataIndex: 'phone',
                 editor: 'textfield',
                 flex: 1
+            }, {
+                text: Ngcp.csc.locales.common.from[localStorage.getItem('languageSelected')],
+                xtype: 'widgetcolumn',
+                widget: {
+                    xtype: 'button',
+                    text: 'SAVE' // TODO: Locales
+                },
+                onWidgetAttach: 'showEditButton'
             }, {
                 text: Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')],
                 xtype: 'actioncolumn',
