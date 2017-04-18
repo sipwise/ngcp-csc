@@ -6,6 +6,7 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
     ui: 'cf-mainform',
 
     initComponent: function () {
+        var localStorageStore = Ext.getStore('CallForwardLocalStorage');
         var callForwardAfterGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
             id: 'cf-timeset-after-grid',
             store: Ext.create('NgcpCsc.store.CallForwardTimeset', {
@@ -28,6 +29,16 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
                     xtype: 'container',
                     items: [{
                         xtype: 'panel',
+                        title: Ngcp.csc.locales.callforward.for_calls_during_after_hours[localStorage.getItem('languageSelected')],
+                        width: '100%',
+                        collapsible: true,
+                        bind: {
+                            collapsed: '{panelIsCollapsed}'
+                        },
+                        listeners: {
+                            collapse: 'collapsePanel',
+                            expand: 'collapsePanel'
+                        },
                         userCls: 'big-33 small-100 cf-calls-curing-section',
                         items: [{
                             layout: 'hbox',
@@ -54,13 +65,40 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
                         ]
                     }]
                 }, {
-                    xtype: 'container',
-                    userCls: 'cf-text',
-                    html: Ngcp.csc.locales.callforward.for_calling_parties[localStorage.getItem('languageSelected')],
-                    margin: '10 0 10 0'
+                    xtype: 'panel',
+                    layout: 'hbox',
+                    margin: '15 0 0 0',
+                    bind: {
+                        hidden: '{after_hours}'
+                    },
+                    items: [{
+                        xtype: 'component',
+                        flex: 1
+                    }, {
+                        text: 'SAVE', // TODO: Locales
+                        xtype: 'button',
+                        cls: 'x-btn-left',
+                        id: 'afterHours-saveButton',
+                        width: 135,
+                        margin: '0 0 0 0',
+                        listeners: {
+                            click: 'saveTimeset'
+                        }
+                    }, {
+                        xtype: 'button',
+                        cls: 'x-btn-left',
+                        html: 'CANCEL', // TODO: Locales
+                        id: 'afterHours-cancelButton',
+                        margin: '0 0 0 10',
+                        handler: 'cancelTimeset'
+                    }]
                 }, {
                     xtype: 'statusbar',
                     reference: 'loadingBar'
+                }, {
+                    xtype: 'panel',
+                    width: '100%',
+                    title: Ngcp.csc.locales.callforward.for_calling_parties[localStorage.getItem('languageSelected')]
                 }, {
                     xtype: 'afterhourstabs'
             }]

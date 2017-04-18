@@ -3,6 +3,26 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
 
     alias: 'controller.callforward',
 
+    collapsePanel: function (el) {
+        var vm = this.getViewModel();
+        var isCollapsed = el.collapsed === 'top' ? true : false;
+        var store = Ext.getStore('CallForwardLocalStorage');
+        switch (isCollapsed) {
+            case true:
+                store.getProxy().clear();
+                store.add({afterHoursCollapsed: true});
+                store.sync();
+                break;
+            case false:
+                store.getProxy().clear();
+                store.add({afterHoursCollapsed: false});
+                store.sync();
+                break;
+        };
+        // NB: store.getProxy().clear() removes all the local storage values,
+        // but does not reset the id. So id is increments infinitely right now
+    },
+
     onEnterPressed: function (field, el) {
         var me = this;
         if (el.getKey() == el.ENTER) {
@@ -279,6 +299,17 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     toggleCompanyTimesetGrid: function () {
         var vm = this.getViewModel();
         vm.set('company_hours', !vm.get('company_hours'));
+    },
+
+    cancelTimeset: function (el) {
+        // TODO: Refactor into one cancelTitle() function
+        console.log(el.id);
+        this.fireEvent('showmessage', false, 'Cancelled'); // TODO: Locales
+    },
+
+    saveTimeset: function (el) {
+        console.log(el.id);
+        this.fireEvent('showmessage', true, 'Time settings saved'); // TODO: Locales
     }
 
 });
