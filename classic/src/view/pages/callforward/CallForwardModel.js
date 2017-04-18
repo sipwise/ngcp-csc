@@ -31,6 +31,23 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardModel', {
         source_listb_title: 'List B',
         hide_lista_titleField: true,
         hide_listb_titleField: true
+    },
+
+    formulas: {
+        panelIsCollapsed: function (get) {
+            // XXX Cvenusino: Could use your input on how to A) write values
+            // to local storage store here, and B) how to best design this, and
+            // C) how to attach a listener to collapse button, so we can toggle
+            // value in controller
+            return get('collapsed.afterHoursCollapsed');
+        }
+    },
+
+    links: {
+        collapsed: {
+            type: 'NgcpCsc.model.CallForwardLocalStorage',
+            create: true
+        }
     }
 
 });
