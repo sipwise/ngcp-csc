@@ -137,6 +137,10 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         } else {
             this.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.disabled_success[localStorage.getItem('languageSelected')]);
         };
+    },
+
+    toggleBlockCalls: function (event) {
+        console.log('toggleBlockCalls event: ', event);
     }
 
 });

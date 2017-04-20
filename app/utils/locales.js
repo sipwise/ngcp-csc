@@ -542,13 +542,6 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Please enter a number.',
                 sp: 'Please enter a number.'
             },
-            hide_own: {
-                en: 'Hide own number on outgoing calls',
-                it: 'Hide own number on outgoing calls',
-                de: 'Hide own number on outgoing calls',
-                fr: 'Hide own number on outgoing calls',
-                sp: 'Hide own number on outgoing calls'
-            },
             hide_mode_on: {
                 en: 'Hide mode succcessfully turned on.',
                 it: 'Hide mode succcessfully turned on.',
@@ -604,6 +597,77 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Mode',
                 fr: 'Mode',
                 sp: 'Mode'
+            },
+            submodules: {
+                incoming: {
+                    header: {
+                        en: 'Mode',
+                        it: 'Mode',
+                        de: 'Mode',
+                        fr: 'Mode',
+                        sp: 'Mode'
+                    },
+                    prefix: {
+                        en: 'Allow',
+                        it: 'Allow',
+                        de: 'Allow',
+                        fr: 'Allow',
+                        sp: 'Allow'
+                    },
+                    suffix: {
+                        en: 'block',
+                        it: 'block',
+                        de: 'block',
+                        fr: 'block',
+                        sp: 'block'
+                    }
+                },
+                outgoing: {
+                    header: {
+                        en: 'Mode',
+                        it: 'Mode',
+                        de: 'Mode',
+                        fr: 'Mode',
+                        sp: 'Mode'
+                    },
+                    prefix: {
+                        en: 'Allow',
+                        it: 'Allow',
+                        de: 'Allow',
+                        fr: 'Allow',
+                        sp: 'Allow'
+                    },
+                    suffix: {
+                        en: 'block',
+                        it: 'block',
+                        de: 'block',
+                        fr: 'block',
+                        sp: 'block'
+                    }
+                },
+                privacy: {
+                    header: {
+                        en: 'On outgoing calls ...',
+                        it: 'On outgoing calls ...',
+                        de: 'On outgoing calls ...',
+                        fr: 'On outgoing calls ...',
+                        sp: 'On outgoing calls ...'
+                    },
+                    prefix: {
+                        en: 'Show own number',
+                        it: 'Show own number',
+                        de: 'Show own number',
+                        fr: 'Show own number',
+                        sp: 'Show own number'
+                    },
+                    suffix: {
+                        en: 'hide own number',
+                        it: 'hide own number',
+                        de: 'hide own number',
+                        fr: 'hide own number',
+                        sp: 'hide own number'
+                    }
+                }
             }
         },
         callforward: {
