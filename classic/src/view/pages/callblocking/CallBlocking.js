@@ -7,8 +7,15 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlocking', {
 
     controller: 'callblocking',
 
+    // DONE: 1. Visually implement "Allow [TOGGLE BUTTON] block" for Outg/Inc
+    // DONE: 2. Visually implement "Show own number [TOGGLE BUTTON] hide own
+    //          number" for Privacy
+    // TODO: 3. Implement css and classes
+    // TODO: 4. Implement controllers and bind to vm values
+
     initComponent: function() {
         var instructionText = window.location.hash === '#callblocking/incoming' ? Ngcp.csc.locales.callblocking.new_entry_instructions[localStorage.getItem('languageSelected')] + ' ' + Ngcp.csc.locales.callblocking.new_entry_anonymous[localStorage.getItem('languageSelected')] : Ngcp.csc.locales.callblocking.new_entry_instructions[localStorage.getItem('languageSelected')];
+        var enabledState = '{' + this._vmPrefix + 'block_mode}' ? 'on' : 'off';
 
         this.dockedItems = [{
             xtype: 'toolbar',
@@ -26,21 +33,22 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlocking', {
                     hidden: !this._displayIncomingOutgoingSection
                 }, {
                     items: [{
-                        xtype: 'segmentedbutton',
-                        allowMultiple: false,
+                        xtype: 'panel',
                         hidden: !this._displayIncomingOutgoingSection,
-                        bind: {
-                            value: '{block_mode}'
-                        },
-                        defaults: {
-                            handler: 'clickAllowModeButton'
-                        },
                         items: [{
-                            text: Ngcp.csc.locales.callblocking.allow[localStorage.getItem('languageSelected')],
-                            value: 'allow'
+                            hidden: !this._displayIncomingSection,
+                            html: '<div id="toggleBlockCalls-Incoming" class="toggle-icon" data-callback="toggleAllowBlockIncoming">' +
+                            '<span style="margin-right: 10px;">Allow</span>' +
+                            '<i id="iconAllowBlock-Incoming" class="' + Ngcp.csc.icons.toggle[enabledState + '2x'] + ' green" aria-hidden="true" data-qtip="' + Ngcp.csc.locales.callblocking.enable_or_disable[localStorage.getItem('languageSelected')] + '"></i>' +
+                            '<span style="margin-left: 10px;">block</span>' +
+                            '</div>'
                         }, {
-                            text: Ngcp.csc.locales.callblocking.block[localStorage.getItem('languageSelected')],
-                            value: 'block'
+                            hidden: !this._displayOutgoingSection,
+                            html: '<div id="toggleBlockCalls-Outgoing" class="toggle-icon" data-callback="toggleAllowBlockOutgoing">' +
+                            '<span style="margin-right: 10px;">Allow</span>' +
+                            '<i id="iconAllowBlock-Outgoing" class="' + Ngcp.csc.icons.toggle[enabledState + '2x'] + ' green" aria-hidden="true" data-qtip="' + Ngcp.csc.locales.callblocking.enable_or_disable[localStorage.getItem('languageSelected')] + '"></i>' +
+                            '<span style="margin-left: 10px;">block</span>' +
+                            '</div>'
                         }]
                     }]
                 }, {
@@ -50,21 +58,14 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlocking', {
                     hidden: !this._displayPrivacySection
                 }, {
                     items: [{
-                        xtype: 'segmentedbutton',
-                        allowMultiple: false,
+                        xtype: 'panel',
                         hidden: !this._displayPrivacySection,
-                        bind: {
-                            value: '{hide_mode}'
-                        },
-                        defaults: {
-                            handler: 'clickHideModeButton'
-                        },
                         items: [{
-                            text: Ngcp.csc.locales.callblocking.on[localStorage.getItem('languageSelected')],
-                            value: 'on'
-                        }, {
-                            text: Ngcp.csc.locales.callblocking.off[localStorage.getItem('languageSelected')],
-                            value: 'off'
+                            html: '<div id="toggleBlockCalls-Incoming" class="toggle-icon" data-callback="toggleAllowBlockIncoming">' +
+                            '<span style="margin-right: 10px;">Show own number</span>' +
+                            '<i id="iconAllowBlock-Incoming" class="' + Ngcp.csc.icons.toggle[enabledState + '2x'] + ' green" aria-hidden="true" data-qtip="' + Ngcp.csc.locales.callblocking.enable_or_disable[localStorage.getItem('languageSelected')] + '"></i>' +
+                            '<span style="margin-left: 10px;">hide own number</span>' +
+                            '</div>'
                         }]
                     }]
                 }, {
