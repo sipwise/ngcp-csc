@@ -7,8 +7,19 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlocking', {
 
     controller: 'callblocking',
 
+    listeners: {
+        click: {
+            fn: 'onIconClicked',
+            element: 'el',
+            delegate: 'div.toggle-section'
+        }
+    },
+
     initComponent: function() {
         var instructionText = window.location.hash === '#callblocking/incoming' ? Ngcp.csc.locales.callblocking.new_entry_instructions[localStorage.getItem('languageSelected')] + ' ' + Ngcp.csc.locales.callblocking.new_entry_anonymous[localStorage.getItem('languageSelected')] : Ngcp.csc.locales.callblocking.new_entry_instructions[localStorage.getItem('languageSelected')];
+        var vm = this.getViewModel();
+        var submoduleStates = vm.get(this._vmPrefix + 'block_mode') === 'on' ? ['', 'on', ' grey'] : [' grey', 'off', ''];
+        var submoduleName = this._vmPrefix.slice(0, -1);
 
         this.dockedItems = [{
             xtype: 'toolbar',
@@ -21,52 +32,15 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlocking', {
                 width: Ext.os.is.Desktop ? 810 : '100%',
                 items: [{
                     userCls: 'callblocking-header',
-                    html: Ngcp.csc.locales.callblocking.mode[localStorage.getItem('languageSelected')],
-                    margin: '0 0 10 0',
-                    hidden: !this._displayIncomingOutgoingSection
+                    html: Ngcp.csc.locales.callblocking.submodules[submoduleName].header[localStorage.getItem('languageSelected')],
+                    margin: '0 0 10 0'
                 }, {
-                    items: [{
-                        xtype: 'segmentedbutton',
-                        allowMultiple: false,
-                        hidden: !this._displayIncomingOutgoingSection,
-                        bind: {
-                            value: '{block_mode}'
-                        },
-                        defaults: {
-                            handler: 'clickAllowModeButton'
-                        },
-                        items: [{
-                            text: Ngcp.csc.locales.callblocking.allow[localStorage.getItem('languageSelected')],
-                            value: 'allow'
-                        }, {
-                            text: Ngcp.csc.locales.callblocking.block[localStorage.getItem('languageSelected')],
-                            value: 'block'
-                        }]
-                    }]
-                }, {
-                    userCls: 'callblocking-header',
-                    html: Ngcp.csc.locales.callblocking.hide_own[localStorage.getItem('languageSelected')],
-                    margin: '0 0 10 0',
-                    hidden: !this._displayPrivacySection
-                }, {
-                    items: [{
-                        xtype: 'segmentedbutton',
-                        allowMultiple: false,
-                        hidden: !this._displayPrivacySection,
-                        bind: {
-                            value: '{hide_mode}'
-                        },
-                        defaults: {
-                            handler: 'clickHideModeButton'
-                        },
-                        items: [{
-                            text: Ngcp.csc.locales.callblocking.on[localStorage.getItem('languageSelected')],
-                            value: 'on'
-                        }, {
-                            text: Ngcp.csc.locales.callblocking.off[localStorage.getItem('languageSelected')],
-                            value: 'off'
-                        }]
-                    }]
+                    xtype: 'panel',
+                    html: '<div id="toggleBlockCalls-' + submoduleName + '" class="toggle-section" data-callback="toggleBlockCalls">' +
+                    '<span id="toggleTextPrefix-' + submoduleName + '" class="toggle-prefix' + submoduleStates[0] + '">' + Ngcp.csc.locales.callblocking.submodules[submoduleName].prefix[localStorage.getItem('languageSelected')] + '</span>' +
+                    '<i id="iconAllowBlock-' + submoduleName + '" class="pointer toggle-icon ' + Ngcp.csc.icons.toggle[submoduleStates[1] + '2x'] + '" aria-hidden="true" data-qtip="' + Ngcp.csc.locales.callblocking.enable_or_disable[localStorage.getItem('languageSelected')] + '"></i>' +
+                    '<span id="toggleTextSuffix-' + submoduleName + '" class="toggle-suffix' + submoduleStates[2] + '">' + Ngcp.csc.locales.callblocking.submodules[submoduleName].suffix[localStorage.getItem('languageSelected')] + '</span>' +
+                    '</div>'
                 }, {
                     userCls: 'callblocking-header',
                     html: Ngcp.csc.locales.callblocking.add_number[localStorage.getItem('languageSelected')],

@@ -9,3 +9,18 @@
     color: $base-color;
     font: 500 14px/18px var(--font-family);
 }
+
+.toggle-section {
+    .x-fa {
+        color: $base-color;
+    }
+    .toggle-prefix {
+        margin-right: 10px;
+    }
+    .toggle-suffix {
+        margin-left: 10px;
+    }
+    .grey {
+        color: grey;
+    }
+}
