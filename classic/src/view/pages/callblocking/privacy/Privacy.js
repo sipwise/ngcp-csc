@@ -3,6 +3,7 @@ Ext.define('NgcpCsc.view.pages.callblocking.privacy.Privacy', {
 
     xtype: 'privacy',
 
-    _displayPrivacySection: true
+    _displayPrivacySection: true,
+    _vmPrefix: 'privacy_'
 
 });

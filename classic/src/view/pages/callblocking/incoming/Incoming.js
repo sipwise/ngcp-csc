@@ -4,6 +4,8 @@ Ext.define('NgcpCsc.view.pages.callblocking.incoming.Incoming', {
     xtype: 'incoming',
 
     _displayIncomingOutgoingSection: true,
+    _displayIncomingSection: true,
+    _vmPrefix: 'incoming_',
 
     initComponent: function () {
         var incomingGrid = Ext.create('NgcpCsc.view.pages.callblocking.CallBlockingGrid', {
