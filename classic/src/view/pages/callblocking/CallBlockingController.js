@@ -137,6 +137,22 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         } else {
             this.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.disabled_success[localStorage.getItem('languageSelected')]);
         };
+    },
+
+    toggleBlockCalls: function (event) {
+        var vm = this.getViewModel();
+        var submoduleName = event.getTarget().id.split('-')[1];
+        var classList = event.target.classList;
+        var prefixElementClassList = document.getElementById('toggleTextPrefix-' + submoduleName).classList;
+        var suffixElementClassList = document.getElementById('toggleTextSuffix-' + submoduleName).classList;
+        var vmRecordName = submoduleName + '_block_mode';
+        var currentValue = vm.get(vmRecordName);
+        var newValueToUse = currentValue === 'on' ? 'off' : 'on';
+        vm.set(vmRecordName, newValueToUse);
+        classList.remove('fa-toggle-' + currentValue);
+        classList.add('fa-toggle-' + newValueToUse);
+        prefixElementClassList.toggle('grey');
+        suffixElementClassList.toggle('grey');
     }
 
 });
