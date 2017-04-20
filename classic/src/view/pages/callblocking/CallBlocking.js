@@ -7,6 +7,10 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlocking', {
 
     controller: 'callblocking',
 
+    // TODO: 1. Change toggle to "Allow [TOGGLE BUTTON] block" for Outg/Inc
+    // TODO: 2. Change toggle to "Show own number [TOGGLE BUTTON] hide own
+    //          number" for Privacy
+
     initComponent: function() {
         var instructionText = window.location.hash === '#callblocking/incoming' ? Ngcp.csc.locales.callblocking.new_entry_instructions[localStorage.getItem('languageSelected')] + ' ' + Ngcp.csc.locales.callblocking.new_entry_anonymous[localStorage.getItem('languageSelected')] : Ngcp.csc.locales.callblocking.new_entry_instructions[localStorage.getItem('languageSelected')];
 
@@ -43,6 +47,17 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlocking', {
                             value: 'block'
                         }]
                     }]
+                }, {
+                    // TODO: Need to be persistent, so maybe use a vm value with
+                    // fa classes stored, and bind to that. Change classes in
+                    // toggleHandler controller
+                    xtype: 'button',
+                    iconCls: Ngcp.csc.icons.toggle.on2x,
+                    iconAlign: 'center',
+                    tooltip: Ngcp.csc.locales.callblocking.mode[localStorage.getItem('languageSelected')],
+                    enableToggle: true,
+                    width: 60
+                    // toggleHandler: 'toggleOutIncButton',
                 }, {
                     userCls: 'callblocking-header',
                     html: Ngcp.csc.locales.callblocking.hide_own[localStorage.getItem('languageSelected')],
