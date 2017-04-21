@@ -92,7 +92,7 @@ Ext.define('NgcpCsc.view.pages.contacts.Contacts', {
         xtype: 'treecolumn',
         dataIndex: 'name',
         renderer: 'renderStatus',
-        flex: 6
+        width: 183
     }, {
         dataIndex: 'fieldValue',
         editor: 'textfield',
@@ -102,7 +102,7 @@ Ext.define('NgcpCsc.view.pages.contacts.Contacts', {
     }, {
         xtype: 'actioncolumn',
         text: 'actions',
-        flex: 1,
+        width: 100,
         items: [{
             tooltip: Ngcp.csc.locales.common.call[localStorage.getItem('languageSelected')],
             getClass: function(value, context) {
@@ -120,7 +120,7 @@ Ext.define('NgcpCsc.view.pages.contacts.Contacts', {
         }, {
             tooltip: Ngcp.csc.locales.common.edit[localStorage.getItem('languageSelected')],
             getClass: function(value, context) {
-                return (context.record && context.record.parentNode && context.record.parentNode.parentNode && context.record.parentNode.parentNode.get('id') == "addressbook") ? 'x-edit-display' : '';
+                return (context.record && context.record.get('isAddressBookContact')) ? 'x-edit-display' : '';
             },
             handler: 'editContactField'
         }, {

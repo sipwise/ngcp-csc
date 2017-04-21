@@ -25,7 +25,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
     },
 
     renderStatus: function(val, meta, rec) {
-        if ((rec.get('leaf') && !rec.parentNode.get('isAddressBookContact')) || rec.parentNode.id == 'addressbook') {
+        if ((rec.get('leaf') && !rec.parentNode.get('isAddressBookContact'))) {
             rec.set('iconCls', Ngcp.csc.icons.circle + ' ' + (rec.get('online') ? 'online-user' : 'offline-user'));
         } else if (rec.parentNode.get('isAddressBookContact')) {
             rec.set('iconCls', Ngcp.csc.icons.text + ' addressbook-contact ');
