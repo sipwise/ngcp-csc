@@ -68,8 +68,10 @@
         "name": "Allen Morris",
         "thumbnail": "resources/images/user-profile/11.png",
         "isAddressBookContact": true,
+        "iconCls": "no-icon",
         "children": [{
             "name": "First Name :",
+            "fieldId": "allenmorrissfirstname",
             "isFirstName": true,
             "fieldValue": "Allen",
             "leaf": true
@@ -113,8 +115,10 @@
         "name": "Suzette Powell",
         "thumbnail": "resources/images/user-profile/7.png",
         "isAddressBookContact": true,
+        "iconCls": "no-icon",
         "children": [{
             "name": "First Name :",
+            "fieldId": "suzettepowellfirstname",
             "isFirstName": true,
             "fieldValue": "Suzette",
             "leaf": true
@@ -158,8 +162,10 @@
         "name": "Jil Sanchez",
         "thumbnail": "resources/images/user-profile/9.png",
         "isAddressBookContact": true,
+        "iconCls": "no-icon",
         "children": [{
             "name": "First Name :",
+            "fieldId": "jilsanchezfirstname",
             "isFirstName": true,
             "fieldValue": "Jil",
             "leaf": true

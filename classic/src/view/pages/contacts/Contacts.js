@@ -78,33 +78,55 @@ Ext.define('NgcpCsc.view.pages.contacts.Contacts', {
         menuDisabled: true
     },
 
-    plugins: [
-        Ext.create('Ext.grid.plugin.CellEditing', {
-            id: 'celledit',
-            clicksToEdit: 1,
-            listeners: {
-                edit: 'validateFields'
-            }
-        })
-    ],
-
     columns: [{
         xtype: 'treecolumn',
         dataIndex: 'name',
         renderer: 'renderStatus',
-        flex: 6
+        width: 190
     }, {
-        dataIndex: 'fieldValue',
-        editor: 'textfield',
         reference: 'userContactFields',
-        flex: 10,
-        hidden: true
+        flex: 1,
+        xtype: 'widgetcolumn',
+        widget: {
+            xtype: 'container',
+            layout: 'hbox',
+            defaults: {
+                flex: 1
+            },
+            hidden: false,
+            xtype: 'container',
+            /**   workaround to bind widgetcolumn subcomponents  **/
+            bind: {
+                record: '{record}'
+            },
+            setRecord: Ext.emptyFn,
+            /******/
+            items: [{
+                xtype: 'label',
+                bind: {
+                    text: '{record.fieldValue ? record.fieldValue : ""}',
+                    hidden: '{record.editInProgress}'
+                }
+            }, {
+                xtype: 'textfield',
+                listeners: {
+                    specialkey: 'jumpToNextField'
+                },
+                bind: {
+                    value: '{record.fieldValue}',
+                    hidden: '{!record.editInProgress}'
+                }
+            }]
+        }
     }, {
         xtype: 'actioncolumn',
         text: 'actions',
-        flex: 1,
+        width: 100,
         items: [{
             tooltip: Ngcp.csc.locales.common.call[localStorage.getItem('languageSelected')],
+            isDisabled: function(view, rowIndex, colIndex, item, record){
+                return !((record.get('leaf') && record.get('fieldValue')) || record.get('isAddressBookContact') || record.get('online'));
+            },
             getClass: function(value, context) {
                 var extraMarginRight = context.record && context.record.parentNode && context.record.parentNode.get('id') == "addressbook" ? '-extra-margin' : '';
                 return ((context.record && (context.record.get('leaf') || context.record.get('isAddressBookContact')) && context.record.get('online')) ? 'x-phone-display' : '') + extraMarginRight;
@@ -112,6 +134,9 @@ Ext.define('NgcpCsc.view.pages.contacts.Contacts', {
             handler: 'startCall'
         }, {
             tooltip: Ngcp.csc.locales.common.videocall[localStorage.getItem('languageSelected')],
+            isDisabled: function(view, rowIndex, colIndex, item, record){
+                return !((record.get('leaf') && record.get('fieldValue'))|| record.get('isAddressBookContact') || record.get('online'));
+            },
             getClass: function(value, context) {
                 var extraMarginRight = context.record && context.record.parentNode && context.record.parentNode.get('id') == "addressbook" ? '-extra-margin' : '';
                 return ((context.record && (context.record.get('leaf') || context.record.get('isAddressBookContact')) && context.record.get('online')) ? 'x-video-display' : '') + extraMarginRight;
@@ -119,8 +144,11 @@ Ext.define('NgcpCsc.view.pages.contacts.Contacts', {
             handler: 'startVideoCall'
         }, {
             tooltip: Ngcp.csc.locales.common.edit[localStorage.getItem('languageSelected')],
+            isDisabled: function(view, rowIndex, colIndex, item, record){
+                return !(record.get('isAddressBookContact'));
+            },
             getClass: function(value, context) {
-                return (context.record && context.record.parentNode && context.record.parentNode.parentNode && context.record.parentNode.parentNode.get('id') == "addressbook") ? 'x-edit-display' : '';
+                return (context.record && context.record.get('isAddressBookContact')) ? 'x-edit-display' : '';
             },
             handler: 'editContactField'
         }, {
@@ -128,11 +156,18 @@ Ext.define('NgcpCsc.view.pages.contacts.Contacts', {
             getClass: function(value, context) {
                 return (context.record && !context.record.get('leaf') && context.record.parentNode.get('id') !== "addressbook") ? 'x-add-user-display' : '';
             },
+            isDisabled: function(view, rowIndex, colIndex, item, record){
+                return !(!record.get('leaf') && !record.get('isAddressBookContact') );
+            },
             handler: 'addUser'
         }, {
             tooltip: Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')],
             getClass: function(value, context) {
                 return (context.record && context.record.parentNode && context.record.parentNode.get('id') == "addressbook") ? 'x-remove-user-display' : '';
+            },
+
+            isDisabled: function(view, rowIndex, colIndex, item, record){
+                return !(!record.get('leaf'));
             },
             handler: 'deleteUser'
         }]

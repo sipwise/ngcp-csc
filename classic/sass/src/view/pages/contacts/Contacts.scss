@@ -1,4 +1,7 @@
 .contacts {
+    .no-icon {
+        width: 0px;
+    }
     .x-tool-expand-right:before{
         content: '\f0d9' !important
     }
@@ -7,7 +10,7 @@
     }
     .x-grid-row:hover {
         .x-phone-display {
-            padding-left: 5px;
+            padding-left: 45px;
 
             &:before {
                 font-family: FontAwesome;
@@ -17,7 +20,7 @@
 
         .x-phone-display-extra-margin {
             position: relative;
-            right: 10px;
+            left: 10px;
 
             &:before {
                 font-family: FontAwesome;
@@ -26,7 +29,7 @@
         }
 
         .x-video-display {
-            margin-left: 10px;
+            margin-left: 20px;
 
             &:before {
                 font-family: FontAwesome;
@@ -36,7 +39,7 @@
 
         .x-video-display-extra-margin {
             position: relative;
-            right: 10px;
+            left: 10px;
             &:before {
                 font-family: FontAwesome;
                 content: "\f03d";
@@ -45,7 +48,7 @@
 
         .x-drop-display {
             position: relative;
-            right: 15px;
+            left: 5px;
 
             &:before {
                 font-family: FontAwesome;
@@ -55,7 +58,7 @@
 
         .x-add-user-display {
             position: relative;
-            right: 20px;
+            left: 10px;
 
             &:before {
                 font-family: FontAwesome;
@@ -65,7 +68,7 @@
 
         .x-edit-display {
             position: relative;
-            right: 10px;
+            left: 35px;
 
             &:before {
                 font-family: FontAwesome;
@@ -75,7 +78,7 @@
 
         .x-remove-user-display {
             position: relative;
-            right: 40px;
+            right: 20px;
             &:before {
                 font-family: FontAwesome;
                 content: $trash;
