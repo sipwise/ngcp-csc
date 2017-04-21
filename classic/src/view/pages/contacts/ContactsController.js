@@ -1,3 +1,7 @@
+// TODO
+// complete edit
+// add done/save btn
+// fix tooltips
 Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
     extend: 'Ext.app.ViewController',
 
@@ -25,7 +29,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
     },
 
     renderStatus: function(val, meta, rec) {
-        if ((rec.get('leaf') && !rec.parentNode.get('isAddressBookContact')) || rec.parentNode.id == 'addressbook') {
+        if ((rec.get('leaf') && !rec.parentNode.get('isAddressBookContact'))) {
             rec.set('iconCls', Ngcp.csc.icons.circle + ' ' + (rec.get('online') ? 'online-user' : 'offline-user'));
         } else if (rec.parentNode.get('isAddressBookContact')) {
             rec.set('iconCls', Ngcp.csc.icons.text + ' addressbook-contact ');
@@ -234,18 +238,13 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         if (record.get('online'))
             this.fireEvent('initrtc', record, 'startVideoCall', true);
     },
-    editContactField: function(grid, rowIndex, colIndex, item, e, record) {
+    editContactField: function(tree, rowIndex, colIndex, item, e, record) {
         var me = this;
-        var cellEditPlugin = me.getView().getPlugin('celledit');
-        var editableColumnIndex;
-        Ext.each(this.getView().getColumns(), function(col, index) {
-            if (col.dataIndex == 'fieldValue') {
-                editableColumnIndex = index;
-            }
+        Ext.each(record.childNodes, function(leafRec){
+            leafRec.set('editInProgress', true);
         });
-        Ext.Function.defer(function() {
-            cellEditPlugin.startEdit(record, editableColumnIndex);
-        }, 50);
+        record.expand();
+        this.getView().view.refresh();
     },
     nodeClicked: function(node, record, item, index, e) {
         var me = this;
