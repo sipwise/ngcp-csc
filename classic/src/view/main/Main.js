@@ -170,7 +170,7 @@ Ext.define('NgcpCsc.view.main.Main', {
                     itemId: 'webrtcPanel',
                     hidden: true
                 }, {
-                    width: 300,
+                    width: 350,
                     resizable: Ext.os.is.Desktop,
                     xtype: 'contacts',
                     ui: 'core-container'

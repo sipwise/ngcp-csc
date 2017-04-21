@@ -1,3 +1,7 @@
+// TODO
+// complete edit
+// add done/save btn
+// fix tooltips
 Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
     extend: 'Ext.app.ViewController',
 
@@ -10,6 +14,16 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
                 expandContacts: 'expandContacts',
                 resizeContactPanel: 'resizeContactPanel',
                 addContact: 'addContact'
+            }
+        },
+        store: {
+            '#Contacts': {
+                load: function(store, recs) {
+                    Ext.each(recs, function(rec) {
+                        rec.set('editInProgress', false);
+                        rec.commit();
+                    });
+                }
             }
         }
     },
@@ -25,7 +39,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
     },
 
     renderStatus: function(val, meta, rec) {
-        if ((rec.get('leaf') && !rec.parentNode.get('isAddressBookContact')) || rec.parentNode.id == 'addressbook') {
+        if ((rec.get('leaf') && !rec.parentNode.get('isAddressBookContact'))) {
             rec.set('iconCls', Ngcp.csc.icons.circle + ' ' + (rec.get('online') ? 'online-user' : 'offline-user'));
         } else if (rec.parentNode.get('isAddressBookContact')) {
             rec.set('iconCls', Ngcp.csc.icons.text + ' addressbook-contact ');
@@ -141,11 +155,10 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
     },
 
     resizePanel: function(rec) {
-        var contactFields, store, keepExpanded, newWidth,
-            minWidth = 300,
+        var store, keepExpanded, newWidth,
+            minWidth = 350,
             maxWidth = 600;
         if (rec.parentNode && rec.parentNode.id == 'addressbook') {
-            contactFields = this.lookupReference('userContactFields');
             store = Ext.getStore('Contacts').findRecord();
             keepExpanded = false;
             rec.parentNode.eachChild(function(node) {
@@ -155,7 +168,6 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
             });
             newWidth = this.getView().getWidth() > minWidth && !keepExpanded ? minWidth : maxWidth;
             this.getView().setWidth(newWidth);
-            contactFields.setVisible(keepExpanded ? keepExpanded : contactFields.isHidden());
         }
     },
     nodeCollapsed: function() {
@@ -234,18 +246,19 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         if (record.get('online'))
             this.fireEvent('initrtc', record, 'startVideoCall', true);
     },
-    editContactField: function(grid, rowIndex, colIndex, item, e, record) {
-        var me = this;
-        var cellEditPlugin = me.getView().getPlugin('celledit');
-        var editableColumnIndex;
-        Ext.each(this.getView().getColumns(), function(col, index) {
-            if (col.dataIndex == 'fieldValue') {
-                editableColumnIndex = index;
+    editContactField: function(tree, rowIndex, colIndex, item, e, record) {
+        var me = this,
+        field;
+        Ext.each(record.childNodes, function(leafRec) {
+            if(leafRec.get('isFirstName')){
+                 console.info(leafRec);
+                // field = Ext.ComponentQuery.query('[id=' + leafRec.get('id') + ']')[0];
+                // field.focus();
             }
+            leafRec.set('editInProgress', true);
+            leafRec.commit();
         });
-        Ext.Function.defer(function() {
-            cellEditPlugin.startEdit(record, editableColumnIndex);
-        }, 50);
+        record.expand();
     },
     nodeClicked: function(node, record, item, index, e) {
         var me = this;

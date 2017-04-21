@@ -68,6 +68,7 @@
         "name": "Allen Morris",
         "thumbnail": "resources/images/user-profile/11.png",
         "isAddressBookContact": true,
+        "iconCls": "no-icon",
         "children": [{
             "name": "First Name :",
             "isFirstName": true,
@@ -113,6 +114,7 @@
         "name": "Suzette Powell",
         "thumbnail": "resources/images/user-profile/7.png",
         "isAddressBookContact": true,
+        "iconCls": "no-icon",
         "children": [{
             "name": "First Name :",
             "isFirstName": true,
@@ -158,6 +160,7 @@
         "name": "Jil Sanchez",
         "thumbnail": "resources/images/user-profile/9.png",
         "isAddressBookContact": true,
+        "iconCls": "no-icon",
         "children": [{
             "name": "First Name :",
             "isFirstName": true,
