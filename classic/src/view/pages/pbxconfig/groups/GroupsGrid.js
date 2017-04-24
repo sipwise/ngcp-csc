@@ -32,7 +32,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
             width: '96%'
         }]
     },
-    
+
     userCls: Ext.os.is.Desktop ? 'pbx-widget-grid big-820' : 'pbx-widget-grid small-100',
 
     plugins: [{
@@ -66,10 +66,12 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                     xtype: 'textfield',
                     required: true,
                     hidden: true,
+                    width: 250,
                     emptyText: Ngcp.csc.locales.pbxconfig.choose_one_or_more_groups[localStorage.getItem('languageSelected')],
                     bind: {
                         id: 'groups-textfield-name-{record.id}'
                     },
+                    msgTarget: 'side',
                     listeners: {
                         focus: {
                             fn: 'setFieldValue'
@@ -106,6 +108,11 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                     bind: {
                         id: 'groups-textfield-extension-{record.id}'
                     },
+                    msgTarget: 'side',
+                    maxLength: 3,
+                    enforceMaxLength: true,
+                    regex: /^[0-9]{3}$/,
+                    regexText: Ngcp.csc.locales.pbxconfig.digit_extension_number[localStorage.getItem('languageSelected')],
                     listeners: {
                         focus: {
                             fn: 'setFieldValue'
@@ -188,6 +195,11 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                         required: true,
                         hidden: true,
                         emptyText: Ngcp.csc.locales.pbxconfig.enter_new_hunt_timeout[localStorage.getItem('languageSelected')],
+                        msgTarget: 'side',
+                        maxLength: 3,
+                        enforceMaxLength: true,
+                        regex: /^[0-9]{1,3}$/,
+                        regexText: 'Must be a 3 digit timeout number',
                         bind: {
                             id: 'groups-textfield-hunt_timeout-{record.id}'
                         },
