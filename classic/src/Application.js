@@ -31,7 +31,6 @@ Ext.define('NgcpCsc.Application', {
         'Destinations',
         'Sounds',
         'AliasNumbers',
-        'GroupNames',
         'PrimaryNumbers',
         'HuntPolicies',
         'CallForwardLocalStorage'
