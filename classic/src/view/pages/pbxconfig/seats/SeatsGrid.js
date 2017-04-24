@@ -16,6 +16,9 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
             element: 'el',
             delegate: 'div.card-icon'
         },
+        // focus: {
+        //     fn: 'focusContrller'
+        // },
         cellclick: 'expandRow',
         rowbodyclick: 'expandRow'
     },
@@ -75,6 +78,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                         focus: {
                             fn: 'setFieldValue'
                         },
+                        blur: {
+                            fn: 'fieldBlurred',
+                            el: 'element'
+                        },
                         specialkey: 'onEnterPressed'
                     }
                 }]
@@ -107,6 +114,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                     listeners: {
                         focus: {
                             fn: 'setFieldValue'
+                        },
+                        blur: {
+                            fn: 'fieldBlurred',
+                            el: 'element'
                         },
                         specialkey: 'onEnterPressed'
                     }
@@ -143,6 +154,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                         focus: {
                             fn: 'setFieldValue'
                         },
+                        blur: {
+                            fn: 'fieldBlurred',
+                            el: 'element'
+                        },
                         specialkey: 'onEnterPressed'
                     }
                 }]
@@ -176,6 +191,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                     listeners: {
                         focus: {
                             fn: 'setFieldValue'
+                        },
+                        blur: {
+                            fn: 'fieldBlurred',
+                            el: 'element'
                         },
                         specialkey: 'onEnterPressed'
                     }
@@ -212,6 +231,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                     listeners: {
                         focus: {
                             fn: 'setFieldValue'
+                        },
+                        blur: {
+                            fn: 'fieldBlurred',
+                            el: 'element'
                         },
                         specialkey: 'onEnterPressed'
                     }

@@ -247,6 +247,9 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
     },
 
     setFieldValue: function(cmp) {
+        // Set a global variable keepFocus to false, so we can set blur to only
+        // toggle fields when blurred outside form. Or listener for mousedown
+        // to track last active element. Or better way?
         var recId = cmp.id.split("-")[3];
         var recKey = cmp.id.split("-")[2];
         var currentRoute = window.location.hash;
@@ -415,6 +418,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
                 editCard.dataset.callback = 'editCard';
                 break;
         }
+    },
+
+    fieldBlurred: function(event) {
+        console.log('blur occured, event: ', event);
     }
 
 });
