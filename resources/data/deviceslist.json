@@ -4,7 +4,7 @@
         "name": "Cisco Pbx 1",
         "image": "/resources/images/cisco1.jpg",
         "seats": [{
-            "name": "User1",
+            "name": 1,
             "type": "Shared",
             "order": 1,
             "position": {
@@ -13,7 +13,7 @@
                 "anchor": "right"
             }
         }, {
-            "name": "User2",
+            "name": 2,
             "order": 2,
             "type": "Busy lamp",
             "position": {
@@ -22,7 +22,7 @@
                 "anchor": "right"
             }
         }, {
-            "name": "User3",
+            "name": 3,
             "order": 3,
             "type": "Speed dial",
             "position": {
@@ -31,7 +31,7 @@
                 "anchor": "right"
             }
         }, {
-            "name": "User4",
+            "name": 4,
             "order": 4,
             "type": "Shared",
             "position": {
@@ -40,7 +40,7 @@
                 "anchor": "top"
             }
         }, {
-            "name": "User5",
+            "name": 5,
             "order": 5,
             "type": "Speed dial",
             "position": {
@@ -49,7 +49,7 @@
                 "anchor": "top"
             }
         }, {
-            "name": "User6",
+            "name": 6,
             "order": 6,
             "type": "Busy lamp",
             "position": {
@@ -63,7 +63,7 @@
         "name": "Cisco Pbx 2",
         "image": "/resources/images/cisco2.jpg",
         "seats": [{
-            "name": "User1",
+            "name": 1,
             "order": 1,
             "type": "Busy lamp",
             "position": {
@@ -72,7 +72,7 @@
                 "anchor": "left"
             }
         }, {
-            "name": "User2",
+            "name": 2,
             "order": 2,
             "type": "Speed dial",
             "position": {
@@ -81,7 +81,7 @@
                 "anchor": "left"
             }
         }, {
-            "name": "User3",
+            "name": 3,
             "order": 3,
             "type": "Shared",
             "position": {
@@ -95,7 +95,7 @@
         "name": "Cisco Pbx 3",
         "image": "/resources/images/cisco3.jpg",
         "seats": [{
-            "name": "User1",
+            "name": 1,
             "order": 1,
             "type": "Busy lamp",
             "position": {
@@ -104,7 +104,7 @@
                 "anchor": "top"
             }
         }, {
-            "name": "User2",
+            "name": 2,
             "order": 2,
             "type": "Shared",
             "position": {

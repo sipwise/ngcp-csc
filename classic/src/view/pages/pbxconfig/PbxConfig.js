@@ -9,6 +9,9 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfig', {
         afterrender: 'afterPbxContRendered'
     },
 
+    // TODO: Issue with saving of edited card. Only happens on first save. cCrd
+    // gets cut off and other cards disappear. Fix.
+
     initComponent: function() {
 
         this.dockedItems = [{
