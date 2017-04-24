@@ -5,6 +5,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfig', {
     viewModel: 'pbxconfig',
     controller: 'pbxconfig',
 
+    // TODO: 0. Create a todo list for all subtasks
+
     initComponent: function() {
 
         this.dockedItems = [{
