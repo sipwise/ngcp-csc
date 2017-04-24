@@ -2041,6 +2041,13 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'All fields are required. Please fill and try again.',
                 sp: 'All fields are required. Please fill and try again.'
             },
+            field_invalid: {
+                en: 'Field invalid. See field alert for info.',
+                it: 'Field invalid. See field alert for info.',
+                de: 'Field invalid. See field alert for info.',
+                fr: 'Field invalid. See field alert for info.',
+                sp: 'Field invalid. See field alert for info.'
+            },
             field_required: {
                 en: '{0} cannot be empty.',
                 it: '{0} cannot be empty.',

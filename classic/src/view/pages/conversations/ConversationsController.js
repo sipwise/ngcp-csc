@@ -166,6 +166,20 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
     renderCallee: function(val) {
         return '<div class="callee">' + val + '</div>';
     },
+    // reload the conversations every minute,
+    // to fetch latest conversations and trigger
+    // timestamp update
+    conversationGridRendered: function(grid) {
+        var runner = new Ext.util.TaskRunner()
+        var storeReload = function(){
+            grid.getStore().load();
+        };
+
+        task = runner.start({
+            run: storeReload,
+            interval: 60000
+        });
+    },
 
     removeCard: function(el) {
         var store = Ext.getStore('Conversations');
@@ -202,7 +216,7 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
         this.fireEvent('initrtc', record, 'startCall');
     },
 
-    addToAddressbook: function(el){
+    addToAddressbook: function(el) {
         var record = Ext.getStore('Conversations').findRecord('id', el.id.split('-')[1]);
         this.fireEvent('addContact', record);
     },

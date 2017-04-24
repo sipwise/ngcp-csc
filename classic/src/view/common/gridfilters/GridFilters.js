@@ -180,20 +180,23 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                         delay: 100,
                         change: 'submitFilters'
                     }
-                }, {
-                    xtype: 'tagfield',
-                    labelAlign: 'top',
-                    store: 'GroupNames',
-                    displayField: 'group',
-                    valueField: 'group',
-                    width: 250,
-                    bind: '{filtergrid.groups}',
-                    fieldLabel: Ngcp.csc.locales.filters.groups[localStorage.getItem('languageSelected')],
-                    listeners: {
-                        delay: 100,
-                        change: 'submitFilters'
-                    }
-                }]
+                }
+                // TODO: Needs adjusting in gridfilters task
+                // {
+                //     xtype: 'tagfield',
+                //     labelAlign: 'top',
+                //     store: 'GroupNames',
+                //     displayField: 'group',
+                //     valueField: 'group',
+                //     width: 250,
+                //     bind: '{filtergrid.groups}',
+                //     fieldLabel: Ngcp.csc.locales.filters.groups[localStorage.getItem('languageSelected')],
+                //     listeners: {
+                //         delay: 100,
+                //         change: 'submitFilters'
+                //     }
+                // }
+                ]
             }]
         }, {
             xtype: 'form',

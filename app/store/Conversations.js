@@ -5,8 +5,6 @@ Ext.define('NgcpCsc.store.Conversations', {
 
     model: 'NgcpCsc.model.Conversation',
 
-    autoLoad: true,
-
     groupField: 'timeGroup',
 
     proxy: {
