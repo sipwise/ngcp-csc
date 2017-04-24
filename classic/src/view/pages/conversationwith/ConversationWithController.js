@@ -146,5 +146,19 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWithController', {
         if (contacts) {
             contacts.getView().refresh()
         }
+    },
+    // reload the conversations every minute,
+    // to fetch latest conversations and trigger
+    // timestamp update
+    notificationRendered: function(listView){
+        var runner = new Ext.util.TaskRunner();
+        var storeReload = function(){
+            listView.getStore().load();
+        };
+
+        task = runner.start({
+            run: storeReload,
+            interval: 60000
+        });
     }
 });
