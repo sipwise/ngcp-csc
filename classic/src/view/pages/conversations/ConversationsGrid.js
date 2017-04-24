@@ -24,7 +24,8 @@ Ext.define('NgcpCsc.view.pages.conversations.CallsGrid', {
             delegate: 'div.card-icon'
         },
         cellclick: 'expandConversation',
-        rowbodyclick: 'expandConversation'
+        rowbodyclick: 'expandConversation',
+        afterrender: 'conversationGridRendered'
     },
 
     rowLines: false,
@@ -64,7 +65,7 @@ Ext.define('NgcpCsc.view.pages.conversations.CallsGrid', {
             ftype: 'rowbody',
             getAdditionalData: function(data, idx, record) {
                 var content;
-                var footer = "<div class='pointer card-footer' id='card-footer-" + record.get('id') + "'><div></div><div>" + Ngcp.csc.formatter.timeSince(record.get('start_time')) + " " + Ngcp.csc.locales.common.ago[localStorage.getItem('languageSelected')] + "</div></div>"
+                var footer = "<div class='pointer card-footer' data-qtip='" + Ext.util.Format.date(record.get('start_time'), "d.m.Y h:i:s") + "' id='card-footer-" + record.get('id') + "'><div></div><div>" + Ngcp.csc.formatter.timeSince(record.get('start_time')) + "</div></div>"
                 var previewCharNum = Ext.os.is.Desktop ? 110 : me.getWidth() / 7.5;
                 switch (record.get('conversation_type')) {
                     case 'call':
