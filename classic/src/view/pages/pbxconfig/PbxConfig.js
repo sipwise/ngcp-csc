@@ -5,6 +5,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfig', {
     viewModel: 'pbxconfig',
     controller: 'pbxconfig',
 
+    // What's remaining:
+    // TODO: 9. Fix bugs with "delayed" save, or "first save not working when
+    //          adding new seat or group"
+
     initComponent: function() {
 
         this.dockedItems = [{

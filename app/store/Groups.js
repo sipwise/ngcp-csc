@@ -14,6 +14,16 @@ Ext.define('NgcpCsc.store.Groups', {
             type: 'json',
             rootProperty: 'data'
         }
+    },
+
+    listeners: {
+        // TODO: Cvenusino
+        load: function(store, records) {
+            console.info(records);
+        },
+        update: function (store, records) {
+            console.info(records)
+        }
     }
 
 });
