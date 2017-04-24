@@ -35,6 +35,17 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
             var recId = field.id.split("-")[3];
             var iconDivId = 'edit' + storeName.slice(0, -1) + '-' + recId;
             var iconDiv = document.getElementById(iconDivId);
+            // NOTE: Cvenusino
+            // console.log(field.events);
+            // events returned without blur:
+            // change
+            // dirtychange
+            // disable
+            // enable
+            // errorchange
+            // focus
+            // specialkey
+            // validitychange
             me.saveCard(iconDiv);
         };
     },
@@ -128,6 +139,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
     },
 
     showMsgSwitchIconHideFields: function(storeName, el, saved) {
+        // NOTE: Cvenusino
         var elClassList = el.firstChild.classList;
         var recId = el.id.split("-")[1];
         var store = Ext.getStore(storeName);
@@ -138,6 +150,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         elClassList.add(Ngcp.csc.icons.edit.split(' ')[1]);
         el.dataset.callback = 'editCard';
         el.dataset.qtip = Ngcp.csc.locales.filters.tooltips.edit_entry[localStorage.getItem('languageSelected')];
+        console.log(recId, storeName);
         this.showHideFocusFieldsById(recId, storeName, 'hide');
         this.toggleCancelCard(el, 'off');
     },
@@ -423,6 +436,21 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var me = this;
         var fields = this.getView().query('textfield');
         var anyFieldHasFocus = false;
+        // console.log(event.events);
+        // NOTE: Cvenusino
+        // There was Ext.EventManager in ExtJS 4. Something like this in 6.2.0
+        // events returned with blur:
+        // blur
+        // change
+        // dirtychange
+        // disable
+        // enable
+        // errorchange
+        // focus
+        // specialkey
+        // validitychange
+        // TODO: We need to check if specialkey already fired, but not sure
+        // we can see that here
         Ext.defer(function() {
             for (i = 0; i < fields.length; i++) {
                 if (fields[i].hasFocus) {

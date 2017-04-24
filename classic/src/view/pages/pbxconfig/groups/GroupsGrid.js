@@ -32,7 +32,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
             width: '96%'
         }]
     },
-    
+
     userCls: Ext.os.is.Desktop ? 'pbx-widget-grid big-820' : 'pbx-widget-grid small-100',
 
     plugins: [{
@@ -195,6 +195,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                             focus: {
                                 fn: 'setFieldValue'
                             },
+                            // NOTE: Cvenusino
                             blur: {
                                 fn: 'fieldBlurred',
                                 el: 'element'
