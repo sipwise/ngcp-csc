@@ -1907,6 +1907,20 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'for',
                 sp: 'for'
             },
+            valid_mac_address: {
+                en: 'Must be a valid mac address',
+                it: 'Must be a valid mac address',
+                de: 'Must be a valid mac address',
+                fr: 'Must be a valid mac address',
+                sp: 'Must be a valid mac address'
+            },
+            digit_extension_number: {
+                en: 'Must be a 3 digit extension number',
+                it: 'Must be a 3 digit extension number',
+                de: 'Must be a 3 digit extension number',
+                fr: 'Must be a 3 digit extension number',
+                sp: 'Must be a 3 digit extension number'
+            },
             autoattendant: {
                 title: {
                     en: 'Your auto attendants.',
@@ -2040,6 +2054,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'All fields are required. Please fill and try again.',
                 fr: 'All fields are required. Please fill and try again.',
                 sp: 'All fields are required. Please fill and try again.'
+            },
+            field_invalid: {
+                en: 'Field invalid. See field alert for info.',
+                it: 'Field invalid. See field alert for info.',
+                de: 'Field invalid. See field alert for info.',
+                fr: 'Field invalid. See field alert for info.',
+                sp: 'Field invalid. See field alert for info.'
             },
             field_required: {
                 en: '{0} cannot be empty.',

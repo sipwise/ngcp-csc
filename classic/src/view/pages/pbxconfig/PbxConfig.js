@@ -9,6 +9,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfig', {
         afterrender: 'afterPbxContRendered'
     },
 
+    // TODO: 1. Issue with button not hiding fields when saving dirty
+    // TODO: 2. Issue with card cutoff if name is dirty and saved by clicking
+    //          button in Groups and Devices, not Seats
+
     initComponent: function() {
 
         this.dockedItems = [{

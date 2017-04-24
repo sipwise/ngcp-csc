@@ -15,7 +15,22 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.DevicseController', {
             return;
         };
         if (el.dataset.callback) {
+            var fields = this.getView().query('textfield');
+            var fieldToKeepFocused;
+            for (i = 0; i < fields.length; i++) {
+                if (fields[i].hasFocus) {
+                    fieldToKeepFocused = fields[i];
+                }
+            }
             Ext.Function.defer(eval('this.' + el.dataset.callback), 1, this, [el]);
+            if (fieldToKeepFocused) {
+                fieldToKeepFocused.suspendEvent('blur');
+                Ext.Function.defer(
+                    function() {
+                        fieldToKeepFocused.resumeEvent('blur');
+                    }, 50
+                );
+            }
         };
     },
     onMouseEntered: function(event, el) {
