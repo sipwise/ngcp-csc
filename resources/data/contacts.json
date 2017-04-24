@@ -43,6 +43,7 @@
 }, {
     "name": "Operations",
     "iconCls": "x-fa fa-wechat",
+    "uid": "operations",
     "expanded": true,
     "children": [{
         "uid": 162,
