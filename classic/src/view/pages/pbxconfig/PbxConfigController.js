@@ -33,9 +33,9 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         };
     },
 
-    onEnterPressed: function(field, el) {
+    onEnterPressed: function(field, event) {
         var me = this;
-        if (el.getKey() == el.ENTER) {
+        if (event.getKey() == event.ENTER) {
             var currentRoute = window.location.hash;
             var storeName = this.getStoreFromRoute(currentRoute);
             var recId = field.id.split("-")[3];
@@ -161,37 +161,51 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var form = Ext.ComponentQuery.query('#' + storeName.toLowerCase() + '-' + recId)[0];
         var labels = form.query('label');
         var formFields = form.query('textfield, combo');
-        var invalidCheck = 0;
+        var invalidFields = form.query("field{isValid()==false}");
+        var invalidFieldsFiltered = invalidFields.filter(function(item) {
+            switch (item.fieldLabel) {
+                case 'User':
+                    return false;
+                    break;
+                case 'Type':
+                    return false;
+                    break;
+                default:
+                    return true;
+            };
+        });
+        var emptyCheck = 0;
+        var invalidCheck = invalidFieldsFiltered.length;
         for (var field in formFields) {
             var fieldValue = formFields[field].value;
             if (!formFields[field]._skipSaveValidation && Ext.isEmpty(formFields[field].value)) {
-                invalidCheck++;
+                emptyCheck++;
             }
         };
-        switch (invalidCheck === 0) {
-            case true:
-                for (var field in formFields) {
-                    var recKey = formFields[field].id.split('-')[2];
-                    var fieldValue = formFields[field].value;
-                    if (rec.get(recKey) != fieldValue) {
-                        rec.set(recKey, fieldValue);
-                    };
+        if (emptyCheck === 0 && invalidCheck === 0) {
+            for (var field in formFields) {
+                var recKey = formFields[field].id.split('-')[2];
+                var fieldValue = formFields[field].value;
+                if (rec.get(recKey) != fieldValue) {
+                    rec.set(recKey, fieldValue);
                 };
-                switch (rec.dirty) {
-                    case true:
-                        store.commitChanges();
-                        this.keepRowExpanded(grid, rec);
-                        me.showMsgSwitchIconHideFields(storeName, el, true);
-                        break;
-                    case false:
-                        me.showMsgSwitchIconHideFields(storeName, el, false);
-                        break;
-                };
-                break;
-            case false:
-                me.fireEvent('showmessage', false, Ngcp.csc.locales.common.fields_required[localStorage.getItem('languageSelected')]);
-                break;
-        };
+            };
+            switch (rec.dirty) {
+                case true:
+                    store.commitChanges();
+                    // rec.commit();
+                    this.keepRowExpanded(grid, rec);
+                    me.showMsgSwitchIconHideFields(storeName, el, true);
+                    break;
+                case false:
+                    me.showMsgSwitchIconHideFields(storeName, el, false);
+                    break;
+            };
+        } else if (emptyCheck > 0) {
+            me.fireEvent('showmessage', false, Ngcp.csc.locales.common.fields_required[localStorage.getItem('languageSelected')]);
+        } else if (invalidCheck > 0) {
+            me.fireEvent('showmessage', false, Ngcp.csc.locales.common.field_invalid[localStorage.getItem('languageSelected')]);
+        }
     },
 
     addNewEmptyRowToGrid: function(store, storeName, newId) {
@@ -199,34 +213,22 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var view = this.getView();
         switch (storeName) {
             case 'Seats':
-                newRec = store.add({
-                    "id": newId,
-                    "name": "",
-                    "extension": "",
-                    "group": "",
-                    "numbers": "",
-                    "phone_devices": ""
+                var newSeat = Ext.create('NgcpCsc.model.Seat', {
+                    id: newId
                 });
+                newRec = store.add(newSeat);
                 break;
             case 'Groups':
-                newRec = store.add({
-                    "id": newId,
-                    "name": "",
-                    "extension": "",
-                    "hunt_policy": "",
-                    "hunt_timeout": ""
+                var newGroup = Ext.create('NgcpCsc.model.Group', {
+                    id: newId
                 });
+                newRec = store.add(newGroup);
                 break;
             case 'Devices':
-                newRec = store.add({
-                    "id": newId,
-                    "name": "",
-                    "device": "",
-                    "mac": "",
-                    "status": "",
-                    "extension": "",
-                    "extension2": ""
+                var newDevice = Ext.create('NgcpCsc.model.Device', {
+                    id: newId
                 });
+                newRec = store.add(newDevice);
                 break;
         }
         view.down('grid').getSelectionModel().select(newRec);
@@ -323,9 +325,16 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
                 extensionLabel[0].setHidden(labelHide);
                 huntPolicyLabel[0].setHidden(labelHide);
                 huntTimeoutLabel[0].setHidden(labelHide);
-                // To adjust a little bit 'for' and 'seconds' labels downwards when fields are shown
-                huntTimeoutPreLabel[0].toggleCls('pbx-margin-top');
-                huntTimeoutPostLabel[0].toggleCls('pbx-margin-top');
+                switch (hideOrShow) {
+                    case 'show':
+                        huntTimeoutPreLabel[0].addCls('pbx-margin-top');
+                        huntTimeoutPostLabel[0].addCls('pbx-margin-top');
+                        break;
+                    case 'hide':
+                        huntTimeoutPreLabel[0].removeCls('pbx-margin-top');
+                        huntTimeoutPostLabel[0].removeCls('pbx-margin-top');
+                        break;
+                };
                 extensionField[0].setHidden(fieldHide);
                 huntPolicyField[0].setHidden(fieldHide);
                 huntTimeoutField[0].setHidden(fieldHide);

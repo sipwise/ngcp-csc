@@ -35,6 +35,8 @@ Ext.define('NgcpCsc.model.Device', {
                 var lineHorizontalCls = seat.name ? 'connection-left-right-assigned' : 'connection-left-right-unassigned';
                 var lineVerticalCls = seat.name ? 'connection-top-bottom-assigned' : 'connection-top-bottom-unassigned';
                 var btnPos = "top:" + seat.position.top + ";left:" + seat.position.left;
+                var store = Ext.getStore('Seats');
+                var seatNameToFullName = seat.name ? store.findRecord('id', seat.name).get('name') : '';
                 var rectPos,
                     top = seat.position.top,
                     left = seat.position.left,
@@ -69,7 +71,7 @@ Ext.define('NgcpCsc.model.Device', {
                 retVal += '<div><span data-qtip="' + Ngcp.csc.locales.pbxconfig.devices.tooltip.click[localStorage.getItem('languageSelected')] + '" data-onseathovered="seatHovered" data-onseatclick="editSeat" class="' + buttonInfoCls + ' pointer card-icon" style="top:' +
                     top + ';left:' + left + ';" id="seat-info' +
                     rec.get('id') + "-" + seat.order + '">' +
-                    '<span class="button-info-order-' + orderClsPrefix + 'assigned">' + seat.order + '</span>' + (seat.name || '') + '</span><span class="' +
+                    '<span class="button-info-order-' + orderClsPrefix + 'assigned">' + seat.order + '</span>' + (seatNameToFullName || '') + '</span><span class="' +
                     lineCls + '" style="height:' + lineHeight + ';width:' +
                     lineWidth + ';top:' + lineTop + ';left:' +
                     lineLeft + ';"></span><span id="seat-"' +

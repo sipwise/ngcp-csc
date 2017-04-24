@@ -21,7 +21,7 @@ Ext.define('NgcpCsc.model.Seat', {
         type: 'string',
         depends: ['alias_numbers'],
         convert: function (v, record) {
-            var dataToSplit = record.data.alias_numbers.toString();
+            var dataToSplit = record.data.alias_numbers;
             return dataToSplit.replace(/,/g, ", ");
         }
     }, {
@@ -29,8 +29,17 @@ Ext.define('NgcpCsc.model.Seat', {
         type: 'string',
         depends: ['groups'],
         convert: function (v, record) {
-            var dataToSplit = record.data.groups.toString();
-            return dataToSplit.replace(/,/g, ", ");
+            var dataToSplit = record.data.groups;
+            var dataInArray = dataToSplit.split(',');
+            var resultArray = [];
+            var store = Ext.getStore('Groups');
+            for (var data in dataInArray) {
+                var rec = store.findRecord('id', dataInArray[data]);
+                var nameToPush = rec ? rec.get('name') : '';
+                resultArray.push(nameToPush);
+            }
+            var result = resultArray.join(', ');
+            return result;
         }
     }]
 
