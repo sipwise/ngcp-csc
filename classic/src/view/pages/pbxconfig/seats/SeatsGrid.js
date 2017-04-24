@@ -217,10 +217,11 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                     }
                 }, {
                     xtype: 'tagfield',
-                    valueField: 'group',
-                    store: 'GroupNames',
+                    valueField: 'id',
+                    // store: 'GroupNames', // TODO: Remove this store later
+                    store: 'Groups',
                     width: 250,
-                    displayField: 'group',
+                    displayField: 'name',
                     hidden: true,
                     emptyText: Ngcp.csc.locales.pbxconfig.choose_one_or_more_groups[localStorage.getItem('languageSelected')],
                     bind: {
