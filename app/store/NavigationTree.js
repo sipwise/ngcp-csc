@@ -98,17 +98,17 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             routeId: 'pbxconfig',
             acl: ['administrator', 'restricted', 'host'],
             children: [{
-                text: 'Seats',
-                iconCls: Ngcp.csc.icons.home,
-                viewType: 'seats',
-                routeId: 'pbxconfig/seats',
-                acl: ['administrator'],
-                leaf: true
-            }, {
                 text: 'Groups',
                 iconCls: Ngcp.csc.icons.users,
                 viewType: 'groups',
                 routeId: 'pbxconfig/groups',
+                acl: ['administrator'],
+                leaf: true
+            }, {
+                text: 'Seats',
+                iconCls: Ngcp.csc.icons.home,
+                viewType: 'seats',
+                routeId: 'pbxconfig/seats',
                 acl: ['administrator'],
                 leaf: true
             }, {
