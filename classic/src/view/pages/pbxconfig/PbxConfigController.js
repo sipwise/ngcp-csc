@@ -136,6 +136,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         elClassList.remove(Ngcp.csc.icons.floppy.split(' ')[1]);
         elClassList.add(Ngcp.csc.icons.edit.split(' ')[1]);
         el.dataset.callback = 'editCard';
+        el.dataset.qtip = Ngcp.csc.locales.filters.tooltips.edit_entry[localStorage.getItem('languageSelected')];
         this.showHideFocusFieldsById(recId, storeName, 'hide');
         this.toggleCancelCard(el, 'off');
     },
@@ -241,6 +242,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
             elClassList.remove(Ngcp.csc.icons.edit.split(' ')[1])
             elClassList.add(Ngcp.csc.icons.floppy.split(' ')[1]);
             el.dataset.callback = 'saveCard';
+            el.dataset.qtip = Ngcp.csc.locales.filters.tooltips.save_entry[localStorage.getItem('languageSelected')];
             me.toggleCancelCard(el, 'on');
             grid.updateLayout();
         }, 50);
@@ -354,6 +356,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         elClassList.remove(Ngcp.csc.icons.edit.split(' ')[1]);
         elClassList.add(Ngcp.csc.icons.floppy.split(' ')[1]);
         el.dataset.callback = 'saveCard';
+        el.dataset.qtip = Ngcp.csc.locales.filters.tooltips.save_entry[localStorage.getItem('languageSelected')];
         Ext.defer(function() {
             me.showHideFocusFieldsById(recId, storeName, 'show');
         }, 50);
@@ -415,6 +418,27 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
                 editCard.dataset.callback = 'editCard';
                 break;
         }
+    },
+
+    fieldBlurred: function(event) {
+        var me = this;
+        var fields = this.getView().query('textfield');
+        var anyFieldHasFocus = false;
+        Ext.defer(function() {
+            for (i = 0; i < fields.length; i++) {
+                if (fields[i].hasFocus) {
+                    anyFieldHasFocus = true;
+                }
+            }
+            if (!anyFieldHasFocus) {
+                var currentRoute = window.location.hash;
+                var storeName = me.getStoreFromRoute(currentRoute);
+                var recId = event.id.split("-")[3];
+                var iconDivId = 'edit' + storeName.slice(0, -1) + '-' + recId;
+                var iconDiv = document.getElementById(iconDivId);
+                me.saveCard(iconDiv);
+            }
+        }, 1);
     }
 
 });

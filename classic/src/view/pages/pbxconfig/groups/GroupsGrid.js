@@ -32,6 +32,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
             width: '96%'
         }]
     },
+    
     userCls: Ext.os.is.Desktop ? 'pbx-widget-grid big-820' : 'pbx-widget-grid small-100',
 
     plugins: [{
@@ -73,6 +74,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                         focus: {
                             fn: 'setFieldValue'
                         },
+                        blur: {
+                            fn: 'fieldBlurred',
+                            el: 'element'
+                        },
                         specialkey: 'onEnterPressed'
                     }
                 }]
@@ -104,6 +109,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                     listeners: {
                         focus: {
                             fn: 'setFieldValue'
+                        },
+                        blur: {
+                            fn: 'fieldBlurred',
+                            el: 'element'
                         },
                         specialkey: 'onEnterPressed'
                     }
@@ -146,6 +155,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                             focus: {
                                 fn: 'setFieldValue'
                             },
+                            blur: {
+                                fn: 'fieldBlurred',
+                                el: 'element'
+                            },
                             specialkey: 'onEnterPressed'
                         }
                     }]
@@ -182,6 +195,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                             focus: {
                                 fn: 'setFieldValue'
                             },
+                            blur: {
+                                fn: 'fieldBlurred',
+                                el: 'element'
+                            },
                             specialkey: 'onEnterPressed'
                         }
                     }, {
@@ -199,8 +216,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                 xtype: 'label',
                 bind: {
                     html: '<div class="card-wrapper"><div class="card-icon-row">' +
-                    '<div id="removeGroup-{record.id}" class="card-icon" data-callback="removeCard" data-qtip="' + Ngcp.csc.locales.filters.tooltips.remove_seat[localStorage.getItem('languageSelected')] + '"><i class="' + Ngcp.csc.icons.trash2x + ' green-icon pointer" aria-hidden="true"></i></div>' +
-                    '<div id="editGroup-{record.id}" class="card-icon" data-callback="editCard" data-qtip="' + Ngcp.csc.locales.filters.tooltips.edit_seat[localStorage.getItem('languageSelected')] + '"><i class="' + Ngcp.csc.icons.edit2x + ' green-icon pointer" aria-hidden="true"></i></div>' +
+                    '<div id="removeGroup-{record.id}" class="card-icon" data-callback="removeCard" data-qtip="' + Ngcp.csc.locales.filters.tooltips.remove_entry[localStorage.getItem('languageSelected')] + '"><i class="' + Ngcp.csc.icons.trash2x + ' green-icon pointer" aria-hidden="true"></i></div>' +
+                    '<div id="editGroup-{record.id}" class="card-icon" data-callback="editCard" data-qtip="' + Ngcp.csc.locales.filters.tooltips.edit_entry[localStorage.getItem('languageSelected')] + '"><i class="' + Ngcp.csc.icons.edit2x + ' green-icon pointer" aria-hidden="true"></i></div>' +
                     '<div id="cancelGroup-{record.id}" class="card-icon hidden" data-callback="cancelCard" data-qtip="' + Ngcp.csc.locales.pbxconfig.cancel_operation[localStorage.getItem('languageSelected')] + '"><i class="' + Ngcp.csc.icons.block2x + ' green-icon pointer" aria-hidden="true"></i></div>' +
                     '</div></div>'
                 }

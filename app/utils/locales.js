@@ -948,19 +948,26 @@ Ext.define('Ngcp.csc.locales', {
                     fr: 'Remove group',
                     sp: 'Remove group'
                 },
-                edit_seat: {
-                    en: 'Edit seat',
-                    it: 'Edit seat',
-                    de: 'Edit seat',
-                    fr: 'Edit seat',
-                    sp: 'Edit seat'
+                edit_entry: {
+                    en: 'Edit entry',
+                    it: 'Edit entry',
+                    de: 'Edit entry',
+                    fr: 'Edit entry',
+                    sp: 'Edit entry'
                 },
-                remove_seat: {
-                    en: 'Remove seat',
-                    it: 'Remove seat',
-                    de: 'Remove seat',
-                    fr: 'Remove seat',
-                    sp: 'Remove seat'
+                remove_entry: {
+                    en: 'Remove entry',
+                    it: 'Remove entry',
+                    de: 'Remove entry',
+                    fr: 'Remove entry',
+                    sp: 'Remove entry'
+                },
+                save_entry: {
+                    en: 'Save entry',
+                    it: 'Save entry',
+                    de: 'Save entry',
+                    fr: 'Save entry',
+                    sp: 'Save entry'
                 },
                 edit_device: {
                     en: 'Edit device',
