@@ -51,7 +51,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
             width: '96%'
         }]
     },
-    
+
     userCls: Ext.os.is.Desktop ? 'pbx-widget-grid big-820' : 'pbx-widget-grid small-100',
 
     plugins: [{
@@ -91,6 +91,9 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                         bind: {
                             id: 'devices-textfield-name-{record.id}'
                         },
+                        msgTarget: 'side',
+                        regex: /^[a-zA-Z0-9]*$/,
+                        regexText: 'Must be a valid name without spaces',
                         listeners: {
                             // Workaround. Issue when binding is used, any change in any record field triggers a
                             // layout break in the row which looks like row collapse, but is not
@@ -129,6 +132,11 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                         bind: {
                             id: 'devices-textfield-mac-{record.id}'
                         },
+                        msgTarget: 'side',
+                        maxLength: 17,
+                        enforceMaxLength: true,
+                        regex: /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/,
+                        regexText: 'Must be a valid mac address',
                         listeners: {
                             focus: {
                                 fn: 'setFieldValue'

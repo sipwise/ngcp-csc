@@ -72,6 +72,9 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                     bind: {
                         id: 'seats-textfield-name-{record.id}'
                     },
+                    msgTarget: 'side',
+                    regex: /^[a-zA-Z0-9]*$/,
+                    regexText: 'Must be a valid name without spaces',
                     listeners: {
                         focus: {
                             fn: 'setFieldValue'
@@ -109,6 +112,11 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                     bind: {
                         id: 'seats-textfield-extension-{record.id}'
                     },
+                    msgTarget: 'side',
+                    maxLength: 3,
+                    enforceMaxLength: true,
+                    regex: /^[0-9]{3}$/,
+                    regexText: 'Must be a 3 digit extension number',
                     listeners: {
                         focus: {
                             fn: 'setFieldValue'
@@ -217,10 +225,11 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                     }
                 }, {
                     xtype: 'tagfield',
-                    valueField: 'group',
-                    store: 'GroupNames',
+                    valueField: 'id',
+                    // store: 'GroupNames', // TODO: Remove this store later
+                    store: 'Groups',
                     width: 250,
-                    displayField: 'group',
+                    displayField: 'name',
                     hidden: true,
                     emptyText: Ngcp.csc.locales.pbxconfig.choose_one_or_more_groups[localStorage.getItem('languageSelected')],
                     bind: {
