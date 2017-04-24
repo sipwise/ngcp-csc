@@ -12,8 +12,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         }
     },
 
-    afterPbxContRendered: function(cmp){
-        cmp.on('resize', function(){
+    afterPbxContRendered: function(cmp) {
+        cmp.on('resize', function() {
             cmp.fireEvent('cardContainerResized', cmp);
         });
     },
@@ -33,22 +33,37 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         };
     },
 
-    onEnterPressed: function(field, el) {
+    onEnterPressed: function(field, event) {
         var me = this;
-        if (el.getKey() == el.ENTER) {
+        if (event.getKey() == event.ENTER) {
             var currentRoute = window.location.hash;
             var storeName = this.getStoreFromRoute(currentRoute);
             var recId = field.id.split("-")[3];
             var iconDivId = 'edit' + storeName.slice(0, -1) + '-' + recId;
             var iconDiv = document.getElementById(iconDivId);
-            me.saveCard(iconDiv);
+            me.saveCard(iconDiv, true);
         };
     },
 
     onIconClicked: function(event, el) {
         if (el.dataset.callback) {
+            var fields = this.getView().query('textfield');
+            var fieldToKeepFocused;
+            for (i = 0; i < fields.length; i++) {
+                if (fields[i].hasFocus) {
+                    fieldToKeepFocused = fields[i];
+                }
+            }
             // eval is never the best option
-            Ext.Function.defer(eval('this.' + el.dataset.callback), 1, this, [el]);
+            Ext.Function.defer(eval('this.' + el.dataset.callback), 1, this, [el, true]);
+            if (fieldToKeepFocused) {
+                fieldToKeepFocused.suspendEvent('blur');
+                Ext.Function.defer(
+                    function() {
+                        fieldToKeepFocused.resumeEvent('blur');
+                    }, 50
+                );
+            }
         };
     },
 
@@ -107,6 +122,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var store = Ext.getStore(storeName);
         plugin.toggleRow(store.indexOf(rec), rec);
         plugin.toggleRow(store.indexOf(rec), rec);
+        grid.updateLayout();
     },
 
     getFieldComponent: function(view, key, id) {
@@ -133,22 +149,53 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         };
     },
 
-    showMsgSwitchIconHideFields: function(storeName, el, saved) {
+    showMsgSwitchIconHideFields: function(storeName, el, toggleFields, saved) {
+        var me = this;
         var elClassList = el.firstChild.classList;
         var recId = el.id.split("-")[1];
         var store = Ext.getStore(storeName);
         saved === true ?
             this.fireEvent('showmessage', true, Ngcp.csc.locales.pbxconfig.changes_saved[localStorage.getItem('languageSelected')]) :
             this.fireEvent('showmessage', false, Ngcp.csc.locales.pbxconfig.no_changes_saved[localStorage.getItem('languageSelected')]);
-        elClassList.remove(Ngcp.csc.icons.floppy.split(' ')[1]);
-        elClassList.add(Ngcp.csc.icons.edit.split(' ')[1]);
-        el.dataset.callback = 'editCard';
-        el.dataset.qtip = Ngcp.csc.locales.filters.tooltips.edit_entry[localStorage.getItem('languageSelected')];
-        this.showHideFocusFieldsById(recId, storeName, 'hide');
-        this.toggleCancelCard(el, 'off');
+        Ext.Function.defer(function() {
+            if (toggleFields) {
+                elClassList.remove(Ngcp.csc.icons.floppy.split(' ')[1]);
+                elClassList.add(Ngcp.csc.icons.edit.split(' ')[1]);
+                el.dataset.callback = 'editCard';
+                el.dataset.qtip = Ngcp.csc.locales.filters.tooltips.edit_entry[localStorage.getItem('languageSelected')];
+                me.showHideFocusFieldsById(recId, storeName, 'hide');
+                me.toggleCancelCard(el, 'off');
+            };
+        }, 1);
     },
 
-    saveCard: function(el) {
+    filterInvalidFields: function(invalidFields) {
+        var newFieldsArray = invalidFields.filter(function(item) {
+            switch (item.fieldLabel) {
+                case 'User':
+                case 'Type':
+                    return false;
+                    break;
+                default:
+                    return true;
+            };
+        });
+        return newFieldsArray;
+    },
+
+    getToggleFieldsValue: function(toggleFields) {
+        switch (toggleFields) {
+            case true:
+            case undefined:
+                return true;
+                break;
+            case false:
+                return false;
+                break;
+        };
+    },
+
+    saveCard: function(el, toggleFields) {
         var me = this;
         var elClassList = el.firstChild.classList;
         var currentRoute = window.location.hash;
@@ -161,37 +208,40 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var form = Ext.ComponentQuery.query('#' + storeName.toLowerCase() + '-' + recId)[0];
         var labels = form.query('label');
         var formFields = form.query('textfield, combo');
-        var invalidCheck = 0;
+        var invalidFields = form.query("field{isValid()==false}");
+        var invalidFieldsFiltered = me.filterInvalidFields(invalidFields);
+        var emptyCheck = 0;
+        var invalidCheck = invalidFieldsFiltered.length;
+        var toggleFieldsValue = me.getToggleFieldsValue(toggleFields);
         for (var field in formFields) {
             var fieldValue = formFields[field].value;
             if (!formFields[field]._skipSaveValidation && Ext.isEmpty(formFields[field].value)) {
-                invalidCheck++;
+                emptyCheck++;
             }
         };
-        switch (invalidCheck === 0) {
-            case true:
-                for (var field in formFields) {
-                    var recKey = formFields[field].id.split('-')[2];
-                    var fieldValue = formFields[field].value;
-                    if (rec.get(recKey) != fieldValue) {
-                        rec.set(recKey, fieldValue);
-                    };
+        if (emptyCheck === 0 && invalidCheck === 0) {
+            for (var field in formFields) {
+                var recKey = formFields[field].id.split('-')[2];
+                var fieldValue = formFields[field].value;
+                if (rec.get(recKey) != fieldValue) {
+                    rec.set(recKey, fieldValue);
                 };
-                switch (rec.dirty) {
-                    case true:
-                        store.commitChanges();
-                        this.keepRowExpanded(grid, rec);
-                        me.showMsgSwitchIconHideFields(storeName, el, true);
-                        break;
-                    case false:
-                        me.showMsgSwitchIconHideFields(storeName, el, false);
-                        break;
-                };
-                break;
-            case false:
-                me.fireEvent('showmessage', false, Ngcp.csc.locales.common.fields_required[localStorage.getItem('languageSelected')]);
-                break;
-        };
+            };
+            switch (rec.dirty) {
+                case true:
+                    store.commitChanges();
+                    this.keepRowExpanded(grid, rec);
+                    me.showMsgSwitchIconHideFields(storeName, el, toggleFieldsValue, true);
+                    break;
+                case false:
+                    me.showMsgSwitchIconHideFields(storeName, el, toggleFieldsValue, false);
+                    break;
+            };
+        } else if (emptyCheck > 0) {
+            me.fireEvent('showmessage', false, Ngcp.csc.locales.common.fields_required[localStorage.getItem('languageSelected')]);
+        } else if (invalidCheck > 0) {
+            me.fireEvent('showmessage', false, Ngcp.csc.locales.common.field_invalid[localStorage.getItem('languageSelected')]);
+        }
     },
 
     addNewEmptyRowToGrid: function(store, storeName, newId) {
@@ -199,40 +249,28 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var view = this.getView();
         switch (storeName) {
             case 'Seats':
-                newRec = store.add({
-                    "id": newId,
-                    "name": "",
-                    "extension": "",
-                    "group": "",
-                    "numbers": "",
-                    "phone_devices": ""
+                var newSeat = Ext.create('NgcpCsc.model.Seat', {
+                    id: newId
                 });
+                newRec = store.add(newSeat);
                 break;
             case 'Groups':
-                newRec = store.add({
-                    "id": newId,
-                    "name": "",
-                    "extension": "",
-                    "hunt_policy": "",
-                    "hunt_timeout": ""
+                var newGroup = Ext.create('NgcpCsc.model.Group', {
+                    id: newId
                 });
+                newRec = store.add(newGroup);
                 break;
             case 'Devices':
-                newRec = store.add({
-                    "id": newId,
-                    "name": "",
-                    "device": "",
-                    "mac": "",
-                    "status": "",
-                    "extension": "",
-                    "extension2": ""
+                var newDevice = Ext.create('NgcpCsc.model.Device', {
+                    id: newId
                 });
+                newRec = store.add(newDevice);
                 break;
         }
         view.down('grid').getSelectionModel().select(newRec);
-        Ext.Function.defer(function(){
+        Ext.Function.defer(function() {
             view.fireEvent('cardContainerResized', view);
-        },1);
+        }, 1);
     },
 
     addPbx: function() {
@@ -323,9 +361,16 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
                 extensionLabel[0].setHidden(labelHide);
                 huntPolicyLabel[0].setHidden(labelHide);
                 huntTimeoutLabel[0].setHidden(labelHide);
-                // To adjust a little bit 'for' and 'seconds' labels downwards when fields are shown
-                huntTimeoutPreLabel[0].toggleCls('pbx-margin-top');
-                huntTimeoutPostLabel[0].toggleCls('pbx-margin-top');
+                switch (hideOrShow) {
+                    case 'show':
+                        huntTimeoutPreLabel[0].addCls('pbx-margin-top');
+                        huntTimeoutPostLabel[0].addCls('pbx-margin-top');
+                        break;
+                    case 'hide':
+                        huntTimeoutPreLabel[0].removeCls('pbx-margin-top');
+                        huntTimeoutPostLabel[0].removeCls('pbx-margin-top');
+                        break;
+                };
                 extensionField[0].setHidden(fieldHide);
                 huntPolicyField[0].setHidden(fieldHide);
                 huntTimeoutField[0].setHidden(fieldHide);
@@ -390,9 +435,9 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var view = this.getView();
         var store = card.store;
         store.remove(card);
-        Ext.Function.defer(function(){
+        Ext.Function.defer(function() {
             view.fireEvent('cardContainerResized', view);
-        },1);
+        }, 1);
     },
 
     toggleCancelCard: function(el, state) {
@@ -449,7 +494,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
                 var recId = event.id.split("-")[3];
                 var iconDivId = 'edit' + storeName.slice(0, -1) + '-' + recId;
                 var iconDiv = document.getElementById(iconDivId);
-                me.saveCard(iconDiv);
+                me.saveCard(iconDiv, false);
             }
         }, 1);
     }

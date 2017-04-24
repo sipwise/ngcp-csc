@@ -51,7 +51,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
             width: '96%'
         }]
     },
-    
+
     userCls: Ext.os.is.Desktop ? 'pbx-widget-grid big-820' : 'pbx-widget-grid small-100',
 
     plugins: [{
@@ -87,19 +87,17 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                         xtype: 'textfield',
                         required: true,
                         hidden: true,
+                        width: 250,
                         emptyText: Ngcp.csc.locales.pbxconfig.enter_new_name[localStorage.getItem('languageSelected')],
                         bind: {
                             id: 'devices-textfield-name-{record.id}'
                         },
+                        msgTarget: 'side',
                         listeners: {
                             // Workaround. Issue when binding is used, any change in any record field triggers a
                             // layout break in the row which looks like row collapse, but is not
                             focus: {
                                 fn: 'setFieldValue'
-                            },
-                            blur: {
-                                fn: 'fieldBlurred',
-                                el: 'element'
                             },
                             specialkey: 'onEnterPressed'
                         }
@@ -129,13 +127,14 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                         bind: {
                             id: 'devices-textfield-mac-{record.id}'
                         },
+                        msgTarget: 'side',
+                        maxLength: 17,
+                        enforceMaxLength: true,
+                        regex: /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/,
+                        regexText: Ngcp.csc.locales.pbxconfig.valid_mac_address[localStorage.getItem('languageSelected')],
                         listeners: {
                             focus: {
                                 fn: 'setFieldValue'
-                            },
-                            blur: {
-                                fn: 'fieldBlurred',
-                                el: 'element'
                             },
                             specialkey: 'onEnterPressed'
                         }
@@ -169,10 +168,6 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                         },
                         listeners: {
                             focus: 'setFieldValue',
-                            blur: {
-                                fn: 'fieldBlurred',
-                                el: 'element'
-                            },
                             specialkey: 'onEnterPressed',
                             select: 'deviceSelected'
                         },
@@ -209,10 +204,6 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                             focus: {
                                 fn: 'setFieldValue'
                             },
-                            blur: {
-                                fn: 'fieldBlurred',
-                                el: 'element'
-                            },
                             specialkey: 'onEnterPressed'
                         },
                         store: ['Ext1', 'Ext2', 'Ext3']
@@ -247,10 +238,6 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                         listeners: {
                             focus: {
                                 fn: 'setFieldValue'
-                            },
-                            blur: {
-                                fn: 'fieldBlurred',
-                                el: 'element'
                             },
                             specialkey: 'onEnterPressed'
                         },
@@ -320,8 +307,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                             xtype: 'combo',
                             editable: false,
                             _skipSaveValidation: true,
-                            store: ['User1', 'User2', 'User3', 'User4'],
+                            store: 'Seats',
                             name: 'seat',
+                            displayField: 'name',
+                            valueField: 'id',
                             fieldLabel: 'User',
                             allowBlank: false
                         }, {
