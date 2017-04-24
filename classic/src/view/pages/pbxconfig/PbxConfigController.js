@@ -35,6 +35,17 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
             var recId = field.id.split("-")[3];
             var iconDivId = 'edit' + storeName.slice(0, -1) + '-' + recId;
             var iconDiv = document.getElementById(iconDivId);
+            // NOTE: Cvenusino
+            // console.log(field.events);
+            // events returned without blur:
+            // change
+            // dirtychange
+            // disable
+            // enable
+            // errorchange
+            // focus
+            // specialkey
+            // validitychange
             me.saveCard(iconDiv);
         };
     },
@@ -128,6 +139,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
     },
 
     showMsgSwitchIconHideFields: function(storeName, el, saved) {
+        // NOTE: Cvenusino
         var elClassList = el.firstChild.classList;
         var recId = el.id.split("-")[1];
         var store = Ext.getStore(storeName);
@@ -155,37 +167,39 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var form = Ext.ComponentQuery.query('#' + storeName.toLowerCase() + '-' + recId)[0];
         var labels = form.query('label');
         var formFields = form.query('textfield, combo');
-        var invalidCheck = 0;
+        // TODO: Filter out field arrays where fieldLabel is "User" or "Type"
+        var invalidFields = form.query("field{isValid()==false}");
+        var emptyCheck = 0;
+        var invalidCheck = invalidFields.length;
         for (var field in formFields) {
             var fieldValue = formFields[field].value;
             if (!formFields[field]._skipSaveValidation && Ext.isEmpty(formFields[field].value)) {
-                invalidCheck++;
+                emptyCheck++;
             }
         };
-        switch (invalidCheck === 0) {
-            case true:
-                for (var field in formFields) {
-                    var recKey = formFields[field].id.split('-')[2];
-                    var fieldValue = formFields[field].value;
-                    if (rec.get(recKey) != fieldValue) {
-                        rec.set(recKey, fieldValue);
-                    };
+        if (emptyCheck === 0 && invalidCheck === 0) {
+            for (var field in formFields) {
+                var recKey = formFields[field].id.split('-')[2];
+                var fieldValue = formFields[field].value;
+                if (rec.get(recKey) != fieldValue) {
+                    rec.set(recKey, fieldValue);
                 };
-                switch (rec.dirty) {
-                    case true:
-                        store.commitChanges();
-                        this.keepRowExpanded(grid, rec);
-                        me.showMsgSwitchIconHideFields(storeName, el, true);
-                        break;
-                    case false:
-                        me.showMsgSwitchIconHideFields(storeName, el, false);
-                        break;
-                };
-                break;
-            case false:
-                me.fireEvent('showmessage', false, Ngcp.csc.locales.common.fields_required[localStorage.getItem('languageSelected')]);
-                break;
-        };
+            };
+            switch (rec.dirty) {
+                case true:
+                    store.commitChanges();
+                    this.keepRowExpanded(grid, rec);
+                    me.showMsgSwitchIconHideFields(storeName, el, true);
+                    break;
+                case false:
+                    me.showMsgSwitchIconHideFields(storeName, el, false);
+                    break;
+            };
+        } else if (emptyCheck > 0) {
+            me.fireEvent('showmessage', false, Ngcp.csc.locales.common.fields_required[localStorage.getItem('languageSelected')]);
+        } else if (invalidCheck > 0) {
+            me.fireEvent('showmessage', false, Ngcp.csc.locales.common.field_invalid[localStorage.getItem('languageSelected')]);
+        }
     },
 
     addNewEmptyRowToGrid: function(store, storeName, newId) {
@@ -423,6 +437,21 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var me = this;
         var fields = this.getView().query('textfield');
         var anyFieldHasFocus = false;
+        // console.log(event.events);
+        // NOTE: Cvenusino
+        // There was Ext.EventManager in ExtJS 4. Something like this in 6.2.0
+        // events returned with blur:
+        // blur
+        // change
+        // dirtychange
+        // disable
+        // enable
+        // errorchange
+        // focus
+        // specialkey
+        // validitychange
+        // TODO: We need to check if specialkey already fired, but not sure
+        // we can see that here
         Ext.defer(function() {
             for (i = 0; i < fields.length; i++) {
                 if (fields[i].hasFocus) {

@@ -1,14 +1,10 @@
 {
     "data": [{
         "id": 1,
-        "name": "Device1",
-        "device": "Cisco Pbx 1",
-        "mac": "00-14-22-01-23-41",
-        "extension": "Ext2",
-        "extension2": "Ext1",
+        "name": "Cisco Pbx 1",
         "image": "/resources/images/cisco1.jpg",
         "seats": [{
-            "name": 1,
+            "name": "User1",
             "type": "Shared",
             "order": 1,
             "position": {
@@ -17,14 +13,16 @@
                 "anchor": "right"
             }
         }, {
+            "name": "User2",
             "order": 2,
+            "type": "Busy lamp",
             "position": {
                 "top": "16%",
                 "left": "52%",
                 "anchor": "right"
             }
         }, {
-            "name": 3,
+            "name": "User3",
             "order": 3,
             "type": "Speed dial",
             "position": {
@@ -33,7 +31,7 @@
                 "anchor": "right"
             }
         }, {
-            "name": 4,
+            "name": "User4",
             "order": 4,
             "type": "Shared",
             "position": {
@@ -42,7 +40,7 @@
                 "anchor": "top"
             }
         }, {
-            "name": 5,
+            "name": "User5",
             "order": 5,
             "type": "Speed dial",
             "position": {
@@ -51,7 +49,7 @@
                 "anchor": "top"
             }
         }, {
-            "name": 6,
+            "name": "User6",
             "order": 6,
             "type": "Busy lamp",
             "position": {
@@ -62,14 +60,10 @@
         }]
     }, {
         "id": 2,
-        "name": "Device2",
-        "device": "Cisco Pbx 2",
-        "mac": "00-14-22-01-23-42",
-        "extension": "Ext2",
-        "extension2": "Ext1",
+        "name": "Cisco Pbx 2",
         "image": "/resources/images/cisco2.jpg",
         "seats": [{
-            "name": 1,
+            "name": "User1",
             "order": 1,
             "type": "Busy lamp",
             "position": {
@@ -78,7 +72,7 @@
                 "anchor": "left"
             }
         }, {
-            "name": 2,
+            "name": "User2",
             "order": 2,
             "type": "Speed dial",
             "position": {
@@ -87,7 +81,7 @@
                 "anchor": "left"
             }
         }, {
-            "name": 3,
+            "name": "User3",
             "order": 3,
             "type": "Shared",
             "position": {
@@ -98,14 +92,10 @@
         }]
     }, {
         "id": 3,
-        "name": "Device3",
-        "device": "Cisco Pbx 3",
-        "mac": "00-14-22-01-23-43",
-        "extension": "Ext2",
-        "extension2": "Ext1",
+        "name": "Cisco Pbx 3",
         "image": "/resources/images/cisco3.jpg",
         "seats": [{
-            "name": 1,
+            "name": "User1",
             "order": 1,
             "type": "Busy lamp",
             "position": {
@@ -114,75 +104,12 @@
                 "anchor": "top"
             }
         }, {
-            "name": 2,
+            "name": "User2",
             "order": 2,
             "type": "Shared",
             "position": {
                 "top": "35%",
                 "left": "81%",
-                "anchor": "top"
-            }
-        }]
-    }, {
-        "id": 4,
-        "name": "Device4",
-        "device": "Cisco Pbx 1",
-        "mac": "00-14-22-01-23-44",
-        "extension": "Ext2",
-        "extension2": "Ext1",
-        "image": "/resources/images/cisco1.jpg",
-        "seats": [{
-            "name": 1,
-            "type": "Shared",
-            "order": 1,
-            "position": {
-                "top": "12%",
-                "left": "52%",
-                "anchor": "right"
-            }
-        }, {
-            "name": 2,
-            "order": 2,
-            "type": "Busy lamp",
-            "position": {
-                "top": "16%",
-                "left": "52%",
-                "anchor": "right"
-            }
-        }, {
-            "name": 3,
-            "order": 3,
-            "type": "Speed dial",
-            "position": {
-                "top": "19%",
-                "left": "52%",
-                "anchor": "right"
-            }
-        }, {
-            "name": 4,
-            "order": 4,
-            "type": "Shared",
-            "position": {
-                "top": "30%",
-                "left": "60%",
-                "anchor": "top"
-            }
-        }, {
-            "name": 5,
-            "order": 5,
-            "type": "Speed dial",
-            "position": {
-                "top": "30%",
-                "left": "67%",
-                "anchor": "top"
-            }
-        }, {
-            "name": 6,
-            "order": 6,
-            "type": "Busy lamp",
-            "position": {
-                "top": "30%",
-                "left": "74%",
                 "anchor": "top"
             }
         }]
