@@ -34,6 +34,16 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
             var recId = field.id.split("-")[3];
             var iconDivId = 'edit' + storeName.slice(0, -1) + '-' + recId;
             var iconDiv = document.getElementById(iconDivId);
+            // console.log(field);
+            // events returned without blur:
+            // change
+            // dirtychange
+            // disable
+            // enable
+            // errorchange
+            // focus
+            // specialkey
+            // validitychange
             me.saveCard(iconDiv);
         };
     },
@@ -137,6 +147,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         elClassList.add(Ngcp.csc.icons.edit.split(' ')[1]);
         el.dataset.callback = 'editCard';
         el.dataset.qtip = Ngcp.csc.locales.filters.tooltips.edit_entry[localStorage.getItem('languageSelected')];
+        console.log(recId, storeName);
         this.showHideFocusFieldsById(recId, storeName, 'hide');
         this.toggleCancelCard(el, 'off');
     },
@@ -424,6 +435,19 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var me = this;
         var fields = this.getView().query('textfield');
         var anyFieldHasFocus = false;
+        console.log(event);
+        // events returned with blur:
+        // blur
+        // change
+        // dirtychange
+        // disable
+        // enable
+        // errorchange
+        // focus
+        // specialkey
+        // validitychange
+        // TODO: We need to check if specialkey already fired, but not sure
+        // we can see that here
         Ext.defer(function() {
             for (i = 0; i < fields.length; i++) {
                 if (fields[i].hasFocus) {
