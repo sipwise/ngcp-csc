@@ -1,6 +1,13 @@
 Ext.define('NgcpCsc.view.pages.pbxconfig.DevicseController', {
     extend: 'NgcpCsc.view.pages.pbxconfig.PbxConfigController',
     alias: 'controller.devices',
+    listen: {
+        controller: {
+            '*': {
+                seatRemoveConfirmed: 'seatRemoveConfirmed'
+            }
+        }
+    },
     onIconClicked: function(event, el) {
         // overrides onIconClicked of PbxConfigController
         if (el.dataset.onseatclick) {
@@ -104,31 +111,25 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.DevicseController', {
     },
     deleteSeat: function() {
         var me = this;
-        var grid = me.lookupReference('devicesGrid');
         var selectedRec = me.getSelectedRec();
-        var showPanel = Ext.ComponentQuery.query('#seat-show-panel-' + selectedRec.get('id'))[0];
         var editPanel = Ext.ComponentQuery.query('#seat-edit-panel-' + selectedRec.get('id'))[0];
-
         Ext.each(selectedRec.get('seats'), function(seat) {
             if (seat.order == editPanel._order) {
-                Ext.Msg.show({
-                    message: Ext.String.format(Ngcp.csc.locales.pbxconfig.devices.delete_assignment[localStorage.getItem('languageSelected')], seat.order),
-                    buttons: Ext.Msg.YESNO,
-                    icon: Ext.Msg.QUESTION,
-                    fn: function(btn) {
-                        if (btn === 'yes') {
-                            seat.name = null;
-                            seat.type = null;
-                            me.commitUnsavedChanges();
-                            me.fireEvent('showmessage', true, Ngcp.csc.locales.pbxconfig.changes_saved[localStorage.getItem('languageSelected')])
-                            editPanel.hide();
-                            grid.focus();
-                        }
-                    }
-                });
-                return;
+                me.fireEvent('showconfirmbox', Ext.String.format(Ngcp.csc.locales.pbxconfig.devices.delete_assignment[localStorage.getItem('languageSelected')], seat.order), Ngcp.csc.locales.pbxconfig.changes_saved[localStorage.getItem('languageSelected')], 'seatRemoveConfirmed', seat)
             }
         });
+
+    },
+    seatRemoveConfirmed: function(seat) {
+        var me = this;
+        var grid = me.lookupReference('devicesGrid');
+        var selectedRec = me.getSelectedRec();
+        var editPanel = Ext.ComponentQuery.query('#seat-edit-panel-' + selectedRec.get('id'))[0];
+        seat.name = null;
+        seat.type = null;
+        me.commitUnsavedChanges();
+        editPanel.hide();
+        grid.focus();
 
     },
     saveSeat: function() {

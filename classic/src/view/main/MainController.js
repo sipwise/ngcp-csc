@@ -9,6 +9,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
             },
             '*': {
                 showmessage: 'showMessage',
+                showconfirmbox: 'showConfirmBox',
                 updateconversationtitle: 'setSectionTitle',
                 setCentralContentHeight: 'setCentralContentHeight'
             }
@@ -278,6 +279,22 @@ Ext.define('NgcpCsc.view.main.MainController', {
                 ui: 'toast-red'
             });
         };
+    },
+
+    showConfirmBox: function(question, msg, callbackEvent, callbackParams) {
+        var me = this;
+        Ext.Msg.show({
+            title:'Hold on',
+            message: question,
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION,
+            fn: function(btn) {
+                if (btn === 'yes') {
+                    me.fireEvent(callbackEvent, callbackParams);
+                    me.fireEvent('showmessage', true, msg);
+                }
+            }
+        });
     },
 
     setItemsSize: function(view) {
