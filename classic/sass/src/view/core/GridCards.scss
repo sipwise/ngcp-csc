@@ -36,6 +36,11 @@ $grid-row-cell-focus-border-color: '#fff';
         position: relative;
         bottom: 2px;
     }
+
+    .x-grid-with-row-lines .x-grid-item:first-child {
+        border-top-color: lightgray;
+        border-top-width: 1px;
+    }
 }
 
 .card-grid {
