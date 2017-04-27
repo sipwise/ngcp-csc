@@ -3,7 +3,15 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
 
     alias: 'controller.callblocking',
 
-    onEnterPressed: function (field, el) {
+    listen: {
+        controller: {
+            '*': {
+                confirmCallBlockingRemoval: 'confirmCallBlockingRemoval'
+            }
+        }
+    },
+
+    onEnterPressed: function(field, el) {
         if (el.getKey() == el.ENTER) {
             this.addNewNumber();
         };
@@ -24,24 +32,28 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         }
     },
 
-    addUnsuccessful: function () {
+    addUnsuccessful: function() {
         this.fireEvent('showmessage', false, Ngcp.csc.locales.common.save_unsuccess[localStorage.getItem('languageSelected')]);
     },
 
-    addToStore: function (newNumber, newId, store) {
-        store.add({ "id": newId, "block_list": newNumber, "enabled": true });
+    addToStore: function(newNumber, newId, store) {
+        store.add({
+            "id": newId,
+            "block_list": newNumber,
+            "enabled": true
+        });
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.add_success[localStorage.getItem('languageSelected')]);
     },
 
-    getCallBlockingStoreName: function (currentRoute) {
+    getCallBlockingStoreName: function(currentRoute) {
         return currentRoute === '#callblocking/incoming' ? 'CallBlockingIncoming' : 'CallBlockingOutgoing';
     },
 
-    getAcceptedCharacters: function () {
+    getAcceptedCharacters: function() {
         return ['1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '?'];
     },
 
-    addNewNumber: function () {
+    addNewNumber: function() {
         var me = this;
         var vm = me.getViewModel();
         var invalidCheck = 0;
@@ -56,7 +68,7 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         } else {
             newNumber = newNumber.split('');
         };
-        newNumber.forEach(function (character) {
+        newNumber.forEach(function(character) {
             if (acceptedCharacters.indexOf(character) === -1) invalidCheck = 1;
         });
         switch (newNumber.length) {
@@ -99,7 +111,7 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         vm.set('new_number', '');
     },
 
-    clickAllowModeButton: function () {
+    clickAllowModeButton: function() {
         var vm = this.getViewModel();
         var blockAllowMode = vm.get('block_mode');
         if (blockAllowMode === 'allow') {
@@ -109,7 +121,7 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         };
     },
 
-    clickHideModeButton: function () {
+    clickHideModeButton: function() {
         var vm = this.getViewModel();
         var hideMode = vm.get('hide_mode');
         if (hideMode === 'on') {
@@ -124,11 +136,18 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         var currentRoute = window.location.hash;
         var storeName = currentRoute === '#callblocking/incoming' ? 'CallBlockingIncoming' : 'CallBlockingOutgoing';
         var store = Ext.getStore(storeName);
-        store.remove(rec);
-        this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
+        var title = Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')];
+        var question = Ngcp.csc.locales.common.remove_confirm[localStorage.getItem('languageSelected')];
+        var sucessMsg = Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')];
+        this.fireEvent('showconfirmbox', title, question, sucessMsg, 'confirmCallBlockingRemoval', rec);
     },
 
-    enableNumberBlocking: function (event) {
+    confirmCallBlockingRemoval: function(record) {
+        var store = record.store;
+        store.remove(record);
+    },
+
+    enableNumberBlocking: function(event) {
         var rec = event.record;
         var enabledDisabledMode = rec.get('enabled');
         rec.set('enabled', !enabledDisabledMode);
@@ -139,7 +158,7 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         };
     },
 
-    toggleBlockCalls: function (event) {
+    toggleBlockCalls: function(event) {
         var vm = this.getViewModel();
         var submoduleName = event.getTarget().id.split('-')[1];
         var classList = event.target.classList;

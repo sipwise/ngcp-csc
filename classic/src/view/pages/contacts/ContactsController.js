@@ -9,7 +9,8 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
                 collapseContacts: 'collapseContacts',
                 expandContacts: 'expandContacts',
                 resizeContactPanel: 'resizeContactPanel',
-                addContact: 'addContact'
+                addContact: 'addContact',
+                confirmUserRemoval: 'confirmUserRemoval'
             }
         },
         store: {
@@ -183,21 +184,15 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
     },
     deleteUser: function(view, rowIndex, colIndex, item, ev, record) {
         var contactStore = Ext.getStore('Contacts');
-        var me = this;
-        Ext.Msg.show({
-            title: Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')],
-            message: Ext.String.format(Ngcp.csc.locales.contacts.delete_user[localStorage.getItem('languageSelected')], record.get('name')),
-            buttons: Ext.Msg.YESNO,
-            icon: Ext.Msg.QUESTION,
-            fn: function(btn) {
-                if (btn === 'yes') {
-                    me.resizePanel(record)
-                    record.remove();
-                    me.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
-                    me.getView().view.refresh();
-                }
-            }
-        });
+        var me = this;var title = Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')];
+        var question = Ext.String.format(Ngcp.csc.locales.contacts.delete_user[localStorage.getItem('languageSelected')], record.get('name'));
+        var sucessMsg = Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')];
+        this.fireEvent('showconfirmbox', title, question, sucessMsg, 'confirmUserRemoval', record);
+    },
+    confirmUserRemoval: function(userRec){
+        var store = this.getView().getStore();
+        store.remove(userRec);
+        this.getView().view.refresh();
     },
     onPressEnter: function(field, e) {
         if (e.getKey() == e.ENTER) {
@@ -296,23 +291,6 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
             me.fireEvent('openpmtab', null, record);
         }, 100);
         return false;
-    },
-    deleteNode: function(grid, rowIndex, colIndex, item, ev) {
-        var nodeToDelete = grid.getStore().getAt(rowIndex);
-        var me = this;
-        if (nodeToDelete.get('leaf'))
-            return;
-        Ext.Msg.show({
-            message: Ext.String.format(Ngcp.csc.locales.conversationwith.alerts.channel_delete[localStorage.getItem('languageSelected')], nodeToDelete.get('name')),
-            buttons: Ext.Msg.YESNO,
-            icon: Ext.Msg.QUESTION,
-            fn: function(btn) {
-                if (btn === 'yes') {
-                    nodeToDelete.remove();
-                    me.fireEvent('destroytab', nodeToDelete.get('name'));
-                }
-            }
-        });
     },
     validateFields: function(btn) {
         var me = this;

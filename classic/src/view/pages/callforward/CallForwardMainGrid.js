@@ -35,7 +35,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             xtype: 'actioncolumn',
             width: 30,
             align: 'right',
-
             iconCls: Ngcp.csc.icons.trash,
             handler: 'removeEntry'
         }, {

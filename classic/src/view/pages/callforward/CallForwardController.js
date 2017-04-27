@@ -3,6 +3,14 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
 
     alias: 'controller.callforward',
 
+    listen: {
+        controller: {
+            '*': {
+                confirmCFRemoval: 'confirmCFRemoval'
+            }
+        }
+    },
+
     editingPhoneDone: function(editor, context) {
         var record = context.record;
         var grid = context.grid;
@@ -10,7 +18,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         grid.getView().refresh();
     },
 
-    collapsePanel: function (el) {
+    collapsePanel: function(el) {
         var panelId = el.id.split('-')[1];
         var isCollapsed = el.collapsed === false ? false : true;
         var store = Ext.getStore('CallForwardLocalStorage');
@@ -20,41 +28,41 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                 switch (isCollapsed) {
                     case true:
                         localStorageRecord.set('afterHoursCollapsed', true);
-                    break;
+                        break;
                     case false:
                         localStorageRecord.set('afterHoursCollapsed', false);
-                    break;
+                        break;
                 }
                 break;
             case 'companyHours':
                 switch (isCollapsed) {
                     case true:
                         localStorageRecord.set('companyHoursCollapsed', true);
-                    break;
+                        break;
                     case false:
                         localStorageRecord.set('companyHoursCollapsed', false);
-                    break;
+                        break;
                 }
                 break;
         };
         store.sync();
     },
 
-    onEnterPressed: function (field, el) {
+    onEnterPressed: function(field, el) {
         var me = this;
         if (el.getKey() == el.ENTER) {
             me.addNewDestination(field);
         };
     },
 
-    toggleChangeTitle: function (button) {
+    toggleChangeTitle: function(button) {
         var vm = this.getViewModel();
         var buttonId = button.id;
         var hiddenKey = 'hide_' + buttonId.split('-')[2];
         vm.set(hiddenKey, !vm.get(hiddenKey));
     },
 
-    saveNewTitle: function (button) {
+    saveNewTitle: function(button) {
         var vm = this.getViewModel();
         var buttonId = button.id;
         var hiddenKey = 'hide_' + buttonId.split('-')[2];
@@ -62,7 +70,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
     },
 
-    onEditClicked: function (el) {
+    onEditClicked: function(el) {
         var vm = this.getViewModel();
         var classList = el.target.classList;
         switch (true) {
@@ -81,19 +89,25 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return target.indexOf(string) > -1;
     },
 
-    saveEmptyRowToStore: function (grid) {
+    saveEmptyRowToStore: function(grid) {
         var store = grid.getStore();
         var plugin = grid.getPlugin('celleditingTime');
         var newRowIndex = store.getCount() + 1;
         var record = store.getAt(store.getCount() - 1);
         if (record == null || (record.data.phone !== ' ' && record.data.phone !== '')) {
             // Need to add whitespace in record when using widgetcolumn
-            store.add({ "phone": " ", "edit": true });
+            store.add({
+                "phone": " ",
+                "edit": true
+            });
         };
-        plugin.startEditByPosition({ row: newRowIndex, column: 0 });
+        plugin.startEditByPosition({
+            row: newRowIndex,
+            column: 0
+        });
     },
 
-    addEmptyRow: function (button) {
+    addEmptyRow: function(button) {
         var buttonIdSplit = button.id.split('-');
         var buttonPrefixOne = buttonIdSplit[0];
         var buttonPrefixTwo = buttonIdSplit[1];
@@ -113,17 +127,24 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     removeEntry: function(grid, rowIndex, colIndex) {
         var store = grid.getStore();
         var rec = grid.getStore().getAt(rowIndex);
-        store.remove(rec);
-        this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
+        var title = Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')];
+        var question = Ngcp.csc.locales.common.remove_confirm[localStorage.getItem('languageSelected')];
+        var sucessMsg = Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')];
+        this.fireEvent('showconfirmbox', title, question, sucessMsg, 'confirmCFRemoval', rec);
     },
 
-    getStoresArrayFromRoute: function (currentRoute, currentSourceset) {
+    confirmCFRemoval: function(record) {
+        var store = record.store;
+        store.remove(record);
+    },
+
+    getStoresArrayFromRoute: function(currentRoute, currentSourceset) {
         var view = currentRoute.split('/')[1];
         var prefix = currentSourceset + '-' + view + '-';
         return [prefix + 'CallForwardOnline', prefix + 'CallForwardBusy', prefix + 'CallForwardOffline'];
     },
 
-    onTabClicked: function (cmp) {
+    onTabClicked: function(cmp) {
         var me = this;
         var vm = me.getViewModel();
         var currentRoute = window.location.hash.replace('hours', 'Hours');
@@ -139,7 +160,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             success: function(response, opts) {
                 var obj = Ext.decode(response.responseText);
                 var combinationStore = obj.data[0];
-                storesArray.map(function (storeName) {
+                storesArray.map(function(storeName) {
                     var store = Ext.getStore(storeName);
                     var strippedStoreName = storeName.split('-')[2];
                     // Workaround since tabpanel being in initComponent causes this function to run before we have a route set.
@@ -151,13 +172,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                             store.add(records);
                         };
                     };
-                    Ext.defer(function () {
+                    Ext.defer(function() {
                         loadingBar.clearStatus();
                     }, 300);
                 });
             },
-            failure: function(response, opts) {
-            }
+            failure: function(response, opts) {}
         });
     },
 
@@ -174,15 +194,17 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         this.renderDay(record.get('closed'), null, record);
     },
 
-    toggleClosedClass: function (val, meta, rec) {
+    toggleClosedClass: function(val, meta, rec) {
         return rec.get('closed') === true ? Ngcp.csc.icons.square_checked : Ngcp.csc.icons.square;
     },
 
     removeSourcelistRecord: function(grid, rowIndex) {
         var store = grid.getStore();
         var rec = grid.getStore().getAt(rowIndex);
-        store.remove(rec);
-        this.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
+        var title = Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')];
+        var question = Ngcp.csc.locales.common.remove_confirm[localStorage.getItem('languageSelected')];
+        var sucessMsg = Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')];
+        this.fireEvent('showconfirmbox', title, question, sucessMsg, 'confirmCFRemoval', rec);
     },
 
     renderPhoneColumn: function(value, metaData, record) {
@@ -195,7 +217,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
-    showHideTimeoutField: function (vm, record, timeoutField) {
+    showHideTimeoutField: function(vm, record, timeoutField) {
         switch (record) {
             case 'Number':
             case 'Own phone':
@@ -209,7 +231,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
-    selectRing: function (component, record) {
+    selectRing: function(component, record) {
         var vm = this.getViewModel();
         var cmpIdSplit = component.getId().split('-');
         var timeoutFieldCategory = cmpIdSplit[2].replace(/FirstDest|ThenDest/, '');
@@ -217,7 +239,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         this.showHideTimeoutField(vm, record, timeoutFieldCategory + '_' + firstOrThen + '_timeout_hidden');
     },
 
-    toggleNewDestinationForm: function (button) {
+    toggleNewDestinationForm: function(button) {
         var me = this;
         var vm = this.getViewModel();
         var targetId = button.id;
@@ -234,7 +256,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
-    hideThenFieldsByStoreName: function (vm, storeNameStripped) {
+    hideThenFieldsByStoreName: function(vm, storeNameStripped) {
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
         switch (storeNameStripped) {
             case 'CallForwardOnline':
@@ -249,7 +271,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
-    validateDestinationForm: function (storeName) {
+    validateDestinationForm: function(storeName) {
         var me = this;
         var vm = me.getViewModel();
         var targetStore = Ext.getStore(storeName);
@@ -265,7 +287,10 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                         me.fireEvent('showmessage', false, 'Number is required. Please retry.');
                         break;
                     case false:
-                        targetStore.add({ "phone": newDest, "ring_for": "" });
+                        targetStore.add({
+                            "phone": newDest,
+                            "ring_for": ""
+                        });
                         me.hideThenFieldsByStoreName(vm, storeNameStripped);
                         break;
                 };
@@ -280,7 +305,10 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     case true:
                         var newTimeout = newDest === 'Number' ? vm.get(storeNameCategory + '_then_timeout') : '';
                         var newPhone = newDest === 'Number' ? newNumber : newDest;
-                        targetStore.add({ "phone": newPhone, "ring_for": newTimeout });
+                        targetStore.add({
+                            "phone": newPhone,
+                            "ring_for": newTimeout
+                        });
                         vm.set(storeNameCategory + '_then_number', '');
                         me.hideThenFieldsByStoreName(vm, storeNameStripped);
                         break;
@@ -289,7 +317,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
-    addNewDestination: function (element) {
+    addNewDestination: function(element) {
         var me = this;
         var targetId = element.id;
         var splitTargetId = targetId.split('-');
@@ -308,7 +336,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
-    saveGrid: function (el) {
+    saveGrid: function(el) {
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
     }
 
