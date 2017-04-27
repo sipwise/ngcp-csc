@@ -6,7 +6,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
     listen: {
         controller: {
             '*': {
-                unmatchedroute: 'onRouteChange'
+                unmatchedroute: 'onRouteChange',
+                confirmPbxCardRemoval: 'confirmPbxCardRemoval'
             }
         }
     },
@@ -369,17 +370,14 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var store = Ext.getStore(storeName);
         var recId = el.id.split("-")[1];
         var selectedRow = store.findRecord('id', recId);
-        Ext.Msg.show({
-            message: Ext.String.format(Ngcp.csc.locales.common.remove_confirm[localStorage.getItem('languageSelected')]),
-            buttons: Ext.Msg.YESNO,
-            icon: Ext.Msg.QUESTION,
-            fn: function(btn) {
-                if (btn === 'yes') {
-                    store.remove(selectedRow);
-                    me.fireEvent('showmessage', true, Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')]);
-                }
-            }
-        });
+
+        me.fireEvent('showconfirmbox', Ngcp.csc.locales.common.remove_confirm[localStorage.getItem('languageSelected')], Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')], 'confirmPbxCardRemoval', selectedRow)
+
+    },
+
+    confirmPbxCardRemoval:function(card){
+        var store = card.store;
+        store.remove(card);
     },
 
     toggleCancelCard: function(el, state) {

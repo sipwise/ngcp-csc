@@ -2300,6 +2300,13 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Fax',
                 sp: 'Fax'
             },
+            holdon: {
+                en: 'Hold on',
+                it: 'Hold on',
+                de: 'Hold on',
+                fr: 'Hold on',
+                sp: 'Hold on'
+            },
             conversation_type: {
                 call: {
                     en: 'Call',
