@@ -5,6 +5,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
     reference: 'seatsGrid',
     store: 'Seats',
 
+
     viewConfig: {
         stripeRows: false,
         enableTextSelection: true

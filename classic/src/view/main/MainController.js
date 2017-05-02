@@ -13,6 +13,11 @@ Ext.define('NgcpCsc.view.main.MainController', {
                 updateconversationtitle: 'setSectionTitle',
                 setCentralContentHeight: 'setCentralContentHeight'
             }
+        },
+        component: {
+            '*': {
+                cardContainerResized: 'cardContainerResized'
+            }
         }
     },
 
@@ -358,6 +363,17 @@ Ext.define('NgcpCsc.view.main.MainController', {
             this.fireEvent('focusLastMsg');
             this.fireEvent('resizeContactPanel', height - mainToolbarHeight);
         }
+    },
+
+
+    cardContainerResized: function(cmp) {
+        var cmpEl = cmp.getEl();
+        var contEl = this.lookupReference('mainCardPanel');
+        var tbarEl = cmpEl.down('.x-toolbar');
+        var gridEl = cmpEl.down('.card-grid');
+        var contHeight = contEl.getHeight() - tbarEl.getHeight();
+        var gridHeight = gridEl.getHeight();
+        (gridHeight > contHeight) ? gridEl.addCls('extra-left') : gridEl.removeCls('extra-left');
     },
 
     newSearch: function(el) {
