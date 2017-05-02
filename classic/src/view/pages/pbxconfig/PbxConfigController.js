@@ -12,6 +12,12 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         }
     },
 
+    afterPbxContRendered: function(cmp){
+        cmp.on('resize', function(){
+            cmp.fireEvent('cardContainerResized', cmp);
+        });
+    },
+
     onRouteChange: function() {
         var vm = this.getViewModel();
         switch (window.location.hash) {
@@ -77,6 +83,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         plugin.toggleRow(store.indexOf(record), record);
         Ext.defer(function() {
             view.grid.updateLayout();
+            view.fireEvent('cardContainerResized', me.getView());
         }, 50);
         if (currentRoute == '#pbxconfig/devices') {
             var grid = this.lookupReference('devicesGrid');
@@ -89,7 +96,6 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
                     plugin.toggleRow(index, store.getAt(index)); // collapse all cards but the active one
                 }
             });
-
         }
     },
 
@@ -190,6 +196,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
 
     addNewEmptyRowToGrid: function(store, storeName, newId) {
         var newRec;
+        var view = this.getView();
         switch (storeName) {
             case 'Seats':
                 newRec = store.add({
@@ -222,7 +229,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
                 });
                 break;
         }
-        this.getView().down('grid').getSelectionModel().select(newRec);
+        view.down('grid').getSelectionModel().select(newRec);
+        Ext.Function.defer(function(){
+            view.fireEvent('cardContainerResized', view);
+        },50)
     },
 
     addPbx: function() {
@@ -376,9 +386,11 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         me.fireEvent('showconfirmbox', title, question, sucessMsg, 'confirmPbxCardRemoval', selectedRow);
     },
 
-    confirmPbxCardRemoval:function(card){
+    confirmPbxCardRemoval: function(card) {
+        var view = this.getView();
         var store = card.store;
         store.remove(card);
+        view.fireEvent('cardContainerResized', view);
     },
 
     toggleCancelCard: function(el, state) {
@@ -439,5 +451,4 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
             }
         }, 1);
     }
-
 });

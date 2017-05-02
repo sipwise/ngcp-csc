@@ -17,6 +17,12 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         };
     },
 
+    afterCBRendered: function(cmp){
+        cmp.on('resize', function(){
+            cmp.fireEvent('cardContainerResized', cmp);
+        });
+    },
+
     renderBarrNumber: function(value, meta, record) {
         if (record.get('enabled') === false) {
             return Ext.String.format('<div style="color: #666;text-decoration: line-through;font-size: 16px;padding-left: 10px;">{0}</div>', value);
@@ -37,11 +43,13 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
     },
 
     addToStore: function(newNumber, newId, store) {
+        var view = this.getView();
         store.add({
             "id": newId,
             "block_list": newNumber,
             "enabled": true
         });
+        view.fireEvent('cardContainerResized', view);
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.add_success[localStorage.getItem('languageSelected')]);
     },
 
@@ -143,8 +151,10 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
     },
 
     confirmCallBlockingRemoval: function(record) {
+        var view = this.getView();
         var store = record.store;
         store.remove(record);
+        view.fireEvent('cardContainerResized', view);
     },
 
     enableNumberBlocking: function(event) {
