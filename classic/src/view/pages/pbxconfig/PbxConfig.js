@@ -5,6 +5,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfig', {
     viewModel: 'pbxconfig',
     controller: 'pbxconfig',
 
+    listeners: {
+        afterrender: 'afterPbxContRendered'
+    },
+
     initComponent: function() {
 
         this.dockedItems = [{

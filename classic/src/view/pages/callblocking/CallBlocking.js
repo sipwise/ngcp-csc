@@ -12,7 +12,8 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlocking', {
             fn: 'onIconClicked',
             element: 'el',
             delegate: 'div.toggle-section'
-        }
+        },
+        afterrender: 'afterCBRendered'
     },
 
     initComponent: function() {
