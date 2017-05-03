@@ -273,15 +273,17 @@ Ext.define('NgcpCsc.view.main.MainController', {
     showMessage: function(success, msg) {
         if (success) {
             Ext.toast({
-                html: msg,
-                align: 't',
-                ui: 'toast-green'
+                html: '<i class="' + Ngcp.csc.icons.check + '" aria-hidden="true"></i> ' + msg,
+                align: 'tr',
+                ui: 'toast-green',
+                autoCloseDelay: 5000
             });
         } else {
             Ext.toast({
-                html: msg,
-                align: 't',
-                ui: 'toast-red'
+                html: '<i class="' + Ngcp.csc.icons.exclamation + '" aria-hidden="true"></i> ' + msg,
+                align: 'tr',
+                ui: 'toast-red',
+                autoCloseDelay: 5000
             });
         };
     },
