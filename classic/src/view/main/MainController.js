@@ -270,13 +270,15 @@ Ext.define('NgcpCsc.view.main.MainController', {
             Ext.toast({
                 html: msg,
                 align: 't',
-                ui: 'toast-green'
+                ui: 'toast-green',
+                autoClose: false
             });
         } else {
             Ext.toast({
                 html: msg,
                 align: 't',
-                ui: 'toast-red'
+                ui: 'toast-red',
+                autoClose: false
             });
         };
     },
