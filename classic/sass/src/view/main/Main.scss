@@ -187,15 +187,36 @@
 
 @include extjs-window-ui(
     $ui: 'toast-red',
-    $ui-border-color: #FF0000
+    $ui-border-color: #FF0000,
 );
 
 @include extjs-window-ui(
     $ui: 'toast-green',
-    $ui-border-color: #66A648
+    $ui-border-color: $base-color,
 );
 
 // custom classes & overrides
+
+.x-window-toast-green .x-autocontainer-innerCt,
+.x-window-toast-red .x-autocontainer-innerCt {
+    background: #F6F6F6;
+    font-size: 15px;
+    .x-fa {
+        // NOTE Cvenusino: This does not get added to toast-red class. Could
+        // you please have a look and advice?
+        color: #9E9F9F !important;
+    }
+}
+
+.x-window-toast-green,
+.x-window-toast-red {
+    background: #F6F6F6;
+    border-width: 1px;
+    border-radius: 2px;
+    padding: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+}
 
 .main-container {
     .x-panel-body {
