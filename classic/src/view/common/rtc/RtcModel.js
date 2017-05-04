@@ -9,10 +9,10 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
         defaultThumbnail: 'resources/images/icons/phoneicon.png',
         thumbnail: 'resources/images/icons/phoneicon.png',
         status: 'calling...',
-        callPanelHidden: false,
-        phoneComposerHidden: false,
-        faxComposerHidden: false,
-        smsComposerHidden: false,
+        callPanelHidden: true,
+        phoneComposerHidden: true,
+        faxComposerHidden: true,
+        smsComposerHidden: true,
         phoneKeyboardHidden: true,
         callEnabled: false,
         connected: false,
@@ -27,7 +27,7 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
         // sms only fields
         smsText: '',
         // panel status
-        minimized: false
+        minimized: true
     },
     formulas: {
         disableSubmit: function(get) {
