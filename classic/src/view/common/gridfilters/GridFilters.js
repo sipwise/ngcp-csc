@@ -9,6 +9,11 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
 
     ui: 'core-container',
 
+    // DONE 1. remove toggle (H) input button, and always search in all data of current active module 
+    // TODO 2. reset input field should be triggered on route change, to prevent wrong filtering
+    // TODO 3. all the input fields should have label left & input right
+    // TODO 4. implement filters for last devices/seats/groups changes
+
     initComponent: function() {
         this.items = [{
             xtype: 'form',

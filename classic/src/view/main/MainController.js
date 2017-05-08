@@ -194,10 +194,6 @@ Ext.define('NgcpCsc.view.main.MainController', {
         } else {
             vm.set('headerBarFieldHideState', true);
         };
-        if (id == 'pbxconfig/seats' || id == 'pbxconfig/groups' || id == 'pbxconfig/devices') {
-            this.toggleFree('pressed');
-            toggleButton.setPressed(true);
-        };
     },
 
     setSectionTitle: function(id, record) {
@@ -388,10 +384,6 @@ Ext.define('NgcpCsc.view.main.MainController', {
 
     toggleFilter: function() {
         this.fireEvent('toggleFilterForm');
-    },
-
-    toggleFree: function(pressed) {
-        this.fireEvent('toggleFreeSearch', pressed);
     }
 
 });

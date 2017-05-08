@@ -30,8 +30,8 @@ Ext.define('NgcpCsc.model.GridFilters', {
         'convFilterHideState',
         'pbxSeatsFilterHideState',
         'pbxGroupsFilterHideState',
-        'pbxDevicesFilterHideState',
-        'freeSearchState'
+        'pbxDevicesFilterHideState'
+        // ,'freeSearchState'
     ],
 
     proxy: {
