@@ -8,7 +8,6 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
                 newSearchFieldInput: 'filterBySearchFieldInput',
                 toggleFilterForm: 'toggleFilterForm',
                 routeChange: 'hideFilterForms',
-                toggleFreeSearch: 'toggleFreeSearch',
                 resetFilters : 'resetVM'
             }
         }
@@ -20,28 +19,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         var currentRoute = window.location.hash;
         var storeName = me.getStoreFromRoute(currentRoute);
         var store = Ext.getStore(storeName);
-        if (vm.get('freeSearchState')) {
-            store.filterBy(me.applyFreeSearchFilter, me);
-        } else {
-            switch (true) {
-                case (currentRoute == '#inbox'):
-                    store.filterBy(me.applyConvSearchFilter, me);
-                    break;
-                case (currentRoute == '#conversation-with'):
-                    store.filterBy(me.applyConvWithSearchFilter, me);
-                    break;
-                break
-                case (currentRoute == '#pbxconfig/devices'):
-                    store.filterBy(me.applyPbxSearchFilter, me);
-                    break;
-                case (currentRoute == '#pbxconfig/groups'):
-                    store.filterBy(me.applyPbxSearchFilter, me);
-                    break;
-                case (currentRoute == '#pbxconfig/seats'):
-                    store.filterBy(me.applyPbxSearchFilter, me);
-                    break;
-            };
-        };
+        store.filterBy(me.applyFreeSearchFilter, me);
     },
 
     applyFreeSearchFilter: function(record) {
@@ -247,19 +225,21 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
     resetFilters: function(store) {
         var store;
         var me = this;
+        var vm = this.getViewModel();
         var currentRoute = window.location.hash;
         var storeName = me.getStoreFromRoute(currentRoute);
         if (Ext.isString(storeName)) {
             storeName = [storeName]; // both string and array should be allowed
-        }
+        };
         Ext.each(storeName, function(storeId) {
             store = Ext.getStore(storeId);
             me.resetVM(store);
-        })
+        });
     },
 
     resetVM: function(store) {
         var vm = this.getViewModel();
+        this.fireEvent('resetHeaderBarInput');
         if(store){
             store.clearFilter();
         }
@@ -350,19 +330,6 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         vm.set('filtergrid.pbxSeatsFilterHideState', true);
         vm.set('filtergrid.pbxGroupsFilterHideState', true);
         vm.set('filtergrid.pbxDevicesFilterHideState', true);
-    },
-
-    toggleFreeSearch: function (pressed) {
-        var vm = this.getViewModel();
-        var currentFreeSearchState = vm.get('freeSearchState');
-        switch (!pressed) {
-            case (true):
-                vm.set('freeSearchState', !currentFreeSearchState);
-                break;
-            case (false):
-                vm.set('freeSearchState', true);
-                break;
-        };
     }
 
 });

@@ -9,6 +9,12 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
 
     ui: 'core-container',
 
+    // DONE 1. remove toggle (H) input button, and always search in all data of current active module
+    // DONE 2. reset input field should be triggered on route change, to prevent wrong filtering
+    // DONE 3. make input field slightly wider, to be consistent with card-grid width
+    // DONE 4. all the input fields should have label left & input right
+    // TODO 5. implement filters for last devices/seats/groups changes
+
     initComponent: function() {
         this.items = [{
             xtype: 'form',
@@ -143,7 +149,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 userCls: 'small-100 big-50',
                 items: [{
                     xtype: 'textfield',
-                    labelAlign: 'top',
+                    labelAlign: 'left',
                     bind: '{filtergrid.seats_extension}',
                     fieldLabel: Ngcp.csc.locales.filters.extension[localStorage.getItem('languageSelected')],
                     listeners: {
@@ -152,7 +158,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                     }
                 }, {
                     xtype: 'combo',
-                    labelAlign: 'top',
+                    labelAlign: 'left',
                     store: 'PrimaryNumbers',
                     bind: '{filtergrid.primary_number}',
                     displayField: 'number',
@@ -169,7 +175,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 userCls: 'small-100 big-50',
                 items: [{
                     xtype: 'tagfield',
-                    labelAlign: 'top',
+                    labelAlign: 'left',
                     store: 'AliasNumbers',
                     displayField: 'number',
                     valueField: 'number',
@@ -182,7 +188,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                     }
                 }, {
                     xtype: 'tagfield',
-                    labelAlign: 'top',
+                    labelAlign: 'left',
                     store: 'GroupNames',
                     displayField: 'group',
                     valueField: 'group',
@@ -209,7 +215,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 userCls: 'small-100 big-50',
                 items: [{
                     xtype: 'textfield',
-                    labelAlign: 'top',
+                    labelAlign: 'left',
                     bind: '{filtergrid.groups_extension}',
                     fieldLabel: Ngcp.csc.locales.filters.extension[localStorage.getItem('languageSelected')],
                     listeners: {
@@ -218,7 +224,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                     }
                 }, {
                     xtype: 'combo',
-                    labelAlign: 'top',
+                    labelAlign: 'left',
                     store: 'HuntPolicies',
                     displayField: 'policy',
                     valueField: 'policy',
@@ -235,7 +241,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 userCls: 'small-100 big-50',
                 items: [{
                     xtype: 'textfield',
-                    labelAlign: 'top',
+                    labelAlign: 'left',
                     bind: '{filtergrid.hunt_timeout}',
                     fieldLabel: Ngcp.csc.locales.filters.hunt_timeout[localStorage.getItem('languageSelected')],
                     listeners: {
@@ -258,7 +264,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 userCls: 'small-100 big-50',
                 items: [{
                     xtype: 'combo',
-                    labelAlign: 'top',
+                    labelAlign: 'left',
                     store: Ext.create('NgcpCsc.store.DevicesList'),
                     fieldLabel: Ngcp.csc.locales.pbxconfig.device_profile[localStorage.getItem('languageSelected')],
                     name: 'deviceCombo',
@@ -272,7 +278,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                     }
                 }, {
                     xtype: 'textfield',
-                    labelAlign: 'top',
+                    labelAlign: 'left',
                     bind: '{filtergrid.mac}',
                     fieldLabel: Ngcp.csc.locales.filters.mac[localStorage.getItem('languageSelected')],
                     listeners: {
@@ -285,7 +291,7 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 userCls: 'small-100 big-50',
                 items: [{
                     xtype: 'checkboxgroup',
-                    labelAlign: 'top',
+                    labelAlign: 'left',
                     defaults: {
                         listeners: {
                             delay: 100,

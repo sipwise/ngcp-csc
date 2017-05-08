@@ -11,7 +11,8 @@ Ext.define('NgcpCsc.view.main.MainController', {
                 showmessage: 'showMessage',
                 showconfirmbox: 'showConfirmBox',
                 updateconversationtitle: 'setSectionTitle',
-                setCentralContentHeight: 'setCentralContentHeight'
+                setCentralContentHeight: 'setCentralContentHeight',
+                resetHeaderBarInput: 'resetHeaderBarInput'
             }
         },
         component: {
@@ -27,9 +28,12 @@ Ext.define('NgcpCsc.view.main.MainController', {
 
     lastView: null,
 
+    resetHeaderBarInput: function () {
+        this.lookupReference('filterTxtSearch').setValue('');
+    },
+
     setCurrentView: function(hashTag) {
         hashTag = (hashTag || '').toLowerCase();
-
         var me = this,
             refs = me.getReferences(),
             mainCard = refs.mainCardPanel,
@@ -42,18 +46,14 @@ Ext.define('NgcpCsc.view.main.MainController', {
             lastView = me.lastView,
             existingItem = mainCard.child('component[routeId=' + hashTag + ']'),
             newView;
-
         if (!view) {
             return;
         }
-
         // Kill any previously routed window
         if (lastView && lastView.isWindow) {
             lastView.destroy();
         }
-
         lastView = mainLayout.getActiveItem();
-
         if (!existingItem) {
             newView = Ext.create({
                 xtype: view,
@@ -62,7 +62,6 @@ Ext.define('NgcpCsc.view.main.MainController', {
                 hideMode: 'offsets'
             });
         }
-
         if (!newView || !newView.isWindow) {
             // !newView means we have an existing view, but if the newView isWindow
             // we don't add it to the card layout.
@@ -80,17 +79,12 @@ Ext.define('NgcpCsc.view.main.MainController', {
                 Ext.resumeLayouts(true);
             }
         }
-
         navigationList.setSelection(node);
-
         if (newView.isFocusable(true)) {
             newView.focus();
         }
-
         me.toggleFilter();
-
         me.fireEvent('resetFilters');
-
         me.lastView = newView;
     },
 
@@ -193,10 +187,6 @@ Ext.define('NgcpCsc.view.main.MainController', {
             vm.set('headerBarFieldHideState', false);
         } else {
             vm.set('headerBarFieldHideState', true);
-        };
-        if (id == 'pbxconfig/seats' || id == 'pbxconfig/groups' || id == 'pbxconfig/devices') {
-            this.toggleFree('pressed');
-            toggleButton.setPressed(true);
         };
     },
 
@@ -388,10 +378,6 @@ Ext.define('NgcpCsc.view.main.MainController', {
 
     toggleFilter: function() {
         this.fireEvent('toggleFilterForm');
-    },
-
-    toggleFree: function(pressed) {
-        this.fireEvent('toggleFreeSearch', pressed);
     }
 
 });
