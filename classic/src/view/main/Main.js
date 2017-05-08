@@ -42,7 +42,7 @@ Ext.define('NgcpCsc.view.main.Main', {
                     html: '&nbsp;', // workaround to set the height
                     width: (Ext.isIE9m || !Ext.os.is.Desktop) ? 64 : 250
                 }, {
-                    margin: '0 0 0 8',
+                    margin: '0 18 0 8',
                     ui: 'header',
                     iconCls: 'x-fa fa-navicon',
                     id: 'main-navigation-btn',
@@ -55,7 +55,7 @@ Ext.define('NgcpCsc.view.main.Main', {
                     },
                     // need specs on what should be shown in toolbar.
                     // for now, in mobile the search field takes ~half of the available space
-                    width: Ext.os.is.Desktop ? 730 : '52%',
+                    width: Ext.os.is.Desktop ? 775 : '55%',
                     listeners: {
                         input: {
                             element: 'el',
@@ -63,21 +63,9 @@ Ext.define('NgcpCsc.view.main.Main', {
                         }
                     }
                 }, {
-                    iconCls: 'x-fa fa-header',
-                    reference: 'headerToggleButton',
-                    enableToggle: true,
-                    pressed: false,
-                    tooltip: Ngcp.csc.locales.filters.tooltips.search_toggle[localStorage.getItem('languageSelected')],
-                    margin: '0 2 0 3',
-                    bind: {
-                        hidden: '{headerBarFieldHideState}'
-                    },
-                    listeners: {
-                        click: 'toggleFree'
-                    }
-                }, {
                     iconCls: Ngcp.csc.icons.filter,
                     enableToggle: true,
+                    width: 35,
                     tooltip: Ngcp.csc.locales.filters.tooltips.show_filter[localStorage.getItem('languageSelected')],
                     bind: {
                         hidden: '{headerBarFieldHideState}'
