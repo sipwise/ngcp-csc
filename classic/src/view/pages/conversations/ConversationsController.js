@@ -174,7 +174,7 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
         var storeReload = function(){
             grid.getStore().load();
         };
-
+        
         task = runner.start({
             run: storeReload,
             interval: 60000
