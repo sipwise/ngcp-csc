@@ -23,9 +23,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
     init: function (view) {
         var me = this,
             refs = me.getReferences();
-
         me.callParent([ view ]);
-
         me.nav = refs.navigation;
         me.navigationTree = refs.navigationTree;
     },
@@ -36,7 +34,6 @@ Ext.define('NgcpCsc.view.main.MainController', {
 
     onNavigationTreeSelectionChange: function (tree, node) {
         var to = node && (node.get('routeId') || node.get('viewType'));
-
         if (to) {
             this.redirectTo(to);
         }
@@ -51,7 +48,6 @@ Ext.define('NgcpCsc.view.main.MainController', {
 
     setCurrentView: function (hashTag) {
         hashTag = (hashTag || 'desktop').toLowerCase();
-
         var me = this,
             refs = me.getReferences(),
             mainCard = refs.mainCard,
@@ -60,29 +56,20 @@ Ext.define('NgcpCsc.view.main.MainController', {
             node = store.findNode('routeId', hashTag) ||
                    store.findNode('viewType', hashTag),
             item = mainCard.child('component[routeId=' + hashTag + ']');
-
         if (!item) {
             item = mainCard.add({
                 xtype: node.get('viewType'),
                 routeId: hashTag
             });
         }
-
         mainCard.setActiveItem(item);
-
         navigationTree.setSelection(node);
-
-        //if (newView.isFocusable(true)) {
-        //    newView.focus();
-        //}
     },
 
     updateShowNavigation: function (showNavigation, oldValue) {
-      //debugger
         // Ignore the first update since our initial state is managed specially. This
         // logic depends on view state that must be fully setup before we can toggle
         // things.
-        //
         if (oldValue !== undefined) {
             var me = this,
                 cls = me.collapsedCls,
