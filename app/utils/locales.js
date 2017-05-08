@@ -983,15 +983,15 @@ Ext.define('Ngcp.csc.locales', {
             }
         },
         filters: {
-            tooltips:{
-                search_toggle:{
+            tooltips: {
+                search_toggle: {
                     en: 'Search for text in card header only, or whole card.',
                     it: 'Search for text in card header only, or whole card.',
                     de: 'Search for text in card header only, or whole card.',
                     fr: 'Search for text in card header only, or whole card.',
                     sp: 'Search for text in card header only, or whole card.'
                 },
-                show_filter:{
+                show_filter: {
                     en: 'Show filters.',
                     it: 'Show filters.',
                     de: 'Show filters.',
@@ -1208,6 +1208,20 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Alias numbers',
                 fr: 'Alias numbers',
                 sp: 'Alias numbers'
+            },
+            user: {
+                en: 'User',
+                it: 'User',
+                de: 'User',
+                fr: 'User',
+                sp: 'User'
+            },
+            type: {
+                en: 'Type',
+                it: 'Type',
+                de: 'Type',
+                fr: 'Type',
+                sp: 'Type'
             }
         },
         settings: {

@@ -12,6 +12,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
                 showconfirmbox: 'showConfirmBox',
                 updateconversationtitle: 'setSectionTitle',
                 setCentralContentHeight: 'setCentralContentHeight'
+                // ,resetHeaderBarInput: 'resetHeaderBarInput'
             }
         },
         component: {
@@ -27,9 +28,12 @@ Ext.define('NgcpCsc.view.main.MainController', {
 
     lastView: null,
 
+    // resetHeaderBarInput: function () {
+    //     this.lookupReference('filterTxtSearch').setValue('');
+    // },
+
     setCurrentView: function(hashTag) {
         hashTag = (hashTag || '').toLowerCase();
-
         var me = this,
             refs = me.getReferences(),
             mainCard = refs.mainCardPanel,
@@ -42,18 +46,14 @@ Ext.define('NgcpCsc.view.main.MainController', {
             lastView = me.lastView,
             existingItem = mainCard.child('component[routeId=' + hashTag + ']'),
             newView;
-
         if (!view) {
             return;
         }
-
         // Kill any previously routed window
         if (lastView && lastView.isWindow) {
             lastView.destroy();
         }
-
         lastView = mainLayout.getActiveItem();
-
         if (!existingItem) {
             newView = Ext.create({
                 xtype: view,
@@ -62,7 +62,6 @@ Ext.define('NgcpCsc.view.main.MainController', {
                 hideMode: 'offsets'
             });
         }
-
         if (!newView || !newView.isWindow) {
             // !newView means we have an existing view, but if the newView isWindow
             // we don't add it to the card layout.
@@ -80,17 +79,13 @@ Ext.define('NgcpCsc.view.main.MainController', {
                 Ext.resumeLayouts(true);
             }
         }
-
         navigationList.setSelection(node);
-
         if (newView.isFocusable(true)) {
             newView.focus();
         }
-
         me.toggleFilter();
-
         me.fireEvent('resetFilters');
-
+        this.lookupReference('filterTxtSearch').setValue('');
         me.lastView = newView;
     },
 
@@ -105,6 +100,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
             this.mainContainerResized();
         }
     },
+
     onToggleNavigationSize: function() {
         var me = this,
             refs = me.getReferences(),
@@ -193,10 +189,6 @@ Ext.define('NgcpCsc.view.main.MainController', {
             vm.set('headerBarFieldHideState', false);
         } else {
             vm.set('headerBarFieldHideState', true);
-        };
-        if (id == 'pbxconfig/seats' || id == 'pbxconfig/groups' || id == 'pbxconfig/devices') {
-            this.toggleFree('pressed');
-            toggleButton.setPressed(true);
         };
     },
 
@@ -371,7 +363,6 @@ Ext.define('NgcpCsc.view.main.MainController', {
         }
     },
 
-
     cardContainerResized: function(cmp) {
         var cmpEl = cmp.getEl();
         var contEl = this.lookupReference('mainCardPanel');
@@ -382,16 +373,35 @@ Ext.define('NgcpCsc.view.main.MainController', {
         (gridHeight > contHeight) ? gridEl.addCls('extra-left') : gridEl.removeCls('extra-left');
     },
 
+    getStoreFromRoute: function (currentRoute) {
+        switch (true) {
+            case (currentRoute == '#inbox'):
+                return 'Conversations';
+                break;
+            case (currentRoute == '#conversation-with'):
+                return 'Notifications';
+                break;
+            case (currentRoute == '#pbxconfig/devices'):
+                return 'Devices';
+                break;
+            case (currentRoute == '#pbxconfig/groups'):
+                return 'Groups';
+                break;
+            case (currentRoute == '#pbxconfig/seats'):
+                return 'Seats';
+                break;
+        };
+    },
+
     newSearch: function(el) {
-        this.fireEvent('newSearchFieldInput', el);
+        var currentRoute = window.location.hash;
+        var storeName = this.getStoreFromRoute(currentRoute);
+        var store = Ext.getStore(storeName);
+        this.fireEvent('newSearchFieldInput', el, store);
     },
 
     toggleFilter: function() {
         this.fireEvent('toggleFilterForm');
-    },
-
-    toggleFree: function(pressed) {
-        this.fireEvent('toggleFreeSearch', pressed);
     }
 
 });
