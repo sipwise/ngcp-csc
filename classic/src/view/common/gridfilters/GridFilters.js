@@ -143,7 +143,9 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 userCls: 'small-100 big-50',
                 items: [{
                     xtype: 'textfield',
-                    labelAlign: 'top',
+                    labelAlign: 'left',
+                    width: 400,
+                    labelWidth: 120,
                     bind: '{filtergrid.seats_extension}',
                     fieldLabel: Ngcp.csc.locales.filters.extension[localStorage.getItem('languageSelected')],
                     listeners: {
@@ -152,11 +154,13 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                     }
                 }, {
                     xtype: 'combo',
-                    labelAlign: 'top',
+                    labelAlign: 'left',
                     store: 'PrimaryNumbers',
                     bind: '{filtergrid.primary_number}',
                     displayField: 'number',
                     valueField: 'number',
+                    width: 400,
+                    labelWidth: 120,
                     editable: false,
                     fieldLabel: Ngcp.csc.locales.filters.primary_number[localStorage.getItem('languageSelected')],
                     listeners: {
@@ -169,34 +173,33 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 userCls: 'small-100 big-50',
                 items: [{
                     xtype: 'tagfield',
-                    labelAlign: 'top',
+                    labelAlign: 'left',
                     store: 'AliasNumbers',
                     displayField: 'number',
                     valueField: 'number',
-                    width: 250,
+                    width: 400,
+                    labelWidth: 120,
                     bind: '{filtergrid.alias_numbers}',
                     fieldLabel: Ngcp.csc.locales.filters.alias_numbers[localStorage.getItem('languageSelected')],
                     listeners: {
                         delay: 100,
                         change: 'submitFilters'
                     }
-                }
-                // TODO: Needs adjusting in gridfilters task
-                // {
-                //     xtype: 'tagfield',
-                //     labelAlign: 'top',
-                //     store: 'GroupNames',
-                //     displayField: 'group',
-                //     valueField: 'group',
-                //     width: 250,
-                //     bind: '{filtergrid.groups}',
-                //     fieldLabel: Ngcp.csc.locales.filters.groups[localStorage.getItem('languageSelected')],
-                //     listeners: {
-                //         delay: 100,
-                //         change: 'submitFilters'
-                //     }
-                // }
-                ]
+                }, {
+                    xtype: 'tagfield',
+                    labelAlign: 'left',
+                    store: 'Groups',
+                    displayField: 'name',
+                    valueField: 'id',
+                    width: 400,
+                    labelWidth: 120,
+                    bind: '{filtergrid.groups}',
+                    fieldLabel: Ngcp.csc.locales.filters.groups[localStorage.getItem('languageSelected')],
+                    listeners: {
+                        delay: 100,
+                        change: 'submitFilters'
+                    }
+                }]
             }]
         }, {
             xtype: 'form',
@@ -212,7 +215,9 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 userCls: 'small-100 big-50',
                 items: [{
                     xtype: 'textfield',
-                    labelAlign: 'top',
+                    labelAlign: 'left',
+                    width: 400,
+                    labelWidth: 120,
                     bind: '{filtergrid.groups_extension}',
                     fieldLabel: Ngcp.csc.locales.filters.extension[localStorage.getItem('languageSelected')],
                     listeners: {
@@ -221,11 +226,13 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                     }
                 }, {
                     xtype: 'combo',
-                    labelAlign: 'top',
+                    labelAlign: 'left',
                     store: 'HuntPolicies',
                     displayField: 'policy',
                     valueField: 'policy',
                     editable: false,
+                    width: 400,
+                    labelWidth: 120,
                     bind: '{filtergrid.hunt_policy}',
                     fieldLabel: Ngcp.csc.locales.filters.hunt_policy[localStorage.getItem('languageSelected')],
                     listeners: {
@@ -238,7 +245,9 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 userCls: 'small-100 big-50',
                 items: [{
                     xtype: 'textfield',
-                    labelAlign: 'top',
+                    labelAlign: 'left',
+                    width: 400,
+                    labelWidth: 120,
                     bind: '{filtergrid.hunt_timeout}',
                     fieldLabel: Ngcp.csc.locales.filters.hunt_timeout[localStorage.getItem('languageSelected')],
                     listeners: {
@@ -260,24 +269,42 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 flex: 1,
                 userCls: 'small-100 big-50',
                 items: [{
+                    xtype: 'textfield',
+                    labelAlign: 'left',
+                    bind: '{filtergrid.mac}',
+                    width: 400,
+                    labelWidth: 120,
+                    fieldLabel: Ngcp.csc.locales.filters.mac[localStorage.getItem('languageSelected')],
+                    listeners: {
+                        delay: 100,
+                        change: 'submitFilters'
+                    }
+                }, {
                     xtype: 'combo',
-                    labelAlign: 'top',
-                    store: Ext.create('NgcpCsc.store.DevicesList'),
-                    fieldLabel: Ngcp.csc.locales.pbxconfig.device_profile[localStorage.getItem('languageSelected')],
-                    name: 'deviceCombo',
+                    labelAlign: 'left',
+                    store: 'DevicesList',
+                    fieldLabel: Ngcp.csc.locales.pbxconfig.device[localStorage.getItem('languageSelected')],
                     displayField: 'name',
-                    valueField: 'name', // here we will use the ids most probablys
-                    editable: true,
+                    valueField: 'name',
+                    editable: false,
+                    width: 400,
+                    labelWidth: 120,
                     bind: '{filtergrid.device}',
                     listeners: {
                         delay: 100,
                         change: 'submitFilters'
                     }
                 }, {
-                    xtype: 'textfield',
-                    labelAlign: 'top',
-                    bind: '{filtergrid.mac}',
-                    fieldLabel: Ngcp.csc.locales.filters.mac[localStorage.getItem('languageSelected')],
+                    xtype: 'combo',
+                    labelAlign: 'left',
+                    store: 'Seats',
+                    fieldLabel: Ngcp.csc.locales.filters.user[localStorage.getItem('languageSelected')],
+                    displayField: 'name',
+                    valueField: 'id',
+                    editable: false,
+                    width: 400,
+                    labelWidth: 120,
+                    bind: '{filtergrid.devices_seat}',
                     listeners: {
                         delay: 100,
                         change: 'submitFilters'
@@ -287,24 +314,44 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                 flex: 1,
                 userCls: 'small-100 big-50',
                 items: [{
-                    xtype: 'checkboxgroup',
-                    labelAlign: 'top',
-                    defaults: {
-                        listeners: {
-                            delay: 100,
-                            change: 'submitFilters'
-                        }
-                    },
-                    items: [{
-                        boxLabel: Ngcp.csc.locales.filters.enabled[localStorage.getItem('languageSelected')],
-                        inputValue: "enabled",
-                        bind: '{filtergrid.enabled}',
-                        margin: '0 10 0 0'
-                    }, {
-                        boxLabel: Ngcp.csc.locales.filters.disabled[localStorage.getItem('languageSelected')],
-                        inputValue: "disabled",
-                        bind: '{filtergrid.disabled}'
-                    }]
+                    xtype: 'combo',
+                    labelAlign: 'left',
+                    store: ['Shared', 'Speed dial', 'Busy lamp', 'Private'],
+                    fieldLabel: Ngcp.csc.locales.filters.type[localStorage.getItem('languageSelected')],
+                    editable: false,
+                    width: 400,
+                    labelWidth: 120,
+                    bind: '{filtergrid.devices_type}',
+                    listeners: {
+                        delay: 100,
+                        change: 'submitFilters'
+                    }
+                }, {
+                    xtype: 'combo',
+                    labelAlign: 'left',
+                    store: ['Ext1', 'Ext2', 'Ext3'],
+                    bind: '{filtergrid.devices_extension}',
+                    width: 400,
+                    labelWidth: 120,
+                    editable: false,
+                    fieldLabel: Ngcp.csc.locales.pbxconfig.extension[localStorage.getItem('languageSelected')] + " 1",
+                    listeners: {
+                        delay: 100,
+                        change: 'submitFilters'
+                    }
+                }, {
+                    xtype: 'combo',
+                    labelAlign: 'left',
+                    store: ['Ext1', 'Ext2', 'Ext3'],
+                    bind: '{filtergrid.devices_extension2}',
+                    width: 400,
+                    labelWidth: 120,
+                    editable: false,
+                    fieldLabel: Ngcp.csc.locales.pbxconfig.extension[localStorage.getItem('languageSelected')] + " 2",
+                    listeners: {
+                        delay: 100,
+                        change: 'submitFilters'
+                    }
                 }]
             }]
         }];
