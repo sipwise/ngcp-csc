@@ -10,35 +10,39 @@ set -u
 
 pwd
 
-PASSWORD="selenium"
-
 pkill -f '/usr/bin/java -jar /home/selenium/selenium-server-standalone.jar' || true
 # NOTE: this could silently fail because selenium-server-standalone.jar is missing a daemonize option
 DISPLAY=:98 /usr/bin/java -jar /home/selenium/selenium-server-standalone.jar -trustAllSSLCertificates -log /home/selenium/selenium.log &
 
 sleep 5
 
+echo "### Copying and moving files"
+cp -Rf . /tmp/code
+ln -s /tmp/node_modules /tmp/code/node_modules
+cd /tmp/code/
+
 echo "################################################################################"
 echo "Finished main setup, now running tests ..."
 echo "Selenium server log file available at /home/selenium/selenium.log"
 
-cp -Rf . /tmp/code
-cd /tmp/code/
-
+echo "### Building app"
 /opt/Sencha/Cmd/sencha app build -c
 
 cd /tmp/code/t/
-rm -rf node_modules node_modules
-npm install
-
-cd /tmp/code/t/
+echo "### Starting Karma test"
 ./node_modules/karma/bin/karma start config/karma.conf.js
 
 cd /tmp/code/
+echo "### Starting app server"
 /opt/Sencha/Cmd/sencha web start &
 sleep 5
+
 cd /tmp/code/t/
+echo "### Starting Webdriver.io test"
 ./node_modules/.bin/wdio config/wdio.conf.js
+
+echo "### Moving JUnit XML files to /results"
+mv /tmp/code/t/*.xml /results
 
 echo "Finished test execution, test execution returned with exit code."
 echo "################################################################################"
