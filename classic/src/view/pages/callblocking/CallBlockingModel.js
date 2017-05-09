@@ -4,11 +4,6 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingModel', {
     alias: 'viewmodel.callblocking',
 
     data: {
-        privacy_block_mode: 'on',
-        incoming_block_mode: 'on',
-        outgoing_block_mode: 'off',
-        clir: true, // Privacy value
-        new_number: '',
-        hide_mode: 'off'
+        new_number: ''
     }
 });

@@ -6,6 +6,7 @@ Ext.define('NgcpCsc.view.login.LoginModel', {
 
     alias: 'viewmodel.login',
 
+    // left inline by purpose until auth specs
     data: {
         username: localStorage.getItem('username') || '',
         password: localStorage.getItem('password') || '',

@@ -30,7 +30,7 @@ Ext.define('NgcpCsc.view.pages.themeroller.ThemeRoller', {
                     items: [{
                         xtype: 'colorfield',
                         fieldLabel: 'Base color',
-                        bind: '{basecolor}',
+                        bind: '{themeroller.basecolor}',
                         listeners: {
                             change: 'applyTheme'
                         }
@@ -46,7 +46,7 @@ Ext.define('NgcpCsc.view.pages.themeroller.ThemeRoller', {
                     items: [{
                         xtype: 'colorfield',
                         fieldLabel: 'Font color',
-                        bind: '{fontcolor}',
+                        bind: '{themeroller.fontcolor}',
                         listeners: {
                             change: 'applyTheme'
                         }
@@ -62,7 +62,7 @@ Ext.define('NgcpCsc.view.pages.themeroller.ThemeRoller', {
                     items: [{
                         xtype: 'colorfield',
                         fieldLabel: 'Body bgcolor',
-                        bind: '{bodybgcolor}',
+                        bind: '{themeroller.bodybgcolor}',
                         listeners: {
                             change: 'applyTheme'
                         }
@@ -100,12 +100,13 @@ Ext.define('NgcpCsc.view.pages.themeroller.ThemeRoller', {
                 items: [{
                     xtype: 'textfield',
                     fieldLabel: Ngcp.csc.locales.themeroller.font_family[localStorage.getItem('languageSelected')],
-                    bind: '{fontfamily}'
+                    bind: '{themeroller.fontfamily}'
                 }, {
                     xtype: 'combo',
                     fieldLabel: Ngcp.csc.locales.themeroller.font_weight[localStorage.getItem('languageSelected')],
-                    bind: '{fontweight}',
+                    bind: '{themeroller.fontweight}',
                     editable: false,
+                    // left inline until new specs regardng themeroller
                     store: Ext.create('Ext.data.Store', {
                         fields: ['id'],
                         data: [{
@@ -120,7 +121,7 @@ Ext.define('NgcpCsc.view.pages.themeroller.ThemeRoller', {
                     xtype: 'numberfield',
                     minValue: 6,
                     editable: false,
-                    bind: '{fontsize}',
+                    bind: '{themeroller.fontsize}',
                     fieldLabel: Ngcp.csc.locales.themeroller.font_size[localStorage.getItem('languageSelected')]
                 }, {
                     layout: 'hbox',

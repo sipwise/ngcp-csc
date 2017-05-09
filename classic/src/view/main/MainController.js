@@ -377,9 +377,11 @@ Ext.define('NgcpCsc.view.main.MainController', {
         var contEl = this.lookupReference('mainCardPanel');
         var tbarEl = cmpEl.down('.x-toolbar');
         var gridEl = cmpEl.down('.card-grid');
-        var contHeight = contEl.getHeight() - tbarEl.getHeight();
-        var gridHeight = gridEl.getHeight();
-        (gridHeight > contHeight) ? gridEl.addCls('extra-left') : gridEl.removeCls('extra-left');
+        if (gridEl && contEl) {
+            var contHeight = contEl.getHeight() - tbarEl.getHeight();
+            var gridHeight = gridEl.getHeight();
+            (gridHeight > contHeight) ? gridEl.addCls('extra-left'): gridEl.removeCls('extra-left');
+        }
     },
 
     newSearch: function(el) {
