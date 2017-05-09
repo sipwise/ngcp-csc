@@ -34,7 +34,9 @@ Ext.define('NgcpCsc.view.common.composer.Fax', {
         }
     }, {
         xtype: 'combo',
-        store: ['Normal', 'Fine', 'Super'],
+        store: 'FaxTypes',
+        valueField:'name',
+        displayField: 'name',
         fieldLabel: 'Quality',
         allowBlank: false,
         editable: false,

@@ -1,0 +1,11 @@
+{
+    "data": [{
+        "name": "Shared"
+    }, {
+        "name": "Speed dial"
+    }, {
+        "name": "Busy lamp"
+    }, {
+        "name": "Private"
+    }]
+}

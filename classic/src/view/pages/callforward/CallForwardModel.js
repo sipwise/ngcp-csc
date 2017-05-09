@@ -1,7 +1,7 @@
 Ext.define('NgcpCsc.view.pages.callforward.CallForwardModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.callforward',
-
+    // left inline as non-Api data
     data: {
         after_hours: true,
         company_hours: true,

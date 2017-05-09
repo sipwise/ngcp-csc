@@ -24,7 +24,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             store: Ext.create('NgcpCsc.store.CallForwardSourceset', {
                 proxy: {
                     type: 'ajax',
-                    url: '/resources/data/callForwardListA.json',
+                    url: '/resources/data/callForwardSourcesetListA.json',
                     reader: {
                         type: 'json',
                         rootProperty: 'data'
@@ -40,7 +40,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             store: Ext.create('NgcpCsc.store.CallForwardSourceset', {
                 proxy: {
                     type: 'ajax',
-                    url: '/resources/data/callForwardListB.json',
+                    url: '/resources/data/callForwardSourcesetListB.json',
                     reader: {
                         type: 'json',
                         rootProperty: 'data'
@@ -188,7 +188,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 margin: '0 0 0 50',
                 items: [{
                     xtype: 'combo',
-                    store: ['Own phone', 'Voicemail', 'Fax2Mail', 'None'],
+                    store: 'FirstRingActions',
+                    valueField: 'name',
+                    displayField: 'name',
                     id: this._firstprefix + this._secondprefix + 'onlineFirstDest',
                     fieldLabel: Ngcp.csc.locales.callforward.first_ring[localStorage.getItem('languageSelected')],
                     value: 'Own phone',
@@ -197,15 +199,17 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                     listeners: {
                         change: 'selectRing'
                     },
-                    flex: 4
+                    flex: 5
                 }, {
-                    xtype: 'combo',
-                    store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
+                    xtype: 'numberfield',
+                    step: 10,
+                    minValue:0,
+                    maxValue: 300,
                     value: '10',
                     id: this._firstprefix + this._secondprefix + 'onlineFirstTimeout',
                     allowBlank: false,
                     editable: false,
-                    flex: 3,
+                    flex: 4,
                     margin: '0 0 0 10',
                     bind: {
                         hidden: '{online_first_timeout_hidden}'
@@ -241,19 +245,21 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 layout: 'hbox',
                 items: [{
                     xtype: 'combo',
-                    store: ['Number', 'Voicemail', 'Fax2Mail'],
+                    displayField: 'name',
+                    valueField: 'name',
+                    store: 'Forewards',
                     id: this._firstprefix + this._secondprefix + 'onlineThenDest',
                     bind: '{online_then_dest}',
                     allowBlank: false,
                     editable: false,
-                    flex: 2,
+                    flex: 3,
                     margin: '0 10 0 0',
                     listeners: {
                         change: 'selectRing'
                     }
                 }, {
                     xtype: 'textfield',
-                    flex: 2,
+                    flex: 3,
                     id: this._firstprefix + this._secondprefix + 'onlineThenNumber',
                     emptyText: Ngcp.csc.locales.callforward.enter_number[localStorage.getItem('languageSelected')],
                     bind: {
@@ -264,8 +270,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                         specialkey: 'onEnterPressed'
                     }
                 }, {
-                    xtype: 'combo',
-                    store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
+                    xtype: 'numberfield',
+                    step: 10,
+                    minValue:0,
+                    maxValue: 300,
+                    labelWidth: 80,
                     fieldLabel: Ngcp.csc.locales.callforward.and_ring_for[localStorage.getItem('languageSelected')],
                     id: this._firstprefix + this._secondprefix + 'onlineThenTimeout',
                     bind: {
@@ -274,12 +283,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                     },
                     allowBlank: false,
                     editable: false,
-                    flex: 3,
+                    flex: 4,
                     margin: '0 0 0 10'
                 }, {
                     xtype: 'container',
                     html: Ngcp.csc.locales.callforward.secs[localStorage.getItem('languageSelected')],
-                    padding: '7 0 0 20',
+                    padding: '7 0 0 10',
                     flex: 1,
                     bind: {
                         hidden: '{online_then_timeout_hidden}'
@@ -315,7 +324,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 width: 500,
                 items: [{
                     xtype: 'combo',
-                    store: ['Own phone', 'Voicemail', 'Fax2Mail', 'None'],
+                    store: 'FirstRingActions',
+                    valueField: 'name',
+                    displayField: 'name',
                     id: this._firstprefix + this._secondprefix + 'busyFirstDest',
                     fieldLabel: Ngcp.csc.locales.callforward.first_ring[localStorage.getItem('languageSelected')],
                     value: 'None',
@@ -324,15 +335,17 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                     listeners: {
                         change: 'selectRing'
                     },
-                    flex: 4
+                    flex: 5
                 }, {
-                    xtype: 'combo',
-                    store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
+                    xtype: 'numberfield',
+                    step: 10,
+                    minValue:0,
+                    maxValue: 300,
                     value: '10',
                     id: this._firstprefix + this._secondprefix + 'busyFirstTimeout',
                     allowBlank: false,
                     editable: false,
-                    flex: 3,
+                    flex: 4,
                     margin: '0 0 0 10',
                     bind: {
                         hidden: '{busy_first_timeout_hidden}'
@@ -369,19 +382,21 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 height: 31,
                 items: [{
                     xtype: 'combo',
-                    store: ['Number', 'Voicemail', 'Fax2Mail'],
+                    displayField: 'name',
+                    valueField: 'name',
+                    store: 'Forewards',
                     id: this._firstprefix + this._secondprefix + 'busyThenDest',
                     bind: '{busy_then_dest}',
                     allowBlank: false,
                     editable: false,
-                    flex: 2,
+                    flex: 3,
                     margin: '0 10 0 0',
                     listeners: {
                         change: 'selectRing'
                     }
                 }, {
                     xtype: 'textfield',
-                    flex: 2,
+                    flex: 3,
                     id: this._firstprefix + this._secondprefix + 'busyThenNumber',
                     emptyText: Ngcp.csc.locales.callforward.enter_number[localStorage.getItem('languageSelected')],
                     bind: {
@@ -392,8 +407,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                         specialkey: 'onEnterPressed'
                     }
                 }, {
-                    xtype: 'combo',
-                    store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
+                    xtype: 'numberfield',
+                    step: 10,
+                    minValue:0,
+                    maxValue: 300,
+                    labelWidth: 80,
                     fieldLabel: Ngcp.csc.locales.callforward.and_ring_for[localStorage.getItem('languageSelected')],
                     id: this._firstprefix + this._secondprefix + 'busyThenTimeout',
                     bind: {
@@ -402,12 +420,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                     },
                     allowBlank: false,
                     editable: false,
-                    flex: 3,
+                    flex: 4,
                     margin: '0 0 0 10'
                 }, {
                     xtype: 'container',
                     html: Ngcp.csc.locales.callforward.secs[localStorage.getItem('languageSelected')],
-                    padding: '7 0 0 20',
+                    padding: '7 0 0 10',
                     flex: 1,
                     bind: {
                         hidden: '{busy_then_timeout_hidden}'
@@ -443,7 +461,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 width: 500,
                 items: [{
                     xtype: 'combo',
-                    store: ['Own phone', 'Voicemail', 'Fax2Mail', 'None'],
+                    store: 'FirstRingActions',
+                    valueField: 'name',
+                    displayField: 'name',
                     id: this._firstprefix + this._secondprefix + 'offlineFirstDest',
                     fieldLabel: Ngcp.csc.locales.callforward.first_ring[localStorage.getItem('languageSelected')],
                     value: 'None',
@@ -452,15 +472,17 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                     listeners: {
                         change: 'selectRing'
                     },
-                    flex: 4
+                    flex: 5
                 }, {
-                    xtype: 'combo',
-                    store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
+                    xtype: 'numberfield',
+                    step: 10,
+                    minValue:0,
+                    maxValue: 300,
                     value: '10',
                     id: this._firstprefix + this._secondprefix + 'offlineFirstTimeout',
                     allowBlank: false,
                     editable: false,
-                    flex: 3,
+                    flex: 4,
                     margin: '0 0 0 10',
                     bind: {
                         hidden: '{offline_first_timeout_hidden}'
@@ -496,19 +518,21 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 layout: 'hbox',
                 items: [{
                     xtype: 'combo',
-                    store: ['Number', 'Voicemail', 'Fax2Mail'],
+                    displayField: 'name',
+                    valueField: 'name',
+                    store: 'Forewards',
                     id: this._firstprefix + this._secondprefix + 'offlineThenDest',
                     bind: '{offline_then_dest}',
                     allowBlank: false,
                     editable: false,
-                    flex: 2,
+                    flex: 3,
                     margin: '0 10 0 0',
                     listeners: {
                         change: 'selectRing'
                     }
                 }, {
                     xtype: 'textfield',
-                    flex: 2,
+                    flex: 3,
                     id: this._firstprefix + this._secondprefix + 'offlineThenNumber',
                     emptyText: Ngcp.csc.locales.callforward.enter_number[localStorage.getItem('languageSelected')],
                     bind: {
@@ -519,8 +543,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                         specialkey: 'onEnterPressed'
                     }
                 }, {
-                    xtype: 'combo',
-                    store: ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100', '110', '120', '130', '140', '150', '160', '170', '180', '190', '200', '210', '220', '230', '240', '250', '260', '270', '280', '290', '300'],
+                    xtype: 'numberfield',
+                    step: 10,
+                    minValue:0,
+                    maxValue: 300,
+                    labelWidth: 80,
                     fieldLabel: Ngcp.csc.locales.callforward.and_ring_for[localStorage.getItem('languageSelected')],
                     id: this._firstprefix + this._secondprefix + 'offlineThenTimeout',
                     bind: {
@@ -529,12 +556,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                     },
                     allowBlank: false,
                     editable: false,
-                    flex: 3,
+                    flex: 4,
                     margin: '0 0 0 10'
                 }, {
                     xtype: 'container',
                     html: Ngcp.csc.locales.callforward.secs[localStorage.getItem('languageSelected')],
-                    padding: '7 0 0 20',
+                    padding: '7 0 0 10',
                     flex: 1,
                     bind: {
                         hidden: '{offline_then_timeout_hidden}'
