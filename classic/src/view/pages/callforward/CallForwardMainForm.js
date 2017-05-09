@@ -24,7 +24,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             store: Ext.create('NgcpCsc.store.CallForwardSourceset', {
                 proxy: {
                     type: 'ajax',
-                    url: '/resources/data/callForwardListA.json',
+                    url: '/resources/data/callForwardSourcesetListA.json',
                     reader: {
                         type: 'json',
                         rootProperty: 'data'
@@ -40,7 +40,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             store: Ext.create('NgcpCsc.store.CallForwardSourceset', {
                 proxy: {
                     type: 'ajax',
-                    url: '/resources/data/callForwardListB.json',
+                    url: '/resources/data/callForwardSourcesetListB.json',
                     reader: {
                         type: 'json',
                         rootProperty: 'data'
