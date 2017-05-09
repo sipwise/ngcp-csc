@@ -3,6 +3,7 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
 
     alias: 'viewmodel.rtc',
 
+    // left inline by purpose as it's not coming from API
     data: {
         uid: '',
         title: 123456789,

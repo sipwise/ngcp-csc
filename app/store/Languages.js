@@ -7,7 +7,7 @@ Ext.define('NgcpCsc.store.Languages', {
         {name: 'id', type: 'string'},
         {name: 'language', type: 'string'}
     ],
-
+    // left inline until specs are available
     data: [
         {
             id: 'en',

@@ -168,6 +168,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                         xtype: 'combo',
                         required: true,
                         autoSelect: false,
+                        valueField: 'name',
+                        displayField: 'name',
                         hidden: true,
                         editable: false,
                         emptyText: Ngcp.csc.locales.pbxconfig.enter_new_device[localStorage.getItem('languageSelected')],
@@ -183,7 +185,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                             specialkey: 'onEnterPressed',
                             select: 'deviceSelected'
                         },
-                        store: ['Cisco Pbx 1', 'Cisco Pbx 2', 'Cisco Pbx 3']
+                        store: 'DeviceModels'
                     }]
                 }, {
                     name: 'extension',
@@ -206,6 +208,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                         xtype: 'combo',
                         required: true,
                         editable: false,
+                        valueField: 'name',
+                        displayField: 'name',
                         _skipSaveValidation: true,
                         hidden: true,
                         emptyText: Ngcp.csc.locales.pbxconfig.enter_new_extension[localStorage.getItem('languageSelected')],
@@ -222,7 +226,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                             },
                             specialkey: 'onEnterPressed'
                         },
-                        store: ['Ext1', 'Ext2', 'Ext3']
+                        store: 'Extensions'
                     }]
                 }, {
                     name: 'extension2',
@@ -245,6 +249,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                     }, {
                         xtype: 'combo',
                         _skipSaveValidation: true,
+                        valueField: 'name',
+                        displayField: 'name',
                         required: true,
                         hidden: true,
                         emptyText: Ngcp.csc.locales.pbxconfig.enter_new_extension[localStorage.getItem('languageSelected')],
@@ -261,7 +267,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                             },
                             specialkey: 'onEnterPressed'
                         },
-                        store: ['Ext1', 'Ext2', 'Ext3']
+                        store: "Extensions"
                     }]
                 },
 
@@ -319,9 +325,11 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                             xtype: 'combo',
                             editable: false,
                             name: 'typeValue',
+                            valueField: 'name',
+                            displayField: 'name',
                             _skipSaveValidation: true,
                             fieldLabel: 'Type',
-                            store: ['Shared', 'Speed dial', 'Busy lamp', 'Private'],
+                            store: 'SeatTypes',
                             allowBlank: false
                         }, {
                             xtype: 'combo',
