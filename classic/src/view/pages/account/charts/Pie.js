@@ -1,9 +1,6 @@
 Ext.define('NgcpCsc.view.pages.account.charts.Pie', {
     extend: 'Ext.chart.PolarChart',
-
     xtype: 'account-pie',
-
-    reference: 'chart',
     height: 500,
     insetPadding: 60,
     innerPadding: 40,
