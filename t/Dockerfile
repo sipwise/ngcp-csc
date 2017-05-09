@@ -5,7 +5,7 @@ FROM docker.mgm.sipwise.com/sipwise-jessie:latest
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT 2016-12-12
+ENV REFRESHED_AT 2017-05-09
 
 RUN echo "deb https://deb.sipwise.com/autobuild/ release-trunk-jessie main" >>/etc/apt/sources.list
 
@@ -27,7 +27,7 @@ RUN ln -s selenium-server-standalone-2.53.1.jar selenium-server-standalone.jar
 
 RUN wget -O chromedriver_linux64.zip https://deb.sipwise.com/files/chromedriver_linux64_2.25.zip && unzip chromedriver_linux64.zip
 
-ADD xvfb-chromium /usr/bin/xvfb-chromium
+ADD ./t/xvfb-chromium /usr/bin/xvfb-chromium
 RUN ln -s /usr/bin/xvfb-chromium /usr/bin/google-chrome
 RUN ln -s /usr/bin/xvfb-chromium /usr/bin/chromium-browser
 
@@ -35,7 +35,10 @@ RUN echo "cd /code && ./t/testrunner" >/root/.bash_history
 
 RUN ln -s /home/selenium/chromedriver /usr/bin/chromedriver
 
-COPY jenkins_docker_run /home/selenium/
+COPY ./t/jenkins_docker_run /home/selenium/
+
+ADD ./t/package.json /home/selenium/
+RUN npm install
 
 WORKDIR /home/selenium/
 
@@ -43,12 +46,14 @@ WORKDIR /home/selenium/
 # Instructions for usage
 # ----------------------
 # When you want to build the base image from scratch (jump to the next section if you don't want to build yourself!):
-# % docker build --tag="ngcp-csc-jessie" .
-# % docker run --rm -i -t -v $(pwd)/..:/code:rw ngcp-csc-jessie:latest bash
+# NOTE: run the following commands from root folder of git repository:
+# % docker build --tag="ngcp-csc-jessie" -f ./t/Dockerfile .
+# % docker run --rm -i -t -v $(pwd):/code:ro -v /results ngcp-csc-jessie:latest bash
 #
 # Use the existing docker image:
 # % docker pull docker.mgm.sipwise.com/ngcp-csc-jessie
-# % docker run --rm -i -t -v $(pwd)/..:/code:rw docker.mgm.sipwise.com/ngcp-csc-jessie:latest bash
+# NOTE: run the following command from root folder of git repository:
+# % docker run --rm -i -t -v $(pwd):/code:ro -v /results docker.mgm.sipwise.com/ngcp-csc-jessie:latest bash
 #
 # Inside docker:
 #   cd /code && ./t/testrunner
