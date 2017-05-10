@@ -5,7 +5,13 @@ Ext.define('NgcpCsc.model.Reminder', {
 
     proxy: {
         type: 'ajax',
-        url: '/resources/data/reminder.json',
+        url: 'https://localhost:1443/api/reminders/',
+        withCredentials: true,
+        username: 'administrator',
+        password: 'administrator',
+        actionMethods:{
+            read: 'GET'
+        },
         autoLoad: true,
         reader: {
             type: 'json',
