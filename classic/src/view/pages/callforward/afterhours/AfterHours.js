@@ -63,7 +63,10 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
                 width: '100%',
                 title: Ngcp.csc.locales.callforward.for_calling_parties[localStorage.getItem('languageSelected')]
             }, {
-                xtype: 'afterhourstabs'
+                xtype: 'cftab',
+                _tabId: 'afterhours',
+                _firstPrefixes: ['everybody-', 'listA-', 'listB-'],
+                _secondprefix: 'afterHours-'
             }]
         }];
         this.callParent();

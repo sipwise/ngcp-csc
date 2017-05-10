@@ -20,7 +20,10 @@ Ext.define('NgcpCsc.view.pages.callforward.always.Always', {
                 width: '100%',
                 title: Ngcp.csc.locales.callforward.for_calling_parties[localStorage.getItem('languageSelected')]
             }, {
-                xtype: 'alwaystabs'
+                xtype: 'cftab',
+                _tabId: 'always',
+                _firstPrefixes: ['everybody-', 'listA-', 'listB-'],
+                _secondprefix: 'always-'
             }]
         }];
         this.callParent();
