@@ -1,9 +1,0 @@
-{
-    "data": [
-        {
-            "reminder_status": true,
-            "timer": "17:50",
-            "recurrence": "never"
-        }
-    ]
-}
