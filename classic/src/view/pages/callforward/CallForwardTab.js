@@ -1,7 +1,7 @@
-Ext.define('NgcpCsc.view.pages.callforward.afterhours.AfterHoursTabs', {
+Ext.define('NgcpCsc.view.pages.callforward.CallForwardTab', {
     extend: 'Ext.tab.Panel',
 
-    xtype: 'afterhourstabs',
+    xtype: 'cftab',
 
     listeners: {
         click: {
@@ -16,15 +16,21 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.AfterHoursTabs', {
         scrollable: true
     },
 
+    _tabId: null,
+
+    _secondprefix: null,
+
+    _firstPrefixes: [],
+
     initComponent: function () {
 
         this.items = [{
             title: Ngcp.csc.locales.callforward.source_one[localStorage.getItem('languageSelected')],
-            id: 'afterhours-tab-everybody',
+            id: this._tabId + '-tab-everybody',
             items: [
                 Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
-                    _firstprefix: 'everybody-',
-                    _secondprefix: 'afterHours-'
+                    _firstprefix: this._firstPrefixes[0],
+                    _secondprefix: this._secondprefix
 
                 })
             ],
@@ -35,13 +41,13 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.AfterHoursTabs', {
             bind: {
                 title: '{source_lista_title}'
             },
-            id: 'afterhours-tab-listA',
+            id: this._tabId + '-tab-listA',
             iconCls: Ngcp.csc.icons.pencil + ' cf-edit edit-listA',
             iconAlign: 'right',
             items: [
                 Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
-                    _firstprefix: 'listA-',
-                    _secondprefix: 'afterHours-'
+                    _firstprefix: this._firstPrefixes[1],
+                    _secondprefix: this._secondprefix
                 })
             ],
             listeners: {
@@ -51,13 +57,13 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.AfterHoursTabs', {
             bind: {
                 title: '{source_listb_title}'
             },
-            id: 'afterhours-tab-listB',
+            id: this._tabId + '-tab-listB',
             iconCls: Ngcp.csc.icons.pencil + ' cf-edit edit-listB',
             iconAlign: 'right',
             items: [
                 Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
-                    _firstprefix: 'listB-',
-                    _secondprefix: 'afterHours-'
+                    _firstprefix: this._firstPrefixes[2],
+                    _secondprefix: this._secondprefix
                 })
             ],
             listeners: {
