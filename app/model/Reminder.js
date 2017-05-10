@@ -1,15 +1,18 @@
 Ext.define('NgcpCsc.model.Reminder', {
     extend: 'Ext.data.Model',
 
+    requires: ['NgcpCsc.proxy.NgcpApi'],
+
     fields: ["reminder_status", "timer", "recurrence"],
 
     proxy: {
-        type: 'ajax',
-        url: '/resources/data/reminder.json',
-        autoLoad: true,
-        reader: {
-            type: 'json',
-            rootProperty: 'data'
-        }
+        type: 'ngcp-api',
+        route: 'reminders/',
+        autoLoad: true
+    },
+    listeners: {
+        // here is where the data should be parsed, if needed
+        beforeload: function() {},
+        beforesync: function() {}
     }
 });
