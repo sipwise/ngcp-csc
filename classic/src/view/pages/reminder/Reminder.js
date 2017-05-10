@@ -42,18 +42,23 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
                 }, {
                     xtype: 'form',
                     layout: 'responsivecolumn',
+                    defaults:{
+                        listeners: {
+                            change: 'saveReminder'
+                        }
+                    },
                     items: [{
                         flex: 1,
                         userCls: 'small-100 big-50',
                         xtype: 'timefield',
                         fieldLabel: Ngcp.csc.locales.reminder.time[localStorage.getItem('languageSelected')],
-                        format: 'H:i',
-                        minValue: '0:00',
-                        maxValue: '23:50',
-                        increment: 10,
+                        format: 'H:i:s',
+                        minValue: '0:00:00',
+                        maxValue: '23:50:00',
+                        increment: 5,
                         editable: false,
                         bind: {
-                            value: '{reminder.timer}',
+                            value: '{reminder.time}',
                             disabled: '{!reminder.reminder_status}'
                         }
                     }, {
@@ -66,7 +71,7 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
                         columns: 1,
                         simpleValue: true,
                         bind: {
-                            value: '{reminder.recurrence}',
+                            value: '{reminder.recur}',
                             disabled: '{!reminder.reminder_status}'
                         },
                         defaults: {

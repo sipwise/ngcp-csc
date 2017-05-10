@@ -2,6 +2,12 @@
  * This file is responsible for launching the application. Application logic should be
  * placed in the NgcpCsc.Application class.
  */
+
+ Ext.Ajax.on("beforerequest",function(con){
+   con.setUseDefaultXhrHeader(false);
+   con.setWithCredentials(true);
+ });
+
 Ext.application({
     name: 'NgcpCsc',
 
