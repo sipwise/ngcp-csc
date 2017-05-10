@@ -63,7 +63,10 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
                 width: '100%',
                 title: Ngcp.csc.locales.callforward.for_calling_parties[localStorage.getItem('languageSelected')]
             }, {
-                xtype: 'companyhourstabs'
+                xtype: 'cftab',
+                _tabId: 'companyhours',
+                _firstPrefixes: ['everybody-', 'listA-', 'listB-'],
+                _secondprefix: 'companyHours-'
             }]
         }];
         this.callParent();
