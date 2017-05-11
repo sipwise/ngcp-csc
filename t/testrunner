@@ -18,7 +18,7 @@ sleep 5
 
 echo "### Copying and moving files"
 cp -Rf . /tmp/code
-ln -s /tmp/node_modules /tmp/code/node_modules
+ln -s /tmp/node_modules /tmp/code/t/node_modules
 cd /tmp/code/
 
 echo "################################################################################"
