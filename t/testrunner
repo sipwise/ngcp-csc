@@ -16,6 +16,8 @@ DISPLAY=:98 /usr/bin/java -jar /home/selenium/selenium-server-standalone.jar -tr
 
 sleep 5
 
+cd /code
+
 echo "### Copying and moving files"
 cp -Rf . /tmp/code
 ln -s /tmp/node_modules /tmp/code/node_modules
