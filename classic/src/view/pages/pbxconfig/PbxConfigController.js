@@ -18,6 +18,13 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         });
     },
 
+    filtersChanged: function() {
+        var cmp = this.getView();
+        Ext.Function.defer(function() {
+            cmp.fireEvent('cardContainerResized', cmp);
+        }, 50);
+    },
+
     onRouteChange: function() {
         var vm = this.getViewModel();
         switch (window.location.hash) {

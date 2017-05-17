@@ -7,8 +7,12 @@ Ext.define('NgcpCsc.view.pages.conversations.Conversations', {
 
     controller: 'conversations',
 
+    listeners:{
+        afterrender: 'afterConvRendered'
+    },
+
     initComponent: function() {
-        
+
         this.dockedItems = Ext.create('NgcpCsc.view.pages.conversations.ConversationsToolbar');
 
         this.items = [{

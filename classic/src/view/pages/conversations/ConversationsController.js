@@ -5,6 +5,19 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
 
     id: 'conversations',
 
+    afterConvRendered: function(cmp) {
+        cmp.on('resize', function() {
+            cmp.fireEvent('cardContainerResized', cmp);
+        });
+    },
+
+    filtersChanged: function() {
+        var cmp = this.getView();
+        Ext.Function.defer(function() {
+            cmp.fireEvent('cardContainerResized', cmp);
+        }, 50);
+    },
+
     onIconClicked: function(event, el) {
         if (el.dataset.callback) {
             // eval is never the best option

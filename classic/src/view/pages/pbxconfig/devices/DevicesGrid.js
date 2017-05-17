@@ -36,7 +36,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
         focus: function() {
             var scrollPosition = grid.getEl().down('.x-grid-view').getScroll();
             grid.getEl().down('.x-grid-view').scrollTo('top', scrollPosition.top, false);
-        }
+        },
+        filterchange: 'filtersChanged'
     },
 
     columns: {

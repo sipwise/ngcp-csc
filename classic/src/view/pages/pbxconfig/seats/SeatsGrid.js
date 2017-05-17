@@ -18,7 +18,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
             delegate: 'div.card-icon'
         },
         cellclick: 'expandRow',
-        rowbodyclick: 'expandRow'
+        rowbodyclick: 'expandRow',
+        filterchange: 'filtersChanged'
     },
 
     columns: {

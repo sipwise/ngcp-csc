@@ -5,7 +5,7 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsToolbar', {
     ui: 'conversations-actions-tbar',
     items:  [{
         xtype: 'core-container',
-        margin: Ext.os.is.Desktop ? '-5 0 0 35' : '-5 0 0 15',
+        margin: Ext.os.is.Desktop ? '-5 0 0 22' : '-5 0 0 2',
         width: Ext.os.is.Desktop ? 810 : '100%',
         layout: {
             type: 'hbox',

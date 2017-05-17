@@ -25,7 +25,8 @@ Ext.define('NgcpCsc.view.pages.conversations.CallsGrid', {
         },
         cellclick: 'expandConversation',
         rowbodyclick: 'expandConversation',
-        afterrender: 'conversationGridRendered'
+        afterrender: 'conversationGridRendered',
+        filterchange: 'filtersChanged'
     },
 
     rowLines: false,
