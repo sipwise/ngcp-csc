@@ -201,6 +201,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                             fn: 'fieldBlurred',
                             el: 'element'
                         },
+                        select:'tagFieldSelect',
                         specialkey: 'onEnterPressed'
                     }
                 }]
@@ -241,6 +242,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                             fn: 'fieldBlurred',
                             el: 'element'
                         },
+                        select:'tagFieldSelect',
                         specialkey: 'onEnterPressed'
                     }
                 }]

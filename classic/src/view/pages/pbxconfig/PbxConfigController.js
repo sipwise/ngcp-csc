@@ -497,5 +497,9 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
                 me.saveCard(iconDiv, false);
             }
         }, 1);
+    },
+
+    tagFieldSelect: function(){
+        this.getView().down('grid').updateLayout();
     }
 });
