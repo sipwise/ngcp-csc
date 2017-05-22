@@ -8,6 +8,82 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
             '*': {
                 confirmCallBlockingRemoval: 'confirmCallBlockingRemoval'
             }
+        },
+        store: {
+            '*': {
+                cbStoreLoaded: 'cbStoreLoaded',
+                cbStoreBeforeSync: 'cbStoreBeforeSync'
+            }
+        }
+    },
+
+    cbStoreLoaded: function(store, data) {
+        var models = [];
+        var blockInNums = data.get(store._type);
+        store.removeAll();
+        Ext.each(blockInNums, function(num) {
+            var cbModel = Ext.create('NgcpCsc.model.CallBlocking', {
+                block_list: num,
+                enabled: (num.charAt(0) !== '#')
+            });
+            store.add(cbModel);
+        });
+        store.commitChanges();
+        this.setVm(store, data);
+    },
+    cbStoreBeforeSync: function(store, options) {
+        if (this.getView().getXType() == 'privacy' & store._type !== 'privacy' ||
+            this.getView().getXType() == 'incoming' & store._type !== 'block_in_list' ||
+            this.getView().getXType() == 'outgoing' & store._type !== 'block_out_list'
+        ) {
+            return;
+        }
+        var vm = this.getViewModel();
+        var block_in_list = [],
+            block_out_list = [],
+            data = [],
+            storeType = store._type;
+        delete options['destroy'];
+        delete options['create'];
+        switch (storeType) {
+            case 'block_in_list':
+                Ext.each(store.getRange(), function(record) {
+                    if (record.get('block_list').length > 0) {
+                        block_in_list.push(record.get('block_list'));
+                    }
+                });
+                options["update"] = [Ext.create('NgcpCsc.model.Patch', {
+                    "op": "add",
+                    "path": "/block_in_list",
+                    "value": block_in_list
+                }), Ext.create('NgcpCsc.model.Patch', {
+                    "op": "add",
+                    "path": "/block_in_mode",
+                    "value": vm.get('incoming_block_mode') === 'on' ? false : true
+                })];
+                break;
+            case 'block_out_list':
+                Ext.each(store.getRange(), function(record) {
+                    if (record.get('block_list').length > 0) {
+                        block_out_list.push(record.get('block_list'));
+                    }
+                });
+                options["update"] = [Ext.create('NgcpCsc.model.Patch', {
+                    "op": "add",
+                    "path": "/block_out_list",
+                    "value": block_out_list
+                }), Ext.create('NgcpCsc.model.Patch', {
+                    "op": "add",
+                    "path": "/block_out_mode",
+                    "value": vm.get('outgoing_block_mode') === 'on' ? false : true
+                })];
+                break;
+            default: // privacy
+                options["update"] = [Ext.create('NgcpCsc.model.Patch', {
+                    "op": "add",
+                    "path": "/clir",
+                    "value": vm.get('privacy_block_mode') === 'on' ? false : true
+                })];
         }
     },
 
@@ -17,13 +93,14 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         };
     },
 
-    afterCBRendered: function(cmp){
-        cmp.on('resize', function(){
+    afterCBRendered: function(cmp) {
+        cmp.on('resize', function() {
             cmp.fireEvent('cardContainerResized', cmp);
         });
     },
 
     renderBarrNumber: function(value, meta, record) {
+        value = (value[0] == '#') ? value.substr(1) : value; // hides the hash, which is the first char of disabled nums
         if (record.get('enabled') === false) {
             return Ext.String.format('<div style="color: #666;text-decoration: line-through;font-size: 16px;padding-left: 10px;">{0}</div>', value);
         } else {
@@ -56,18 +133,41 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
     },
 
     addToStore: function(newNumber, newId, store) {
+        var me = this;
         var view = this.getView();
-        store.add({
-            "id": newId,
+        var cbModel = Ext.create('NgcpCsc.model.CallBlocking', {
             "block_list": newNumber,
             "enabled": true
         });
+        store.add(cbModel);
         view.fireEvent('cardContainerResized', view);
-        this.fireEvent('showmessage', true, Ngcp.csc.locales.common.add_success[localStorage.getItem('languageSelected')]);
+        store.sync({
+            success: function() {
+                me.fireEvent('showmessage', true, Ngcp.csc.locales.common.add_success[localStorage.getItem('languageSelected')]);
+            },
+            failure: function() {
+                me.fireEvent('showmessage', false, Ngcp.csc.locales.common.save_unsuccess[localStorage.getItem('languageSelected')]);
+            },
+            callback: function() {
+                store.commitChanges();
+            }
+        });
     },
 
     getCallBlockingStoreName: function(currentRoute) {
-        return currentRoute === '#callblocking/incoming' ? 'CallBlockingIncoming' : 'CallBlockingOutgoing';
+        var storeName;
+        switch (currentRoute) {
+            case '#callblocking/incoming':
+                storeName = 'CallBlockingIncoming';
+                break;
+            case '#callblocking/outgoing':
+                storeName = 'CallBlockingOutgoing';
+                break;
+            case '#callblocking/privacy':
+                storeName = 'CallBlockingPrivacy';
+                break;
+        }
+        return storeName;
     },
 
     getAcceptedCharacters: function() {
@@ -144,21 +244,45 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
     },
 
     confirmCallBlockingRemoval: function(record) {
+        var me = this;
         var view = this.getView();
         var store = record.store;
         store.remove(record);
+        store.sync({
+            callback: function() {
+                store.commitChanges();
+            }
+        });
         view.fireEvent('cardContainerResized', view);
     },
 
     enableNumberBlocking: function(event) {
+        var me = this;
         var rec = event.record;
-        var enabledDisabledMode = rec.get('enabled');
-        rec.set('enabled', !enabledDisabledMode);
-        if (!enabledDisabledMode) {
-            this.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.enabled_success[localStorage.getItem('languageSelected')]);
-        } else {
-            this.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.disabled_success[localStorage.getItem('languageSelected')]);
-        };
+        var isEnabled = rec.get('enabled');
+        var currentRoute = window.location.hash;
+        var storeName = this.getCallBlockingStoreName(currentRoute);
+        var store = Ext.getStore(storeName);
+
+        rec.set('enabled', !isEnabled);
+        rec.set('block_list', !isEnabled ? rec.get('block_list').slice(1) : '#' + rec.get('block_list'));
+
+        store.sync({
+            success: function() {
+                if (!isEnabled) {
+                    me.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.enabled_success[localStorage.getItem('languageSelected')]);
+                } else {
+                    me.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.disabled_success[localStorage.getItem('languageSelected')]);
+                };
+            },
+            failure: function() {
+                this.fireEvent('showmessage', false, Ngcp.csc.locales.common.save_unsuccess[localStorage.getItem('languageSelected')]);
+            },
+            callback: function() {
+                store.commitChanges();
+            }
+        });
+
     },
 
     toggleBlockCalls: function(event) {
@@ -177,7 +301,7 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         prefixElementClassList.toggle('grey');
         suffixElementClassList.toggle('grey');
         switch (newValueToUse) {
-            case ('on') :
+            case ('on'):
                 switch (submoduleName) {
                     case 'incoming':
                     case 'outgoing':
@@ -185,7 +309,7 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
                         break;
                     case 'privacy':
                         me.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.number_hide_success[localStorage.getItem('languageSelected')]);
-                    break;
+                        break;
                 };
                 break;
             case ('off'):
@@ -196,10 +320,64 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
                         break;
                     case 'privacy':
                         me.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.number_show_success[localStorage.getItem('languageSelected')]);
-                    break;
+                        break;
                 };
                 break;
         };
+        this.triggerStoreSync();
+    },
+
+    triggerStoreSync: function() {
+        var currentRoute = window.location.hash;
+        var storeName = this.getCallBlockingStoreName(currentRoute);
+        var store = Ext.getStore(storeName);
+        var recs = store.getRange();
+        Ext.suspendLayouts();
+        store.add({});
+        store.sync({
+            callback: function() {
+                store.removeAll();
+                store.add(recs);
+                store.commitChanges();
+                Ext.resumeLayouts();
+            }
+        });
+    },
+
+    setVm: function(store, data) {
+        var vm = this.getViewModel();
+        vm.set('incoming_block_mode', data.get('block_in_mode') === true ? 'off' : 'on');
+        vm.set('outgoing_block_mode', data.get('block_out_mode') === true ? 'off' : 'on');
+        vm.set('privacy_block_mode', data.get('clir') === true ? 'on' : 'off'); // clir true => Hide own number
+        this.setModeSwitcher();
+    },
+
+    setModeSwitcher: function() {
+        var vm = this.getViewModel();
+        var switcherCmp = this.lookupReference('modeSwitcher');
+        var submoduleName = this.getView()._vmPrefix.slice(0, -1);
+        var switcherValue;
+        switch (submoduleName) {
+            case 'incoming':
+                switcherValue = vm.get('incoming_block_mode')
+                break;
+            case 'outgoing':
+                switcherValue = vm.get('outgoing_block_mode')
+                break;
+            case 'privacy':
+                switcherValue = vm.get('privacy_block_mode')
+                break;
+        }
+        var submoduleStates = (switcherValue === 'on') ? [' grey', 'on', ''] : ['', 'off', ' grey'];
+        switcherCmp.setHtml(this.getModeSwitcher(submoduleName, submoduleStates));
+    },
+
+    getModeSwitcher: function(submoduleName, submoduleStates) {
+        return '<div id="toggleBlockCalls-' + submoduleName + '" class="toggle-section" >' +
+            '<span id="toggleTextPrefix-' + submoduleName + '" class="toggle-prefix' + submoduleStates[0] + '">' + Ngcp.csc.locales.callblocking.submodules[submoduleName].prefix[localStorage.getItem('languageSelected')] + '</span>' +
+            '<i id="iconAllowBlock-' + submoduleName + '" data-callback="toggleBlockCalls" class="pointer toggle-icon ' + Ngcp.csc.icons.toggle[submoduleStates[1] + '2x'] + '" aria-hidden="true" data-qtip="' + Ngcp.csc.locales.callblocking.enable_or_disable[localStorage.getItem('languageSelected')] + '"></i>' +
+            '<span id="toggleTextSuffix-' + submoduleName + '" class="toggle-suffix' + submoduleStates[2] + '">' + Ngcp.csc.locales.callblocking.submodules[submoduleName].suffix[localStorage.getItem('languageSelected')] + '</span>' +
+            '</div>'
     }
 
 });

@@ -9,7 +9,10 @@ Ext.define('NgcpCsc.view.pages.callblocking.outgoing.Outgoing', {
 
     initComponent: function () {
         var outgoingGrid = Ext.create('NgcpCsc.view.pages.callblocking.CallBlockingGrid', {
-            store: 'CallBlockingOutgoing'
+            store: Ext.create('NgcpCsc.store.CallBlocking',{
+                storeId: 'CallBlockingOutgoing',
+                _type: 'block_out_list'
+            })
         });
         this.items = [outgoingGrid];
         this.callParent();
