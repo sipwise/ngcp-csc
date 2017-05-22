@@ -16,6 +16,7 @@ Ext.define('NgcpCsc.proxy.NgcpApi', {
     baseApiUrl: 'https://localhost:1443/api/',
     autoLoad: true,
     appendId: false,
+    // defaults, can be overridden
     actionMethods: {
         read: 'GET',
         create: 'POST',
