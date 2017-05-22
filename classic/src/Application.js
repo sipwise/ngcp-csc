@@ -20,8 +20,6 @@ Ext.define('NgcpCsc.Application', {
         'Notifications',
         'Contacts',
         'Languages',
-        'CallBlockingOutgoing',
-        'CallBlockingIncoming',
         'Chart',
         'FaxTypes',
         'FirstRingActions',

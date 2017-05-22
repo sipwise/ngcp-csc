@@ -16,6 +16,7 @@ Ext.define('NgcpCsc.proxy.NgcpApi', {
     baseApiUrl: 'https://localhost:1443/api/',
     autoLoad: true,
     appendId: false,
+    // defaults, can be overridden
     actionMethods: {
         read: 'GET',
         create: 'POST',
@@ -28,11 +29,11 @@ Ext.define('NgcpCsc.proxy.NgcpApi', {
         var url, records;
         switch(action){
             case 'read' :
-                url = Ext.String.format('{0}{1}/?{2}', me.baseApiUrl, me.route, me.params);
+                url = Ext.String.format('{0}{1}/{2}?{3}', me.baseApiUrl, me.route, me.subscriberId, me.params);
             break;
             case 'update' :
                 records = request._records;
-                url = Ext.String.format('{0}{1}/{2}', me.baseApiUrl, me.route, records[0].get('id'));
+                url = Ext.String.format('{0}{1}/{2}', me.baseApiUrl, me.route, records[0].get('id') || me.subscriberId );
             break;
         }
         request._url = url;

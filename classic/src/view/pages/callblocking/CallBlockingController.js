@@ -8,6 +8,11 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
             '*': {
                 confirmCallBlockingRemoval: 'confirmCallBlockingRemoval'
             }
+        },
+        store: {
+            '*': {
+                cbStoreLoaded: 'cbStoreLoaded'
+            }
         }
     },
 
@@ -17,13 +22,14 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         };
     },
 
-    afterCBRendered: function(cmp){
-        cmp.on('resize', function(){
+    afterCBRendered: function(cmp) {
+        cmp.on('resize', function() {
             cmp.fireEvent('cardContainerResized', cmp);
         });
     },
 
     renderBarrNumber: function(value, meta, record) {
+        value = value.substr(1); // removes the hash, which is the first char of disabled nums
         if (record.get('enabled') === false) {
             return Ext.String.format('<div style="color: #666;text-decoration: line-through;font-size: 16px;padding-left: 10px;">{0}</div>', value);
         } else {
@@ -152,13 +158,22 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
 
     enableNumberBlocking: function(event) {
         var rec = event.record;
-        var enabledDisabledMode = rec.get('enabled');
-        rec.set('enabled', !enabledDisabledMode);
-        if (!enabledDisabledMode) {
+        var isEnabled = rec.get('enabled');
+        var currentRoute = window.location.hash;
+        var storeName = this.getCallBlockingStoreName(currentRoute);
+        var store = Ext.getStore(storeName);
+
+        rec.set('enabled', !isEnabled);
+        rec.set('block_list', isEnabled ? rec.get('block_list').slice( 1 ) : '#' + rec.get('block_list'));
+
+        if (!isEnabled) {
             this.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.enabled_success[localStorage.getItem('languageSelected')]);
         } else {
             this.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.disabled_success[localStorage.getItem('languageSelected')]);
         };
+
+        store.sync();
+
     },
 
     toggleBlockCalls: function(event) {
@@ -177,7 +192,7 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         prefixElementClassList.toggle('grey');
         suffixElementClassList.toggle('grey');
         switch (newValueToUse) {
-            case ('on') :
+            case ('on'):
                 switch (submoduleName) {
                     case 'incoming':
                     case 'outgoing':
@@ -185,7 +200,7 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
                         break;
                     case 'privacy':
                         me.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.number_hide_success[localStorage.getItem('languageSelected')]);
-                    break;
+                        break;
                 };
                 break;
             case ('off'):
@@ -196,10 +211,47 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
                         break;
                     case 'privacy':
                         me.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.number_show_success[localStorage.getItem('languageSelected')]);
-                    break;
+                        break;
                 };
                 break;
         };
+    },
+
+    cbStoreLoaded: function(store, data) {
+        var vm = this.getViewModel();
+        vm.set('incoming_block_mode', data.get('block_in_mode'));
+        vm.set('outgoing_block_mode', data.get('block_out_mode'));
+        vm.set('clir', data.get('clir'));
+        this.setModeSwitcher();
+    },
+
+    setModeSwitcher: function() {
+        var vm = this.getViewModel();
+        var switcherCmp = this.lookupReference('modeSwitcher');
+        var submoduleName = this.getView()._vmPrefix.slice(0, -1);
+        var switcherValue;
+        switch (submoduleName) {
+            case 'incoming':
+                switcherValue = vm.get('incoming_block_mode')
+                break;
+            case 'outgoing':
+                switcherValue = vm.get('outgoing_block_mode')
+                break;
+            case 'privacy':
+                switcherValue = vm.get('clir')
+                break;
+        }
+        var submoduleStates = switcherValue ? ['', 'on', ' grey'] : [' grey', 'off', ''];
+        switcherCmp.setHtml(this.getModeSwitcher(submoduleName, submoduleStates));
+
+    },
+
+    getModeSwitcher: function(submoduleName, submoduleStates) {
+        return '<div id="toggleBlockCalls-' + submoduleName + '" class="toggle-section" data-callback="toggleBlockCalls">' +
+            '<span id="toggleTextPrefix-' + submoduleName + '" class="toggle-prefix' + submoduleStates[0] + '">' + Ngcp.csc.locales.callblocking.submodules[submoduleName].prefix[localStorage.getItem('languageSelected')] + '</span>' +
+            '<i id="iconAllowBlock-' + submoduleName + '" class="pointer toggle-icon ' + Ngcp.csc.icons.toggle[submoduleStates[1] + '2x'] + '" aria-hidden="true" data-qtip="' + Ngcp.csc.locales.callblocking.enable_or_disable[localStorage.getItem('languageSelected')] + '"></i>' +
+            '<span id="toggleTextSuffix-' + submoduleName + '" class="toggle-suffix' + submoduleStates[2] + '">' + Ngcp.csc.locales.callblocking.submodules[submoduleName].suffix[localStorage.getItem('languageSelected')] + '</span>' +
+            '</div>'
     }
 
 });
