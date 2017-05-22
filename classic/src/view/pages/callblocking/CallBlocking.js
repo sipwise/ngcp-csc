@@ -11,7 +11,7 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlocking', {
         click: {
             fn: 'onIconClicked',
             element: 'el',
-            delegate: 'div.toggle-icon'
+            delegate: '.toggle-icon'
         },
         afterrender: 'afterCBRendered'
     },
@@ -41,7 +41,8 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlocking', {
                     '<span id="toggleTextPrefix-' + submoduleName + '" class="toggle-prefix' + submoduleStates[0] + '">' + Ngcp.csc.locales.callblocking.submodules[submoduleName].prefix[localStorage.getItem('languageSelected')] + '</span>' +
                     '<div class="toggle-icon" data-callback="toggleBlockCalls"><i id="iconAllowBlock-' + submoduleName + '" class="pointer ' + Ngcp.csc.icons.toggle[submoduleStates[1] + '2x'] + '" aria-hidden="true" data-qtip="' + Ngcp.csc.locales.callblocking.enable_or_disable[localStorage.getItem('languageSelected')] + '"></i></div>' +
                     '<span id="toggleTextSuffix-' + submoduleName + '" class="toggle-suffix' + submoduleStates[2] + '">' + Ngcp.csc.locales.callblocking.submodules[submoduleName].suffix[localStorage.getItem('languageSelected')] + '</span>' +
-                    '</div>'
+                    '</div>',
+                    reference: 'modeSwitcher'
                 }, {
                     userCls: 'callblocking-header',
                     html: Ngcp.csc.locales.callblocking.add_number[localStorage.getItem('languageSelected')],
