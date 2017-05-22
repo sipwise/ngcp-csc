@@ -8,6 +8,12 @@ Ext.define('NgcpCsc.model.CallBlocking', {
         name: 'block_list',
         type: 'string'
     }, {
+        name: 'block_in_mode',
+        type: 'boolean'
+    }, {
+        name: 'block_out_mode',
+        type: 'boolean'
+    }, {
         name: 'enabled',
         type: 'boolean'
     }]

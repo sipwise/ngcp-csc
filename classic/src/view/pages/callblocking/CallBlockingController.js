@@ -8,6 +8,11 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
             '*': {
                 confirmCallBlockingRemoval: 'confirmCallBlockingRemoval'
             }
+        },
+        store:{
+            '*': {
+                cbStoreLoaded: 'cbStoreLoaded'
+            }
         }
     },
 
@@ -24,6 +29,7 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
     },
 
     renderBarrNumber: function(value, meta, record) {
+        value = value.substr(1); // removes the hash, which is the first char of disabled nums
         if (record.get('enabled') === false) {
             return Ext.String.format('<div style="color: #666;text-decoration: line-through;font-size: 16px;padding-left: 10px;">{0}</div>', value);
         } else {
@@ -182,6 +188,31 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         classList.add('fa-toggle-' + newValueToUse);
         prefixElementClassList.toggle('grey');
         suffixElementClassList.toggle('grey');
+    },
+
+    cbStoreLoaded: function(store, data){
+        var vm = this.getViewModel();
+        vm.set('incoming_block_mode',data.get('block_in_mode'));
+        vm.set('outgoing_block_mode',data.get('block_out_mode'));
+        this.setModeSwitcher();
+    },
+
+    setModeSwitcher: function(){
+        var vm = this.getViewModel();
+        var switcherCmp = this.lookupReference('modeSwitcher');
+        var submoduleName = this.getView()._vmPrefix.slice(0, -1);
+        var switcherValue = (submoduleName == 'incoming') ? vm.get('incoming_block_mode') : vm.get('outgoing_block_mode');
+        var submoduleStates = switcherValue ? ['', 'on', ' grey'] : [' grey', 'off', ''];
+        switcherCmp.setHtml(this.getModeSwitcher(submoduleName, submoduleStates));
+
+    },
+
+    getModeSwitcher: function(submoduleName, submoduleStates){
+        return '<div id="toggleBlockCalls-' + submoduleName + '" class="toggle-section" data-callback="toggleBlockCalls">' +
+            '<span id="toggleTextPrefix-' + submoduleName + '" class="toggle-prefix' + submoduleStates[0] + '">' + Ngcp.csc.locales.callblocking.submodules[submoduleName].prefix[localStorage.getItem('languageSelected')] + '</span>' +
+            '<i id="iconAllowBlock-' + submoduleName + '" class="pointer toggle-icon ' + Ngcp.csc.icons.toggle[submoduleStates[1] + '2x'] + '" aria-hidden="true" data-qtip="' + Ngcp.csc.locales.callblocking.enable_or_disable[localStorage.getItem('languageSelected')] + '"></i>' +
+            '<span id="toggleTextSuffix-' + submoduleName + '" class="toggle-suffix' + submoduleStates[2] + '">' + Ngcp.csc.locales.callblocking.submodules[submoduleName].suffix[localStorage.getItem('languageSelected')] + '</span>' +
+            '</div>'
     }
 
 });
