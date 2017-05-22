@@ -16,6 +16,7 @@ Ext.define('NgcpCsc.proxy.NgcpApi', {
     baseApiUrl: 'https://localhost:1443/api/',
     autoLoad: true,
     appendId: false,
+    // defaults, can be overridden
     actionMethods: {
         read: 'GET',
         create: 'POST',
@@ -26,14 +27,23 @@ Ext.define('NgcpCsc.proxy.NgcpApi', {
         var me = this;
         var action = request._action;
         var url, records;
-        switch(action){
-            case 'read' :
-                url = Ext.String.format('{0}{1}/?{2}', me.baseApiUrl, me.route, me.params);
-            break;
-            case 'update' :
+        switch (action) {
+            case 'read':
+                me.headers = {
+                    'Content-Type': 'application/json'
+                };
+                url = Ext.String.format('{0}{1}/{2}?{3}', me.baseApiUrl, me.route, me.subscriberId, me.params);
+                break;
+            case 'update':
+                me.headers = (me.actionMethods.update == 'PUT') ? {
+                    'Content-Type': 'application/json'
+                } : {
+                    'Content-Type': 'application/json-patch+json'
+                };
+
                 records = request._records;
-                url = Ext.String.format('{0}{1}/{2}', me.baseApiUrl, me.route, records[0].get('id'));
-            break;
+                url = Ext.String.format('{0}{1}/{2}', me.baseApiUrl, me.route, me.subscriberId || records[0].get('id'));
+                break;
         }
         request._url = url;
         return me.callParent(arguments);
@@ -42,6 +52,13 @@ Ext.define('NgcpCsc.proxy.NgcpApi', {
         type: 'json'
     },
     writer: {
-        writeAllFields: true
+        writeAllFields: true,
+        transform: {
+            fn: function(data, request) {
+                var updateMethod = request._proxy.actionMethods.update;
+                // patch requires data folded in array
+                return (updateMethod == 'PATCH') ? [data] : data;
+            }
+        }
     }
 });
