@@ -23,17 +23,13 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingGrid', {
 
     userCls: Ext.os.is.Desktop ? 'big-820' : 'small-100',
 
-    columns: {
-        defaults: {
-            menuDisabled: true,
-            resizable: false
-        },
-        items: [{
-            flex: 1,
-            dataIndex: 'block_list',
-            renderer: 'renderBarrNumber'
-        }]
-    },
+    columns: [{
+        flex: 1,
+        dataIndex: 'block_list',
+        renderer: 'renderBarrNumber',
+        menuDisabled: true,
+        resizable: false
+    }],
 
     initComponent: function() {
         var me = this;
