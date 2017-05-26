@@ -25,7 +25,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTab', {
     initComponent: function () {
 
         this.items = [{
-            title: Ngcp.csc.locales.callforward.source_one[localStorage.getItem('languageSelected')],
+            title: Ngcp.csc.locales.callforward.from[localStorage.getItem('languageSelected')] + Ngcp.csc.locales.callforward.source_one[localStorage.getItem('languageSelected')],
             id: this._tabId + '-tab-everybody',
             items: [
                 Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
@@ -39,7 +39,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTab', {
             }
         }, {
             bind: {
-                title: '{source_lista_title}'
+                title: Ngcp.csc.locales.callforward.from[localStorage.getItem('languageSelected')] + '{source_lista_title}'
             },
             id: this._tabId + '-tab-listA',
             iconCls: Ngcp.csc.icons.pencil + ' cf-edit edit-listA',
@@ -55,7 +55,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTab', {
             }
         }, {
             bind: {
-                title: '{source_listb_title}'
+                title: Ngcp.csc.locales.callforward.from[localStorage.getItem('languageSelected')] + '{source_listb_title}'
             },
             id: this._tabId + '-tab-listB',
             iconCls: Ngcp.csc.icons.pencil + ' cf-edit edit-listB',

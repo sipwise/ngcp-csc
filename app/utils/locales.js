@@ -944,6 +944,13 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'CHANGE TITLE',
                 sp: 'CHANGE TITLE'
             },
+            from: {
+                de: 'From ',
+                fr: 'From ',
+                sp: 'From ',
+                en: 'From ',
+                it: 'From '
+            },
             tooltips: {
                 change_time_from: {
                     en: 'Change time from',

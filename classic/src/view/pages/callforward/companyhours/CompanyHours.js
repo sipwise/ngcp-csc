@@ -29,7 +29,7 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
                 items: [{
                     xtype: 'panel',
                     id: 'collapsePanel-companyHours',
-                    title: Ngcp.csc.locales.callforward.for_calls_during_after_hours[localStorage.getItem('languageSelected')],
+                    title: Ngcp.csc.locales.callforward.for_calls_during_company_hours[localStorage.getItem('languageSelected')],
                     width: '100%',
                     collapsible: true,
                     bind: {
