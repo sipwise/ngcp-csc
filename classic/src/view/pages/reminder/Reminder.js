@@ -7,7 +7,17 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
 
     viewModel: 'reminder',
 
+    listeners: {
+        click: {
+            fn: 'onIconClicked',
+            element: 'el',
+            delegate: 'div.toggle-section'
+        }
+    },
+
     initComponent: function() {
+        var vm = this.getViewModel();
+        var submoduleStates = vm.get('reminder.reminder_status') ? [' grey', 'on', ''] : ['', 'off', ' grey'];
 
         this.dockedItems = [{
             xtype: 'toolbar',
@@ -22,23 +32,15 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
                     userCls: 'reminder-header',
                     html: Ngcp.csc.locales.reminder.is[localStorage.getItem('languageSelected')],
                     margin: '0 0 10 0'
-                }, {
-                    xtype: 'segmentedbutton',
-                    margin: '0 0 20 0',
-                    defaults: {
-                        handler: 'clickActiveInactiveButton'
-                    },
-                    items: [{
-                        text: Ngcp.csc.locales.common.active[localStorage.getItem('languageSelected')],
-                        bind: {
-                            pressed: '{reminder.reminder_status}'
-                        }
-                    }, {
-                        text: Ngcp.csc.locales.common.inactive[localStorage.getItem('languageSelected')],
-                        bind: {
-                            pressed: '{!reminder.reminder_status}'
-                        }
-                    }]
+                },
+                {
+                    xtype: 'panel',
+                    margin: '0 0 15 0',
+                    html: '<div id="toggleReminderActive" class="toggle-section" data-callback="toggleReminderActive">' +
+                    '<span id="toggleTextPrefixReminder" class="toggle-prefix' + submoduleStates[0] + '">' + Ngcp.csc.locales.reminder.active[localStorage.getItem('languageSelected')] + '</span>' +
+                    '<i id="iconAllowBlock-reminder" class="pointer toggle-icon ' + Ngcp.csc.icons.toggle[submoduleStates[1] + '2x'] + '" aria-hidden="true" data-qtip="' + Ngcp.csc.locales.reminder.activate_or_deactivate[localStorage.getItem('languageSelected')] + '"></i>' +
+                    '<span id="toggleTextSuffixReminder" class="toggle-suffix' + submoduleStates[2] + '">' + Ngcp.csc.locales.reminder.inactive[localStorage.getItem('languageSelected')] + '</span>' +
+                    '</div>'
                 }, {
                     xtype: 'form',
                     layout: 'responsivecolumn',

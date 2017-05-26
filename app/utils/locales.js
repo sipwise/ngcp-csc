@@ -1432,6 +1432,27 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Reminder set to active.',
                 fr: 'Reminder set to active.',
                 sp: 'Reminder set to active.'
+            },
+            activate_or_deactivate: {
+                en: 'Activate or deactivate reminder.',
+                it: 'Activate or deactivate reminder.',
+                de: 'Activate or deactivate reminder.',
+                fr: 'Activate or deactivate reminder.',
+                sp: 'Activate or deactivate reminder.'
+            },
+            active: {
+                en: 'Active',
+                it: 'Active',
+                de: 'Active',
+                fr: 'Active',
+                sp: 'Active'
+            },
+            inactive: {
+                en: ' Inactive',
+                it: ' Inactive',
+                de: ' Inactive',
+                fr: ' Inactive',
+                sp: ' Inactive'
             }
         },
         rtc: {
