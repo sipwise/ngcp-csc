@@ -91,7 +91,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
 
     saveEmptyRowToStore: function(grid) {
         var store = grid.getStore();
-        var plugin = grid.getPlugin('celleditingTime');
+        var plugin = grid.getPlugin('celleditingSource');
         var newRowIndex = store.getCount() + 1;
         var record = store.getAt(store.getCount() - 1);
         if (record == null || (record.data.phone !== ' ' && record.data.phone !== '')) {

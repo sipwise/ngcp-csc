@@ -6,7 +6,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
     },
 
     plugins: {
-        pluginId: 'celleditingTime',
+        pluginId: 'celleditingSource',
         ptype: 'cellediting',
         clicksToEdit: 1
     },

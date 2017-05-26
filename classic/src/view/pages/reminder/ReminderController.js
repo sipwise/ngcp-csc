@@ -14,6 +14,7 @@ Ext.define('NgcpCsc.view.pages.reminder.ReminderController', {
                 break;
         };
     },
+
     saveReminder: function() {
         var me = this;
         var reminderRec = this.getViewModel().get('reminder');
@@ -32,5 +33,27 @@ Ext.define('NgcpCsc.view.pages.reminder.ReminderController', {
                 });
             }
         }, 1);
+    },
+
+    onIconClicked: function(event, el) {
+        if (el.dataset.callback) {
+            // eval is never the best option
+            Ext.Function.defer(eval('this.' + el.dataset.callback), 1, this, [event]);
+        }
+    },
+
+    toggleReminderActive: function(event) {
+        var vm = this.getViewModel();
+        var classList = event.target.classList;
+        var prefixElementClassList = document.getElementById('toggleTextPrefix');
+        var suffixElementClassList = document.getElementById('toggleTextSuffix');
+        var currentValue = vm.get('reminder.reminder_status');
+        var newValueToUse = currentValue ? 'off' : 'on';
+        vm.set('reminder.reminder_status', newValueToUse);
+        classList.remove('fa-toggle-' + currentValue);
+        classList.add('fa-toggle-' + newValueToUse);
+        prefixElementClassList.toggle('grey');
+        suffixElementClassList.toggle('grey');
     }
+
 });
