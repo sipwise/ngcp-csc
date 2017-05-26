@@ -25,7 +25,7 @@ Ext.define('NgcpCsc.Application', {
         'Chart',
         'FaxTypes',
         'FirstRingActions',
-        'Forewards',
+        'Forwards',
         'Extensions',
         'Groups',
         'Seats',

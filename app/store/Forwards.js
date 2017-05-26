@@ -1,15 +1,15 @@
-Ext.define('NgcpCsc.store.Forewards', {
+Ext.define('NgcpCsc.store.Forwards', {
     extend: 'Ext.data.Store',
 
-    storeId: 'Forewards',
+    storeId: 'Forwards',
 
-    model: 'NgcpCsc.model.Foreward',
+    model: 'NgcpCsc.model.Forward',
 
     autoLoad: true,
 
     proxy: {
         type: 'ajax',
-        url: '/resources/data/forewards.json',
+        url: '/resources/data/forwards.json',
         reader: {
             type: 'json',
             rootProperty: 'data'
