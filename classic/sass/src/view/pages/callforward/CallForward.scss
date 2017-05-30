@@ -70,7 +70,7 @@
     }
 }
 
-// cf-mainform timeset panel
+// cf-mainform timeset and sourceset panels
 .x-panel-cf-mainform {
     .cf-calls-during {
         margin: 7px 15px 0 0;
@@ -85,5 +85,10 @@
         background: white;
         color: $base-color;
         border: none;
+    }
+    .cf-sourceset-textfield {
+        label {
+            padding-left: 10px;
+        }
     }
 }

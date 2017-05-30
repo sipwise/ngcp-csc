@@ -151,10 +151,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var currentTimeset = currentRoute.split('/')[1];
         var currentSourceset = cmp.id.split('-')[2];
         var storesArray = this.getStoresArrayFromRoute(currentRoute, currentSourceset);
-        var loadingBar = me.lookupReference('loadingBar');
-        loadingBar.showBusy();
-        vm.set('list_a', true);
-        vm.set('list_b', true);
+        if (currentSourceset === 'listA') {
+            vm.set('list_b', true);
+            vm.set('list_a', false);
+        } else if (currentSourceset === 'listB') {
+            vm.set('list_a', true);
+            vm.set('list_b', false);
+        };
         Ext.Ajax.request({
             url: '/resources/data/callForwardCombinations.json',
             success: function(response, opts) {
@@ -172,9 +175,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                             store.add(records);
                         };
                     };
-                    Ext.defer(function() {
-                        loadingBar.clearStatus();
-                    }, 300);
                 });
             },
             failure: function(response, opts) {}
@@ -246,12 +246,18 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         switch (true) {
             case (me.checkIndexOf('online', targetId)):
                 vm.set('online_add_new_then_hidden', !vm.get('online_add_new_then_hidden'));
+                vm.set('online_cancel_button_hidden', !vm.get('online_cancel_button_hidden'));
+                vm.set('online_add_button_hidden', !vm.get('online_add_button_hidden'));
                 break;
             case (me.checkIndexOf('busy', targetId)):
                 vm.set('busy_add_new_then_hidden', !vm.get('busy_add_new_then_hidden'));
+                vm.set('busy_cancel_button_hidden', !vm.get('busy_cancel_button_hidden'));
+                vm.set('busy_add_button_hidden', !vm.get('busy_add_button_hidden'));
                 break;
             case (me.checkIndexOf('offline', targetId)):
                 vm.set('offline_add_new_then_hidden', !vm.get('offline_add_new_then_hidden'));
+                vm.set('offline_cancel_button_hidden', !vm.get('offline_cancel_button_hidden'));
+                vm.set('offline_add_button_hidden', !vm.get('offline_add_button_hidden'));
                 break;
         };
     },
