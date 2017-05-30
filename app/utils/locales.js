@@ -2370,6 +2370,13 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Fax',
                 sp: 'Fax'
             },
+            cancel: {
+                en: 'Cancel',
+                it: 'Cancel',
+                de: 'Cancel',
+                fr: 'Cancel',
+                sp: 'Cancel'
+            },
             conversation_type: {
                 call: {
                     en: 'Call',
