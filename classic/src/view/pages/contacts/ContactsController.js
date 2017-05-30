@@ -70,16 +70,33 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         });
         saveBtn.show();
     },
+
     showCreationFields: function(btn) {
         var contacts = this.getView();
         var tbar = contacts.getDockedItems('toolbar[dock="top"]')[0];
         var newChatName = tbar.down('[name=newChatName]');
         var newChatBtn = tbar.down('[name=newChatBtn]');
+        var cancelNewChatBtn = tbar.down('[name=cancelNewChatBtn]');
         btn.hide();
         newChatName.show();
         newChatBtn.show();
+        cancelNewChatBtn.show();
         newChatName.focus();
     },
+
+    cancelCreateNewChannel: function () {
+        var contacts = this.getView();
+        var tbar = contacts.getDockedItems('toolbar[dock="top"]')[0];
+        var newChatName = tbar.down('[name=newChatName]');
+        var newChatBtn = tbar.down('[name=newChatBtn]');
+        var cancelNewChatBtn = tbar.down('[name=cancelNewChatBtn]');
+        var btn = tbar.down('[name=showNewChatBtn]');
+        btn.show();
+        newChatName.hide();
+        newChatBtn.hide();
+        cancelNewChatBtn.hide();
+    },
+
     addUser: function(view, rowIndex, colIndex, item, ev, record) {
         var contacts = this.getView();
         var done = contacts.down('[name=commitChangesBtn]');
@@ -98,6 +115,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
             });
         }
     },
+
     addContact: function(record) {
         var me = this;
         var rootNode = Ext.getStore('Contacts').findRecord('id', 'addressbook');
@@ -174,6 +192,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
             this.getView().setWidth(newWidth);
         }
     },
+
     nodeExpanded: function(node) {
         var me = this;
         if (node && node.hasChildNodes()) {
@@ -182,23 +201,35 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
             }, 50);
         }
     },
+
     deleteUser: function(view, rowIndex, colIndex, item, ev, record) {
         var contactStore = Ext.getStore('Contacts');
-        var me = this;var title = Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')];
+        var me = this;
+        var title = Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')];
         var question = Ext.String.format(Ngcp.csc.locales.contacts.delete_user[localStorage.getItem('languageSelected')], record.get('name'));
         var sucessMsg = Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')];
         this.fireEvent('showconfirmbox', title, question, sucessMsg, 'confirmUserRemoval', record);
     },
-    confirmUserRemoval: function(userRec){
+
+    confirmUserRemoval: function(userRec) {
+        // DONE: When deletion confirmed, contacts.collapseAll() first collapse row. -> Didn't help.
+        // DONE: Try with this.cancelEdit(record) before store.remove(). -> Didn't help.
+        // TODO Cvenusino: It seems to me that the treecolumn with dataIndex name gets deleted
+        // properly, but the child widgetcolumn of that record remains. Need to remove the
+        // widgetcolumn for this row, and/or refresh the view (though we are already refreshing
+        // the view)
         var store = this.getView().getStore();
+        var contacts = this.getView();
         store.remove(userRec);
         this.getView().view.refresh();
     },
+
     onPressEnter: function(field, e) {
         if (e.getKey() == e.ENTER) {
             this.createNewChannel();
         }
     },
+
     createNewChannel: function() {
         var contacts = this.getView();
         var tbar = contacts.getDockedItems('toolbar[dock="top"]')[0];
@@ -223,6 +254,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         newChatBtn.hide();
         newChatName.reset();
     },
+
     preventTabOpen: function(view, cell, cellIdx, record, row, rowIdx, eOpts) {
         var retVal = true;
         if (record.get('checked') !== null) {
@@ -234,14 +266,17 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         }
         return retVal;
     },
+
     startCall: function(grid, rowIndex, colIndex, item, e, record) {
         if (record.get('online'))
             this.fireEvent('initrtc', record, 'startCall');
     },
+
     startVideoCall: function(grid, rowIndex, colIndex, item, e, record) {
         if (record.get('online'))
             this.fireEvent('initrtc', record, 'startVideoCall', true);
     },
+
     editContactField: function(tree, rowIndex, colIndex, item, e, record) {
         var me = this;
         var doneBtn = this.getView().down('[name=commitContactChangesBtn]');
@@ -258,6 +293,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         });
         doneBtn.show();
     },
+
     focusField: function(rec) {
         var me = this;
         var fieldEl = Ext.fly(me.getView().view.getNode(rec))
@@ -267,6 +303,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         }, 50)
 
     },
+
     jumpToNextField: function(field, e) {
         if (e.getKey() == e.TAB) {
             var tree = this.getView();
@@ -280,6 +317,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
             }
         }
     },
+
     nodeClicked: function(node, record, item, index, e) {
         var me = this;
         if (record.get('checked') != null || record.get('fieldValue') || record.get('id') == 'addressbook') {
@@ -292,6 +330,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         }, 100);
         return false;
     },
+
     validateFields: function(btn) {
         var me = this;
         var doSave = this.getView().getStore().getModifiedRecords().length > 0,
@@ -311,7 +350,9 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         }
         btn.setVisible(btnVisible);
     },
+
     cancelEdit: function(rec) {
+        console.log('cancelEdit fired');
         var store = this.getView().getStore();
         var saveBtn = this.getView().down('[name=commitContactChangesBtn]');
         var array = rec ? rec.childNodes : store.getRange();
@@ -330,6 +371,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         this.getView().view.refresh();
         saveBtn.hide();
     },
+
     save: function() {
         var me = this;
         var store = this.getView().getStore();
@@ -340,39 +382,49 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         this.getView().view.refresh();
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
     },
+
     resizeContactPanel: function(newHeight) {
         this.getView().setHeight(newHeight);
     },
+
     disableCallIcon: function(view, rowIndex, colIndex, item, record) {
         return !((record.get('leaf') && record.get('fieldValue')) || record.get('isAddressBookContact') || record.get('online'));
     },
+
     disableVideoIcon: function(view, rowIndex, colIndex, item, record) {
         return !((record.get('leaf') && record.get('fieldValue')) || record.get('isAddressBookContact') || record.get('online'));
     },
+
     disableEditIcon: function(view, rowIndex, colIndex, item, record) {
         return !(record.get('isAddressBookContact') && !record.get('childrenEditInProgress'));
     },
     disableAddUserIcon: function(view, rowIndex, colIndex, item, record) {
         return !(!record.get('leaf') && !record.get('isAddressBookContact'));
     },
+
     disableDeleteUserIcon: function(view, rowIndex, colIndex, item, record) {
         return !(!record.get('leaf'));
     },
+
     setCallIconClass: function(value, context) {
         var extraMarginRight = context.record && context.record.parentNode && context.record.parentNode.get('id') == "addressbook" ? '-extra-margin' : '';
         return ((context.record && ((context.record.get('leaf') && context.record.get('online')) || context.record.get('isAddressBookContact'))) ? 'x-phone-display' : '') + extraMarginRight;
     },
+
     setVideoIconClass: function(value, context) {
         var extraMarginRight = context.record && context.record.parentNode && context.record.parentNode.get('id') == "addressbook" ? '-extra-margin' : '';
         return ((context.record && ((context.record.get('leaf') && context.record.get('online')) || context.record.get('isAddressBookContact'))) ? 'x-video-display' : '') + extraMarginRight;
     },
+
     setEditIconClass: function(value, context) {
         var rec = context.record;
         return (context.record && context.record.get('isAddressBookContact')) ? 'x-edit-display' : '';
     },
+
     setAddUserIconClass: function(value, context) {
         return (context.record && !context.record.get('leaf') && context.record.parentNode.get('id') !== "addressbook") ? 'x-add-user-display' : '';
     },
+
     setDeleteUserClass: function(value, context) {
         return (context.record && context.record.parentNode && context.record.parentNode.get('id') == "addressbook") ? 'x-remove-user-display' : '';
     }

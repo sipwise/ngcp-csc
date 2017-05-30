@@ -38,7 +38,6 @@ Ext.define('NgcpCsc.view.pages.contacts.Contacts', {
         itemcollapse: 'cancelEdit'
     },
 
-
     dockedItems: [{
         xtype: 'toolbar',
         dock: 'top',
@@ -58,6 +57,12 @@ Ext.define('NgcpCsc.view.pages.contacts.Contacts', {
             listeners: {
                 specialkey: 'onPressEnter'
             }
+        }, {
+            xtype: 'button',
+            name: 'cancelNewChatBtn',
+            hidden: true,
+            text: Ngcp.csc.locales.common.cancel[localStorage.getItem('languageSelected')],
+            handler: 'cancelCreateNewChannel'
         }, {
             xtype: 'button',
             name: 'newChatBtn',
