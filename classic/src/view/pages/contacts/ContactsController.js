@@ -70,16 +70,33 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         });
         saveBtn.show();
     },
+
     showCreationFields: function(btn) {
         var contacts = this.getView();
         var tbar = contacts.getDockedItems('toolbar[dock="top"]')[0];
         var newChatName = tbar.down('[name=newChatName]');
         var newChatBtn = tbar.down('[name=newChatBtn]');
+        var cancelNewChatBtn = tbar.down('[name=cancelNewChatBtn]');
         btn.hide();
         newChatName.show();
         newChatBtn.show();
+        cancelNewChatBtn.show();
         newChatName.focus();
     },
+
+    cancelCreateNewChannel: function () {
+        var contacts = this.getView();
+        var tbar = contacts.getDockedItems('toolbar[dock="top"]')[0];
+        var newChatName = tbar.down('[name=newChatName]');
+        var newChatBtn = tbar.down('[name=newChatBtn]');
+        var cancelNewChatBtn = tbar.down('[name=cancelNewChatBtn]');
+        var btn = tbar.down('[name=showNewChatBtn]');
+        btn.show();
+        newChatName.hide();
+        newChatBtn.hide();
+        cancelNewChatBtn.hide();
+    },
+
     addUser: function(view, rowIndex, colIndex, item, ev, record) {
         var contacts = this.getView();
         var done = contacts.down('[name=commitChangesBtn]');

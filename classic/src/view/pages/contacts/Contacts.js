@@ -38,6 +38,16 @@ Ext.define('NgcpCsc.view.pages.contacts.Contacts', {
         itemcollapse: 'cancelEdit'
     },
 
+    // DONE: 1. Currently the user can not exit the "Create new team" process
+    // after clicking buttton. Pressing escape and blurring does not cancel, and
+    // there is no cancel button. User has to reload page for it to cancel.
+    // Implement a cancel button and/or blur/escapekey mechanism to address this
+    // TODO: 2. Also fix "delete contact bug". Steps to reproduce (screenie in
+    // WF docs):
+    // 1. In contacts sidebar, expand a contact in the "Personal addressbook" 
+    // 2. Press delete on the contact while it's expanded
+    // 3. Contact does not get deleted. The only visible change is top row for
+    // the specific contact (with icons, name header, etc) disappearing
 
     dockedItems: [{
         xtype: 'toolbar',
@@ -64,6 +74,12 @@ Ext.define('NgcpCsc.view.pages.contacts.Contacts', {
             hidden: true,
             text: Ngcp.csc.locales.common.add[localStorage.getItem('languageSelected')],
             handler: 'createNewChannel'
+        }, {
+            xtype: 'button',
+            name: 'cancelNewChatBtn',
+            hidden: true,
+            text: Ngcp.csc.locales.common.cancel[localStorage.getItem('languageSelected')],
+            handler: 'cancelCreateNewChannel'
         }]
     }],
     bbar: ['->', {
