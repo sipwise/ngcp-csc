@@ -5,7 +5,7 @@ FROM docker.mgm.sipwise.com/sipwise-jessie:latest
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT 2017-05-11
+ENV REFRESHED_AT 2017-05-30
 
 RUN echo "deb https://deb.sipwise.com/autobuild/ release-trunk-jessie main" >>/etc/apt/sources.list
 
@@ -36,6 +36,7 @@ RUN echo "cd /code && ./t/testrunner" >/root/.bash_history
 RUN ln -s /home/selenium/chromedriver /usr/bin/chromedriver
 
 ADD ./t/package.json /tmp/
+ADD ./t/.npmrc /tmp/
 WORKDIR /tmp
 RUN npm install /tmp
 
