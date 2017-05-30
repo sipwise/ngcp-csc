@@ -769,6 +769,13 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'ADD NEW DESTINATION',
                 sp: 'ADD NEW DESTINATION'
             },
+            cancel_destination: {
+                en: 'CANCEL',
+                it: 'CANCEL',
+                de: 'CANCEL',
+                fr: 'CANCEL',
+                sp: 'CANCEL'
+            },
             when_phone_online: {
                 en: 'When I am online ...',
                 it: 'When I am online ...',
