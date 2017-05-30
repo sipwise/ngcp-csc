@@ -17,6 +17,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
 
     listeners: {
         edit: 'editingPhoneDone',
+        beforeedit: 'beforePhoneEdit',
         click: {
             fn: 'saveGrid',
             element: 'el',

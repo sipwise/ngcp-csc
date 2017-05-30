@@ -18,6 +18,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         grid.getView().refresh();
     },
 
+    beforePhoneEdit: function (editor, context) {
+        var record = context.record;
+        var grid = context.grid;
+        record.set("edit", true);
+        grid.getView().refresh();
+    },
+
     collapsePanel: function(el) {
         var panelId = el.id.split('-')[1];
         var isCollapsed = el.collapsed === false ? false : true;
