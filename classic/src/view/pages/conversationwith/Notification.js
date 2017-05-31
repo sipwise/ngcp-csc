@@ -24,7 +24,7 @@ Ext.define('NgcpCsc.view.pages.conversationwith.Notifications', {
         "<div class='{conversation_type}-icon'></div>",
         "<div class='author'>{author}</div>",
         "<div class='{direction}-{status}-icon'></div>",
-        "<div data-qtip='{[Ext.util.Format.date(values.start_time, 'd.m.Y h:i:s')]}'>{[Ngcp.csc.formatter.timeSince(values.start_time)]} " + Ngcp.csc.locales.common.ago[localStorage.getItem('languageSelected')] + "</div>",
+        "<div data-qtip='{[Ext.util.Format.date(values.start_time, 'd.m.Y h:i:s')]}'>{[Ngcp.csc.formatter.timeSince(values.start_time)]}</div>",
         "<div class='text'>",
         "<tpl if='conversation_type == \"sms\" || conversation_type == \"chat\"'>",
         "<p>{text}</p>",
