@@ -55,8 +55,8 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
                         xtype: 'timefield',
                         fieldLabel: Ngcp.csc.locales.reminder.time[localStorage.getItem('languageSelected')],
                         format: 'H:i:s',
-                        minValue: '0:00:00',
-                        maxValue: '23:50:00',
+                        minValue: '00:00:00',
+                        maxValue: '23:55:00',
                         increment: 5,
                         editable: false,
                         bind: {
