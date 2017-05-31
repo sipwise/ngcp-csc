@@ -22,7 +22,7 @@ Ext.define('NgcpCsc.view.pages.reminder.ReminderController', {
             if (reminderRec.dirty) {
                 reminderRec.save({
                     failure: function(record, operation) {
-                        me.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_unsuccess[localStorage.getItem('languageSelected')]);
+                        me.fireEvent('showmessage', false, Ngcp.csc.locales.common.save_unsuccess[localStorage.getItem('languageSelected')]);
                     },
                     success: function(record, operation) {
                         me.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
