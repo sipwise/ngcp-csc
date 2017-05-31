@@ -22,9 +22,10 @@ Ext.define('NgcpCsc.model.Reminder', {
         }
     }, {
         name: "time",
-        type: "date",
-        dateFormat: 'H:m:s',
+        dateFormat: 'H:i:s',
+        type: 'date',
         mapping: function(data) {
+            console.log(data._embedded['ngcp:reminders'][0].time);
             return data._embedded['ngcp:reminders'][0].time;
         }
     }, {
@@ -48,6 +49,6 @@ Ext.define('NgcpCsc.model.Reminder', {
     proxy: {
         type: 'ngcp-api',
         route: 'reminders',
-        params: 'subscriber_id=88'
+        params: 'subscriber_id=239'
     }
 });
