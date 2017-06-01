@@ -86,7 +86,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
 
     onNavigationTreeSelectionChange: function(tree, node) {
         var to = node && (node.get('routeId') || node.get('viewType'));
-
+        this.fireEvent('navSelectionChange');
         if (to) {
             if (node.parentNode) {
                 node.parentNode.expand();

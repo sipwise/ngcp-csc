@@ -3,7 +3,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigModel', {
     alias: 'viewmodel.pbxconfig',
     // non-API data
     data: {
-        add_new_button: 'ADD NEW SEAT'
+        add_new_button: 'ADD NEW GROUP',
+        last_edited_row: ''
     }
 
 });
