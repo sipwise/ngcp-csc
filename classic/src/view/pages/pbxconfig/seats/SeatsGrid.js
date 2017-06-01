@@ -112,9 +112,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.SeatsGrid', {
                         id: 'seats-textfield-extension-{record.id}'
                     },
                     msgTarget: 'side',
-                    maxLength: 3,
                     enforceMaxLength: true,
-                    regex: /^[0-9]{3}$/,
+                    regex: /^[1-9][0-9]*$/,
                     regexText: Ngcp.csc.locales.pbxconfig.digit_extension_number[localStorage.getItem('languageSelected')],
                     listeners: {
                         focus: {

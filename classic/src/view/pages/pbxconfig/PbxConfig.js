@@ -25,7 +25,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfig', {
                     xtype: 'button',
                     reference: 'addNewBtn',
                     bind: {
-                        text: '{add_new_button}'
+                        text: '{add_new_button}',
+                        disabled: '{add_pbx_active}'
                     },
                     handler: 'addPbx'
                 }]
