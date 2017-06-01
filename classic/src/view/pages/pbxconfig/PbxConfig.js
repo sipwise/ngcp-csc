@@ -9,6 +9,13 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfig', {
         afterrender: 'afterPbxContRendered'
     },
 
+// 6. When editing a new card, and switching module, shows "All
+// fields required". Use a VM model to set last edited card id, and
+// a onRouteChange event and controller to hide fields on that card.
+// 7. Shouldn't be able to create a new card if another one has
+// been created but not saved
+// TODO 8. Also add changes above (point 6 and 7) to devices module
+
     initComponent: function() {
 
         this.dockedItems = [{

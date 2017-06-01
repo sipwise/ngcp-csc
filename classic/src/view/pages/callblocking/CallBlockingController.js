@@ -38,8 +38,21 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         }
     },
 
-    addUnsuccessful: function() {
-        this.fireEvent('showmessage', false, Ngcp.csc.locales.common.save_unsuccess[localStorage.getItem('languageSelected')]);
+    addUnsuccessful: function(unsuccessType) {
+        switch (unsuccessType) {
+            case 'duplicateAnonymous':
+                this.fireEvent('showmessage', false, Ngcp.csc.locales.callblocking.save_unsuccess_duplicate_anonymous[localStorage.getItem('languageSelected')]);
+                break;
+            case 'numberEmpty':
+                this.fireEvent('showmessage', false, Ngcp.csc.locales.callblocking.save_unsuccess_number_empty[localStorage.getItem('languageSelected')]);
+                break;
+            case 'duplicateNumber':
+                this.fireEvent('showmessage', false, Ngcp.csc.locales.callblocking.save_unsuccess_duplicate_number[localStorage.getItem('languageSelected')]);
+                break;
+            case 'invalidNumber':
+                this.fireEvent('showmessage', false, Ngcp.csc.locales.callblocking.save_unsuccess_invalid_number[localStorage.getItem('languageSelected')]);
+                break;
+        };
     },
 
     addToStore: function(newNumber, newId, store) {
@@ -88,12 +101,12 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
                                 me.addToStore('anonymous', newId, store);
                                 break;
                             default:
-                                me.addUnsuccessful();
+                                me.addUnsuccessful('duplicateAnonymous');
                                 break;
                         }
                         break;
                     case ('CallBlockingOutgoing'):
-                        me.addUnsuccessful();
+                        me.addUnsuccessful('numberEmpty');
                         break;
                 }
                 break;
@@ -106,12 +119,12 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
                                 me.addToStore(newNumber, newId, store);
                                 break;
                             default:
-                                me.addUnsuccessful();
+                                me.addUnsuccessful('duplicateNumber');
                                 break;
                         };
                         break;
                     case (1):
-                        me.addUnsuccessful();
+                        me.addUnsuccessful('invalidNumber');
                         break;
                 }
                 break;
