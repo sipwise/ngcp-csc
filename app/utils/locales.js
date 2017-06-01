@@ -507,19 +507,33 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'To block anonymous calls you may just submit the empty string.',
                 sp: 'To block anonymous calls you may just submit the empty string.'
             },
-            allow_mode_success: {
-                en: 'Allow mode successfully set.',
-                it: 'Allow mode successfully set.',
-                de: 'Allow mode successfully set.',
-                fr: 'Allow mode successfully set.',
-                sp: 'Allow mode successfully set.'
+            mode_allow_success: {
+                en: 'Mode set to allow.',
+                it: 'Mode set to allow.',
+                de: 'Mode set to allow.',
+                fr: 'Mode set to allow.',
+                sp: 'Mode set to allow.'
             },
-            block_mode_success: {
-                en: 'Block mode successfully set.',
-                it: 'Block mode successfully set.',
-                de: 'Block mode successfully set.',
-                fr: 'Block mode successfully set.',
-                sp: 'Block mode successfully set.'
+            number_show_success: {
+                en: 'Privacy set to show own number.',
+                it: 'Privacy set to show own number.',
+                de: 'Privacy set to show own number.',
+                fr: 'Privacy set to show own number.',
+                sp: 'Privacy set to show own number.'
+            },
+            number_hide_success: {
+                en: 'Privacy set to hide own number.',
+                it: 'Privacy set to hide own number.',
+                de: 'Privacy set to hide own number.',
+                fr: 'Privacy set to hide own number.',
+                sp: 'Privacy set to hide own number.'
+            },
+            mode_block_success: {
+                en: 'Mode set to block.',
+                it: 'Mode set to block.',
+                de: 'Mode set to block.',
+                fr: 'Mode set to block.',
+                sp: 'Mode set to block.'
             },
             enable_or_disable: {
                 en: 'Enable or disable number',
@@ -541,20 +555,6 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Please enter a number.',
                 fr: 'Please enter a number.',
                 sp: 'Please enter a number.'
-            },
-            hide_mode_on: {
-                en: 'Hide mode succcessfully turned on.',
-                it: 'Hide mode succcessfully turned on.',
-                de: 'Hide mode succcessfully turned on.',
-                fr: 'Hide mode succcessfully turned on.',
-                sp: 'Hide mode succcessfully turned on.'
-            },
-            hide_mode_off: {
-                en: 'Hide mode succcessfully turned off.',
-                it: 'Hide mode succcessfully turned off.',
-                de: 'Hide mode succcessfully turned off.',
-                fr: 'Hide mode succcessfully turned off.',
-                sp: 'Hide mode succcessfully turned off.'
             },
             allow: {
                 en: 'Allow',
@@ -615,11 +615,11 @@ Ext.define('Ngcp.csc.locales', {
                         sp: 'Allow'
                     },
                     suffix: {
-                        en: 'block',
-                        it: 'block',
-                        de: 'block',
-                        fr: 'block',
-                        sp: 'block'
+                        en: 'Block',
+                        it: 'Block',
+                        de: 'Block',
+                        fr: 'Block',
+                        sp: 'Block'
                     }
                 },
                 outgoing: {
@@ -638,11 +638,11 @@ Ext.define('Ngcp.csc.locales', {
                         sp: 'Allow'
                     },
                     suffix: {
-                        en: 'block',
-                        it: 'block',
-                        de: 'block',
-                        fr: 'block',
-                        sp: 'block'
+                        en: 'Block',
+                        it: 'Block',
+                        de: 'Block',
+                        fr: 'Block',
+                        sp: 'Block'
                     }
                 },
                 privacy: {
@@ -661,11 +661,11 @@ Ext.define('Ngcp.csc.locales', {
                         sp: 'Show own number'
                     },
                     suffix: {
-                        en: 'hide own number',
-                        it: 'hide own number',
-                        de: 'hide own number',
-                        fr: 'hide own number',
-                        sp: 'hide own number'
+                        en: 'Hide own number',
+                        it: 'Hide own number',
+                        de: 'Hide own number',
+                        fr: 'Hide own number',
+                        sp: 'Hide own number'
                     }
                 }
             }

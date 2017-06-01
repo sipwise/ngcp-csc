@@ -119,26 +119,6 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         vm.set('new_number', '');
     },
 
-    clickAllowModeButton: function() {
-        var vm = this.getViewModel();
-        var blockAllowMode = vm.get('block_mode');
-        if (blockAllowMode === 'allow') {
-            this.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.allow_mode_success[localStorage.getItem('languageSelected')]);
-        } else if (blockAllowMode === 'block') {
-            this.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.block_mode_success[localStorage.getItem('languageSelected')]);
-        };
-    },
-
-    clickHideModeButton: function() {
-        var vm = this.getViewModel();
-        var hideMode = vm.get('hide_mode');
-        if (hideMode === 'on') {
-            this.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.hide_mode_on[localStorage.getItem('languageSelected')]);
-        } else if (hideMode === 'off') {
-            this.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.hide_mode_off[localStorage.getItem('languageSelected')]);
-        };
-    },
-
     deleteRecord: function(event) {
         var rec = event.record;
         var currentRoute = window.location.hash;
@@ -169,6 +149,7 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
     },
 
     toggleBlockCalls: function(event) {
+        var me = this;
         var vm = this.getViewModel();
         var submoduleName = event.getTarget().id.split('-')[1];
         var classList = event.target.classList;
@@ -182,6 +163,30 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         classList.add('fa-toggle-' + newValueToUse);
         prefixElementClassList.toggle('grey');
         suffixElementClassList.toggle('grey');
+        switch (newValueToUse) {
+            case ('on') :
+                switch (submoduleName) {
+                    case 'incoming':
+                    case 'outgoing':
+                        me.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.mode_block_success[localStorage.getItem('languageSelected')]);
+                        break;
+                    case 'privacy':
+                        me.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.number_hide_success[localStorage.getItem('languageSelected')]);
+                    break;
+                };
+                break;
+            case ('off'):
+                switch (submoduleName) {
+                    case 'incoming':
+                    case 'outgoing':
+                        me.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.mode_allow_success[localStorage.getItem('languageSelected')]);
+                        break;
+                    case 'privacy':
+                        me.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.number_show_success[localStorage.getItem('languageSelected')]);
+                    break;
+                };
+                break;
+        };
     }
 
 });
