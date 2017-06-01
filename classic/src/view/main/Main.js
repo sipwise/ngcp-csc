@@ -21,7 +21,8 @@ Ext.define('NgcpCsc.view.main.Main', {
 
     listeners: {
         render: 'onMainViewRender',
-        resize: 'setItemsSize'
+        resize: 'setItemsSize',
+        click: 'clickMain'
     },
 
     name: 'mainView',

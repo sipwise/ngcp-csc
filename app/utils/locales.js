@@ -598,6 +598,34 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Mode',
                 sp: 'Mode'
             },
+            save_unsuccess_duplicate_anonymous: {
+                en: 'An anonymous entry already exists.',
+                it: 'An anonymous entry already exists.',
+                de: 'An anonymous entry already exists.',
+                fr: 'An anonymous entry already exists.',
+                sp: 'An anonymous entry already exists.'
+            },
+            save_unsuccess_number_empty: {
+                en: 'Number field can not be empty.',
+                it: 'Number field can not be empty.',
+                de: 'Number field can not be empty.',
+                fr: 'Number field can not be empty.',
+                sp: 'Number field can not be empty.'
+            },
+            save_unsuccess_duplicate_number: {
+                en: 'An entry with the same value already exists.',
+                it: 'An entry with the same value already exists.',
+                de: 'An entry with the same value already exists.',
+                fr: 'An entry with the same value already exists.',
+                sp: 'An entry with the same value already exists.'
+            },
+            save_unsuccess_invalid_number: {
+                en: 'Invalid number entry.',
+                it: 'Invalid number entry.',
+                de: 'Invalid number entry.',
+                fr: 'Invalid number entry.',
+                sp: 'Invalid number entry.'
+            },
             submodules: {
                 incoming: {
                     header: {
@@ -1969,6 +1997,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Must be a 3 digit extension number',
                 fr: 'Must be a 3 digit extension number',
                 sp: 'Must be a 3 digit extension number'
+            },
+            not_add_new_while_another: {
+                en: 'Can not create new card while another is active.',
+                it: 'Can not create new card while another is active.',
+                de: 'Can not create new card while another is active.',
+                fr: 'Can not create new card while another is active.',
+                sp: 'Can not create new card while another is active.'
             },
             autoattendant: {
                 title: {

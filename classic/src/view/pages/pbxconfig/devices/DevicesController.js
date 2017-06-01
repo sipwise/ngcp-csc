@@ -1,6 +1,7 @@
 Ext.define('NgcpCsc.view.pages.pbxconfig.DevicseController', {
     extend: 'NgcpCsc.view.pages.pbxconfig.PbxConfigController',
     alias: 'controller.devices',
+
     listen: {
         controller: {
             '*': {
@@ -8,6 +9,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.DevicseController', {
             }
         }
     },
+
     onIconClicked: function(event, el) {
         // overrides onIconClicked of PbxConfigController
         if (el.dataset.onseatclick) {
@@ -33,6 +35,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.DevicseController', {
             }
         };
     },
+
     onMouseEntered: function(event, el) {
         var selectedRec = this.getSelectedRec();
         var editPanel = Ext.ComponentQuery.query('#seat-edit-panel-' + selectedRec.get('id'))[0];
@@ -40,14 +43,17 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.DevicseController', {
             Ext.Function.defer(eval('this.' + el.dataset.onseathovered), 1, this, [el]);
         }
     },
+
     onMouseLeave: function() {
         var selectedRec = this.getSelectedRec();
         var showPanel = Ext.ComponentQuery.query('#seat-show-panel-' + selectedRec.get('id'))[0];
         showPanel.hide();
     },
+
     seatHovered: function(el) {
         this.setShowEditPanelFields(el);
     },
+
     setShowEditPanelFields: function(el) {
         var selectedRec = this.getSelectedRec();
         var showPanel = Ext.ComponentQuery.query('#seat-show-panel-' + selectedRec.get('id'))[0];
@@ -72,6 +78,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.DevicseController', {
         showPanel.getEl().setLeft(parseInt(labelPositioning.left.split('px')[0]) + offset);
         showPanel.getEl().setTop(parseInt(labelPositioning.top.split('px')[0]) + 20);
     },
+
     deviceSelected: function(combo, rec) {
         var grid = this.lookupReference('devicesGrid');
         var devicesListStore = Ext.getStore('DevicesList');
@@ -93,6 +100,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.DevicseController', {
             nameField.focus();
         }, 50)
     },
+
     editSeat: function(el) {
         var selectedRec = this.getSelectedRec();
         var showPanel = Ext.ComponentQuery.query('#seat-show-panel-' + selectedRec.get('id'))[0];
@@ -124,6 +132,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.DevicseController', {
         editPanel.getEl().setLeft(parseInt(labelPositioning.left.split('px')[0]) + offset);
         editPanel.getEl().setTop(parseInt(labelPositioning.top.split('px')[0]) + 20);
     },
+
     deleteSeat: function() {
         var me = this;
         var selectedRec = me.getSelectedRec();
@@ -138,6 +147,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.DevicseController', {
         });
 
     },
+
     seatRemoveConfirmed: function(seat) {
         var me = this;
         var grid = me.lookupReference('devicesGrid');
@@ -150,6 +160,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.DevicseController', {
         grid.focus();
 
     },
+
     saveSeat: function() {
         var me = this;
         var grid = this.lookupReference('devicesGrid');
@@ -177,6 +188,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.DevicseController', {
         me.commitUnsavedChanges();
         editPanel.hide();
     },
+
     commitUnsavedChanges: function() {
         var grid = this.lookupReference('devicesGrid');
         var selectedRec = this.getSelectedRec();
@@ -190,13 +202,16 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.DevicseController', {
             grid.getView().refresh();
         }, 50);
     },
+
     discardChanges: function() {
         var editPanel = Ext.ComponentQuery.query('#seat-edit-panel-' + this.getSelectedRec().get('id'))[0];
         editPanel.hide();
     },
+
     getSelectedRec: function() {
         var grid = this.lookupReference('devicesGrid');
         var selectedRec = grid.getSelectionModel().getSelection()[0];
         return selectedRec;
     }
+    
 });
