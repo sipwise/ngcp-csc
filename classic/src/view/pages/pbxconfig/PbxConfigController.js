@@ -55,6 +55,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
                 }
             }
             // eval is never the best option
+            // true value passed as argument in [el, true] is for keeping track
+            // of toggleFields value
             Ext.Function.defer(eval('this.' + el.dataset.callback), 1, this, [el, true]);
             if (fieldToKeepFocused) {
                 fieldToKeepFocused.suspendEvent('blur');
@@ -294,7 +296,9 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
             el.dataset.qtip = Ngcp.csc.locales.filters.tooltips.save_entry[localStorage.getItem('languageSelected')];
             me.toggleCancelCard(el, 'on');
             grid.updateLayout();
+            window.scrollTo(0, document.body.scrollHeight);
         }, 50);
+
     },
 
     setFieldValue: function(cmp) {
@@ -418,7 +422,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         }, 50);
     },
 
-    removeCard: function(el) {
+    removeCard: function(el, evalValue, cancelCheck) {
+        console.log('cancelCheck is ', cancelCheck);
         var me = this;
         var currentRoute = window.location.hash;
         var storeName = this.getStoreFromRoute(currentRoute);
@@ -428,6 +433,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var title = Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')];
         var question = Ngcp.csc.locales.common.remove_confirm[localStorage.getItem('languageSelected')];
         var sucessMsg = Ngcp.csc.locales.common.remove_success[localStorage.getItem('languageSelected')];
+        if (cancelCheck === true) {
+            this.confirmPbxCardRemoval(selectedRow);
+            return;
+        };
         me.fireEvent('showconfirmbox', title, question, sucessMsg, 'confirmPbxCardRemoval', selectedRow);
     },
 
@@ -454,7 +463,8 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         };
     },
 
-    cancelCard: function(el, abortAdd) {
+    // cancelCard: function(el, abortAdd) { <-- abortAdd never used?
+    cancelCard: function(el) {
         var me = this;
         var currentRoute = window.location.hash;
         var storeName = this.getStoreFromRoute(currentRoute);
@@ -466,9 +476,11 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var nameRecord = selectedRow.get('name');
         switch (nameRecord === '') {
             case true:
-                me.removeCard(el);
+                console.log('cancel card true fired');
+                me.removeCard(el, null, true); // TODO
                 break;
             case false:
+                console.log('false');
                 me.showHideFocusFieldsById(recId, storeName, 'hide');
                 me.toggleCancelCard(el, 'off');
                 editCard.firstChild.classList.remove(Ngcp.csc.icons.floppy.split(' ')[1]);
