@@ -267,13 +267,15 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
     },
 
     startCall: function(grid, rowIndex, colIndex, item, e, record) {
-        if (record.get('online'))
+        if (record.get('online')) {
             this.fireEvent('initrtc', record, 'startCall');
+        }
     },
 
     startVideoCall: function(grid, rowIndex, colIndex, item, e, record) {
-        if (record.get('online'))
+        if (record.get('online')) {
             this.fireEvent('initrtc', record, 'startVideoCall', true);
+        }
     },
 
     editContactField: function(tree, rowIndex, colIndex, item, e, record) {
@@ -351,7 +353,6 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
     },
 
     cancelEdit: function(rec) {
-        console.log('cancelEdit fired');
         var store = this.getView().getStore();
         var saveBtn = this.getView().down('[name=commitContactChangesBtn]');
         var array = rec ? rec.childNodes : store.getRange();

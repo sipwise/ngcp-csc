@@ -65,6 +65,7 @@
     "expanded": true,
     "children": [{
         "uid": 162,
+        "online": true,
         "name": "Allen Morris",
         "thumbnail": "resources/images/user-profile/11.png",
         "isAddressBookContact": true,
@@ -112,6 +113,7 @@
     }, {
         "uid": 5,
         "name": "Suzette Powell",
+        "online": false,
         "thumbnail": "resources/images/user-profile/7.png",
         "isAddressBookContact": true,
         "iconCls": "no-icon",
@@ -158,6 +160,7 @@
     }, {
         "uid": 840,
         "name": "Jil Sanchez",
+        "online": true,
         "thumbnail": "resources/images/user-profile/9.png",
         "isAddressBookContact": true,
         "iconCls": "no-icon",
