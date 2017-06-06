@@ -1,0 +1,111 @@
+// 20170609163541
+// https://localhost:1443/api/cftimesets/?subscriber_id=175
+
+{
+  "_embedded": {
+    "ngcp:cftimesets": [
+      {
+        "_links": {
+          "collection": {
+            "href": "/api/cftimesets/"
+          },
+          "curies": {
+            "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+            "name": "ngcp",
+            "templated": true
+          },
+          "ngcp:cftimesets": {
+            "href": "/api/cftimesets/1"
+          },
+          "ngcp:journal": {
+            "href": "/api/cftimesets/1/journal/"
+          },
+          "ngcp:subscribers": {
+            "href": "/api/subscribers/175"
+          },
+          "profile": {
+            "href": "http://purl.org/sipwise/ngcp-api/"
+          },
+          "self": {
+            "href": "/api/cftimesets/1"
+          }
+        },
+        "id": "1",
+        "name": "Company Hours",
+        "subscriber_id": 175,
+        "times": [
+          {
+            "hour": "8-16",
+            "mday": null,
+            "minute": "0-59",
+            "month": null,
+            "wday": "1-7",
+            "year": null
+          }
+        ]
+      },
+      {
+        "_links": {
+          "collection": {
+            "href": "/api/cftimesets/"
+          },
+          "curies": {
+            "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+            "name": "ngcp",
+            "templated": true
+          },
+          "ngcp:cftimesets": {
+            "href": "/api/cftimesets/3"
+          },
+          "ngcp:journal": {
+            "href": "/api/cftimesets/3/journal/"
+          },
+          "ngcp:subscribers": {
+            "href": "/api/subscribers/175"
+          },
+          "profile": {
+            "href": "http://purl.org/sipwise/ngcp-api/"
+          },
+          "self": {
+            "href": "/api/cftimesets/3"
+          }
+        },
+        "id": "3",
+        "name": "After Hours",
+        "subscriber_id": 175,
+        "times": [
+          {
+            "hour": "16-8",
+            "mday": null,
+            "minute": "0-59",
+            "month": null,
+            "wday": "1-7",
+            "year": null
+          }
+        ]
+      }
+    ]
+  },
+  "_links": {
+    "curies": {
+      "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+      "name": "ngcp",
+      "templated": true
+    },
+    "ngcp:cftimesets": [
+      {
+        "href": "/api/cftimesets/1"
+      },
+      {
+        "href": "/api/cftimesets/3"
+      }
+    ],
+    "profile": {
+      "href": "http://purl.org/sipwise/ngcp-api/"
+    },
+    "self": {
+      "href": "/api/cftimesets/?page=1&rows=10"
+    }
+  },
+  "total_count": 2
+}

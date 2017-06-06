@@ -1,0 +1,101 @@
+// 20170609163515
+// https://localhost:1443/api/cfsourcesets/?subscriber_id=175
+
+{
+  "_embedded": {
+    "ngcp:cfsourcesets": [
+      {
+        "_links": {
+          "collection": {
+            "href": "/api/cfsourcesets/"
+          },
+          "curies": {
+            "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+            "name": "ngcp",
+            "templated": true
+          },
+          "ngcp:cfsourcesets": {
+            "href": "/api/cfsourcesets/1"
+          },
+          "ngcp:subscribers": {
+            "href": "/api/subscribers/175"
+          },
+          "profile": {
+            "href": "http://purl.org/sipwise/ngcp-api/"
+          },
+          "self": {
+            "href": "/api/cfsourcesets/1"
+          }
+        },
+        "id": "1",
+        "name": "List A",
+        "sources": [
+          {
+            "source": "99665533"
+          },
+          {
+            "source": "88445522"
+          },
+          {
+            "source": "11225566"
+          }
+        ],
+        "subscriber_id": 175
+      },
+      {
+        "_links": {
+          "collection": {
+            "href": "/api/cfsourcesets/"
+          },
+          "curies": {
+            "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+            "name": "ngcp",
+            "templated": true
+          },
+          "ngcp:cfsourcesets": {
+            "href": "/api/cfsourcesets/3"
+          },
+          "ngcp:subscribers": {
+            "href": "/api/subscribers/175"
+          },
+          "profile": {
+            "href": "http://purl.org/sipwise/ngcp-api/"
+          },
+          "self": {
+            "href": "/api/cfsourcesets/3"
+          }
+        },
+        "id": "3",
+        "name": "List B",
+        "sources": [
+          {
+            "source": "5555555"
+          }
+        ],
+        "subscriber_id": 175
+      }
+    ]
+  },
+  "_links": {
+    "curies": {
+      "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+      "name": "ngcp",
+      "templated": true
+    },
+    "ngcp:cfsourcesets": [
+      {
+        "href": "/api/cfsourcesets/1"
+      },
+      {
+        "href": "/api/cfsourcesets/3"
+      }
+    ],
+    "profile": {
+      "href": "http://purl.org/sipwise/ngcp-api/"
+    },
+    "self": {
+      "href": "/api/cfsourcesets/?page=1&rows=10"
+    }
+  },
+  "total_count": 2
+}

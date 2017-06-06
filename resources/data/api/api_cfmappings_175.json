@@ -1,0 +1,520 @@
+// 20170609163437
+// https://localhost:1443/api/cfmappings/?subscriber_id=175
+
+{
+  "_embedded": {
+    "ngcp:cfmappings": [
+      {
+        "_links": {
+          "collection": {
+            "href": "/api/cfmappings/"
+          },
+          "curies": {
+            "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+            "name": "ngcp",
+            "templated": true
+          },
+          "ngcp:cfmappings": {
+            "href": "/api/cfmappings/175"
+          },
+          "ngcp:journal": {
+            "href": "/api/cfmappings/175/journal/"
+          },
+          "ngcp:subscribers": {
+            "href": "/api/subscribers/175"
+          },
+          "profile": {
+            "href": "http://purl.org/sipwise/ngcp-api/"
+          },
+          "self": {
+            "href": "/api/cfmappings/175"
+          }
+        },
+        "cfb": [
+          {
+            "destinationset": "quickset_cfb",
+            "sourceset": "List A",
+            "timeset": "Company Hours"
+          }
+        ],
+        "cfna": [
+          {
+            "destinationset": "quickset_cfna",
+            "sourceset": null,
+            "timeset": null
+          }
+        ],
+        "cfs": [
+          
+        ],
+        "cft": [
+          
+        ],
+        "cft_ringtimeout": "15",
+        "cfu": [
+          {
+            "destinationset": "My regular destination set",
+            "sourceset": null,
+            "timeset": null
+          },
+          {
+            "destinationset": "quickset_cfna",
+            "sourceset": "List B",
+            "timeset": "Company Hours"
+          },
+          {
+            "destinationset": "quickset_cfu",
+            "sourceset": null,
+            "timeset": null
+          },
+          {
+            "destinationset": "quickset_cfu",
+            "sourceset": null,
+            "timeset": null
+          },
+          {
+            "destinationset": "quickset_cfu",
+            "sourceset": null,
+            "timeset": null
+          }
+        ]
+      },
+      {
+        "_links": {
+          "collection": {
+            "href": "/api/cfmappings/"
+          },
+          "curies": {
+            "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+            "name": "ngcp",
+            "templated": true
+          },
+          "ngcp:cfmappings": {
+            "href": "/api/cfmappings/177"
+          },
+          "ngcp:journal": {
+            "href": "/api/cfmappings/177/journal/"
+          },
+          "ngcp:subscribers": {
+            "href": "/api/subscribers/177"
+          },
+          "profile": {
+            "href": "http://purl.org/sipwise/ngcp-api/"
+          },
+          "self": {
+            "href": "/api/cfmappings/177"
+          }
+        },
+        "cfb": [
+          
+        ],
+        "cfna": [
+          
+        ],
+        "cfs": [
+          
+        ],
+        "cft": [
+          
+        ],
+        "cft_ringtimeout": null,
+        "cfu": [
+          
+        ]
+      },
+      {
+        "_links": {
+          "collection": {
+            "href": "/api/cfmappings/"
+          },
+          "curies": {
+            "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+            "name": "ngcp",
+            "templated": true
+          },
+          "ngcp:cfmappings": {
+            "href": "/api/cfmappings/179"
+          },
+          "ngcp:journal": {
+            "href": "/api/cfmappings/179/journal/"
+          },
+          "ngcp:subscribers": {
+            "href": "/api/subscribers/179"
+          },
+          "profile": {
+            "href": "http://purl.org/sipwise/ngcp-api/"
+          },
+          "self": {
+            "href": "/api/cfmappings/179"
+          }
+        },
+        "cfb": [
+          
+        ],
+        "cfna": [
+          
+        ],
+        "cfs": [
+          
+        ],
+        "cft": [
+          
+        ],
+        "cft_ringtimeout": null,
+        "cfu": [
+          
+        ]
+      },
+      {
+        "_links": {
+          "collection": {
+            "href": "/api/cfmappings/"
+          },
+          "curies": {
+            "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+            "name": "ngcp",
+            "templated": true
+          },
+          "ngcp:cfmappings": {
+            "href": "/api/cfmappings/181"
+          },
+          "ngcp:journal": {
+            "href": "/api/cfmappings/181/journal/"
+          },
+          "ngcp:subscribers": {
+            "href": "/api/subscribers/181"
+          },
+          "profile": {
+            "href": "http://purl.org/sipwise/ngcp-api/"
+          },
+          "self": {
+            "href": "/api/cfmappings/181"
+          }
+        },
+        "cfb": [
+          
+        ],
+        "cfna": [
+          
+        ],
+        "cfs": [
+          
+        ],
+        "cft": [
+          
+        ],
+        "cft_ringtimeout": null,
+        "cfu": [
+          
+        ]
+      },
+      {
+        "_links": {
+          "collection": {
+            "href": "/api/cfmappings/"
+          },
+          "curies": {
+            "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+            "name": "ngcp",
+            "templated": true
+          },
+          "ngcp:cfmappings": {
+            "href": "/api/cfmappings/183"
+          },
+          "ngcp:journal": {
+            "href": "/api/cfmappings/183/journal/"
+          },
+          "ngcp:subscribers": {
+            "href": "/api/subscribers/183"
+          },
+          "profile": {
+            "href": "http://purl.org/sipwise/ngcp-api/"
+          },
+          "self": {
+            "href": "/api/cfmappings/183"
+          }
+        },
+        "cfb": [
+          
+        ],
+        "cfna": [
+          
+        ],
+        "cfs": [
+          
+        ],
+        "cft": [
+          
+        ],
+        "cft_ringtimeout": null,
+        "cfu": [
+          
+        ]
+      },
+      {
+        "_links": {
+          "collection": {
+            "href": "/api/cfmappings/"
+          },
+          "curies": {
+            "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+            "name": "ngcp",
+            "templated": true
+          },
+          "ngcp:cfmappings": {
+            "href": "/api/cfmappings/185"
+          },
+          "ngcp:journal": {
+            "href": "/api/cfmappings/185/journal/"
+          },
+          "ngcp:subscribers": {
+            "href": "/api/subscribers/185"
+          },
+          "profile": {
+            "href": "http://purl.org/sipwise/ngcp-api/"
+          },
+          "self": {
+            "href": "/api/cfmappings/185"
+          }
+        },
+        "cfb": [
+          
+        ],
+        "cfna": [
+          
+        ],
+        "cfs": [
+          
+        ],
+        "cft": [
+          
+        ],
+        "cft_ringtimeout": null,
+        "cfu": [
+          
+        ]
+      },
+      {
+        "_links": {
+          "collection": {
+            "href": "/api/cfmappings/"
+          },
+          "curies": {
+            "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+            "name": "ngcp",
+            "templated": true
+          },
+          "ngcp:cfmappings": {
+            "href": "/api/cfmappings/187"
+          },
+          "ngcp:journal": {
+            "href": "/api/cfmappings/187/journal/"
+          },
+          "ngcp:subscribers": {
+            "href": "/api/subscribers/187"
+          },
+          "profile": {
+            "href": "http://purl.org/sipwise/ngcp-api/"
+          },
+          "self": {
+            "href": "/api/cfmappings/187"
+          }
+        },
+        "cfb": [
+          
+        ],
+        "cfna": [
+          
+        ],
+        "cfs": [
+          
+        ],
+        "cft": [
+          
+        ],
+        "cft_ringtimeout": null,
+        "cfu": [
+          
+        ]
+      },
+      {
+        "_links": {
+          "collection": {
+            "href": "/api/cfmappings/"
+          },
+          "curies": {
+            "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+            "name": "ngcp",
+            "templated": true
+          },
+          "ngcp:cfmappings": {
+            "href": "/api/cfmappings/189"
+          },
+          "ngcp:journal": {
+            "href": "/api/cfmappings/189/journal/"
+          },
+          "ngcp:subscribers": {
+            "href": "/api/subscribers/189"
+          },
+          "profile": {
+            "href": "http://purl.org/sipwise/ngcp-api/"
+          },
+          "self": {
+            "href": "/api/cfmappings/189"
+          }
+        },
+        "cfb": [
+          
+        ],
+        "cfna": [
+          
+        ],
+        "cfs": [
+          
+        ],
+        "cft": [
+          
+        ],
+        "cft_ringtimeout": null,
+        "cfu": [
+          
+        ]
+      },
+      {
+        "_links": {
+          "collection": {
+            "href": "/api/cfmappings/"
+          },
+          "curies": {
+            "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+            "name": "ngcp",
+            "templated": true
+          },
+          "ngcp:cfmappings": {
+            "href": "/api/cfmappings/191"
+          },
+          "ngcp:journal": {
+            "href": "/api/cfmappings/191/journal/"
+          },
+          "ngcp:subscribers": {
+            "href": "/api/subscribers/191"
+          },
+          "profile": {
+            "href": "http://purl.org/sipwise/ngcp-api/"
+          },
+          "self": {
+            "href": "/api/cfmappings/191"
+          }
+        },
+        "cfb": [
+          
+        ],
+        "cfna": [
+          
+        ],
+        "cfs": [
+          
+        ],
+        "cft": [
+          
+        ],
+        "cft_ringtimeout": null,
+        "cfu": [
+          
+        ]
+      },
+      {
+        "_links": {
+          "collection": {
+            "href": "/api/cfmappings/"
+          },
+          "curies": {
+            "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+            "name": "ngcp",
+            "templated": true
+          },
+          "ngcp:cfmappings": {
+            "href": "/api/cfmappings/193"
+          },
+          "ngcp:journal": {
+            "href": "/api/cfmappings/193/journal/"
+          },
+          "ngcp:subscribers": {
+            "href": "/api/subscribers/193"
+          },
+          "profile": {
+            "href": "http://purl.org/sipwise/ngcp-api/"
+          },
+          "self": {
+            "href": "/api/cfmappings/193"
+          }
+        },
+        "cfb": [
+          
+        ],
+        "cfna": [
+          
+        ],
+        "cfs": [
+          
+        ],
+        "cft": [
+          
+        ],
+        "cft_ringtimeout": null,
+        "cfu": [
+          
+        ]
+      }
+    ]
+  },
+  "_links": {
+    "curies": {
+      "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+      "name": "ngcp",
+      "templated": true
+    },
+    "next": {
+      "href": "/api/cfmappings/?page=2&rows=10"
+    },
+    "ngcp:cfmappings": [
+      {
+        "href": "/api/cfmappings/175"
+      },
+      {
+        "href": "/api/cfmappings/177"
+      },
+      {
+        "href": "/api/cfmappings/179"
+      },
+      {
+        "href": "/api/cfmappings/181"
+      },
+      {
+        "href": "/api/cfmappings/183"
+      },
+      {
+        "href": "/api/cfmappings/185"
+      },
+      {
+        "href": "/api/cfmappings/187"
+      },
+      {
+        "href": "/api/cfmappings/189"
+      },
+      {
+        "href": "/api/cfmappings/191"
+      },
+      {
+        "href": "/api/cfmappings/193"
+      }
+    ],
+    "profile": {
+      "href": "http://purl.org/sipwise/ngcp-api/"
+    },
+    "self": {
+      "href": "/api/cfmappings/?page=1&rows=10"
+    }
+  },
+  "total_count": 48
+}

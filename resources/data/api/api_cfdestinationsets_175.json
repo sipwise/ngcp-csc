@@ -1,0 +1,289 @@
+// 20170609153041
+// https://localhost:1443/api/cfdestinationsets/?subscriber_id=175
+
+{
+  "_embedded": {
+    "ngcp:cfdestinationsets": [
+      {
+        "_links": {
+          "collection": {
+            "href": "/api/cfdestinationsets/"
+          },
+          "curies": {
+            "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+            "name": "ngcp",
+            "templated": true
+          },
+          "ngcp:cfdestinationsets": {
+            "href": "/api/cfdestinationsets/1"
+          },
+          "ngcp:journal": {
+            "href": "/api/cfdestinationsets/1/journal/"
+          },
+          "ngcp:subscribers": {
+            "href": "/api/subscribers/175"
+          },
+          "profile": {
+            "href": "http://purl.org/sipwise/ngcp-api/"
+          },
+          "self": {
+            "href": "/api/cfdestinationsets/1"
+          }
+        },
+        "destinations": [
+          {
+            "announcement_id": null,
+            "destination": "sip:3333333@test1496717603.example.org",
+            "priority": 1,
+            "simple_destination": "3333333",
+            "timeout": 300
+          }
+        ],
+        "id": "1",
+        "name": "quickset_cfu",
+        "subscriber_id": 175
+      },
+      {
+        "_links": {
+          "collection": {
+            "href": "/api/cfdestinationsets/"
+          },
+          "curies": {
+            "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+            "name": "ngcp",
+            "templated": true
+          },
+          "ngcp:cfdestinationsets": {
+            "href": "/api/cfdestinationsets/3"
+          },
+          "ngcp:journal": {
+            "href": "/api/cfdestinationsets/3/journal/"
+          },
+          "ngcp:subscribers": {
+            "href": "/api/subscribers/175"
+          },
+          "profile": {
+            "href": "http://purl.org/sipwise/ngcp-api/"
+          },
+          "self": {
+            "href": "/api/cfdestinationsets/3"
+          }
+        },
+        "destinations": [
+          {
+            "announcement_id": null,
+            "destination": "sip:2222222@test1496717603.example.org",
+            "priority": 1,
+            "simple_destination": "2222222",
+            "timeout": 300
+          }
+        ],
+        "id": "3",
+        "name": "quickset_cfb",
+        "subscriber_id": 175
+      },
+      {
+        "_links": {
+          "collection": {
+            "href": "/api/cfdestinationsets/"
+          },
+          "curies": {
+            "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+            "name": "ngcp",
+            "templated": true
+          },
+          "ngcp:cfdestinationsets": {
+            "href": "/api/cfdestinationsets/5"
+          },
+          "ngcp:journal": {
+            "href": "/api/cfdestinationsets/5/journal/"
+          },
+          "ngcp:subscribers": {
+            "href": "/api/subscribers/175"
+          },
+          "profile": {
+            "href": "http://purl.org/sipwise/ngcp-api/"
+          },
+          "self": {
+            "href": "/api/cfdestinationsets/5"
+          }
+        },
+        "destinations": [
+          {
+            "announcement_id": null,
+            "destination": "sip:vmubf88cc8b-b097-4906-acfe-d8d813b1adc8@voicebox.local",
+            "priority": 1,
+            "timeout": 300
+          }
+        ],
+        "id": "5",
+        "name": "quickset_cfna",
+        "subscriber_id": 175
+      },
+      {
+        "_links": {
+          "collection": {
+            "href": "/api/cfdestinationsets/"
+          },
+          "curies": {
+            "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+            "name": "ngcp",
+            "templated": true
+          },
+          "ngcp:cfdestinationsets": {
+            "href": "/api/cfdestinationsets/7"
+          },
+          "ngcp:journal": {
+            "href": "/api/cfdestinationsets/7/journal/"
+          },
+          "ngcp:subscribers": {
+            "href": "/api/subscribers/175"
+          },
+          "profile": {
+            "href": "http://purl.org/sipwise/ngcp-api/"
+          },
+          "self": {
+            "href": "/api/cfdestinationsets/7"
+          }
+        },
+        "destinations": [
+          {
+            "announcement_id": null,
+            "destination": "sip:33333@test1496717603.example.org",
+            "priority": 1,
+            "simple_destination": "33333",
+            "timeout": 15
+          },
+          {
+            "announcement_id": null,
+            "destination": "sip:66666@test1496717603.example.org",
+            "priority": 2,
+            "simple_destination": "66666",
+            "timeout": 15
+          },
+          {
+            "announcement_id": null,
+            "destination": "sip:vmubf88cc8b-b097-4906-acfe-d8d813b1adc8@voicebox.local",
+            "priority": 3,
+            "timeout": 300
+          }
+        ],
+        "id": "7",
+        "name": "My regular destination set",
+        "subscriber_id": 175
+      },
+      {
+        "_links": {
+          "collection": {
+            "href": "/api/cfdestinationsets/"
+          },
+          "curies": {
+            "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+            "name": "ngcp",
+            "templated": true
+          },
+          "ngcp:cfdestinationsets": {
+            "href": "/api/cfdestinationsets/13"
+          },
+          "ngcp:journal": {
+            "href": "/api/cfdestinationsets/13/journal/"
+          },
+          "ngcp:subscribers": {
+            "href": "/api/subscribers/175"
+          },
+          "profile": {
+            "href": "http://purl.org/sipwise/ngcp-api/"
+          },
+          "self": {
+            "href": "/api/cfdestinationsets/13"
+          }
+        },
+        "destinations": [
+          {
+            "announcement_id": null,
+            "destination": "sip:222222@test1496717603.example.org",
+            "priority": 1,
+            "simple_destination": "222222",
+            "timeout": 300
+          }
+        ],
+        "id": "13",
+        "name": "quickset_cfb",
+        "subscriber_id": 175
+      },
+      {
+        "_links": {
+          "collection": {
+            "href": "/api/cfdestinationsets/"
+          },
+          "curies": {
+            "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+            "name": "ngcp",
+            "templated": true
+          },
+          "ngcp:cfdestinationsets": {
+            "href": "/api/cfdestinationsets/15"
+          },
+          "ngcp:journal": {
+            "href": "/api/cfdestinationsets/15/journal/"
+          },
+          "ngcp:subscribers": {
+            "href": "/api/subscribers/175"
+          },
+          "profile": {
+            "href": "http://purl.org/sipwise/ngcp-api/"
+          },
+          "self": {
+            "href": "/api/cfdestinationsets/15"
+          }
+        },
+        "destinations": [
+          {
+            "announcement_id": null,
+            "destination": "sip:111111@test1496717603.example.org",
+            "priority": 1,
+            "simple_destination": "111111",
+            "timeout": 300
+          }
+        ],
+        "id": "15",
+        "name": "quickset_cfna",
+        "subscriber_id": 175
+      }
+    ]
+  },
+  "_links": {
+    "curies": {
+      "href": "http://purl.org/sipwise/ngcp-api/#rel-{rel}",
+      "name": "ngcp",
+      "templated": true
+    },
+    "ngcp:cfdestinationsets": [
+      {
+        "href": "/api/cfdestinationsets/1"
+      },
+      {
+        "href": "/api/cfdestinationsets/3"
+      },
+      {
+        "href": "/api/cfdestinationsets/5"
+      },
+      {
+        "href": "/api/cfdestinationsets/7"
+      },
+      {
+        "href": "/api/cfdestinationsets/13"
+      },
+      {
+        "href": "/api/cfdestinationsets/15"
+      }
+    ],
+    "profile": {
+      "href": "http://purl.org/sipwise/ngcp-api/"
+    },
+    "self": {
+      "href": "/api/cfdestinationsets/?page=1&rows=10"
+    }
+  },
+  "total_count": 6
+}
