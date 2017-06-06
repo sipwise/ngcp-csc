@@ -165,7 +165,10 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var currentTimeset = currentRoute.split('/')[1];
         var currentSourceset = cmp.id.split('-')[2];
         var storesArray = this.getStoresArrayFromRoute(currentRoute, currentSourceset);
-        if (currentSourceset === 'listA') {
+        if (currentSourceset === 'everybody') {
+            vm.set('list_b', true);
+            vm.set('list_a', true);
+        } else if (currentSourceset === 'listA') {
             vm.set('list_b', true);
             vm.set('list_a', false);
         } else if (currentSourceset === 'listB') {
