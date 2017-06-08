@@ -77,6 +77,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
     },
 
+    cancelNewTitle: function(button) {
+        var vm = this.getViewModel();
+        var buttonId = button.id;
+        var hiddenKey = 'hide_' + buttonId.split('-')[2];
+        vm.set(hiddenKey, !vm.get(hiddenKey));
+    },
+
     onEditClicked: function(el) {
         var vm = this.getViewModel();
         var classList = el.target.classList;
