@@ -9,15 +9,25 @@
         content: '\f0da' !important
     }
     .x-grid-row:hover {
+        // call user
         .x-phone-display {
             padding-left: 45px;
-
+            background: green;
             &:before {
                 font-family: FontAwesome;
                 content: "\f095";
             }
         }
-
+        // .x-phone-display-extra-margin {
+        //     position: relative;
+        //     left: 10px;
+        //
+        //     &:before {
+        //         font-family: FontAwesome;
+        //         content: "\f095";
+        //     }
+        // }
+        // call user- change to x-remove-user-display-extra-margin
         .x-phone-display-extra-margin {
             position: relative;
             left: 10px;
@@ -27,7 +37,7 @@
                 content: "\f095";
             }
         }
-
+        // video call user
         .x-video-display {
             margin-left: 20px;
 
@@ -36,7 +46,15 @@
                 content: "\f03d";
             }
         }
-
+        // .x-video-display-extra-margin {
+        //     position: relative;
+        //     left: 10px;
+        //     &:before {
+        //         font-family: FontAwesome;
+        //         content: "\f03d";
+        //     }
+        // }
+        // call user - change to x-edit-display-extra-margin
         .x-video-display-extra-margin {
             position: relative;
             left: 10px;
@@ -55,7 +73,7 @@
                 content: $trash;
             }
         }
-
+        // add user
         .x-add-user-display {
             position: relative;
             left: 10px;
@@ -65,7 +83,7 @@
                 content: $add-user;
             }
         }
-
+        // edit user
         .x-edit-display {
             position: relative;
             left: 35px;
@@ -75,7 +93,7 @@
                 content: $edit;
             }
         }
-
+        // remove user
         .x-remove-user-display {
             position: relative;
             right: 20px;

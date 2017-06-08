@@ -124,6 +124,14 @@ Ext.define('NgcpCsc.view.pages.contacts.Contacts', {
             }]
         }
     }, {
+        // Current order:
+        // | Btn1 | Btn2  | Btn3 | Btn4 |  Btn5  |
+        // |------|-------|------|------|--------|
+        // | call | video | edit | add  | delete |
+        // TODO New order:
+        // |  Btn1  | Btn2 | Btn3  | Btn4 | Btn5 |
+        // |--------|------|-------|------|------|
+        // | delete | edit | video | add  | call |
         xtype: 'actioncolumn',
         text: 'actions',
         width: 100,

@@ -351,10 +351,6 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                                 width: 50
                             },
                             items: [{
-                                iconCls: Ngcp.csc.icons.floppy,
-                                handler: 'saveSeat',
-                                tooltip: Ngcp.csc.locales.common.save[localStorage.getItem('languageSelected')]
-                            }, {
                                 iconCls: Ngcp.csc.icons.block,
                                 handler: 'discardChanges',
                                 tooltip: Ngcp.csc.locales.common.reset[localStorage.getItem('languageSelected')]
@@ -363,6 +359,10 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                                 handler: 'deleteSeat',
                                 name: 'deleteBtn',
                                 tooltip: Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')]
+                            }, {
+                                iconCls: Ngcp.csc.icons.floppy,
+                                handler: 'saveSeat',
+                                tooltip: Ngcp.csc.locales.common.save[localStorage.getItem('languageSelected')]
                             }]
                         }]
                     }]
@@ -370,9 +370,9 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.devices.DevicesGrid', {
                     xtype: 'label',
                     bind: {
                         html: '<div class="card-wrapper"><div class="card-icon-row">' +
+                            '<div id="cancelDevice-{record.id}" class="card-icon hidden" data-callback="cancelCard" data-qtip="' + Ngcp.csc.locales.pbxconfig.cancel_operation[localStorage.getItem('languageSelected')] + '"><i class="' + Ngcp.csc.icons.block2x + ' green-icon pointer" aria-hidden="true"></i></div>' +
                             '<div id="removeDevice-{record.id}" class="card-icon" data-callback="removeCard" data-qtip="' + Ngcp.csc.locales.filters.tooltips.remove_entry[localStorage.getItem('languageSelected')] + '"><i class="' + Ngcp.csc.icons.trash2x + ' green-icon pointer" aria-hidden="true"></i></div>' +
                             '<div id="editDevice-{record.id}" class="card-icon" data-callback="editCard" data-qtip="' + Ngcp.csc.locales.filters.tooltips.edit_entry[localStorage.getItem('languageSelected')] + '"><i class="' + Ngcp.csc.icons.edit2x + ' green-icon pointer" aria-hidden="true"></i></div>' +
-                            '<div id="cancelDevice-{record.id}" class="card-icon hidden" data-callback="cancelCard" data-qtip="' + Ngcp.csc.locales.pbxconfig.cancel_operation[localStorage.getItem('languageSelected')] + '"><i class="' + Ngcp.csc.icons.block2x + ' green-icon pointer" aria-hidden="true"></i></div>' +
                             '</div></div>'
                     }
                 }

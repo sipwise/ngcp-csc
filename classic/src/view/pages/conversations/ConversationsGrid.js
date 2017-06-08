@@ -74,10 +74,10 @@ Ext.define('NgcpCsc.view.pages.conversations.CallsGrid', {
                             '<div class="card-data-row"><span></span><b>' + Ngcp.csc.locales.common.duration[localStorage.getItem('languageSelected')] + '</b>: ' + record.get('duration') + '</div>' +
                             '<div class="card-data-row"><span></span><b>' + Ngcp.csc.locales.conversations.cost[localStorage.getItem('languageSelected')] + '</b>: ' + record.get('charges') + record.get('currency') + ' </div>' +
                             '<div class="card-icon-row">' +
+                            '<div id="addressBook-' + record.get('id') + '" class="card-icon" data-callback="addToAddressbook" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.addressbook[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.book2x+' green-icon pointer" aria-hidden="true"></i></div>' +
                             '<div id="sendSms-' + record.get('id') + '" class="card-icon" data-type="sms" data-callback="sendMsg" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.new_sms[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.envelope2x+' green-icon pointer" aria-hidden="true"></i></div>' +
                             '<div id="startChat-' + record.get('id') + '" class="card-icon" data-type="chat" data-callback="sendMsg" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.chat[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.comment2x+' green-icon pointer" aria-hidden="true"></i></div>' +
                             '<div id="startCall-' + record.get('id') + '" class="card-icon" data-callback="startCall" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.recall[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.phone2x+' green-icon pointer" aria-hidden="true"></i></div>' +
-                            '<div id="addressBook-' + record.get('id') + '" class="card-icon" data-callback="addToAddressbook" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.addressbook[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.book2x+' green-icon pointer" aria-hidden="true"></i></div>' +
                             '</div></div>';
                         break;
                     case 'voicemail':
@@ -86,10 +86,10 @@ Ext.define('NgcpCsc.view.pages.conversations.CallsGrid', {
                             '<div class="card-data-row"><span></span><b>' + Ngcp.csc.locales.common.duration[localStorage.getItem('languageSelected')] + '</b>: ' + record.get('duration') + ' </div>' +
                             '<div class="card-data-row"><span></span><b>' + Ngcp.csc.locales.conversations.folder[localStorage.getItem('languageSelected')] + '</b>: ' + record.get('folder') + ' </div>' +
                             '<div class="card-icon-row">' +
+                            '<div id="addressBook-' + record.get('id') + '" class="card-icon" data-callback="addToAddressbook" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.addressbook[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.book2x+' green-icon pointer" aria-hidden="true"></i></div>' +
                             '<div id="startCall-' + record.get('id') + '" class="card-icon" data-callback="startCall" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.recall[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.phone2x+' green-icon pointer" aria-hidden="true"></i></div>' +
                             '<div id="reproduceVoicemail-' + record.get('id') + '" class="card-icon" data-callback="reproduceVoicemail" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.listen[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.play2x+' green-icon pointer" aria-hidden="true"></i></div>' +
                             '<audio id="sample" src="resources/audio/voicemail.mp3" preload="auto"></audio>' +
-                            '<div id="addressBook-' + record.get('id') + '" class="card-icon" data-callback="addToAddressbook" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.addressbook[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.book2x+' green-icon pointer" aria-hidden="true"></i></div>' +
                             '</div></div>';
                         break;
                     case 'sms':
@@ -100,10 +100,10 @@ Ext.define('NgcpCsc.view.pages.conversations.CallsGrid', {
                             '<div class="card-data-row "><b>' + Ngcp.csc.locales.common.date[localStorage.getItem('languageSelected')] + '</b>: ' + Ext.util.Format.date(record.get('start_time'), "d.m.Y h:i:s") + ' </div>' +
                             '<div class="card-data-row"><span></span><b>' + Ngcp.csc.locales.conversations.cost[localStorage.getItem('languageSelected')] + '</b>: ' + record.get('charges') + record.get('currency') + ' </div>' +
                             '<div class="card-icon-row">' +
+                            '<div id="addressBook-' + record.get('id') + '" class="card-icon" data-callback="addToAddressbook" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.addressbook[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.book2x+' green-icon pointer" aria-hidden="true"></i></div>' +
                             '<div id="sendSms-' + record.get('id') + '" class="card-icon" data-type="sms" data-callback="sendMsg" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.send_sms[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.envelope2x+' green-icon pointer" aria-hidden="true"></i></div>' +
                             '<div id="startChat-' + record.get('id') + '" class="card-icon" data-type="chat" data-callback="sendMsg" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.chat[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.comment2x+' green-icon pointer" aria-hidden="true"></i></div>' +
                             '<div id="startCall-' + record.get('id') + '" class="card-icon" data-callback="startCall" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.recall[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.phone2x+' green-icon pointer" aria-hidden="true"></i></div>' +
-                            '<div id="addressBook-' + record.get('id') + '" class="card-icon" data-callback="addToAddressbook" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.addressbook[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.book2x+' green-icon pointer" aria-hidden="true"></i></div>' +
                             '</div></div>';
                         break;
                     case 'chat':
@@ -113,8 +113,8 @@ Ext.define('NgcpCsc.view.pages.conversations.CallsGrid', {
                             '<div class="card-data-row  ">' + record.get('text') + '</div>' +
                             '<div class="card-data-row "><b>' + Ngcp.csc.locales.common.date[localStorage.getItem('languageSelected')] + '</b>: ' + Ext.util.Format.date(record.get('start_time'), "d.m.Y h:i:s") + ' </div>' +
                             '<div class="card-icon-row">' +
-                            '<div id="startChat-' + record.get('id') + '" class="card-icon" data-type="chat" data-callback="sendMsg" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.chat[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.comment2x+' green-icon pointer" aria-hidden="true"></i></div>' +
                             '<div id="addressBook-' + record.get('id') + '" class="card-icon" data-callback="addToAddressbook" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.addressbook[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.book2x+' green-icon pointer" aria-hidden="true"></i></div>' +
+                            '<div id="startChat-' + record.get('id') + '" class="card-icon" data-type="chat" data-callback="sendMsg" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.chat[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.comment2x+' green-icon pointer" aria-hidden="true"></i></div>' +
                             '</div></div>';
                         break;
                     case 'fax':
@@ -123,9 +123,9 @@ Ext.define('NgcpCsc.view.pages.conversations.CallsGrid', {
                             '<div class="card-data-row"><span></span><b>' + Ngcp.csc.locales.common.duration[localStorage.getItem('languageSelected')] + '</b>: ' + record.get('duration') + '</div>' +
                             '<div class="card-data-row"><span></span><b>' + Ngcp.csc.locales.conversations.pages[localStorage.getItem('languageSelected')] + '</b>: ' + record.get('pages') + '</div>' +
                             '<div class="card-icon-row">' +
-                            '<div id="downloadFax-' + record.get('id') + '" class="card-icon" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.download_fax[localStorage.getItem('languageSelected')] + '"><a href="resources/docs/fax.pdf" target="_blank"><i class= "'+Ngcp.csc.icons.download2x+' green-icon pointer" aria-hidden="true"></i></a></div>' +
-                            '<div id="sendFax-' + record.get('id') + '" class="card-icon" data-callback="sendFax" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.send_fax[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.faxpaper2x+' green-icon pointer" aria-hidden="true"></i></div>' +
                             '<div id="addressBook-' + record.get('id') + '" class="card-icon" data-callback="addToAddressbook" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.addressbook[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.book2x+' green-icon pointer" aria-hidden="true"></i></div>' +
+                            '<div id="sendFax-' + record.get('id') + '" class="card-icon" data-callback="sendFax" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.send_fax[localStorage.getItem('languageSelected')] + '"><i class="'+Ngcp.csc.icons.faxpaper2x+' green-icon pointer" aria-hidden="true"></i></div>' +
+                            '<div id="downloadFax-' + record.get('id') + '" class="card-icon" data-tooltip="' + Ngcp.csc.locales.conversations.tooltips.download_fax[localStorage.getItem('languageSelected')] + '"><a href="resources/docs/fax.pdf" target="_blank"><i class= "'+Ngcp.csc.icons.download2x+' green-icon pointer" aria-hidden="true"></i></a></div>' +
                             '</div></div>';
                         break;s
                 }

@@ -235,6 +235,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         var createGroupBtn = tbar.down('[name=showNewChatBtn]');
         var newChatName = tbar.down('[name=newChatName]');
         var newChatBtn = tbar.down('[name=newChatBtn]');
+        var cancelNewChatBtn = tbar.down('[name=cancelNewChatBtn]');
         if (newChatName.getValue().length < 1) {
             this.fireEvent('showmessage', false, Ngcp.csc.locales.conversationwith.alerts.choose_valid_name[localStorage.getItem('languageSelected')]);
             return;
@@ -251,6 +252,7 @@ Ext.define('NgcpCsc.view.pages.contacts.ContactsController', {
         contacts.view.focusRow(newNode);
         newChatName.hide();
         newChatBtn.hide();
+        cancelNewChatBtn.hide();
         newChatName.reset();
     },
 
