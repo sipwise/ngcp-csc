@@ -71,7 +71,7 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWithController', {
             "author": "Administrator",
             "thumbnail": "resources/images/user-profile/2.png",
             "text": (type && ['sms', 'chat'].indexOf(type) > -1) ? msg || this.lookupReference('newmessage').getValue() : '',
-            "start_time": Date.now()
+            "start_time": Date(Date.now())
         });
         chatStore.add(messageModel);
         this.clearMsg();
@@ -131,6 +131,7 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWithController', {
             textArea.focus();
         }
     },
+
     // (only for prototyping) change randomly the read url to retrieve different json
     updateProxy: function(store, uid) {
         var filename = uid + '.json';
@@ -147,15 +148,16 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWithController', {
             contacts.getView().refresh()
         }
     },
+
     // reload the conversations every minute,
     // to fetch latest conversations and trigger
     // timestamp update
     notificationRendered: function(listView){
+        var vm = this.getViewModel();
         var runner = new Ext.util.TaskRunner();
         var storeReload = function(){
-            listView.getStore().load();
+            listView.refresh();
         };
-
         task = runner.start({
             run: storeReload,
             interval: 60000
