@@ -16,69 +16,33 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
     ui: 'cf-mainform',
 
     initComponent: function() {
+
+        // TODO: Does not display
         var callForwardListAGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
             id: this._firstprefix + this._secondprefix + 'cf-sourceset-list-a-grid',
             store: Ext.create('NgcpCsc.store.CallForwardSourceset', {
-                proxy: {
-                    type: 'ajax',
-                    url: '/resources/data/callForwardSourcesetListA.json',
-                    reader: {
-                        type: 'json',
-                        rootProperty: 'data'
-                    }
-                }
+                storeId: this._secondprefix + 'CallForwardListA'
             })
         });
         var callForwardListBGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
             id: this._firstprefix + this._secondprefix + 'cf-sourceset-list-b-grid',
             store: Ext.create('NgcpCsc.store.CallForwardSourceset', {
-                proxy: {
-                    type: 'ajax',
-                    url: '/resources/data/callForwardSourcesetListB.json',
-                    reader: {
-                        type: 'json',
-                        rootProperty: 'data'
-                    }
-                }
+                storeId: this._secondprefix + 'CallForwardListB'
             })
         });
         var busyGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             store: Ext.create('NgcpCsc.store.CallForward', {
-                storeId: this._firstprefix + this._secondprefix + 'CallForwardBusy',
-                proxy: {
-                    type: 'ajax',
-                    url: '/resources/data/callForwardBusy.json',
-                    reader: {
-                        type: 'json',
-                        rootProperty: 'data'
-                    }
-                }
+                storeId: this._firstprefix + this._secondprefix + 'CallForwardBusy'
             })
         });
         var onlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             store: Ext.create('NgcpCsc.store.CallForward', {
-                storeId: this._firstprefix + this._secondprefix + 'CallForwardOnline',
-                proxy: {
-                    type: 'ajax',
-                    url: '/resources/data/callForwardOnline.json',
-                    reader: {
-                        type: 'json',
-                        rootProperty: 'data'
-                    }
-                }
+                storeId: this._firstprefix + this._secondprefix + 'CallForwardOnline'
             })
         });
         var offlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             store: Ext.create('NgcpCsc.store.CallForward', {
-                storeId: this._firstprefix + this._secondprefix + 'CallForwardOffline',
-                proxy: {
-                    type: 'ajax',
-                    url: '/resources/data/callForwardOffline.json',
-                    reader: {
-                        type: 'json',
-                        rootProperty: 'data'
-                    }
-                }
+                storeId: this._firstprefix + this._secondprefix + 'CallForwardOffline'
             })
         });
 
@@ -233,7 +197,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                     value: '10',
                     id: this._firstprefix + this._secondprefix + 'onlineFirstTimeout',
                     allowBlank: false,
-                    editable: false,
+                    editable: true,
                     flex: 4,
                     margin: '0 0 0 10',
                     bind: {
@@ -356,57 +320,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 userCls: 'cf-text cf-subheader',
                 html: Ngcp.csc.locales.callforward.when_phone_busy[localStorage.getItem('languageSelected')]
             }, {
-                xtype: 'panel',
-                layout: 'hbox',
-                id: this._firstprefix + this._secondprefix + 'busyFirstRingFields',
-                padding: '0 11 0 0',
-                margin: '0 0 0 50',
-                width: 500,
-                items: [{
-                    xtype: 'combo',
-                    store: 'FirstRingActions',
-                    valueField: 'name',
-                    displayField: 'name',
-                    id: this._firstprefix + this._secondprefix + 'busyFirstDest',
-                    fieldLabel: Ngcp.csc.locales.callforward.first_ring[localStorage.getItem('languageSelected')],
-                    value: 'None',
-                    allowBlank: false,
-                    editable: false,
-                    listeners: {
-                        change: 'selectRing'
-                    },
-                    flex: 5
-                }, {
-                    xtype: 'numberfield',
-                    step: 10,
-                    minValue:0,
-                    maxValue: 300,
-                    value: '10',
-                    id: this._firstprefix + this._secondprefix + 'busyFirstTimeout',
-                    allowBlank: false,
-                    editable: false,
-                    flex: 4,
-                    margin: '0 0 0 10',
-                    bind: {
-                        hidden: '{busy_first_timeout_hidden}'
-                    },
-                    fieldLabel: Ngcp.csc.locales.callforward.and_ring_for[localStorage.getItem('languageSelected')]
-                }, {
-                    xtype: 'container',
-                    html: Ngcp.csc.locales.callforward.secs[localStorage.getItem('languageSelected')],
-                    padding: '7 0 0 20',
-                    flex: 1,
-                    bind: {
-                        hidden: '{busy_first_timeout_hidden}'
-                    }
-                }]
-            }, {
                 xtype: 'container',
                 layout: 'hbox',
                 margin: '10 0 0 50',
                 items: [{
                         xtype: 'container',
-                        html: Ngcp.csc.locales.callforward.then_forward_to[localStorage.getItem('languageSelected')],
+                        html: Ngcp.csc.locales.callforward.forward_to[localStorage.getItem('languageSelected')],
                         userCls: 'cf-thentext'
                     },
                     busyGrid
@@ -507,57 +426,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 userCls: 'cf-text cf-subheader',
                 html: Ngcp.csc.locales.callforward.when_phone_offline[localStorage.getItem('languageSelected')]
             }, {
-                xtype: 'panel',
-                layout: 'hbox',
-                id: this._firstprefix + this._secondprefix + 'offlineFirstRingFields',
-                padding: '0 11 0 0',
-                margin: '0 0 0 50',
-                width: 500,
-                items: [{
-                    xtype: 'combo',
-                    store: 'FirstRingActions',
-                    valueField: 'name',
-                    displayField: 'name',
-                    id: this._firstprefix + this._secondprefix + 'offlineFirstDest',
-                    fieldLabel: Ngcp.csc.locales.callforward.first_ring[localStorage.getItem('languageSelected')],
-                    value: 'None',
-                    allowBlank: false,
-                    editable: false,
-                    listeners: {
-                        change: 'selectRing'
-                    },
-                    flex: 5
-                }, {
-                    xtype: 'numberfield',
-                    step: 10,
-                    minValue:0,
-                    maxValue: 300,
-                    value: '10',
-                    id: this._firstprefix + this._secondprefix + 'offlineFirstTimeout',
-                    allowBlank: false,
-                    editable: false,
-                    flex: 4,
-                    margin: '0 0 0 10',
-                    bind: {
-                        hidden: '{offline_first_timeout_hidden}'
-                    },
-                    fieldLabel: Ngcp.csc.locales.callforward.and_ring_for[localStorage.getItem('languageSelected')]
-                }, {
-                    xtype: 'container',
-                    html: Ngcp.csc.locales.callforward.secs[localStorage.getItem('languageSelected')],
-                    padding: '7 0 0 20',
-                    flex: 1,
-                    bind: {
-                        hidden: '{offline_first_timeout_hidden}'
-                    }
-                }]
-            }, {
                 xtype: 'container',
                 layout: 'hbox',
                 margin: '10 0 0 50',
                 items: [{
                         xtype: 'container',
-                        html: Ngcp.csc.locales.callforward.then_forward_to[localStorage.getItem('languageSelected')],
+                        html: Ngcp.csc.locales.callforward.forward_to[localStorage.getItem('languageSelected')],
                         userCls: 'cf-thentext'
                     },
                     offlineGrid

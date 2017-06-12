@@ -5,6 +5,22 @@ Ext.define('NgcpCsc.store.CallForward', {
 
     model: 'NgcpCsc.model.CallForward',
 
-    autoLoad: true
+    // autoSync: true,
+
+    proxy: {
+        type: 'ngcp-api',
+        route: 'cfmappings',
+        subscriberId: '195',
+        actionMethods: {
+            read: 'GET',
+            update: 'PATCH'
+        }
+    },
+
+    listeners: {
+        beforesync: function(options) {
+            this.fireEvent('cfStoreBeforeSync', this, options);
+        }
+    }
 
 });

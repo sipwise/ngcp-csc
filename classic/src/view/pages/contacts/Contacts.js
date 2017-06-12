@@ -18,6 +18,7 @@ Ext.define('NgcpCsc.view.pages.contacts.Contacts', {
     scrollable: true,
 
     collapsible: true,
+    collapsed:true, // TODO: Remove when done
 
     collapseDirection: 'left',
 
