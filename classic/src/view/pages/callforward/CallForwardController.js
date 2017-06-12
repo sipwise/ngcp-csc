@@ -1,3 +1,10 @@
+// TODO: 7a. BUG.. List A grid is not showing, even though we are able to write
+//            correct data to the store
+// TODO: 3a. BUG.. See NOTE on line 18 in CallForwardController.js
+// DONE: 10. Remove any unused code and .json files etc
+// DONE: 11. Fix "Voicemail" rendering
+// TODO: 12. BUG.. emptyText not showing for CallForwardMainGrid.js grids
+// DONE: 13. Added box-shadow for core-container and cards
 Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     extend: 'Ext.app.ViewController',
 
@@ -8,7 +15,453 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             '*': {
                 confirmCFRemoval: 'confirmCFRemoval'
             }
+        },
+        store: {
+            '*': {
+                // TODO: Cvenusino: Implemented these duplicate events and
+                // functions to test. When first submodule is loaded, the
+                // correct event is fired once, invoking the corresponding
+                // controller. For the second sequential submodule we navigate
+                // to, it fires the event twice, invoking the corresponding
+                // controller two total times. And for the thirs subsequent
+                // submodule we visit, three times.
+                cfStoreLoadedFromAlways: 'cfStoreLoadedFromAlways',
+                cfStoreLoadedFromAfterHours: 'cfStoreLoadedFromAfterHours',
+                cfStoreLoadedFromCompanyHours: 'cfStoreLoadedFromCompanyHours',
+                cfStoreBeforeSync: 'cfStoreBeforeSync',
+                cfTimesetStoreLoaded: 'cfTimesetStoreLoaded',
+                cfSourcesetStoreLoaded: 'cfSourcesetStoreLoaded'
+            }
         }
+    },
+
+    cfTimesetStoreLoaded: function(store, data) {
+        var me = this;
+        var arrayOfModels = [];
+        store.removeAll();
+        Ext.each(data, function (timeset) {
+            var timesetName = timeset.name;
+            var timesetId = timeset.id;
+            if (timesetName == 'After Hours' || timesetName == 'Company Hours') {
+                var times = me.getModelValuesFromTimesData(timeset.times[0]);
+                Ext.each(times.days, function (weekday) {
+                    var cbModel = Ext.create('NgcpCsc.model.CallForward', {
+                        id: Ext.id(),
+                        timeset_name: timesetName,
+                        timeset_id: timesetId,
+                        time_from: times.timeFrom,
+                        time_to: times.timeTo,
+                        day: weekday,
+                        closed: false   // TODO: (For PUT/PATCH ticket) decide
+                                        // if we should keep this, or solve this
+                                        // differently, or not at all
+                    });
+                    arrayOfModels.push(cbModel);
+                });
+            };
+        });
+        if (arrayOfModels.length > 0) {
+            me.populateTimesetStores(arrayOfModels);
+        };
+    },
+
+    cfSourcesetStoreLoaded: function(store, data) {
+        var me = this;
+        var arrayOfModels = [];
+        store.removeAll();
+        Ext.each(data, function (sourceset) {
+            var sourcesetName = sourceset.name;
+            var sourcesetId = sourceset.id;
+            Ext.each(sourceset.sources, function (sourceEntry) {
+                var cbModel = Ext.create('NgcpCsc.model.CallForward', {
+                    id: Ext.id(),
+                    sourceset_name: sourcesetName,
+                    sourceset_id: sourcesetId,
+                    source: sourceEntry.source
+                });
+                arrayOfModels.push(cbModel);
+            });
+        });
+        if (arrayOfModels.length > 0) {
+            me.populateSourcesetStores(arrayOfModels);
+        };
+    },
+
+    getTimesetFromRoute: function (route) {
+        switch (route) {
+            case ('#callforward/always'):
+                return null;
+                break;
+            case ('#callforward/afterhours'):
+                return 'After Hours';
+                break;
+            case ('#callforward/companyhours'):
+                return 'Company Hours';
+                break;
+        };
+    },
+
+    cfStoreLoadedFromAlways: function(store, data) {
+        var me = this;
+        var cfTypeArrayOfObjects = [data.get('cfu'), data.get('cft'), data.get('cfb'), data.get('cfna')];
+        var cfTypes = ['cfu', 'cft', 'cfb', 'cfna'];
+        var timeset = store._type;
+        console.log(timeset, ' -> from always controller');
+        var arrayOfModels = [];
+        var currentRoute = window.location.hash;
+        var routeTimeset = this.getTimesetFromRoute(currentRoute);
+        store.removeAll();
+        Ext.Ajax.request({
+            url: 'https://localhost:1443/api/cfdestinationsets/?subscriber_id=195',
+
+            success: function(response, opts) {
+                var decodedResponse = Ext.decode(response.responseText);
+                var destinationsets = decodedResponse._embedded['ngcp:cfdestinationsets'];
+                Ext.each(cfTypeArrayOfObjects, function (cfTypeObjects, index) {
+                    var cfType = cfTypes[index];
+                    Ext.each(cfTypeObjects, function(cfTypeObject) {
+                        var destinationsetName = cfTypeObject.destinationset;
+                        var sourcesetName = cfTypeObject.sourceset;
+                        var timesetName = cfTypeObject.timeset;
+                        if (timesetName == routeTimeset) {
+                            Ext.each(destinationsets, function(destinationset) {
+                                if (destinationset.name == destinationsetName) {
+                                    for (item in destinationset.destinations) {
+                                        var destinationToUse = me.getDestinationFromSipId(destinationset.destinations[item].destination);
+                                        var destinationAnnouncementId = destinationset.announcement_id;
+                                        var destination = destinationset.destinations[item].destination;
+                                        var priority = destinationset.destinations[item].priority;
+                                        var simpleDestination = destinationset.destinations[item].simple_destination;
+                                        var destinationId = destinationset.id;
+                                        var destinationName = destinationset.name;
+                                        var ringFor = destinationToUse == 'Voicemail' ? '' : destinationset.destinations[item].timeout;
+                                        var cbModel = Ext.create('NgcpCsc.model.CallForward', {
+                                            type: cfType,
+                                            destination_cleaned: destinationToUse,
+                                            destination_announcement_id: destinationAnnouncementId,
+                                            destination: destination,
+                                            priority: priority,
+                                            simple_destination: simpleDestination,
+                                            ring_for: ringFor,
+                                            sourceset: sourcesetName,
+                                            timeset: timesetName,
+                                            destinationset_id: destinationId,
+                                            destinationset_name: destinationName
+                                        });
+                                        arrayOfModels.push(cbModel);
+                                    }
+                                }
+                            });
+                        };
+                    });
+                });
+                if (arrayOfModels.length > 0) {
+                    me.populateDestinationStores(arrayOfModels);
+                }
+            },
+
+            failure: function(response, opts) {
+                console.log('server-side failure with status code ' + response.status);
+            }
+        });
+
+    },
+
+    cfStoreLoadedFromAfterHours: function(store, data) {
+        var me = this;
+        var cfTypeArrayOfObjects = [data.get('cfu'), data.get('cft'), data.get('cfb'), data.get('cfna')];
+        var cfTypes = ['cfu', 'cft', 'cfb', 'cfna'];
+        var timeset = store._type;
+        console.log(timeset, ' -> from afterHours controller');
+        var arrayOfModels = [];
+        var currentRoute = window.location.hash;
+        var routeTimeset = this.getTimesetFromRoute(currentRoute);
+        store.removeAll();
+        Ext.Ajax.request({
+            url: 'https://localhost:1443/api/cfdestinationsets/?subscriber_id=195',
+
+            success: function(response, opts) {
+                var decodedResponse = Ext.decode(response.responseText);
+                var destinationsets = decodedResponse._embedded['ngcp:cfdestinationsets'];
+                Ext.each(cfTypeArrayOfObjects, function (cfTypeObjects, index) {
+                    var cfType = cfTypes[index];
+                    Ext.each(cfTypeObjects, function(cfTypeObject) {
+                        var destinationsetName = cfTypeObject.destinationset;
+                        var sourcesetName = cfTypeObject.sourceset;
+                        var timesetName = cfTypeObject.timeset;
+                        if (timesetName == routeTimeset) {
+                            Ext.each(destinationsets, function(destinationset) {
+                                if (destinationset.name == destinationsetName) {
+                                    for (item in destinationset.destinations) {
+                                        var destinationToUse = me.getDestinationFromSipId(destinationset.destinations[item].destination);
+                                        var destinationAnnouncementId = destinationset.announcement_id;
+                                        var destination = destinationset.destinations[item].destination;
+                                        var priority = destinationset.destinations[item].priority;
+                                        var simpleDestination = destinationset.destinations[item].simple_destination;
+                                        var destinationId = destinationset.id;
+                                        var destinationName = destinationset.name;
+                                        var ringFor = destinationToUse == 'Voicemail' ? '' : destinationset.destinations[item].timeout;
+                                        var cbModel = Ext.create('NgcpCsc.model.CallForward', {
+                                            type: cfType,
+                                            destination_cleaned: destinationToUse,
+                                            destination_announcement_id: destinationAnnouncementId,
+                                            destination: destination,
+                                            priority: priority,
+                                            simple_destination: simpleDestination,
+                                            ring_for: ringFor,
+                                            sourceset: sourcesetName,
+                                            timeset: timesetName,
+                                            destinationset_id: destinationId,
+                                            destinationset_name: destinationName
+                                        });
+                                        arrayOfModels.push(cbModel);
+                                    }
+                                }
+                            });
+                        };
+                    });
+                });
+                if (arrayOfModels.length > 0) {
+                    me.populateDestinationStores(arrayOfModels);
+                }
+            },
+
+            failure: function(response, opts) {
+                console.log('server-side failure with status code ' + response.status);
+            }
+        });
+
+    },
+
+    cfStoreLoadedFromCompanyHours: function(store, data) {
+        var me = this;
+        var cfTypeArrayOfObjects = [data.get('cfu'), data.get('cft'), data.get('cfb'), data.get('cfna')];
+        var cfTypes = ['cfu', 'cft', 'cfb', 'cfna'];
+        var timeset = store._type;
+        console.log(timeset, ' -> from companyHours controller');
+        var arrayOfModels = [];
+        var currentRoute = window.location.hash;
+        var routeTimeset = this.getTimesetFromRoute(currentRoute);
+        store.removeAll();
+        Ext.Ajax.request({
+            url: 'https://localhost:1443/api/cfdestinationsets/?subscriber_id=195',
+
+            success: function(response, opts) {
+                var decodedResponse = Ext.decode(response.responseText);
+                var destinationsets = decodedResponse._embedded['ngcp:cfdestinationsets'];
+                Ext.each(cfTypeArrayOfObjects, function (cfTypeObjects, index) {
+                    var cfType = cfTypes[index];
+                    Ext.each(cfTypeObjects, function(cfTypeObject) {
+                        var destinationsetName = cfTypeObject.destinationset;
+                        var sourcesetName = cfTypeObject.sourceset;
+                        var timesetName = cfTypeObject.timeset;
+                        if (timesetName == routeTimeset) {
+                            Ext.each(destinationsets, function(destinationset) {
+                                if (destinationset.name == destinationsetName) {
+                                    for (item in destinationset.destinations) {
+                                        var destinationToUse = me.getDestinationFromSipId(destinationset.destinations[item].destination);
+                                        var destinationAnnouncementId = destinationset.announcement_id;
+                                        var destination = destinationset.destinations[item].destination;
+                                        var priority = destinationset.destinations[item].priority;
+                                        var simpleDestination = destinationset.destinations[item].simple_destination;
+                                        var destinationId = destinationset.id;
+                                        var destinationName = destinationset.name;
+                                        var ringFor = destinationToUse == 'Voicemail' ? '' : destinationset.destinations[item].timeout;
+                                        var cbModel = Ext.create('NgcpCsc.model.CallForward', {
+                                            type: cfType,
+                                            destination_cleaned: destinationToUse,
+                                            destination_announcement_id: destinationAnnouncementId,
+                                            destination: destination,
+                                            priority: priority,
+                                            simple_destination: simpleDestination,
+                                            ring_for: ringFor,
+                                            sourceset: sourcesetName,
+                                            timeset: timesetName,
+                                            destinationset_id: destinationId,
+                                            destinationset_name: destinationName
+                                        });
+                                        arrayOfModels.push(cbModel);
+                                    }
+                                }
+                            });
+                        };
+                    });
+                });
+                if (arrayOfModels.length > 0) {
+                    me.populateDestinationStores(arrayOfModels);
+                }
+            },
+
+            failure: function(response, opts) {
+                console.log('server-side failure with status code ' + response.status);
+            }
+        });
+
+    },
+
+    cfStoreBeforeSync: function(store, options) {
+        console.log('cfStoreBeforeSync');
+        // TODO: (For PUT/PATCH ticket) Base on on CB module implementation
+    },
+
+    getDestinationFromSipId: function (destination) {
+        var splitDestination = destination.split(/(:|@)/);
+        if (splitDestination[4] == 'voicebox.local') {
+            return 'Voicemail';
+        } else {
+            return splitDestination[2];
+        }
+    },
+
+    getGridCategoryFromType: function (type) {
+        switch (type) {
+            case 'cft':
+            case 'cfu':
+                return 'CallForwardOnline';
+                break;
+            case 'cfb':
+                return 'CallForwardBusy';
+                break;
+            case 'cfna':
+                return 'CallForwardOffline';
+                break;
+        }
+    },
+
+    getSourceNameFromSourceSet: function (sourceset) {
+        switch (sourceset) {
+            case 'List A':
+                return 'listA-';
+                break;
+            case 'List B':
+                return 'listB-';
+                break;
+            case null:
+                return 'everybody-';
+                break;
+        }
+    },
+
+    getTimeNameFromTimeSet: function (timeset) {
+        switch (timeset) {
+            case 'After Hours':
+                return 'afterHours-';
+                break;
+            case 'Company Hours':
+                return 'companyHours-';
+                break;
+            case null:
+                return 'always-';
+                break;
+        }
+    },
+
+
+    getModuleFromRoute: function(currentRoute) {
+        switch (currentRoute) {
+            case '#callforward/always':
+                return 'always';
+                break;
+            case '#callforward/afterhours':
+                return 'afterHours';
+                break;
+            case '#callforward/companyhours':
+                return 'companyHours';
+                break;
+        };
+    },
+
+    getModelValuesFromTimesData: function (timesData) {
+        var times = {};
+        var timesFromAndTo = timesData.hour !== null ? timesData.hour.split('-') : [null, null];
+        var daysFromAndTo = timesData.wday !== null ? timesData.wday.split('-') : [null, null];
+        var weekdayLiterals = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        var timeFrom = timesFromAndTo[0];
+        var timeTo = timesFromAndTo[1];
+        var dayFrom = daysFromAndTo[0];
+        var dayTo = daysFromAndTo[1];
+        times.days;
+        var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        times.timeFrom = timeFrom;
+        times.timeTo = timeTo;
+        if (!!timesData.wday) {
+            var weekdaysArray = weekdayLiterals.slice(dayFrom-1, dayTo);
+            times.days = weekdaysArray;
+        } else {
+            times.days = null;
+        };
+        return times;
+    },
+
+    populateTimesetStores: function (models) {
+        var vm = this.getViewModel();
+        var currentRoute = window.location.hash;
+        var moduleName = this.getModuleFromRoute(currentRoute);
+        var store = Ext.getStore(moduleName + '-Timeset');
+        if (store.getCount() === 0 ) {
+            Ext.each(models, function (model) {
+                if (moduleName == 'afterHours' && model.get('timeset_name') == 'After Hours') {
+                    store.add(model);
+                } else if (moduleName == 'companyHours' && model.get('timeset_name') == 'Company Hours') {
+                    store.add(model);
+                };
+            });
+            store.commitChanges();
+            if (store.getCount() > 0 ) {
+                vm.set(moduleName + '_hideMessage', true);
+            };
+        };
+    },
+
+    populateSourcesetStores: function (models) {
+        var currentRoute = window.location.hash;
+        var moduleName = this.getModuleFromRoute(currentRoute);
+        var storeListAName = moduleName + '-CallForwardListA';
+        var storeListBName = moduleName + '-CallForwardListB';
+        var storeListAAlways = Ext.getStore(storeListAName);
+        var storeListBAlways = Ext.getStore(storeListBName);
+        if (moduleName && storeListAAlways.getCount() === 0 && storeListBAlways.getCount() === 0) {
+            Ext.each(models, function (model) {
+                if (model.get('sourceset_name') == 'List A') {
+                    storeListAAlways.add(model);
+                } else if (model.get('sourceset_name') == 'List B') {
+                    storeListBAlways.add(model);
+                };
+            });
+            storeListAAlways.commitChanges();
+            storeListBAlways.commitChanges();
+        };
+    },
+
+    populateDestinationStores: function (models) {
+        var me = this;
+        var gridName = this.getGridCategoryFromType(models[0].get('type'));
+        var store;
+        Ext.each(models, function (model) {
+            var sourcename = me.getSourceNameFromSourceSet(model.get('sourceset'));
+            var timename = me.getTimeNameFromTimeSet(model.get('timeset'));
+            var type = me.getGridCategoryFromType(model.get('type'));
+            var storeName = sourcename + timename + type;
+            store = Ext.getStore(storeName);
+            if (store) {
+                store.add(model);
+            }
+        });
+        if (store) {
+            store.commitChanges();
+        }
+    },
+
+    cfdestinationsetsClick: function () {
+        console.log('cfdestinationsetsClick');
+    },
+
+    cfsourcesetsClick: function () {
+        console.log('cfsourcesetsClick');
+    },
+
+    cftimesetsClick: function () {
+        console.log('cftimesetsClick');
     },
 
     editingPhoneDone: function(editor, context) {
@@ -175,27 +628,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             vm.set('list_a', true);
             vm.set('list_b', false);
         };
-        Ext.Ajax.request({
-            url: '/resources/data/callForwardCombinations.json',
-            success: function(response, opts) {
-                var obj = Ext.decode(response.responseText);
-                var combinationStore = obj.data[0];
-                storesArray.map(function(storeName) {
-                    var store = Ext.getStore(storeName);
-                    var strippedStoreName = storeName.split('-')[2];
-                    // Workaround since tabpanel being in initComponent causes this function to run before we have a route set.
-                    // This short-circuits into evaluating the right hand side only if we have a store that is not undefined
-                    !!store && store.removeAll();
-                    for (node in combinationStore) {
-                        if (me.checkIndexOf(strippedStoreName, node) && me.checkIndexOf(currentTimeset, node) && me.checkIndexOf(currentSourceset, node)) {
-                            var records = combinationStore[node];
-                            store.add(records);
-                        };
-                    };
-                });
-            },
-            failure: function(response, opts) {}
-        });
     },
 
     renderDay: function(value, meta, record) {
@@ -224,7 +656,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         this.fireEvent('showconfirmbox', title, question, sucessMsg, 'confirmCFRemoval', rec);
     },
 
-    renderPhoneColumn: function(value, metaData, record) {
+    renderDestinationColumn: function(value, metaData, record) {
         if (record.get('ring_for') === '' && !Ext.isNumber(parseInt(value))) {
             return Ext.String.format('{0}', value);
         } else if (Ext.isNumber(parseInt(value))) {
@@ -284,12 +716,18 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         switch (storeNameStripped) {
             case 'CallForwardOnline':
                 vm.set('online_add_new_then_hidden', true);
+                vm.set('online_cancel_button_hidden', true);
+                vm.set('online_add_button_hidden', false);
                 break;
             case 'CallForwardBusy':
                 vm.set('busy_add_new_then_hidden', true);
+                vm.set('busy_cancel_button_hidden', true);
+                vm.set('busy_add_button_hidden', false);
                 break;
             case 'CallForwardOffline':
                 vm.set('offline_add_new_then_hidden', true);
+                vm.set('offline_cancel_button_hidden', true);
+                vm.set('offline_add_button_hidden', false);
                 break;
         };
     },
@@ -342,6 +780,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
 
     addNewDestination: function(element) {
         var me = this;
+        var vm = this.getViewModel();
         var targetId = element.id;
         var splitTargetId = targetId.split('-');
         var selectedSourceset = splitTargetId[0];
