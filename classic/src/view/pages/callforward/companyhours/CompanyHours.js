@@ -6,17 +6,21 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
     ui: 'cf-mainform',
 
     initComponent: function() {
+        var cfInitialStore = Ext.create('NgcpCsc.store.CallForward',{
+            storeId: 'CallForwardCompanyHours',
+            _type: 'companyHours',
+            autoLoad: true,
+            listeners: {
+                load: function(store, recs) {
+                    this.fireEvent('cfStoreLoadedFromCompanyHours', this, recs[0]);
+                }
+            }
+        });
+
         var callForwardCompanyGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
             id: 'cf-timeset-company-grid',
             store: Ext.create('NgcpCsc.store.CallForwardTimeset', {
-                proxy: {
-                    type: 'ajax',
-                    url: '/resources/data/callForwardTimesetCompany.json',
-                    reader: {
-                        type: 'json',
-                        rootProperty: 'data'
-                    }
-                }
+                storeId: 'companyHours-Timeset'
             })
         });
 
@@ -40,7 +44,14 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
                         expand: 'collapsePanel'
                     },
                     userCls: 'big-33 small-100 cf-calls-during-section',
-                    items: [
+                    items: [{
+                        xtype: 'panel',
+                        margin: '10 0 10 0',
+                        html: 'You have not set your company hours calendar yet.', // TODO: Locales or icon, or both. Will wait for feedback from Andreas in next sync-up
+                        bind: {
+                            hidden: '{companyHours_hideMessage}'
+                        }
+                    },
                         callForwardCompanyGrid,
                         {
                             text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
@@ -48,16 +59,13 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
                             cls: 'x-btn-left',
                             id: 'companyHours-saveButton',
                             width: 135,
-                            margin: '10 0 0 585',
+                            margin: '10 0 10 585',
                             listeners: {
                                 click: 'saveGrid'
                             }
                         }
                     ]
                 }]
-            }, {
-                xtype: 'statusbar',
-                reference: 'loadingBar'
             }, {
                 xtype: 'panel',
                 width: '100%',
