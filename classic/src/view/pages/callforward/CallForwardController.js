@@ -1,3 +1,44 @@
+// DONE: 1. Update endpoints mapping, as callforwards has sources and times,
+//          but no sourceset or timeset names. Need to perform an ajax
+//          request in controller to get sourceset name for current cf type
+//          for subscriber
+// +--------------+---------------+------+--------------------+
+// |  Submodule   |     Grid      | CRUD |      Endpoint      |
+// +--------------+---------------+------+--------------------+
+// | Alw/Aft/Comp | Timeset       | RU   | /api/cftimesets/   |
+// | Alw/Aft/Comp | Sourceset     | RU   | /api/cfsourcesets/ |
+// | Alw/Aft/Comp | Onl/Offl/Busy | CRUD | /api/callforwards/ |
+// | Alw/Aft/Comp | Onl/Offl/Busy | R    | /api/cfsourcesets/ |
+// | Alw/Aft/Comp | Onl/Offl/Busy | R    | /api/cftimesets/   |
+// +--------------+---------------+------+--------------------+
+// TODO: 2. create proxy configurations for each store/models, extending
+//          NgcpApi proxy from CB modules
+// DONE: 2a. implement initial model, store, and store load listener logic
+//           in controller
+// TODO: 2b. create a store and grid with destinations cfu
+// TODO: 3. implement into view for displaying data based on requested data
+// TODO: 4. CANCEL button text does not get reverted back to ADD NEW
+//    DESTINATION after adding new from empty list, fix
+// TODO: 5. Make timeout field editable
+// TODO: 6. For busy and offline, don't display "first ring" section
+// TODO: 7. For after timeset grids, we need a good solution for what to
+//    display if not "After Hours" / "Company Hours" timeset exists,
+//    which will be the case for most all users first time they set up
+//    CFs. Andreas suggested red exclamation mark/notification badge
+//    displayed on menu item with "after hours not defined" indication.
+//    Could also have a "Your after hours are not configured yet. Click
+//    here to do that... [Dismiss] ("I do not want to do that")" as a
+//    notification bar/row on top
+// TODO: 8. Implement logic for "first ring and "then ring" conditions (first
+//    ring if cfu is set as other than own phone, grid is cfu. first
+//    ring own phone cft (on timeout, on ring timeout). if no data,
+//    then set as own phone)
+// TODO: X. Talked about having a plus icon after List B, to add more
+//    sourcesets. Will not complete that as part of this task, but
+//    keeping it in mind
+// TODO: XX. Once all is remaining CF tasks are implemented, discuss in a
+//     sync-up validation restrictions for what destinations you can put
+//     "on top of each other"
 Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     extend: 'Ext.app.ViewController',
 
@@ -8,7 +49,33 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             '*': {
                 confirmCFRemoval: 'confirmCFRemoval'
             }
+        },
+        store: {
+            '*': {
+                cfStoreLoaded: 'cfStoreLoaded',
+                cfStoreBeforeSync: 'cfStoreBeforeSync'
+            }
         }
+    },
+
+    cfStoreLoaded: function(store, data) {
+        var models = [];
+        var cfType = store._type;
+        var destinationObjects = data.get(cfType);
+        store.removeAll();
+        Ext.each(destinationObjects, function(obj) {
+            var cbModel = Ext.create('NgcpCsc.model.CallForwardInitial', {
+                cfna: obj
+            });
+            store.add(cbModel);
+            console.log(obj);
+        });
+        // store.commitChanges();
+        // this.setVm(store, data);
+    },
+
+    cfStoreBeforeSync: function(store, options) {
+        console.log('cfStoreBeforeSync');
     },
 
     editingPhoneDone: function(editor, context) {
