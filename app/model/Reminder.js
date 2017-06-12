@@ -77,4 +77,5 @@ Ext.define('NgcpCsc.model.Reminder', {
         route: 'reminders',
         params: 'subscriber_id=' + localStorage.getItem('subscriber_id')
     }
+
 });

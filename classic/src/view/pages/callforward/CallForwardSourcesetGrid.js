@@ -33,7 +33,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
             },
             items: [{
                 text: Ngcp.csc.locales.callforward.phone[localStorage.getItem('languageSelected')],
-                dataIndex: 'phone',
+                dataIndex: 'source',
                 editor: 'textfield',
                 flex: 1
             }, {
