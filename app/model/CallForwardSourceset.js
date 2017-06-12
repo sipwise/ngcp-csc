@@ -2,11 +2,14 @@ Ext.define('NgcpCsc.model.CallForwardSourceset', {
     extend: 'Ext.data.Model',
 
     fields: [{
-        name: 'phone',
+        name: 'id',
         type: 'string'
     }, {
-        name: 'edit',
-        type: 'boolean'
+        name: 'name',
+        type: 'auto'
+    }, {
+        name: 'sources',
+        type: 'auto'
     }]
 
 });
