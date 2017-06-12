@@ -44,41 +44,17 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
         });
         var busyGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             store: Ext.create('NgcpCsc.store.CallForward', {
-                storeId: this._firstprefix + this._secondprefix + 'CallForwardBusy',
-                proxy: {
-                    type: 'ajax',
-                    url: '/resources/data/callForwardBusy.json',
-                    reader: {
-                        type: 'json',
-                        rootProperty: 'data'
-                    }
-                }
+                storeId: this._firstprefix + this._secondprefix + 'CallForwardBusy'
             })
         });
         var onlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             store: Ext.create('NgcpCsc.store.CallForward', {
-                storeId: this._firstprefix + this._secondprefix + 'CallForwardOnline',
-                proxy: {
-                    type: 'ajax',
-                    url: '/resources/data/callForwardOnline.json',
-                    reader: {
-                        type: 'json',
-                        rootProperty: 'data'
-                    }
-                }
+                storeId: this._firstprefix + this._secondprefix + 'CallForwardOnline'
             })
         });
         var offlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             store: Ext.create('NgcpCsc.store.CallForward', {
-                storeId: this._firstprefix + this._secondprefix + 'CallForwardOffline',
-                proxy: {
-                    type: 'ajax',
-                    url: '/resources/data/callForwardOffline.json',
-                    reader: {
-                        type: 'json',
-                        rootProperty: 'data'
-                    }
-                }
+                storeId: this._firstprefix + this._secondprefix + 'CallForwardOffline'
             })
         });
 

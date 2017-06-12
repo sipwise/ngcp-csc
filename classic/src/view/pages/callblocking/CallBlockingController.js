@@ -29,8 +29,10 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
             store.add(cbModel);
         });
         store.commitChanges();
+        console.log(store);
         this.setVm(store, data);
     },
+
     cbStoreBeforeSync: function(store, options) {
         if (this.getView().getXType() == 'privacy' & store._type !== 'privacy' ||
             this.getView().getXType() == 'incoming' & store._type !== 'block_in_list' ||

@@ -9,12 +9,26 @@ Ext.define('NgcpCsc.view.pages.callforward.always.Always', {
 
     initComponent: function() {
 
+        // This is used to fetch the api data from endpoints initially, and
+        // build the other individual grid stores in controller together with
+        // needed corresponding data fetched with ajax calls
+        var cfInitialStore = Ext.create('NgcpCsc.store.CallForward',{
+            storeId: 'CallForwardAlways',
+            _type: 'cfu', // NOTE: Can use an array, value would be ['cfu', 'cft']
+            autoLoad: true,
+            listeners: {
+                load: function(store, recs) {
+                    this.fireEvent('cfStoreLoaded', this, recs[0]);
+                }
+            }
+        });
+
         this.items = [{
             userCls: Ext.os.is.Desktop ? 'big-820' : 'small-100',
             xtype: 'core-container',
             items: [{
-                xtype: 'statusbar',
-                reference: 'loadingBar'
+                xtype: 'alwaystestgrid',
+                margin: '50 0 125 0'
             }, {
                 xtype: 'panel',
                 width: '100%',
