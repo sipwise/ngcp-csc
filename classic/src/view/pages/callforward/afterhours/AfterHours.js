@@ -6,17 +6,21 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
     ui: 'cf-mainform',
 
     initComponent: function() {
+        var cfInitialStore = Ext.create('NgcpCsc.store.CallForward', {
+            storeId: 'CallForwardAfterHours',
+            _type: 'afterHours',
+            autoLoad: true,
+            listeners: {
+                load: function(store, recs) {
+                    this.fireEvent('cfStoreLoaded', this, recs[0]);
+                }
+            }
+        });
+
         var callForwardAfterGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
             id: 'cf-timeset-after-grid',
             store: Ext.create('NgcpCsc.store.CallForwardTimeset', {
-                proxy: {
-                    type: 'ajax',
-                    url: Ext.manifest.resources.path + '/data/callForwardTimesetAfter.json',
-                    reader: {
-                        type: 'json',
-                        rootProperty: 'data'
-                    }
-                }
+                storeId: 'afterHours-Timeset'
             })
         });
 
@@ -40,24 +44,27 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
                         expand: 'collapsePanel'
                     },
                     userCls: 'big-33 small-100 cf-calls-during-section',
-                    items: [
-                        callForwardAfterGrid,
-                        {
+                    items: [{
+                            xtype: 'panel',
+                            margin: '10 0 10 0',
+                            html: 'You have not set your after hours calendar yet.', // TODO: Locales or icon, or both. Will wait for feedback from Andreas in next sync-up
+                            bind: {
+                                hidden: '{afterHours_hideMessage}'
+                            }
+                        },
+                        callForwardAfterGrid, {
                             text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
                             xtype: 'button',
                             cls: 'x-btn-left',
                             id: 'afterHours-saveButton',
                             width: 135,
-                            margin: '10 0 0 623',
+                            margin: '10 0 10 623',
                             listeners: {
                                 click: 'saveGrid'
                             }
                         }
                     ]
                 }]
-            }, {
-                xtype: 'statusbar',
-                reference: 'loadingBar'
             }, {
                 xtype: 'panel',
                 width: '100%',

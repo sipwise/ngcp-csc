@@ -2,17 +2,26 @@ Ext.define('NgcpCsc.model.CallForwardTimeset', {
     extend: 'Ext.data.Model',
 
     fields: [{
-        name: 'day',
+        name: 'id',
         type: 'string'
+    }, {
+        name: 'timeset_name',
+        type: 'auto'
+    }, {
+        name: 'timeset_id',
+        type: 'auto'
     }, {
         name: 'time_from',
-        type: 'string'
+        type: 'auto'
     }, {
         name: 'time_to',
-        type: 'string'
+        type: 'auto'
+    }, {
+        name: 'day',
+        type: 'auto'
     }, {
         name: 'closed',
-        type: 'boolean'
+        type: 'auto'
     }]
 
 });

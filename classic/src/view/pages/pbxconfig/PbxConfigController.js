@@ -101,7 +101,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         plugin.toggleRow(store.indexOf(record), record);
         Ext.defer(function() {
             view.grid.updateLayout();
-            view.fireEvent('cardContainerResized', me.getView())
+            view.fireEvent('cardContainerResized', me.getView());
         }, 1);
         if (currentRoute == '#pbxconfig/devices') {
             var grid = this.lookupReference('devicesGrid');

@@ -5,6 +5,24 @@ Ext.define('NgcpCsc.store.CallForward', {
 
     model: 'NgcpCsc.model.CallForward',
 
-    autoLoad: true
+    // TODO: (For PUT/PATCH ticket)
+    // autoSync: true,
+
+    proxy: {
+        type: 'ngcp-api',
+        route: 'cfmappings',
+        addSubscriber: true,
+        actionMethods: {
+            read: 'GET',
+            update: 'PATCH'
+        }
+    }
+
+    // TODO: (For PUT/PATCH ticket)
+    // ,listeners: {
+    //     beforesync: function(options) {
+    //         this.fireEvent('cfStoreBeforeSync', this, options);
+    //     }
+    // }
 
 });
