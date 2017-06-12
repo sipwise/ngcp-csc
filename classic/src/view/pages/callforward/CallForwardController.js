@@ -1,3 +1,49 @@
+// DONE: 1. Update endpoints mapping, as callforwards has sources and times,
+//          but no sourceset or timeset names. Need to perform an ajax
+//          request in controller to get sourceset name for current cf type
+//          for subscriber
+// +--------------+---------------+------+--------------------+
+// |  Submodule   |     Grid      | CRUD |      Endpoint      |
+// +--------------+---------------+------+--------------------+
+// | Alw/Aft/Comp | Timeset       | RU   | /api/cftimesets/   |
+// | Alw/Aft/Comp | Sourceset     | RU   | /api/cfsourcesets/ |
+// | Alw/Aft/Comp | Onl/Offl/Busy | CRUD | /api/callforwards/ |
+// | Alw/Aft/Comp | Onl/Offl/Busy | R    | /api/cfsourcesets/ |
+// | Alw/Aft/Comp | Onl/Offl/Busy | R    | /api/cftimesets/   |
+// +--------------+---------------+------+--------------------+
+// TODO: 2. create proxy configurations for each store/models, extending
+//          NgcpApi proxy from CB modules
+// DONE: 2a. implement initial model, store, and store load listener logic
+//           in controller
+// DONE: 2b. create a store and grid with destinations cfu
+// TODO: 2c. Remap endpoints, again, this time using cfmappings to base initial
+// store data request on with proxy, and then build stores with ajax requests
+// to /api/cfdestinationsets, /api/cfsourcesets and /api/cftimesets.
+// TODO: 2d. Redo 2a and 2b to complete a successful request, and start building
+// up the data needed for the stores
+// TODO: 3. implement into view for displaying data based on requested data
+// TODO: 4. CANCEL button text does not get reverted back to ADD NEW
+//    DESTINATION after adding new from empty list, fix
+// TODO: 5. Make timeout field editable
+// TODO: 6. For busy and offline, don't display "first ring" section
+// TODO: 7. For after timeset grids, we need a good solution for what to
+//    display if not "After Hours" / "Company Hours" timeset exists,
+//    which will be the case for most all users first time they set up
+//    CFs. Andreas suggested red exclamation mark/notification badge
+//    displayed on menu item with "after hours not defined" indication.
+//    Could also have a "Your after hours are not configured yet. Click
+//    here to do that... [Dismiss] ("I do not want to do that")" as a
+//    notification bar/row on top
+// TODO: 8. Implement logic for "first ring and "then ring" conditions (first
+//    ring if cfu is set as other than own phone, grid is cfu. first
+//    ring own phone cft (on timeout, on ring timeout). if no data,
+//    then set as own phone)
+// TODO: X. Talked about having a plus icon after List B, to add more
+//    sourcesets. Will not complete that as part of this task, but
+//    keeping it in mind
+// TODO: XX. Once all is remaining CF tasks are implemented, discuss in a
+//     sync-up validation restrictions for what destinations you can put
+//     "on top of each other"
 Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     extend: 'Ext.app.ViewController',
 
@@ -8,7 +54,142 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             '*': {
                 confirmCFRemoval: 'confirmCFRemoval'
             }
+        },
+        store: {
+            '*': {
+                cfStoreLoaded: 'cfStoreLoaded',
+                cfStoreBeforeSync: 'cfStoreBeforeSync'
+            }
         }
+    },
+
+    cfStoreLoaded: function(store, data) {
+        console.log('loading... loading... loading...');
+
+        // TODO: A. Create an object with structure {destination: 'value', timeout: 'value', sourceset: 'value' or null, timeset: 'value' or null }
+        // TODO: Aa. Create an array to store Ab. objects in
+        // TODO: Ab. Create new objects with new keyword based on A. object, for each >> XXX: HERE << (look for this "goto" below) iteration
+        // TODO: B. Create a function that takes as arguments cftype and the Aa. array with objects, and based on that, using swith case statements, builds the individual stores
+
+        // NOTE: There an exist duplicate destinationset names and timeset names, but not sourceset names
+        // NOTE: A cftype in cfmappings can also have several destinationsets
+        // NOTE: For now I'm assuming one cftype does not have several sets with same name
+        var models = [];
+        var cfTypeObjects = data.get(store._type[0]);
+        var destinations = [];
+        var timeouts = [];
+        store.removeAll();
+        console.log(cfTypeObjects);
+        Ext.each(cfTypeObjects, function(cfTypeObject) {
+            var destinationsetName = cfTypeObject.destinationset;
+            var sourcesetName = cfTypeObject.sourceset;
+            var timesetName = cfTypeObject.timeset;
+            Ext.Ajax.request({
+                url: 'https://localhost:1443/api/cfdestinationsets/?subscriber_id=297',
+
+                success: function(response, opts) {
+                    var decodedResponse = Ext.decode(response.responseText);
+                    var destinationsets = decodedResponse._embedded['ngcp:cfdestinationsets'];
+                    Ext.each(destinationsets, function(destinationset) {
+                        if (destinationset.name == destinationsetName) {
+                            for (item in destinationset.destinations) {
+                                // destinations.push(destinationset.destinations[item].destination);
+                                // timeouts.push(destinationset.destinations[item].timeout);
+                                // XXX: HERE
+                                var cbModel = Ext.create('NgcpCsc.model.CallForward', {
+                                    destination: destinationset.destinations[item].destination, // TODO: Split and reduce to proper destination
+                                    timeout: destinationset.destinations[item].timeout,
+                                    sourceset: sourcesetName,
+                                    timeset: timesetName
+                                });
+                                store.add(cbModel);
+                            }
+                        }
+                    });
+                    // console.log(destinations);
+                    // console.log(timeouts);
+                },
+
+                failure: function(response, opts) {
+                    console.log('server-side failure with status code ' + response.status);
+                }
+            });
+        });
+        // All CF stores, and iterate over them
+        // for () {
+            // do AJAX to call endpoints for stores. nest AJAX requests within each other
+            // NOTE: When
+            // this.populateIndividualStores(data, cfType);
+        // }
+    },
+
+    cfStoreBeforeSync: function(store, options) {
+        console.log('cfStoreBeforeSync');
+        // TODO: (next ticket) Model on CB module
+    },
+
+    populateIndividualStores: function(data, storeid) {
+        var cfObjects = data.get(storeid); // You get the idea
+        store.removeAll();
+        Ext.each(cfObjects, function(cfObject) {
+            for (index in cfObject.destinations) {
+                var cbModel = Ext.create('NgcpCsc.model.CallForwardInitial', {
+                    destination: cfObject.destinations[index].destination,
+                    timeout: cfObject.destinations[index].timeout
+                });
+                store.add(cbModel);
+            }
+        });
+        store.commitChanges();
+    },
+
+    cfdestinationsetsClick: function () {
+        console.log('cfdestinationsetsClick');
+        Ext.Ajax.request({
+            url: 'https://localhost:1443/api/cfdestinationsets/?subscriber_id=297',
+
+            success: function(response, opts) {
+                var decodedResponse = Ext.decode(response.responseText);
+                var sourcesets = decodedResponse._embedded['ngcp:cfsourcesets'];
+                Ext.each(sourcesets, function(destinationset) {
+                    if (destinationset.name == destinationsetName) {
+                        for (item in destinationset.destinations) {
+                            var cbModel = Ext.create('NgcpCsc.model.CallForward', {
+                                destination: destinationset.destinations[item].destination, // TODO: Split and reduce to proper destination
+                                timeout: destinationset.destinations[item].timeout
+                            });
+                            store.add(cbModel);
+
+                        }
+                    }
+                });
+            },
+
+            failure: function(response, opts) {
+                console.log('server-side failure with status code ' + response.status);
+            }
+        });
+    },
+
+    cfsourcesetsClick: function () {
+        console.log('cfsourcesetsClick');
+        Ext.Ajax.request({
+            url: 'https://localhost:1443/api/cfsourcesets/?subscriber_id=297',
+
+            success: function(response, opts) {
+                var decodedResponse = Ext.decode(response.responseText);
+                var sourceset = decodedResponse;
+                console.log(sourceset);
+            },
+
+            failure: function(response, opts) {
+                console.log('server-side failure with status code ' + response.status);
+            }
+        });
+    },
+
+    cftimesetsClick: function () {
+        console.log('cftimesetsClick');
     },
 
     editingPhoneDone: function(editor, context) {
