@@ -5,6 +5,7 @@
     $ui-border-radius: 1px
 );
 .x-panel-core-container {
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
     .x-panel-body {
         background-color: $body-background-color;
     }
