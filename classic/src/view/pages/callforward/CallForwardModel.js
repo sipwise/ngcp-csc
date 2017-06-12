@@ -36,7 +36,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardModel', {
         source_lista_title: 'List A',
         source_listb_title: 'List B',
         hide_lista_titleField: true,
-        hide_listb_titleField: true
+        hide_listb_titleField: true,
+        afterHours_hideMessage: false,
+        companyHours_hideMessage: false
     },
 
     formulas: {
