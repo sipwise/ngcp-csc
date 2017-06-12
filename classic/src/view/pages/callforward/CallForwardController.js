@@ -1,3 +1,6 @@
+// XXX: 0. Update endpoints mapping, as callforwards has sources and times, but no sourceset or timeset names. Need to perform an ajax request in controller to get sourceset name for current cf type for subscriber
+// TODO: 1. create proxy configurations for each store/models, extending NgcpApi proxy from CB modules
+// TODO: 2. implement into view for displaying data based on requested data
 Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     extend: 'Ext.app.ViewController',
 
@@ -8,7 +11,34 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             '*': {
                 confirmCFRemoval: 'confirmCFRemoval'
             }
+        },
+        store: {
+            '*': {
+                cfStoreLoaded: 'cfStoreLoaded',
+                cfStoreBeforeSync: 'cfStoreBeforeSync'
+            }
         }
+    },
+
+    cfStoreLoaded: function(store, data) {
+        var models = [];
+        // var destinationObjects = data.cfu.get(destinations); // NOTE: Set e.g. Incoming.js
+        console.log(data);
+        store.removeAll();
+        // console.log(destinations);
+        // Ext.each(destinationObjects, function(item) {
+            // var cbModel = Ext.create('NgcpCsc.model.CallForwardInitial', {
+            //     cfna: obj
+            // });
+            // store.add(cbModel);
+        //     console.log(destinationObjects[item]);
+        // });
+        // store.commitChanges();
+        // this.setVm(store, data);
+    },
+
+    cfStoreBeforeSync: function(store, options) {
+        console.log('cfStoreBeforeSync');
     },
 
     editingPhoneDone: function(editor, context) {
