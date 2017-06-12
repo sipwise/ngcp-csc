@@ -48,6 +48,6 @@ Ext.define('NgcpCsc.model.Reminder', {
     proxy: {
         type: 'ngcp-api',
         route: 'reminders',
-        params: 'subscriber_id=175'
+        params: 'subscriber_id=195'
     }
 });
