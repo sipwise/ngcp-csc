@@ -26,6 +26,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
     },
 
     initComponent: function() {
+        // DONE: A. Find out where .json is used in proxy and comment out
+        // DONE: B. Populate store in controller to, iterating over sources for
+        // both "List A" and "List B", and write to all six sourceset stores:
+        // TODO: C. BUG.. We are able to write to the listB store, but grid not
+        // shown in view.
         this.columns = {
             defaults: {
                 menuDisabled: true,
@@ -33,7 +38,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
             },
             items: [{
                 text: Ngcp.csc.locales.callforward.phone[localStorage.getItem('languageSelected')],
-                dataIndex: 'phone',
+                dataIndex: 'source',
                 editor: 'textfield',
                 flex: 1
             }, {

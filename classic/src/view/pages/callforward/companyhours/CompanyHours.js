@@ -6,18 +6,15 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
     ui: 'cf-mainform',
 
     initComponent: function() {
-        var callForwardCompanyGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
-            id: 'cf-timeset-company-grid',
-            store: Ext.create('NgcpCsc.store.CallForwardTimeset', {
-                proxy: {
-                    type: 'ajax',
-                    url: '/resources/data/callForwardTimesetCompany.json',
-                    reader: {
-                        type: 'json',
-                        rootProperty: 'data'
-                    }
+        var cfInitialStore = Ext.create('NgcpCsc.store.CallForward',{
+            storeId: 'CallForwardCompanyHours',
+            _type: 'companyHours',
+            autoLoad: true,
+            listeners: {
+                load: function(store, recs) {
+                    this.fireEvent('cfStoreLoadedFromCompanyHours', this, recs[0]);
                 }
-            })
+            }
         });
 
         this.items = [{
@@ -41,23 +38,20 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
                     },
                     userCls: 'big-33 small-100 cf-calls-during-section',
                     items: [
-                        callForwardCompanyGrid,
+                        // callForwardCompanyGrid, // TODO
                         {
                             text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
                             xtype: 'button',
                             cls: 'x-btn-left',
                             id: 'companyHours-saveButton',
                             width: 135,
-                            margin: '10 0 0 585',
+                            margin: '10 0 10 585',
                             listeners: {
                                 click: 'saveGrid'
                             }
                         }
                     ]
                 }]
-            }, {
-                xtype: 'statusbar',
-                reference: 'loadingBar'
             }, {
                 xtype: 'panel',
                 width: '100%',
