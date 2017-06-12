@@ -27,9 +27,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
         var me = this;
 
         me.columns = [{
-            dataIndex: 'phone', // Renderer also uses ring_for value
+            dataIndex: 'destination_cleaned', // Renderer also uses ring_for value
             width: 285,
-            renderer: 'renderPhoneColumn'
+            renderer: 'renderDestinationColumn'
         }, {
             text: Ngcp.csc.locales.common.delete[localStorage.getItem('languageSelected')],
             xtype: 'actioncolumn',
