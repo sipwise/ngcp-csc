@@ -790,6 +790,13 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'then forward to ...',
                 sp: 'then forward to ...'
             },
+            forward_to: {
+                en: 'forward to ...',
+                it: 'forward to ...',
+                de: 'forward to ...',
+                fr: 'forward to ...',
+                sp: 'forward to ...'
+            },
             add_new_destination: {
                 en: 'ADD NEW DESTINATION',
                 it: 'ADD NEW DESTINATION',

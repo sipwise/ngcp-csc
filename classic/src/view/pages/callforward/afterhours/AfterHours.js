@@ -6,17 +6,21 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
     ui: 'cf-mainform',
 
     initComponent: function() {
+        var cfInitialStore = Ext.create('NgcpCsc.store.CallForward',{
+            storeId: 'CallForwardAfterHours',
+            _type: 'afterHours',
+            autoLoad: true,
+            listeners: {
+                load: function(store, recs) {
+                    this.fireEvent('cfStoreLoaded', this, recs[0]);
+                }
+            }
+        });
+
         var callForwardAfterGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
             id: 'cf-timeset-after-grid',
             store: Ext.create('NgcpCsc.store.CallForwardTimeset', {
-                proxy: {
-                    type: 'ajax',
-                    url: '/resources/data/callForwardTimesetAfter.json',
-                    reader: {
-                        type: 'json',
-                        rootProperty: 'data'
-                    }
-                }
+                storeId: 'TimesetAfterHours'
             })
         });
 
@@ -41,7 +45,7 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
                     },
                     userCls: 'big-33 small-100 cf-calls-during-section',
                     items: [
-                        callForwardAfterGrid,
+                        callForwardAfterGrid, // TODO
                         {
                             text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
                             xtype: 'button',
@@ -55,9 +59,6 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
                         }
                     ]
                 }]
-            }, {
-                xtype: 'statusbar',
-                reference: 'loadingBar'
             }, {
                 xtype: 'panel',
                 width: '100%',

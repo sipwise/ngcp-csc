@@ -1,3 +1,54 @@
+// DONE: 1. Update endpoints mapping, as callforwards has sources and times,
+//          but no sourceset or timeset names. Need to perform an ajax
+//          request in controller to get sourceset name for current cf type
+//          for subscriber
+// +--------------+---------------+------+-------------------------+
+// | Submodule    | Grid          | CRUD | Endpoint                |
+// +--------------+---------------+------+-------------------------+
+// | Alw/Aft/Comp | Timeset       | RU   | /api/cftimesets/        |
+// | Alw/Aft/Comp | Sourceset     | RU   | /api/cfsourcesets/      |
+// | Alw/Aft/Comp | Onl/Offl/Busy | CRUD | /api/cfmappings/        |
+// | Alw/Aft/Comp | Onl/Offl/Busy | CR   | /api/cfsourcesets/      |
+// | Alw/Aft/Comp | Onl/Offl/Busy | CR   | /api/cftimesets/        |
+// | Alw/Aft/Comp | Onl/Offl/Busy | CRUD | /api/cfdestinationsets/ |
+// +--------------+---------------+------+-------------------------+
+// (timeset/sourceset in onl/off/busy CRUD depends on UI implementation)
+// DONE: 2. create proxy configurations for each store/models, extending
+//          NgcpApi proxy from CB modules
+// DONE: 2a. implement initial model, store, and store load listener logic
+//           in controller
+// DONE: 2b. create a store and grid with destinations cfu
+// DONE: 2c. Remap endpoints, again, this time using cfmappings to base initial
+// store data request on with proxy, and then build stores with ajax requests
+// to /api/cfdestinationsets, /api/cfsourcesets and /api/cftimesets.
+// DONE: 2d. Redo 2a and 2b to complete a successful request, and start building
+// up the data needed for the stores
+// DONE: 2e. Add all data values from API to model (destination id, simple_dest, etc)
+// DONE 3a. implement into view for displaying data based on requested data
+// TODO: 3b. prevent duplicate entries with same destination_id, and fix any other
+// mistakes in writing data from API
+// TODO: 3c. Display timeset and sourceset data from API (read only for this task)
+// DONE: 4. CANCEL button text does not get reverted back to ADD NEW
+//    DESTINATION after adding new from empty list, fix
+// DONE: 5. Make timeout field editable
+// DONE: 6. For busy and offline, don't display "first ring" section
+// DONE: 7a. Read and display sourceset data from API (read only for this task)
+// TODO: 7aa. BUG.. List A grid is not showing, even though we are able to write
+//            correct data to the store
+// TODO: 7b. Read and display timeset data from API (read only for this task)
+// TODO: 7c. For after timeset grids, we need a good solution for what to
+//           display if not "After Hours" / "Company Hours" timeset exists,
+//           which will be the case for most all users first time they set up
+//           CFs. Andreas suggested red exclamation mark/notification badge
+//           displayed on menu item with "after hours not defined" indication.
+//           Could also have a "Your after hours are not configured yet. Click
+//           here to do that... [Dismiss] ("I do not want to do that")" as a
+//           notification bar/row on top
+// TODO: 8. (As part of API WRITE ticket) Implement logic for "first ring and
+//          "then ring" conditions (first ring if cfu is set as other than own
+//          phone, grid is cfu. first ring own phone cft (on timeout, on ring
+//          timeout). if no data, then set as own phone)
+// TODO: 9. Remove any unused code and .json files etc
 Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     extend: 'Ext.app.ViewController',
 
@@ -8,7 +59,268 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             '*': {
                 confirmCFRemoval: 'confirmCFRemoval'
             }
+        },
+        store: {
+            '*': {
+                cfStoreLoaded: 'cfStoreLoaded',
+                cfStoreBeforeSync: 'cfStoreBeforeSync',
+                cfTimesetStoreLoaded: 'cfTimesetStoreLoaded',
+                cfSourcesetStoreLoaded: 'cfSourcesetStoreLoaded'
+            }
         }
+    },
+
+    cfTimesetStoreLoaded: function(store, data) {
+        console.log('cfTimesetStoreLoaded', data);
+    },
+
+    cfSourcesetStoreLoaded: function(store, data) {
+        var me = this;
+        var arrayOfModels = [];
+        store.removeAll();
+        Ext.each(data, function (sourceset) {
+            var sourcesetName = sourceset.name;
+            var sourcesetId = sourceset.id;
+            Ext.each(sourceset.sources, function (sourceEntry) {
+                var cbModel = Ext.create('NgcpCsc.model.CallForward', {
+                    sourceset_name: sourcesetName,
+                    sourceset_id: sourcesetId,
+                    source: sourceEntry.source
+                });
+                arrayOfModels.push(cbModel);
+            });
+            if (arrayOfModels.length > 0) {
+                me.populateSourcesetStores(arrayOfModels);
+            };
+        });
+    },
+
+    cfStoreLoaded: function(store, data) {
+        var me = this;
+        var cfTypeArrayOfObjects = [data.get('cfu'), data.get('cft'), data.get('cfb'), data.get('cfna')];
+        var cfTypes = ['cfu', 'cft', 'cfb', 'cfna'];
+        var timeset = store._type[0];
+        var arrayOfModels = [];
+        store.removeAll();
+        Ext.each(cfTypeArrayOfObjects, function (cfTypeObjects, index) {
+            var cfType = cfTypes[index];
+            var counter = 0;
+            Ext.each(cfTypeObjects, function(cfTypeObject) {
+                var destinationsetName = cfTypeObject.destinationset;
+                var sourcesetName = cfTypeObject.sourceset;
+                var timesetName = cfTypeObject.timeset;
+                Ext.Ajax.request({
+                    url: 'https://localhost:1443/api/cfdestinationsets/?subscriber_id=195',
+
+                    success: function(response, opts) {
+                        var decodedResponse = Ext.decode(response.responseText);
+                        var destinationsets = decodedResponse._embedded['ngcp:cfdestinationsets'];
+                        Ext.each(destinationsets, function(destinationset) {
+                            if (destinationset.name == destinationsetName) {
+                                for (item in destinationset.destinations) {
+                                    var destinationToUse = me.getDestinationFromSipId(destinationset.destinations[item].destination);
+                                    var destionationAnnouncementId = destinationset.announcement_id;
+                                    var destination = destinationset.destinations[item].destination;
+                                    var priority = destinationset.destinations[item].priority;
+                                    var simpleDestination = destinationset.destinations[item].simple_destination;
+                                    var destinationId = destinationset.id;
+                                    var destinationName = destinationset.name;
+                                    var cbModel = Ext.create('NgcpCsc.model.CallForward', {
+                                        type: cfType,
+                                        destination_cleaned: destinationToUse,
+                                        destination: destination,
+                                        priority: priority,
+                                        simple_destination: simpleDestination,
+                                        timeout: destinationset.destinations[item].timeout,
+                                        sourceset: sourcesetName,
+                                        timeset: timesetName,
+                                        destinationset_id: destinationId,
+                                        destinationset_name: destinationName
+                                    });
+                                    arrayOfModels.push(cbModel);
+                                }
+                            }
+                        });
+                        if (arrayOfModels.length > 0) {
+                            me.populateIndividualStores(arrayOfModels);
+                        }
+                    },
+
+                    failure: function(response, opts) {
+                        console.log('server-side failure with status code ' + response.status);
+                    }
+                });
+            });
+
+        });
+
+    },
+
+    cfStoreBeforeSync: function(store, options) {
+        console.log('cfStoreBeforeSync');
+        // TODO: (next ticket) Model on CB module
+    },
+
+    getDestinationFromSipId: function (destination) {
+        var splitDestination = destination.split(/(:|@)/);
+        if (splitDestination[4] == 'voicebox.local') {
+            return 'Voicemail';
+        } else {
+            return splitDestination[2];
+        }
+    },
+
+    getGridCategoryFromType: function (type) {
+        switch (type) {
+            case 'cft':
+            case 'cfu':
+                return 'CallForwardOnline';
+                break;
+            case 'cfb':
+                return 'CallForwardBusy';
+                break;
+            case 'cfna':
+                return 'CallForwardOffline';
+                break;
+        }
+    },
+
+    getSourceNameFromSourceSet: function (sourceset) {
+        switch (sourceset) {
+            case 'List A':
+                return 'listA-';
+                break;
+            case 'List B':
+                return 'listB-';
+                break;
+            case null:
+                return 'everybody-';
+                break;
+        }
+    },
+
+    getTimeNameFromTimeSet: function (timeset) {
+        switch (timeset) {
+            case 'After Hours':
+                return 'afterHours-';
+                break;
+            case 'Company Hours':
+                return 'companyHours-';
+                break;
+            case null:
+                return 'always-';
+                break;
+        }
+    },
+
+
+    getModuleFromRoute: function(currentRoute) {
+        switch (true) {
+            case (currentRoute == '#callforward/always'):
+                return 'always';
+                break;
+            case (currentRoute == '#callforward/afterhours'):
+                return 'afterHours';
+                break;
+            case (currentRoute == '#callforward/companyhours'):
+                return 'companyHours';
+                break;
+        };
+    },
+
+    populateSourcesetStores: function (models) {
+        var currentRoute = window.location.hash;
+        var moduleName = this.getModuleFromRoute(currentRoute);
+        // TODO: Cvenusino: This solves reload issue, but now sourceset grid is
+        // populated after initial stopped load. Need to fix so we don't get
+        // errors related to store not existing when trying to add. Let's
+        // discuss reload in general, as we talked about in Slack, in a meeting
+        if (moduleName) {
+            var storeListAName = moduleName + '-CallForwardListA';
+            var storeListBName = moduleName + '-CallForwardListB';
+            var storeListAAlways = Ext.getStore(storeListAName);
+            var storeListBAlways = Ext.getStore(storeListBName);
+            Ext.each(models, function (model) {
+                if (model.get('sourceset_name') == 'List A') {
+                    storeListAAlways.add(model);
+                } else if (model.get('sourceset_name') == 'List B') {
+                    storeListBAlways.add(model);
+                };
+            });
+            storeListAAlways.commitChanges();
+            storeListBAlways.commitChanges();
+        };
+    },
+
+    populateIndividualStores: function (models) { // TODO: Rename
+        // TODO: Cvenusino: There is an issue where the store get's reloaded if
+        // I switch back and forth between modules. I am not sure how to handle
+        // this, as each combination of destinationset/sourceset/timeset does
+        // not get a unique id from the API, and setting unique idea in the
+        // model is not something we tghen can check against the subsequent API
+        // calls to control for duplicates
+        // UPDATE: Maybe just do .removeAll() on all 9 stores first, or is that
+        // unnecessarily cumbersome?
+        var me = this;
+        var gridName = this.getGridCategoryFromType(models[0].get('type'));
+        var store;
+        Ext.each(models, function (model) {
+            var sourcename = me.getSourceNameFromSourceSet(model.get('sourceset'));
+            var timename = me.getTimeNameFromTimeSet(model.get('timeset'));
+            var type = me.getGridCategoryFromType(model.get('type'));
+            var storeName = sourcename + timename + type;
+            store = Ext.getStore(storeName);
+            store.add(model);
+        });
+        store.commitChanges();
+    },
+
+    cfdestinationsetsClick: function () {
+        console.log('cfdestinationsetsClick');
+        Ext.Ajax.request({
+            url: 'https://localhost:1443/api/cfdestinationsets/?subscriber_id=297',
+
+            success: function(response, opts) {
+                var decodedResponse = Ext.decode(response.responseText);
+                var sourcesets = decodedResponse._embedded['ngcp:cfsourcesets'];
+                Ext.each(sourcesets, function(destinationset) {
+                    if (destinationset.name == destinationsetName) {
+                        for (item in destinationset.destinations) {
+                            var cbModel = Ext.create('NgcpCsc.model.CallForward', {
+                                destination: destinationset.destinations[item].destination, // TODO: Split and reduce to proper destination
+                                timeout: destinationset.destinations[item].timeout
+                            });
+                            store.add(cbModel);
+
+                        }
+                    }
+                });
+            },
+
+            failure: function(response, opts) {
+                console.log('server-side failure with status code ' + response.status);
+            }
+        });
+    },
+
+    cfsourcesetsClick: function () {
+        console.log('cfsourcesetsClick');
+        Ext.Ajax.request({
+            url: 'https://localhost:1443/api/cfsourcesets/?subscriber_id=297',
+
+            success: function(response, opts) {
+                var decodedResponse = Ext.decode(response.responseText);
+                var sourceset = decodedResponse;
+            },
+
+            failure: function(response, opts) {
+                console.log('server-side failure with status code ' + response.status);
+            }
+        });
+    },
+
+    cftimesetsClick: function () {
+        console.log('cftimesetsClick');
     },
 
     editingPhoneDone: function(editor, context) {
@@ -175,27 +487,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             vm.set('list_a', true);
             vm.set('list_b', false);
         };
-        Ext.Ajax.request({
-            url: '/resources/data/callForwardCombinations.json',
-            success: function(response, opts) {
-                var obj = Ext.decode(response.responseText);
-                var combinationStore = obj.data[0];
-                storesArray.map(function(storeName) {
-                    var store = Ext.getStore(storeName);
-                    var strippedStoreName = storeName.split('-')[2];
-                    // Workaround since tabpanel being in initComponent causes this function to run before we have a route set.
-                    // This short-circuits into evaluating the right hand side only if we have a store that is not undefined
-                    !!store && store.removeAll();
-                    for (node in combinationStore) {
-                        if (me.checkIndexOf(strippedStoreName, node) && me.checkIndexOf(currentTimeset, node) && me.checkIndexOf(currentSourceset, node)) {
-                            var records = combinationStore[node];
-                            store.add(records);
-                        };
-                    };
-                });
-            },
-            failure: function(response, opts) {}
-        });
     },
 
     renderDay: function(value, meta, record) {
@@ -224,13 +515,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         this.fireEvent('showconfirmbox', title, question, sucessMsg, 'confirmCFRemoval', rec);
     },
 
-    renderPhoneColumn: function(value, metaData, record) {
-        if (record.get('ring_for') === '' && !Ext.isNumber(parseInt(value))) {
+    renderDestinationColumn: function(value, metaData, record) {
+        if (record.get('timeout') === '' && !Ext.isNumber(parseInt(value))) {
             return Ext.String.format('{0}', value);
         } else if (Ext.isNumber(parseInt(value))) {
-            return Ext.String.format('+{0} and ring for {1} secs', value, record.get('ring_for'));
+            return Ext.String.format('+{0} and ring for {1} secs', value, record.get('timeout'));
         } else {
-            return Ext.String.format('{0} and ring for {1} secs', value, record.get('ring_for'));
+            return Ext.String.format('{0} and ring for {1} secs', value, record.get('timeout'));
         };
     },
 
@@ -284,12 +575,19 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         switch (storeNameStripped) {
             case 'CallForwardOnline':
                 vm.set('online_add_new_then_hidden', true);
+                vm.set('online_cancel_button_hidden', true);
+                vm.set('online_add_button_hidden', false);
+                // TODO: Hide
                 break;
             case 'CallForwardBusy':
                 vm.set('busy_add_new_then_hidden', true);
+                vm.set('busy_cancel_button_hidden', true);
+                vm.set('busy_add_button_hidden', false);
                 break;
             case 'CallForwardOffline':
                 vm.set('offline_add_new_then_hidden', true);
+                vm.set('offline_cancel_button_hidden', true);
+                vm.set('offline_add_button_hidden', false);
                 break;
         };
     },
@@ -342,6 +640,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
 
     addNewDestination: function(element) {
         var me = this;
+        var vm = this.getViewModel();
         var targetId = element.id;
         var splitTargetId = targetId.split('-');
         var selectedSourceset = splitTargetId[0];
