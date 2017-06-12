@@ -9,12 +9,18 @@ Ext.define('NgcpCsc.view.pages.callforward.always.Always', {
 
     initComponent: function() {
 
+        var cfInitialStore = Ext.create('NgcpCsc.store.CallForwardInitial',{
+            storeId: 'CallForwardInitialAlways',
+            _type: 'cfu'
+            // ,_typeTwo: 'cft' // NOTE: should also check cft, so might want to have two types, and check in controller
+        });
+
         this.items = [{
             userCls: Ext.os.is.Desktop ? 'big-820' : 'small-100',
             xtype: 'core-container',
             items: [{
-                xtype: 'statusbar',
-                reference: 'loadingBar'
+                xtype: 'panel',
+                html: 'TEST GRID GOES HERE' // TODO: Create the grid
             }, {
                 xtype: 'panel',
                 width: '100%',
