@@ -10,6 +10,13 @@ Ext.define('NgcpCsc.store.NavigationTree', {
     root: {
         expanded: true,
         children: [{
+            text: 'Dev CF API',  // TODO: Remove this entry when done
+            iconCls: Ngcp.csc.icons.star,
+            viewType: 'dev',
+            routeId: 'dev',
+            acl: ['administrator', 'restricted'], //TODO define real roles, which should be delivered along with user info after successfull login
+            leaf: true
+        }, {
             text: 'Conversations',
             iconCls: Ngcp.csc.icons.phone,
             viewType: 'conversations',
