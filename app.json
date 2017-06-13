@@ -276,26 +276,7 @@
      * Settings specific to production builds.
      */
     "production": {
-        "tags": [
-            // You can add this tag to enable Fashion when using app watch or
-            // you can add "?platformTags=fashion:1" to the URL to enable Fashion
-            // without changing this file.
-            //
-             "fashion"
-        ],
-        "output": {
-            "appCache": {
-                "enable": false,
-                "path": "../cache.appcache"
-            }
-
-        },
-        "loader": {
-            "cache": "${build.timestamp}"
-        },
-        "cache": {
-            "enable": false
-        }
+        
     },
 
     /**
