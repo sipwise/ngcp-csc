@@ -7,8 +7,8 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
     data: {
         uid: '',
         title: 123456789,
-        defaultThumbnail: 'resources/images/icons/phoneicon.png',
-        thumbnail: 'resources/images/icons/phoneicon.png',
+        defaultThumbnail: Ext.manifest.resources.path + '/images/icons/phoneicon.png',
+        thumbnail: Ext.manifest.resources.path + '/images/icons/phoneicon.png',
         status: 'calling...',
         callPanelHidden: true,
         phoneComposerHidden: true,

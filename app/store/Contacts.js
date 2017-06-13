@@ -7,7 +7,7 @@ Ext.define('NgcpCsc.store.Contacts', {
 
     proxy: {
         type: 'ajax',
-        url: 'resources/data/contacts.json'
+        url: Ext.manifest.resources.path + '/data/contacts.json'
     },
 
     sorters: [{

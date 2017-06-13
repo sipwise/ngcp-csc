@@ -9,7 +9,7 @@ Ext.define('NgcpCsc.store.AliasNumbers', {
 
     proxy: {
         type: 'ajax',
-        url: '/resources/data/aliasNumbers.json',
+        url: Ext.manifest.resources.path + '/data/aliasNumbers.json',
         reader: {
             type: 'json',
             rootProperty: 'data'

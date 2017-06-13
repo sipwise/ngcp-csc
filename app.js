@@ -8,6 +8,8 @@
    con.setWithCredentials(true);
  });
 
+ console.info(Ext.manifest);
+
 Ext.application({
     name: 'NgcpCsc',
 

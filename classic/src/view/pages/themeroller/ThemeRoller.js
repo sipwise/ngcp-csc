@@ -7,6 +7,8 @@ Ext.define('NgcpCsc.view.pages.themeroller.ThemeRoller', {
 
     controller: 'themeroller',
 
+    requires:['Ext.ux.colorpick.Field'],
+
     items: [{
         defaults: {
             ui: 'core-container',

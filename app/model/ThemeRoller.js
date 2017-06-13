@@ -5,7 +5,7 @@ Ext.define('NgcpCsc.model.ThemeRoller', {
 
     proxy: {
         type: 'ajax',
-        url: '/resources/data/themeroller.json',
+        url: Ext.manifest.resources.path + '/data/themeroller.json',
         autoLoad: true,
         reader: {
             type: 'json',

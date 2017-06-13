@@ -9,7 +9,7 @@ Ext.define('NgcpCsc.store.Sounds', {
 
     proxy: {
         type: 'ajax',
-        url: '/resources/data/sounds.json',
+        url: Ext.manifest.resources.path + '/data/sounds.json',
         reader: {
             type: 'json',
             rootProperty: 'data'

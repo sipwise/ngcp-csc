@@ -34,7 +34,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                     'status': 'answered',
                     'start_time': Date.now(),
                     "author": "Administrator",
-                    "thumbnail": "resources/images/user-profile/2.png"
+                    "thumbnail": Ext.manifest.resources.path + "/images/user-profile/2.png"
                 });
                 vm.set('uid', record.get('uid') || number);
                 vm.set('title', Ext.String.format(Ngcp.csc.locales.rtc.calling[localStorage.getItem('languageSelected')], number));
@@ -294,7 +294,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
             'status': 'answered',
             'start_time': Date.now(),
             "name": "Administrator",
-            "thumbnail": "resources/images/user-profile/2.png"
+            "thumbnail": Ext.manifest.resources.path + "/images/user-profile/2.png"
         });
         if(faxForm.isValid()){
             mainView.getViewModel().set('sectionTitle', 'Conversation with ' + vm.get('numberToCall'));
@@ -325,7 +325,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
             'text': vm.get('smsText'),
             'start_time': Date.now(),
             "author": "Administrator",
-            "thumbnail": "resources/images/user-profile/2.png"
+            "thumbnail": Ext.manifest.resources.path + "/images/user-profile/2.png"
         });
         mainView.getViewModel().set('sectionTitle', 'Conversation with ' + vm.get('numberToCall'));
         me.redirectTo('conversation-with');
