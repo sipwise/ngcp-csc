@@ -52,6 +52,6 @@ Ext.define('NgcpCsc.view.common.composer.Phone', {
         }]
     }, {
         hidden: true,
-        html: '<audio id="ring" src="resources/audio/skype_ring.mp3" preload="auto"></audio>'
+        html: '<audio id="ring" src="'+Ext.manifest.resources.path+'/audio/skype_ring.mp3" preload="auto"></audio>'
     }]
 })

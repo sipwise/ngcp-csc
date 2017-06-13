@@ -2,11 +2,11 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWith', {
     extend: 'Ext.tab.Panel',
     xtype: 'conversationwith',
     cls: 'conversation-with-container',
-    plugins: 'tabreorderer',
     viewModel: 'conversationwith',
     controller: 'conversationwith',
     title: null,
     scrollable: false,
+    requires:['NgcpCsc.view.pages.conversationwith.Notifications'],
     listeners: {
         render: 'hideTabBar'
     },

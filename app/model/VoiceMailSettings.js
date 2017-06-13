@@ -14,7 +14,7 @@ Ext.define('NgcpCsc.model.VoiceMailSettings', {
 
     proxy: {
         type: 'ajax',
-        url: '/resources/data/voicemailsSettings.json',
+        url: Ext.manifest.resources.path + '/data/voicemailsSettings.json',
         autoLoad: true,
         reader: {
             type: 'json',

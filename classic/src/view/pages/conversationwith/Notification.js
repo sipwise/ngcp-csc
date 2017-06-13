@@ -18,7 +18,7 @@ Ext.define('NgcpCsc.view.pages.conversationwith.Notifications', {
         "<tpl if='thumbnail'>",
         "<img class='profile-icon' src={thumbnail}>",
         "<tpl else>",
-        "<img class='profile-icon' src=/resources/images/avatar.png>",
+        "<img class='profile-icon' src="+Ext.manifest.resources.path+"/images/avatar.png>",
         "</tpl>",
         "</div>",
         "<div class='{conversation_type}-icon'></div>",

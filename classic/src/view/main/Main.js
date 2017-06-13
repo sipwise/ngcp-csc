@@ -94,7 +94,7 @@ Ext.define('NgcpCsc.view.main.Main', {
                     height: 35,
                     width: 35,
                     alt: 'current user image',
-                    src: 'resources/images/user-profile/2.png'
+                    src: Ext.manifest.resources.path + '/images/user-profile/2.png'
                 }
             ]
         }, {

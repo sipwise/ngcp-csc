@@ -9,8 +9,8 @@ Ext.define('NgcpCsc.store.Notifications', {
 
     proxy: {
         type: 'ajax',
-        baseUrl : '/resources/data/notifications/',
-        url: '/resources/data/notifications/0.json',
+        baseUrl : Ext.manifest.resources.path + '/data/notifications/',
+        url: Ext.manifest.resources.path + '/data/notifications/0.json',
         reader: {
             type: 'json',
             rootProperty: 'data'

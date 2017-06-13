@@ -7,7 +7,7 @@ Ext.define('NgcpCsc.store.PrimaryNumbers', {
 
     proxy: {
         type: 'ajax',
-        url: '/resources/data/primaryNumbers.json',
+        url: Ext.manifest.resources.path + '/data/primaryNumbers.json',
         reader: {
             type: 'json',
             rootProperty: 'data'
