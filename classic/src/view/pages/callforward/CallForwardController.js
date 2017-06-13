@@ -176,7 +176,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             vm.set('list_b', false);
         };
         Ext.Ajax.request({
-            url: '/resources/data/callForwardCombinations.json',
+            url: Ext.manifest.resources.path + '/data/callForwardCombinations.json',
             success: function(response, opts) {
                 var obj = Ext.decode(response.responseText);
                 var combinationStore = obj.data[0];

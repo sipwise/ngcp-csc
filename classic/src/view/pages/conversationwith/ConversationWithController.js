@@ -69,7 +69,7 @@ Ext.define('NgcpCsc.view.pages.conversationwith.ConversationWithController', {
             "direction": "outgoing",
             "status": "answered",
             "author": "Administrator",
-            "thumbnail": "resources/images/user-profile/2.png",
+            "thumbnail": Ext.manifest.resources.path + "/images/user-profile/2.png",
             "text": (type && ['sms', 'chat'].indexOf(type) > -1) ? msg || this.lookupReference('newmessage').getValue() : '',
             "start_time": Date(Date.now())
         });

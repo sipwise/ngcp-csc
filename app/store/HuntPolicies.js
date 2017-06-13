@@ -7,7 +7,7 @@ Ext.define('NgcpCsc.store.HuntPolicies', {
 
     proxy: {
         type: 'ajax',
-        url: '/resources/data/huntPolicies.json',
+        url: Ext.manifest.resources.path + '/data/huntPolicies.json',
         reader: {
             type: 'json',
             rootProperty: 'data'

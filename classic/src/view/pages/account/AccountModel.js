@@ -2,13 +2,6 @@ Ext.define('NgcpCsc.view.pages.account.AccountModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.account',
 
-    links:{
-        account :{
-            type: 'NgcpCsc.model.Account',
-            id: Ext.id()
-        }
-    },
-
     formulas: {
         checkInitialBalance: function(get) {
             return get('account.initial_balance') == 0;

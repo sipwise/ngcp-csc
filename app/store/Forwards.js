@@ -9,7 +9,7 @@ Ext.define('NgcpCsc.store.Forwards', {
 
     proxy: {
         type: 'ajax',
-        url: '/resources/data/forwards.json',
+        url: Ext.manifest.resources.path + '/data/forwards.json',
         reader: {
             type: 'json',
             rootProperty: 'data'

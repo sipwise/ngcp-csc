@@ -9,7 +9,7 @@ Ext.define('NgcpCsc.store.VoiceMails', {
 
     proxy: {
         type: 'ajax',
-        url: '/resources/data/voicemails.json',
+        url: Ext.manifest.resources.path + '/data/voicemails.json',
         reader: {
             type: 'json',
             rootProperty: 'data'

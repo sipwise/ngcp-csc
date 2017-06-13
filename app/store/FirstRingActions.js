@@ -9,7 +9,7 @@ Ext.define('NgcpCsc.store.FirstRingActions', {
 
     proxy: {
         type: 'ajax',
-        url: '/resources/data/firstringactions.json',
+        url: Ext.manifest.resources.path + '/data/firstringactions.json',
         reader: {
             type: 'json',
             rootProperty: 'data'
