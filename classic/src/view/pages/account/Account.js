@@ -27,7 +27,7 @@ Ext.define('NgcpCsc.view.pages.account.Account', {
             type: 'Chart',
             proxy: {
                 type: 'ajax',
-                url: '/resources/data/charts/seats.json',
+                url: Ext.manifest.resources.path + '/data/charts/seats.json',
                 reader: {
                     type: 'json',
                     rootProperty: 'data'
@@ -42,7 +42,7 @@ Ext.define('NgcpCsc.view.pages.account.Account', {
             type: 'Chart',
             proxy: {
                 type: 'ajax',
-                url: '/resources/data/charts/groups.json',
+                url: Ext.manifest.resources.path + '/data/charts/groups.json',
                 reader: {
                     type: 'json',
                     rootProperty: 'data'
@@ -57,12 +57,13 @@ Ext.define('NgcpCsc.view.pages.account.Account', {
             type: 'Chart',
             proxy: {
                 type: 'ajax',
-                url: '/resources/data/charts/devices.json',
+                url: Ext.manifest.resources.path + '/data/charts/devices.json',
                 reader: {
                     type: 'json',
                     rootProperty: 'data'
                 }
             }
         }
-    }]
+    }
+]
 });

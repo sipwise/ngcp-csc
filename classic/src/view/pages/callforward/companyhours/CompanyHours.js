@@ -11,7 +11,7 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
             store: Ext.create('NgcpCsc.store.CallForwardTimeset', {
                 proxy: {
                     type: 'ajax',
-                    url: '/resources/data/callForwardTimesetCompany.json',
+                    url: Ext.manifest.resources.path + '/data/callForwardTimesetCompany.json',
                     reader: {
                         type: 'json',
                         rootProperty: 'data'

@@ -10,7 +10,7 @@ Ext.define('NgcpCsc.store.CallBlocking', {
     proxy: {
         type: 'ngcp-api',
         route: 'subscriberpreferences', // subscriber id should be read from localStorage
-        subscriberId: '195',
+        subscriberId: '179', // this must exist in /api/subscribers/ response
         actionMethods: {
             read: 'GET',
             update: 'PATCH'

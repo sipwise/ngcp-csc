@@ -21,7 +21,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             store: Ext.create('NgcpCsc.store.CallForwardSourceset', {
                 proxy: {
                     type: 'ajax',
-                    url: '/resources/data/callForwardSourcesetListA.json',
+                    url: Ext.manifest.resources.path + '/data/callForwardSourcesetListA.json',
                     reader: {
                         type: 'json',
                         rootProperty: 'data'
@@ -34,7 +34,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             store: Ext.create('NgcpCsc.store.CallForwardSourceset', {
                 proxy: {
                     type: 'ajax',
-                    url: '/resources/data/callForwardSourcesetListB.json',
+                    url: Ext.manifest.resources.path + '/data/callForwardSourcesetListB.json',
                     reader: {
                         type: 'json',
                         rootProperty: 'data'
@@ -47,7 +47,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 storeId: this._firstprefix + this._secondprefix + 'CallForwardBusy',
                 proxy: {
                     type: 'ajax',
-                    url: '/resources/data/callForwardBusy.json',
+                    url: Ext.manifest.resources.path + '/data/callForwardBusy.json',
                     reader: {
                         type: 'json',
                         rootProperty: 'data'
@@ -60,7 +60,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 storeId: this._firstprefix + this._secondprefix + 'CallForwardOnline',
                 proxy: {
                     type: 'ajax',
-                    url: '/resources/data/callForwardOnline.json',
+                    url: Ext.manifest.resources.path  + '/data/callForwardOnline.json',
                     reader: {
                         type: 'json',
                         rootProperty: 'data'
@@ -73,7 +73,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 storeId: this._firstprefix + this._secondprefix + 'CallForwardOffline',
                 proxy: {
                     type: 'ajax',
-                    url: '/resources/data/callForwardOffline.json',
+                    url: Ext.manifest.resources.path + '/data/callForwardOffline.json',
                     reader: {
                         type: 'json',
                         rootProperty: 'data'

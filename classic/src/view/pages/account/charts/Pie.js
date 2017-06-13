@@ -4,7 +4,7 @@ Ext.define('NgcpCsc.view.pages.account.charts.Pie', {
     height: 500,
     insetPadding: 60,
     innerPadding: 40,
-    interactions: ['itemhighlight', 'rotatePie3d'],
+    requires:['Ext.chart.series.Pie3D','Ext.chart.interactions.ItemHighlight','Ext.chart.interactions.RotatePie3D'],
     colors:['#66A648', '#0F589B'],
     series: [{
         type: 'pie3d',

@@ -309,9 +309,11 @@ Ext.define('NgcpCsc.view.main.MainController', {
             });
 
             // override pseudo element (can also be done using http://docs.sencha.com/extjs/6.2.0/classic/Ext.util.CSS.html#method-createStyleSheet)
-            document.styleSheets[0].addRule('.x-treelist-item-icon::before', 'line-height:' + currentItemsHeight + 'px !important');
-            document.styleSheets[0].addRule('.x-treelist-item-tool:after', 'height:' + currentItemsHeight + 'px !important');
-            document.styleSheets[0].addRule('.x-treelist-item-tool::before', 'line-height:' + currentItemsHeight + 'px !important');
+            if (document.styleSheets[0]) {
+                document.styleSheets[0].addRule('.x-treelist-item-icon::before', 'line-height:' + currentItemsHeight + 'px !important');
+                document.styleSheets[0].addRule('.x-treelist-item-tool:after', 'height:' + currentItemsHeight + 'px !important');
+                document.styleSheets[0].addRule('.x-treelist-item-tool::before', 'line-height:' + currentItemsHeight + 'px !important');
+            }
         }
         this.setCentralContentHeight();
 
@@ -364,7 +366,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
         }
     },
 
-    getStoreFromRoute: function (currentRoute) {
+    getStoreFromRoute: function(currentRoute) {
         switch (true) {
             case (currentRoute == '#inbox'):
                 return 'Conversations';

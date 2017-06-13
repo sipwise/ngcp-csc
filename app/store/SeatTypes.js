@@ -9,7 +9,7 @@ Ext.define('NgcpCsc.store.SeatTypes', {
 
     proxy: {
         type: 'ajax',
-        url: '/resources/data/seattype.json',
+        url: Ext.manifest.resources.path + '/data/seattype.json',
         reader: {
             type: 'json',
             rootProperty: 'data'

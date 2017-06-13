@@ -13,7 +13,7 @@ Ext.define('NgcpCsc.proxy.NgcpApi', {
     withCredentials: true,
     username: 'administrator',
     password: 'administrator',
-    baseApiUrl: 'https://localhost:1443/api/',
+    baseApiUrl: '/api/',
     autoLoad: true,
     appendId: false,
     pageParam : false, //to remove param "page"

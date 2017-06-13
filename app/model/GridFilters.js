@@ -37,7 +37,7 @@ Ext.define('NgcpCsc.model.GridFilters', {
 
     proxy: {
         type: 'ajax',
-        url: '/resources/data/gridfilters.json',
+        url: Ext.manifest.resources.path + '/data/gridfilters.json',
         autoLoad: true,
         reader: {
             type: 'json',

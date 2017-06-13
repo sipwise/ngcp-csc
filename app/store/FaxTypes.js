@@ -9,7 +9,7 @@ Ext.define('NgcpCsc.store.FaxTypes', {
 
     proxy: {
         type: 'ajax',
-        url: '/resources/data/faxtypes.json',
+        url: Ext.manifest.resources.path + '/data/faxtypes.json',
         reader: {
             type: 'json',
             rootProperty: 'data'
