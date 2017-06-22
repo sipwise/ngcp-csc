@@ -542,6 +542,56 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Enable or disable number',
                 sp: 'Enable or disable number'
             },
+            set_allow_mode: {
+                incoming: {
+                    on: {
+                        en: 'Set to allow everything except...',
+                        it: 'Set to allow everything except...',
+                        de: 'Set to allow everything except...',
+                        fr: 'Set to allow everything except...',
+                        sp: 'Set to allow everything except...'
+                    },
+                    off: {
+                        en: 'Set to block everything except...',
+                        it: 'Set to block everything except...',
+                        de: 'Set to block everything except...',
+                        fr: 'Set to block everything except...',
+                        sp: 'Set to block everything except...'
+                    }
+                },
+                outgoing: {
+                    on: {
+                        en: 'Set to allow everything except...',
+                        it: 'Set to allow everything except...',
+                        de: 'Set to allow everything except...',
+                        fr: 'Set to allow everything except...',
+                        sp: 'Set to allow everything except...'
+                    },
+                    off: {
+                        en: 'Set to block everything except...',
+                        it: 'Set to block everything except...',
+                        de: 'Set to block everything except...',
+                        fr: 'Set to block everything except...',
+                        sp: 'Set to block everything except...'
+                    }
+                },
+                privacy: {
+                    on: {
+                        en: 'Set to show own number',
+                        it: 'Set to show own number',
+                        de: 'Set to show own number',
+                        fr: 'Set to show own number',
+                        sp: 'Set to show own number'
+                    },
+                    off: {
+                        en: 'Set to hide own number',
+                        it: 'Set to hide own number',
+                        de: 'Set to hide own number',
+                        fr: 'Set to hide own number',
+                        sp: 'Set to hide own number'
+                    }
+                }
+            },
             delete_number: {
                 en: 'Delete number',
                 it: 'Delete number',
@@ -1476,11 +1526,20 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'Reminder set to active.'
             },
             activate_or_deactivate: {
-                en: 'Activate or deactivate reminder.',
-                it: 'Activate or deactivate reminder.',
-                de: 'Activate or deactivate reminder.',
-                fr: 'Activate or deactivate reminder.',
-                sp: 'Activate or deactivate reminder.'
+                on: {
+                    en: 'Set reminder to active.',
+                    it: 'Set reminder to active.',
+                    de: 'Set reminder to active.',
+                    fr: 'Set reminder to active.',
+                    sp: 'Set reminder to active.'
+                },
+                off: {
+                    en: 'Set reminder to inactive.',
+                    it: 'Set reminder to inactive.',
+                    de: 'Set reminder to inactive.',
+                    fr: 'Set reminder to inactive.',
+                    sp: 'Set reminder to inactive.'
+                }
             },
             active: {
                 en: 'Active',
@@ -1629,64 +1688,6 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Choose file',
                 fr: 'Choose file',
                 sp: 'Choose file'
-            }
-        },
-        themeroller: {
-            title: {
-                en: 'Theme roller',
-                it: 'Theme roller',
-                de: 'Theme roller',
-                fr: 'Theme roller',
-                sp: 'Theme roller'
-            },
-            first_section_title: {
-                en: 'Colors',
-                it: 'Colors',
-                de: 'Colors',
-                fr: 'Colors',
-                sp: 'Colors'
-            },
-            second_section_title: {
-                en: 'Fonts',
-                it: 'Fonts',
-                de: 'Fonts',
-                fr: 'Fonts',
-                sp: 'Fonts'
-            },
-            third_section_title: {
-                en: 'Logo',
-                it: 'Logo',
-                de: 'Logo',
-                fr: 'Logo',
-                sp: 'Logo'
-            },
-            font_family: {
-                en: 'Font family',
-                it: 'Font family',
-                de: 'Font family',
-                fr: 'Font family',
-                sp: 'Font family'
-            },
-            font_size: {
-                en: 'Font size',
-                it: 'Font size',
-                de: 'Font size',
-                fr: 'Font size',
-                sp: 'Font size'
-            },
-            font_weight: {
-                en: 'Font weight',
-                it: 'Font weight',
-                de: 'Font weight',
-                fr: 'Font weight',
-                sp: 'Font weight'
-            },
-            logo: {
-                en: 'Logo',
-                it: 'Logo',
-                de: 'Logo',
-                fr: 'Logo',
-                sp: 'Logo'
             }
         },
         pbxconfig: {

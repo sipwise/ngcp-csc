@@ -45,6 +45,7 @@ Ext.define('NgcpCsc.view.pages.reminder.ReminderController', {
     toggleReminderActive: function(event) {
         var vm = this.getViewModel();
         var classList = event.target.classList;
+        var dataset = event.target.dataset;
         var prefixElementClassList = document.getElementById('toggleTextPrefixReminder').classList;
         var suffixElementClassList = document.getElementById('toggleTextSuffixReminder').classList;
         var currentValue = vm.get('reminder.reminder_status');
@@ -56,6 +57,7 @@ Ext.define('NgcpCsc.view.pages.reminder.ReminderController', {
         classList.add('fa-toggle-' + newFontClassSuffix);
         prefixElementClassList.toggle('grey');
         suffixElementClassList.toggle('grey');
+        dataset.qtip = Ngcp.csc.locales.reminder.activate_or_deactivate[newFontClassSuffix][localStorage.getItem('languageSelected')];
         this.clickActiveInactiveButton();
     }
 

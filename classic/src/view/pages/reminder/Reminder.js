@@ -38,7 +38,7 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
                     margin: '0 0 15 0',
                     html: '<div id="toggleReminderActive" class="toggle-section">' +
                     '<span id="toggleTextPrefixReminder" class="toggle-prefix' + submoduleStates[0] + '">' + Ngcp.csc.locales.reminder.active[localStorage.getItem('languageSelected')] + '</span>' +
-                    '<div class="toggle-icon" data-callback="toggleReminderActive"><i id="iconAllowBlock-reminder" class="pointer toggle-icon ' + Ngcp.csc.icons.toggle[submoduleStates[1] + '2x'] + '" aria-hidden="true" data-qtip="' + Ngcp.csc.locales.reminder.activate_or_deactivate[localStorage.getItem('languageSelected')] + '"></i></div>' +
+                    '<div class="toggle-icon" data-callback="toggleReminderActive"><i id="iconAllowBlock-reminder" class="pointer toggle-icon ' + Ngcp.csc.icons.toggle[submoduleStates[1] + '2x'] + '" aria-hidden="true" data-qtip="' + Ngcp.csc.locales.reminder.activate_or_deactivate[submoduleStates[1]][localStorage.getItem('languageSelected')] + '"></i></div>' +
                     '<span id="toggleTextSuffixReminder" class="toggle-suffix' + submoduleStates[2] + '">' + Ngcp.csc.locales.reminder.inactive[localStorage.getItem('languageSelected')] + '</span>' +
                     '</div>'
                 }, {
@@ -46,7 +46,8 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
                     layout: 'responsivecolumn',
                     defaults:{
                         listeners: {
-                            change: 'saveReminder'
+                            change: 'saveReminder',
+                            blur: 'saveReminder'
                         }
                     },
                     items: [{
@@ -58,7 +59,7 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
                         minValue: '00:00:00',
                         maxValue: '23:55:00',
                         increment: 5,
-                        editable: false,
+                        editable: true,
                         bind: {
                             value: '{reminder.time}',
                             disabled: '{!reminder.reminder_status}'
