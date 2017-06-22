@@ -215,12 +215,6 @@ Ext.define('NgcpCsc.view.main.MainController', {
             case 'reminder':
                 title = Ngcp.csc.locales.reminder.title[localStorage.getItem('languageSelected')];
                 break;
-            case 'password':
-                title = Ngcp.csc.locales.password.title[localStorage.getItem('languageSelected')];
-                break;
-            case 'themeroller':
-                title = Ngcp.csc.locales.themeroller.title[localStorage.getItem('languageSelected')];
-                break;
             case 'pbxconfig/seats':
                 title = Ngcp.csc.locales.pbxconfig.title[localStorage.getItem('languageSelected')] + Ngcp.csc.locales.pbxconfig.seat_title[localStorage.getItem('languageSelected')];
                 break;

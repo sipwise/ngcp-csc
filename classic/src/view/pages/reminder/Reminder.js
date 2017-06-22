@@ -46,7 +46,8 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
                     layout: 'responsivecolumn',
                     defaults:{
                         listeners: {
-                            change: 'saveReminder'
+                            change: 'saveReminder',
+                            blur: 'saveReminder'
                         }
                     },
                     items: [{
@@ -58,7 +59,7 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
                         minValue: '00:00:00',
                         maxValue: '23:55:00',
                         increment: 5,
-                        editable: false,
+                        editable: true,
                         bind: {
                             value: '{reminder.time}',
                             disabled: '{!reminder.reminder_status}'

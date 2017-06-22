@@ -7,9 +7,11 @@ Ext.define('NgcpCsc.view.pages.reminder.ReminderController', {
         var currentReminderIsMode = vm.get('reminder.reminder_status');
         switch (currentReminderIsMode) {
             case false:
+                dataset.qtip = 'Set to active...';
                 this.fireEvent('showmessage', true, Ngcp.csc.locales.reminder.reminder_set_to_inactive[localStorage.getItem('languageSelected')]);
                 break;
             case true:
+                dataset.qtip = 'Set to inactive...';
                 this.fireEvent('showmessage', true, Ngcp.csc.locales.reminder.reminder_set_to_active[localStorage.getItem('languageSelected')]);
                 break;
         };

@@ -86,13 +86,6 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             acl: ['administrator', 'restricted', 'host'],
             leaf: true
         }, {
-            text: 'Theme Roller',
-            iconCls: Ngcp.csc.icons.paintbrush,
-            viewType: 'themeroller',
-            routeId: 'themeroller',
-            acl: ['administrator'],
-            leaf: true
-        }, {
             text: 'Pbx Config',
             iconCls: Ngcp.csc.icons.cog,
             routeId: 'pbxconfig',

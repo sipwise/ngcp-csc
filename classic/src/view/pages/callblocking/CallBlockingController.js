@@ -31,6 +31,7 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         store.commitChanges();
         this.setVm(store, data);
     },
+
     cbStoreBeforeSync: function(store, options) {
         if (this.getView().getXType() == 'privacy' & store._type !== 'privacy' ||
             this.getView().getXType() == 'incoming' & store._type !== 'block_in_list' ||
@@ -290,6 +291,7 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         var vm = this.getViewModel();
         var submoduleName = event.getTarget().id.split('-')[1];
         var classList = event.target.classList;
+        var dataset = event.target.dataset;
         var prefixElementClassList = document.getElementById('toggleTextPrefix-' + submoduleName).classList;
         var suffixElementClassList = document.getElementById('toggleTextSuffix-' + submoduleName).classList;
         var vmRecordName = submoduleName + '_block_mode';
@@ -305,9 +307,11 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
                 switch (submoduleName) {
                     case 'incoming':
                     case 'outgoing':
+                        // dataset.qtip = 'Set to block everything except...';
                         me.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.mode_block_success[localStorage.getItem('languageSelected')]);
                         break;
                     case 'privacy':
+                        // dataset.qtip = 'Set to show own number...';
                         me.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.number_hide_success[localStorage.getItem('languageSelected')]);
                         break;
                 };
@@ -316,9 +320,11 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
                 switch (submoduleName) {
                     case 'incoming':
                     case 'outgoing':
+                        // dataset.qtip = 'Set to allow everything except...';
                         me.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.mode_allow_success[localStorage.getItem('languageSelected')]);
                         break;
                     case 'privacy':
+                        // dataset.qtip = 'Set to hide own number...';
                         me.fireEvent('showmessage', true, Ngcp.csc.locales.callblocking.number_show_success[localStorage.getItem('languageSelected')]);
                         break;
                 };
@@ -375,7 +381,7 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
     getModeSwitcher: function(submoduleName, submoduleStates) {
         return '<div id="toggleBlockCalls-' + submoduleName + '" class="toggle-section" >' +
             '<span id="toggleTextPrefix-' + submoduleName + '" class="toggle-prefix' + submoduleStates[0] + '">' + Ngcp.csc.locales.callblocking.submodules[submoduleName].prefix[localStorage.getItem('languageSelected')] + '</span>' +
-            '<i id="iconAllowBlock-' + submoduleName + '" data-callback="toggleBlockCalls" class="pointer toggle-icon ' + Ngcp.csc.icons.toggle[submoduleStates[1] + '2x'] + '" aria-hidden="true" data-qtip="' + Ngcp.csc.locales.callblocking.enable_or_disable[localStorage.getItem('languageSelected')] + '"></i>' +
+            '<i id="iconAllowBlock-' + submoduleName + '" data-callback="toggleBlockCalls" class="pointer toggle-icon ' + Ngcp.csc.icons.toggle[submoduleStates[1] + '2x'] + '" aria-hidden="true" data-qtip="' + Ngcp.csc.locales.callblocking.set_allow_mode[submoduleName][submoduleStates[1]][localStorage.getItem('languageSelected')] + '"></i>' + // TODO: Cvenusino: Locales is set dynamically without errors, but does not render. Can you please have a look?
             '<span id="toggleTextSuffix-' + submoduleName + '" class="toggle-suffix' + submoduleStates[2] + '">' + Ngcp.csc.locales.callblocking.submodules[submoduleName].suffix[localStorage.getItem('languageSelected')] + '</span>' +
             '</div>'
     }
