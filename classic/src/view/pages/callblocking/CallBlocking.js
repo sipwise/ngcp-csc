@@ -39,7 +39,7 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlocking', {
                     xtype: 'panel',
                     html: '<div id="toggleBlockCalls-' + submoduleName + '" class="toggle-section">' +
                     '<span id="toggleTextPrefix-' + submoduleName + '" class="toggle-prefix' + submoduleStates[0] + '">' + Ngcp.csc.locales.callblocking.submodules[submoduleName].prefix[localStorage.getItem('languageSelected')] + '</span>' +
-                    '<div class="toggle-icon" data-callback="toggleBlockCalls"><i id="iconAllowBlock-' + submoduleName + '" class="pointer ' + Ngcp.csc.icons.toggle[submoduleStates[1] + '2x'] + '" aria-hidden="true" data-qtip="' + Ngcp.csc.locales.callblocking.enable_or_disable[localStorage.getItem('languageSelected')] + '"></i></div>' +
+                    '<div class="toggle-icon" data-callback="toggleBlockCalls"><i id="iconAllowBlock-' + submoduleName + '" class="pointer ' + Ngcp.csc.icons.toggle[submoduleStates[1] + '2x'] + '" aria-hidden="true" data-qtip="' + Ngcp.csc.locales.callblocking.set_allow_mode[submoduleName][submoduleStates[1]][localStorage.getItem('languageSelected')] + '"></i></div>' +
                     '<span id="toggleTextSuffix-' + submoduleName + '" class="toggle-suffix' + submoduleStates[2] + '">' + Ngcp.csc.locales.callblocking.submodules[submoduleName].suffix[localStorage.getItem('languageSelected')] + '</span>' +
                     '</div>',
                     reference: 'modeSwitcher'
