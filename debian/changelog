@@ -1,3 +1,165 @@
+ngcp-csc (5.4.0.0+0~mr5.4.0.0) unstable; urgency=medium
+
+  [ Robert Axelsen ]
+  * [92cd846] TT#4573 Implement a login form and logic for ngcp-csc mockup
+  * [75fce50] TT#4573 Implement login form and language selection dropdown
+  * [8776eac] TT#4711 Refactor ngcp-csc mockup login and change gitignore
+  * [87120f5] TT#4813 Move hardcoded text to locales file
+  * [d03b80c] TT#4306 Add Dockerfile and testrunner script for Jenkins test
+  * [a2287a2] TT#5100 Change mock data location
+  * [39a2ef8] TT#4311 Implement ngcp-csc block list module
+  * [bba515e] TT#5481 Fix ngcp-csc call forwarding menu item bug
+  * [160a1dd] TT#5020 Implement ngcp-csc account module mockup
+  * [2a0b28e] TT#5018 ngcp csc addressbook mockup
+  * [724ecf9] TT#5716 Fix ngcp-csc call barring new number entry bug
+  * [e4f9d38] TT#5743 Fix ngcp-csc callbarring bug related to toggling enabled
+  * [48f719a] TT#6592 Adjust ngcp-csc voicemails sidebar widgets
+  * [354d337] TT#4313 Implement ngcp-csc fax spool module mockup
+  * [c51f256] TT#4314 Implement ngcp-csc fax send module mockup
+  * [0e165d6] TT#7011 Change ngcp-csc links to proper buttons
+  * [d10eee3] TT#7326 Extend csc locales to all field labels
+  * [d83cd81] TT#7321 Create scaffolding for remaining modules
+  * [13a897c] TT#7457 Implement scrollable ngcp-csc navigation
+  * [63f2c19] TT#7461 Implement consistent locales naming convention
+  * [6564015] TT#7483 Ngcp-csc cleanup sass/css files
+  * [11ab576] TT#7700 Ngcp-csc move widget sidebar to left
+  * [57a8028] TT#7600 Fix ngcp-csc breaking localStorage errors
+  * [1320761] TT#7806 Implement new center message container
+  * [3c5130c] TT#4312 Implement ngcp-csc call forward module mockup
+  * [afcd81d] TT#8302 Implement csc callforward timeset widget
+  * [eef1d37] TT#7439 Merge fax spool view into unified inbox
+  * [73ec230] TT#8303 Implement ngcp-csc sourceset widget
+  * [f9d6867] TT#9252 Ngcp-csc reintroduce top title bar
+  * [bfc6007] TT#8301 Ngcp-csc fix viewmodel controller pointers
+  * [ea185ba] TT#8304 Impl ngcp-csc filtering for cf grid stores
+  * [c7e7987] TT#9250 Ngcp-csc rename and consolid. calls module
+  * [f6d0da8] TT#9453 Ngcp-csc remove dupl device/group modules
+  * [f1452e8] TT#9650 Ngcp-csc fix cf widget expand on mobile
+  * [cfd6817] TT#9350 Ngcp-csc fix unified inbox cutoff bug
+  * [42c71c7] TT#9651 Ngcp-csc add missing unified inbox fields
+  * [92459c1] TT#10050 Ngcp-csc move/rename/rearrange modules
+  * [59ff103] TT#9859 Ngcp-csc remove fax send and pbxext module
+  * [09ce7f9] TT#10056 Ngcp-csc cf module, change grid to xtempl
+  * [c2fa8ce] TT#10057 Ngcp-csc implement new cf module styling
+  * [9b0edb2] TT#10051 Ngcp-csc modify GridFilters, impl search
+  * [4393b2b] TT#10058 Ngcp-csc implement new add cf rule
+  * [24d8643] TT#10059 Ngcp-csc impl cf grid loading indicator
+  * [c98315c] TT#10053 Ngcp-csc callblocking inc/outg modules
+  * [0fe39dd] TT#10054 Csc implement callblocking privacy module
+  * [5d8afe6] TT#11551 Csc solve issue with callblocking qtips
+  * [c6a07c1] TT#10750 Csc apply pbx style, rowbody and filter
+  * [5ab34ee] TT#11850 Ngcp-csc fix pbx modules filtering
+  * [138166f] TT#10033 Csc reminder module layout adjustments
+  * [385ddad] TT#11026 ngcp-csc Util for icons
+  * [280d3a9] TT#12776 Csc implement save button in callblocking
+  * [e391718] TT#11851 Implement CSC pbx inline editing
+  * [68ff3e3] TT#13851 Csc implement pbx cancel button
+  * [067d7cc] TT#13853 Fix pbx name visibility issue
+  * [bef4aed] TT#12778 Csc split up CF module, and impl changes
+  * [1f64b97] TT#13650 Csc pbx seats groups adds and changes
+  * [c8e32eb] TT#14101 Csc Call Forward new changes + additions
+  * [e7c0de4] TT#14102 Csc pbx submodules onblur save + tooltip
+  * [59f1989] TT#13651 Csc Call Blocking toggle changes
+  * [cb4e66d] TT#12782 Csc change notification styling
+  * [d19d98b] TT#14068 Csc fix rtcpanel visibility issue
+  * [9ec2bd3] TT#14851 Csc pbx consolidation, fixed, validation
+  * [6a9e8ce] TT#14002 Ngcp CSC conversations load runner/timestamp update
+  * [c58c6ce] TT#14069 Csc gridfilters adjustments
+  * [8e2ae20] TT#16602 Csc reminder module toggle changes
+  * [a5eb3f8] TT#15903 Csc CF module title and binding change
+  * [6789ea2] TT#16551 Csc data cleanup followup fixes
+  * [5a38b40] TT#16851 Csc CF fixes and changes
+  * [08872f5] TT#16601 Csc fix sourceset save button
+  * [0bc60ef] TT#15902 Csc contacts cancel btn and bug
+  * [9c4671e] TT#16526 Csc "conversations with" time label
+  * [417c91d] TT#16552 Csc reminder api time bug and changes
+  * [2e246ad] TT#16852 Csc call blocking toggle fixes
+  * [331d8a4] TT#16853 Csc pbx changes and fixes
+  * [f3133c3] TT#17151 Csc fix broken calls personal addressbook
+  * [36d46f1] TT#16854 Csc conversationswith fix qtip + new chat
+  * [b984651] TT#16855 Csc consistent order of buttons
+  * [b8d458b] TT#17023 Csc CF API identify endpoints and fix bug
+  * [68cf98a] TT#17456 Csc fix CB tooltips and remove themeroller
+
+  [ Carlo ]
+  * [0b1f572] TT#4308 ngcp-csc dashboard and calls sections added to mockup (dummy data)
+  * [811f4fc] TT#4871 ngcp-csc karma and webdriverIO setup with empty tests
+  * [ab88e3f] TT#4900 ngcp-csc dummy login cosmetic adjustments
+  * [1ddf8a6] TT#4310 ngcp-csc voicemails section added to csc mockup
+  * [e4376d5] TT#4316 ngcp-csc chat section implementation.
+  * [4e66d98] TT#5021 ngcp-csc dummy acl imlpementation
+  * [e505a97] TT#5211 ngcp-csc dummy acl added to chat module.
+  * [6fcfcbf] TT#4315 ngcp-csc mocked buddylist/chat further implementation
+  * [358d4d0] TT#5745 ngcp-csc account bugfix related to localstorage
+  * [6ab5b09] TT#4317 ngcp-csc webrtc call module mockup
+  * [8cd0def] TT#5019 ngcp-csc Reminder mockup
+  * [845b1e0] TT#6618 ngcp-csc responsive layout
+  * [a43901f] TT#4307 ngcp-csc theme roller
+  * [e948562] TT#7341 responsive layout added to latest ngcp-csc modules
+  * [e781b8c] TT#7455 ngcp-csc refactor
+  * [9823ad0] TT#7405 ngcp-csc grid optimization for smaller screens
+  * [772832f] TT#5015 ngcp-csc dashboard redesign
+  * [8a91b44] TT#7556 ngcp-csc Subscriber Admin > Seats section
+  * [42cd8f9] TT#7556 ngcp-csc Subscriber Admin groups
+  * [108a5af] TT#4322 ngcp-csc Suscriber admin > Devices section
+  * [b3bb308] TT#9131 ngcp-csc dashboard linked to subscriber admin sections
+  * [f6101e9] TT#8300 ngcp-csc Scrolling issue
+  * [a65f0f3] TT#8220 ngcp-csc Chat adjustments
+  * [9171bea] TT#9450 ngcp-csc Pbx Configuration section
+  * [0db6ce6] TT#9251 Ngcp-csc PBX device adjustments
+  * [ba6275a] TT#9251 Ngcp-csc PBX device adjustments
+  * [8f40557] TT#9602 ngcp-csc Adressbook adjustments
+  * [d4df5ee] TT#9602 ngcp-csc Adressbook adjustments
+  * [89ac327] TT#10013 Ngcp-csc card layout adjustments
+  * [9a1d5e0] TT#10031 Ngcp-csc Conversations module
+  * [cd7e1b2] TT#11550 Ngcp-csc filtersearch postion fixed
+  * [844b0c4] TT#10029 Ngcp-csc Call sidebar
+  * [8d69e69] TT#10032 ngccp-csc Conversation with module
+  * [aca3928] TT#12781 ngcp-csc Remove Password section
+  * [d769386] TT#12994 Ngcp-csc Conversation with followup
+  * [32e28ad] TT#10030 ngcp-csc Addressbook Contacts merge
+  * [4f3b420] TT#11852 ngcp-csc Pbx Devices
+  * [86dfeee] TT#14574 ngcp-csc Pbx Devices followup
+  * [844aa37] TT#13001 Ngcp CSC card layout > first card top border fix
+  * [258657a] TT#14067 ngcp-csc Addressbook followup
+  * [f1bc4e7] TT#13007 Ngcp CSC global confirm alertbox for prompting user in case of unreversible actions (ex. item  deletion)
+  * [7f018f0] TT#13100 Ngcp CSC scrolling issues fixed
+  * [7d97123] TT#14000 Ngcp CSC CallForwarding tabs view consolidation
+  * [e9ec6b7] TT#16050 Ngcp CSC Api connection test
+  * [528b8ba] TT#15820 Ngcp CSC data layer cleanup
+  * [7aaa707] TT#16308 CSC Callblocking Api connection
+  * [f5f1cf5] TT#17103 Ngcp-csc Production build fixes
+  * [4457cf3] TT#17820 CSC master branch fix
+
+  [ Andreas Granig ]
+  * [2e76bab] TT#4310 Disable warning regarding trailing comma.
+  * [034dd09] TT#10972 Cosmetic changes to conversation view
+  * [78b8840] TT#16695 Add helper setting up vagrant dev env
+
+  [ Michael Prokop ]
+  * [603038d] TT#4815 Initial working Debian packaging
+  * [1a15f7d] TT#4306 Use sencha-cmd from Debian repos + update list of packages
+  * [5d58675] TT#4815 Override lintian issues regarding JS files
+  * [649b97d] TT#4815 Adjust Debian package description
+
+  [ Markus Danek ]
+  * [5b1e26e] TT#4816 Add JUnit reporter configuration for Karma and WebdriverIO tests
+  * [68aa47f] TT#5496 ngcp-csc test environment without PhantomJS
+  * [aa539ba] TT#6423 Use Mocha test framework instead of Jasmin
+  * [c3673cb] TT#6413 Add NPM shrinkwrap and Yarn lock file
+  * [c2f75ea] TT#7361 Update Node.js to v4.6.2
+  * [7def17c] TT#15802 Run 'npm install' in Dockerfile instead in testrunner
+
+  [ Sergii Kipot ]
+  * [b6b1a2f] TT#8635 set umask for files created by docker
+  * [b8b365f] Revert "TT#8635 set umask for files created by docker"
+  * [f0048f5] TT#15750 Add our own npm registry cache to .npmrc
+
+  [ Alexander Lutay ]
+  * [b001d93] TT#15802 Touch Dockerfile to trigger ngcp-csc-manage-docker
+
+ -- Alexander Lutay <alutay@sipwise.com>  Fri, 23 Jun 2017 14:47:20 +0200
+
 ngcp-csc (5.0.0.0+0~mr5.0.0.0) unstable; urgency=medium
 
   * Initial revision
