@@ -2,7 +2,7 @@
     "data": [{
         "id": 1,
         "name": "Cisco Pbx 1",
-        "image": "/resources/images/cisco1.jpg",
+        "image": "/csc/resources/images/cisco1.jpg",
         "seats": [{
             "name": 1,
             "type": "Shared",
@@ -61,7 +61,7 @@
     }, {
         "id": 2,
         "name": "Cisco Pbx 2",
-        "image": "/resources/images/cisco2.jpg",
+        "image": "/csc/resources/images/cisco2.jpg",
         "seats": [{
             "name": 1,
             "order": 1,
@@ -93,7 +93,7 @@
     }, {
         "id": 3,
         "name": "Cisco Pbx 3",
-        "image": "/resources/images/cisco3.jpg",
+        "image": "/csc/resources/images/cisco3.jpg",
         "seats": [{
             "name": 1,
             "order": 1,

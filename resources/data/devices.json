@@ -6,7 +6,7 @@
         "mac": "5c-b1-f7-6d-d4-86",
         "extension": "Ext2",
         "extension2": "Ext3",
-        "image": "/resources/images/cisco1.jpg",
+        "image": "/csc/resources/images/cisco1.jpg",
         "seats": [{
             "name": 1,
             "type": "Shared",
@@ -67,7 +67,7 @@
         "mac": "a8-d5-c7-b5-dc-88",
         "extension": "Ext1",
         "extension2": "Ext2",
-        "image": "/resources/images/cisco2.jpg",
+        "image": "/csc/resources/images/cisco2.jpg",
         "seats": [{
             "name": 1,
             "order": 1,
@@ -103,7 +103,7 @@
         "mac": "0b-4b-7f-ac-b5-eb",
         "extension": "Ext3",
         "extension2": "Ext1",
-        "image": "/resources/images/cisco3.jpg",
+        "image": "/csc/resources/images/cisco3.jpg",
         "seats": [{
             "name": 1,
             "order": 1,
@@ -130,7 +130,7 @@
         "mac": "c4-8a-81-02-9d-76",
         "extension": "Ext2",
         "extension2": "Ext3",
-        "image": "/resources/images/cisco1.jpg",
+        "image": "/csc/resources/images/cisco1.jpg",
         "seats": [{
             "name": 1,
             "type": "Shared",
