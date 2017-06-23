@@ -28,27 +28,41 @@ Ext.define('NgcpCsc.view.login.LoginController', {
     // },
 
     onLoginClick: function() {
-        localStorage.removeItem('remember_me');
+        var me = this;
         if (!localStorage.getItem('languageSelected')) {
             localStorage.setItem('languageSelected', 'en');
         }
         var inputUsername = this.getViewModel().get('username');
         var inputPassword = this.getViewModel().get('password');
-        var remember_me = this.getViewModel().get('remember_me') || false;
-        var defaultCredentials = this.getViewModel().get('defaultCredentials');
         var languageSelected = localStorage.getItem('languageSelected');
 
-        if (inputUsername == inputPassword && defaultCredentials.indexOf(inputUsername) > -1 && defaultCredentials.indexOf(inputPassword) > -1) {
-            localStorage.setItem('username', inputUsername);
-            localStorage.setItem('password', inputPassword);
-            localStorage.setItem('acl', inputUsername);
-            if (remember_me) {
-                localStorage.setItem('remember_me', remember_me);
-            }
+        Ext.Ajax.request({
+            url: '/login_jwt/',
+            method: 'POST',
+            jsonData: {
+                username: inputUsername,
+                password: inputPassword
+            },
+            success: this.successLogin,
+            failure: this.unsuccessLogin
+        });
+    },
+
+    successLogin: function(response) {
+        var data = Ext.decode(response.responseText);
+        if (data.token) {
+            localStorage.setItem('username', this.getViewModel().get('username'));
+            localStorage.setItem('subscriber_id', data.subscriber_id);
+            localStorage.setItem('jwt_token', data.token);
             this.getView().close();
             Ext.create({
                 xtype: 'ngcp-main'
             });
         }
+    },
+
+    unsuccessLogin: function(response) {
+        localStorage.removeItem('jwt_token');
+        Ext.Msg.alert('Error', 'Username or Password not valid!');
     }
 });
