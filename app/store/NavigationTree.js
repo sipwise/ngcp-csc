@@ -14,68 +14,68 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             iconCls: Ngcp.csc.icons.phone,
             viewType: 'conversations',
             routeId: 'inbox',
-            acl: ['administrator', 'restricted'], //TODO define real roles, which should be delivered along with user info after successfull login
+            acl: ['admin', 'restricted'], //TODO define real roles, which should be delivered along with user info after successfull login
             leaf: true
         }, {
             text: 'Conversation with',
             iconCls: 'x-fa fa-wechat',
             viewType: 'conversationwith',
             routeId: 'conversation-with',
-            acl: ['administrator', 'restricted'],
+            acl: ['admin', 'restricted'],
             visible: false,
             leaf: true
         }, {
             text: 'Call Forward',
             iconCls: Ngcp.csc.icons.doubleangleright,
             routeId: 'callforward',
-            acl: ['administrator'],
+            acl: ['admin'],
             children: [{
                 text: 'Always',
                 iconCls: Ngcp.csc.icons.star,
                 viewType: 'always',
                 routeId: 'callforward/always',
-                acl: ['administrator'],
+                acl: ['admin'],
                 leaf: true
             }, {
                 text: 'After Hours',
                 iconCls: Ngcp.csc.icons.timescircle,
                 viewType: 'afterhours',
                 routeId: 'callforward/afterhours',
-                acl: ['administrator'],
+                acl: ['admin'],
                 leaf: true
             }, {
                 text: 'Company Hours',
                 iconCls: Ngcp.csc.icons.building,
                 viewType: 'companyhours',
                 routeId: 'callforward/companyhours',
-                acl: ['administrator'],
+                acl: ['admin'],
                 leaf: true
             }]
         }, {
             text: 'Call Blocking',
             iconCls: Ngcp.csc.icons.block,
             routeId: 'callblocking',
-            acl: ['administrator'],
+            acl: ['admin'],
             children: [{
                 text: 'Incoming',
                 iconCls: 'x-fa fa-arrow-circle-o-left',
                 viewType: 'incoming',
                 routeId: 'callblocking/incoming',
-                acl: ['administrator'],
+                acl: ['admin'],
                 leaf: true
             }, {
                 text: 'Outgoing',
                 iconCls: 'x-fa fa-arrow-circle-o-right',
                 viewType: 'outgoing',
                 routeId: 'callblocking/outgoing',
-                acl: ['administrator'],
+                acl: ['admin'],
                 leaf: true
             }, {
                 text: 'Privacy',
                 iconCls: Ngcp.csc.icons.user_secret,
                 viewType: 'privacy',
                 routeId: 'callblocking/privacy',
-                acl: ['administrator'],
+                acl: ['admin'],
                 leaf: true
             }]
         }, {
@@ -83,40 +83,40 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             iconCls: Ngcp.csc.icons.bell,
             viewType: 'reminder',
             routeId: 'reminder',
-            acl: ['administrator', 'restricted', 'host'],
+            acl: ['admin', 'restricted', 'host'],
             leaf: true
         }, {
             text: 'Pbx Config',
             iconCls: Ngcp.csc.icons.cog,
             routeId: 'pbxconfig',
-            acl: ['administrator', 'restricted', 'host'],
+            acl: ['admin', 'restricted', 'host'],
             children: [{
                 text: 'Groups',
                 iconCls: Ngcp.csc.icons.users,
                 viewType: 'groups',
                 routeId: 'pbxconfig/groups',
-                acl: ['administrator'],
+                acl: ['admin'],
                 leaf: true
             }, {
                 text: 'Seats',
                 iconCls: Ngcp.csc.icons.home,
                 viewType: 'seats',
                 routeId: 'pbxconfig/seats',
-                acl: ['administrator'],
+                acl: ['admin'],
                 leaf: true
             }, {
                 text: 'Devices',
                 iconCls: Ngcp.csc.icons.fax,
                 viewType: 'devices',
                 routeId: 'pbxconfig/devices',
-                acl: ['administrator'],
+                acl: ['admin'],
                 leaf: true
             }, {
                 text: 'Auto Attendant',
                 iconCls: Ngcp.csc.icons.microphone,
                 viewType: 'autoattendant',
                 routeId: 'pbxconfig/autoattendant',
-                acl: ['administrator', 'restricted', 'host'],
+                acl: ['admin', 'restricted', 'host'],
                 leaf: true
             }]
         }, {
@@ -124,7 +124,7 @@ Ext.define('NgcpCsc.store.NavigationTree', {
             iconCls: Ngcp.csc.icons.desktop,
             viewType: 'account',
             routeId: 'account',
-            acl: ['administrator', 'restricted', 'host'],
+            acl: ['admin', 'restricted', 'host'],
             leaf: true
         }]
     }

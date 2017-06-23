@@ -10,8 +10,7 @@ Ext.define('NgcpCsc.view.login.LoginModel', {
     data: {
         username: localStorage.getItem('username') || '',
         password: localStorage.getItem('password') || '',
-        defaultCredentials: ['administrator', 'restricted', 'host'],
-        remember_me: false
+        defaultCredentials: ['admin', 'restricted', 'host']
     },
 
     formulas: {

@@ -43,13 +43,6 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'L\'établissement de la connexion a échoué, vérifiez le nom d’utilisateur et le mot de passe.',
                 sp: 'Acceso denegado. Por favor, compruebe el nombre de usuario y la contraseña.'
             },
-            remember_me: {
-                en: 'Remember me',
-                it: 'Remember me',
-                de: 'Remember me',
-                fr: 'Remember me',
-                sp: 'Remember me'
-            },
             forgot_password: {
                 en: 'Forgot Password ?',
                 it: 'Forgot Password ?',

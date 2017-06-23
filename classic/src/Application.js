@@ -42,17 +42,10 @@ Ext.define('NgcpCsc.Application', {
     launch: function() {
         Ext.tip.QuickTipManager.init();
         // TODO to be replaced with request
-        if(localStorage.getItem('remember_me')){
-            window.location.hash = '#inbox';
-            Ext.create({
-                xtype: 'ngcp-main'
-            });
-        }else{
-            window.location.hash = '';
-            Ext.create({
-                xtype: 'ngcp-login'
-            });
-
+        if (localStorage.getItem('jwt_token')) {
+            this.showMain()
+        } else {
+            this.showLogin();
         }
     }
 });

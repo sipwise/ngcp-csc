@@ -246,9 +246,8 @@ Ext.define('NgcpCsc.view.main.MainController', {
     },
 
     logout: function() {
-        localStorage.removeItem('remember_me');
+        localStorage.removeItem('jwt_token');
         location.reload();
-
     },
 
     showMessage: function(success, msg) {

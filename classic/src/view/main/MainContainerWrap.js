@@ -27,7 +27,7 @@ Ext.define('NgcpCsc.view.main.MainContainerWrap', {
             // We use itemId/getComponent instead of "reference" because the initial
             // layout occurs too early for the reference to be resolved
             navTree = me.down('#navigationTreeList'),
-            acl = localStorage.getItem('acl');
+            usertype = localStorage.getItem('type');
 
         me.minHeight = height;
 
@@ -36,7 +36,7 @@ Ext.define('NgcpCsc.view.main.MainContainerWrap', {
         });
 
         navTree.getStore().each(function(module){
-            if(module.get('acl').indexOf(acl) == -1){
+            if(module.get('acl').indexOf(usertype) == -1){
                 module.remove();
             }
         });

@@ -56,7 +56,7 @@ Ext.define('NgcpCsc.model.Reminder', {
     proxy: {
         type: 'ngcp-api',
         route: 'reminders',
-        params: 'subscriber_id=179' // this must exist in /api/subscribers/ response
+        params: 'subscriber_id=' + localStorage.getItem('subscriber_id') // this must exist in /api/subscribers/ response
 
     }
 });

@@ -71,15 +71,6 @@ Ext.define('NgcpCsc.view.login.Login', {
                 xtype: 'container',
                 layout: 'hbox',
                 items: [{
-                    xtype: 'checkboxfield',
-                    flex: 1,
-                    cls: 'form-panel-font-color rememberMeCheckbox',
-                    height: 30,
-                    boxLabel: Ngcp.csc.locales.login.remember_me[localStorage.getItem('languageSelected')],
-                    bind: {
-                        value: '{remember_me}'
-                    }
-                }, {
                     xtype: 'box',
                     width: 120,
                     html: '<a href="#" class="link-forgot-password"> ' + Ngcp.csc.locales.login.forgot_password[localStorage.getItem('languageSelected')] + '</a>'
