@@ -9,8 +9,8 @@ Ext.define('NgcpCsc.store.CallBlocking', {
 
     proxy: {
         type: 'ngcp-api',
-        route: 'subscriberpreferences', // subscriber id should be read from localStorage
-        subscriberId: '179', // this must exist in /api/subscribers/ response
+        route: 'subscriberpreferences',
+        subscriberId: localStorage.getItem('subscriber_id'),
         actionMethods: {
             read: 'GET',
             update: 'PATCH'
@@ -19,7 +19,9 @@ Ext.define('NgcpCsc.store.CallBlocking', {
 
     listeners: {
         load: function(store, recs) {
-            this.fireEvent('cbStoreLoaded', this, recs[0]);
+            if(recs){
+                this.fireEvent('cbStoreLoaded', this, recs[0]);
+            }
         },
         beforesync: function(options) {
             this.fireEvent('cbStoreBeforeSync', this, options);
