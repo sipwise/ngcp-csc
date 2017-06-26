@@ -27,3 +27,10 @@
         display: inline;
     }
 }
+
+.reminder-form {
+    .x-form-item-label-text,
+    .x-form-cb-label {
+        color: grey;
+    }
+}
