@@ -1275,7 +1275,7 @@ Ext.define('Ngcp.csc.locales', {
             },
             reminder: {
                 en: 'Reminder',
-                it: 'Reminder',
+                it: 'R1eminder',
                 de: 'Reminder',
                 fr: 'Reminder',
                 sp: 'Reminder'
@@ -1286,6 +1286,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Groups',
                 fr: 'Groups',
                 sp: 'Groups'
+            },
+            seats: {
+                en: 'Seats',
+                it: 'Seats',
+                de: 'Seats',
+                fr: 'Seats',
+                sp: 'Seats'
             },
             primary_number: {
                 en: 'Primary number',
@@ -1936,6 +1943,13 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Choose one or more group names',
                 sp: 'Choose one or more group names'
             },
+            choose_one_or_more_seats: {
+                en: 'Choose one or more seat names',
+                it: 'Choose one or more seat names',
+                de: 'Choose one or more seat names',
+                fr: 'Choose one or more seat names',
+                sp: 'Choose one or more seat names'
+            },
             choose_one_or_more_alias_numbers: {
                 en: 'Choose one or more alias numbers',
                 it: 'Choose one or more alias numbers',
@@ -2391,6 +2405,13 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'Group:',
                 fr: 'Group:',
                 sp: 'Group:'
+            },
+            seats: {
+                en: 'Seats:',
+                it: 'Seats:',
+                de: 'Seats:',
+                fr: 'Seats:',
+                sp: 'Seats:'
             },
             ago: {
                 en: 'ago',

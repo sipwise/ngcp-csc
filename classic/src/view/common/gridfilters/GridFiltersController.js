@@ -199,11 +199,17 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFiltersController', {
         var extension = vm.get('filtergrid.groups_extension') ? vm.get('filtergrid.groups_extension').toLowerCase().split(',') : [];
         var hunt_policy = vm.get('filtergrid.hunt_policy') ? vm.get('filtergrid.hunt_policy').toLowerCase().split(',') : [];
         var hunt_timeout = vm.get('filtergrid.hunt_timeout') ? vm.get('filtergrid.hunt_timeout').toLowerCase().split(',') : [];
+        var primary_number = vm.get('filtergrid.primary_number') ? vm.get('filtergrid.primary_number').split(',') : [];
+        var alias_numbers = vm.get('filtergrid.alias_numbers') ? vm.get('filtergrid.alias_numbers').toString().split(',') : [];
+        var seats = vm.get('filtergrid.seats') ? vm.get('filtergrid.seats').toString().split(',') : [];
         var retVal = true;
         if (fieldInput && record.get('name').toLowerCase().indexOf(fieldInput) == -1 ||
             extension && record.get('extension').toLowerCase().indexOf(extension) == -1 ||
             hunt_policy && record.get('hunt_policy').toLowerCase().indexOf(hunt_policy) == -1 ||
-            hunt_timeout && record.get('hunt_timeout').toLowerCase().indexOf(hunt_timeout) == -1
+            hunt_timeout && record.get('hunt_timeout').toLowerCase().indexOf(hunt_timeout) == -1 ||
+            primary_number && record.get('primary_number').indexOf(primary_number) == -1 ||
+            alias_numbers && record.get('alias_numbers').indexOf(alias_numbers) == -1 ||
+            seats && record.get('seats').indexOf(seats) == -1
         ) {
             retVal = false;
         }
