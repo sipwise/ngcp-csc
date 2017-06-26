@@ -224,6 +224,123 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.seats.GroupsGrid', {
                     }]
                 }]
             }, {
+                name: 'primary_number',
+                defaults: {
+                    padding: '0 0 15 0'
+                },
+                items: [{
+                    xtype: 'label',
+                    cls: 'pbx-data-value',
+                    text: Ngcp.csc.locales.pbxconfig.primary_number[localStorage.getItem('languageSelected')],
+                    width: 130
+                }, {
+                    xtype: 'label',
+                    bind: {
+                        id: 'groups-label-primary_number-{record.id}',
+                        text: '{record.primary_number}'
+                    }
+                }, {
+                    xtype: 'combo',
+                    store: 'PrimaryNumbers',
+                    editable: false,
+                    width: 250,
+                    displayField: 'number',
+                    valueField: 'number',
+                    hidden: true,
+                    emptyText: Ngcp.csc.locales.pbxconfig.choose_new_primary_number[localStorage.getItem('languageSelected')],
+                    bind: {
+                        id: 'groups-combo-primary_number-{record.id}'
+                    },
+                    listeners: {
+                        focus: {
+                            fn: 'setFieldValue'
+                        },
+                        blur: {
+                            fn: 'fieldBlurred',
+                            el: 'element'
+                        },
+                        specialkey: 'onEnterPressed'
+                    }
+                }]
+            }, {
+                name: 'alias_numbers',
+                defaults: {
+                    padding: '0 0 15 0'
+                },
+                items: [{
+                    xtype: 'label',
+                    cls: 'pbx-data-value',
+                    text: Ngcp.csc.locales.pbxconfig.alias_numbers[localStorage.getItem('languageSelected')],
+                    width: 130
+                }, {
+                    xtype: 'label',
+                    bind: {
+                        id: 'groups-label-alias_numbers-{record.id}',
+                        text: '{record.alias_numbers_split}'
+                    }
+                }, {
+                    xtype: 'tagfield',
+                    valueField: 'number',
+                    store: 'AliasNumbers',
+                    width: 250,
+                    displayField: 'number',
+                    hidden: true,
+                    emptyText: Ngcp.csc.locales.pbxconfig.choose_one_or_more_alias_numbers[localStorage.getItem('languageSelected')],
+                    bind: {
+                        id: 'groups-tagfield-alias_numbers-{record.id}'
+                    },
+                    listeners: {
+                        focus: {
+                            fn: 'setFieldValue'
+                        },
+                        blur: {
+                            fn: 'fieldBlurred',
+                            el: 'element'
+                        },
+                        specialkey: 'onEnterPressed'
+                    }
+                }]
+            }, {
+                name: 'seats',
+                defaults: {
+                    padding: '0 0 15 0'
+                },
+                items: [{
+                    xtype: 'label',
+                    cls: 'pbx-data-value',
+                    text: Ngcp.csc.locales.common.seats[localStorage.getItem('languageSelected')],
+                    width: 130
+                }, {
+                    xtype: 'label',
+                    hidden: false,
+                    bind: {
+                        id: 'groups-label-seats-{record.id}',
+                        text: '{record.seats_split}'
+
+                    }
+                }, {
+                    xtype: 'tagfield',
+                    valueField: 'id',
+                    store: 'Seats',
+                    width: 250,
+                    displayField: 'name',
+                    hidden: true,
+                    emptyText: Ngcp.csc.locales.pbxconfig.choose_one_or_more_seats[localStorage.getItem('languageSelected')],
+                    bind: {
+                        id: 'groups-tagfield-seats-{record.id}'
+                    },
+                    listeners: {
+                        focus: {
+                            fn: 'setFieldValue'
+                        },
+                        blur: {
+                            fn: 'fieldBlurred',
+                            el: 'element'
+                        },
+                        specialkey: 'onEnterPressed'
+                    }
+                }]
+            }, {
                 xtype: 'label',
                 bind: {
                     html: '<div class="card-wrapper"><div class="card-icon-row">' +

@@ -9,8 +9,8 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
 
     ui: 'core-container',
 
-    // TODO: Fix input field not working on first input (always or some times?)
-    // TODO: Pls make combo/tagfields editable
+    // TODO: Fix input field not working on first input. See
+    // GridFiltersController.js line 21
 
     initComponent: function() {
         this.items = [{
@@ -134,6 +134,104 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
             }]
         }, {
             xtype: 'form',
+            hidden: true,
+            reference: 'pbxGroupsFilterForm',
+            bind: {
+                hidden: '{filtergrid.pbxGroupsFilterHideState}'
+            },
+            margin: 20,
+            layout: 'responsivecolumn',
+            items: [{
+                flex: 1,
+                userCls: 'small-100 big-50',
+                items: [{
+                    xtype: 'textfield',
+                    labelAlign: 'left',
+                    width: 400,
+                    labelWidth: 120,
+                    bind: '{filtergrid.groups_extension}',
+                    fieldLabel: Ngcp.csc.locales.filters.extension[localStorage.getItem('languageSelected')],
+                    listeners: {
+                        delay: 100,
+                        change: 'submitFilters'
+                    }
+                }, {
+                    xtype: 'combo',
+                    labelAlign: 'left',
+                    store: 'HuntPolicies',
+                    displayField: 'policy',
+                    valueField: 'policy',
+                    editable: true,
+                    width: 400,
+                    labelWidth: 120,
+                    bind: '{filtergrid.hunt_policy}',
+                    fieldLabel: Ngcp.csc.locales.filters.hunt_policy[localStorage.getItem('languageSelected')],
+                    listeners: {
+                        delay: 100,
+                        change: 'submitFilters'
+                    }
+                }, {
+                    xtype: 'textfield',
+                    labelAlign: 'left',
+                    width: 400,
+                    labelWidth: 120,
+                    bind: '{filtergrid.hunt_timeout}',
+                    fieldLabel: Ngcp.csc.locales.filters.hunt_timeout[localStorage.getItem('languageSelected')],
+                    listeners: {
+                        delay: 100,
+                        change: 'submitFilters'
+                    }
+                }]
+            }, {
+                flex: 1,
+                userCls: 'small-100 big-50',
+                items: [{
+                    xtype: 'combo',
+                    labelAlign: 'left',
+                    store: 'PrimaryNumbers',
+                    bind: '{filtergrid.primary_number}',
+                    displayField: 'number',
+                    valueField: 'number',
+                    width: 400,
+                    labelWidth: 120,
+                    editable: true,
+                    fieldLabel: Ngcp.csc.locales.filters.primary_number[localStorage.getItem('languageSelected')],
+                    listeners: {
+                        delay: 100,
+                        change: 'submitFilters'
+                    }
+                }, {
+                    xtype: 'tagfield',
+                    labelAlign: 'left',
+                    store: 'AliasNumbers',
+                    displayField: 'number',
+                    valueField: 'number',
+                    width: 400,
+                    labelWidth: 120,
+                    bind: '{filtergrid.alias_numbers}',
+                    fieldLabel: Ngcp.csc.locales.filters.alias_numbers[localStorage.getItem('languageSelected')],
+                    listeners: {
+                        delay: 100,
+                        change: 'submitFilters'
+                    }
+                }, {
+                    xtype: 'tagfield',
+                    labelAlign: 'left',
+                    store: 'Seats',
+                    displayField: 'name',
+                    valueField: 'id',
+                    width: 400,
+                    labelWidth: 120,
+                    bind: '{filtergrid.seats}',
+                    fieldLabel: Ngcp.csc.locales.filters.seats[localStorage.getItem('languageSelected')],
+                    listeners: {
+                        delay: 100,
+                        change: 'submitFilters'
+                    }
+                }]
+            }]
+        }, {
+            xtype: 'form',
             reference: 'pbxSeatsFilterForm',
             hidden:true,
             bind: {
@@ -198,61 +296,6 @@ Ext.define('NgcpCsc.view.common.gridfilters.GridFilters', {
                     labelWidth: 120,
                     bind: '{filtergrid.groups}',
                     fieldLabel: Ngcp.csc.locales.filters.groups[localStorage.getItem('languageSelected')],
-                    listeners: {
-                        delay: 100,
-                        change: 'submitFilters'
-                    }
-                }]
-            }]
-        }, {
-            xtype: 'form',
-            hidden:true,
-            reference: 'pbxGroupsFilterForm',
-            bind: {
-                hidden: '{filtergrid.pbxGroupsFilterHideState}'
-            },
-            margin: 20,
-            layout: 'responsivecolumn',
-            items: [{
-                flex: 1,
-                userCls: 'small-100 big-50',
-                items: [{
-                    xtype: 'textfield',
-                    labelAlign: 'left',
-                    width: 400,
-                    labelWidth: 120,
-                    bind: '{filtergrid.groups_extension}',
-                    fieldLabel: Ngcp.csc.locales.filters.extension[localStorage.getItem('languageSelected')],
-                    listeners: {
-                        delay: 100,
-                        change: 'submitFilters'
-                    }
-                }, {
-                    xtype: 'combo',
-                    labelAlign: 'left',
-                    store: 'HuntPolicies',
-                    displayField: 'policy',
-                    valueField: 'policy',
-                    editable: true,
-                    width: 400,
-                    labelWidth: 120,
-                    bind: '{filtergrid.hunt_policy}',
-                    fieldLabel: Ngcp.csc.locales.filters.hunt_policy[localStorage.getItem('languageSelected')],
-                    listeners: {
-                        delay: 100,
-                        change: 'submitFilters'
-                    }
-                }]
-            }, {
-                flex: 1,
-                userCls: 'small-100 big-50',
-                items: [{
-                    xtype: 'textfield',
-                    labelAlign: 'left',
-                    width: 400,
-                    labelWidth: 120,
-                    bind: '{filtergrid.hunt_timeout}',
-                    fieldLabel: Ngcp.csc.locales.filters.hunt_timeout[localStorage.getItem('languageSelected')],
                     listeners: {
                         delay: 100,
                         change: 'submitFilters'

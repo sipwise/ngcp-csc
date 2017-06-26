@@ -339,6 +339,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var groupsField = Ext.ComponentQuery.query('#' + viewName + '-tagfield-groups-' + id) || '';
         var huntPolicyField = Ext.ComponentQuery.query('#' + viewName + '-combo-hunt_policy-' + id) || '';
         var huntTimeoutField = Ext.ComponentQuery.query('#' + viewName + '-textfield-hunt_timeout-' + id) || '';
+        var seatsField = Ext.ComponentQuery.query('#' + viewName + '-tagfield-seats-' + id) || '';
         var deviceField = Ext.ComponentQuery.query('#' + viewName + '-textfield-device-' + id) || '';
         var macField = Ext.ComponentQuery.query('#' + viewName + '-textfield-mac-' + id) || '';
         var statusField = Ext.ComponentQuery.query('#' + viewName + '-textfield-status-' + id) || '';
@@ -351,6 +352,7 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
         var huntTimeoutLabel = Ext.ComponentQuery.query('#' + viewName + '-label-hunt_timeout-' + id) || '';
         var huntTimeoutPreLabel = Ext.ComponentQuery.query('#' + viewName + '-prelabel-hunt_timeout-' + id) || '';
         var huntTimeoutPostLabel = Ext.ComponentQuery.query('#' + viewName + '-postlabel-hunt_timeout-' + id) || '';
+        var seatsLabel = Ext.ComponentQuery.query('#' + viewName + '-label-seats-' + id) || '';
         var deviceLabel = Ext.ComponentQuery.query('#' + viewName + '-label-device-' + id) || '';
         var macLabel = Ext.ComponentQuery.query('#' + viewName + '-label-mac-' + id) || '';
         var statusLabel = Ext.ComponentQuery.query('#' + viewName + '-label-status-' + id) || '';
@@ -380,6 +382,9 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
                 extensionLabel[0].setHidden(labelHide);
                 huntPolicyLabel[0].setHidden(labelHide);
                 huntTimeoutLabel[0].setHidden(labelHide);
+                primaryNumberLabel[0].setHidden(labelHide);
+                aliasNumbersLabel[0].setHidden(labelHide);
+                seatsLabel[0].setHidden(labelHide);
                 switch (hideOrShow) {
                     case 'show':
                         huntTimeoutPreLabel[0].addCls('pbx-margin-top');
@@ -393,9 +398,15 @@ Ext.define('NgcpCsc.view.pages.pbxconfig.PbxConfigController', {
                 extensionField[0].setHidden(fieldHide);
                 huntPolicyField[0].setHidden(fieldHide);
                 huntTimeoutField[0].setHidden(fieldHide);
+                primaryNumberField[0].setHidden(fieldHide);
+                aliasNumbersField[0].setHidden(fieldHide);
+                seatsField[0].setHidden(fieldHide);
                 huntTimeoutField[0].focus();
                 huntPolicyField[0].focus();
                 extensionField[0].focus();
+                primaryNumberField[0].focus();
+                aliasNumbersField[0].focus();
+                seatsField[0].focus();
                 nameField[0].focus();
                 break;
             case 'devices':
