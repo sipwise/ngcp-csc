@@ -2,22 +2,10 @@ Ext.define('NgcpCsc.view.pages.reminder.ReminderController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.reminder',
 
-    clickActiveInactiveButton: function() {
-        var vm = this.getViewModel();
-        var currentReminderIsMode = vm.get('reminder.reminder_status');
-        switch (currentReminderIsMode) {
-            case false:
-                this.fireEvent('showmessage', true, Ngcp.csc.locales.reminder.reminder_set_to_inactive[localStorage.getItem('languageSelected')]);
-                break;
-            case true:
-                this.fireEvent('showmessage', true, Ngcp.csc.locales.reminder.reminder_set_to_active[localStorage.getItem('languageSelected')]);
-                break;
-        };
-    },
-
     saveReminder: function() {
         var me = this;
         var reminderRec = this.getViewModel().get('reminder');
+        var totalCount = reminderRec.get('total_count');
         Ext.defer(function() {
             if (reminderRec.dirty) {
                 reminderRec.save({
@@ -31,8 +19,10 @@ Ext.define('NgcpCsc.view.pages.reminder.ReminderController', {
                         // do something whether the save succeeded or failed
                     }
                 });
+            } else {
+                me.fireEvent('showmessage', false, Ngcp.csc.locales.common.no_changes[localStorage.getItem('languageSelected')]);
             }
-        }, 1);
+    }, 1);
     },
 
     onIconClicked: function(event, el) {
@@ -48,17 +38,22 @@ Ext.define('NgcpCsc.view.pages.reminder.ReminderController', {
         var dataset = event.target.dataset;
         var prefixElementClassList = document.getElementById('toggleTextPrefixReminder').classList;
         var suffixElementClassList = document.getElementById('toggleTextSuffixReminder').classList;
-        var currentValue = vm.get('reminder.reminder_status');
+        var currentValue = vm.get('reminder.active');
         var newValueToUse = currentValue ? false : true;
         var currentFontValueSuffix = currentValue ? 'off' : 'on';
         var newFontClassSuffix = currentValue ? 'on' : 'off';
-        vm.set('reminder.reminder_status', newValueToUse);
+        var reminderForm = this.lookupReference('reminderForm');
+        vm.set('reminder.active', newValueToUse);
         classList.remove('fa-toggle-' + currentFontValueSuffix);
         classList.add('fa-toggle-' + newFontClassSuffix);
         prefixElementClassList.toggle('grey');
         suffixElementClassList.toggle('grey');
         dataset.qtip = Ngcp.csc.locales.reminder.activate_or_deactivate[newFontClassSuffix][localStorage.getItem('languageSelected')];
-        this.clickActiveInactiveButton();
+        if (reminderForm.getUserCls() == 'reminder-form') {
+            reminderForm.setUserCls(null);
+        } else {
+            reminderForm.setUserCls('reminder-form');
+        }
     }
 
 });

@@ -18,36 +18,39 @@ Ext.define('NgcpCsc.model.Reminder', {
     }, {
         name: "recur",
         mapping: function(data) {
-            if(data && data._embedded && data._embedded['ngcp:reminders'] && data._embedded['ngcp:reminders'].length > 0){
+            if (data && data._embedded && data._embedded['ngcp:reminders'] && data._embedded['ngcp:reminders'].length > 0) {
                 return data._embedded['ngcp:reminders'][0].recur;
             }
         }
     }, {
         name: "time",
         type: 'date',
-        dateFormat: 'H:i:s',
+        dateFormat: 'H:i',
         mapping: function(data) {
-            if(data && data._embedded && data._embedded['ngcp:reminders'] && data._embedded['ngcp:reminders'].length > 0){
-                return data._embedded['ngcp:reminders'][0].time;
+            if (data && data._embedded && data._embedded['ngcp:reminders'] && data._embedded['ngcp:reminders'].length > 0) {
+                return data._embedded['ngcp:reminders'][0].time.substr(0,5);
             }
         }
     }, {
-        name: "reminder_status",
+        name: "active",
         mapping: function(data) {
-            return true;
+            if (data && data._embedded && data._embedded['ngcp:reminders'] && data._embedded['ngcp:reminders'].length > 0) {
+                return data._embedded['ngcp:reminders'][0].active;
+            } else {
+                return false;
+            }
         }
     }, {
         name: "subscriber_id",
         mapping: function(data) {
-            if(data && data._embedded && data._embedded['ngcp:reminders'] && data._embedded['ngcp:reminders'].length > 0){
+            if (data && data._embedded && data._embedded['ngcp:reminders'] && data._embedded['ngcp:reminders'].length > 0) {
                 return data._embedded['ngcp:reminders'][0].subscriber_id;
             }
         }
     }],
 
-    // this replace the temprary Model ID in VM links
     onLoad: function() {
-        if(this.data && this.data._embedded && this.data._embedded['ngcp:reminders'] && this.data._embedded['ngcp:reminders'].length > 0){
+        if (this.data && this.data._embedded && this.data._embedded['ngcp:reminders'] && this.data._embedded['ngcp:reminders'].length > 0) {
             this.set("id", this.data._embedded['ngcp:reminders'][0].id);
             this.commit();
         }
@@ -56,7 +59,6 @@ Ext.define('NgcpCsc.model.Reminder', {
     proxy: {
         type: 'ngcp-api',
         route: 'reminders',
-        params: 'subscriber_id=' + localStorage.getItem('subscriber_id') // this must exist in /api/subscribers/ response
-
+        params: 'subscriber_id=' + localStorage.getItem('subscriber_id')
     }
 });
