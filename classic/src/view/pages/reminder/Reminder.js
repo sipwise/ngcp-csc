@@ -17,7 +17,6 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
 
     initComponent: function() {
         var vm = this.getViewModel();
-        var submoduleStates = vm.get('reminder.reminder_status') ? [' grey', 'on', ''] : ['', 'off', ' grey'];
 
         this.dockedItems = [{
             xtype: 'toolbar',
@@ -36,33 +35,40 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
                 {
                     xtype: 'panel',
                     margin: '0 0 15 0',
-                    html: '<div id="toggleReminderActive" class="toggle-section">' +
-                    '<span id="toggleTextPrefixReminder" class="toggle-prefix' + submoduleStates[0] + '">' + Ngcp.csc.locales.reminder.active[localStorage.getItem('languageSelected')] + '</span>' +
-                    '<div class="toggle-icon" data-callback="toggleReminderActive"><i id="iconAllowBlock-reminder" class="pointer toggle-icon ' + Ngcp.csc.icons.toggle[submoduleStates[1] + '2x'] + '" aria-hidden="true" data-qtip="' + Ngcp.csc.locales.reminder.activate_or_deactivate[submoduleStates[1]][localStorage.getItem('languageSelected')] + '"></i></div>' +
-                    '<span id="toggleTextSuffixReminder" class="toggle-suffix' + submoduleStates[2] + '">' + Ngcp.csc.locales.reminder.inactive[localStorage.getItem('languageSelected')] + '</span>' +
-                    '</div>'
+                    bind: {
+                        html: '<div id="toggleReminderActive" class="toggle-section">' +
+                        '<span id="toggleTextPrefixReminder" class="toggle-prefix{reminder.active ? "" : " grey"}">' + Ngcp.csc.locales.reminder.active[localStorage.getItem('languageSelected')] + '</span>' +
+                        // XXX: Cvenusino: When adding the new reminder.active
+                        // value to the model, I discovered a bug with
+                        // submoduleStates array always ending up with same
+                        // initial value, as the variable was initialized before
+                        // the API request had returned a callback and created a
+                        // value. I tried to use "autoLoad: true" without any
+                        // success. I adopted the method below instead, but now
+                        // we aren't able to use localization on initial render.
+                        // Do you have any suggestions on how to better solve
+                        // this?
+                        '<div class="toggle-icon" data-callback="toggleReminderActive"><i id="iconAllowBlock-reminder" class="pointer toggle-icon x-fa fa-toggle-{reminder.active ? "off" : "on"} fa-2x" aria-hidden="true" data-qtip="{reminder.active ? "Set reminder to inactive" : "Set reminder to active"}"></i></div>' +
+                        '<span id="toggleTextSuffixReminder" class="toggle-suffix{reminder.active ? " grey" : ""}">' + Ngcp.csc.locales.reminder.inactive[localStorage.getItem('languageSelected')] + '</span>' +
+                        '</div>'
+                    }
                 }, {
                     xtype: 'form',
+                    reference: 'reminderForm',
                     layout: 'responsivecolumn',
-                    defaults:{
-                        listeners: {
-                            change: 'saveReminder',
-                            blur: 'saveReminder'
-                        }
-                    },
+                    userCls: 'reminder-form',
                     items: [{
                         flex: 1,
                         userCls: 'small-100 big-50',
                         xtype: 'timefield',
                         fieldLabel: Ngcp.csc.locales.reminder.time[localStorage.getItem('languageSelected')],
-                        format: 'H:i:s',
-                        minValue: '00:00:00',
-                        maxValue: '23:55:00',
-                        increment: 5,
+                        format: 'H:i',
+                        minValue: '00:00',
+                        maxValue: '23:45',
+                        increment: 15,
                         editable: true,
                         bind: {
-                            value: '{reminder.time}',
-                            disabled: '{!reminder.reminder_status}'
+                            value: '{reminder.time}'
                         }
                     }, {
                         flex: 1,
@@ -74,8 +80,7 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
                         columns: 1,
                         simpleValue: true,
                         bind: {
-                            value: '{reminder.recur}',
-                            disabled: '{!reminder.reminder_status}'
+                            value: '{reminder.recur}'
                         },
                         defaults: {
                             name: 'value'
@@ -90,6 +95,10 @@ Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
                             boxLabel: Ngcp.csc.locales.reminder.always[localStorage.getItem('languageSelected')],
                             inputValue: 'always'
                         }]
+                    }, {
+                        xtype: 'button',
+                        html: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
+                        handler: 'saveReminder'
                     }]
                 }]
             }]
