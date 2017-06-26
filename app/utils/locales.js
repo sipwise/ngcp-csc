@@ -2133,6 +2133,13 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Successfully saved.',
                 sp: 'Successfully saved.'
             },
+            no_changes: {
+                en: 'No changes to save.',
+                it: 'No changes to save.',
+                de: 'No changes to save.',
+                fr: 'No changes to save.',
+                sp: 'No changes to save.'
+            },
             save_unsuccess: {
                 en: 'Something went wrong. Please retry later',
                 it: 'Something went wrong. Please retry later',
