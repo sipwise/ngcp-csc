@@ -1,3 +1,10 @@
+// TODO: 1. Implement new proxy changes, modeling on cb module 
+// TODO: 2. When not connected to API, the toggle icon labels have wrong color, should be reverse. Works when API is connected. Investigate
+// TODO: 3. Implement ability to edit the reminder even if it's inactive
+// TODO: 4. Grab inactive/active status from API instead of creating dummy value in model. Talked with Andreas and Gerhard, and there will be created a flag for this in the api for us to consume. API task here:
+// https://sipwise.my.workfront.com/issue/view?ID=59316ef1004767be374201327a8635b4
+// TODO: 5. Remove seconds in the dropdown and input
+// TODO: 6. Add save button
 Ext.define('NgcpCsc.view.pages.reminder.Reminder', {
     extend: 'Ext.panel.Panel',
 

@@ -2,6 +2,23 @@ Ext.define('NgcpCsc.view.pages.reminder.ReminderController', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.reminder',
 
+    listen: {
+        store: {
+            '*': {
+                reminderStoreLoaded: 'reminderStoreLoaded',
+                reminderStoreBeforeSync: 'reminderStoreBeforeSync'
+            }
+        }
+    },
+
+    reminderStoreLoaded: function () {
+        console.log('reminderStoreLoaded');    
+    },
+
+    reminderStoreBeforeSync: function () {
+        console.log('reminderStoreBeforeSync');
+    },
+
     clickActiveInactiveButton: function() {
         var vm = this.getViewModel();
         var currentReminderIsMode = vm.get('reminder.reminder_status');
