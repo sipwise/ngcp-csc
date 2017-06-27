@@ -2,20 +2,25 @@
 Ext.Ajax.on("beforerequest", function(con, options) {
     con.setUseDefaultXhrHeader(false);
     con.setWithCredentials(true);
-    if (options.params && localStorage.getItem('jwt_token')) {
+    if (options.params && localStorage.getItem('jwt')) {
         delete options.params.page;
         delete options.params.start;
         delete options.params.limit;
-        options.params['jwt_token'] = localStorage.getItem('jwt_token');
+        this.setDefaultHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+        });
     }
 });
 
-// in case of 401, user is redirected to login screen
+// in case of 401 or 403, user is redirected to login screen
 Ext.Ajax.on("requestexception", function(con, response) {
     var httpStatus = response.status;
     switch (httpStatus) {
         case 401:
-            NgcpCsc.getApplication().showLogin();
+        case 403:
+            if (response.request.url !== '/login_jwt/') {
+                NgcpCsc.getApplication().showLogin();
+            }
             break;
     }
 });
@@ -40,21 +45,30 @@ Ext.application({
         if (mainCmp) {
             mainCmp.destroy();
         }
+        window.location.hash = '';
         Ext.create({
             xtype: 'ngcp-login'
         });
-        localStorage.removeItem('jwt_token');
-        localStorage.removeItem('subscriber_id');
-        localStorage.removeItem('type');
-        localStorage.removeItem('username');
-        window.location.hash = '';
+        localStorage.removeItem('jwt');
     },
 
     showMain: function() {
+        var me = this;
+        var winLogin = Ext.ComponentQuery.query('[name=loginWin]')[0];
+        var loginCont = Ext.ComponentQuery.query('[id=loginCont]')[0];
+        if (winLogin) {
+            winLogin.destroy();
+        }
+        if (loginCont) {
+            loginCont.destroy();
+        }
+        window.location.hash = '';
         Ext.create({
             xtype: 'ngcp-main'
         });
-        window.location.hash = '#inbox';
+        Ext.Function.defer(function() {
+            me.redirectTo('inbox');
+        }, 100)
     }
 
 });

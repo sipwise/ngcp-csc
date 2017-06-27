@@ -1,6 +1,7 @@
 Ext.define('NgcpCsc.view.login.Login', {
     extend: 'Ext.window.Window',
     controller: 'login',
+    name: 'loginWin',
     autoShow: true,
     bodyPadding: 20,
     closable: false,

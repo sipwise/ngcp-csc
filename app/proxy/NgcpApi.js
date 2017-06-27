@@ -9,10 +9,6 @@ proxy: {
 Ext.define('NgcpCsc.proxy.NgcpApi', {
     extend: 'Ext.data.proxy.Ajax',
     alias: 'proxy.ngcp-api',
-    /* temporary authentication, should be bound to auth token once implemented*/
-    withCredentials: true,
-    username: 'administrator',
-    password: 'administrator',
     baseApiUrl: '/api/',
     autoLoad: true,
     appendId: false,
