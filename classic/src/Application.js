@@ -42,7 +42,7 @@ Ext.define('NgcpCsc.Application', {
     launch: function() {
         Ext.tip.QuickTipManager.init();
         // TODO to be replaced with request
-        if (localStorage.getItem('jwt_token')) {
+        if (localStorage.getItem('jwt')) {
             this.showMain()
         } else {
             this.showLogin();

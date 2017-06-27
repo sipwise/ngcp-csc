@@ -2,11 +2,13 @@
 Ext.Ajax.on("beforerequest", function(con, options) {
     con.setUseDefaultXhrHeader(false);
     con.setWithCredentials(true);
-    if (options.params && localStorage.getItem('jwt_token')) {
+    if (options.params && localStorage.getItem('jwt')) {
         delete options.params.page;
         delete options.params.start;
         delete options.params.limit;
-        options.params['jwt_token'] = localStorage.getItem('jwt_token');
+        this.setDefaultHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('jwt')
+        });
     }
 });
 
@@ -43,7 +45,7 @@ Ext.application({
         Ext.create({
             xtype: 'ngcp-login'
         });
-        localStorage.removeItem('jwt_token');
+        localStorage.removeItem('jwt');
         localStorage.removeItem('subscriber_id');
         localStorage.removeItem('type');
         localStorage.removeItem('username');
