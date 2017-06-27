@@ -5,8 +5,7 @@ Ext.define('NgcpCsc.view.login.LoginController', {
     onPressEnter: function(field, e) {
         var inputUsername = this.getViewModel().get('username');
         var inputPassword = this.getViewModel().get('password');
-        var isAdminUser = inputUsername == 'admin' && inputPassword == 'admin'; // hardcoded credentials TODO remove when jwt is ready in backend
-        if (e.getKey() == e.ENTER && isAdminUser) {
+        if (e.getKey() == e.ENTER) {
             this.onLoginClick();
         }
     },
@@ -27,8 +26,8 @@ Ext.define('NgcpCsc.view.login.LoginController', {
         var inputUsername = this.getViewModel().get('username');
         var inputPassword = this.getViewModel().get('password');
         Ext.Ajax.request({
-            url: Ext.manifest.resources.path + '/data/auth.json', // will be '/login_jwt/',
-            method: 'GET', // will be POST
+            url: '/login_jwt/',
+            method: 'POST',
             jsonData: {
                 username: inputUsername,
                 password: inputPassword
@@ -40,21 +39,19 @@ Ext.define('NgcpCsc.view.login.LoginController', {
     },
 
     successLogin: function(response) {
-        var data = Ext.decode(response.responseText).data;
-        if (data.token) {
+        var data = Ext.decode(response.responseText);
+        if (data.jwt) {
             localStorage.setItem('username', this.getViewModel().get('username'));
+            localStorage.setItem('password', this.getViewModel().get('password'));
             localStorage.setItem('subscriber_id', data.subscriber_id);
-            localStorage.setItem('jwt_token', data.token);
+            localStorage.setItem('jwt', data.jwt);
             localStorage.setItem('type', data.type || 'admin'); // this is the user Role, which shows/hides the modules in navigation tree
-            this.getView().close();
-            Ext.create({
-                xtype: 'ngcp-main'
-            });
+            NgcpCsc.app.showMain();
         }
     },
 
     unsuccessLogin: function(response) {
-        localStorage.removeItem('jwt_token');
+        localStorage.removeItem('jwt');
         Ext.Msg.alert('Error', 'Username or Password not valid!');
     }
 });

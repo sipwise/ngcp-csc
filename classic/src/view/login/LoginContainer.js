@@ -1,10 +1,14 @@
 Ext.define('NgcpCsc.view.login.LoginContiner', {
     extend: 'Ext.container.Viewport',
+    id: 'loginCont',
     xtype: 'ngcp-login',
     cls: 'login-container',
-    listeners:{
-        render:function(){
-            Ext.create('NgcpCsc.view.login.Login');
+    listeners: {
+        afterrender: function() {
+            var winLogin = Ext.ComponentQuery.query('[name=loginWin]')[0];
+            if (!winLogin) {
+                Ext.create('NgcpCsc.view.login.Login');
+            }
         }
     }
 });

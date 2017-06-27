@@ -9,10 +9,6 @@ proxy: {
 Ext.define('NgcpCsc.proxy.NgcpApi', {
     extend: 'Ext.data.proxy.Ajax',
     alias: 'proxy.ngcp-api',
-    /* temporary authentication, should be bound to auth token once implemented*/
-    withCredentials: true,
-    username: 'administrator',
-    password: 'administrator',
     baseApiUrl: '/api/',
     autoLoad: true,
     appendId: false,
@@ -35,7 +31,7 @@ Ext.define('NgcpCsc.proxy.NgcpApi', {
                 me.headers = {
                     'Content-Type': 'application/json'
                 };
-                url = Ext.String.format('{0}{1}/{2}?{3}', me.baseApiUrl, me.route, me.subscriberId, me.params);
+                url = Ext.String.format('{0}{1}/{2}?{3}', me.baseApiUrl, me.route, localStorage.getItem('subscriber_id'), me.params);
                 break;
             case 'update':
                 me.headers = (me.actionMethods.update == 'PUT') ? {
@@ -45,7 +41,7 @@ Ext.define('NgcpCsc.proxy.NgcpApi', {
                 };
 
                 records = request._records;
-                url = Ext.String.format('{0}{1}/{2}', me.baseApiUrl, me.route, me.subscriberId || records[0].get('id'));
+                url = Ext.String.format('{0}{1}/{2}', me.baseApiUrl, me.route, localStorage.getItem('subscriber_id'));
                 break;
         }
         request._url = url;

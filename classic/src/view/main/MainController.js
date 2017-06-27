@@ -37,7 +37,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
             store = navigationList.getStore(),
             node = store.findNode('routeId', hashTag) ||
             store.findNode('viewType', hashTag) || 'inbox',
-            view = (node && node.get('viewType')),
+            view = (node && Ext.isObject(node) && node.get('viewType')),
             lastView = me.lastView,
             existingItem = mainCard.child('component[routeId=' + hashTag + ']'),
             newView;
@@ -246,7 +246,7 @@ Ext.define('NgcpCsc.view.main.MainController', {
     },
 
     logout: function() {
-        localStorage.removeItem('jwt_token');
+        localStorage.removeItem('jwt');
         location.reload();
     },
 

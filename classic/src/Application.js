@@ -41,9 +41,19 @@ Ext.define('NgcpCsc.Application', {
 
     launch: function() {
         Ext.tip.QuickTipManager.init();
-        // TODO to be replaced with request
-        if (localStorage.getItem('jwt_token')) {
-            this.showMain()
+        if (localStorage.getItem('username') && localStorage.getItem('password') && localStorage.getItem('jwt')) {
+            // checks that the jwt token is valid
+            Ext.Ajax.request({
+                url: '/login_jwt/',
+                method: 'POST',
+                jsonData: {
+                    username: localStorage.getItem('username'),
+                    password: localStorage.getItem('password')
+                },
+                success: this.showMain,
+                failure: this.showLogin,
+                scope: this
+            });
         } else {
             this.showLogin();
         }
