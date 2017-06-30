@@ -10,6 +10,7 @@ Ext.define('NgcpCsc.store.CallBlocking', {
     proxy: {
         type: 'ngcp-api',
         route: 'subscriberpreferences',
+        addSubscriber: true,
         actionMethods: {
             read: 'GET',
             update: 'PATCH'

@@ -26,12 +26,15 @@ Ext.define('NgcpCsc.proxy.NgcpApi', {
         var me = this;
         var action = request._action;
         var url, records;
+        if(!me.addSubscriber){
+            me.params = 'subscriber_id=' + localStorage.getItem('subscriber_id');
+        }
         switch (action) {
             case 'read':
                 me.headers = {
                     'Content-Type': 'application/json'
                 };
-                url = Ext.String.format('{0}{1}/{2}?{3}', me.baseApiUrl, me.route, localStorage.getItem('subscriber_id'), me.params);
+                url = Ext.String.format('{0}{1}/{2}?{3}', me.baseApiUrl, me.route, me.addSubscriber ? localStorage.getItem('subscriber_id') : '', me.params);
                 break;
             case 'update':
                 me.headers = (me.actionMethods.update == 'PUT') ? {
@@ -41,7 +44,7 @@ Ext.define('NgcpCsc.proxy.NgcpApi', {
                 };
 
                 records = request._records;
-                url = Ext.String.format('{0}{1}/{2}', me.baseApiUrl, me.route, localStorage.getItem('subscriber_id'));
+                url = Ext.String.format('{0}{1}/{2}', me.baseApiUrl, me.route, me.addSubscriber ? localStorage.getItem('subscriber_id') : records[0].get('id'));
                 break;
         }
         request._url = url;
