@@ -5,9 +5,11 @@ FROM docker.mgm.sipwise.com/sipwise-jessie:latest
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT 2017-05-30
+ENV REFRESHED_AT 2017-06-30
 
-RUN echo "deb https://deb.sipwise.com/autobuild/ release-trunk-jessie main" >>/etc/apt/sources.list
+# files that get-code generates
+COPY t/sources.list.d/builddeps.list /etc/apt/sources.list.d/
+COPY t/sources.list.d/preferences /etc/apt/preferences.d/
 
 RUN apt-get update && apt-get install --assume-yes \
         chromium \
@@ -45,7 +47,14 @@ WORKDIR /code
 ################################################################################
 # Instructions for usage
 # ----------------------
-# When you want to build the base image from scratch (jump to the next section if you don't want to build yourself!):
+# When you want to build the base image from scratch
+# jump to the next section if you don't want to build yourself!:
+#
+# you need to put the proper NGCP sources at t/sources.list.d/builddeps.list
+# for instance, trunk:
+# echo "deb https://deb.sipwise.com/autobuild/ release-trunk-jessie main" > /
+#  t/sources.list.d/builddeps.list
+#
 # NOTE: run the following commands from root folder of git repository:
 # % docker build --tag="ngcp-csc-jessie" -f ./t/Dockerfile .
 # % docker run --rm -i -t -v $(pwd):/code:ro -v /results ngcp-csc-jessie:latest bash
