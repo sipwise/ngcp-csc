@@ -16,7 +16,10 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
         markDirty: false,
         emptyText: Ngcp.csc.locales.callforward.nowhere[localStorage.getItem('languageSelected')],
         deferEmptyText: false,
-        stripeRows: false
+        stripeRows: false,
+        listeners: {
+            drop: 'destinationDropped'
+        }
     },
 
     // TODO: Leaving this for PUT/PATCH task, as it might make sense to use

@@ -17,10 +17,13 @@ Ext.define('NgcpCsc.store.CallForwardSourceset', {
 
     listeners: {
         load: function(store, recs) {
+            this.fireEvent('cfSourcesetStoreLoaded', this, recs[0]);
+        },
+        beforesync: function(options) {
+            // this.fireEvent('cfSourcesetBeforeSync', this, options); // TODO: Was this in my branch, fix in controller
             if (recs[0] && recs[0].data && recs[0].data._embedded) {
                 this.fireEvent('cfSourcesetStoreLoaded', this, recs[0].data._embedded['ngcp:cfsourcesets']);
             }
-
         }
     }
 

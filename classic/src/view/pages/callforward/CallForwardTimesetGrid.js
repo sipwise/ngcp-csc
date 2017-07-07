@@ -7,6 +7,10 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
         markDirty: false
     },
 
+    // listeners: {
+    //     edit: 'editingTimeDone'
+    // },
+
     initComponent: function() {
         this.columns = {
             defaults: {
@@ -20,7 +24,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
                 flex: 1
             }, {
                 text: Ngcp.csc.locales.common.from[localStorage.getItem('languageSelected')],
-                dataIndex: 'time_from',
+                dataIndex: 'time_from', // TODO: Add listener
                 xtype: 'widgetcolumn',
                 editable: false,
                 flex: 1,
@@ -28,12 +32,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
                     xtype: 'timefield',
                     tooltip: Ngcp.csc.locales.callforward.tooltips.change_time_from[localStorage.getItem('languageSelected')],
                     bind: {
-                        disabled: '{record.closed}'
+                        disabled: '{record.closed}',
+                        value: '{record.time_from}'
                     }
                 }
             }, {
                 text: Ngcp.csc.locales.common.to[localStorage.getItem('languageSelected')],
-                dataIndex: 'time_to',
+                dataIndex: 'time_to', // TODO: Add blur listener
                 xtype: 'widgetcolumn',
                 editable: false,
                 flex: 1,
@@ -41,7 +46,8 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
                     xtype: 'timefield',
                     tooltip: Ngcp.csc.locales.callforward.tooltips.change_time_to[localStorage.getItem('languageSelected')],
                     bind: {
-                        disabled: '{record.closed}'
+                        disabled: '{record.closed}',
+                        value: '{record.time_to}'
                     }
                 }
             }, {

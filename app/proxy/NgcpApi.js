@@ -44,6 +44,9 @@ Ext.define('NgcpCsc.proxy.NgcpApi', {
                 };
 
                 records = request._records;
+                if (me.api && me.api.update) {
+                    me.route = me.api.update;
+                };
                 url = Ext.String.format('{0}{1}/{2}', me.baseApiUrl, me.route, me.addSubscriber ? localStorage.getItem('subscriber_id') : records[0].get('id'));
                 break;
         }
