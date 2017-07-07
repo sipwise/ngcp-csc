@@ -50,7 +50,7 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
                     items: [{
                         xtype: 'panel',
                         margin: '10 0 10 0',
-                        html: 'You have not set your company hours calendar yet.', // TODO: Locales or icon, or both. Will wait for feedback from Andreas in next sync-up
+                        html: Ngcp.csc.locales.callforward.no_company_hours_set[localStorage.getItem('languageSelected')],
                         bind: {
                             hidden: '{companyHours_hideMessage}'
                         }
@@ -64,7 +64,7 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
                             width: 135,
                             margin: '10 0 10 585',
                             listeners: {
-                                click: 'saveGrid'
+                                click: 'saveTimesetGrid'
                             }
                         }
                     ]

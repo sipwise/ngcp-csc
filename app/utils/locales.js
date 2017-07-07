@@ -1036,6 +1036,20 @@ Ext.define('Ngcp.csc.locales', {
                 en: 'From ',
                 it: 'From '
             },
+            no_after_hours_set: {
+                de: 'You have not set your after hours calendar yet.',
+                fr: 'You have not set your after hours calendar yet.',
+                sp: 'You have not set your after hours calendar yet.',
+                en: 'You have not set your after hours calendar yet.',
+                it: 'You have not set your after hours calendar yet.'
+            },
+            no_company_hours_set: {
+                de: 'You have not set your company hours calendar yet.',
+                fr: 'You have not set your company hours calendar yet.',
+                sp: 'You have not set your company hours calendar yet.',
+                en: 'You have not set your company hours calendar yet.',
+                it: 'You have not set your company hours calendar yet.'
+            },
             tooltips: {
                 change_time_from: {
                     en: 'Change time from',
