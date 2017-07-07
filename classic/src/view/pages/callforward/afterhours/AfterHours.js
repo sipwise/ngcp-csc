@@ -5,8 +5,7 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
 
     ui: 'cf-mainform',
 
-    initComponent: function() {
-        var cfInitialStore = Ext.create('NgcpCsc.store.CallForward', {
+    initComponent: function() {var cfInitialStore = Ext.create('NgcpCsc.store.CallForward', {
             storeId: 'CallForwardAfterHours',
             _type: 'afterHours',
             autoLoad: true,
@@ -45,6 +44,7 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
                     },
                     userCls: 'big-33 small-100 cf-calls-during-section',
                     items: [{
+
                             xtype: 'panel',
                             margin: '10 0 10 0',
                             html: 'You have not set your after hours calendar yet.', // TODO: Locales or icon, or both. Will wait for feedback from Andreas in next sync-up
@@ -60,7 +60,7 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
                             width: 135,
                             margin: '10 0 10 623',
                             listeners: {
-                                click: 'saveGrid'
+                                click: 'saveTimesetGrid'
                             }
                         }
                     ]

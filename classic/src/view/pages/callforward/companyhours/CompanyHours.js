@@ -64,7 +64,7 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
                             width: 135,
                             margin: '10 0 10 585',
                             listeners: {
-                                click: 'saveGrid'
+                                click: 'saveTimesetGrid'
                             }
                         }
                     ]
