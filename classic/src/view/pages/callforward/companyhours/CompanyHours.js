@@ -6,7 +6,7 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
     ui: 'cf-mainform',
 
     initComponent: function() {
-        var cfInitialStore = Ext.create('NgcpCsc.store.CallForward',{
+        var cfInitialStore = Ext.create('NgcpCsc.store.CallForward', {
             storeId: 'CallForwardCompanyHours',
             _type: 'companyHours',
             autoLoad: true,
@@ -22,6 +22,9 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
 
         var callForwardCompanyGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
             id: 'cf-timeset-company-grid',
+            bind: {
+                hidden: '{!company_hours_exists_in_api}'
+            },
             store: Ext.create('NgcpCsc.store.CallForwardTimeset', {
                 storeId: 'companyHours-Timeset'
             })
@@ -48,13 +51,13 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
                     },
                     userCls: 'big-33 small-100 cf-calls-during-section',
                     items: [{
-                        xtype: 'panel',
-                        margin: '10 0 10 0',
-                        html: 'You have not set your company hours calendar yet.', // TODO: Locales or icon, or both. Will wait for feedback from Andreas in next sync-up
-                        bind: {
-                            hidden: '{companyHours_hideMessage}'
-                        }
-                    },
+                            xtype: 'panel',
+                            margin: '10 0 10 0',
+                            html: Ngcp.csc.locales.callforward.no_company_hours_set[localStorage.getItem('languageSelected')],
+                            bind: {
+                                hidden: '{company_hours_exists_in_api}'
+                            }
+                        },
                         callForwardCompanyGrid,
                         {
                             text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
@@ -64,7 +67,10 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
                             width: 135,
                             margin: '10 0 10 585',
                             listeners: {
-                                click: 'saveGrid'
+                                click: 'saveTimesetGrid'
+                            },
+                            bind: {
+                                hidden: '{!company_hours_exists_in_api}'
                             }
                         }
                     ]
@@ -72,12 +78,18 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
             }, {
                 xtype: 'panel',
                 width: '100%',
-                title: Ngcp.csc.locales.callforward.for_calling_parties[localStorage.getItem('languageSelected')]
+                title: Ngcp.csc.locales.callforward.for_calling_parties[localStorage.getItem('languageSelected')],
+                bind: {
+                    hidden: '{!company_hours_exists_in_api}'
+                }
             }, {
                 xtype: 'cftab',
                 _tabId: 'companyhours',
                 _firstPrefixes: ['everybody-', 'listA-', 'listB-'],
-                _secondprefix: 'companyHours-'
+                _secondprefix: 'companyHours-',
+                bind: {
+                    hidden: '{!company_hours_exists_in_api}'
+                }
             }]
         }];
         this.callParent();

@@ -20,7 +20,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
         var storeListA = Ext.getStore('CallForwardListA') || Ext.create('NgcpCsc.store.CallForwardSourceset', {
             storeId: 'CallForwardListA'
         });
-
         var storeListB = Ext.getStore('CallForwardListB') || Ext.create('NgcpCsc.store.CallForwardSourceset', {
             storeId: 'CallForwardListB'
         });
@@ -94,20 +93,24 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                     xtype: 'panel',
                     layout: 'hbox',
                     margin: '15 0 0 0',
-                    items: [{
-                        xtype: 'button',
-                        html: Ngcp.csc.locales.callforward.change_title[localStorage.getItem('languageSelected')],
-                        id: this._firstprefix + this._secondprefix + 'lista_titleField-showButton',
-                        margin: '0 0 0 500',
-                        handler: 'toggleChangeTitle'
-                    }, {
+                    items: [
+                        // NOTE: Commenting out this now, and will tackle it as part of #17651
+                        // {
+                        // xtype: 'button',
+                        // html: Ngcp.csc.locales.callforward.change_title[localStorage.getItem('languageSelected')],
+                        // id: this._firstprefix + this._secondprefix + 'lista_titleField-showButton',
+                        // margin: '0 0 0 500',
+                        // handler: 'toggleChangeTitle'
+                        // },
+                        {
                         xtype: 'button',
                         text: Ngcp.csc.locales.callforward.add_new_source[localStorage.getItem('languageSelected')],
                         id: this._firstprefix + this._secondprefix + 'addListAButton',
+                        margin: '0 0 0 620',
+                        // margin: '0 0 0 10',
                         width: 135,
-                        margin: '0 0 0 10',
                         listeners: {
-                            click: 'addEmptyRow'
+                            click: 'addEmptySourcesetRow'
                         }
                     }]
             }]
@@ -154,20 +157,24 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                     bind: {
                         hidden: '{list_b}'
                     },
-                    items: [{
-                        xtype: 'button',
-                        html: Ngcp.csc.locales.callforward.change_title[localStorage.getItem('languageSelected')],
-                        id: this._firstprefix + this._secondprefix + 'listb_titleField-showButton',
-                        margin: '0 0 0 500',
-                        handler: 'toggleChangeTitle'
-                    }, {
+                    items: [
+                        // NOTE: Commenting out this now, and will tackle it as part of #17651
+                        // {
+                        // xtype: 'button',
+                        // html: Ngcp.csc.locales.callforward.change_title[localStorage.getItem('languageSelected')],
+                        // id: this._firstprefix + this._secondprefix + 'listb_titleField-showButton',
+                        // margin: '0 0 0 500',
+                        // handler: 'toggleChangeTitle'
+                        // },
+                        {
                         xtype: 'button',
                         text: Ngcp.csc.locales.callforward.add_new_source[localStorage.getItem('languageSelected')],
                         id: this._firstprefix + this._secondprefix + 'addListBButton',
                         width: 135,
-                        margin: '0 0 0 10',
+                        margin: '0 0 0 620',
+                        // margin: '0 0 0 10',
                         listeners: {
-                            click: 'addEmptyRow'
+                            click: 'addEmptySourcesetRow'
                         }
                     }]
             }]
@@ -278,7 +285,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                         hidden: '{online_then_timeout_hidden}'
                     },
                     allowBlank: false,
-                    editable: false,
+                    editable: true,
                     flex: 4,
                     margin: '0 0 0 10'
                 }, {
@@ -384,7 +391,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                         hidden: '{busy_then_timeout_hidden}'
                     },
                     allowBlank: false,
-                    editable: false,
+                    editable: true,
                     flex: 4,
                     margin: '0 0 0 10'
                 }, {
@@ -490,7 +497,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                         hidden: '{offline_then_timeout_hidden}'
                     },
                     allowBlank: false,
-                    editable: false,
+                    editable: true,
                     flex: 4,
                     margin: '0 0 0 10'
                 }, {

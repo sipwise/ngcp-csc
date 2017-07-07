@@ -42,7 +42,6 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         var vm = this.getViewModel();
         var block_in_list = [],
             block_out_list = [],
-            data = [],
             storeType = store._type;
         delete options['destroy'];
         delete options['create'];
