@@ -20,7 +20,9 @@ Ext.define('NgcpCsc.store.CallForwardSourceset', {
             if (recs[0] && recs[0].data && recs[0].data._embedded) {
                 this.fireEvent('cfSourcesetStoreLoaded', this, recs[0].data._embedded['ngcp:cfsourcesets']);
             }
-
+        },
+        beforesync: function(options) {
+            this.fireEvent('cfSourcesetBeforeSync', this, options);
         }
     }
 
