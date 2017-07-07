@@ -11,19 +11,14 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
         clicksToEdit: 1
     },
 
+    listeners: {
+        edit: 'editingPhoneDone',
+        beforeedit: 'beforePhoneEdit'
+    },
+
     hideHeaders: true,
 
     width: '100%',
-
-    listeners: {
-        edit: 'editingPhoneDone',
-        beforeedit: 'beforePhoneEdit',
-        click: {
-            fn: 'saveGrid',
-            element: 'el',
-            delegate: 'a.edit-button'
-        }
-    },
 
     initComponent: function() {
         this.columns = {

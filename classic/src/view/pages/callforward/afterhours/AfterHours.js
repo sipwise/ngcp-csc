@@ -19,6 +19,9 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
 
         var callForwardAfterGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
             id: 'cf-timeset-after-grid',
+            bind: {
+                hidden: '{!after_hours_exists_in_api}'
+            },
             store: Ext.create('NgcpCsc.store.CallForwardTimeset', {
                 storeId: 'afterHours-Timeset'
             })
@@ -47,9 +50,9 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
                     items: [{
                             xtype: 'panel',
                             margin: '10 0 10 0',
-                            html: 'You have not set your after hours calendar yet.', // TODO: Locales or icon, or both. Will wait for feedback from Andreas in next sync-up
+                            html: Ngcp.csc.locales.callforward.no_after_hours_set[localStorage.getItem('languageSelected')],
                             bind: {
-                                hidden: '{afterHours_hideMessage}'
+                                hidden: '{after_hours_exists_in_api}'
                             }
                         },
                         callForwardAfterGrid, {
@@ -60,7 +63,10 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
                             width: 135,
                             margin: '10 0 10 623',
                             listeners: {
-                                click: 'saveGrid'
+                                click: 'saveTimesetGrid'
+                            },
+                            bind: {
+                                hidden: '{!after_hours_exists_in_api}'
                             }
                         }
                     ]
@@ -68,12 +74,18 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
             }, {
                 xtype: 'panel',
                 width: '100%',
-                title: Ngcp.csc.locales.callforward.for_calling_parties[localStorage.getItem('languageSelected')]
+                title: Ngcp.csc.locales.callforward.for_calling_parties[localStorage.getItem('languageSelected')],
+                bind: {
+                    hidden: '{!after_hours_exists_in_api}'
+                }
             }, {
                 xtype: 'cftab',
                 _tabId: 'afterhours',
                 _firstPrefixes: ['everybody-', 'listA-', 'listB-'],
-                _secondprefix: 'afterHours-'
+                _secondprefix: 'afterHours-',
+                bind: {
+                    hidden: '{!after_hours_exists_in_api}'
+                }
             }]
         }];
         this.callParent();

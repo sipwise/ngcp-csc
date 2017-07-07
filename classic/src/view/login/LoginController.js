@@ -50,6 +50,20 @@ Ext.define('NgcpCsc.view.login.LoginController', {
         }
     },
 
+    loadSubscriberDomain: function () {
+        Ext.Ajax.request({
+            url: window.location.origin + '/api/subscribers/' + localStorage.getItem('subscriber_id'),
+            success: function(response, opts) {
+                var decodedResponse = Ext.decode(response.responseText);
+                var domain = decodedResponse.domain;
+                localStorage.setItem('domain', domain);
+            },
+            failure: function(response, opts) {
+                console.log('server-side failure with status code ' + response.status);
+            }
+        });
+    },
+
     unsuccessLogin: function(response) {
         localStorage.removeItem('jwt');
         Ext.Msg.alert('Error', 'Username or Password not valid!');

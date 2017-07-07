@@ -13,6 +13,9 @@ Ext.define('NgcpCsc.model.CallForwardSourceset', {
     }, {
         name: 'source',
         type: 'auto'
+    }, {
+        name: 'edit',
+        type: 'boolean'
     }]
 
 });

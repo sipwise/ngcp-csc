@@ -1,6 +1,7 @@
 Ext.define('NgcpCsc.view.pages.callforward.CallForwardModel', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.callforward',
+
     // left inline as non-Api data
     data: {
         after_hours: true,
@@ -37,8 +38,10 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardModel', {
         source_listb_title: 'List B',
         hide_lista_titleField: true,
         hide_listb_titleField: true,
-        afterHours_hideMessage: false,
-        companyHours_hideMessage: false
+        list_a_exists_in_api: false,
+        list_b_exists_in_api: false,
+        after_hours_exists_in_api: false,
+        company_hours_exists_in_api: false
     },
 
     formulas: {
