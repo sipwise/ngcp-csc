@@ -26,9 +26,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
                 flex: 1,
                 widget: {
                     xtype: 'timefield',
+                    increment: 60,
+                    format: 'H:i',
                     tooltip: Ngcp.csc.locales.callforward.tooltips.change_time_from[localStorage.getItem('languageSelected')],
                     bind: {
-                        disabled: '{record.closed}'
+                        disabled: '{record.closed}',
+                        value: '{record.time_from}'
                     }
                 }
             }, {
@@ -39,9 +42,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
                 flex: 1,
                 widget: {
                     xtype: 'timefield',
+                    increment: 60,
+                    format: 'H:i',
                     tooltip: Ngcp.csc.locales.callforward.tooltips.change_time_to[localStorage.getItem('languageSelected')],
                     bind: {
-                        disabled: '{record.closed}'
+                        disabled: '{record.closed}',
+                        value: '{record.time_to}'
                     }
                 }
             }, {

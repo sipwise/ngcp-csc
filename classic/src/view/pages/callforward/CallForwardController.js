@@ -13,7 +13,8 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             '*': {
                 cfStoreLoaded: 'cfStoreLoaded',
                 cfTimesetStoreLoaded: 'cfTimesetStoreLoaded',
-                cfSourcesetStoreLoaded: 'cfSourcesetStoreLoaded'
+                cfSourcesetStoreLoaded: 'cfSourcesetStoreLoaded',
+                cfTimesetBeforeSync: 'cfTimesetBeforeSync'
             }
         }
     },
@@ -26,7 +27,8 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             var timesetName = timeset.name;
             var timesetId = timeset.id;
             if (timesetName == 'After Hours' || timesetName == 'Company Hours') {
-                var times = me.getModelValuesFromTimesData(timeset.times[0]);
+                //TODO: Currently only takes first object in array. Fix.
+                var times = me.getModelValuesFromTimesData(timeset.times[0]); // an array of weekday strings
                 Ext.each(times.days, function (weekday) {
                     var cbModel = Ext.create('NgcpCsc.model.CallForward', {
                         id: Ext.id(),
@@ -39,6 +41,16 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                                         // if we should keep this, or solve this
                                         // differently, or not at all
                     });
+                    // "times": [
+                    //   {
+                    //     "hour": "8-16",
+                    //     "mday": null,
+                    //     "minute": null,
+                    //     "month": null,
+                    //     "wday": "2-6",
+                    //     "year": null
+                    //   }
+                    // ]
                     arrayOfModels.push(cbModel);
                 });
             };
@@ -47,6 +59,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             me.populateTimesetStores(arrayOfModels);
         };
     },
+
     cfSourcesetStoreLoaded: function(store, data) {
         var me = this;
         var arrayOfModels = [];
@@ -649,8 +662,70 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
+    timesBasedOnRecords: function (store) {
+    // Started this, but then discovered the issue leading to creation
+    // of #18401. Leaving the code in place for upcoming task #18401
+    // DONE: Solve how to convert ExtJS default timevalues to hour only value
+    // for /api/cftimesets/ PATCH
+    // Ext.each(store.getRange(), function (record) {
+    //     var timeTo = record.get('time_to');
+    //     if (timeTo.length === undefined) {
+    //         console.log(Ext.Date.format(record.get('time_to'), 'G')); // Converts to 24-hour format of an hour without leading zeros
+    //     } else {
+    //         console.log(timeTo);
+    //     }
+    // });
+    var recordsToSend = [];
+        Ext.each(store.getRange(), function(record) {
+            var data = record.getData();
+            // TODO: First iteration - for each weekday, create a model to
+            // append to recordsToSend array. Might make sense to create a
+            // separate function that massages the data in recordsToSend array,
+            // and returns a merged set of hours and times to send in patch
+            // console.log(data.time_from);
+            // console.log(data.time_to);
+        });
+    return recordsToSend;
+    },
+
+    cfTimesetBeforeSync: function (store, options) {
+        // XXX: Currently cfTimesetStoreLoaded builds arrayOfModels() based on data
+        // from proxy, then invokes populateTimesetStores with the array as argument
+        // and adds models to correct store.
+        // XXX: To implement additional logic we need to:
+        // TODO: 1. Handle initial response from proxy fetch of /api/cftimesets/
+        //          data, also when times value array has several time objects
+        // TODO: 2. Handle saving of grid changes by binding timefield widgets
+        //          to store, and syncing upong pressing "SAVE" button
+        delete options['destroy'];
+        delete options['create'];
+        delete options['update'];
+        var timesetId = store.last().get('timeset_id');
+        var recordsToSend = this.timesBasedOnRecords(store);
+        // TODO: Example ajax request for #18401
+        // Ext.Ajax.request({
+        //     url: '/api/cftimesets/' + timesetId,
+        //     method: 'PATCH',
+        //     headers: { 'Content-Type': 'application/json-patch+json' },
+        //     jsonData: [{
+        //         "op": "add",
+        //         "path": "/times",
+        //         "value": recordsToSend
+        //     }],
+        //     success: function(response, opts) {
+        //         console.log('server-side success with status code ' + response.status);
+        //     },
+        //     failure: function(response, opts) {
+        //         console.log('server-side failure with status code ' + response.status);
+        //     }
+        // });
+        return false;
+    },
+
     saveGrid: function(el) {
-        this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
+        var storeName = el.id.split('-')[0] + '-Timeset';
+        var store = Ext.getStore(storeName);
+        store.sync();
     }
 
 });
