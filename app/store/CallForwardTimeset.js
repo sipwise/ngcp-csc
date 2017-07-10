@@ -19,7 +19,7 @@ Ext.define('NgcpCsc.store.CallForwardTimeset', {
 
     listeners: {
         load: function(store, recs) {
-            this.fireEvent('cfTimesetStoreLoaded', this, recs[0]);
+            this.fireEvent('cfTimesetStoreLoaded', this, recs[0].data._embedded['ngcp:cftimesets']);
         },
         beforesync: function(options) {
             this.fireEvent('cfTimesetBeforeSync', this, options);

@@ -41,6 +41,105 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         store.sync();
     },
 
+    parseTimesetApiToRecords: function (times) {
+        console.log(times);
+        var daysOfTheWeek = {
+            1: {day: 'Sunday', timeFrom: '', timeTo: ''},
+            2: {day: 'Monday', timeFrom: '', timeTo: ''},
+            3: {day: 'Tuesday', timeFrom: '', timeTo: ''},
+            4: {day: 'Wednesday', timeFrom: '', timeTo: ''},
+            5: {day: 'Thursday', timeFrom: '', timeTo: ''},
+            6: {day: 'Friday', timeFrom: '', timeTo: ''},
+            7: {day: 'Saturday', timeFrom: '', timeTo: ''}
+        };
+        // XXX: With the help of rfuchs, a better solution to handle the merging
+        // would be to have an array for each day, and sort from-to ranges based
+        // on from time, and merge them of the adjacent arrays have lower/higher
+        // values. Before adding the from-to ranges to the arrays, we need to
+        // split on midnight if they cross over, resulting in two from-to ranges
+        // to add instead of one. Example object with said day arrays:
+        // [ { day: "Sunday", times: [ [0-8], [10-17], [9-20] ] },
+        //   { day: "Monday", times: [ [8-16] ] },
+        //   { day: "Tuesday", times: [ [8-], [10-17], [9-20] ] } } ]
+        // NOTE: We have two issues we need to solve:
+        //       1. We can not account for all possible combination of ranges
+        //          with the current calendar table. We either need to a) display
+        //          more time from-to in same row, b) display several rows per
+        //          wday if needed, c) implement a full calendar view instead,
+        //          or d) only let the user see the the timeset name, but not
+        //          change it, and let the superuser change it in a card style
+        //          view with one card per time object (sort of like in
+        //          ngcp-panel)
+        //       2. Currently we're allowing the user to cross midnight when
+        //          altering times
+        Ext.each(times, function (time) {
+            // DONE: Create a range of days, e.g [2, 3, 4, 5]
+            var timesFromAndTo = time.hour !== null ? time.hour.split('-') : false;
+            var timeFrom = timesFromAndTo[0];
+            var timeTo = timesFromAndTo[1];
+            var daysFromAndTo = time.wday !== null ? time.wday.split('-') : false;
+            var daysRange = [];
+            if (!timesFromAndTo || !daysFromAndTo) return;
+            for (var i = daysFromAndTo[0]; i <= daysFromAndTo[1]; i++) {
+                daysRange.push(parseInt(i));
+            };
+            daysRange.forEach(function (dayNum) {
+                if (daysOfTheWeek[dayNum].timeFrom.length === 0) {
+                    daysOfTheWeek[dayNum].timeFrom = timeFrom;
+                    daysOfTheWeek[dayNum].timeTo = timeTo;
+                } else {
+
+                    // TODO: Merge days if day object already has values stored
+                    // for timeFrom and timeTo
+                    // NOTE: How do we handle the fact that timeFrom might be
+                    // larger than timeTo?? E.g. "hour": "16-8"... API allows
+                    // for value from 1-23 from timeFrom and timeTo.
+                    // Could we use an if statement to handle it separately?:
+                    // if (timeFrom > timeTo) {
+                    // // TODO: Figure out how to merge in this scenario
+                    // }
+                    // TODO: timeFrom and timeTo can also be same value. Assuming
+                    // such a rule will be ignore in system, unless minutes
+                    // are set. So will ignore those for now
+                }
+            });
+            console.log(daysOfTheWeek);
+        });
+        //
+        // TODO: Take this input...
+        // "times": [
+        //   {
+        //     "hour": "8-16",
+        //     "mday": null,
+        //     "minute": null,
+        //     "month": null,
+        //     "wday": "2-3",
+        //     "year": null
+        //   },
+        //   {
+        //     "hour": "10-18",
+        //     "mday": null,
+        //     "minute": null,
+        //     "month": null,
+        //     "wday": "3",
+        //     "year": null
+        //   }
+        // ]
+        // >>>>>> ... and return this output: >>>>>>
+        // [ { "timeFrom": "8", "timeTo": "16", "day": "Monday" },
+        //   { "timeFrom": "8", "timeTo": "16", "day": "Tuesday" },
+        //   { "timeFrom": "8", "timeTo": "18", "day": "Wednesday" }
+        // ]
+        // XXX Temp dummy data XXX
+        return [
+            { "timeFrom": "9", "timeTo": "16", "day": "Monday" },
+            { "timeFrom": "12", "timeTo": "16", "day": "Tuesday" },
+            { "timeFrom": "8", "timeTo": "18", "day": "Wednesday" },
+            { "timeFrom": "8", "timeTo": "11", "day": "Thursday" },
+            { "timeFrom": "8", "timeTo": "14", "day": "Friday" }
+        ];
+    },
+
     cfTimesetStoreLoaded: function(store, data) {
         var me = this;
         var arrayOfModels = [];
@@ -54,18 +153,20 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         Ext.each(timesets, function(timeset) {
             var timesetName = timeset.name;
             var timesetId = timeset.id;
-            me.setVmToTrue(timesetName);
-            if (/(After|Company)\s(Hours)/.test(timesetName)) {
-                var times = me.getModelValuesFromTimesData(timeset.times[0]);
-                Ext.each(times.days, function(weekday) {
-                    var cfModel = Ext.create('NgcpCsc.model.CallForwardDestination', {
+            if (timesetName == 'After Hours' || timesetName == 'Company Hours') {
+                // DONE: Currently only takes first object in array. Fix.
+                var times = me.parseTimesetApiToRecords(timeset.times);
+                Ext.each(times, function (time) {
+                    var cbModel = Ext.create('NgcpCsc.model.CallForward', {
                         id: Ext.id(),
                         timeset_name: timesetName,
                         timeset_id: timesetId,
-                        time_from: times.timeFrom,
-                        time_to: times.timeTo,
-                        day: weekday,
-                        closed: false
+                        time_from: time.timeFrom,
+                        time_to: time.timeTo,
+                        day: time.day,
+                        closed: false   // TODO: (For PUT/PATCH ticket) decide
+                                        // if we should keep this, or solve this
+                                        // differently, or not at all
                     });
                     arrayOfModels.push(cfModel);
                 });
@@ -518,7 +619,8 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
-    getModelValuesFromTimesData: function(timesData) {
+    // TODO: Remove when done with this task, but keep for reference for now
+    getModelValuesFromTimesData: function (timesData) {
         var times = {};
         var timesFromAndTo = timesData.hour !== null ? timesData.hour.split('-') : [null, null];
         var daysFromAndTo = timesData.wday !== null ? timesData.wday.split('-') : [null, null];
@@ -1275,7 +1377,72 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
-    saveTimesetGrid: function(el) {
+    parseRecordsToTimesetApi: function () {
+
+    },
+
+    recordsToSendBasedOnTimes: function (store) {
+        // Started this, but then discovered the issue leading to creation
+        // of #18401. Leaving the code in place for upcoming task #18401
+        // DONE: Solve how to convert ExtJS default timevalues to hour only value
+        // for /api/cftimesets/ PATCH
+        // Ext.each(store.getRange(), function (record) {
+        //     var timeTo = record.get('time_to');
+        //     if (timeTo.length === undefined) {
+        //         console.log(Ext.Date.format(record.get('time_to'), 'G')); // Converts to 24-hour format of an hour without leading zeros
+        //     } else {
+        //         console.log(timeTo);
+        //     }
+        // });
+        var recordsToSend = [];
+            Ext.each(store.getRange(), function(record) {
+                var data = record.getData();
+                // TODO: First iteration - for each weekday, create a model to
+                // append to recordsToSend array. Might make sense to create a
+                // separate function that massages the data in recordsToSend array,
+                // and returns a merged set of hours and times to send in patch
+                // console.log(data.time_from);
+                // console.log(data.time_to);
+            });
+        var mergedRecordsToSend = this.parseRecordsToTimesetApi(recordsToSend);
+        return mergedRecordsToSend;
+    },
+
+    cfTimesetBeforeSync: function (store, options) {
+        // XXX: Currently cfTimesetStoreLoaded builds arrayOfModels() based on data
+        // from proxy, then invokes populateTimesetStores with the array as argument
+        // and adds models to correct store.
+        // XXX: To implement additional logic we need to:
+        // TODO: 1. Handle initial response from proxy fetch of /api/cftimesets/
+        //          data, also when times value array has several time objects
+        // TODO: 2. Handle saving of grid changes by binding timefield widgets
+        //          to store, and syncing upong pressing "SAVE" button
+        delete options['destroy'];
+        delete options['create'];
+        delete options['update'];
+        var timesetId = store.last().get('timeset_id');
+        var recordsToSend = this.recordsToSendBasedOnTimes(store);
+        // TODO: Example ajax request for #18401
+        // Ext.Ajax.request({
+        //     url: '/api/cftimesets/' + timesetId,
+        //     method: 'PATCH',
+        //     headers: { 'Content-Type': 'application/json-patch+json' },
+        //     jsonData: [{
+        //         "op": "add",
+        //         "path": "/times",
+        //         "value": recordsToSend
+        //     }],
+        //     success: function(response, opts) {
+        //         console.log('server-side success with status code ' + response.status);
+        //     },
+        //     failure: function(response, opts) {
+        //         console.log('server-side failure with status code ' + response.status);
+        //     }
+        // });
+        return false;
+    },
+
+    saveGrid: function(el) {
         var storeName = el.id.split('-')[0] + '-Timeset';
         var store = Ext.getStore(storeName);
         store.sync();
