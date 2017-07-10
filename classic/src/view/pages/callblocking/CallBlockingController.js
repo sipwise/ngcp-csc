@@ -133,6 +133,10 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
         };
     },
 
+    addSuccessful: function () {
+        this.fireEvent('showmessage', true, Ngcp.csc.locales.common.add_success[localStorage.getItem('languageSelected')]);
+    },
+
     addToStore: function(newNumber, newId, store) {
         var me = this;
         var view = this.getView();
@@ -140,19 +144,18 @@ Ext.define('NgcpCsc.view.pages.callblocking.CallBlockingController', {
             "block_list": newNumber,
             "enabled": true
         });
+        var successState = false;
         store.add(cbModel);
         view.fireEvent('cardContainerResized', view);
         store.sync({
-            success: function() {
-                me.fireEvent('showmessage', true, Ngcp.csc.locales.common.add_success[localStorage.getItem('languageSelected')]);
-            },
-            failure: function() {
-                me.fireEvent('showmessage', false, Ngcp.csc.locales.common.save_unsuccess[localStorage.getItem('languageSelected')]);
-            },
             callback: function() {
                 store.commitChanges();
             }
         });
+        // Workaround, as calling addSuccessful() here solved the issue with
+        // notification box "moving towards the left for every new showmessages
+        // event", which happened only insidestore.sync() callbacks.
+        me.addSuccessful();
     },
 
     getCallBlockingStoreName: function(currentRoute) {
