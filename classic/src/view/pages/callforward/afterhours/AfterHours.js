@@ -6,7 +6,7 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
     ui: 'cf-mainform',
 
     initComponent: function() {
-        var cfInitialStore = Ext.create('NgcpCsc.store.CallForward', {
+        var cfInitialStore = Ext.create('NgcpCsc.store.CallForwardDestinations', {
             storeId: 'CallForwardAfterHours',
             _type: 'afterHours',
             autoLoad: true,
