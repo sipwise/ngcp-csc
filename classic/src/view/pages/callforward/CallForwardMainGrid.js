@@ -19,24 +19,30 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
         stripeRows: false,
         listeners: {
             drop: 'destinationDropped'
+        },
+        getRowClass: function(record, index) {
+            var afterCft = record.get('after_voicemail');
+            if (afterCft) {
+                return 'below-voicemail';
+            } else {
+                return 'above-voicemail';
+            }
         }
     },
 
-    // TODO: Leaving this for PUT/PATCH task, as it might make sense to use
-    // with unmask triggered in controller
-   //  listeners: {
-   //      render: function(grid) {
-   //         grid.body.mask('Loading...');
-   //         var store = grid.getStore();
-   //         Ext.defer(function() {
-   //             store.load;
-   //         }, 100);
-   //         Ext.defer(function() {
-   //             grid.body.unmask();
-   //         }, 600);
-   //      },
-   //      delay: 200
-   // },
+// TODO:
+//  2. Implement first ring in grid
+//      a. Implement column/layout for first ring in grid
+//      b. Implement logic for properly displaying cft/cfu in online grid
+//  3 Greying out of destinations below Voicemail/Conf/etc
+//    a. Implement renderer and handler for destinations that are non-number
+//       (Voicemail, Fax2Mail/Fax, Conference, Announcement, etc)
+//  4. Implement reordering of rows logic and writing/saving of changes
+//     b. Define new priority when drag and dropping destinations
+//     c. Need to handle cases where destination is not a number, i.e.:
+//        Voicemail, Fax2Mail/Fax, Conference, Announcement,
+//        Autoattendant (check docs for correct values and to verify
+//        destinations)
 
     plugins: {
         ptype: 'cellediting',
