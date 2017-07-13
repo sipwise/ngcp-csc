@@ -19,24 +19,36 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
         stripeRows: false,
         listeners: {
             drop: 'destinationDropped'
+        },
+        getRowClass: function(record, index) {
+            var afterCft = record.get('after_voicemail');
+            if (afterCft) {
+                return 'below-voicemail';
+            } else {
+                return 'above-voicemail';
+            }
         }
     },
 
-    // TODO: Leaving this for PUT/PATCH task, as it might make sense to use
-    // with unmask triggered in controller
-   //  listeners: {
-   //      render: function(grid) {
-   //         grid.body.mask('Loading...');
-   //         var store = grid.getStore();
-   //         Ext.defer(function() {
-   //             store.load;
-   //         }, 100);
-   //         Ext.defer(function() {
-   //             grid.body.unmask();
-   //         }, 600);
-   //      },
-   //      delay: 200
-   // },
+    // TODO: 2. Implement first ring in grid
+    // TODO:      a. Implement column/layout for first ring in grid
+    // TODO:      b. Implement logic for properly displaying cft/cfu in online grid
+    // TODO: 3. Greying out of destinations below Voicemail/Conf/etc
+    // TODO:    a. Implement renderer and handler for destinations that are non-number
+    //             (Voicemail, Fax2Mail/Fax, Conference, Announcement, etc)
+    // TODO: 4. Implement reordering of rows logic and writing/saving of changes
+    // DONE:    b. Define new priority when drag and dropping destinations
+    // TODO:    c. Need to handle cases where destination is not a number, i.e.:
+    //             Voicemail, Fax2Mail/Fax, Conference, Announcement,
+    //             Autoattendant (check docs for correct values and to verify
+    //             destinations)
+    // TODO: 3a and 4c together
+    // DONE: x. find out correct values to use for these when sending PATCH
+    // requests
+    // NOTE: Right now we're using destination_cleaned to send PATCH requests on
+    // API write. This does not work for destination types other than
+    // URI/Number. Rewrite to always send destination field instead, and make
+    // sure for adding new destinations to grids we're
 
     plugins: {
         ptype: 'cellediting',
