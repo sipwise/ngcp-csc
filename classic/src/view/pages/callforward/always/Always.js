@@ -8,7 +8,7 @@ Ext.define('NgcpCsc.view.pages.callforward.always.Always', {
     viewModel: 'callforward',
 
     initComponent: function() {
-        var cfInitialStore = Ext.create('NgcpCsc.store.CallForward',{
+        var cfInitialStore = Ext.create('NgcpCsc.store.CallForwardDestinations',{
             storeId: 'CallForwardAlways',
             _type: 'always',
             autoLoad: true,

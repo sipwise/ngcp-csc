@@ -19,24 +19,24 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
         stripeRows: false,
         listeners: {
             drop: 'destinationDropped'
+        },
+        getRowClass: function(record, index) {
+            var afterTermination = record.get('after_termination');
+            if (afterTermination) {
+                return 'below-termination';
+            } else {
+                return 'above-termination';
+            }
         }
     },
 
-    // TODO: Leaving this for PUT/PATCH task, as it might make sense to use
-    // with unmask triggered in controller
-   //  listeners: {
-   //      render: function(grid) {
-   //         grid.body.mask('Loading...');
-   //         var store = grid.getStore();
-   //         Ext.defer(function() {
-   //             store.load;
-   //         }, 100);
-   //         Ext.defer(function() {
-   //             grid.body.unmask();
-   //         }, 600);
-   //      },
-   //      delay: 200
-   // },
+    // TODO
+    // 11. Implement cft/cfu rules, and handle reordering of "own phone"
+    //     (maybe disable it by default in grid, or disable reorder/delete)
+    // 12. Depending on how rest of task goes: Create new task -> Consider
+    //     the fact that one destinationset can be in several grids, so if
+    //     you write one, update all other grids with that same
+    //     destinationset id
 
     plugins: {
         ptype: 'cellediting',
@@ -47,7 +47,10 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
         var me = this;
 
         me.columns = [{
-            dataIndex: 'destination_cleaned', // Renderer also uses ring_for value
+            dataIndex: 'label',
+            width: 125
+        }, {
+            dataIndex: 'destination_displayed', // Renderer also uses ring_for value
             width: 285,
             renderer: 'renderDestinationColumn'
         }, {
