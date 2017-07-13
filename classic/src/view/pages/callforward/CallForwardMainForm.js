@@ -37,17 +37,20 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             store: storeListB
         });
         var busyGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
-            store: Ext.create('NgcpCsc.store.CallForward', {
+            id: this._firstprefix + this._secondprefix + 'CallForwardBusy',
+            store: Ext.create('NgcpCsc.store.CallForwardDestinations', {
                 storeId: this._firstprefix + this._secondprefix + 'CallForwardBusy'
             })
         });
         var onlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
-            store: Ext.create('NgcpCsc.store.CallForward', {
+            id: this._firstprefix + this._secondprefix + 'CallForwardOnline',
+            store: Ext.create('NgcpCsc.store.CallForwardDestinations', {
                 storeId: this._firstprefix + this._secondprefix + 'CallForwardOnline'
             })
         });
         var offlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
-            store: Ext.create('NgcpCsc.store.CallForward', {
+            id: this._firstprefix + this._secondprefix + 'CallForwardOffline',
+            store: Ext.create('NgcpCsc.store.CallForwardDestinations', {
                 storeId: this._firstprefix + this._secondprefix + 'CallForwardOffline'
             })
         });
@@ -94,20 +97,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                     layout: 'hbox',
                     margin: '15 0 0 0',
                     items: [
-                        // NOTE: Commenting out this now, and will tackle it as part of #17651
-                        // {
-                        // xtype: 'button',
-                        // html: Ngcp.csc.locales.callforward.change_title[localStorage.getItem('languageSelected')],
-                        // id: this._firstprefix + this._secondprefix + 'lista_titleField-showButton',
-                        // margin: '0 0 0 500',
-                        // handler: 'toggleChangeTitle'
-                        // },
                         {
                         xtype: 'button',
                         text: Ngcp.csc.locales.callforward.add_new_source[localStorage.getItem('languageSelected')],
                         id: this._firstprefix + this._secondprefix + 'addListAButton',
                         margin: '0 0 0 620',
-                        // margin: '0 0 0 10',
                         width: 135,
                         listeners: {
                             click: 'addEmptySourcesetRow'
@@ -158,21 +152,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                         hidden: '{list_b}'
                     },
                     items: [
-                        // NOTE: Commenting out this now, and will tackle it as part of #17651
-                        // {
-                        // xtype: 'button',
-                        // html: Ngcp.csc.locales.callforward.change_title[localStorage.getItem('languageSelected')],
-                        // id: this._firstprefix + this._secondprefix + 'listb_titleField-showButton',
-                        // margin: '0 0 0 500',
-                        // handler: 'toggleChangeTitle'
-                        // },
                         {
                         xtype: 'button',
                         text: Ngcp.csc.locales.callforward.add_new_source[localStorage.getItem('languageSelected')],
                         id: this._firstprefix + this._secondprefix + 'addListBButton',
                         width: 135,
                         margin: '0 0 0 620',
-                        // margin: '0 0 0 10',
                         listeners: {
                             click: 'addEmptySourcesetRow'
                         }
@@ -183,59 +168,10 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 userCls: 'cf-text cf-subheader',
                 html: Ngcp.csc.locales.callforward.when_phone_online[localStorage.getItem('languageSelected')]
             }, {
-                xtype: 'panel',
-                layout: 'hbox',
-                id: this._firstprefix + this._secondprefix + 'onlineFirstRingFields',
-                padding: '0 11 0 0',
-                width: 500,
-                margin: '0 0 0 50',
-                items: [{
-                    xtype: 'combo',
-                    store: 'FirstRingActions',
-                    valueField: 'name',
-                    displayField: 'name',
-                    id: this._firstprefix + this._secondprefix + 'onlineFirstDest',
-                    fieldLabel: Ngcp.csc.locales.callforward.first_ring[localStorage.getItem('languageSelected')],
-                    value: 'Own phone',
-                    allowBlank: false,
-                    editable: false,
-                    listeners: {
-                        change: 'selectRing'
-                    },
-                    flex: 5
-                }, {
-                    xtype: 'numberfield',
-                    step: 10,
-                    minValue:0,
-                    maxValue: 300,
-                    value: '10',
-                    id: this._firstprefix + this._secondprefix + 'onlineFirstTimeout',
-                    allowBlank: false,
-                    editable: true,
-                    flex: 4,
-                    margin: '0 0 0 10',
-                    bind: {
-                        hidden: '{online_first_timeout_hidden}'
-                    },
-                    fieldLabel: Ngcp.csc.locales.callforward.and_ring_for[localStorage.getItem('languageSelected')]
-                }, {
-                    xtype: 'container',
-                    html: Ngcp.csc.locales.callforward.secs[localStorage.getItem('languageSelected')],
-                    padding: '7 0 0 20',
-                    flex: 1,
-                    bind: {
-                        hidden: '{online_first_timeout_hidden}'
-                    }
-                }]
-            }, {
                 xtype: 'container',
                 layout: 'hbox',
                 margin: '10 0 0 50',
-                items: [{
-                        xtype: 'container',
-                        html: Ngcp.csc.locales.callforward.then_forward_to[localStorage.getItem('languageSelected')],
-                        userCls: 'cf-thentext'
-                    },
+                items: [
                     onlineGrid
                 ]
             }, {
@@ -337,11 +273,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 xtype: 'container',
                 layout: 'hbox',
                 margin: '10 0 0 50',
-                items: [{
-                        xtype: 'container',
-                        html: Ngcp.csc.locales.callforward.forward_to[localStorage.getItem('languageSelected')],
-                        userCls: 'cf-thentext'
-                    },
+                items: [
                     busyGrid
                 ]
             }, {
@@ -443,11 +375,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                 xtype: 'container',
                 layout: 'hbox',
                 margin: '10 0 0 50',
-                items: [{
-                        xtype: 'container',
-                        html: Ngcp.csc.locales.callforward.forward_to[localStorage.getItem('languageSelected')],
-                        userCls: 'cf-thentext'
-                    },
+                items: [
                     offlineGrid
                 ]
             }, {

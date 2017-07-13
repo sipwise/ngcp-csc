@@ -14,29 +14,21 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             dragText: Ngcp.csc.locales.callforward.drag_text[localStorage.getItem('languageSelected')]
         },
         markDirty: false,
-        emptyText: Ngcp.csc.locales.callforward.nowhere[localStorage.getItem('languageSelected')],
+        emptyText: Ngcp.csc.locales.callforward.forward_to[localStorage.getItem('languageSelected')] + '<span style="padding-left: 40px;">' + Ngcp.csc.locales.callforward.nowhere[localStorage.getItem('languageSelected')] + '</span>',
         deferEmptyText: false,
         stripeRows: false,
         listeners: {
             drop: 'destinationDropped'
+        },
+        getRowClass: function(record, index) {
+            var afterTermination = record.get('after_termination');
+            if (afterTermination) {
+                return 'below-termination';
+            } else {
+                return 'above-termination';
+            }
         }
     },
-
-    // TODO: Leaving this for PUT/PATCH task, as it might make sense to use
-    // with unmask triggered in controller
-   //  listeners: {
-   //      render: function(grid) {
-   //         grid.body.mask('Loading...');
-   //         var store = grid.getStore();
-   //         Ext.defer(function() {
-   //             store.load;
-   //         }, 100);
-   //         Ext.defer(function() {
-   //             grid.body.unmask();
-   //         }, 600);
-   //      },
-   //      delay: 200
-   // },
 
     plugins: {
         ptype: 'cellediting',
@@ -47,7 +39,10 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
         var me = this;
 
         me.columns = [{
-            dataIndex: 'destination_cleaned', // Renderer also uses ring_for value
+            dataIndex: 'label',
+            width: 135
+        }, {
+            dataIndex: 'destination_displayed', // Renderer also uses ring_for value
             width: 285,
             renderer: 'renderDestinationColumn'
         }, {
