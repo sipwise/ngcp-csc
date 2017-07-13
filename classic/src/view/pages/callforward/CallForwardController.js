@@ -22,11 +22,17 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     destinationDropped: function (node, data, overModel, dropPosition, eOpts) {
-        // TODO: Leaving uncommented code here for upcoming task #17654
-        // var store = Ext.getStore('everybody-always-CallForwardBusy');
-        // Ext.each(store.getRange(), function(record) {
-            // console.log(record.get('destination_cleaned'));
-        // })
+        // TODO 3. Implement reordering of rows logic + saving of changes
+        // TODO a. For dragging upwards ('before'), if index+1 is different
+        // destinationset_id, give it same dest id and name as index+1.
+        // TODO b. For dragging downwards ('after'), if index-1 is different
+        // destinationset_id, give it same dest id and name as index-1.
+        // TODO c. Factor in any change in priority needed, if
+        console.log(dropPosition);
+        var store = Ext.getStore('everybody-always-CallForwardOnline');
+        Ext.each(store.getRange(), function(record) {
+            console.log(record.get('destination_cleaned'));
+        })
     },
 
     cfTimesetStoreLoaded: function(store, data) {
@@ -465,12 +471,36 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
+    unmaskDestinationGrids: function (moduleName) {
+        var gridNames = [
+            'everybody-' + moduleName + 'CallForwardBusy',
+            'everybody-' + moduleName + 'CallForwardOnline',
+            'everybody-' + moduleName + 'CallForwardOffline',
+            'listA-' + moduleName + 'CallForwardBusy',
+            'listA-' + moduleName + 'CallForwardOnline',
+            'listA-' + moduleName + 'CallForwardOffline',
+            'listB-' + moduleName + 'CallForwardBusy',
+            'listB-' + moduleName + 'CallForwardOnline',
+            'listB-' + moduleName + 'CallForwardOffline'
+        ];
+        // XXX: Cvenusino: This works, but for "List A" and "List B" tabs it
+        // is not unmasked until you click tab, click away, and click tabs
+        // again. Tried refresh() and updateLayout(), but didn't help.
+        // unmaskDestinationGrids() is invoked both from onTabClicked() and
+        // cfStoreLoaded()
+        gridNames.map(function(gridName) {
+            var grid = Ext.getCmp(gridName);
+            if (grid.body) {
+                grid.body.unmask();
+                // grid.updateLayout();
+                // grid.getView().refresh();
+            }
+        });
+    },
+
     populateDestinationStores: function (models) {
         var me = this;
-        var gridName = this.getGridCategoryFromType(models[0].get('type'));
         var store;
-        // TODO: #17654 New grid logic and styling with conditions for cft/cfu,
-        // and remove first ring section
         Ext.each(models, function (model) {
             var sourcename = me.getSourceNameFromSourceSet(model.get('sourceset'));
             var timename = me.getTimeNameFromTimeSet(model.get('timeset'));
@@ -480,6 +510,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             if (store) {
                 store.add(model);
             }
+            me.unmaskDestinationGrids(timename);
         });
         if (store) {
             store.commitChanges();
@@ -740,6 +771,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var currentTimeset = currentRoute.split('/')[1];
         var currentSourceset = cmp.id.split('-')[2];
         var storesArray = this.getStoresArrayFromRoute(currentRoute, currentSourceset);
+        this.unmaskDestinationGrids(currentTimeset + '-');
         if (currentSourceset === 'everybody') {
             vm.set('list_b', true);
             vm.set('list_a', true);
@@ -975,7 +1007,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                         destination: 'sip:' + destination + '@' + newDomain,
                         // Keeping priority 1 as default for now, as we'll handle priotity
                         // with grid "drag-and-drop" widget plugin in upcoming task
-                        priority: 1,
+                        priority: 1, // Will default to 1 if store empty
                         simple_destination: destination,
                         ring_for: ringFor,
                         sourceset: newSourceset,
@@ -1001,7 +1033,8 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                 destination_cleaned: destinationCleaned,
                 destination_announcement_id: null,
                 destination: 'sip:' + destination + '@' + newDomain,
-                priority: 1,
+                // Priority can be max 999999999, so will increment by one
+                priority: lastRecordInStore.priority + 1,
                 simple_destination: destination,
                 ring_for: ringFor,
                 sourceset: lastRecordInStore.get('sourceset'),
