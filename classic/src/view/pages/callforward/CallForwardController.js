@@ -22,10 +22,15 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     destinationDropped: function (node, data, overModel, dropPosition, eOpts) {
-        // TODO: Leaving uncommented code here for upcoming task #17654
-        // var store = Ext.getStore('everybody-always-CallForwardBusy');
+        // TODO 3. Implement reordering of rows logic + saving of changes
+        // TODO a. For dragging upwards ('before'), if index+1 is different
+        // destinationset_id, give it same dest id and name as index+1.
+        // TODO b. For dragging downwards ('after'), if index-1 is different
+        // destinationset_id, give it same dest id and name as index-1.
+        // TODO c. Factor in any change in priority needed...
+        var store = Ext.getStore('everybody-always-CallForwardOnline');
         // Ext.each(store.getRange(), function(record) {
-            // console.log(record.get('destination_cleaned'));
+        //     console.log(record.get('destination_cleaned'));
         // })
     },
 
@@ -125,6 +130,25 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
+    sortDestinationsetByPriority: function (destinations) {
+        // console.log('destinations inside', destinations);
+        debugger
+        var prioArray = destinations.map(function(destination) {
+            return destination.priority;
+        }).sort();
+        // TODO Fix
+        do {
+            var destination = destinations.shift();
+            prioArray.map(function(prio, index) {
+                if (prio === destination.priority) {
+                  prioArray[index] = destination;
+                }
+            })
+        } while (destinations.length > 0);
+
+        return prioArray;
+    },
+
     cfStoreLoaded: function(store, data) {
         var me = this;
         var cfTypeArrayOfObjects = [data.get('cfu'), data.get('cft'), data.get('cfb'), data.get('cfna')];
@@ -140,12 +164,18 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         Ext.Ajax.request({
             url: '/api/cfdestinationsets/?subscriber_id=' + localStorage.getItem('subscriber_id'),
             success: function(response, opts) {
+                // console.log('Ext.decode(response.responseText)', Ext.decode(response.responseText));
                 var decodedResponse = Ext.decode(response.responseText);
                 if (decodedResponse._embedded) {
                     var destinationsets = decodedResponse._embedded['ngcp:cfdestinationsets'];
+                    // console.log('destinationsets before', destinationsets);
+                    destinationsets[0].destinations = me.sortDestinationsetByPriority(destinationsets[0].destinations);
+                    // console.log('destinationsets[0].destinations after', destinationsets[0].destinations);
                     me.getView()._preventReLoad = true; // assumes there is no need to reload the store
                     Ext.each(cfTypeArrayOfObjects, function (cfTypeObjects, index) {
                         var cfType = cfTypes[index];
+                        // TODO: Massage destinationsets[0].destinations one more time, to add first ring if needed, and set
+                        // after_cft value depending on order. Use cfType as parameter
                         Ext.each(cfTypeObjects, function(cfTypeObject) {
                             var destinationsetName = cfTypeObject.destinationset;
                             var sourcesetName = cfTypeObject.sourceset;
@@ -165,6 +195,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                                             var cbModel = Ext.create('NgcpCsc.model.CallForward', {
                                                 type: cfType,
                                                 destination_cleaned: destinationToUse,
+                                                after_cft: false,
                                                 destination_announcement_id: destinationAnnouncementId,
                                                 destination: destination,
                                                 priority: priority,
@@ -467,10 +498,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
 
     populateDestinationStores: function (models) {
         var me = this;
-        var gridName = this.getGridCategoryFromType(models[0].get('type'));
         var store;
-        // TODO: #17654 New grid logic and styling with conditions for cft/cfu,
-        // and remove first ring section
         Ext.each(models, function (model) {
             var sourcename = me.getSourceNameFromSourceSet(model.get('sourceset'));
             var timename = me.getTimeNameFromTimeSet(model.get('timeset'));
@@ -961,7 +989,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             Ext.Ajax.request({
                 url: '/api/cfdestinationsets/',
                 method: 'POST',
-                defaultHeaders: 'Prefer: return=representation',
                 jsonData: {
                     name: newDestinationsetName,
                     subscriber_id: subscriberId
@@ -971,11 +998,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     var cfModel = Ext.create('NgcpCsc.model.CallForward', {
                         type: newType,
                         destination_cleaned: destinationCleaned,
+                        after_cft: false,
                         destination_announcement_id: null,
                         destination: 'sip:' + destination + '@' + newDomain,
                         // Keeping priority 1 as default for now, as we'll handle priotity
                         // with grid "drag-and-drop" widget plugin in upcoming task
-                        priority: 1,
+                        priority: 1, // Will default to 1 if store empty
                         simple_destination: destination,
                         ring_for: ringFor,
                         sourceset: newSourceset,
@@ -999,8 +1027,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             var cfModel = Ext.create('NgcpCsc.model.CallForward', {
                 type: lastRecordInStore.get('type'),
                 destination_cleaned: destinationCleaned,
+                after_cft: false,
                 destination_announcement_id: null,
                 destination: 'sip:' + destination + '@' + newDomain,
+                // Priority can be max 999999999, so will increment by one
+                // priority: lastRecordInStore.priority + 1,
                 priority: 1,
                 simple_destination: destination,
                 ring_for: ringFor,
