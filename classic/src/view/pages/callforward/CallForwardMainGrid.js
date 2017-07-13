@@ -22,21 +22,30 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
         }
     },
 
-    // TODO: Leaving this for PUT/PATCH task, as it might make sense to use
-    // with unmask triggered in controller
-   //  listeners: {
-   //      render: function(grid) {
-   //         grid.body.mask('Loading...');
-   //         var store = grid.getStore();
-   //         Ext.defer(function() {
-   //             store.load;
-   //         }, 100);
-   //         Ext.defer(function() {
-   //             grid.body.unmask();
-   //         }, 600);
-   //      },
-   //      delay: 200
-   // },
+    // TODO 1. Sort after priority
+    // DONE    a. Implement priority logic in addNewDestination()
+    // TODO    b. Sorting models array by priority before
+    //            populateDestinationStores()
+    // TODO 2. Implement reordering of rows logic and writing/saving of changes
+    // TODO 3. Implement first ring in grid
+    // TODO     a. Implement column/layout/controller for first ring in grid
+    // TODO     b. Implement logic for properly displaying cft/cfu in online grid
+    // TODO 4. Need to grey out the rows below Voicemail/Conf/etc
+    // TODO 5. Investigate if coloring based on destinationset grouping can be
+    //         implemented in a smart and quick way
+    // TODO 6. Loading animation for destination grids
+    // DONE a. Implement proper load mask, and unmask in controller
+    // TODO b. Fix "List A" and "List B" onTabClicked unmask bug
+    listeners: {
+        render: function(grid) {
+           grid.body.mask('Loading...');
+           var store = grid.getStore();
+           Ext.defer(function() {
+               store.load;
+           }, 100);
+        },
+        delay: 200
+   },
 
     plugins: {
         ptype: 'cellediting',
