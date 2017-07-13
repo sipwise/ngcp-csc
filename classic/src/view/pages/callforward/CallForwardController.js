@@ -21,12 +21,19 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         }
     },
 
-    destinationDropped: function (node, data, overModel, dropPosition, eOpts) {
-        // TODO: Leaving uncommented code here for upcoming task #17654
-        // var store = Ext.getStore('everybody-always-CallForwardBusy');
-        // Ext.each(store.getRange(), function(record) {
-            // console.log(record.get('destination_cleaned'));
-        // })
+    destinationDropped: function(node, data, overModel, dropPosition, eOpts) {
+        // TODO 4b. Implement reordering of rows logic + saving of changes
+        //          - For dragging upwards ('before'), if index+1 is different
+        // destinationset_id, give it same dest id and name as index+1.
+        //          - For dragging downwards ('after'), if index-1 is different
+        // destinationset_id, give it same dest id and name as index-1.
+        //          - Factor in any change in priority needed...
+        var dropRec = data.records[0];
+        var store = overModel.store;
+        store.each(function(rec, index){
+            rec.set('priority', index + 1 );
+        });
+        store.sync();
     },
 
     cfTimesetStoreLoaded: function(store, data) {
@@ -125,6 +132,32 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
+    sortDestinationsetByPriority: function (destinations) {
+        var sorted = destinations.sort(function(a, b) {
+            return parseFloat(a.priority) - parseFloat(b.priority);
+        });
+        return sorted;
+    },
+
+    addCftOwnPhone: function (destinations) {
+        // NOTE about cft presedence
+        // Cfu always has precedence. If any other cftype exists, they are
+        // ignored if a mapping with cfu is also present
+        // if no cfu or cft, show "first ring own phone" only
+        // if no cfu, but cft, show "first ring own phone first" and then rest
+        // if cfu and cft, only show cfu
+        if (destinations.length > 0) {
+            destinations.unshift({
+                "announcement_id": null,
+                "destination": "own phone",
+                "priority": 1,
+                "simple_destination": "own phone",
+                "timeout": 10   // TODO Ask Andrew about correct timeout for cft
+                                // "call own phone first" timeout
+              })
+      }
+    },
+
     cfStoreLoaded: function(store, data) {
         var me = this;
         var cfTypeArrayOfObjects = [data.get('cfu'), data.get('cft'), data.get('cfb'), data.get('cfna')];
@@ -143,9 +176,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                 var decodedResponse = Ext.decode(response.responseText);
                 if (decodedResponse._embedded) {
                     var destinationsets = decodedResponse._embedded['ngcp:cfdestinationsets'];
+                    destinationsets[0].destinations = me.sortDestinationsetByPriority(destinationsets[0].destinations);
                     me.getView()._preventReLoad = true; // assumes there is no need to reload the store
                     Ext.each(cfTypeArrayOfObjects, function (cfTypeObjects, index) {
                         var cfType = cfTypes[index];
+                        cfType !== 'cft' && me.addCftOwnPhone(destinationsets[0].destinations); // if 'cft' we invoke addCftOwnPhone()
                         Ext.each(cfTypeObjects, function(cfTypeObject) {
                             var destinationsetName = cfTypeObject.destinationset;
                             var sourcesetName = cfTypeObject.sourceset;
@@ -161,10 +196,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                                             var simpleDestination = destinationset.destinations[item].simple_destination;
                                             var destinationId = destinationset.id;
                                             var destinationName = destinationset.name;
-                                            var ringFor = destinationToUse == 'Voicemail' ? '' : destinationset.destinations[item].timeout;
+                                            // Removes timeout if destination is not a number
+                                            var ringFor = !Ext.isNumber(parseInt(destinationToUse)) ? '' : destinationset.destinations[item].timeout;
                                             var cbModel = Ext.create('NgcpCsc.model.CallForward', {
                                                 type: cfType,
                                                 destination_cleaned: destinationToUse,
+                                                after_voicemail: false,
                                                 destination_announcement_id: destinationAnnouncementId,
                                                 destination: destination,
                                                 priority: priority,
@@ -183,6 +220,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                         });
                     });
                     if (arrayOfModels.length > 0) {
+                        console.log(arrayOfModels);
                         me.populateDestinationStores(arrayOfModels);
                     };
                 };
@@ -211,6 +249,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         Ext.each(store.getRange(), function(record) {
             var data = record.getData();
             switch (recordsToSend.length === 0 || !me.destinationIdExistsInArray(recordsToSend, data.destinationset_id)) {
+                // TODO: Ensure we don't push records with destination_cleaned: "own phone" or similar
                 case true:
                     recordsToSend.push({id: data.destinationset_id, records: [{ "announcement_id": null, "destination": data.simple_destination, "priority": data.priority, "timeout": data.ring_for }]});
                     break;
@@ -317,10 +356,25 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
 
     getDestinationFromSipId: function (destination) {
         var splitDestination = destination.split(/(:|@)/);
-        if (splitDestination[4] == 'voicebox.local') {
-            return 'Voicemail';
-        } else {
-            return splitDestination[2];
+        switch (splitDestination[4]) {
+            case 'voicebox.local':
+                return 'Voicemail';
+                break;
+            case 'conference.local':
+                return 'Conference';
+                break;
+            case 'fax2mail.local':
+                return 'Fax2Mail';
+                break;
+            default:
+            // This returns "cleaned" destination URI/Number types, as well as
+            // for app.local types (voicebox, conference, fax2mail, callingcard,
+            // callthrough, autoattendant, officehours, customhours, localuser)
+            if (!Ext.isNumber(parseInt(splitDestination[2][0]))) {
+                return Ext.util.Format.capitalize(splitDestination[2]);
+            } else {
+                return splitDestination[2];
+            }
         }
     },
 
@@ -465,12 +519,25 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
+    toggleAfterTermination: function (store) {
+        var voicemailRecord = store.findRecord('destination_cleaned', /(Voicemail|Fax2Mail|Conference|Custom-hours|Office-hours|Auto-attendant|Callthrough|Callingcard)/);
+        var storeCount = store.getCount();
+        if (voicemailRecord.get('destination_cleaned')) {
+            var voicemailIndex = store.indexOf(voicemailRecord);
+            var indexRange = [];
+            for (i = voicemailIndex+1; i < storeCount; i++) {
+                indexRange.push(i);
+            };
+            indexRange.map(function (index) {
+                store.getAt(index).set('after_voicemail', true);
+            });
+        };
+    },
+
     populateDestinationStores: function (models) {
         var me = this;
-        var gridName = this.getGridCategoryFromType(models[0].get('type'));
         var store;
-        // TODO: #17654 New grid logic and styling with conditions for cft/cfu,
-        // and remove first ring section
+        var stores = [];
         Ext.each(models, function (model) {
             var sourcename = me.getSourceNameFromSourceSet(model.get('sourceset'));
             var timename = me.getTimeNameFromTimeSet(model.get('timeset'));
@@ -479,10 +546,14 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             store = Ext.getStore(storeName);
             if (store) {
                 store.add(model);
+                stores.push(store);
             }
         });
         if (store) {
-            store.commitChanges();
+            Ext.each(stores, function (store) {
+                me.toggleAfterTermination(store);
+                store.commitChanges();
+            })
         }
     },
 
@@ -781,6 +852,8 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     renderDestinationColumn: function(value, metaData, record) {
         if (record.get('ring_for') === '' && !Ext.isNumber(parseInt(value))) {
             return Ext.String.format('{0}', value);
+        } else if (record.get('destination') === 'own phone') {
+            return Ext.String.format('own phone and ring for {0} secs', record.get('ring_for'));
         } else if (Ext.isNumber(parseInt(value))) {
             return Ext.String.format('+{0} and ring for {1} secs', value, record.get('ring_for'));
         } else {
@@ -937,12 +1010,15 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     writeNewDestinationToStore: function (store, destination, timeout) {
+        // TODO: Need to handle cases where destination is not a number, i.e.:
+        // Voicemail, Fax2Mail/Fax, Conference, Announcement, Auto (check docs)
         var me = this;
         var vm = this.getViewModel();
         var simpleDestination = destination;
         var priority = 1;
         var storeCount = store.getCount();
-        var ringFor = destination == 'Voicemail' ? '' : timeout;
+        // Removes timeout if destination is not a number
+        var ringFor = !Ext.isNumber(parseInt(destination)) ? '' : timeout;
         var destinationCleaned = destination;
         var storeIdSplit = store.storeId.split('-');
         var newSourcesetName = storeIdSplit[0] == 'everybody' ? null : storeIdSplit[0];
@@ -961,7 +1037,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             Ext.Ajax.request({
                 url: '/api/cfdestinationsets/',
                 method: 'POST',
-                defaultHeaders: 'Prefer: return=representation',
                 jsonData: {
                     name: newDestinationsetName,
                     subscriber_id: subscriberId
@@ -971,11 +1046,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     var cfModel = Ext.create('NgcpCsc.model.CallForward', {
                         type: newType,
                         destination_cleaned: destinationCleaned,
+                        after_voicemail: false,
                         destination_announcement_id: null,
                         destination: 'sip:' + destination + '@' + newDomain,
                         // Keeping priority 1 as default for now, as we'll handle priotity
                         // with grid "drag-and-drop" widget plugin in upcoming task
-                        priority: 1,
+                        priority: 1, // Will default to 1 if store empty
                         simple_destination: destination,
                         ring_for: ringFor,
                         sourceset: newSourceset,
@@ -999,9 +1075,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             var cfModel = Ext.create('NgcpCsc.model.CallForward', {
                 type: lastRecordInStore.get('type'),
                 destination_cleaned: destinationCleaned,
+                after_voicemail: false,
                 destination_announcement_id: null,
                 destination: 'sip:' + destination + '@' + newDomain,
-                priority: 1,
+                // Priority can be max 999999999, so will increment by one
+                priority: lastRecordInStore.priority,
                 simple_destination: destination,
                 ring_for: ringFor,
                 sourceset: lastRecordInStore.get('sourceset'),
