@@ -22,21 +22,24 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
         }
     },
 
-    // TODO: Leaving this for PUT/PATCH task, as it might make sense to use
-    // with unmask triggered in controller
-   //  listeners: {
-   //      render: function(grid) {
-   //         grid.body.mask('Loading...');
-   //         var store = grid.getStore();
-   //         Ext.defer(function() {
-   //             store.load;
-   //         }, 100);
-   //         Ext.defer(function() {
-   //             grid.body.unmask();
-   //         }, 600);
-   //      },
-   //      delay: 200
-   // },
+    // TODO 1.  Plan out the task properly, in enough detail to be sure you
+    //         aren't blocked in any way
+    // TODO 2.  Implement first ring in grid
+    // TODO     a. Implement column/layout/controller for first ring in grid
+    // TODO     b. Implement logic for propely displaying cft/cfu in online grid
+    // TODO 3.  Implement reordering of rows logic and writing/saving of changes
+    // DONE 4a. Implement proper load mask, and unmask in controller
+    // TODO 4b. Fix "List A" and "List B" onTabClicked unmask bug
+    listeners: {
+        render: function(grid) {
+           grid.body.mask('Loading...');
+           var store = grid.getStore();
+           Ext.defer(function() {
+               store.load;
+           }, 100);
+        },
+        delay: 200
+   },
 
     plugins: {
         ptype: 'cellediting',
