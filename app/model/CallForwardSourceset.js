@@ -5,14 +5,11 @@ Ext.define('NgcpCsc.model.CallForwardSourceset', {
         name: 'id',
         type: 'string'
     }, {
-        name: 'sourceset_name',
-        type: 'auto'
+        name: 'sourceset_name'
     }, {
-        name: 'sourceset_id',
-        type: 'auto'
+        name: 'sourceset_id'
     }, {
-        name: 'source',
-        type: 'auto'
+        name: 'source'
     }, {
         name: 'edit',
         type: 'boolean'

@@ -1,9 +1,9 @@
-Ext.define('NgcpCsc.store.CallForward', {
+Ext.define('NgcpCsc.store.CallForwardDestinations', {
     extend: 'Ext.data.Store',
 
-    storeId: 'CallForward',
+    storeId: 'CallForwardDestinations',
 
-    model: 'NgcpCsc.model.CallForward',
+    model: 'NgcpCsc.model.CallForwardDestination',
 
     proxy: {
         type: 'ngcp-api',
@@ -17,6 +17,7 @@ Ext.define('NgcpCsc.store.CallForward', {
 
     listeners: {
         beforesync: function(options) {
+            console.log('listener fired');
             this.fireEvent('cfStoreBeforeSync', this, options);
         }
     }
