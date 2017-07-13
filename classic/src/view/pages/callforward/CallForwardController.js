@@ -22,10 +22,15 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     destinationDropped: function (node, data, overModel, dropPosition, eOpts) {
-        // TODO: Leaving uncommented code here for upcoming task #17654
-        // var store = Ext.getStore('everybody-always-CallForwardBusy');
+        // TODO 3. Implement reordering of rows logic + saving of changes
+        // TODO a. For dragging upwards ('before'), if index+1 is different
+        // destinationset_id, give it same dest id and name as index+1.
+        // TODO b. For dragging downwards ('after'), if index-1 is different
+        // destinationset_id, give it same dest id and name as index-1.
+        // TODO c. Factor in any change in priority needed...
+        var store = Ext.getStore('everybody-always-CallForwardOnline');
         // Ext.each(store.getRange(), function(record) {
-            // console.log(record.get('destination_cleaned'));
+        //     console.log(record.get('destination_cleaned'));
         // })
     },
 
@@ -125,6 +130,23 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
+    sortDestinatonsetByPriority: function (destinations) {
+        var prioArray = destinations.map(function(destination) {
+            return destination.priority;
+        }).sort();
+
+        do {
+            var destination = destinations.shift();
+            prioArray.map(function(prio, index) {
+                if (prio === destination.priority) {
+                  prioArray[index] = destination;
+                }
+            })
+        } while (destinations.length > 0);
+
+        return prioArray;
+    },
+
     cfStoreLoaded: function(store, data) {
         var me = this;
         var cfTypeArrayOfObjects = [data.get('cfu'), data.get('cft'), data.get('cfb'), data.get('cfna')];
@@ -143,6 +165,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                 var decodedResponse = Ext.decode(response.responseText);
                 if (decodedResponse._embedded) {
                     var destinationsets = decodedResponse._embedded['ngcp:cfdestinationsets'];
+                    destinationsets[0].destinations = me.sortDestinatonsetByPriority(destinationsets[0].destinations);
                     me.getView()._preventReLoad = true; // assumes there is no need to reload the store
                     Ext.each(cfTypeArrayOfObjects, function (cfTypeObjects, index) {
                         var cfType = cfTypes[index];
@@ -467,10 +490,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
 
     populateDestinationStores: function (models) {
         var me = this;
-        var gridName = this.getGridCategoryFromType(models[0].get('type'));
         var store;
-        // TODO: #17654 New grid logic and styling with conditions for cft/cfu,
-        // and remove first ring section
         Ext.each(models, function (model) {
             var sourcename = me.getSourceNameFromSourceSet(model.get('sourceset'));
             var timename = me.getTimeNameFromTimeSet(model.get('timeset'));
@@ -975,7 +995,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                         destination: 'sip:' + destination + '@' + newDomain,
                         // Keeping priority 1 as default for now, as we'll handle priotity
                         // with grid "drag-and-drop" widget plugin in upcoming task
-                        priority: 1,
+                        priority: 1, // Will default to 1 if store empty
                         simple_destination: destination,
                         ring_for: ringFor,
                         sourceset: newSourceset,
@@ -1001,7 +1021,8 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                 destination_cleaned: destinationCleaned,
                 destination_announcement_id: null,
                 destination: 'sip:' + destination + '@' + newDomain,
-                priority: 1,
+                // Priority can be max 999999999, so will increment by one
+                priority: lastRecordInStore.priority + 1,
                 simple_destination: destination,
                 ring_for: ringFor,
                 sourceset: lastRecordInStore.get('sourceset'),
