@@ -19,24 +19,26 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
         stripeRows: false,
         listeners: {
             drop: 'destinationDropped'
+        },
+        getRowClass: function(record, index) {
+            var afterCft = record.get('after_voicemail');
+            if (afterCft) {
+                return 'below-voicemail';
+            } else {
+                return 'above-voicemail';
+            }
         }
     },
 
-    // TODO: Leaving this for PUT/PATCH task, as it might make sense to use
-    // with unmask triggered in controller
-   //  listeners: {
-   //      render: function(grid) {
-   //         grid.body.mask('Loading...');
-   //         var store = grid.getStore();
-   //         Ext.defer(function() {
-   //             store.load;
-   //         }, 100);
-   //         Ext.defer(function() {
-   //             grid.body.unmask();
-   //         }, 600);
-   //      },
-   //      delay: 200
-   // },
+    // TODO 2. Implement reordering of rows logic and writing/saving of changes
+    // TODO    a. Define right priority when adding new destinations
+    // TODO    b. Define new priority when drag and dropping destinations
+    // TODO 3. Implement first ring in grid
+    // TODO     a. Implement column/layout/controller for first ring in grid
+    // TODO     b. Implement logic for properly displaying cft/cfu in online grid
+    // TODO 4. Need to grey out the rows below Voicemail/Conf/etc
+    // TODO 5. Investigate if coloring based on destinationset grouping can be
+    //         implemented in a smart and quick way
 
     plugins: {
         ptype: 'cellediting',

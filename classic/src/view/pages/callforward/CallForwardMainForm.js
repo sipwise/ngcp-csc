@@ -37,16 +37,19 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             store: storeListB
         });
         var busyGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
+            id: this._firstprefix + this._secondprefix + 'CallForwardBusy',
             store: Ext.create('NgcpCsc.store.CallForward', {
                 storeId: this._firstprefix + this._secondprefix + 'CallForwardBusy'
             })
         });
         var onlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
+            id: this._firstprefix + this._secondprefix + 'CallForwardOnline',
             store: Ext.create('NgcpCsc.store.CallForward', {
                 storeId: this._firstprefix + this._secondprefix + 'CallForwardOnline'
             })
         });
         var offlineGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
+            id: this._firstprefix + this._secondprefix + 'CallForwardOffline',
             store: Ext.create('NgcpCsc.store.CallForward', {
                 storeId: this._firstprefix + this._secondprefix + 'CallForwardOffline'
             })
