@@ -30,6 +30,17 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
         }
     },
 
+    listeners: {
+        render: function(grid) {
+           grid.body.mask('Loading...');
+           var store = grid.getStore();
+           Ext.defer(function() {
+               store.load;
+           }, 100);
+        },
+        delay: 200
+   },
+
     plugins: {
         ptype: 'cellediting',
         clicksToEdit: 1
