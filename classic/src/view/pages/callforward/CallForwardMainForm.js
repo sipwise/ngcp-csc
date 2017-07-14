@@ -426,6 +426,14 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
             bind: {
                 hidden: '{offline_cancel_button_hidden}'
             }
+        }, {
+            xtype: 'button',
+            text: 'MASK ALL',
+            handler: 'maskDestinationGrids'
+        }, {
+            xtype: 'button',
+            text: 'UNMASK ALL',
+            handler: 'unmaskDestinationGrids'
         }];
 
         this.callParent();
