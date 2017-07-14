@@ -21,6 +21,34 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         }
     },
 
+    unmaskDestinationGrids: function (moduleName) {
+        var gridNames = [
+            'everybody-' + moduleName + 'CallForwardBusy',
+            'everybody-' + moduleName + 'CallForwardOnline',
+            'everybody-' + moduleName + 'CallForwardOffline',
+            'listA-' + moduleName + 'CallForwardBusy',
+            'listA-' + moduleName + 'CallForwardOnline',
+            'listA-' + moduleName + 'CallForwardOffline',
+            'listB-' + moduleName + 'CallForwardBusy',
+            'listB-' + moduleName + 'CallForwardOnline',
+            'listB-' + moduleName + 'CallForwardOffline'
+        ];
+        // XXX: Cvenusino: This works, but for tabs with no data in grids it
+        // is not unmasked until you click tab, click away, and click tabs
+        // again. Tried refresh() and updateLayout(), but didn't help.
+        // unmaskDestinationGrids() is invoked both from onTabClicked() and
+        // cfStoreLoaded()
+        gridNames.map(function(gridName) {
+            var grid = Ext.getCmp(gridName);
+            if (grid.body) {
+                // console.log('unmask', grid.body);
+                grid.body.unmask();
+                // grid.updateLayout();
+                // grid.getView().refresh();
+            }
+        });
+    },
+
     destinationDropped: function (node, data, overModel, dropPosition, eOpts) {
         // TODO: Leaving uncommented code here for upcoming task #17654
         // var store = Ext.getStore('everybody-always-CallForwardBusy');
@@ -467,7 +495,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
 
     populateDestinationStores: function (models) {
         var me = this;
-        var gridName = this.getGridCategoryFromType(models[0].get('type'));
         var store;
         // TODO: #17654 New grid logic and styling with conditions for cft/cfu,
         // and remove first ring section
@@ -480,6 +507,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             if (store) {
                 store.add(model);
             }
+            me.unmaskDestinationGrids(timename);
         });
         if (store) {
             store.commitChanges();
@@ -740,6 +768,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var currentTimeset = currentRoute.split('/')[1];
         var currentSourceset = cmp.id.split('-')[2];
         var storesArray = this.getStoresArrayFromRoute(currentRoute, currentSourceset);
+        this.unmaskDestinationGrids(currentTimeset + '-');
         if (currentSourceset === 'everybody') {
             vm.set('list_b', true);
             vm.set('list_a', true);

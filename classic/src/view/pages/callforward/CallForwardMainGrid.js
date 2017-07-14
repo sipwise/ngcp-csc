@@ -22,21 +22,16 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
         }
     },
 
-    // TODO: Leaving this for PUT/PATCH task, as it might make sense to use
-    // with unmask triggered in controller
-   //  listeners: {
-   //      render: function(grid) {
-   //         grid.body.mask('Loading...');
-   //         var store = grid.getStore();
-   //         Ext.defer(function() {
-   //             store.load;
-   //         }, 100);
-   //         Ext.defer(function() {
-   //             grid.body.unmask();
-   //         }, 600);
-   //      },
-   //      delay: 200
-   // },
+    listeners: {
+        render: function(grid) {
+           grid.body.mask('Loading...');
+           var store = grid.getStore();
+           Ext.defer(function() {
+               store.load;
+           }, 100);
+        },
+        delay: 200
+   },
 
     plugins: {
         ptype: 'cellediting',
