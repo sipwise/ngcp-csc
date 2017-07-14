@@ -14,6 +14,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTab', {
         click: {
             element: 'el',
             fn: 'addOwnPhoneToEmptyOnline'
+        },
+        click: {
+            element: 'el',
+            fn: 'unmaskDestinationGrids',
+            delay: 200
         }
     },
 
