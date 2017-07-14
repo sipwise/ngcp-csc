@@ -7,6 +7,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
     width: '100%',
     hideHeaders: true,
     ui: 'cf-grid',
+    minHeight: 70,
 
     viewConfig: {
         plugins: {
@@ -29,6 +30,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             }
         }
     },
+
+    listeners: {
+        render: function(grid) {
+           grid.body.mask('Loading...');
+        },
+        delay: 200
+   },
 
     plugins: {
         ptype: 'cellediting',
