@@ -1,3 +1,25 @@
+ngcp-csc (5.4.1.0+0~mr5.4.1.0) unstable; urgency=medium
+
+  [ Carlo ]
+  * [f4edc7c] TT#17825 Ngcp CSC Pbx Devices, hardcoded images fixed
+  * [3225257] TT#16529 Ngcp-csc JWT client implementation
+  * [eb53309] TT#17984 CSC JWT client implmentation followup
+  * [304907a] TT#18169 CSC Reminder fix
+
+  [ Robert Axelsen ]
+  * [d46c396] TT#17454 Csc pbx modules changes to groups data
+  * [17498c9] TT#17150 Csc reminder inactive/active and API
+  * [348c4cf] TT#17451 Csc implement GET for callforward API
+  * [395b2cb] TT#18002 Csc fix notifications bug in cb modules
+  * [e84e334] TT#17452 Csc implement call forward api write
+
+  [ Victor Seva ]
+  * [92a3ebf] TT#17642 docker: follow policy to include NGCP repository
+
+  [ Sipwise Jenkins Builder ]
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 17 Jul 2017 23:16:05 +0200
+
 ngcp-csc (5.4.0.0+0~mr5.4.0.0) unstable; urgency=medium
 
   [ Robert Axelsen ]
