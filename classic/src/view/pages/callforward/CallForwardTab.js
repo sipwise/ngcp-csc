@@ -3,13 +3,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTab', {
 
     xtype: 'cftab',
 
-    listeners: {
-        click: {
-            fn: 'onEditClicked',
-            element: 'el',
-            delegate: '.cf-edit'
-        }
-    },
+    name: 'cfTab',
 
     defaults: {
         bodyPadding: 10,
@@ -20,7 +14,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTab', {
 
     _secondprefix: null,
 
-    _firstPrefixes: [],
+    listeners: {
+        show: 'onTabRendered'
+    },
 
     initComponent: function () {
 
@@ -29,42 +25,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTab', {
             id: this._tabId + '-tab-everybody',
             items: [
                 Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
+                    _isEverybody: true,
                     _firstprefix: this._firstPrefixes[0],
                     _secondprefix: this._secondprefix
 
                 })
-            ],
-            listeners: {
-                activate: 'onTabClicked'
-            }
-        }, {
-            bind: {
-                title: Ngcp.csc.locales.callforward.from[localStorage.getItem('languageSelected')] + '{source_lista_title}'
-            },
-            id: this._tabId + '-tab-listA',
-            items: [
-                Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
-                    _firstprefix: this._firstPrefixes[1],
-                    _secondprefix: this._secondprefix
-                })
-            ],
-            listeners: {
-                activate: 'onTabClicked'
-            }
-        }, {
-            bind: {
-                title: Ngcp.csc.locales.callforward.from[localStorage.getItem('languageSelected')] + '{source_listb_title}'
-            },
-            id: this._tabId + '-tab-listB',
-            items: [
-                Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
-                    _firstprefix: this._firstPrefixes[2],
-                    _secondprefix: this._secondprefix
-                })
-            ],
-            listeners: {
-                activate: 'onTabClicked'
-            }
+            ]
         }]
 
         this.callParent();
