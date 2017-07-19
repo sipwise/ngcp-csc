@@ -21,11 +21,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         }
     },
 
-    destinationDropped: function (node, data, overModel, dropPosition, eOpts) {
+    destinationDropped: function(node, data, overModel, dropPosition, eOpts) {
         // TODO: Leaving uncommented code here for upcoming task #17654
         // var store = Ext.getStore('everybody-always-CallForwardBusy');
         // Ext.each(store.getRange(), function(record) {
-            // console.log(record.get('destination_cleaned'));
+        // console.log(record.get('destination_cleaned'));
         // })
     },
 
@@ -39,13 +39,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             timesets = data.getData()._embedded['ngcp:cftimesets'];
         }
         store.removeAll();
-        Ext.each(timesets, function (timeset) {
+        Ext.each(timesets, function(timeset) {
             var timesetName = timeset.name;
             var timesetId = timeset.id;
             me.setVmToTrue(timesetName);
             if (/(After|Company)\s(Hours)/.test(timesetName)) {
                 var times = me.getModelValuesFromTimesData(timeset.times[0]);
-                Ext.each(times.days, function (weekday) {
+                Ext.each(times.days, function(weekday) {
                     var cfModel = Ext.create('NgcpCsc.model.CallForward', {
                         id: Ext.id(),
                         timeset_name: timesetName,
@@ -64,7 +64,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
-    setVmToTrue: function (name) {
+    setVmToTrue: function(name) {
         var vm = this.getViewModel();
         switch (name) {
             case 'After Hours':
@@ -73,13 +73,14 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             case 'Company Hours':
                 vm.set('company_hours_exists_in_api', true);
                 break;
-            case 'List A':
-                vm.set('list_a_exists_in_api', true);
-                break;
-            case 'List B':
-                vm.set('list_b_exists_in_api', true);
-                break;
         };
+    },
+
+    onTabRendered: function() {
+        var sourceSetListStore = Ext.getStore('firstSLStore');
+        if (sourceSetListStore._sourcesets) {
+            this.createSourcesetTabs(sourceSetListStore._sourcesets);
+        }
     },
 
     cfSourcesetStoreLoaded: function(store, data) {
@@ -90,11 +91,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         } else {
             var sourcesets = data.getData()._embedded['ngcp:cfsourcesets'];
             store.removeAll();
-            Ext.each(sourcesets, function (sourceset) {
+            store._sourcesets = sourcesets;
+            Ext.each(sourcesets, function(sourceset) {
                 var sourcesetName = sourceset.name;
                 var sourcesetId = sourceset.id;
                 me.setVmToTrue(sourcesetName);
-                Ext.each(sourceset.sources, function (sourceEntry) {
+                Ext.each(sourceset.sources, function(sourceEntry) {
                     var cfModel = Ext.create('NgcpCsc.model.CallForward', {
                         id: Ext.id(),
                         sourceset_name: sourcesetName,
@@ -105,13 +107,14 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                 });
             });
             if (arrayOfModels.length > 0) {
+                me.createSourcesetTabs(arrayOfModels);
                 me.populateSourcesetStores(arrayOfModels);
             };
         }
 
     },
 
-    getTimesetFromRoute: function (route) {
+    getTimesetFromRoute: function(route) {
         switch (route) {
             case ('#callforward/always'):
                 return null;
@@ -144,14 +147,16 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                 if (decodedResponse._embedded) {
                     var destinationsets = decodedResponse._embedded['ngcp:cfdestinationsets'];
                     me.getView()._preventReLoad = true; // assumes there is no need to reload the store
-                    Ext.each(cfTypeArrayOfObjects, function (cfTypeObjects, index) {
+                    Ext.each(cfTypeArrayOfObjects, function(cfTypeObjects, index) {
                         var cfType = cfTypes[index];
                         Ext.each(cfTypeObjects, function(cfTypeObject) {
+
                             var destinationsetName = cfTypeObject.destinationset;
                             var sourcesetName = cfTypeObject.sourceset;
                             var timesetName = cfTypeObject.timeset;
                             if (timesetName == routeTimeset) {
                                 Ext.each(destinationsets, function(destinationset) {
+
                                     if (destinationset.name == destinationsetName) {
                                         for (item in destinationset.destinations) {
                                             var destinationToUse = me.getDestinationFromSipId(destinationset.destinations[item].destination);
@@ -195,7 +200,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
 
     },
 
-    destinationIdExistsInArray: function (arr, id) {
+    destinationIdExistsInArray: function(arr, id) {
         return arr.some(function(arrObj) {
             return id == arrObj.id;
         });
@@ -212,21 +217,36 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             var data = record.getData();
             switch (recordsToSend.length === 0 || !me.destinationIdExistsInArray(recordsToSend, data.destinationset_id)) {
                 case true:
-                    recordsToSend.push({id: data.destinationset_id, records: [{ "announcement_id": null, "destination": data.simple_destination, "priority": data.priority, "timeout": data.ring_for }]});
+                    recordsToSend.push({
+                        id: data.destinationset_id,
+                        records: [{
+                            "announcement_id": null,
+                            "destination": data.simple_destination,
+                            "priority": data.priority,
+                            "timeout": data.ring_for
+                        }]
+                    });
                     break;
                 case false:
-                    recordsToSend.forEach(function (obj, index) {
+                    recordsToSend.forEach(function(obj, index) {
                         if (obj.id == data.destinationset_id) {
-                            recordsToSend[index].records.push({ "announcement_id": null, "destination": data.simple_destination, "priority": data.priority, "timeout": data.ring_for });
+                            recordsToSend[index].records.push({
+                                "announcement_id": null,
+                                "destination": data.simple_destination,
+                                "priority": data.priority,
+                                "timeout": data.ring_for
+                            });
                         }
                     })
             };
         });
-        Ext.each(recordsToSend, function (obj) {
+        Ext.each(recordsToSend, function(obj) {
             Ext.Ajax.request({
                 url: '/api/cfdestinationsets/' + obj.id,
                 method: 'PATCH',
-                headers: { 'Content-Type': 'application/json-patch+json' },
+                headers: {
+                    'Content-Type': 'application/json-patch+json'
+                },
                 jsonData: [{
                     "op": "add",
                     "path": "/destinations",
@@ -243,7 +263,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return false;
     },
 
-    cfSourcesetBeforeSync: function (store, options) {
+    cfSourcesetBeforeSync: function(store, options) {
         // Using Ajax request here as we are using different url
         // params for PATCH compared to GET
         delete options['destroy'];
@@ -251,14 +271,18 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         delete options['update'];
         var sourcesetId = store.last().get('sourceset_id');
         var recordsToSend = [];
-        Ext.each(store.getRange(), function (record) {
+        Ext.each(store.getRange(), function(record) {
             var data = record.getData();
-            recordsToSend.push({ "source": data.source });
+            recordsToSend.push({
+                "source": data.source
+            });
         });
         Ext.Ajax.request({
             url: '/api/cfsourcesets/' + sourcesetId,
             method: 'PATCH',
-            headers: { 'Content-Type': 'application/json-patch+json' },
+            headers: {
+                'Content-Type': 'application/json-patch+json'
+            },
             jsonData: [{
                 "op": "add",
                 "path": "/sources",
@@ -274,7 +298,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return false;
     },
 
-    timesBasedOnRecords: function (store) {
+    timesBasedOnRecords: function(store) {
         // TODO: Started this, but then discovered the issue leading to creation
         // of #18401. Leaving the code in place for upcoming task #18401
         var recordsToSend = [];
@@ -289,7 +313,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return recordsToSend;
     },
 
-    cfTimesetBeforeSync: function (store, options) {
+    cfTimesetBeforeSync: function(store, options) {
         delete options['destroy'];
         delete options['create'];
         delete options['update'];
@@ -315,7 +339,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return false;
     },
 
-    getDestinationFromSipId: function (destination) {
+    getDestinationFromSipId: function(destination) {
         var splitDestination = destination.split(/(:|@)/);
         if (splitDestination[4] == 'voicebox.local') {
             return 'Voicemail';
@@ -324,7 +348,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         }
     },
 
-    getGridCategoryFromType: function (type) {
+    getGridCategoryFromType: function(type) {
         switch (type) {
             case 'cft':
             case 'cfu':
@@ -339,7 +363,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         }
     },
 
-    getTypeFromTypeName: function (type) {
+    getTypeFromTypeName: function(type) {
         switch (type) {
             case 'Online':
                 return 'cfu';
@@ -353,35 +377,28 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         }
     },
 
-    getSourceNameFromSourceSet: function (sourceset) {
+    getSourceNameFromSourceSet: function(sourceset) {
         switch (sourceset) {
-            case 'List A':
-                return 'listA-';
-                break;
-            case 'List B':
-                return 'listB-';
-                break;
             case null:
                 return 'everybody-';
                 break;
+            default:
+                return sourceset.replace(/ /g, '') + '-';
         }
     },
 
-    getSourceSetFromSourceName: function (sourceset) {
+    getSourceSetFromSourceName: function(sourceset) {
         switch (sourceset) {
-            case 'listA':
-                return 'List A';
-                break;
-            case 'listB':
-                return 'List B';
-                break;
             case null:
                 return null;
                 break;
+            default:
+                return;
+
         }
     },
 
-    getTimeNameFromTimeSet: function (timeset) {
+    getTimeNameFromTimeSet: function(timeset) {
         switch (timeset) {
             case 'After Hours':
                 return 'afterHours-';
@@ -395,7 +412,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         }
     },
 
-    getTimeSetFromTimeSource: function (timeset) {
+    getTimeSetFromTimeSource: function(timeset) {
         switch (timeset) {
             case 'afterHours':
                 return 'After Hours';
@@ -423,7 +440,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
-    getModelValuesFromTimesData: function (timesData) {
+    getModelValuesFromTimesData: function(timesData) {
         var times = {};
         var timesFromAndTo = timesData.hour !== null ? timesData.hour.split('-') : [null, null];
         var daysFromAndTo = timesData.wday !== null ? timesData.wday.split('-') : [null, null];
@@ -437,7 +454,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         times.timeFrom = timeFrom;
         times.timeTo = timeTo;
         if (!!timesData.wday) {
-            var weekdaysArray = weekdayLiterals.slice(dayFrom-1, dayTo);
+            var weekdaysArray = weekdayLiterals.slice(dayFrom - 1, dayTo);
             times.days = weekdaysArray;
         } else {
             times.days = null;
@@ -445,13 +462,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return times;
     },
 
-    populateTimesetStores: function (models) {
+    populateTimesetStores: function(models) {
         var vm = this.getViewModel();
         var currentRoute = window.location.hash;
         var moduleName = this.getModuleFromRoute(currentRoute);
         var store = Ext.getStore(moduleName + '-Timeset');
-        if (store.getCount() === 0 ) {
-            Ext.each(models, function (model) {
+        if (store.getCount() === 0) {
+            Ext.each(models, function(model) {
                 if (moduleName == 'afterHours' && model.get('timeset_name') == 'After Hours') {
                     store.add(model);
                 } else if (moduleName == 'companyHours' && model.get('timeset_name') == 'Company Hours') {
@@ -459,19 +476,20 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                 };
             });
             store.commitChanges();
-            if (store.getCount() > 0 ) {
+            if (store.getCount() > 0) {
                 vm.set(moduleName + '_hideMessage', true);
             };
         };
     },
 
-    populateDestinationStores: function (models) {
+    populateDestinationStores: function(models) {
         var me = this;
         var gridName = this.getGridCategoryFromType(models[0].get('type'));
         var store;
+
         // TODO: #17654 New grid logic and styling with conditions for cft/cfu,
         // and remove first ring section
-        Ext.each(models, function (model) {
+        Ext.each(models, function(model) {
             var sourcename = me.getSourceNameFromSourceSet(model.get('sourceset'));
             var timename = me.getTimeNameFromTimeSet(model.get('timeset'));
             var type = me.getGridCategoryFromType(model.get('type'));
@@ -486,20 +504,51 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         }
     },
 
-    populateSourcesetStores: function (models) {
-        var storeListAAlways = Ext.getStore('CallForwardListA');
-        var storeListBAlways = Ext.getStore('CallForwardListB');
-        storeListAAlways.removeAll();
-        storeListBAlways.removeAll();
-        Ext.each(models, function (model) {
-            if (model.get('sourceset_name') == 'List A') {
-                storeListAAlways.add(model);
-            } else if (model.get('sourceset_name') == 'List B') {
-                storeListBAlways.add(model);
-            };
+    createSourcesetTabs: function(sourcesets) {
+        var me = this;
+        var vm = this.getViewModel();
+        var cfTabPanels = Ext.ComponentQuery.query('[name=cfTab]');
+        Ext.each(cfTabPanels, function(tabP) {
+            Ext.each(sourcesets, function(sourceset, index) {
+                var sourcesetName = sourceset.isModel ? sourceset.get('sourceset_name') : sourceset.name;
+                var sourcesetId = sourceset.isModel ? sourceset.get('sourceset_id') : sourceset.id;
+                var strippedSourcesetName = sourcesetName.replace(/ /g, '');
+                tabP._firstPrefixes.push(strippedSourcesetName + '-');
+                if (Ext.ComponentQuery.query("[name=" + tabP._tabId + '-tab-' + strippedSourcesetName + "]").length < 1) {
+                    vm.set(strippedSourcesetName + "-" + tabP._tabId + '-title', sourcesetName);
+                    vm.set('from-' + strippedSourcesetName + "-" + tabP._tabId + '-title', Ngcp.csc.locales.callforward.from[localStorage.getItem('languageSelected')] + sourcesetName);
+                    vm.set(tabP._tabId + "-" + strippedSourcesetName + '-titleField-value', '');
+                    tabP.add({
+                        bind:{
+                            title: '{from-'+strippedSourcesetName + "-" + tabP._tabId +'-title}'
+                        },
+                        //title: Ngcp.csc.locales.callforward.from[localStorage.getItem('languageSelected')] + vm.get(tabP._tabId + strippedSourcesetName + '-title'),
+                        name: tabP._tabId + '-tab-' + strippedSourcesetName,
+                        id: tabP._tabId + '-tab-' + strippedSourcesetName,
+                        items: [
+                            Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
+                                _isEverybody: false,
+                                _sourcesetStoreId: strippedSourcesetName,
+                                _sourcesetListName: sourcesetName,
+                                _sourcesetListId: sourcesetId,
+                                _firstprefix: tabP._firstPrefixes[index + 1],
+                                _secondprefix: tabP._secondprefix
+                            })
+                        ]
+                    })
+                }
+            });
         });
-        storeListAAlways.commitChanges();
-        storeListBAlways.commitChanges();
+    },
+
+    populateSourcesetStores: function(models) {
+        Ext.each(models, function(model) {
+            var tabId = model.get('sourceset_name');
+            var strippedSourcesetName = tabId.replace(/ /g, '');
+            var store = Ext.getStore('CallForwardList_' + strippedSourcesetName);
+            store.add(model);
+            store.commitChanges();
+        });
     },
 
     editingPhoneDone: function(editor, context) {
@@ -511,11 +560,10 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         store.sync();
     },
 
-    beforePhoneEdit: function (editor, context) {
+    beforePhoneEdit: function(editor, context) {
         var record = context.record;
         var grid = context.grid;
         record.set("edit", true);
-        grid.getView().refresh();
     },
 
     collapsePanel: function(el) {
@@ -563,33 +611,38 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     saveNewTitle: function(button) {
+        var me = this;
         var vm = this.getViewModel();
         var buttonId = button.id;
-        var hiddenKey = 'hide_' + buttonId.split('-')[2];
-        vm.set(hiddenKey, !vm.get(hiddenKey));
-        this.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
+        var keys = buttonId.split('-');
+        Ext.Ajax.request({
+            url: '/api/cfsourcesets/' + button._sourcesetListId,
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json-patch+json'
+            },
+            jsonData: [{
+                "op": "replace",
+                "path": "/name",
+                "value": vm.get(keys[0] + "-" + keys[1] + "-titleField-value")
+            }],
+            success: function(response, opts) {
+                vm.set(keys[0] + "-" + keys[1] + "-title", vm.get(keys[0] + "-" + keys[1] + "-titleField-value"));
+                vm.set('from-' + keys[0] + "-" + keys[1] + "-title", Ngcp.csc.locales.callforward.from[localStorage.getItem('languageSelected')] + vm.get(keys[0] + "-" + keys[1] + "-titleField-value"));
+                vm.set(keys[0] + "-" + keys[1] + "-titleField-value","");
+                me.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
+            },
+            failure: function(response, opts) {
+                console.log('server-side failure with status code ' + response.status);
+            }
+        });
     },
 
     cancelNewTitle: function(button) {
         var vm = this.getViewModel();
         var buttonId = button.id;
-        var hiddenKey = 'hide_' + buttonId.split('-')[2];
-        vm.set(hiddenKey, !vm.get(hiddenKey));
-    },
-
-    onEditClicked: function(el) {
-        var vm = this.getViewModel();
-        var classList = el.target.classList;
-        switch (true) {
-            case (classList.contains('edit-listA')):
-                vm.set('list_b', true);
-                vm.set('list_a', !vm.get('list_a'));
-                break;
-            case (classList.contains('edit-listB')):
-                vm.set('list_a', true);
-                vm.set('list_b', !vm.get('list_b'));
-                break;
-        };
+        var keys = buttonId.split('-');
+        vm.set(keys[0] + "-" + keys[1] + "-titleField-value", "");
     },
 
     checkIndexOf: function(string, target) {
@@ -602,95 +655,48 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var plugin = grid.getPlugin('celleditingSource');
         var newRowIndex = store.getCount() + 1;
         var record = store.last();
-        var sourcesetName = grid.id.split('-')[0] == 'listA' ? 'List A' : 'List B';
-        var listAId = null;
-        var listBId = null;
-        var listExistsInApi = false;
-        Ext.Ajax.request({
-            url: '/api/cfsourcesets/?subscriber_id=' + localStorage.getItem('subscriber_id'),
-            success: function(response, opts) {
-                var decodedResponse = Ext.decode(response.responseText);
-                if (decodedResponse._embedded) {
-                    var sourcesets = decodedResponse._embedded['ngcp:cfsourcesets'];
-                    Ext.each(sourcesets, function (destinationset, index) {
-                        if (destinationset.name == 'List A') {
-                            listAId = destinationset.id;
-                        } else if (destinationset.name == 'List B') {
-                            listBId = destinationset.id;
-                        }
-                        if (sourcesetName == 'List A' && listAId !== null) {
-                            listExistsInApi = true;
-                        } else if (sourcesetName == 'List B' && listBId !== null) {
-                            listExistsInApi = true;
-                        }
+        if (record && record.get('source') !== ' ' && record.get('source') !== '') {
+            var cfSourcesetModel = Ext.create('NgcpCsc.model.CallForwardSourceset', {
+                id: Ext.id(),
+                source: " ",
+                sourceset_name: record.get('sourceset_name'),
+                sourceset_id: record.get('sourceset_id'),
+                edit: true
+            });
+            store.add(cfSourcesetModel);
+            plugin.startEditByPosition({
+                row: newRowIndex,
+                column: 0
+            });
+        } else {
+            var subscriberId = localStorage.getItem('subscriber_id');
+            Ext.Ajax.request({
+                url: '/api/cfsourcesets/',
+                method: 'POST',
+                jsonData: {
+                    name: store.sourcesetName,
+                    subscriber_id: subscriberId
+                },
+                success: function(response, opts) {
+                    var sourcesetId = response.getResponseHeader('Location').split('/')[3];
+                    var cfSourcesetModel = Ext.create('NgcpCsc.model.CallForward', {
+                        id: Ext.id(),
+                        source: " ",
+                        sourceset_name: sourcesetName,
+                        sourceset_id: sourcesetId,
+                        edit: true
                     });
-                };
-                switch (!store.last()) {
-                    case false:
-                        if (record == null || (record.data.source !== ' ' && record.data.source !== '')) {
-                            var cfSourcesetModel = Ext.create('NgcpCsc.model.CallForwardSourceset', {
-                                id: Ext.id(),
-                                source: " ",
-                                sourceset_name: record.get('sourceset_name'),
-                                sourceset_id: record.get('sourceset_id'),
-                                edit: true
-                            });
-                            store.add(cfSourcesetModel);
-                        };
-                        break;
-                    case true: // if store empty we need to create new sourceset
-                        switch (listExistsInApi) {
-                            case true:
-                                var cfSourcesetModel = Ext.create('NgcpCsc.model.CallForwardSourceset', {
-                                    id: Ext.id(),
-                                    source: " ",
-                                    sourceset_name: sourcesetName,
-                                    sourceset_id: listAId || listBId,
-                                    edit: true
-                                });
-                                store.add(cfSourcesetModel);
-                                break;
-                            case false:
-                                var subscriberId = localStorage.getItem('subscriber_id');
-                                Ext.Ajax.request({
-                                    url: '/api/cfsourcesets/',
-                                    method: 'POST',
-                                    jsonData: {
-                                        name: sourcesetName,
-                                        subscriber_id: subscriberId
-                                    },
-                                    success: function(response, opts) {
-                                        var sourcesetId = response.getResponseHeader('Location').split('/')[3];
-                                        var cfSourcesetModel = Ext.create('NgcpCsc.model.CallForward', {
-                                            id: Ext.id(),
-                                            source: " ",
-                                            sourceset_name: sourcesetName,
-                                            sourceset_id: sourcesetId,
-                                            edit: true
-                                        });
-                                        store.add(cfSourcesetModel);
-                                    },
-                                    failure: function(response, opts) {
-                                        console.log('server-side failure with status code ' + response.status);
-                                    }
-                                });
-                                break;
-                        }
-                        break;
+                    store.add(cfSourcesetModel);
+                    plugin.startEditByPosition({
+                        row: newRowIndex,
+                        column: 0
+                    });
+                },
+                failure: function(response, opts) {
+                    console.log('server-side failure with status code ' + response.status);
                 }
-            },
-
-            failure: function(response, opts) {
-                console.log('server-side failure with status code ' + response.status);
-            },
-
-            callback: function () {
-                plugin.startEditByPosition({
-                    row: newRowIndex,
-                    column: 0
-                });
-            }
-        });
+            });
+        }
     },
 
     addEmptySourcesetRow: function(button) {
@@ -698,16 +704,8 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var buttonPrefixOne = buttonIdSplit[0];
         var buttonPrefixTwo = buttonIdSplit[1];
         var buttonSuffix = buttonIdSplit[2];
-        switch (buttonSuffix) {
-            case 'addListAButton':
-                var grid = Ext.getCmp(buttonPrefixOne + '-' + buttonPrefixTwo + '-cf-sourceset-list-a-grid');
-                this.writeNewSourceToStore(grid);
-                break;
-            case 'addListBButton':
-                var grid = Ext.getCmp(buttonPrefixOne + '-' + buttonPrefixTwo + '-cf-sourceset-list-b-grid');
-                this.writeNewSourceToStore(grid);
-                break;
-        };
+        var grid = Ext.getCmp(buttonPrefixOne + '-' + buttonPrefixTwo + '-cf-sourceset-list-grid');
+        this.writeNewSourceToStore(grid);
     },
 
     removeEntry: function(grid, rowIndex, colIndex) {
@@ -721,7 +719,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
 
     confirmCFRemoval: function(record) {
         var store = record.store;
-        if(store){
+        if (store) {
             store.remove(record);
             store.sync();
         }
@@ -733,24 +731,24 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return [prefix + 'CallForwardOnline', prefix + 'CallForwardBusy', prefix + 'CallForwardOffline'];
     },
 
-    onTabClicked: function(cmp) {
-        var me = this;
-        var vm = me.getViewModel();
-        var currentRoute = window.location.hash.replace('hours', 'Hours');
-        var currentTimeset = currentRoute.split('/')[1];
-        var currentSourceset = cmp.id.split('-')[2];
-        var storesArray = this.getStoresArrayFromRoute(currentRoute, currentSourceset);
-        if (currentSourceset === 'everybody') {
-            vm.set('list_b', true);
-            vm.set('list_a', true);
-        } else if (currentSourceset === 'listA') {
-            vm.set('list_b', true);
-            vm.set('list_a', false);
-        } else if (currentSourceset === 'listB') {
-            vm.set('list_a', true);
-            vm.set('list_b', false);
-        };
-    },
+    // onTabClicked: function(cmp) {
+    //     var me = this;
+    //     var vm = me.getViewModel();
+    //     var currentRoute = window.location.hash.replace('hours', 'Hours');
+    //     var currentTimeset = currentRoute.split('/')[1];
+    //     var currentSourceset = cmp.id.split('-')[2];
+    //     var storesArray = this.getStoresArrayFromRoute(currentRoute, currentSourceset);
+    //     if (currentSourceset === 'everybody') {
+    //         vm.set('list_b', true);
+    //         vm.set('list_a', true);
+    //     } else if (currentSourceset === 'listA') {
+    //         vm.set('list_b', true);
+    //         vm.set('list_a', false);
+    //     } else if (currentSourceset === 'listB') {
+    //         vm.set('list_a', true);
+    //         vm.set('list_b', false);
+    //     };
+    // },
 
     renderDay: function(value, meta, record) {
         if (record.get('closed') === true) {
@@ -895,7 +893,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
 
-    createNewStandardSet: function (url, name, subscriberId) {
+    createNewStandardSet: function(url, name, subscriberId) {
         var vm = this.getViewModel();
         Ext.Ajax.request({
             url: url,
@@ -906,37 +904,37 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             },
             success: function(response, opts) {
                 switch (name) {
-                    case 'List A':
-                    vm.set('list_a_exists_in_api', true);
-                    break;
-                    case 'List B':
-                    vm.set('list_b_exists_in_api', true);
-                    break;
                     case 'After Hours':
-                    vm.set('after_hours_exists_in_api', true);
-                    break;
+                        vm.set('after_hours_exists_in_api', true);
+                        break;
                     case 'Company Hours':
-                    vm.set('company_hours_exists_in_api', true);
-                    break;
+                        vm.set('company_hours_exists_in_api', true);
+                        break;
                 }
             }
         });
     },
 
-    createNewMapping: function (subscriberId, newType, newDestinationsetName, newSourceset, newTimeset) {
+    createNewMapping: function(subscriberId, newType, newDestinationsetName, newSourceset, newTimeset) {
         Ext.Ajax.request({
             url: '/api/cfmappings/' + subscriberId,
             method: 'PATCH',
-            headers: { 'Content-Type': 'application/json-patch+json' },
+            headers: {
+                'Content-Type': 'application/json-patch+json'
+            },
             jsonData: [{
                 "op": "add",
                 "path": "/" + newType,
-                "value": [{ "destinationset": newDestinationsetName, "sourceset": newSourceset, "timeset": newTimeset }]
+                "value": [{
+                    "destinationset": newDestinationsetName,
+                    "sourceset": newSourceset,
+                    "timeset": newTimeset
+                }]
             }]
         });
     },
 
-    writeNewDestinationToStore: function (store, destination, timeout) {
+    writeNewDestinationToStore: function(store, destination, timeout) {
         var me = this;
         var vm = this.getViewModel();
         var simpleDestination = destination;
@@ -948,7 +946,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var newSourcesetName = storeIdSplit[0] == 'everybody' ? null : storeIdSplit[0];
         var newTimesetName = storeIdSplit[1] == 'always' ? null : storeIdSplit[1];
         var newTypeName = storeIdSplit[2].slice(11);
-        var newSourceset = this.getSourceSetFromSourceName(newSourcesetName);
+        var newSourceset = store._sourcesetListName; // dynamic
         var newTimeset = this.getTimeSetFromTimeSource(newTimesetName);
         var newType = this.getTypeFromTypeName(newTypeName);
         var newDomain = localStorage.getItem('domain');
