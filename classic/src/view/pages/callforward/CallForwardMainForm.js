@@ -15,27 +15,23 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
 
     ui: 'cf-mainform',
 
+    _isEverybody: true,
+
     initComponent: function() {
 
-        var storeListA = Ext.getStore('CallForwardListA') || Ext.create('NgcpCsc.store.CallForwardSourceset', {
-            storeId: 'CallForwardListA'
-        });
-        var storeListB = Ext.getStore('CallForwardListB') || Ext.create('NgcpCsc.store.CallForwardSourceset', {
-            storeId: 'CallForwardListB'
+        var storeList = Ext.getStore('CallForwardList') || Ext.create('NgcpCsc.store.CallForwardSourceset', {
+            storeId: 'CallForwardList'
         });
 
-        if(!storeListA.isLoaded()){
-            storeListA.load();
+        if(!storeList.isLoaded()){
+            storeList.load();
         }
 
-        var callForwardListAGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
-            id: this._firstprefix + this._secondprefix + 'cf-sourceset-list-a-grid',
+        var callForwardList = Ext.create('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
+            id: this._firstprefix + this._secondprefix + 'cf-sourceset-list-grid',
             store: storeListA
         });
-        var callForwardListBGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardSourcesetGrid', {
-            id: this._firstprefix + this._secondprefix + 'cf-sourceset-list-b-grid',
-            store: storeListB
-        });
+
         var busyGrid = Ext.create('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             store: Ext.create('NgcpCsc.store.CallForward', {
                 storeId: this._firstprefix + this._secondprefix + 'CallForwardBusy'
@@ -55,86 +51,20 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
 
         this.items = [{
             xtype: 'panel',
-            bind: {
-                title: '{source_lista_title}',
-                hidden: '{list_a}'
-            },
+            hidden: this._isEverybody,
+            title: this.title || '',
             collapsible: true,
             collapsed: true,
             items: [{
                 xtype: 'form',
                 layout: 'hbox',
                 margin: '10 0 0 0',
-                bind: {
-                    hidden: '{hide_lista_titleField}'
-                },
                 items: [{
                     xtype: 'textfield',
                     userCls: 'cf-sourceset-textfield',
                     fieldLabel: Ngcp.csc.locales.callforward.sourceset_title[localStorage.getItem('languageSelected')],
                     flex: 1,
-                    bind: '{source_lista_title}'
-                }, {
-                    xtype: 'button',
-                    html: Ngcp.csc.locales.common.cancel_caps[localStorage.getItem('languageSelected')],
-                    id: this._firstprefix + this._secondprefix + 'lista_titleField-cancelButton',
-                    margin: '0 0 0 10',
-                    handler: 'cancelNewTitle'
-                }, {
-                    xtype: 'button',
-                    html: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
-                    id: this._firstprefix + this._secondprefix + 'lista_titleField-saveButton',
-                    margin: '0 0 0 10',
-                    handler: 'saveNewTitle'
-                }]
-            },
-                    callForwardListAGrid,
-                {
-                    xtype: 'panel',
-                    layout: 'hbox',
-                    margin: '15 0 0 0',
-                    items: [
-                        // NOTE: Commenting out this now, and will tackle it as part of #17651
-                        // {
-                        // xtype: 'button',
-                        // html: Ngcp.csc.locales.callforward.change_title[localStorage.getItem('languageSelected')],
-                        // id: this._firstprefix + this._secondprefix + 'lista_titleField-showButton',
-                        // margin: '0 0 0 500',
-                        // handler: 'toggleChangeTitle'
-                        // },
-                        {
-                        xtype: 'button',
-                        text: Ngcp.csc.locales.callforward.add_new_source[localStorage.getItem('languageSelected')],
-                        id: this._firstprefix + this._secondprefix + 'addListAButton',
-                        margin: '0 0 0 620',
-                        // margin: '0 0 0 10',
-                        width: 135,
-                        listeners: {
-                            click: 'addEmptySourcesetRow'
-                        }
-                    }]
-            }]
-        }, {
-            xtype: 'panel',
-            bind: {
-                title: '{source_listb_title}',
-                hidden: '{list_b}'
-            },
-            collapsible: true,
-            collapsed: true,
-            items: [{
-                xtype: 'form',
-                layout: 'hbox',
-                margin: '10 0 0 0',
-                bind: {
-                    hidden: '{hide_listb_titleField}'
-                },
-                items: [{
-                    xtype: 'textfield',
-                    userCls: 'cf-sourceset-textfield',
-                    fieldLabel: Ngcp.csc.locales.callforward.sourceset_title[localStorage.getItem('languageSelected')],
-                    flex: 1,
-                    bind: '{source_listb_title}'
+                    title: this.title || ''
                 }, {
                     xtype: 'button',
                     html: Ngcp.csc.locales.common.cancel_caps[localStorage.getItem('languageSelected')],
@@ -154,22 +84,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainForm', {
                     xtype: 'panel',
                     layout: 'hbox',
                     margin: '15 0 0 0',
-                    bind: {
-                        hidden: '{list_b}'
-                    },
                     items: [
-                        // NOTE: Commenting out this now, and will tackle it as part of #17651
-                        // {
-                        // xtype: 'button',
-                        // html: Ngcp.csc.locales.callforward.change_title[localStorage.getItem('languageSelected')],
-                        // id: this._firstprefix + this._secondprefix + 'listb_titleField-showButton',
-                        // margin: '0 0 0 500',
-                        // handler: 'toggleChangeTitle'
-                        // },
                         {
                         xtype: 'button',
                         text: Ngcp.csc.locales.callforward.add_new_source[localStorage.getItem('languageSelected')],
-                        id: this._firstprefix + this._secondprefix + 'addListBButton',
+                        id: this._firstprefix + this._secondprefix + 'addListButton',
                         width: 135,
                         margin: '0 0 0 620',
                         // margin: '0 0 0 10',

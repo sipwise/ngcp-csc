@@ -29,7 +29,7 @@ Ext.define('NgcpCsc.view.pages.callforward.always.Always', {
             }, {
                 xtype: 'cftab',
                 _tabId: 'always',
-                _firstPrefixes: ['everybody-', 'listA-', 'listB-'],
+                _firstPrefixes: ['everybody-'],
                 _secondprefix: 'always-'
             }]
         }];
