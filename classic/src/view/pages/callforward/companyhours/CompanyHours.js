@@ -85,7 +85,7 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
             }, {
                 xtype: 'cftab',
                 _tabId: 'companyhours',
-                _firstPrefixes: ['everybody-', 'listA-', 'listB-'],
+                _firstPrefixes: ['everybody-'],
                 _secondprefix: 'companyHours-',
                 bind: {
                     hidden: '{!company_hours_exists_in_api}'

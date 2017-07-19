@@ -17,6 +17,7 @@ Ext.define('NgcpCsc.store.CallForwardSourceset', {
 
     listeners: {
         load: function(store, recs) {
+            debugger
             this.fireEvent('cfSourcesetStoreLoaded', this, recs[0]);
         },
         beforesync: function(options) {
