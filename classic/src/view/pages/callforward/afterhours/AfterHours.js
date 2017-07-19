@@ -81,8 +81,8 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
             }, {
                 xtype: 'cftab',
                 _tabId: 'afterhours',
-                _firstPrefixes: ['everybody-', 'listA-', 'listB-'],
-                _secondprefix: 'afterHours-',
+                _firstPrefixes: ['everybody-'],
+                _secondprefix: 'afterhours-',
                 bind: {
                     hidden: '{!after_hours_exists_in_api}'
                 }
