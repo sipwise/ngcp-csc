@@ -4,7 +4,7 @@ Priority: extra
 Maintainer: Sipwise Development Team <support@sipwise.com>
 Build-Depends:
  debhelper (>= 9~),
- sencha-cmd (>= 6.2.0.103-1~),
+ sencha-cmd (>= 6.2.0.103-0.1~),
  nodejs (>= 4.6.2~),
 Standards-Version: 3.9.8
 Homepage: https://www.sipwise.com/
