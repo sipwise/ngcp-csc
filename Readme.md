@@ -165,3 +165,30 @@ Create and run Docker Image (see instructions inside the Dockerfile).
 Inside docker:
 
 ```cd /code && ./t/testrunner```
+
+### RTC:engine integration
+
+By default you will get a 404 NotFound for the file cdk-prod.js. 
+Since both, the CSC panel and the RTC:engine are running under the same 
+base url in production, the file will be available. But in your local 
+development environment you need to put the file in the required path manually.
+
+1. Checkout RTC:engine repository
+2. Install dependencies
+
+```
+npm install
+```
+
+3. Run build command
+
+```
+npm run build-cdk
+```
+
+4. Copy file from build folder to CSC folder
+
+```
+cp /ngcp-rtcengine/built/client/cdk-prod.js /ngcp-csc/rtc/files/dist/ 
+```
+   
