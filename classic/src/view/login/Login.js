@@ -5,7 +5,6 @@ Ext.define('NgcpCsc.view.login.Login', {
     autoShow: true,
     bodyPadding: 20,
     closable: false,
-    autoShow: true,
     standardSubmit: true,
     viewModel: 'login',
     width: 500,
