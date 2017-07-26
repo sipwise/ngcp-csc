@@ -187,12 +187,16 @@
      *
      */
     "js": [{
+        "path": "/rtc/files/dist/cdk-prod.js",
+        "remote": true
+    },{
         "path": "initLocalStorage.js",
         "includeInBundle": true
     },{
         "path": "app.js",
         "bundle": true
-    }],
+    }
+    ],
 
     /**
      * Settings specific to classic toolkit builds.
