@@ -1,3 +1,9 @@
+ngcp-csc (5.4.2.0+0~mr5.4.2.0) unstable; urgency=medium
+
+  * New release.
+
+ -- Sipwise Jenkins Builder <jenkins@sipwise.com>  Mon, 31 Jul 2017 14:35:59 +0200
+
 ngcp-csc (5.4.1.0+0~mr5.4.1.0) unstable; urgency=medium
 
   [ Carlo ]
