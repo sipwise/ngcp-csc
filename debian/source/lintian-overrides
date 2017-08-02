@@ -1,3 +1,4 @@
+ngcp-csc source: source-contains-unsafe-symlink sencha
 ngcp-csc source: source-is-missing ext/classic/classic/src/panel/Tool.js line length is 1806 characters (>512)
 ngcp-csc source: source-is-missing ext/classic/locale/overrides/th/ext-locale-th.js line length is 576 characters (>512)
 ngcp-csc source: source-is-missing ext/modern/modern/src/panel/Tool.js line length is 1890 characters (>512)
