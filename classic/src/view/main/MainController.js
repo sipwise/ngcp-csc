@@ -182,6 +182,9 @@ Ext.define('NgcpCsc.view.main.MainController', {
         this.setSectionTitle(id);
         if (id == 'inbox' || id == 'conversation-with' || id == 'pbxconfig/seats' || id == 'pbxconfig/groups' || id == 'pbxconfig/devices') {
             vm.set('headerBarFieldHideState', false);
+        } else if (id == 'callforward/always' || id == 'callforward/afterhours' || id == 'callforward/companyhours') {
+            this.fireEvent('cfReloadStore');
+            vm.set('headerBarFieldHideState', true);
         } else {
             vm.set('headerBarFieldHideState', true);
         };
