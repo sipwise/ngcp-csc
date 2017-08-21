@@ -6,7 +6,8 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     listen: {
         controller: {
             '*': {
-                confirmCFRemoval: 'confirmCFRemoval'
+                confirmCFRemoval: 'confirmCFRemoval',
+                cfReloadStore: 'cfReLoadStore'
             }
         },
         store: {
@@ -162,7 +163,8 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var arrayOfModels = [];
         var currentRoute = window.location.hash;
         var routeTimeset = this.getTimesetFromRoute(currentRoute);
-        if (me.getView()._preventReLoad) return;
+        // if (me.getView()._preventReLoad) return; // TODO: Needed for sourceset logic?
+
         store.removeAll();
         // TODO optimize, too many nested loops affects performance.
         // Ex. Where possible use break Ext.each by return false;
@@ -173,7 +175,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                 if (decodedResponse._embedded) {
                     var destinationsets = decodedResponse._embedded['ngcp:cfdestinationsets'];
                     destinationsets[0].destinations = me.sortDestinationsetByPriority(destinationsets[0].destinations);
-                    me.getView()._preventReLoad = true; // assumes there is no need to reload the store
+                    // me.getView()._preventReLoad = true; // assumes there is no need to reload the store
                     Ext.each(cfTypeArrayOfObjects, function (cfTypeObjects, index) {
                         var cfType = cfTypes[index];
                         cfType !== 'cft' && me.addCftOwnPhone(destinationsets[0].destinations); // if 'cft' we invoke addCftOwnPhone()
@@ -182,8 +184,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                             var sourcesetName = cfTypeObject.sourceset;
                             var timesetName = cfTypeObject.timeset;
                             if (timesetName == routeTimeset) {
+                                var destinationSetNamesPushed = [];
                                 Ext.each(destinationsets, function(destinationset) {
-                                    if (destinationset.name == destinationsetName) {
+                                    // NOTE: Here we are iterating over all the desinationsets received from Ajax request to /ap/cfdestinationsets/?subscriber_id=??, and only pushing a model if name matches and it hasn't already had a destinationset name pushed with that name
+                                    // NB: Because API can have duplicate names, we can not be sure we're getting the right destinationset here. We are always assuming it's the first one we receive in array in API response
+                                    if (destinationset.name == destinationsetName && destinationSetNamesPushed.indexOf(destinationset.name)) {
                                         for (item in destinationset.destinations) {
                                             var destinationToDisplayInGrid = me.getDestinationFromSipId(destinationset.destinations[item].destination);
                                             var destinationAnnouncementId = destinationset.announcement_id;
@@ -208,6 +213,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                                                 destinationset_name: destinationName
                                             });
                                             arrayOfModels.push(cbModel);
+                                            destinationSetNamesPushed.push(destinationset.name);
                                         }
                                     }
                                 });
@@ -235,6 +241,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
 
     cfStoreBeforeSync: function(store, options) {
         var me = this;
+        var vm = this.getViewModel();
         var recordsToSend = [];
         delete options['destroy'];
         delete options['create'];
@@ -275,7 +282,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     "value": obj.records
                 }],
                 success: function(response, opts) {
-                    store.commitChanges();
+                    var currentRoute = window.location.hash;
+                    var routeTimeset = me.getTimesetFromRoute(currentRoute);
+                    var storeSuffix = !routeTimeset ? 'Always' : routeTimeset.replace(/\s/, '');
+                    var currentStoreName = 'CallForward' + storeSuffix;
+                    Ext.getStore(currentStoreName).load();
+                    vm.set('last_store_synced', currentStoreName)
                 },
                 failure: function(response, opts) {
                     console.log('server-side failure with status code ' + response.status);
@@ -283,6 +295,18 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             });
         });
         return false;
+    },
+
+    cfReLoadStore: function () {
+        var me = this;
+        var vm = this.getViewModel();
+        var currentRoute = window.location.hash;
+        var routeTimeset = me.getTimesetFromRoute(currentRoute);
+        var storeSuffix = !routeTimeset ? 'Always' : routeTimeset.replace(/\s/, '');
+        var currentStoreName = 'CallForward' + storeSuffix;
+        if (vm.get('last_store_synced').length > 0 && currentStoreName !== vm.get('last_store_synced')) {
+            Ext.getStore(currentStoreName).load();
+        };
     },
 
     cfSourcesetBeforeSync: function (store, options) {
@@ -549,6 +573,10 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             var type = me.getGridCategoryFromType(model.get('type'));
             var storeName = sourcename + timename + type;
             store = Ext.getStore(storeName);
+            if(!store._emptied){
+                store.removeAll();
+                store._emptied = true;
+            }
             if (store) {
                 store.add(model);
                 stores.push(store);
@@ -558,6 +586,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             Ext.each(stores, function (store) {
                 store.commitChanges();
                 me.setLabelTerminationType(store);
+                store._emptied = false;
             });
         }
     },
@@ -798,7 +827,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     confirmCFRemoval: function(record) {
         var me = this;
         var store = record.store;
-        if(store){
+        if (store) {
             store.remove(record);
             store.sync();
             me.setLabelTerminationType(store);

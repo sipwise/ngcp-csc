@@ -12,7 +12,7 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
             autoLoad: true,
             listeners: {
                 beforeload: function(store) {
-                    store._preventReLoad = false;
+                    // store._preventReLoad = false;
                 },
                 load: function(store, recs) {
                     this.fireEvent('cfStoreLoaded', this, recs[0]);
