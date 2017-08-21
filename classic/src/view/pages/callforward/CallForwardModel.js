@@ -41,7 +41,8 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardModel', {
         list_a_exists_in_api: false,
         list_b_exists_in_api: false,
         after_hours_exists_in_api: false,
-        company_hours_exists_in_api: false
+        company_hours_exists_in_api: false,
+        last_store_synced: ''
     },
 
     formulas: {
