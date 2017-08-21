@@ -174,16 +174,22 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     var destinationsets = decodedResponse._embedded['ngcp:cfdestinationsets'];
                     destinationsets[0].destinations = me.sortDestinationsetByPriority(destinationsets[0].destinations);
                     me.getView()._preventReLoad = true; // assumes there is no need to reload the store
+                    console.log('cfTypeArrayOfObjects', cfTypeArrayOfObjects);
                     Ext.each(cfTypeArrayOfObjects, function (cfTypeObjects, index) {
                         var cfType = cfTypes[index];
                         cfType !== 'cft' && me.addCftOwnPhone(destinationsets[0].destinations); // if 'cft' we invoke addCftOwnPhone()
+                        console.log('cfTypeObjects', cfTypeObjects);
                         Ext.each(cfTypeObjects, function(cfTypeObject) {
                             var destinationsetName = cfTypeObject.destinationset;
+                            console.log('destinationsetName', destinationsetName);
                             var sourcesetName = cfTypeObject.sourceset;
                             var timesetName = cfTypeObject.timeset;
                             if (timesetName == routeTimeset) {
+                                var destinationSetNamesPushed = [];
                                 Ext.each(destinationsets, function(destinationset) {
-                                    if (destinationset.name == destinationsetName) {
+                                    // NOTE: Here we are iterating over all the desinationsets received from Ajax request to /ap/cfdestinationsets/?subscriber_id=??, and only pushing a model if name matches and it hasn't already had a destinationset name pushed with that name
+                                    // NB: Because API can have duplicate names, we can not be sure we're getting the right destinationset here. We are always assuming it's the first one we receive in array in API response
+                                    if (destinationset.name == destinationsetName && destinationSetNamesPushed.indexOf(destinationset.name)) {
                                         for (item in destinationset.destinations) {
                                             var destinationToDisplayInGrid = me.getDestinationFromSipId(destinationset.destinations[item].destination);
                                             var destinationAnnouncementId = destinationset.announcement_id;
@@ -208,6 +214,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                                                 destinationset_name: destinationName
                                             });
                                             arrayOfModels.push(cbModel);
+                                            destinationSetNamesPushed.push(destinationset.name);
                                         }
                                     }
                                 });
