@@ -19,3 +19,4 @@ t/*.xml
 sass/example/fashion.html
 sass/example/render.js
 rtc/
+sencha-error-*.log

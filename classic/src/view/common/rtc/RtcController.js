@@ -3,6 +3,9 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     alias: 'controller.rtc',
     id: 'rtc',
     listen: {
+        global: {
+            mainAppLoaded: 'initRtcEngineClient'
+        },
         controller: {
             '*': {
                 initrtc: 'showRtcPanel',
@@ -289,11 +292,10 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         var record = Ext.create('NgcpCsc.model.Notification', {
             'id': Ext.id(),
             'conversation_type': 'fax',
-            'name': vm.get('numberToCall'),
+            'name': vm.get('numberToCall') || 'Administrator',
             'direction': 'outgoing',
             'status': 'answered',
             'start_time': Date.now(),
-            "name": "Administrator",
             "thumbnail": Ext.manifest.resources.path + "/images/user-profile/2.png"
         });
         if (faxForm.isValid()) {
@@ -336,5 +338,39 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
             me.getView().close();
         }, 100);
         this.fireEvent('showmessage', true, Ngcp.csc.locales.rtc.sms_sent[localStorage.getItem('languageSelected')]);
+    },
+
+    initRtcEngineClient: function() {
+        var controller = this;
+        Ext.Promise.resolve().then(function(){
+            return new Ext.Promise(function(resolve, reject){
+                Ext.Ajax.request({
+                    url: '/api/rtcsessions/',
+                    method: 'POST',
+                    jsonData: {},
+                    success: function(res){ resolve(res) },
+                    failure: function(err) { reject(err); },
+                    scope: controller
+                });
+            });
+        }).then(function(res) {
+            return new Ext.Promise(function(resolve, reject){
+                Ext.Ajax.request({
+                    url: res.getResponseHeader('Location'),
+                    method: 'GET',
+                    jsonData: {},
+                    success: function(res){ resolve(res) },
+                    failure: function(err) { reject(err); },
+                    scope: controller
+                });
+            });
+        }).then(function(res) {
+            var rtcSession = Ext.decode(res.responseText);
+            var viewModel = controller.getViewModel();
+            viewModel.set('rtcEngineSession', rtcSession);
+            console.log(rtcSession);
+        }).catch(function(err){
+            console.error(err);
+        });
     }
 });
