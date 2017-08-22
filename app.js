@@ -2,6 +2,7 @@
 Ext.Ajax.on("beforerequest", function(con, options) {
     con.setUseDefaultXhrHeader(false);
     con.setWithCredentials(true);
+
     if (options.params && localStorage.getItem('jwt')) {
         delete options.params.page;
         delete options.params.start;
@@ -69,6 +70,7 @@ Ext.application({
         Ext.Function.defer(function() {
             me.redirectTo('inbox');
         }, 100)
+        Ext.fireEvent('mainAppLoaded');
     }
 
 });

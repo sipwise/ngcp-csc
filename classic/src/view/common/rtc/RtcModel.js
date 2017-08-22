@@ -28,7 +28,9 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
         // sms only fields
         smsText: '',
         // panel status
-        minimized: true
+        minimized: true,
+        rtcEngineClient: null,
+        rtcEngineSession: null
     },
     formulas: {
         disableSubmit: function(get) {
