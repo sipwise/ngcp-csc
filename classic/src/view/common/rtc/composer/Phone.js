@@ -31,24 +31,23 @@ Ext.define('NgcpCsc.view.common.composer.Phone', {
     }, {
         xtype: 'container',
         layout: 'center',
-        margin: '40 20 20 20',
         items: [{
-            xtype: 'button',
-            cls: 'rtc-icons-big',
-            bind: {
-                disabled: '{disableSubmit}'
-            },
-            width: 60,
-            height: 60,
-            margin: '50 0 10 0',
-            iconCls: Ngcp.csc.icons.phone3x,
-            cls: 'rtc-icons-big',
-            listeners: {
-                click: {
-                    fn: 'startNewCall',
-                    el: 'element'
+            xtype: 'container',
+            items: [
+                {
+                    xtype: 'button',
+                    text : Ngcp.csc.locales.rtc.sendAudio[localStorage.getItem('languageSelected')],
+                    iconCls: Ngcp.csc.icons.microphone,
+                    margin: '0 10 0 0',
+                    listeners: {
+
+                    }
+                },{
+                    xtype: 'button',
+                    text : Ngcp.csc.locales.rtc.sendVideo[localStorage.getItem('languageSelected')],
+                    iconCls: Ngcp.csc.icons.video
                 }
-            }
+            ]
         }]
     }, {
         hidden: true,

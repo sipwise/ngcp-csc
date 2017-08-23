@@ -1619,6 +1619,12 @@ Ext.define('Ngcp.csc.locales', {
                 it: 'Sms sent.',
                 fr: 'Sms sent.',
                 sp: 'Sms sent.'
+            },
+            sendAudio: {
+                en: 'Audio Call'
+            },
+            sendVideo: {
+                en: 'Video Call'
             }
         },
         faxsend: {
