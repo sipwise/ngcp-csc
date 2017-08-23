@@ -135,6 +135,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
             }
         }
     },
+
     minimizeRtcPanel: function() {
         this.getView().collapse();
     },
@@ -150,6 +151,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         this.fireEvent('expandContacts');
         return false;
     },
+
     emulateCall: function(audioOn, videoOn) {
         var me = this;
         var vm = me.getViewModel();
@@ -205,6 +207,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
             me.startMedia(vm.get('micEnabled'), vm.get('videoEnabled'));
         }
     },
+
     toggleCall: function(btn) {
         if (btn.pressed) { // this can be also checked against vm.get('callEnabled')
             this.emulateCall(true, false);
@@ -212,6 +215,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
             this.endCall();
         }
     },
+
     endCall: function() {
         var vm = this.getViewModel();
         var videoObj = this.lookupReference('videoObj');
@@ -271,11 +275,13 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         var vm = this.getViewModel();
         vm.set('phoneKeyboardHidden', !btn.pressed);
     },
+
     digitNumber: function(btn) {
         var vm = this.getViewModel();
         var currentNum = vm.get('numberToCall');
         vm.set('numberToCall', currentNum + btn.getText())
     },
+
     startNewCall: function() {
         var vm = this.getViewModel();
         var currentNum = vm.get('numberToCall');
@@ -284,6 +290,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         });
         this.showRtcPanel(record, 'startCall');
     },
+
     sendFax: function() {
         var me = this;
         var vm = me.getViewModel();
@@ -313,6 +320,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         this.getView().close();
 
     },
+
     sendSms: function() {
         var me = this;
         var vm = me.getViewModel();
@@ -372,5 +380,13 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         }).catch(function(err){
             console.error(err);
         });
+    },
+
+    // parameter state true causes the class for the background color change to
+    // be added, and parameter state false causes the class to be removed
+    setRtcpanelTitleColor: function (state) {
+        var rtcpanel = Ext.getCmp('rtcpanel');
+        rtcpanel.toggleCls('rtc-title-call-initiation', state);
     }
+
 });
