@@ -1,33 +1,29 @@
 Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
     extend: 'Ext.panel.Panel',
 
+    id: 'rtcpanel',
     xtype: 'rtc',
 
     controller: 'rtc',
-
     viewModel: 'rtc',
 
     padding: '0 0 0 1',
-
     width: '30%',
-
     closable: true,
-
     collapseDirection: 'left',
-
     cls: 'rtc-panel',
 
     bind: {
         title: '{title}'
     },
 
-    tools: [ {
+    tools: [{
         glyph: 'xf065@FontAwesome',
         callback: 'toggleFullscreen',
-        bind:{
+        bind: {
             hidden: '{!videoEnabled}'
         }
-    },{
+    }, {
         type: 'minimize',
         callback: 'minimizeRtcPanel'
     }],
@@ -55,14 +51,13 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
         defaults: {
             cls: 'rtc-container'
         },
-        items: [
-        {
-            margin:20,
-            hidden:true,
+        items: [{
+            margin: 20,
+            hidden: true,
             width: '100%',
             reference: 'videoObj',
             html: "<video width=100% id=videoTag height=240></video>"
-        },{
+        }, {
             cls: 'rtc-avatar-container',
             reference: 'avatar',
             items: {
@@ -96,7 +91,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
                     userCls: '{setuserCls}'
                 },
                 handler: 'toggleCall'
-            },  {
+            }, {
                 iconCls: Ngcp.csc.icons.microphone,
                 bind: {
                     pressed: '{micEnabled}',
@@ -104,7 +99,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
                     hidden: '{!micEnabled}'
                 },
                 handler: 'toggleAudioVideo'
-            },{
+            }, {
                 iconCls: Ngcp.csc.icons.microphone_slash,
                 bind: {
                     pressed: '{micEnabled}',
@@ -112,7 +107,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
                     hidden: '{micEnabled}'
                 },
                 handler: 'toggleAudioVideo'
-            },  {
+            }, {
                 iconCls: Ngcp.csc.icons.video,
                 bind: {
                     pressed: '{videoEnabled}',
@@ -135,4 +130,4 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
     }, {
         xtype: 'fax-composer'
     }]
-})
+});
