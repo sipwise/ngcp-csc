@@ -61,7 +61,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
             hidden:true,
             width: '100%',
             reference: 'videoObj',
-            html:"<video width=100% id=videoTag height=240></video>"
+            html: "<video width=100% id=videoTag height=240></video>"
         },{
             cls: 'rtc-avatar-container',
             reference: 'avatar',
@@ -96,7 +96,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
                     userCls: '{setuserCls}'
                 },
                 handler: 'toggleCall'
-            }, {
+            },  {
                 iconCls: Ngcp.csc.icons.microphone,
                 bind: {
                     pressed: '{micEnabled}',
