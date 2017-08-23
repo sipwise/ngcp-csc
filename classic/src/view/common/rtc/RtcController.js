@@ -10,13 +10,112 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
             '*': {
                 initrtc: 'showRtcPanel',
                 emulateCall: 'emulateCall',
-                endcall: 'endCall'
+                endcall: 'endCall',
+                callPending: 'callPending',
+                callAccepted: 'callAccepted',
+                callRingingStart: 'callRingingStart',
+                callRingingStop: 'callRingingStop',
+                callRemoteMedia: 'callRemoteMedia',
+                callRemoteMediaEnded: 'callRemoteMediaEnded',
+                callEnded: 'callEnded'
             }
         }
     },
 
     currentStream: null,
     intervalId: '',
+
+    sendAudio: function(){
+        this.initCall('audio');
+    },
+
+    sendVideo: function() {
+        this.initCall('video');
+    },
+
+    initCall: function(mediaType) {
+        var controller = this;
+        var call = null;
+        var callee = controller.getViewModel().get('numberToCall');
+        var network = controller.getViewModel().get('rtcEngineNetwork');
+
+        if (callee !== '' && callee !== null && callee !== void(0)) {
+            this.createMedia(mediaType).then(function (localMediaStream) {
+                controller.getViewModel().set('rtcEngineLocalMediaStream', localMediaStream);
+                call = network.call(callee, {
+                    localMediaStream: localMediaStream
+                });
+                controller.getViewModel().set('rtcEngineCall', call);
+                call.onPending(function () {
+                    controller.fireEvent('callPending');
+                }).onAccepted(function () {
+                    controller.fireEvent('callAccepted');
+                }).onRingingStart(function () {
+                    controller.fireEvent('callRingingStart');
+                }).onRingingStop(function () {
+                    controller.fireEvent('callRingingStop');
+                }).onRemoteMedia(function (stream) {
+                    controller.fireEvent('callRemoteMedia', stream);
+                }).onRemoteMediaEnded(function () {
+                    controller.fireEvent('callRemoteMediaEnded');
+                }).onEnded(function () {
+                    controller.fireEvent('callEnded');
+                });
+            }).catch(function (err) {
+                console.error(err);
+            });
+        }
+    },
+
+    createMedia: function(mediaType) {
+        return new Ext.Promise(function(resolve, reject){
+            var localMediaStream;
+            localMediaStream = new cdk.LocalMediaStream();
+            localMediaStream.queryMediaSources(function(sources){
+                if(mediaType === 'audio') {
+                    localMediaStream.setAudio(sources.defaultAudio);
+                }
+                if(mediaType === 'video') {
+                    localMediaStream.setVideo(sources.defaultVideo);
+                }
+                localMediaStream.build(function(err){
+                    if(err) {
+                        reject(err);
+                    } else {
+                        resolve(localMediaStream);
+                    }
+                });
+            });
+        });
+    },
+
+    callPending: function() {
+        console.log("callPending");
+    },
+
+    callAccepted: function() {
+        console.log("callAccepted");
+    },
+
+    callRingingStart: function() {
+        console.log("callRingingStart");
+    },
+
+    callRingingStop: function() {
+        console.log("callRingingStop");
+    },
+
+    callRemoteMedia: function() {
+        console.log("callRemoteMedia");
+    },
+
+    callRemoteMediaEnded: function() {
+        console.log("callRemoteMediaEnded");
+    },
+
+    callEnded: function() {
+        console.log("callEnded");
+    },
 
     showRtcPanel: function(record, action, switchVideoOn, preventReloadConversation) {
         var me = this;
@@ -373,10 +472,27 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                 });
             });
         }).then(function(res) {
-            var rtcSession = Ext.decode(res.responseText);
             var viewModel = controller.getViewModel();
+            var rtcNetwork = null;
+            var rtcSession = Ext.decode(res.responseText);
+            var rtcClient = new cdk.Client({
+                url: 'wss://' + window.location.host + '/rtc/api',
+                userSession: rtcSession.rtc_browser_token
+            });
+            rtcClient.onConnect(function(){
+                console.log('Connected to RTC:Engine');
+                viewModel.set('rtcEngineClient', rtcClient);
+                rtcNetwork = rtcClient.getNetworkByTag('sip');
+                rtcNetwork.onConnect(function(){
+                    console.log('Connected to SipNetwork');
+                    viewModel.set('rtcEngineNetwork', rtcNetwork);
+                }).onDisconnect(function(){
+                    console.log('Failed to connected to SipNetwork');
+                });
+            }).onDisconnect(function(){
+                console.log('Failed to connected to RTC:Engine');
+            });
             viewModel.set('rtcEngineSession', rtcSession);
-            console.log(rtcSession);
         }).catch(function(err){
             console.error(err);
         });

@@ -29,6 +29,9 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
         smsText: '',
         // panel status
         minimized: true,
+        rtcEngineLocalMediaStream: null,
+        rtcEngineCall: null,
+        rtcEngineNetwork: null,
         rtcEngineClient: null,
         rtcEngineSession: null
     },

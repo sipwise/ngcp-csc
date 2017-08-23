@@ -1,3 +1,7 @@
+
+// Enable debug output for RTC:engine
+cdk.logging.debug();
+
 // Attach JWT token to every request, and cleanup framework default params
 Ext.Ajax.on("beforerequest", function(con, options) {
     con.setUseDefaultXhrHeader(false);
