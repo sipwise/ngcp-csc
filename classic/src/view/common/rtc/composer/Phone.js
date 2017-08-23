@@ -9,13 +9,25 @@ Ext.define('NgcpCsc.view.common.composer.Phone', {
     items: [{
         layout: 'hbox',
         margin: 20,
-        items: [{
+        items: [
+            // buttons for testing color change method during dev
+        {
+            xtype: 'button',
+            text: 'toggle color change',
+            handler: 'toggleRtcpanelColorOn'
+        },
+        {
+            xtype: 'button',
+            text: 'revert color change',
+            handler: 'toggleRtcpanelColorOff'
+        },
+        {
             xtype: 'textfield',
             emptyText: 'Allowed digits are 0-9, +, # and *.',
             hideTrigger: true,
             width: '80%',
             bind: '{numberToCall}',
-            reference:'callNumberInput'
+            reference: 'callNumberInput'
         }, {
             xtype: 'button',
             enableToggle: true,
@@ -33,24 +45,22 @@ Ext.define('NgcpCsc.view.common.composer.Phone', {
         layout: 'center',
         items: [{
             xtype: 'container',
-            items: [
-                {
-                    xtype: 'button',
-                    text : Ngcp.csc.locales.rtc.sendAudio[localStorage.getItem('languageSelected')],
-                    iconCls: Ngcp.csc.icons.microphone,
-                    margin: '0 10 0 0',
-                    listeners: {
+            items: [{
+                xtype: 'button',
+                text: Ngcp.csc.locales.rtc.sendAudio[localStorage.getItem('languageSelected')],
+                iconCls: Ngcp.csc.icons.microphone,
+                margin: '0 10 0 0',
+                listeners: {
 
-                    }
-                },{
-                    xtype: 'button',
-                    text : Ngcp.csc.locales.rtc.sendVideo[localStorage.getItem('languageSelected')],
-                    iconCls: Ngcp.csc.icons.video
                 }
-            ]
+            }, {
+                xtype: 'button',
+                text: Ngcp.csc.locales.rtc.sendVideo[localStorage.getItem('languageSelected')],
+                iconCls: Ngcp.csc.icons.video
+            }]
         }]
     }, {
         hidden: true,
-        html: '<audio id="ring" src="'+Ext.manifest.resources.path+'/audio/skype_ring.mp3" preload="auto"></audio>'
+        html: '<audio id="ring" src="' + Ext.manifest.resources.path + '/audio/skype_ring.mp3" preload="auto"></audio>'
     }]
 })
