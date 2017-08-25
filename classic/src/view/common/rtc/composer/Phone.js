@@ -33,27 +33,37 @@ Ext.define('NgcpCsc.view.common.composer.Phone', {
         layout: 'center',
         items: [{
             xtype: 'container',
-            items: [
-                {
+            items: [{
                     xtype: 'button',
-                    text : Ngcp.csc.locales.rtc.sendAudio[localStorage.getItem('languageSelected')],
+                    text: Ngcp.csc.locales.rtc.sendAudio[localStorage.getItem('languageSelected')],
                     iconCls: Ngcp.csc.icons.microphone,
                     margin: '0 10 0 0',
                     listeners: {
                         click: 'sendAudio'
                     }
-                },{
+                }, {
                     xtype: 'button',
-                    text : Ngcp.csc.locales.rtc.sendVideo[localStorage.getItem('languageSelected')],
+                    text: Ngcp.csc.locales.rtc.sendVideo[localStorage.getItem('languageSelected')],
                     iconCls: Ngcp.csc.icons.video,
                     listeners: {
                         click: 'sendVideo'
                     }
+                },
+                // dev helper buttons
+                // TODO: remove when done
+                {
+                    xtype: 'button',
+                    text: 'play ringing sound',
+                    handler: 'playRingSound'
+                }, {
+                    xtype: 'button',
+                    text: 'stop ringing sound',
+                    handler: 'stopRingSound'
                 }
             ]
         }]
     }, {
         hidden: true,
-        html: '<audio id="ring" src="' + Ext.manifest.resources.path + '/audio/skype_ring.mp3" preload="auto"></audio>'
+        html: '<audio preload="auto" src="' + Ext.manifest.resources.path + '/audio/ring.mp3" loop id="ring"></audio>'
     }]
 })
