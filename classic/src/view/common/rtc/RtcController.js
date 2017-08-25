@@ -206,6 +206,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     },
 
     emulateCall: function(audioOn, videoOn) {
+        console.log('emulates');
         var me = this;
         var vm = me.getViewModel();
         var sample = document.getElementById("ring");
@@ -214,11 +215,10 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
             clearInterval(me.intervalId);
         }
         vm.set('status', 'calling...');
-        sample.play();
+        me.playRingSound();
         setTimeout(function() {
             var seconds = minutes = hours = 0;
-            sample.pause();
-            sample.currentTime = 0;
+            me.stopRingSound();
             vm.set('callEnabled', true);
             vm.set('micEnabled', true);
 
@@ -519,6 +519,19 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     setRtcpanelTitleColor: function (state) {
         var rtcpanel = Ext.getCmp('rtcpanel');
         rtcpanel.toggleCls('rtc-title-call-initiation', state);
+    },
+
+    playRingSound: function () {
+        var sound = document.getElementById('ring');
+        if (sound.paused) {
+            sound.play();
+        };
+    },
+
+    stopRingSound: function () {
+        var sound = document.getElementById('ring');
+        sound.pause();
+        sound.currentTime = 0;
     }
 
 });
