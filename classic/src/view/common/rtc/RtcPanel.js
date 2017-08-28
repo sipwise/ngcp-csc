@@ -129,5 +129,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
         xtype: 'sms-composer'
     }, {
         xtype: 'fax-composer'
+    }, {
+        xtype: 'incoming-call'
     }]
 });

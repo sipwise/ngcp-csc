@@ -58,6 +58,8 @@ Ext.define('Ngcp.csc.icons', {
         phone: "x-fa fa-phone",
         phone2x: "x-fa fa-phone fa-2x",
         phone3x: "x-fa fa-phone fa-3x",
+        phone_cancel: "x-fa fa-phone fa-rotate-180",
+        phone_cancel2x: "x-fa fa-phone fa-rotate-90 fa-2x",
         phonesquare: "x-fa fa-phone-square",
         send: "x-fa fa-send",
         send2x: "x-fa fa-send fa-2x",
@@ -76,6 +78,7 @@ Ext.define('Ngcp.csc.icons', {
         user: "x-fa fa-user",
         users: "x-fa fa-users",
         user_secret: "x-fa fa-user-secret",
-        video: "x-fa fa-video-camera"
+        video: "x-fa fa-video-camera",
+        video2x: "x-fa fa-video-camera fa-2x"
     }
 })
