@@ -18,6 +18,13 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     currentStream: null,
     intervalId: '',
 
+    // TODO: 1. Create method to show incoming-call, change title state to
+    //          'Incoming call', set label number state to callee number, and
+    //          change color of title
+    // TODO: 2. Create method to hide incoming-call, and change title state back
+    //          to 'New call', set label number state back to default, and
+    //          revert color of title
+
     sendAudio: function(){
         this.initCall('audio');
     },
