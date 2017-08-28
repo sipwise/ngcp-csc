@@ -42,6 +42,14 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsToolbar', {
             margin: '0 20 0 0',
             handler: 'composeCall',
             tooltip: Ngcp.csc.locales.conversations.tooltips.new_call[localStorage.getItem('languageSelected')]
+        }, {
+            xtype: 'button',
+            html: 'Show incoming call',
+            handler: 'showIncomingCallPendingState'
+        }, {
+            xtype: 'button',
+            html: 'Hide incoming call',
+            handler: 'hideIncomingCallPendingState'
         }]
     }]
 });

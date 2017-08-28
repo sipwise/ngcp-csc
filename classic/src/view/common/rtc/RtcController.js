@@ -10,7 +10,8 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
             '*': {
                 initrtc: 'showRtcPanel',
                 emulateCall: 'emulateCall',
-                endcall: 'endCall'
+                endcall: 'endCall',
+                hideIncomingCallPendingState: 'hideIncomingCallPendingState'
             }
         }
     },
@@ -145,6 +146,9 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                 vm.set('smsComposerHidden', false);
                 vm.set('callPanelHidden', true);
                 fieldToFocus = this.lookupReference('smsTextArea');
+                break;
+            case 'incomingCall':
+                me.showIncomingCallPendingState();
                 break;
         }
         panel.show().expand();
@@ -514,15 +518,8 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         }
     },
 
-    showOutgoingCallPendingState: function() {
-        this.getViewModel().set('callPanel', true);
-        this.getViewModel().set('outgoingCallPending', true);
-        this.getViewModel().set('phoneComposerHidden', true);
-    },
-
-    // parameter state true causes the class for the background color change to
-    // be added, and parameter state false causes the class to be removed
     setRtcpanelTitleColor: function (state) {
+        // parameter true to change color, and false to revert
         var rtcpanel = Ext.getCmp('rtcpanel');
         rtcpanel.toggleCls('rtc-title-call-initiation', state);
     },
@@ -538,6 +535,44 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         var sound = document.getElementById('ring');
         sound.pause();
         sound.currentTime = 0;
+    },
+
+    showOutgoingCallPendingState: function() {
+        var vm = this.getViewModel();
+        vm.set('callPanel', true);
+        vm.set('outgoingCallPending', true);
+        vm.set('phoneComposerHidden', true);
+    },
+
+    showIncomingCallPendingState: function (caller, type) {
+        // @hherzog: I added parameters for caller number and media type for
+        // now, but they can be replaced with cdk method calls in variable
+        // declaration below if you prefer
+        var vm = this.getViewModel();
+        var caller = caller || '+4312345';
+        var type = type || 'audio';
+        vm.set('callPanel', true);
+        vm.set('incomingCallPending', true);
+        vm.set('phoneComposerHidden', true);
+        vm.set('title', Ngcp.csc.locales.rtc.incoming_call[localStorage.getItem('languageSelected')]);
+        vm.set('incomingCaller', caller);
+        vm.set('incomingType', type);
+        vm.set('incomingCallHidden', false);
+        this.setRtcpanelTitleColor(true);
+    },
+
+    hideIncomingCallPendingState: function () {
+        var vm = this.getViewModel();
+        var rtcpanel = Ext.getCmp('rtcpanel');
+        this.setRtcpanelTitleColor(false);
+        vm.set('callPanel', false);
+        vm.set('incomingCallPending', false);
+        vm.set('title', '');
+        vm.set('incomingCaller', '');
+        vm.set('incomingType', '');
+        if (rtcpanel) { // Closes rtcpanel
+            rtcpanel.close();
+        };
     }
 
 });

@@ -59,3 +59,44 @@ $border-radius : 50%;
         }
     }
 }
+
+.rtc-decline-call {
+    background: red !important;
+    border-color: #db0404 !important;
+    &:after {
+        font-family: FontAwesome;
+        content: "\f05e";
+        padding-left: 18px;
+        color: #F1F1F1;
+        position: relative;
+        top: -18px;
+    }
+}
+
+.rtc-decline-call-pressed {
+    background: #db0404 !important;
+    border-color: #db0404 !important;
+}
+
+.rtc-incoming-label,
+.rtc-incoming-number {
+    margin: 0 auto;
+}
+
+.rtc-incoming-label,
+.rtc-outgoing-label {
+    font-size: 16px;
+    .x-autocontainer-innerCt {
+        font-size: 16px;
+    }
+}
+
+.rtc-incoming-number {
+    .x-autocontainer-innerCt {
+        font-size: 24px;
+    }
+}
+
+.rtc-button-margin {
+    margin: 0 50px 0 0;
+}

@@ -174,7 +174,7 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
         var storeReload = function(){
             grid.getStore().load();
         };
-        
+
         task = runner.start({
             run: storeReload,
             interval: 60000
@@ -248,6 +248,14 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
 
     composeFax: function() {
         this.fireEvent('initrtc', null, 'faxComposer');
+    },
+
+    showIncomingCallPendingState: function () {
+        this.fireEvent('initrtc', null, 'incomingCall');
+    },
+
+    hideIncomingCallPendingState: function () {
+        this.fireEvent('hideIncomingCallPendingState');
     },
 
     expandConversation: function(view, td, cellindex, record, tr) {
