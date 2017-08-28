@@ -59,3 +59,61 @@ $border-radius : 50%;
         }
     }
 }
+
+.rtc-decline-call {
+    background: red !important;
+    border-color: #db0404 !important;
+    &:after {
+        font-family: FontAwesome;
+        content: "\f05e";
+        padding-left: 18px;
+        color: #F1F1F1;
+        position: relative;
+        top: -18px;
+    }
+}
+
+.rtc-decline-call-pressed {
+    background: #db0404 !important;
+    border-color: #db0404 !important;
+}
+
+.rtc-incoming-label,
+.rtc-incoming-label .x-autocontainer-innerCt {
+    font-size: 16px
+}
+
+.rtc-incoming-number .x-autocontainer-innerCt {
+    font-size: 24px;
+    padding-top: 1px;
+}
+
+// TODO: Consolidate into nested SASS
+
+.rtc-incoming-label span {
+    font-size: 24px;
+    animation-name: blink;
+    animation-duration: 1.4s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+}
+
+.rtc-incoming-label span:nth-child(2) {
+    animation-delay: .2s;
+}
+
+.rtc-incoming-label span:nth-child(3) {
+    animation-delay: .4s;
+}
+
+@keyframes blink {
+    0% {
+        opacity: .2;
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        opacity: .2;
+    }
+}

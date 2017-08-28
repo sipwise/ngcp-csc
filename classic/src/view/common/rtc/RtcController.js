@@ -10,7 +10,8 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
             '*': {
                 initrtc: 'showRtcPanel',
                 emulateCall: 'emulateCall',
-                endcall: 'endCall'
+                endcall: 'endCall',
+                hideIncomingCall: 'hideIncomingCall'
             }
         }
     },
@@ -145,6 +146,9 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                 vm.set('smsComposerHidden', false);
                 vm.set('callPanelHidden', true);
                 fieldToFocus = this.lookupReference('smsTextArea');
+                break;
+            case 'incomingCall':
+                me.showIncomingCall();
                 break;
         }
         panel.show().expand();
@@ -513,9 +517,8 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         }
     },
 
-    // parameter state true causes the class for the background color change to
-    // be added, and parameter state false causes the class to be removed
     setRtcpanelTitleColor: function (state) {
+        // parameter true to change color, and false to revert
         var rtcpanel = Ext.getCmp('rtcpanel');
         rtcpanel.toggleCls('rtc-title-call-initiation', state);
     },
@@ -531,6 +534,34 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         var sound = document.getElementById('ring');
         sound.pause();
         sound.currentTime = 0;
+    },
+
+    showIncomingCall: function () {
+        var vm = this.getViewModel();
+        var caller = '+4312345'; // TODO: Replace with caller from related method
+        var callType = 'audio'; // TODO: Replace with call type from related method
+        vm.set('phoneComposerHidden', true);
+        vm.set('faxComposerHidden', true);
+        vm.set('smsComposerHidden', true);
+        vm.set('phoneKeyboardHidden', true);
+        vm.set('title', Ngcp.csc.locales.rtc.incoming_call[localStorage.getItem('languageSelected')]);
+        vm.set('incoming_caller', caller);
+        vm.set('incoming_call_type', callType);
+        vm.set('incomingCallHidden', false);
+        this.setRtcpanelTitleColor(true);
+    },
+
+    hideIncomingCall: function () {
+        var vm = this.getViewModel();
+        var rtcpanel = Ext.getCmp('rtcpanel');
+        vm.set('title', '');
+        vm.set('incoming_caller', '');
+        vm.set('incoming_call_type', '');
+        vm.set('incomingCallHidden', true);
+        this.setRtcpanelTitleColor(false);
+        if (rtcpanel) {
+            rtcpanel.close();
+        };
     }
 
 });
