@@ -6,7 +6,7 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
     // left inline by purpose as it's not coming from API
     data: {
         uid: '',
-        title: 123456789,
+        title: '',
         defaultThumbnail: Ext.manifest.resources.path + '/images/icons/phoneicon.png',
         thumbnail: Ext.manifest.resources.path + '/images/icons/phoneicon.png',
         status: 'calling...',
@@ -15,6 +15,7 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
         faxComposerHidden: true,
         smsComposerHidden: true,
         phoneKeyboardHidden: true,
+        incomingCallHidden: true,
         callEnabled: false,
         connected: false,
         micEnabled: false,
@@ -35,7 +36,10 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
         rtcEngineClient: null,
         rtcEngineSession: null,
         callPanel: true,
-        outgoingCallPending: false
+        outgoingCallPending: false,
+        incomingCallPending: false,
+        incomingType: '',
+        incomingCaller: ''
     },
     formulas: {
         disableSubmit: function(get) {

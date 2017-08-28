@@ -12,6 +12,11 @@ Ext.define('NgcpCsc.view.login.Login', {
     draggable: false,
     header: false,
     cls: 'auth-dialog',
+    listeners: {
+        beforeclose: function (e) {
+            return false; // prevents the login window to close on ESC key
+        }
+    },
     items: {
         xtype: 'form',
         reference: 'login-form',
