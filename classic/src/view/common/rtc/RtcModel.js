@@ -33,7 +33,9 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
         rtcEngineCall: null,
         rtcEngineNetwork: null,
         rtcEngineClient: null,
-        rtcEngineSession: null
+        rtcEngineSession: null,
+        callPanel: true,
+        outgoingCallPending: false
     },
     formulas: {
         disableSubmit: function(get) {

@@ -458,31 +458,32 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     },
 
     outgoingPending: function() {
-        console.log('outgoingPending');
+        console.log('outgoingCallPending');
+        this.showOutgoingCallPendingState();
     },
 
     outgoingAccepted: function() {
-        console.log('outgoingAccepted');
+        console.log('outgoingCallAccepted');
     },
 
     outgoingRingingStart: function() {
-        console.log('outgoingRingingStart');
+        console.log('outgoingCallRingingStart');
     },
 
     outgoingRingingStop: function() {
-        console.log('outgoingRingingStop');
+        console.log('outgoingCallRingingStop');
     },
 
     outgoingRemoteMedia: function(stream) {
-        console.log('outgoingRemoteMedia');
+        console.log('outgoingCallRemoteMedia');
     },
 
     outgoingRemoteMediaEnded: function() {
-        console.log('outgoingRemoteMediaEnded');
+        console.log('outgoingCallRemoteMediaEnded');
     },
 
     outgoingEnded: function() {
-        console.log('outgoingEnded');
+        console.log('outgoingCallEnded');
         this.callEnded();
     },
 
@@ -511,6 +512,12 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
             localMediaStream.stop();
             $vm.set('rtcEngineLocalMediaStream', null);
         }
+    },
+
+    showOutgoingCallPendingState: function() {
+        this.getViewModel().set('callPanel', true);
+        this.getViewModel().set('outgoingCallPending', true);
+        this.getViewModel().set('phoneComposerHidden', true);
     },
 
     // parameter state true causes the class for the background color change to
