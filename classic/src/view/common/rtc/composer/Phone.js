@@ -1,4 +1,4 @@
-Ext.define('NgcpCsc.view.common.composer.Phone', {
+Ext.define('NgcpCsc.view.common.rtc.composer.Phone', {
     extend: 'Ext.panel.Panel',
 
     alias: 'widget.phone-composer',

@@ -38,96 +38,12 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
     },
 
     items: [{
-        flex: 4,
-        reference: 'callpanel',
-        bind: {
-            hidden: '{callPanelHidden}'
-        },
-        layout: {
-            type: 'vbox',
-            align: 'stretch',
-            pack: 'center'
-        },
-        defaults: {
-            cls: 'rtc-container'
-        },
-        items: [{
-            margin: 20,
-            hidden: true,
-            width: '100%',
-            reference: 'videoObj',
-            html: "<video width=100% id=videoTag height=240></video>"
-        }, {
-            cls: 'rtc-avatar-container',
-            reference: 'avatar',
-            items: {
-                xtype: 'image',
-                cls: 'rtc-avatar',
-                bind: {
-                    src: '{thumbnail}'
-                }
-            }
-        }, {
-            xtype: 'label',
-            margin: '20 0 20 0',
-            bind: '{status}'
-        }, {
-            xtype: 'container',
-            cls: 'rtc-btns-container',
-            layout: {
-                type: 'hbox',
-                align: 'stretch',
-                pack: 'center'
-            },
-            defaults: {
-                xtype: 'button',
-                cls: 'rtc-icons',
-                enableToggle: true
-            },
-            items: [{
-                iconCls: Ngcp.csc.icons.phone,
-                bind: {
-                    pressed: '{callEnabled}',
-                    userCls: '{setuserCls}'
-                },
-                handler: 'toggleCall'
-            }, {
-                iconCls: Ngcp.csc.icons.microphone,
-                bind: {
-                    pressed: '{micEnabled}',
-                    disabled: '{!connected}',
-                    hidden: '{!micEnabled}'
-                },
-                handler: 'toggleAudioVideo'
-            }, {
-                iconCls: Ngcp.csc.icons.microphone_slash,
-                bind: {
-                    pressed: '{micEnabled}',
-                    disabled: '{!connected}',
-                    hidden: '{micEnabled}'
-                },
-                handler: 'toggleAudioVideo'
-            }, {
-                iconCls: Ngcp.csc.icons.video,
-                bind: {
-                    pressed: '{videoEnabled}',
-                    disabled: '{!connected}'
-                },
-                handler: 'toggleAudioVideo'
-            }, {
-                iconCls: Ngcp.csc.icons.comment,
-                bind: {
-                    pressed: '{chatEnabled}',
-                    disabled: '{!connected}'
-                },
-                handler: 'toogleChat'
-            }]
-        }]
-    }, {
         xtype: 'phone-composer'
     }, {
         xtype: 'sms-composer'
     }, {
         xtype: 'fax-composer'
+    }, {
+        xtype: 'call-panel'
     }]
 });

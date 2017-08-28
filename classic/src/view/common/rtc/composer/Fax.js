@@ -1,4 +1,4 @@
-Ext.define('NgcpCsc.view.common.composer.Fax', {
+Ext.define('NgcpCsc.view.common.rtc.composer.Fax', {
     extend: 'Ext.form.Panel',
 
     alias: 'widget.fax-composer',

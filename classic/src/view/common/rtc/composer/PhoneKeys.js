@@ -1,4 +1,4 @@
-Ext.define('NgcpCsc.view.common.composer.PhoneKeys', {
+Ext.define('NgcpCsc.view.common.rtc.composer.PhoneKeys', {
     extend: 'Ext.panel.Panel',
 
     alias: 'widget.phonekeys',
