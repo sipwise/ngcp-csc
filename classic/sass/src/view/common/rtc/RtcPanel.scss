@@ -60,45 +60,8 @@ $border-radius : 50%;
     }
 }
 
-.rtc-decline-call {
-    background: red !important;
-    border-color: #db0404 !important;
-    &:after {
-        font-family: FontAwesome;
-        content: "\f05e";
-        padding-left: 18px;
-        color: #F1F1F1;
-        position: relative;
-        top: -18px;
-    }
-}
-
-.rtc-decline-call-pressed {
-    background: #db0404 !important;
-    border-color: #db0404 !important;
-}
-
-.rtc-incoming-label,
-.rtc-incoming-number {
-    margin: 0 auto;
-}
-
-.rtc-incoming-label,
-.rtc-outgoing-label {
-    font-size: 16px;
-    .x-autocontainer-innerCt {
-        font-size: 16px;
-    }
-}
-
-.rtc-incoming-number {
-    .x-autocontainer-innerCt {
-        font-size: 24px;
-    }
-}
-
-.rtc-button-margin {
-    margin: 0 50px 0 0;
+.call-button * {
+    font-size: 22px;
 }
 
 .call-button {
@@ -106,27 +69,23 @@ $border-radius : 50%;
     background-color: #16b603;
     color: white;
     border-width: 0;
+    .icon-small {
+        font-size: 11px;
+        position: absolute;
+        top: 2px;
+        right: 3px;
+    }
+    .icon-large {
+        font-size: 22px;
+        position: absolute;
+        bottom: 0px;
+        left: 2px;
+    }
 }
 
-.call-button * {
-    font-size: 22px;
-}
 
-.call-button .icon-large {
-    font-size: 22px;
-    position: absolute;
-    bottom: 0px;
-    left: 2px;
-}
-
-.call-button .icon-small {
-    font-size: 11px;
-    position: absolute;
-    top: 2px;
-    right: 3px;
-}
-
-.call-button-cancel {
+.call-button-cancel,
+.call-button-close {
     background-color: red;
 }
 
@@ -134,21 +93,33 @@ $border-radius : 50%;
     background-color: forestgreen;
 }
 
-.call-icon-cancel {
+.call-icon-cancel,
+.call-icon-close {
     position: absolute;
-    transform: rotate(135deg);
     font-size: 22px;
+}
+
+.call-icon-cancel {
+    transform: rotate(135deg);
     top: 2px;
     left: 4px;
 }
 
-.call-button-cancel.x-btn.x-btn-pressed,
+.call-icon-close {
+    top: 0px;
+    left: 5px;
+}
+
+.call-button-close .x-btn .x-btn-pressed,
+.call-button-close-focus,
+.call-button-close-over,
+.call-button-cancel .x-btn .x-btn-pressed,
 .call-button-cancel-focus,
 .call-button-cancel-over {
     background-color: darkred;
 }
 
-.call-button-accept.x-btn.x-btn-pressed,
+.call-button-accept .x-btn .x-btn-pressed,
 .call-button-accept-focus,
 .call-button-accept-over {
     background-color: darkgreen;

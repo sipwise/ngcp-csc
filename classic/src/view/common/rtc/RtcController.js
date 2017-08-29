@@ -27,13 +27,11 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     },
 
     initCall: function(mediaType) {
-
         var $ct = this;
         var $vm = this.getViewModel();
         var callee = $vm.get('numberToCall');
         var network = $vm.get('rtcEngineNetwork');
         var localMediaStream = $vm.get('rtcEngineLocalMediaStream');
-
         if (callee !== '' && callee !== null && callee !== void(0)) {
             if(localMediaStream !== null) {
                 localMediaStream.stop();
@@ -234,9 +232,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
             me.stopRingSound();
             vm.set('callPanelEnabled', true);
             vm.set('micEnabled', true);
-
             me.startMedia(audioOn, videoOn);
-
             me.intervalId = setInterval(function() {
                 seconds++;
                 if (seconds == 60) {
@@ -452,10 +448,16 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                 rtcNetwork.onConnect(function() {
                     $vm.set('callPanelEnabled', true);
                 }).onIncomingCall(function(call) {
-                    $ct.incomingCallPending();
-                    call.onRemoteMedia(function(stream){ $ct.incomingRemoteMedia(stream); })
+                    $ct.incomingCallPending(call);
+                    call.onRemoteMedia(function(stream){
+                            $vm.set('rtcEngineRemoteMediaStream', stream);
+                            $ct.incomingRemoteMedia(stream);
+                        })
+                        // XXX @hherzog Should these both be invoking the same function?
+                        // I separated them for now, as they were causing double invoking
+                        // of incomingRemoteMediaEnded()
                         .onRemoteMediaEnded(function(){ $ct.incomingRemoteMediaEnded(); })
-                        .onEnded(function(){ $ct.incomingRemoteMediaEnded() });
+                        .onEnded(function(reason){ $ct.incomingCallEnded(reason) });
                 }).onDisconnect(function(){
                     $vm.set('callPanelEnabled', false);
                     $vm.set('callDisabledReason', rtcNetwork.disconnectReason);
@@ -503,10 +505,12 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         this.callEnded();
     },
 
-    incomingCallPending: function() {
-        this.getView().show().expand();
-        this.showIncomingCallPendingState();
+    incomingCallPending: function(call) {
         console.log('incomingCallPending');
+        var peerNum = call.peer.split(/(:|@)/)[2];
+        var type = call.type == 'call' ? 'audio' : call.type;
+        this.getView().show().expand();
+        this.showIncomingCallPendingState(peerNum, type);
     },
 
     incomingRemoteMedia: function(stream) {
@@ -515,6 +519,11 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
 
     incomingRemoteMediaEnded: function() {
         console.log('incomingRemoteMediaEnded');
+    },
+
+    incomingCallEnded: function (reason) {
+        this.hideIncomingCallPendingState();
+        this.showAbortedState(reason);
     },
 
     incomingEnded: function() {
@@ -535,7 +544,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         this.getViewModel().set('callRinging', false);
         this.stopRingSound();
         if(call !== null) {
-            call.end();
+            call.end('declined');
         }
         if(mediaStream !== null) {
             mediaStream.stop();
@@ -555,10 +564,23 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         this.playRingSound();
     },
 
-    // parameter state true causes the class for the background color change to
-    // be added, and parameter state false causes the class to be removed
+    showAbortedState: function (reason) {
+        var $vm = this.getViewModel();
+        $vm.set('abortReason', reason || 'declined');
+        $vm.set('phoneComposerHidden', true);
+        $vm.set('callAborted', true);
+    },
+
+    hideAbortedState: function () {
+        var $vm = this.getViewModel();
+        $vm.set('abortReason', '');
+        $vm.set('callAborted', false);
+        $vm.set('incomingCaller', '');
+        this.closeRtcPanel();
+    },
+
     setRtcpanelTitleColor: function (state) {
-        // parameter true to change color, and false to revert
+        // parameters: true to change color, and false to revert
         var rtcpanel = Ext.getCmp('rtcpanel');
         rtcpanel.toggleCls('rtc-title-call-initiation', state);
     },
@@ -576,20 +598,22 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         sound.currentTime = 0;
     },
 
-    showIncomingCallPendingState: function () {
-        // @hherzog: I added parameters for caller number and media type for
-        // now, but they can be replaced with cdk method calls in variable
-        // declaration below if you prefer
-        var vm = this.getViewModel();
-        var caller = '+4312345';
-        var type = 'audio';
-        vm.set('callPanel', true);
-        vm.set('incomingCallPending', true);
-        vm.set('phoneComposerHidden', true);
-        vm.set('title', Ngcp.csc.locales.rtc.incoming_call[localStorage.getItem('languageSelected')]);
-        vm.set('incomingCaller', caller);
-        vm.set('incomingType', type);
-        vm.set('incomingCallHidden', false);
+    closeRtcPanel: function () {
+        var rtcpanel = Ext.getCmp('rtcpanel');
+        if (rtcpanel) {
+            rtcpanel.close();
+        };
+    },
+
+    showIncomingCallPendingState: function (caller, type) {
+        var $vm = this.getViewModel();
+        $vm.set('callPanel', true);
+        $vm.set('incomingCallPending', true);
+        $vm.set('phoneComposerHidden', true);
+        $vm.set('title', Ngcp.csc.locales.rtc.incoming_call[localStorage.getItem('languageSelected')]);
+        $vm.set('incomingCaller', caller);
+        $vm.set('incomingType', type);
+        $vm.set('incomingCallHidden', false);
         this.setRtcpanelTitleColor(true);
     },
 
@@ -600,11 +624,8 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         vm.set('callPanel', false);
         vm.set('incomingCallPending', false);
         vm.set('title', '');
-        vm.set('incomingCaller', '');
         vm.set('incomingType', '');
-        if (rtcpanel) { // Closes rtcpanel
-            rtcpanel.close();
-        };
+        this.setRtcpanelTitleColor(false);
     },
 
     declineCall: function () {

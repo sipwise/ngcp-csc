@@ -31,6 +31,7 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
         // panel status
         minimized: true,
         rtcEngineLocalMediaStream: null,
+        rtcEngineRemoteMediaStream: null,
         rtcEngineCall: null,
         rtcEngineNetwork: null,
         rtcEngineClient: null,
@@ -42,7 +43,9 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
         outgoingCallPending: false,
         incomingCallPending: false,
         incomingType: '',
-        incomingCaller: ''
+        incomingCaller: '',
+        callAborted: false,
+        abortReason: ''
     },
     formulas: {
         disableSubmit: function(get) {

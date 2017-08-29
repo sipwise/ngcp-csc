@@ -17,7 +17,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                 cfSourcesetStoreLoaded: 'cfSourcesetStoreLoaded',
                 cfStoreBeforeSync: 'cfStoreBeforeSync',
                 cfSourcesetBeforeSync: 'cfSourcesetBeforeSync',
-                cfTimesetBeforeSync: 'cfTimesetBeforeSync',
+                cfTimesetBeforeSync: 'cfTimesetBeforeSync'
             }
         }
     },
