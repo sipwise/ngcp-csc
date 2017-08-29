@@ -1,4 +1,3 @@
-
 Ext.define('NgcpCsc.view.common.rtc.CallPanel', {
     extend: 'Ext.form.Panel',
     alias: 'widget.call-panel',
@@ -6,7 +5,32 @@ Ext.define('NgcpCsc.view.common.rtc.CallPanel', {
     bind: {
         hidden: '{!callPanel}'
     },
-    items: [
+    items: [{
+            bind: {
+                hidden: '{!callAborted}'
+            },
+            layout: {
+                type: 'vbox',
+                align: 'center'
+            },
+            items: [{
+                userCls: 'rtc-aborted-label',
+                margin: '10 0 10 0',
+                bind: {
+                    html: Ext.String.format('Call aborted by {0}', '{incomingCaller}') // TODO Locales
+                }
+            }, {
+                xtype: 'button',
+                iconCls: Ngcp.csc.icons.close2x,
+                tooltip: Ngcp.csc.locales.rtc.close[localStorage.getItem('languageSelected')],
+                userCls: 'rtc-close-call',
+                pressedCls: 'rtc-close-call-pressed',
+                listeners: {
+                    click: 'closeRtcPanel'
+                }
+            }]
+
+        },
         {
             bind: {
                 hidden: '{!outgoingCallPending}'
@@ -16,5 +40,3 @@ Ext.define('NgcpCsc.view.common.rtc.CallPanel', {
         }
     ]
 });
-
-

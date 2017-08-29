@@ -538,6 +538,29 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         var sound = document.getElementById('ring');
         sound.pause();
         sound.currentTime = 0;
+    },
+
+    showCloseLabelAndButton: function () {
+        var vm = this.getViewModel();
+        vm.set('phoneComposerHidden', true);
+        vm.set('phoneKeyboardHidden', true);
+        vm.set('faxComposerHidden', true);
+        vm.set('smsComposerHidden', true);
+        vm.set('callAborted', true);
+        this.callAborted();
+    },
+
+    callAborted: function () {
+        var vm = this.getViewModel();
+        vm.set('callAborted', true);
+    },
+
+    closeRtcPanel: function () {
+        // TODO can be called from hideIncomingCallPendingState() as well
+        var rtcpanel = Ext.getCmp('rtcpanel');
+        if (rtcpanel) {
+            rtcpanel.close();
+        };
     }
 
 });

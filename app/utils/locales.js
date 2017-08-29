@@ -1633,6 +1633,13 @@ Ext.define('Ngcp.csc.locales', {
                 it: 'Video Call',
                 fr: 'Video Call',
                 sp: 'Video Call'
+            },
+            close: {
+                en: 'Close',
+                it: 'Close',
+                de: 'Close',
+                fr: 'Close',
+                sp: 'Close'
             }
         },
         faxsend: {
