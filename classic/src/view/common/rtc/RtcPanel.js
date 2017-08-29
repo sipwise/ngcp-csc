@@ -45,5 +45,21 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
         xtype: 'fax-composer'
     }, {
         xtype: 'call-panel'
-    }]
+    },
+    // dev helper button
+    {
+        layout: {
+            style: 'hbox',
+            align: 'center'
+        },
+        bind: {
+            hidden: '{callAborted}'
+        },
+        items: [{
+            xtype: 'button',
+            text: 'abort call',
+            handler: 'showCloseLabelAndButton'
+        }]
+    }
+    ]
 });
