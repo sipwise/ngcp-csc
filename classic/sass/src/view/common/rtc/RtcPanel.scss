@@ -164,3 +164,22 @@ $border-radius : 50%;
         font-weight: bold;
     }
 }
+
+.rtc-aborted-label {
+    font-size: 16px;
+    line-height: 22px;
+    .x-autocontainer-innerCt {
+        font-size: 16px;
+        line-height: 22px;
+    }
+}
+
+.rtc-close-call {
+    background: red !important;
+    border-color: #db0404 !important;
+}
+
+.rtc-close-call-pressed {
+    background: #db0404 !important;
+    border-color: #db0404 !important;
+}

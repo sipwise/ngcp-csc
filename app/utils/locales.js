@@ -1654,6 +1654,27 @@ Ext.define('Ngcp.csc.locales', {
                 it: 'Incoming {0} call from',
                 fr: 'Incoming {0} call from',
                 sp: 'Incoming {0} call from'
+            },
+            close: {
+                en: 'Close',
+                it: 'Close',
+                de: 'Close',
+                fr: 'Close',
+                sp: 'Close'
+            },
+            call_aborted_by: {
+                en: 'Call aborted by {0}',
+                it: 'Call aborted by {0}',
+                de: 'Call aborted by {0}',
+                fr: 'Call aborted by {0}',
+                sp: 'Call aborted by {0}'
+            },
+            abort_reason: {
+                en: 'Reason: {0}',
+                it: 'Reason: {0}',
+                de: 'Reason: {0}',
+                fr: 'Reason: {0}',
+                sp: 'Reason: {0}'
             }
         },
         faxsend: {

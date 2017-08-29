@@ -79,6 +79,8 @@ Ext.define('Ngcp.csc.icons', {
         users: "x-fa fa-users",
         user_secret: "x-fa fa-user-secret",
         video: "x-fa fa-video-camera",
-        video2x: "x-fa fa-video-camera fa-2x"
+        video2x: "x-fa fa-video-camera fa-2x",
+        close: "x-fa fa-times",
+        close2x: "x-fa fa-times fa-2x"
     }
 })
