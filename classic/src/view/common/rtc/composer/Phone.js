@@ -35,7 +35,6 @@ Ext.define('NgcpCsc.view.common.rtc.composer.Phone', {
             xtype: 'container',
             items: [{
                 xtype: 'button',
-                text: '',
                 margin: '0 10 0 0',
                 listeners: {
                     click: 'sendAudio'
@@ -48,7 +47,6 @@ Ext.define('NgcpCsc.view.common.rtc.composer.Phone', {
                 html: '<i class="x-fa fa-phone icon-large"></i><i class="x-fa fa-microphone icon-small"></i>'
             }, {
                 xtype: 'button',
-                text: '',
                 listeners: {
                     click: 'sendVideo'
                 },
