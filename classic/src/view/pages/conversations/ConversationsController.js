@@ -250,6 +250,12 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
         this.fireEvent('initrtc', null, 'faxComposer');
     },
 
+    // TODO Remove
+    // dev helper button function to display disconnect button as part of incoming call state
+    showIncomingCallPendingState: function () {
+        this.fireEvent('initrtc', null, 'incomingCall');
+    },
+
     expandConversation: function(view, td, cellindex, record, tr) {
         if (cellindex.target && cellindex.target.classList.contains('green-icon')) {
             return;
