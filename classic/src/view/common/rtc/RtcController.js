@@ -32,6 +32,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         var callee = $vm.get('numberToCall');
         var network = $vm.get('rtcEngineNetwork');
         if (callee !== '' && callee !== null && callee !== void(0)) {
+            console.log('if was true');
             this.createMedia(mediaType).then(function (localMediaStream) {
                 var call = network.call(callee, { localMediaStream: localMediaStream });
                 call.onPending(function () { $ct.outgoingPending(); })
@@ -544,9 +545,8 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     },
 
     showIncomingCallPendingState: function (caller, type) {
-        // @hherzog: I added parameters for caller number and media type for
-        // now, but they can be replaced with cdk method calls in variable
-        // declaration below if you prefer
+        // parameters: caller should be a string containing the number of the
+        // caller, type should be a string containing the media type of the call
         var vm = this.getViewModel();
         var caller = caller || '+4312345';
         var type = type || 'audio';
@@ -574,8 +574,22 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         };
     },
 
+    // TODO Call: Implement decline button functionality
+    // DONE a. Close call panel
+    // DONE b. End call (call.end(...))
+    // DONE c. Cleanup local media (stream.stop())
+    // TODO d. Add remote media stream to view model
+    // TODO e. Cleanup remote media (stream.stop())
+
     declineCall: function () {
-        this.hideIncomingCallPendingState();
+        var $vm = this.getViewModel();
+        var call = $vm.get('rtcEngineCall');
+        var localMediaStream = $vm.get('rtcEngineLocalMediaStream');
+        // var remoteMediaStream = ??;
+        call.end('decline');
+        localMediaStream.stop();
+        // TODO: Uncomment to complete todo a.
+        // this.hideIncomingCallPendingState();
     }
 
 });

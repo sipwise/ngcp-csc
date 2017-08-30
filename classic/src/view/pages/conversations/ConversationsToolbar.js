@@ -42,6 +42,13 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsToolbar', {
             margin: '0 20 0 0',
             handler: 'composeCall',
             tooltip: Ngcp.csc.locales.conversations.tooltips.new_call[localStorage.getItem('languageSelected')]
+        },
+        // TODO Remove
+        // dev helper button to display disconnect button as part of incoming call state
+        {
+            xtype: 'button',
+            html: 'Show incoming call',
+            handler: 'showIncomingCallPendingState'
         }]
     }]
 });
