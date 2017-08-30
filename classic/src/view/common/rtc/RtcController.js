@@ -448,16 +448,15 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                 rtcNetwork.onConnect(function() {
                     $vm.set('callPanelEnabled', true);
                 }).onIncomingCall(function(call) {
+                    $vm.set('rtcEngineRemoteCall', call);
                     $ct.incomingCallPending(call);
                     call.onRemoteMedia(function(stream){
+                            console.log('stream', stream);
                             $vm.set('rtcEngineRemoteMediaStream', stream);
                             $ct.incomingRemoteMedia(stream);
                         })
-                        // XXX @hherzog Should these both be invoking the same function?
-                        // I separated them for now, as they were causing double invoking
-                        // of incomingRemoteMediaEnded()
                         .onRemoteMediaEnded(function(){ $ct.incomingRemoteMediaEnded(); })
-                        .onEnded(function(reason){ $ct.incomingCallEnded(reason) });
+                        .onEnded(function(){ $ct.incomingCallEnded() });
                 }).onDisconnect(function(){
                     $vm.set('callPanelEnabled', false);
                     $vm.set('callDisabledReason', rtcNetwork.disconnectReason);
@@ -474,35 +473,41 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     },
 
     outgoingPending: function() {
-        console.log('outgoingCallPending');
+        console.log('outgoingPending');
         this.showOutgoingCallPendingState();
     },
 
     outgoingAccepted: function() {
-        console.log('outgoingCallAccepted');
+        console.log('outgoingAccepted');
     },
 
     outgoingRingingStart: function() {
-        console.log('outgoingCallRingingStart');
+        console.log('outgoingRingingStart');
         this.showOutgoingCallRingingState();
     },
 
     outgoingRingingStop: function() {
-        console.log('outgoingCallRingingStop');
+        console.log('outgoingRingingStop');
         this.stopRingSound();
     },
 
     outgoingRemoteMedia: function(stream) {
-        console.log('outgoingCallRemoteMedia');
+        console.log('outgoingRemoteMedia');
     },
 
     outgoingRemoteMediaEnded: function() {
-        console.log('outgoingCallRemoteMediaEnded');
+        console.log('outgoingRemoteMediaEnded');
+        var $vm = this.getViewModel();
+        var localMediaStream = $vm.get('rtcEngineLocalMediaStream');
+        localMediaStream.stop();
     },
 
     outgoingEnded: function() {
-        console.log('outgoingCallEnded');
-        this.callEnded();
+        console.log('outgoingEnded');
+        var $vm = this.getViewModel();
+        var call = $vm.get('rtcEngineCall');
+        this.hideOutgoingCallPendingState();
+        this.showAbortedState(call.endedReason);
     },
 
     incomingCallPending: function(call) {
@@ -519,16 +524,20 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
 
     incomingRemoteMediaEnded: function() {
         console.log('incomingRemoteMediaEnded');
+        var $vm = this.getViewModel();
+        // TODO cleanup remote media
     },
 
-    incomingCallEnded: function (reason) {
+    incomingCallEnded: function () {
+        console.log('incomingCallEnded');
+        var $vm = this.getViewModel();
+        var call = $vm.get('rtcEngineRemoteCall');
         this.hideIncomingCallPendingState();
-        this.showAbortedState(reason);
+        this.showAbortedState(call.endedReason);
     },
 
     incomingEnded: function() {
         console.log('incomingEnded');
-        this.callEnded();
     },
 
     callEnded: function() {
@@ -537,36 +546,50 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     },
 
     cancelOutgoingCall: function() {
-        var call = this.getViewModel().get('rtcEngineCall');
-        var mediaStream = this.getViewModel().get('rtcEngineLocalMediaStream');
-        this.getViewModel().set('phoneComposerHidden', false);
-        this.getViewModel().set('callPending', false);
-        this.getViewModel().set('callRinging', false);
+        var $vm = this.getViewModel();
+        var call = $vm.get('rtcEngineCall');
+        var mediaStream = $vm.get('rtcEngineLocalMediaStream');
+        $vm.set('phoneComposerHidden', false);
+        $vm.set('callPending', false);
+        $vm.set('callRinging', false);
         this.stopRingSound();
-        if(call !== null) {
+        if (call !== null) {
             call.end('declined');
         }
-        if(mediaStream !== null) {
+        if (mediaStream !== null) {
             mediaStream.stop();
         }
+        $vm.set('phoneComposerHidden', true);
+        this.closeRtcPanel();
     },
 
     showOutgoingCallPendingState: function() {
-        this.getViewModel().set('callPending', true);
-        this.getViewModel().set('callActionLabel', 'Try to call');
-        this.getViewModel().set('phoneComposerHidden', true);
+        var $vm = this.getViewModel();
+        $vm.set('callPending', true);
+        $vm.set('callActionLabel', 'Try to call');
+        $vm.set('phoneComposerHidden', true);
+    },
+
+    hideOutgoingCallPendingState: function () {
+        var $vm = this.getViewModel();
+        $vm.set('outgoingCall', false);
+        $vm.set('callPending', false);
+        $vm.set('callActionLabel', '');
+        $vm.set('phoneComposerHidden', false);
     },
 
     showOutgoingCallRingingState: function() {
-        this.getViewModel().set('callRinging', true);
-        this.getViewModel().set('callPending', false);
-        this.getViewModel().set('callActionLabel', 'Ringing');
+        var $vm = this.getViewModel();
+        $vm.set('callRinging', true);
+        $vm.set('callPending', false);
+        $vm.set('callActionLabel', 'Ringing');
         this.playRingSound();
     },
 
     showAbortedState: function (reason) {
+        console.log('showAbortedState');
         var $vm = this.getViewModel();
-        $vm.set('abortReason', reason || 'declined');
+        $vm.set('abortReason', reason);
         $vm.set('phoneComposerHidden', true);
         $vm.set('callAborted', true);
     },
@@ -629,7 +652,11 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     },
 
     declineCall: function () {
+        var $vm = this.getViewModel();
+        var call = $vm.get('rtcEngineRemoteCall');
+        call.end('decline');
         this.hideIncomingCallPendingState();
+        this.closeRtcPanel();
     }
 
 });

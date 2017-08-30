@@ -45,7 +45,8 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
         incomingType: '',
         incomingCaller: '',
         callAborted: false,
-        abortReason: ''
+        abortReason: '',
+        rtcEngineRemoteCall: null
     },
     formulas: {
         disableSubmit: function(get) {
