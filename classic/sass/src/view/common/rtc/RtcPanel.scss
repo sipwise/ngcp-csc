@@ -100,3 +100,67 @@ $border-radius : 50%;
 .rtc-button-margin {
     margin: 0 50px 0 0;
 }
+
+.call-button {
+    border-radius: 50%;
+    background-color: #16b603;
+    color: white;
+    border-width: 0;
+}
+
+.call-button * {
+    font-size: 22px;
+}
+
+.call-button .icon-large {
+    font-size: 22px;
+    position: absolute;
+    bottom: 0px;
+    left: 2px;
+}
+
+.call-button .icon-small {
+    font-size: 11px;
+    position: absolute;
+    top: 2px;
+    right: 3px;
+}
+
+.call-button-cancel {
+    background-color: red;
+}
+
+.call-button-accept {
+    background-color: forestgreen;
+}
+
+.call-icon-cancel {
+    position: absolute;
+    transform: rotate(135deg);
+    font-size: 22px;
+    top: 2px;
+    left: 4px;
+}
+
+.call-button-cancel.x-btn.x-btn-pressed,
+.call-button-cancel-focus,
+.call-button-cancel-over {
+    background-color: darkred;
+}
+
+.call-button-accept.x-btn.x-btn-pressed,
+.call-button-accept-focus,
+.call-button-accept-over {
+    background-color: darkgreen;
+}
+
+#call-local-preview {
+    width: 100%;
+}
+
+.x-panel-body-default {
+    label.call-number-label {
+        font-size: 16px;
+        font-weight: bold;
+    }
+}

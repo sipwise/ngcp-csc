@@ -1,18 +1,51 @@
+
 Ext.define('NgcpCsc.view.common.rtc.CallPanel', {
     extend: 'Ext.form.Panel',
     alias: 'widget.call-panel',
-    layout: 'center',
+    padding: '60 0 0 0',
     bind: {
-        hidden: '{!callPanel}'
+        hidden: '{!callEnabled}'
     },
     items: [{
-            bind: {
-                hidden: '{!outgoingCallPending}'
-            },
-            xtype: 'label',
-            userCls: 'rtc-outgoing-label',
-            html: Ngcp.csc.locales.rtc.start_call[localStorage.getItem('languageSelected')] + Ngcp.csc.animations.loading_dots
+        layout : {
+            type  : 'vbox',
+            align : 'center',
+            pack: 'center',
+
         },
+        bind: {
+            hidden: '{!outgoingCall}'
+        },
+        items: [
+            {
+                bind: {
+                    text: '{callActionLabel}'
+                },
+                xtype: 'label',
+                margin: '0 0 20 0'
+            },
+            {
+                bind: {
+                    text: '{numberToCall}'
+                },
+                xtype: 'label',
+                margin: '0 0 20 0',
+                userCls: 'call-number-label',
+            },
+            {
+                xtype: 'button',
+                text: '',
+                userCls: 'call-button call-button-cancel call-button-hangup',
+                overCls: 'call-button-cancel-over',
+                focusCls: 'call-button-cancel-focus',
+                width: 40,
+                height: 40,
+                html: '<i class="x-fa fa-phone call-icon-cancel"></i>',
+                listeners: {
+                    click: 'cancelOutgoingCall'
+                }
+            }
+        ]},
         {
             bind: {
                 hidden: '{!incomingCallPending}'

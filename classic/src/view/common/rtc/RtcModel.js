@@ -16,7 +16,7 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
         smsComposerHidden: true,
         phoneKeyboardHidden: true,
         incomingCallHidden: true,
-        callEnabled: false,
+        callPanelEnabled: false,
         connected: false,
         micEnabled: false,
         videoEnabled: false,
@@ -36,6 +36,9 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
         rtcEngineClient: null,
         rtcEngineSession: null,
         callPanel: true,
+        callActionLabel: '',
+        callPending: false,
+        callRinging: false,
         outgoingCallPending: false,
         incomingCallPending: false,
         incomingType: '',
@@ -54,7 +57,31 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
             return get('numberToCall').length < 1;
         },
         setuserCls:function(get){
-            return get('callEnabled') ? '' : 'fa-rotate-180';
+            return get('callPanelEnabled') ? '' : 'fa-rotate-180';
+        },
+        callEnabled: {
+            bind: {
+                callPending: '{callPending}',
+                callRinging: '{callRinging}',
+                incomingCallPending: '{incomingCallPending}'
+            },
+            get: function (data) {
+                return data.callPending || data.callRinging || data.incomingCallPending;
+            }
+        },
+        outgoingCall: {
+            bind: {
+                callPending: '{callPending}',
+                callRinging: '{callRinging}'
+            },
+            get: function (data) {
+                return data.callPending || data.callRinging;
+            }
+        },
+        callLocalPreview: {
+            get: function (data) {
+                return data.rtcEngineLocalMediaStream && data.rtcEngineLocalMediaStream.hasVideo();
+            }
         }
     }
 });
