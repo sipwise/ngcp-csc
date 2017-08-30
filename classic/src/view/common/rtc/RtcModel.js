@@ -36,6 +36,9 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
         rtcEngineClient: null,
         rtcEngineSession: null,
         callPanel: true,
+        callActionLabel: '',
+        callPending: false,
+        callRinging: false,
         outgoingCallPending: false,
         incomingCallPending: false,
         incomingType: '',
@@ -55,6 +58,20 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
         },
         setuserCls:function(get){
             return get('callEnabled') ? '' : 'fa-rotate-180';
+        },
+        outgoingCall: {
+            bind: {
+                callPending: '{callPending}',
+                callRinging: '{callRinging}'
+            },
+            get: function (data) {
+                return data.callPending || data.callRinging;
+            }
+        },
+        callLocalPreview: {
+            get: function (data) {
+                return data.rtcEngineLocalMediaStream && data.rtcEngineLocalMediaStream.hasVideo();
+            }
         }
     }
 });

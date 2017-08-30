@@ -35,19 +35,29 @@ Ext.define('NgcpCsc.view.common.rtc.composer.Phone', {
             xtype: 'container',
             items: [{
                 xtype: 'button',
-                text: Ngcp.csc.locales.rtc.sendAudio[localStorage.getItem('languageSelected')],
-                iconCls: Ngcp.csc.icons.microphone,
+                text: '',
                 margin: '0 10 0 0',
                 listeners: {
                     click: 'sendAudio'
-                }
+                },
+                userCls: 'call-button call-button-accept',
+                overCls: 'call-button-accept-over',
+                focusCls: 'call-button-accept-focus',
+                width: 40,
+                height: 40,
+                html: '<i class="x-fa fa-phone icon-large"></i><i class="x-fa fa-microphone icon-small"></i>'
             }, {
                 xtype: 'button',
-                text: Ngcp.csc.locales.rtc.sendVideo[localStorage.getItem('languageSelected')],
-                iconCls: Ngcp.csc.icons.video,
+                text: '',
                 listeners: {
                     click: 'sendVideo'
-                }
+                },
+                userCls: 'call-button call-button-accept',
+                overCls: 'call-button-accept-over',
+                focusCls: 'call-button-accept-focus',
+                width: 40,
+                height: 40,
+                html: '<i class="x-fa fa-phone icon-large"></i><i class="x-fa fa-video-camera icon-small"></i>'
             }]
         }]
     }, {
