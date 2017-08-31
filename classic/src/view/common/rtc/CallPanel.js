@@ -142,6 +142,9 @@ Ext.define('NgcpCsc.view.common.rtc.CallPanel', {
                     }
                 }]
             }]
+        }, {
+            xtype: 'container',
+            id: 'call-local-preview'
         }
     ]
 });
