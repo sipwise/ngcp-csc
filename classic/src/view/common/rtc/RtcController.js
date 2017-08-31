@@ -38,13 +38,19 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                 $vm.set('rtcEngineLocalMediaStream', null);
             }
             this.createMedia(mediaType).then(function (localMediaStream) {
-                // Todo: attache stream to video element
-                // if(mediaType === 'video') {
-                //     cdk.MediaElementHelper.attachStreamToDomNode(
-                //         document.getElementById('call-local-preview'),
-                //         localMediaStream
-                //     );
-                // }
+                // attach stream to video element
+                if(mediaType === 'video') {
+                    var mediaElementHelper = new cdk.MediaElementHelper(localMediaStream);
+                    mediaElementHelper.getDomNode(function(err, domNode){
+                        if (domNode) {
+                            cdk.MediaElementHelper.attachStreamToDomNode(
+                                domNode,
+                                localMediaStream
+                            );
+                            $ct.attachDomNodeToElement(domNode);
+                        };
+                    });
+                };
                 var call = network.call(callee, { localMediaStream: localMediaStream });
                 call.onPending(function () { $ct.outgoingPending(); })
                     .onAccepted(function () { $ct.outgoingAccepted(); })
@@ -53,6 +59,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                     .onRemoteMedia(function (stream) { $ct.outgoingRemoteMedia(); })
                     .onRemoteMediaEnded(function () { $ct.outgoingRemoteMediaEnded(); })
                     .onEnded(function () { $ct.outgoingEnded(); });
+                console.log('localMediaStream', localMediaStream); // XXX
                 $vm.set('rtcEngineLocalMediaStream', localMediaStream);
                 $vm.set('rtcEngineCall', call);
             }).catch(function (err) {
@@ -419,7 +426,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                     url: '/api/rtcsessions/',
                     method: 'POST',
                     jsonData: {},
-                    success: function(res){ resolve(res) },
+                    success: function(res) { resolve(res); },
                     failure: function(err) { reject(err); },
                     scope: $ct
                 });
@@ -430,7 +437,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                     url: res.getResponseHeader('Location'),
                     method: 'GET',
                     jsonData: {},
-                    success: function(res){ resolve(res) },
+                    success: function(res) { resolve(res); },
                     failure: function(err) { reject(err); },
                     scope: $ct
                 });
@@ -451,7 +458,6 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                     $vm.set('rtcEngineRemoteCall', call);
                     $ct.incomingCallPending(call);
                     call.onRemoteMedia(function(stream){
-                            console.log('stream', stream);
                             $vm.set('rtcEngineRemoteMediaStream', stream);
                             $ct.incomingRemoteMedia(stream);
                         })
@@ -514,12 +520,16 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         console.log('incomingCallPending');
         var peerNum = call.peer.split(/(:|@)/)[2];
         var type = call.type == 'call' ? 'audio' : call.type;
+        // TODO can I extract the stream from call?
         this.getView().show().expand();
         this.showIncomingCallPendingState(peerNum, type);
     },
 
     incomingRemoteMedia: function(stream) {
         console.log('incomingRemoteMedia');
+        var $vm = this.getViewModel();
+        console.log('stream variable in incomingRemoteMedia:', stream);
+        $vm.set('rtcEngineRemoteMediaStream', stream);
     },
 
     incomingRemoteMediaEnded: function() {
@@ -657,6 +667,43 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         call.end('decline');
         this.hideIncomingCallPendingState();
         this.closeRtcPanel();
+    },
+
+
+    // TODO 0. Merge with TT#21182
+    // TODO 1. Create media according the media choice made by the user
+    // TODO 2. Implement acceptance of call
+    // TODO 3. Clean up, remove redundant code, and comment out code
+    //that can be used in #20658
+
+    attachDomNodeToElement: function (domNode) {
+        console.log('attachDomNodeToElement');
+        var element = document.getElementById('call-local-preview');
+        element.appendChild(domNode);
+    },
+
+    acceptCallVideo: function () {
+        var $ct = this;
+        var $vm = this.getViewModel();
+        var call = $vm.get('rtcEngineRemoteCall');
+        var localMediaStream = new cdk.LocalMediaStream();
+        var element = document.getElementById('call-local-preview');
+        var remoteMediaStream = $vm.get('rtcEngineRemoteMediaStream'); // TODO Solve, is null
+        var mediaElementHelper = new cdk.MediaElementHelper(remoteMediaStream);
+        $vm.set('rtcEngineLocalMediaStream', localMediaStream);
+        call.accept({
+            localMediaStream: localMediaStream
+        });
+        mediaElementHelper.getDomNode(function(err, domNode){
+            if (domNode) {
+                cdk.MediaElementHelper.attachStreamToDomNode(
+                    domNode,
+                    remoteMediaStream
+                );
+                $ct.attachDomNodeToElement(domNode);
+            };
+        });
+
     }
 
 });
