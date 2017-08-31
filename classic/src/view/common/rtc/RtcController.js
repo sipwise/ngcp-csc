@@ -15,6 +15,12 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         }
     },
 
+    // TODO Create media according the media choice made by the user
+    //      a. Find media element helper in docs
+    //      b. Use the attach method, should already be found in rtcontroller
+    //      c. Make functions to handle each media accept button
+    //      d. Create method to create the media, based on what button was clicked
+
     currentStream: null,
     intervalId: '',
 
