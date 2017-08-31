@@ -15,6 +15,12 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         }
     },
 
+    // TODO Create media according the media choice made by the user
+    //      a. Find media element helper in docs
+    //      b. Use the attach method, should already be found in rtcontroller
+    //      c. Make functions to handle each media accept button
+    //      d. Create method to create the media, based on what button was clicked
+
     currentStream: null,
     intervalId: '',
 
@@ -38,13 +44,19 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                 $vm.set('rtcEngineLocalMediaStream', null);
             }
             this.createMedia(mediaType).then(function (localMediaStream) {
-                // Todo: attache stream to video element
-                // if(mediaType === 'video') {
-                //     cdk.MediaElementHelper.attachStreamToDomNode(
-                //         document.getElementById('call-local-preview'),
-                //         localMediaStream
-                //     );
-                // }
+                // attach stream to video element
+                if(mediaType === 'video') {
+                    var mediaElementHelper = new cdk.MediaElementHelper(localMediaStream);
+                    mediaElementHelper.getDomNode(function(err, domNode){
+                        if (domNode) {
+                            cdk.MediaElementHelper.attachStreamToDomNode(
+                                domNode,
+                                localMediaStream
+                            );
+                            $ct.attachDomNodeToElement(domNode);
+                        };
+                    });
+                };
                 var call = network.call(callee, { localMediaStream: localMediaStream });
                 call.onPending(function () { $ct.outgoingPending(); })
                     .onAccepted(function () { $ct.outgoingAccepted(); })
@@ -53,6 +65,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                     .onRemoteMedia(function (stream) { $ct.outgoingRemoteMedia(); })
                     .onRemoteMediaEnded(function () { $ct.outgoingRemoteMediaEnded(); })
                     .onEnded(function () { $ct.outgoingEnded(); });
+                console.log('localMediaStream', localMediaStream); // XXX
                 $vm.set('rtcEngineLocalMediaStream', localMediaStream);
                 $vm.set('rtcEngineCall', call);
             }).catch(function (err) {
@@ -419,7 +432,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                     url: '/api/rtcsessions/',
                     method: 'POST',
                     jsonData: {},
-                    success: function(res){ resolve(res) },
+                    success: function(res) { resolve(res); },
                     failure: function(err) { reject(err); },
                     scope: $ct
                 });
@@ -430,7 +443,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                     url: res.getResponseHeader('Location'),
                     method: 'GET',
                     jsonData: {},
-                    success: function(res){ resolve(res) },
+                    success: function(res) { resolve(res); },
                     failure: function(err) { reject(err); },
                     scope: $ct
                 });
@@ -448,14 +461,11 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                 rtcNetwork.onConnect(function() {
                     $vm.set('callPanelEnabled', true);
                 }).onIncomingCall(function(call) {
+                    $vm.set('rtcEngineRemoteCall', call);
                     $ct.incomingCallPending(call);
                     call.onRemoteMedia(function(stream){
-                            $vm.set('rtcEngineRemoteMediaStream', stream);
                             $ct.incomingRemoteMedia(stream);
                         })
-                        // XXX @hherzog Should these both be invoking the same function?
-                        // I separated them for now, as they were causing double invoking
-                        // of incomingRemoteMediaEnded()
                         .onRemoteMediaEnded(function(){ $ct.incomingRemoteMediaEnded(); })
                         .onEnded(function(reason){ $ct.incomingCallEnded(reason) });
                 }).onDisconnect(function(){
@@ -509,12 +519,16 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         console.log('incomingCallPending');
         var peerNum = call.peer.split(/(:|@)/)[2];
         var type = call.type == 'call' ? 'audio' : call.type;
+        // TODO can I extract the stream from call?
         this.getView().show().expand();
         this.showIncomingCallPendingState(peerNum, type);
     },
 
     incomingRemoteMedia: function(stream) {
         console.log('incomingRemoteMedia');
+        var $vm = this.getViewModel();
+        console.log('stream variable in incomingRemoteMedia:', stream);
+        $vm.set('rtcEngineRemoteMediaStream', stream);
     },
 
     incomingRemoteMediaEnded: function() {
@@ -630,6 +644,36 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
 
     declineCall: function () {
         this.hideIncomingCallPendingState();
+    },
+
+    attachDomNodeToElement: function (domNode) {
+        console.log('attachDomNodeToElement');
+        var element = document.getElementById('call-local-preview');
+        element.appendChild(domNode);
+    },
+
+    acceptCallVideo: function () {
+        var $ct = this;
+        var $vm = this.getViewModel();
+        var call = $vm.get('rtcEngineRemoteCall');
+        var localMediaStream = new cdk.LocalMediaStream();
+        var element = document.getElementById('call-local-preview');
+        var remoteMediaStream = $vm.get('rtcEngineRemoteMediaStream'); // TODO Solve, is null
+        var mediaElementHelper = new cdk.MediaElementHelper(remoteMediaStream);
+        $vm.set('rtcEngineLocalMediaStream', localMediaStream);
+        call.accept({
+            localMediaStream: localMediaStream
+        });
+        mediaElementHelper.getDomNode(function(err, domNode){
+            if (domNode) {
+                cdk.MediaElementHelper.attachStreamToDomNode(
+                    domNode,
+                    remoteMediaStream
+                );
+                $ct.attachDomNodeToElement(domNode);
+            };
+        });
+
     }
 
 });
