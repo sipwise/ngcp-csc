@@ -91,6 +91,9 @@ Ext.define('NgcpCsc.view.common.rtc.CallPanel', {
                     click: 'declineCall'
                 }
             }]
+        }, {
+            html: 'local media preview',
+            id: 'call-local-preview'
         }
     ]
 });

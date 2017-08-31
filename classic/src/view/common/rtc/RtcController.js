@@ -15,6 +15,12 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         }
     },
 
+    // TODO Create media according the media choice made by the user
+    //      a. Find media element helper in docs
+    //      b. Use the attach method, should already be found in rtcontroller
+    //      c. Make functions to handle each media accept button
+    //      d. Create method to create the media, based on what button was clicked
+
     currentStream: null,
     intervalId: '',
 
@@ -452,8 +458,12 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                 rtcNetwork.onConnect(function() {
                     $vm.set('callPanelEnabled', true);
                 }).onIncomingCall(function(call) {
+                    $vm.set('rtcEngineRemoteCall', call);
                     $ct.incomingCallPending();
-                    call.onRemoteMedia(function(stream){ $ct.incomingRemoteMedia(stream); })
+                    call.onRemoteMedia(function(stream){
+                            $vm.set('rtcEngineRemoteMediaStream', stream);
+                            $ct.incomingRemoteMedia(stream);
+                        })
                         .onRemoteMediaEnded(function(){ $ct.incomingRemoteMediaEnded(); })
                         .onEnded(function(){ $ct.incomingRemoteMediaEnded() });
                 }).onDisconnect(function(){
@@ -609,6 +619,28 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
 
     declineCall: function () {
         this.hideIncomingCallPendingState();
+    },
+
+    acceptCallVideo: function () {
+        var $vm = this.getViewModel();
+        var call = $vm.get('rtcEngineRemoteCall');
+        var localMediaStream = new cdk.LocalMediaStream();
+        $vm.set('rtcEngineLocalMediaStream', localMediaStream);
+        localMediaStream.queryMediaSources(function(sources) {
+            localMediaStream.setVideo(sources.defaultVideo);
+            localMediaStream.build(function(err){
+                var mediaElementHelper = new cdk.MediaElementHelper(localMediaStream);
+                mediaElementHelper.getDomNode(function(err, domNode){
+                    if (domNode) {
+                        document.getElementById('call-local-preview').appendChild(domNode);
+                        console.log('dom node attached');
+                    }
+                });
+                call.accept({
+                    localMediaStream: localMediaStream
+                });
+            });
+        });
     }
 
 });
