@@ -8,15 +8,107 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         },
         controller: {
             '*': {
-                initrtc: 'showRtcPanel',
-                emulateCall: 'emulateCall',
-                endcall: 'endCall'
+                composeCall: 'composeCall'
             }
         }
     },
 
-    currentStream: null,
-    intervalId: '',
+    getComposer: function() {
+        return this.getView().lookupReference('phoneComposer');
+    },
+
+    getCallPanel: function() {
+        return this.getView().lookupReference('callPanel');
+    },
+
+    getOutgoingCallState: function() {
+        return this.getView().lookupReference('outgoingCallState');
+    },
+
+    getOutgoingCallLabel: function() {
+        return this.getView().lookupReference('outgoingCallLabel');
+    },
+
+    getCallAbortedState: function() {
+        return this.getView().lookupReference('callAbortedState');
+    },
+
+    getIncomingCallState: function() {
+        return this.getView().lookupReference('incomingCallState');
+    },
+
+    hideAllCallStates: function() {
+        this.getOutgoingCallState().hide();
+        this.getCallAbortedState().hide();
+        this.getIncomingCallState().hide();
+    },
+
+    cleanupCall: function(reason) {
+        var call = this.getViewModel().get('rtcEngineCall');
+        var lms = this.getViewModel().get('rtcEngineLocalMediaStream');
+        var rms = this.getViewModel().get('rtcEngineRemoteMediaStream');
+        if(call !== null && call !== void(0)) {
+            call.end(reason);
+        }
+        if(lms !== null && lms !== void(0)) {
+            lms.stop();
+            this.getViewModel().set('rtcEngineLocalMediaStream', null);
+        }
+
+        if(rms !== null && rms !== void(0)) {
+            this.getViewModel().set('rtcEngineRemoteMediaStream', null);
+        }
+    },
+
+    isCallRunning: function() {
+        return this.hasCall() && this.getCall().state !== 'ended';
+    },
+
+    hasCall: function() {
+        return this.getCall() !== null;
+    },
+
+    getCall: function() {
+        return this.getViewModel().get('rtcEngineCall');
+    },
+
+    getPeer: function() {
+        var parts = this.getCall().peer.split('@')[0].split(':');
+        if(parts.length > 1) {
+            return parts[1];
+        } else {
+            return parts[0];
+        }
+    },
+
+    composeCall: function() {
+        if(!this.isCallRunning()) {
+            this.showComposer();
+        } else {
+            this.showCallPanel();
+        }
+    },
+
+    showComposer: function() {
+        this.getView().setTitle('New Call');
+        this.getView().removeCls('rtc-title-call-initiation');
+        this.getView().setClosable(true);
+        this.getComposer().show();
+        this.getCallPanel().hide();
+        if(this.getView().isHidden()) {
+            this.getView().show();
+        }
+    },
+
+    showCallPanel: function() {
+        this.getView().addCls('rtc-title-call-initiation');
+        this.getView().setClosable(false);
+        this.getComposer().hide();
+        this.getCallPanel().show();
+        if(this.getView().isHidden()) {
+            this.getView().show();
+        }
+    },
 
     sendAudio: function(){
         this.initCall('audio');
@@ -31,30 +123,21 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         var $vm = this.getViewModel();
         var callee = $vm.get('numberToCall');
         var network = $vm.get('rtcEngineNetwork');
-        var localMediaStream = $vm.get('rtcEngineLocalMediaStream');
         if (callee !== '' && callee !== null && callee !== void(0)) {
-            if(localMediaStream !== null) {
-                localMediaStream.stop();
-                $vm.set('rtcEngineLocalMediaStream', null);
-            }
+            this.cleanupCall();
             this.createMedia(mediaType).then(function (localMediaStream) {
-                // Todo: attache stream to video element
-                // if(mediaType === 'video') {
-                //     cdk.MediaElementHelper.attachStreamToDomNode(
-                //         document.getElementById('call-local-preview'),
-                //         localMediaStream
-                //     );
-                // }
-                var call = network.call(callee, { localMediaStream: localMediaStream });
-                call.onPending(function () { $ct.outgoingPending(); })
+                $vm.set('rtcEngineLocalMediaStream', localMediaStream);
+                $vm.set('rtcEngineCall', network.call(callee, {
+                    localMediaStream: localMediaStream
+                }));
+                $vm.get('rtcEngineCall')
+                    .onPending(function () { $ct.outgoingPending(); })
                     .onAccepted(function () { $ct.outgoingAccepted(); })
                     .onRingingStart(function () { $ct.outgoingRingingStart(); })
                     .onRingingStop(function () { $ct.outgoingRingingStop(); })
                     .onRemoteMedia(function (stream) { $ct.outgoingRemoteMedia(); })
                     .onRemoteMediaEnded(function () { $ct.outgoingRemoteMediaEnded(); })
                     .onEnded(function () { $ct.outgoingEnded(); });
-                $vm.set('rtcEngineLocalMediaStream', localMediaStream);
-                $vm.set('rtcEngineCall', call);
             }).catch(function (err) {
                 console.error(err);
             });
@@ -83,175 +166,8 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         });
     },
 
-    showRtcPanel: function(record, action, switchVideoOn, preventReloadConversation) {
-        var me = this;
-        var panel = this.getView();
-        var vm = this.getViewModel();
-        var fieldToFocus;
-        vm.set('numberToCall', '');
-        switch (action) {
-            case 'startCall':
-            case 'startVideoCall':
-                var number = record.get('name') || record.get('source_cli') || record.get('callee');
-                var mainView = Ext.ComponentQuery.query('[name=mainView]')[0];
-                var notification = Ext.create('NgcpCsc.model.Notification', {
-                    'id': Ext.id(),
-                    'conversation_type': 'call',
-                    'name': number,
-                    'direction': 'outgoing',
-                    'status': 'answered',
-                    'start_time': Date.now(),
-                    "author": "Administrator",
-                    "thumbnail": Ext.manifest.resources.path + "/images/user-profile/2.png"
-                });
-                vm.set('uid', record.get('uid') || number);
-                vm.set('title', Ext.String.format(Ngcp.csc.locales.rtc.calling[localStorage.getItem('languageSelected')], number));
-                vm.set('thumbnail', record.get('thumbnail') || this.getViewModel().get('defaultThumbnail'));
-                vm.set('status', Ext.String.format(Ngcp.csc.locales.rtc.calling[localStorage.getItem('languageSelected')] + ' ...', number));
-                vm.set('callPanelEnabled', false);
-                vm.set('micEnabled', false);
-                vm.set('phoneComposerHidden', true);
-                vm.set('faxComposerHidden', true);
-                vm.set('smsComposerHidden', true);
-                vm.set('callPanelHidden', false);
-                vm.set('videoEnabled', switchVideoOn || false);
-                mainView.getViewModel().set('sectionTitle', 'Conversation with ' + number);
-                this.emulateCall(true, action == 'startVideoCall');
-                if (!preventReloadConversation) {
-                    this.redirectTo('conversation-with');
-                    Ext.Function.defer(function() {
-                        me.fireEvent('openpmtab', null, record);
-                    }, 100);
-                }
-                break;
-            case 'phoneComposer':
-                if (vm.get('connected')) {
-                    this.fireEvent('showmessage', false, Ngcp.csc.locales.rtc.call_in_progress[localStorage.getItem('languageSelected')]);
-                    return;
-                }
-                vm.set('title', Ngcp.csc.locales.conversations.btns.new_call[localStorage.getItem('languageSelected')]);
-                vm.set('phoneComposerHidden', false);
-                vm.set('faxComposerHidden', true);
-                vm.set('smsComposerHidden', true);
-                vm.set('callPanelHidden', true);
-                fieldToFocus = this.lookupReference('callNumberInput');
-                break;
-            case 'faxComposer':
-                if (record) {
-                    vm.set('numberToCall', record.get('source_cli'));
-                }
-                vm.set('title', Ngcp.csc.locales.conversations.btns.new_fax[localStorage.getItem('languageSelected')]);
-                vm.set('phoneComposerHidden', true);
-                vm.set('faxComposerHidden', false);
-                vm.set('smsComposerHidden', true);
-                vm.set('callPanelHidden', true);
-                fieldToFocus = this.lookupReference('faxNumberInput');
-                break;
-            case 'smsComposer':
-                if (record) {
-                    vm.set('numberToCall', record.get('source_cli'));
-                }
-                vm.set('title', Ngcp.csc.locales.conversations.btns.new_sms[localStorage.getItem('languageSelected')]);
-                vm.set('phoneComposerHidden', true);
-                vm.set('faxComposerHidden', true);
-                vm.set('smsComposerHidden', false);
-                vm.set('callPanelHidden', true);
-                fieldToFocus = this.lookupReference('smsTextArea');
-                break;
-        }
-        panel.show().expand();
-        if (fieldToFocus) {
-            Ext.Function.defer(function() { // needs to be executed when field is visible
-                fieldToFocus.focus();
-            }, 50)
-        }
-        this.fireEvent('collapseContacts');
-    },
-
-    toogleChat: function(btn) {
-        var me = this;
-        var vm = this.getViewModel();
-        var contactsStore = Ext.getStore('Contacts');
-        var contact = contactsStore.findRecord('uid', vm.get('uid')) || Ext.create('Ext.data.Model', {
-            id: vm.get('uid'),
-            name: vm.get('number')
-        });
-        me.fireEvent('updateconversationtitle', 'conversation-with', contact);
-        me.redirectTo('conversation-with');
-        Ext.Function.defer(function() {
-            me.fireEvent('openpmtab', null, contact, true);
-        }, 100);
-    },
-
-    toggleFullscreen: function() {
-        var video = document.querySelector("video");
-        var videoInProgress = false;
-        Ext.each(this.currentStream.getTracks(), function(mediaTrack) {
-            if (mediaTrack.readyState == 'live' && mediaTrack.kind == "video") {
-                videoInProgress = true;
-                return;
-            }
-        });
-        if (videoInProgress) {
-            if (Ext.isWebKit) {
-                video.webkitEnterFullScreen();
-            } else {
-                video.mozRequestFullScreen();
-            }
-        }
-    },
-
     minimizeRtcPanel: function() {
         this.getView().collapse();
-    },
-
-    onBeforeClose: function() {
-        var vm = this.getViewModel();
-        this.getView().hide();
-        vm.set('status', '');
-        clearInterval(this.intervalId);
-        if (vm.get('connected')) {
-            this.endCall();
-        }
-        this.fireEvent('expandContacts');
-        return false;
-    },
-
-    emulateCall: function(audioOn, videoOn) {
-        var me = this;
-        var vm = me.getViewModel();
-        var sample = document.getElementById("ring");
-        var ringDuration = 3000;
-        if (this.intervalId !== '') {
-            clearInterval(me.intervalId);
-        }
-        vm.set('status', 'calling...');
-        me.playRingSound();
-        setTimeout(function() {
-            var seconds = minutes = hours = 0;
-            me.stopRingSound();
-            vm.set('callPanelEnabled', true);
-            vm.set('micEnabled', true);
-            me.startMedia(audioOn, videoOn);
-            me.intervalId = setInterval(function() {
-                seconds++;
-                if (seconds == 60) {
-                    seconds = 0;
-                    minutes++;
-                }
-                if (minutes == 60) {
-                    minutes = 0;
-                    hours++;
-                }
-                if (hours == 24) {
-                    hours = 0;
-                }
-                var duration = ((hours < 10) ? '0' + hours : hours) + ': ' +
-                    ((minutes < 10) ? '0' + minutes : minutes) + ': ' +
-                    ((seconds < 10) ? '0' + seconds : seconds);
-                vm.set('status', 'connected ' + duration);
-            }, 1000);
-        }, ringDuration);
     },
 
     toggleAudioVideo: function() {
@@ -268,146 +184,6 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         if (vm.get('micEnabled') || vm.get('videoEnabled')) {
             me.startMedia(vm.get('micEnabled'), vm.get('videoEnabled'));
         }
-    },
-
-    toggleCall: function(btn) {
-        if (btn.pressed) { // this can be also checked against vm.get('callPanelEnabled')
-            this.emulateCall(true, false);
-        } else {
-            this.endCall();
-        }
-    },
-
-    endCall: function() {
-        var vm = this.getViewModel();
-        var videoObj = this.lookupReference('videoObj');
-        var video = document.querySelector("video");
-        var me = this;
-        this.lookupReference('avatar').show();
-        clearInterval(this.intervalId);
-        video.pause();
-        video.src = "";
-        videoObj.hide();
-        if (this.currentStream) {
-            Ext.each(this.currentStream.getTracks(), function(mediaTrack) {
-                mediaTrack.stop();
-            });
-        }
-        vm.set('status', 'Call ended.');
-        vm.set('connected', false);
-        this.fireEvent('notify', 'call');
-    },
-
-    startMedia: function(audio, video) {
-        var me = this;
-        var vm = me.getViewModel();
-        //Wrap the getUserMedia function from the different browsers
-        navigator.getUserMedia = navigator.getUserMedia ||
-            navigator.webkitGetUserMedia ||
-            navigator.mozGetUserMedia;
-
-        //Our success callback where we get the media stream object and assign it to a video tag on the page
-        function onSuccess(mediaObj) {
-            me.currentStream = mediaObj;
-            me.lookupReference('avatar').setVisible(!vm.get('videoEnabled'));
-            me.lookupReference('videoObj').setVisible(vm.get('videoEnabled'));
-            vm.set('connected', true);
-            window.stream = mediaObj;
-            var video = document.querySelector("video");
-            video.src = window.URL.createObjectURL(mediaObj);
-            video.play();
-        }
-
-        //Our error callback where we will handle any issues
-        function onError(errorObj) {
-            console.log("There was an error: " + errorObj);
-        }
-
-        //We can select to request audio and video or just one of them
-        var mediaConstraints = {
-            video: video,
-            audio: audio
-        };
-
-        //Call our method to request the media object - this will trigger the browser to prompt a request.
-        navigator.getUserMedia(mediaConstraints, onSuccess, onError);
-    },
-
-    showPhoneComposer: function(btn) {
-        var vm = this.getViewModel();
-        vm.set('phoneKeyboardHidden', !btn.pressed);
-    },
-
-    digitNumber: function(btn) {
-        var vm = this.getViewModel();
-        var currentNum = vm.get('numberToCall');
-        vm.set('numberToCall', currentNum + btn.getText())
-    },
-
-    startNewCall: function() {
-        var vm = this.getViewModel();
-        var currentNum = vm.get('numberToCall');
-        var record = Ext.create('Ext.data.Model', {
-            callee: currentNum
-        });
-        this.showRtcPanel(record, 'startCall');
-    },
-
-    sendFax: function() {
-        var me = this;
-        var vm = me.getViewModel();
-        var mainView = Ext.ComponentQuery.query('[name=mainView]')[0];
-        var faxForm = me.getView().down('fax-composer');
-        var record = Ext.create('NgcpCsc.model.Notification', {
-            'id': Ext.id(),
-            'conversation_type': 'fax',
-            'name': vm.get('numberToCall') || 'Administrator',
-            'direction': 'outgoing',
-            'status': 'answered',
-            'start_time': Date.now(),
-            "thumbnail": Ext.manifest.resources.path + "/images/user-profile/2.png"
-        });
-        if (faxForm.isValid()) {
-            mainView.getViewModel().set('sectionTitle', 'Conversation with ' + vm.get('numberToCall'));
-            me.redirectTo('conversation-with');
-            Ext.Function.defer(function() {
-                me.fireEvent('openpmtab', null, record);
-                me.fireEvent('notify', 'fax');
-            }, 100);
-            faxForm.reset();
-            me.fireEvent('showmessage', true, Ngcp.csc.locales.rtc.fax_sent[localStorage.getItem('languageSelected')]);
-        } else {
-            me.fireEvent('showmessage', false, Ngcp.csc.locales.common.invalid_form[localStorage.getItem('languageSelected')]);
-        }
-        this.getView().close();
-
-    },
-
-    sendSms: function() {
-        var me = this;
-        var vm = me.getViewModel();
-        var mainView = Ext.ComponentQuery.query('[name=mainView]')[0];
-        var smsForm = me.getView().down('sms-composer');
-        var record = Ext.create('NgcpCsc.model.Notification', {
-            'id': Ext.id(),
-            'conversation_type': 'sms',
-            'name': vm.get('numberToCall'),
-            'direction': 'outgoing',
-            'status': 'answered',
-            'text': vm.get('smsText'),
-            'start_time': Date.now(),
-            "author": "Administrator",
-            "thumbnail": Ext.manifest.resources.path + "/images/user-profile/2.png"
-        });
-        mainView.getViewModel().set('sectionTitle', 'Conversation with ' + vm.get('numberToCall'));
-        me.redirectTo('conversation-with');
-        Ext.Function.defer(function() {
-            me.fireEvent('openpmtab', null, record);
-            me.fireEvent('notify', 'sms', vm.get('smsText'));
-            smsForm.reset();
-            me.getView().close();
-        }, 100);
-        this.fireEvent('showmessage', true, Ngcp.csc.locales.rtc.sms_sent[localStorage.getItem('languageSelected')]);
     },
 
     initRtcEngineClient: function() {
@@ -446,20 +222,19 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                 var rtcNetwork = rtcClient.getNetworkByTag('sip');
                 $vm.set('rtcEngineNetwork', rtcNetwork);
                 rtcNetwork.onConnect(function() {
-                    $vm.set('callPanelEnabled', true);
+
                 }).onIncomingCall(function(call) {
+                    $vm.set('rtcEngineCall', call);
                     $ct.incomingCallPending(call);
-                    call.onRemoteMedia(function(stream){
+                    call
+                        .onRemoteMedia(function(stream){
                             $vm.set('rtcEngineRemoteMediaStream', stream);
                             $ct.incomingRemoteMedia(stream);
                         })
-                        // XXX @hherzog Should these both be invoking the same function?
-                        // I separated them for now, as they were causing double invoking
-                        // of incomingRemoteMediaEnded()
                         .onRemoteMediaEnded(function(){ $ct.incomingRemoteMediaEnded(); })
                         .onEnded(function(reason){ $ct.incomingCallEnded(reason) });
                 }).onDisconnect(function(){
-                    $vm.set('callPanelEnabled', false);
+                    this.hideCall();
                     $vm.set('callDisabledReason', rtcNetwork.disconnectReason);
                 });
             }).onDisconnect(function(){
@@ -475,7 +250,11 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
 
     outgoingPending: function() {
         console.log('outgoingCallPending');
-        this.showOutgoingCallPendingState();
+        this.showCallPanel();
+        this.hideAllCallStates();
+        this.getOutgoingCallState().show();
+        this.getOutgoingCallLabel().setHtml('Try to call ' + Ngcp.csc.animations.loading_dots);
+        this.getView().lookupReference('outgoingCallPeer').setText(this.getPeer());
     },
 
     outgoingAccepted: function() {
@@ -484,7 +263,8 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
 
     outgoingRingingStart: function() {
         console.log('outgoingCallRingingStart');
-        this.showOutgoingCallRingingState();
+        this.playRingSound();
+        this.getOutgoingCallLabel().setHtml('Ringing ' + Ngcp.csc.animations.loading_dots);
     },
 
     outgoingRingingStop: function() {
@@ -502,15 +282,20 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
 
     outgoingEnded: function() {
         console.log('outgoingCallEnded');
+        this.showAbortedState();
         this.callEnded();
     },
 
     incomingCallPending: function(call) {
         console.log('incomingCallPending');
-        var peerNum = call.peer.split(/(:|@)/)[2];
-        var type = call.type == 'call' ? 'audio' : call.type;
-        this.getView().show().expand();
-        this.showIncomingCallPendingState(peerNum, type);
+        this.showCallPanel();
+        this.hideAllCallStates();
+        this.getIncomingCallState().show();
+        this.getView().setTitle(Ngcp.csc.locales.rtc.incoming_call[localStorage.getItem('languageSelected')]);
+        this.getView().lookupReference('callIncomingType').setHtml(
+            Ext.String.format(Ngcp.csc.locales.rtc.incoming_call_from[localStorage.getItem('languageSelected')] +
+                Ngcp.csc.animations.loading_dots, 'audio'))
+        this.getView().lookupReference('callIncomingPeer').setText(this.getPeer());
     },
 
     incomingRemoteMedia: function(stream) {
@@ -521,9 +306,9 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         console.log('incomingRemoteMediaEnded');
     },
 
-    incomingCallEnded: function (reason) {
-        this.hideIncomingCallPendingState();
-        this.showAbortedState(reason);
+    incomingCallEnded: function () {
+        console.log('incomingCallEnded');
+        this.showAbortedState();
     },
 
     incomingEnded: function() {
@@ -531,65 +316,44 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         this.callEnded();
     },
 
-    callEnded: function() {
-        var $ct = this;
-        var $vm = $ct.getViewModel();
+    callEnded: function(reason) {
+        this.cleanupCall(reason);
     },
 
     cancelOutgoingCall: function() {
-        var call = this.getViewModel().get('rtcEngineCall');
-        var mediaStream = this.getViewModel().get('rtcEngineLocalMediaStream');
-        this.getViewModel().set('phoneComposerHidden', false);
-        this.getViewModel().set('callPending', false);
-        this.getViewModel().set('callRinging', false);
-        this.stopRingSound();
-        if(call !== null) {
-            call.end('declined');
-        }
-        if(mediaStream !== null) {
-            mediaStream.stop();
-        }
-    },
-
-    showOutgoingCallPendingState: function() {
-        this.getViewModel().set('callPending', true);
-        this.getViewModel().set('callActionLabel', 'Try to call');
-        this.getViewModel().set('phoneComposerHidden', true);
-    },
-
-    showOutgoingCallRingingState: function() {
-        this.getViewModel().set('callRinging', true);
-        this.getViewModel().set('callPending', false);
-        this.getViewModel().set('callActionLabel', 'Ringing');
-        this.playRingSound();
+        this.callEnded('aborted');
+        this.showComposer();
     },
 
     showAbortedState: function (reason) {
-        var $vm = this.getViewModel();
-        $vm.set('abortReason', reason || 'declined');
-        $vm.set('phoneComposerHidden', true);
-        $vm.set('callAborted', true);
+        this.hideAllCallStates();
+        this.getCallAbortedState().show();
+        this.showCallPanel();
+        this.getView().lookupReference('callAbortedPeer').setText(
+            Ext.String.format(Ngcp.csc.locales.rtc.call_aborted_by[localStorage.getItem('languageSelected')],
+                this.getPeer()
+            )
+        );
+        this.getView().lookupReference('callAbortedReason').setText(
+            Ext.String.format(Ngcp.csc.locales.rtc.abort_reason[localStorage.getItem('languageSelected')],
+                this.getCall().endedReason
+            )
+        );
     },
 
     hideAbortedState: function () {
-        var $vm = this.getViewModel();
-        $vm.set('abortReason', '');
-        $vm.set('callAborted', false);
-        $vm.set('incomingCaller', '');
-        this.closeRtcPanel();
-    },
-
-    setRtcpanelTitleColor: function (state) {
-        // parameters: true to change color, and false to revert
-        var rtcpanel = Ext.getCmp('rtcpanel');
-        rtcpanel.toggleCls('rtc-title-call-initiation', state);
+        if(this.hasCall() && this.getCall().origin === 'local') {
+            this.showComposer();
+        } else {
+            this.closeRtcPanel();
+        }
     },
 
     playRingSound: function () {
         var sound = document.getElementById('ring');
         if (sound.paused) {
             sound.play();
-        };
+        }
     },
 
     stopRingSound: function () {
@@ -599,37 +363,18 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     },
 
     closeRtcPanel: function () {
-        var rtcpanel = Ext.getCmp('rtcpanel');
-        if (rtcpanel) {
-            rtcpanel.close();
-        };
+        if(!this.isCallRunning()) {
+            this.getView().hide();
+        }
     },
 
-    showIncomingCallPendingState: function (caller, type) {
-        var $vm = this.getViewModel();
-        $vm.set('callPanel', true);
-        $vm.set('incomingCallPending', true);
-        $vm.set('phoneComposerHidden', true);
-        $vm.set('title', Ngcp.csc.locales.rtc.incoming_call[localStorage.getItem('languageSelected')]);
-        $vm.set('incomingCaller', caller);
-        $vm.set('incomingType', type);
-        $vm.set('incomingCallHidden', false);
-        this.setRtcpanelTitleColor(true);
-    },
-
-    hideIncomingCallPendingState: function () {
-        var vm = this.getViewModel();
-        var rtcpanel = Ext.getCmp('rtcpanel');
-        this.setRtcpanelTitleColor(false);
-        vm.set('callPanel', false);
-        vm.set('incomingCallPending', false);
-        vm.set('title', '');
-        vm.set('incomingType', '');
-        this.setRtcpanelTitleColor(false);
+    handleBeforeClose: function() {
+        this.closeRtcPanel();
+        return false;
     },
 
     declineCall: function () {
-        this.hideIncomingCallPendingState();
+        this.cleanupCall();
+        this.closeRtcPanel();
     }
-
 });

@@ -34,16 +34,14 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
     },
 
     listeners: {
-        beforeclose: 'onBeforeClose'
+        beforeclose: 'handleBeforeClose'
     },
 
     items: [{
-        xtype: 'phone-composer'
+        xtype: 'phone-composer',
+        reference: 'phoneComposer'
     }, {
-        xtype: 'sms-composer'
-    }, {
-        xtype: 'fax-composer'
-    }, {
-        xtype: 'call-panel'
+        xtype: 'call-panel',
+        reference: 'callPanel'
     }]
 });

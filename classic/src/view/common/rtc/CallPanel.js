@@ -3,30 +3,27 @@ Ext.define('NgcpCsc.view.common.rtc.CallPanel', {
     alias: 'widget.call-panel',
     padding: '60 0 0 0',
     bind: {
-        hidden: '{!callPanelEnabled}'
+        hidden: true
     },
     items: [{
+            reference: 'outgoingCallState',
             layout: {
                 type: 'vbox',
                 align: 'center',
                 pack: 'center'
             },
-            bind: {
-                hidden: '{!outgoingCall}'
-            },
+            hidden: true,
             items: [{
-                    bind: {
-                        html: '{callActionLabel}' + Ngcp.csc.animations.loading_dots
-                    },
-                    xtype: 'label'
+                    reference: 'outgoingCallLabel',
+                    xtype: 'label',
+                    hidden: false
                 },
                 {
-                    bind: {
-                        text: '{numberToCall}'
-                    },
+                    reference: 'outgoingCallPeer',
                     xtype: 'label',
                     margin: '0 0 20 0',
-                    userCls: 'call-number-label'
+                    userCls: 'call-number-label',
+                    hidden: false
                 },
                 {
                     xtype: 'button',
@@ -38,28 +35,24 @@ Ext.define('NgcpCsc.view.common.rtc.CallPanel', {
                     html: '<i class="x-fa fa-phone call-icon-cancel"></i>',
                     listeners: {
                         click: 'cancelOutgoingCall'
-                    }
+                    },
+                    hidden: false
                 }
             ]
         }, {
-            bind: {
-                hidden: '{!callAborted}'
-            },
+            reference: 'callAbortedState',
+            hidden: true,
             layout: {
                 type: 'vbox',
                 align: 'center',
                 pack: 'center'
             },
             items: [{
-                    bind: {
-                        text: Ext.String.format(Ngcp.csc.locales.rtc.call_aborted_by[localStorage.getItem('languageSelected')], '{incomingCaller}')
-                    },
+                    reference: 'callAbortedPeer',
                     xtype: 'label',
                     margin: '0 0 20 0'
                 }, {
-                    bind: {
-                        text: Ext.String.format(Ngcp.csc.locales.rtc.abort_reason[localStorage.getItem('languageSelected')], '{abortReason}')
-                    },
+                    reference: 'callAbortedReason',
                     xtype: 'label',
                     margin: '0 0 20 0'
                 },
@@ -78,24 +71,19 @@ Ext.define('NgcpCsc.view.common.rtc.CallPanel', {
             ]
         },
         {
+            reference: 'incomingCallState',
             layout: {
                 type: 'vbox',
                 align: 'center',
                 pack: 'center'
 
             },
-            bind: {
-                hidden: '{!incomingCallPending}'
-            },
+            hidden: true,
             items: [{
-                bind: {
-                    html: Ext.String.format(Ngcp.csc.locales.rtc.incoming_call_from[localStorage.getItem('languageSelected')] + Ngcp.csc.animations.loading_dots, '{incomingType}')
-                },
+                reference: 'callIncomingType',
                 xtype: 'label'
             }, {
-                bind: {
-                    text: '{incomingCaller}'
-                },
+                reference: 'callIncomingPeer',
                 xtype: 'label',
                 margin: '0 0 20 0',
                 userCls: 'call-number-label'
