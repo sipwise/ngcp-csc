@@ -243,7 +243,7 @@ Ext.define('NgcpCsc.view.pages.conversations.ConversationsController', {
     },
 
     composeCall: function() {
-        this.fireEvent('initrtc', null, 'phoneComposer');
+        this.fireEvent('composeCall', null, 'phoneComposer');
     },
 
     composeFax: function() {
