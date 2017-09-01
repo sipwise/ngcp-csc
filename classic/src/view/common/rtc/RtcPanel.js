@@ -40,10 +40,6 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
     items: [{
         xtype: 'phone-composer'
     }, {
-        xtype: 'sms-composer'
-    }, {
-        xtype: 'fax-composer'
-    }, {
         xtype: 'call-panel'
     }]
 });

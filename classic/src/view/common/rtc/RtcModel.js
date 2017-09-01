@@ -85,6 +85,11 @@ Ext.define('NgcpCsc.view.rtc.RtcModel', {
             get: function (data) {
                 return data.rtcEngineLocalMediaStream && data.rtcEngineLocalMediaStream.hasVideo();
             }
+        },
+        hasCall: {
+            get: function (data) {
+                return data.rtcEngineCall !== null && data.rtcEngineCall !== void(0);
+            }
         }
     }
 });
