@@ -249,6 +249,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         delete options['create'];
         delete options['update'];
         Ext.each(store.getRange(), function(record) {
+            console.log('synced !!!');
             var data = record.getData();
             if (data.destination !== 'own phone') {
                 switch (recordsToSend.length === 0 || !me.destinationIdExistsInArray(recordsToSend, data.destinationset_id)) {
@@ -278,9 +279,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                 };
             };
         });
-        Ext.each(recordsToSend, function(obj) {
+        // TODO 2. Include control statement for updating destinationset also if last removed
+        if (recordsToSend.length === 0) {
+            var destinationsetId = store.removed[0].data.destinationset_id;
             Ext.Ajax.request({
-                url: '/api/cfdestinationsets/' + obj.id,
+                url: '/api/cfdestinationsets/' + destinationsetId,
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json-patch+json'
@@ -288,7 +291,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                 jsonData: [{
                     "op": "add",
                     "path": "/destinations",
-                    "value": obj.records
+                    "value": []
                 }],
                 success: function(response, opts) {
                     var currentRoute = window.location.hash;
@@ -300,7 +303,31 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     console.log('server-side failure with status code ' + response.status);
                 }
             });
-        });
+        } else {
+            Ext.each(recordsToSend, function(obj) {
+                Ext.Ajax.request({
+                    url: '/api/cfdestinationsets/' + obj.id,
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json-patch+json'
+                    },
+                    jsonData: [{
+                        "op": "add",
+                        "path": "/destinations",
+                        "value": obj.records
+                    }],
+                    success: function(response, opts) {
+                        var currentRoute = window.location.hash;
+                        var currentStoreName = me.getStoreNameFromRoute(currentRoute);
+                        Ext.getStore(currentStoreName).load();
+                        vm.set('last_store_synced', currentStoreName);
+                    },
+                    failure: function(response, opts) {
+                        console.log('server-side failure with status code ' + response.status);
+                    }
+                });
+            });
+        };
         return false;
     },
 
@@ -553,6 +580,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             }
         });
     },
+
     populateDestinationStores: function(models) {
         var me = this;
         var store;
@@ -580,6 +608,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             });
         }
     },
+
     createSourcesetTabs: function(sourcesets) {
         var me = this;
         var vm = this.getViewModel();
@@ -850,7 +879,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var me = this;
         var store = record.store;
         if (store) {
+            // console.log('store before remove:', store);
             store.remove(record);
+            // console.log('store after remove:', store);
             store.sync();
             me.setLabelTerminationType(store);
         };
@@ -975,7 +1006,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var newDest = vm.get(storeNameCategory + '_then_dest');
         var newPhone, newTimeout;
         switch (Ext.isEmpty(newNumber) || newDest === 'Voicemail' || newDest === 'Fax2Mail') {
-            case true:
+            case true: // NOTE if no number entered and Voicemail or Fax2Mail chosen
                 switch (Ext.isEmpty(newNumber) && newDest === 'Number') {
                     case true:
                         me.fireEvent('showmessage', false, Ngcp.csc.locales.callforward.number_is_required[localStorage.getItem('languageSelected')]);
@@ -987,13 +1018,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                 };
                 vm.set(storeNameCategory + '_then_number', '');
                 break;
-            case false:
+            case false: // NOTE if number entered
                 switch (Ext.isNumber(parseInt(newNumber))) {
-                    case false:
+                    case false: // NOTE check validity of number
                         me.fireEvent('showmessage', false, Ngcp.csc.locales.callforward.only_numbers_allowed[localStorage.getItem('languageSelected')]);
                         vm.set(storeNameCategory + '_then_number', '');
                         break;
-                    case true:
+                    case true: // NOTE if number entered invoke writeNewDestinationToStore
                         var newTimeout = newDest === 'Number' ? vm.get(storeNameCategory + '_then_timeout') : '';
                         var newPhone = newDest === 'Number' ? newNumber : newDest;
                         me.writeNewDestinationToStore(targetStore, newPhone, parseInt(newTimeout));
@@ -1029,21 +1060,32 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     createNewMapping: function(subscriberId, newType, newDestinationsetName, newSourceset, newTimeset) {
+        // TODO 1 Fix issue with "overwriting"
         Ext.Ajax.request({
-            url: '/api/cfmappings/' + subscriberId,
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json-patch+json'
-            },
-            jsonData: [{
-                "op": "add",
-                "path": "/" + newType,
-                "value": [{
+            url: '/api/cfmappings/' + localStorage.getItem('subscriber_id'),
+            method: 'GET',
+            jsonData: {},
+            success: function(response) {
+                var decodedResponse = Ext.decode(response.responseText);
+                var mappings = decodedResponse[newType];
+                mappings.push({
                     "destinationset": newDestinationsetName,
                     "sourceset": newSourceset,
                     "timeset": newTimeset
-                }]
-            }]
+                });
+                Ext.Ajax.request({
+                    url: '/api/cfmappings/' + subscriberId,
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json-patch+json'
+                    },
+                    jsonData: [{
+                        "op": "add",
+                        "path": "/" + newType,
+                        "value": mappings
+                    }]
+                });
+            }
         });
     },
 
@@ -1103,7 +1145,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     //newSourceset && me.createNewStandardSet('/api/cfsourcesets/', newSourceset, subscriberId);
                     //newTimeset && me.createNewStandardSet('/api/cftimesets/', newTimeset, subscriberId);
 
-                    me.createNewMapping(subscriberId, newType, newDestinationsetName, newSourceset, newTimeset);
+                    me.createNewMapping(subscriberId, newType, newDestinationsetName, newSourceset, newTimeset); // NOTE Assume problem is inside createNewMapping()
                 },
                 failure: function(response, opts) {
                     console.log('server-side failure with status code ' + response.status);
