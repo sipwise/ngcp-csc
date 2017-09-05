@@ -421,10 +421,14 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
-    getTypeFromTypeName: function(type) {
+    getTypeFromTypeName: function(type, store) {
         switch (type) {
             case 'Online':
-                return 'cfu';
+                if (store.last()) {
+                    return 'cfu';
+                } else {
+                    return 'cft';
+                };
                 break;
             case 'Busy':
                 return 'cfb';
@@ -1099,7 +1103,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var newTypeName = storeIdSplit[2].slice(11);
         var newSourceset = activeTab ? vm.get('sourceset-' + activeTab._sourcesetListId + "-title") : null;
         var newTimeset = this.getTimeSetFromTimeSource(newTimesetName);
-        var newType = this.getTypeFromTypeName(newTypeName);
+        var newType = this.getTypeFromTypeName(newTypeName, store);
         var newDestination = destination === 'Voicemail' ? 'voicebox' : destination.toLowerCase();
         // TODO: Sets default timeout to 10 for non-number types, as can not be
         // set to null. Not sure if this has any implication, so needs to be
