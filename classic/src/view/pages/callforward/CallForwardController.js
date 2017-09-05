@@ -253,25 +253,47 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             if (data.destination !== 'own phone') {
                 switch (recordsToSend.length === 0 || !me.destinationIdExistsInArray(recordsToSend, data.destinationset_id)) {
                     case true:
-                        recordsToSend.push({
-                            id: data.destinationset_id,
-                            records: [{
-                                "announcement_id": null,
-                                "destination": data.destination,
-                                "priority": data.priority,
-                                "timeout": data.timeout
-                            }]
-                        });
-                        break;
-                    case false:
-                        recordsToSend.forEach(function(obj, index) {
-                            if (obj.id == data.destinationset_id) {
-                                recordsToSend[index].records.push({
+                    // if recordsToSend array is empty or recordsToSend does not already contain current destinationset already
+                        if (data.timeout) {
+                            recordsToSend.push({
+                                id: data.destinationset_id,
+                                records: [{
                                     "announcement_id": null,
                                     "destination": data.destination,
                                     "priority": data.priority,
                                     "timeout": data.timeout
-                                });
+                                }]
+                            });
+                        } else {
+                            recordsToSend.push({
+                                id: data.destinationset_id,
+                                records: [{
+                                    "announcement_id": null,
+                                    "destination": data.destination,
+                                    "priority": data.priority
+                                }]
+                            });
+                        };
+                        break;
+                    case false:
+                    // if destinationset has already been added to recordsToSend, push to the records field for that destinationset,
+                    // building up an array of destination objects to write to API
+                        recordsToSend.forEach(function(obj, index) {
+                            if (obj.id == data.destinationset_id) {
+                                if (data.timeout) {
+                                    recordsToSend[index].records.push({
+                                        "announcement_id": null,
+                                        "destination": data.destination,
+                                        "priority": data.priority,
+                                        "timeout": data.timeout
+                                    });
+                                } else {
+                                    recordsToSend[index].records.push({
+                                        "announcement_id": null,
+                                        "destination": data.destination,
+                                        "priority": data.priority
+                                    });
+                                };
                             };
                         });
                         break;
@@ -1101,10 +1123,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var newTimeset = this.getTimeSetFromTimeSource(newTimesetName);
         var newType = this.getTypeFromTypeName(newTypeName);
         var newDestination = destination === 'Voicemail' ? 'voicebox' : destination.toLowerCase();
-        // TODO: Sets default timeout to 10 for non-number types, as can not be
-        // set to null. Not sure if this has any implication, so needs to be
-        // checked with Andreas
-        var newTimeout = !timeout ? '10' : timeout;
+        var newTimeout = !timeout ? null : timeout;
         if (!store.last()) { // if store empty we need to create new destset
             var newDestinationsetName = 'csc_defined_' + newType + '_' + Date.now();
             var subscriberId = localStorage.getItem('subscriber_id');
@@ -1131,15 +1150,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     store.add(cfModel);
                     me.setLabelTerminationType(store);
                     store.sync();
-
-                    // TODO @Robert: do we need to create new timeset/sourceset here?
-                    // it seems to me that they have to exist already, if user is able
-                    // to create a new destination
-
-                    // Creates new sourceset/timeset if variable is not set to null
-                    //newSourceset && me.createNewStandardSet('/api/cfsourcesets/', newSourceset, subscriberId);
-                    //newTimeset && me.createNewStandardSet('/api/cftimesets/', newTimeset, subscriberId);
-
                     me.createNewMapping(subscriberId, newType, newDestinationsetName, newSourceset, newTimeset);
                 },
                 failure: function(response, opts) {
