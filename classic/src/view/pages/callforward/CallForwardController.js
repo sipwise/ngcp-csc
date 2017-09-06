@@ -182,7 +182,16 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     cfdestinationsets[0].destinations = me.sortDestinationsetByPriority(cfdestinationsets[0].destinations);
                     Ext.each(cfTypeArrayOfObjects, function (cfTypeObjects, index) {
                         var cfType = cfTypes[index];
+
+
+                        // TODO change
+                        // Some of these criterias (read tasks) might be needed to included to be able to complete and/or test TT#20652
+                        // CallForward: Add "Own Phone" only, if no mappings exist for online grid/state
+                        // CallForward: Remove "Own Phone" if only cfu mapping exists
+                        // CallForward: Prevent rendering of the cft-destinations, if mappings of cft and cfu exists together
+                        // CallForward: Add "Own Phone" only, if no mappings exist for online grid/state
                         cfType !== 'cft' && me.addCftOwnPhone(cfdestinationsets[0].destinations); // cfType is 'cft' we invoke addCftOwnPhone()
+
                         Ext.each(cfTypeObjects, function(cfTypeObject) {
                             var cfmappings = {};
                             cfmappings.destinationsetName = cfTypeObject.destinationset;
@@ -554,7 +563,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                 store.getAt(index).set('after_termination', false);
             });
         };
-        // Set all cft records to after_termination true if cfu records exist
+        // "Greyes out" destination if appearing after a terminating destination
         if (store.findRecord('type', 'cfu') && store.findRecord('type', 'cft')) {
             Ext.each(store.getRange(), function(record) {
                 if (!record.get('after_termination') && record.get('type') === 'cft') {
@@ -562,15 +571,16 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                 };
             });
         };
+        // TODO uncomment this when working on TT#20652, and then alter as needed
         // Sorts "own phone" to top plus prevents it from being reordered
-        Ext.each(store.getRange(), function(record) {
-            if (record.get('destination') === 'own phone') {
-                record.set('label', 'first ring');
-                record.set('after_termination', false);
-                store.remove(record);
-                store.insert(0, record);
-            };
-        });
+        // Ext.each(store.getRange(), function(record) {
+        //     if (record.get('destination') === 'own phone') {
+        //         record.set('label', 'first ring');
+        //         record.set('after_termination', false);
+        //         store.remove(record);
+        //         store.insert(0, record);
+        //     };
+        // });
         // Sets "first ring", "then forward to ..." and "" (empty) labels
         Ext.each(store.getRange(), function(record, index) {
             if (index === 0) {
@@ -877,13 +887,37 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         this.fireEvent('showconfirmbox', title, question, sucessMsg, 'confirmCFRemoval', rec);
     },
 
+    // setCfuAsType() sets type to cfu for all destinations with given destinationset id, and Returns
+    // the updated store
+    setCfuAsType: function (store, id) {
+        // TODO a. loop over records in store, and change type if id matches [if in doubt, brute force]
+        //      b. see if we can use a better ExtJS method for mass update
+        Ext.each(store.getRange(), function(record) {
+            if (record.get('destinationset_id') === id) {
+                record.set('type', 'cfu');
+            }
+        });
+        return store;
+    },
+
     confirmCFRemoval: function(record) {
-        var me = this;
+        var $cf = this;
         var store = record.store;
         if (store) {
-            store.remove(record);
-            store.sync();
-            me.setLabelTerminationType(store);
+            // TODO 1. CallForward: Ensure the consistency of destination type during deletion of destination
+            //         "own phone". If you delete "own phone" , the type of the destinations with the same
+            //         destinationSetId changes from cft to cfu
+            // TODO a. if record field destination is "own phone", search for other destinations with same
+            //         destination id, and change their type to cfu
+            if (record.get('destination') === 'own phone') {
+                store = $cf.setCfuAsType(store, record.get('destinationset_id'));
+                store.sync();
+                $cf.setLabelTerminationType(store);
+            } else {
+                store.remove(record);
+                store.sync();
+                $cf.setLabelTerminationType(store);
+            }
         };
     },
 
