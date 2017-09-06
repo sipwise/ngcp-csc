@@ -151,7 +151,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return sorted;
     },
 
-    addCftOwnPhone: function(destinations) {
+    addCftOwnPhone: function(destinations) { // XXX
         if (destinations.length > 0) {
             destinations.unshift({
                 "announcement_id": null,
@@ -174,15 +174,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         // TODO optimize, too many nested loops affects performance.
         // Ex. Where possible use break Ext.each by return false;
         Ext.Ajax.request({
-            url: '/api/cfdestinationsets/?subscriber_id=' + localStorage.getItem('subscriber_id'),
+            url: '/api/cfdestinationsets/?rows=100&subscriber_id=' + localStorage.getItem('subscriber_id'),
             success: function(response, opts) {
                 var decodedResponse = Ext.decode(response.responseText);
                 if (decodedResponse._embedded) {
                     var cfdestinationsets = decodedResponse._embedded['ngcp:cfdestinationsets'];
-                    cfdestinationsets[0].destinations = me.sortDestinationsetByPriority(cfdestinationsets[0].destinations);
                     Ext.each(cfTypeArrayOfObjects, function (cfTypeObjects, index) {
                         var cfType = cfTypes[index];
-                        cfType !== 'cft' && me.addCftOwnPhone(cfdestinationsets[0].destinations); // cfType is 'cft' we invoke addCftOwnPhone()
                         Ext.each(cfTypeObjects, function(cfTypeObject) {
                             var cfmappings = {};
                             cfmappings.destinationsetName = cfTypeObject.destinationset;
@@ -191,6 +189,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                             if (cfmappings.timesetName == routeTimeset) {
                                 Ext.each(cfdestinationsets, function(cfdestinationset) {
                                     if (cfdestinationset.name == cfmappings.destinationsetName && !cfmappings._modelCreated) {
+                                        cfdestinationset.destinations = me.sortDestinationsetByPriority(cfdestinationset.destinations);
+                                        if (cfType === 'cft') {
+                                            if (cfTypeObjects.length > 0) {
+                                                me.addCftOwnPhone(cfdestinationset.destinations);
+                                            }
+                                        };
                                         for (item in cfdestinationset.destinations) {
                                             var destinationToDisplayInGrid = me.getDestinationFromSipId(cfdestinationset.destinations[item].destination);
                                             var destinationAnnouncementId = cfdestinationset.announcement_id;
@@ -554,7 +558,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                 store.getAt(index).set('after_termination', false);
             });
         };
-        // Set all cft records to after_termination true if cfu records exist
+        // "Greyes out" destination if appearing after a terminating destination
         if (store.findRecord('type', 'cfu') && store.findRecord('type', 'cft')) {
             Ext.each(store.getRange(), function(record) {
                 if (!record.get('after_termination') && record.get('type') === 'cft') {
@@ -562,6 +566,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                 };
             });
         };
+        // TODO uncomment this when working on TT#20652, and then alter if needed
         // Sorts "own phone" to top plus prevents it from being reordered
         Ext.each(store.getRange(), function(record) {
             if (record.get('destination') === 'own phone') {
@@ -877,13 +882,69 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         this.fireEvent('showconfirmbox', title, question, sucessMsg, 'confirmCFRemoval', rec);
     },
 
+    // setCfuAsType() sets type to cfu for all destinations with given destinationset id, and Returns
+    // the updated store
+    setCfuAsType: function (store, id) {
+        Ext.each(store.getRange(), function(record) {
+            if (record.get('destinationset_id') === id) {
+                record.set('type', 'cfu');
+            }
+        });
+        return store;
+    },
+
     confirmCFRemoval: function(record) {
-        var me = this;
+        var $cf = this;
         var store = record.store;
+        var subscriberId = localStorage.getItem('subscriber_id')
         if (store) {
-            store.remove(record);
-            store.sync();
-            me.setLabelTerminationType(store);
+            if (record.get('destination') === 'own phone') {
+                store = $cf.setCfuAsType(store, record.get('destinationset_id'));
+                Ext.Ajax.request({
+                    url: '/api/cfmappings/' + localStorage.getItem('subscriber_id'),
+                    method: 'GET',
+                    jsonData: {},
+                    success: function(response) {
+                        var decodedResponse = Ext.decode(response.responseText);
+                        var mappings = decodedResponse['cfu'];
+                        mappings.push({
+                            "destinationset": record.get('destinationset_name'),
+                            "sourceset": record.get('sourceset'),
+                            "timeset": record.get('timeset')
+                        });
+                        console.log(mappings);
+                        // TODO Need to also remove mapping for cft path ("path": "/cft"), so we
+                        // need to create a separate function that handles that first, with
+                        // array filter helper function:
+                        // mappings = mappings.filter(function( obj ) {
+                        //     return obj.destinationset !== record.get('destinationset_name');
+                        // });
+                        console.log(mappings);
+                        Ext.Ajax.request({
+                            url: '/api/cfmappings/' + subscriberId,
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json-patch+json'
+                            },
+                            jsonData: [{
+                                "op": "add",
+                                "path": "/" + record.get('type'),
+                                "value": mappings
+                            }],
+                            success: function (response) {
+                                store.sync();
+                            },
+                            failure: function(response) {
+                                console.log('server-side failure with status code ' + response.status);
+                            }
+                        });
+                    }
+                });
+            } else {
+                store.remove(record);
+                store.sync();
+                $cf.setLabelTerminationType(store);
+            }
         };
     },
 
@@ -1110,7 +1171,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         // checked with Andreas
         var newTimeout = !timeout ? '10' : timeout;
         if (!store.last()) { // if store empty we need to create new destset
-            var newDestinationsetName = 'csc_defined_' + newType + '_' + Date.now();
+            var newDestinationsetName = 'csc_' + newType + '_' + Date.now();
             var subscriberId = localStorage.getItem('subscriber_id');
             Ext.Ajax.request({
                 url: '/api/cfdestinationsets/',
