@@ -41,6 +41,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         this.getOutgoingCallState().hide();
         this.getCallAbortedState().hide();
         this.getIncomingCallState().hide();
+        this.getView().lookupReference('acceptedCallState').hide();
     },
 
     cleanupCall: function(reason) {
@@ -74,6 +75,15 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
 
     getPeer: function() {
         var parts = this.getCall().peer.split('@')[0].split(':');
+        if(parts.length > 1) {
+            return parts[1];
+        } else {
+            return parts[0];
+        }
+    },
+
+    getMyNumber: function() {
+        var parts = this.getCall().network.getUser().split('@')[0].split(':');
         if(parts.length > 1) {
             return parts[1];
         } else {
@@ -131,26 +141,12 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
                 $vm.set('rtcEngineCall', network.call(callee, {
                     localMediaStream: localMediaStream
                 }));
-                // TODO attach stream to video element. Uncomment and
-                // implement video element to attach to in panel
-                // if (mediaType === 'video') {
-                //     var mediaElementHelper = new cdk.MediaElementHelper(localMediaStream);
-                //     mediaElementHelper.getDomNode(function(err, domNode){
-                //         if (domNode) {
-                //             cdk.MediaElementHelper.attachStreamToDomNode(
-                //                 domNode,
-                //                 localMediaStream
-                //             );
-                //             $ct.attachDomNodeToElement(domNode);
-                //         };
-                //     });
-                // };
                 $vm.get('rtcEngineCall')
                     .onPending(function () { $ct.outgoingPending(); })
                     .onAccepted(function () { $ct.outgoingAccepted(); })
                     .onRingingStart(function () { $ct.outgoingRingingStart(); })
                     .onRingingStop(function () { $ct.outgoingRingingStop(); })
-                    .onRemoteMedia(function (stream) { $ct.outgoingRemoteMedia(); })
+                    .onRemoteMedia(function (stream) { $ct.outgoingRemoteMedia(stream); })
                     .onRemoteMediaEnded(function () { $ct.outgoingRemoteMediaEnded(); })
                     .onEnded(function () { $ct.outgoingEnded(); });
             }).catch(function (err) {
@@ -164,7 +160,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
             var localMediaStream;
             localMediaStream = new cdk.LocalMediaStream();
             localMediaStream.queryMediaSources(function(sources){
-                if(mediaType === 'audio') {
+                if(mediaType === 'audio' || mediaType === 'video') {
                     localMediaStream.setAudio(sources.defaultAudio);
                 }
                 if(mediaType === 'video') {
@@ -263,17 +259,34 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         });
     },
 
+    attachStreamToDomNode: function(id, stream, muted) {
+        $ct = this;
+        document.getElementById(id).onplaying = function(){ $ct.getView().updateLayout(); };
+        cdk.MediaElementHelper.attachStreamToDomNode(document.getElementById(id), stream);
+        if(muted) {
+            document.getElementById(id).muted = true;
+        }
+    },
+
     outgoingPending: function() {
         console.log('outgoingCallPending');
+        var localMediaStream = this.getViewModel().get('rtcEngineLocalMediaStream');
         this.showCallPanel();
         this.hideAllCallStates();
         this.getOutgoingCallState().show();
         this.getOutgoingCallLabel().setHtml('Try to call ' + Ngcp.csc.animations.loading_dots);
         this.getView().lookupReference('outgoingCallPeer').setText(this.getPeer());
+        if(localMediaStream.hasVideo()) {
+            this.getView().lookupReference('outgoingCallMedia').show();
+            this.attachStreamToDomNode('outgoing-call-media', localMediaStream, true);
+        } else {
+            this.getView().lookupReference('outgoingCallMedia').hide();
+        }
     },
 
     outgoingAccepted: function() {
         console.log('outgoingCallAccepted');
+        this.showAcceptedState();
     },
 
     outgoingRingingStart: function() {
@@ -287,8 +300,10 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         this.stopRingSound();
     },
 
-    outgoingRemoteMedia: function(stream) {
+    outgoingRemoteMedia: function(remoteMediaStream) {
         console.log('outgoingCallRemoteMedia');
+        this.getViewModel().set('rtcEngineRemoteMediaStream', remoteMediaStream);
+        this.showRemoteMedia(remoteMediaStream);
     },
 
     outgoingRemoteMediaEnded: function() {
@@ -313,11 +328,10 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         this.getView().lookupReference('callIncomingPeer').setText(this.getPeer());
     },
 
-    incomingRemoteMedia: function(stream) {
+    incomingRemoteMedia: function(remoteMediaStream) {
         console.log('incomingRemoteMedia');
-        var $vm = this.getViewModel();
-        console.log('stream variable in incomingRemoteMedia:', stream);
-        $vm.set('rtcEngineRemoteMediaStream', stream);
+        this.getViewModel().set('rtcEngineRemoteMediaStream', remoteMediaStream);
+        this.showRemoteMedia(remoteMediaStream);
     },
 
     incomingRemoteMediaEnded: function() {
@@ -343,18 +357,36 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         this.showComposer();
     },
 
-    showAbortedState: function (reason) {
+    showAcceptedState: function() {
+        $ct = this;
+        $vm = $ct.getViewModel();
+        var localMediaStream = $vm.get('rtcEngineLocalMediaStream');
+        this.hideAllCallStates();
+        this.showCallPanel();
+        this.getView().lookupReference('acceptedCallState').show();
+        if(localMediaStream.hasVideo()) {
+            this.getView().lookupReference('acceptedLocalMedia').show();
+            this.attachStreamToDomNode('accepted-local-media', localMediaStream, true);
+        }
+    },
+
+    showRemoteMedia: function(stream) {
+        this.getView().lookupReference('acceptedRemoteMedia').show();
+        this.attachStreamToDomNode('accepted-remote-media', stream, false);
+    },
+
+    showAbortedState: function (by, reason) {
         this.hideAllCallStates();
         this.getCallAbortedState().show();
         this.showCallPanel();
         this.getView().lookupReference('callAbortedPeer').setText(
             Ext.String.format(Ngcp.csc.locales.rtc.call_aborted_by[localStorage.getItem('languageSelected')],
-                this.getPeer()
+                by || this.getPeer()
             )
         );
         this.getView().lookupReference('callAbortedReason').setText(
             Ext.String.format(Ngcp.csc.locales.rtc.abort_reason[localStorage.getItem('languageSelected')],
-                this.getCall().endedReason
+                reason || this.getCall().endedReason
             )
         );
     },
@@ -396,12 +428,6 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         this.closeRtcPanel();
     },
 
-    attachDomNodeToElement: function (domNode) {
-        console.log('attachDomNodeToElement');
-        var element = document.getElementById('call-local-preview');
-        element.appendChild(domNode);
-    },
-
     acceptCallVideo: function () {
         this.acceptCall('video');
     },
@@ -414,18 +440,13 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         var $ct = this;
         var $vm = this.getViewModel();
         var call = $vm.get('rtcEngineCall');
-        var localMediaStream = new cdk.LocalMediaStream();
-        localMediaStream.queryMediaSources(function(sources) {
-            if(mediaType === 'audio') {
-                localMediaStream.setAudio(sources.defaultAudio);
-            }
-            if(mediaType === 'video') {
-                localMediaStream.setVideo(sources.defaultVideo);
-            }
-            call.accept({
-                localMediaStream: localMediaStream
-            });
+        this.createMedia(mediaType).then(function(localMediaStream){
+            $vm.set('rtcEngineLocalMediaStream', localMediaStream);
+            call.accept({ localMediaStream: localMediaStream });
+            $ct.showAcceptedState();
+        }).catch(function(err){
+            $ct.cleanupCall();
+            $ct.showAbortedState($ct.getMyNumber(), 'mediaAccessDenied');
         });
     }
-
 });

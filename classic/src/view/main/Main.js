@@ -158,11 +158,6 @@ Ext.define('NgcpCsc.view.main.Main', {
                     xtype: 'rtc',
                     itemId: 'webrtcPanel',
                     hidden: true
-                }, {
-                    width: 350,
-                    resizable: Ext.os.is.Desktop,
-                    xtype: 'contacts',
-                    ui: 'core-container'
                 }]
             }]
         }];
