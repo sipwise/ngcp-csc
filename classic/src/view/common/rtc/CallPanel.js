@@ -151,16 +151,18 @@ Ext.define('NgcpCsc.view.common.rtc.CallPanel', {
                 }, {
                     reference: 'acceptedLocalMedia',
                     hidden: true,
-                    padding: '20 0 20 0',
+                    padding: '40 0 0 0',
                     width: '33%',
                     html: '<video id="accepted-local-media" autoplay style="width: 100%"></video>'
                 },{
+                    padding: '30 0 0 0',
                     layout: {
                         type: 'hbox',
                         align: 'center',
                         pack: 'center'
                     },
                     items: [{
+                        reference: 'callToggleAudio',
                         xtype: 'button',
                         margin: '0 10 0 0',
                         userCls: 'call-button call-button-accept',
@@ -170,8 +172,10 @@ Ext.define('NgcpCsc.view.common.rtc.CallPanel', {
                         height: 40,
                         html: '<i class="x-fa fa-microphone icon-normal"></i></i>',
                         listeners: {
+                            click: 'toggleLocalAudio'
                         }
                     }, {
+                        reference: 'callToggleVideo',
                         xtype: 'button',
                         margin: '0 10 0 0',
                         userCls: 'call-button call-button-accept',
@@ -181,6 +185,20 @@ Ext.define('NgcpCsc.view.common.rtc.CallPanel', {
                         height: 40,
                         html: '<i class="x-fa fa-video-camera icon-normal"></i></i>',
                         listeners: {
+                            click: 'toggleLocalVideo'
+                        }
+                    }, {
+                        reference: 'callToggleRemoteAudio',
+                        xtype: 'button',
+                        margin: '0 10 0 0',
+                        userCls: 'call-button call-button-accept',
+                        overCls: 'call-button-accept-over',
+                        focusCls: 'call-button-accept-focus',
+                        width: 40,
+                        height: 40,
+                        html: '<i class="x-fa fa-volume-up icon-normal"></i></i>',
+                        listeners: {
+                            click: 'toggleRemoteAudio'
                         }
                     }, {
                         xtype: 'button',
@@ -191,6 +209,7 @@ Ext.define('NgcpCsc.view.common.rtc.CallPanel', {
                         height: 40,
                         html: '<i class="x-fa fa-phone call-icon-cancel"></i>',
                         listeners: {
+                            click: 'endCall'
                         }
                     }]
                 }

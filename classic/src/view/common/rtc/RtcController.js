@@ -55,8 +55,8 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
             lms.stop();
             this.getViewModel().set('rtcEngineLocalMediaStream', null);
         }
-
         if(rms !== null && rms !== void(0)) {
+            rms.stop();
             this.getViewModel().set('rtcEngineRemoteMediaStream', null);
         }
     },
@@ -102,6 +102,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     showComposer: function() {
         this.getView().setTitle('New Call');
         this.getView().removeCls('rtc-title-call-initiation');
+        this.getView().removeCls('x-panel-call');
         this.getView().setClosable(true);
         this.getComposer().show();
         this.getCallPanel().hide();
@@ -113,6 +114,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
 
     showCallPanel: function() {
         this.getView().addCls('rtc-title-call-initiation');
+        this.getView().addCls('x-panel-call');
         this.getView().setClosable(false);
         this.getComposer().hide();
         this.getCallPanel().show();
@@ -341,10 +343,6 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     incomingCallEnded: function () {
         console.log('incomingCallEnded');
         this.showAbortedState();
-    },
-
-    incomingEnded: function() {
-        console.log('incomingEnded');
         this.callEnded();
     },
 
@@ -365,14 +363,30 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         this.showCallPanel();
         this.getView().lookupReference('acceptedCallState').show();
         if(localMediaStream.hasVideo()) {
+            this.getView().lookupReference('callToggleVideo').show();
             this.getView().lookupReference('acceptedLocalMedia').show();
             this.attachStreamToDomNode('accepted-local-media', localMediaStream, true);
+        } else {
+            this.getView().lookupReference('callToggleVideo').hide();
+            this.getView().lookupReference('acceptedLocalMedia').hide();
         }
+        this.getView().lookupReference('callToggleVideo').removeCls('call-button-disabled');
+        this.getView().lookupReference('callToggleAudio').removeCls('call-button-disabled');
+        this.getView().lookupReference('callToggleRemoteAudio').removeCls('call-button-disabled');
     },
 
-    showRemoteMedia: function(stream) {
+    showRemoteMedia: function(remoteMediaStream) {
+        var localMediaStream = $vm.get('rtcEngineLocalMediaStream');
+        var title = '';
+        if(localMediaStream.hasVideo() || remoteMediaStream.hasVideo()) {
+            title = 'Video ';
+        } else {
+            title = 'Audio ';
+        }
+        title = title + ' call with ' + this.getPeer();
+        this.getView().setTitle(title);
         this.getView().lookupReference('acceptedRemoteMedia').show();
-        this.attachStreamToDomNode('accepted-remote-media', stream, false);
+        this.attachStreamToDomNode('accepted-remote-media', remoteMediaStream, false);
     },
 
     showAbortedState: function (by, reason) {
@@ -425,7 +439,12 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
 
     declineCall: function () {
         this.cleanupCall();
-        this.closeRtcPanel();
+        this.hideAbortedState();
+    },
+
+    endCall: function () {
+        this.cleanupCall();
+        this.hideAbortedState();
     },
 
     acceptCallVideo: function () {
@@ -445,8 +464,45 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
             call.accept({ localMediaStream: localMediaStream });
             $ct.showAcceptedState();
         }).catch(function(err){
+            console.error(err);
             $ct.cleanupCall();
             $ct.showAbortedState($ct.getMyNumber(), 'mediaAccessDenied');
         });
+    },
+
+    toggleLocalAudio: function() {
+        var $vm = this.getViewModel();
+        var call = $vm.get('rtcEngineCall');
+        if(!this.getView().lookupReference('callToggleAudio').hasCls('call-button-disabled')) {
+            call.disableAudio();
+            this.getView().lookupReference('callToggleAudio').addCls('call-button-disabled');
+        } else {
+            call.enableAudio();
+            this.getView().lookupReference('callToggleAudio').removeCls('call-button-disabled');
+        }
+    },
+
+    toggleLocalVideo: function() {
+        var $vm = this.getViewModel();
+        var call = $vm.get('rtcEngineCall');
+        if(!this.getView().lookupReference('callToggleVideo').hasCls('call-button-disabled')) {
+            call.disableVideo();
+            this.getView().lookupReference('callToggleVideo').addCls('call-button-disabled');
+        } else {
+            call.enableVideo();
+            this.getView().lookupReference('callToggleVideo').removeCls('call-button-disabled');
+        }
+    },
+
+    toggleRemoteAudio: function() {
+        var $vm = this.getViewModel();
+        var call = $vm.get('rtcEngineCall');
+        if(!this.getView().lookupReference('callToggleRemoteAudio').hasCls('call-button-disabled')) {
+            document.getElementById('accepted-remote-media').muted = true;
+            this.getView().lookupReference('callToggleRemoteAudio').addCls('call-button-disabled');
+        } else {
+            document.getElementById('accepted-remote-media').muted = false;
+            this.getView().lookupReference('callToggleRemoteAudio').removeCls('call-button-disabled');
+        }
     }
 });
