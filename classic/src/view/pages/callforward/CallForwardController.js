@@ -151,13 +151,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return sorted;
     },
 
-    addCftOwnPhone: function(destinations) {
+    addCftOwnPhone: function(destinations, timeout) {
         if (destinations.length > 0) {
             destinations.unshift({
                 "announcement_id": null,
                 "destination": "own phone",
                 "priority": 1,
-                "timeout": 15
+                "timeout": timeout
             })
         }
     },
@@ -165,6 +165,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     cfStoreLoaded: function(store, data) {
         var me = this;
         var cfTypeArrayOfObjects = [data.get('cfu'), data.get('cft'), data.get('cfb'), data.get('cfna')];
+        var cftRingTimeout = data.get('cft_ringtimeout');
         var cfTypes = ['cfu', 'cft', 'cfb', 'cfna'];
         var timeset = store._type;
         var arrayOfModels = [];
@@ -192,7 +193,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                                         cfdestinationset.destinations = me.sortDestinationsetByPriority(cfdestinationset.destinations);
                                         if (cfType === 'cft') {
                                             if (cfTypeObjects.length > 0) {
-                                                me.addCftOwnPhone(cfdestinationset.destinations);
+                                                me.addCftOwnPhone(cfdestinationset.destinations, cftRingTimeout);
                                             }
                                         };
                                         for (item in cfdestinationset.destinations) {
@@ -979,6 +980,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var prefix = currentSourceset + '-' + view + '-';
         return [prefix + 'CallForwardOnline', prefix + 'CallForwardBusy', prefix + 'CallForwardOffline'];
     },
+
     renderDay: function(value, meta, record) {
         if (record.get('closed') === true) {
             return Ext.String.format('<div class="cf-deactivate-day">{0}</div>', value);
@@ -1006,12 +1008,10 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     renderDestinationColumn: function(value, metaData, record) {
-        if (record.get('timeout_displayed') === '' && !Ext.isNumber(parseInt(value))) {
+        if (record.get('destination') === 'own phone') {
+            return Ext.String.format('Own phone and ring for {0} secs', record.get('timeout'));
+        } else if (record.get('timeout_displayed') === '' && !Ext.isNumber(parseInt(value))) {
             return Ext.String.format('{0}', value);
-        } else if (record.get('destination') === 'own phone') {
-            return Ext.String.format('own phone and ring for {0} secs', record.get('timeout_displayed'));
-        } else if (Ext.isNumber(parseInt(value))) {
-            return Ext.String.format('+{0} and ring for {1} secs', value, record.get('timeout_displayed'));
         } else {
             return Ext.String.format('{0} and ring for {1} secs', value, record.get('timeout_displayed'));
         };
