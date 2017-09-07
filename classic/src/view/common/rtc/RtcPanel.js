@@ -11,8 +11,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
 
     closable: true,
     collapseDirection: 'left',
-    cls: 'rtc-panel',
-
+    cls: 'rtc-panel x-panel-call',
     bind: {
         title: '{title}'
     },

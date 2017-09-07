@@ -1,6 +1,8 @@
 // Custom rules
+
 $border-radius : 50%;
 .rtc-panel{
+
     .x-tool-expand-right:before{
         content: '\f0d9' !important;
     }
@@ -141,4 +143,14 @@ $border-radius : 50%;
         font-size: 16px;
         font-weight: bold;
     }
+}
+
+.x-panel-call .x-panel-body {
+    background-color: #32404E;
+    color: white;
+}
+
+.x-btn.call-button-accept.call-button-disabled {
+    background-color: #9e9f9f;
+    color: white;
 }
