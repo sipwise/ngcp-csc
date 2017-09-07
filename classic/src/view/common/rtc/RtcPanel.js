@@ -7,8 +7,8 @@ Ext.define('NgcpCsc.view.common.rtc.RtcPanel', {
     controller: 'rtc',
     viewModel: 'rtc',
 
-    padding: '0 0 0 1',
-    width: '30%',
+    padding: '0 0 0 0',
+
     closable: true,
     collapseDirection: 'left',
     cls: 'rtc-panel',

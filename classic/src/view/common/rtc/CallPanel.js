@@ -1,12 +1,10 @@
 Ext.define('NgcpCsc.view.common.rtc.CallPanel', {
     extend: 'Ext.form.Panel',
     alias: 'widget.call-panel',
-    padding: '60 0 0 0',
-    bind: {
-        hidden: true
-    },
+    hidden: true,
     items: [{
             reference: 'outgoingCallState',
+            padding: '40 0 0 0',
             layout: {
                 type: 'vbox',
                 align: 'center',
@@ -15,17 +13,20 @@ Ext.define('NgcpCsc.view.common.rtc.CallPanel', {
             hidden: true,
             items: [{
                     reference: 'outgoingCallLabel',
-                    xtype: 'label',
-                    hidden: false
+                    xtype: 'label'
                 },
                 {
                     reference: 'outgoingCallPeer',
                     xtype: 'label',
                     margin: '0 0 20 0',
                     userCls: 'call-number-label',
-                    hidden: false
-                },
-                {
+                },{
+                    reference: 'outgoingCallMedia',
+                    hidden: true,
+                    padding: '0 0 20 0',
+                    width: '100%',
+                    html: '<video id="outgoing-call-media" autoplay style="width: 100%"></video>'
+                },{
                     xtype: 'button',
                     userCls: 'call-button call-button-cancel call-button-hangup',
                     overCls: 'call-button-cancel-over',
@@ -41,6 +42,7 @@ Ext.define('NgcpCsc.view.common.rtc.CallPanel', {
             ]
         }, {
             reference: 'callAbortedState',
+            padding: '40 0 0 0',
             hidden: true,
             layout: {
                 type: 'vbox',
@@ -72,6 +74,7 @@ Ext.define('NgcpCsc.view.common.rtc.CallPanel', {
         },
         {
             reference: 'incomingCallState',
+            padding: '40 0 0 0',
             layout: {
                 type: 'vbox',
                 align: 'center',
@@ -130,6 +133,68 @@ Ext.define('NgcpCsc.view.common.rtc.CallPanel', {
                     }
                 }]
             }]
+        },{
+            reference: 'acceptedCallState',
+            padding: '0 0 0 0',
+            hidden: true,
+            layout: {
+                type: 'vbox',
+                align: 'center',
+                pack: 'center'
+            },
+            items: [{
+                    reference: 'acceptedRemoteMedia',
+                    hidden: true,
+                    padding: '0 0 0 0',
+                    width: '100%',
+                    html: '<video id="accepted-remote-media" autoplay style="width: 100%"></video>'
+                }, {
+                    reference: 'acceptedLocalMedia',
+                    hidden: true,
+                    padding: '20 0 20 0',
+                    width: '33%',
+                    html: '<video id="accepted-local-media" autoplay style="width: 100%"></video>'
+                },{
+                    layout: {
+                        type: 'hbox',
+                        align: 'center',
+                        pack: 'center'
+                    },
+                    items: [{
+                        xtype: 'button',
+                        margin: '0 10 0 0',
+                        userCls: 'call-button call-button-accept',
+                        overCls: 'call-button-accept-over',
+                        focusCls: 'call-button-accept-focus',
+                        width: 40,
+                        height: 40,
+                        html: '<i class="x-fa fa-microphone icon-normal"></i></i>',
+                        listeners: {
+                        }
+                    }, {
+                        xtype: 'button',
+                        margin: '0 10 0 0',
+                        userCls: 'call-button call-button-accept',
+                        overCls: 'call-button-accept-over',
+                        focusCls: 'call-button-accept-focus',
+                        width: 40,
+                        height: 40,
+                        html: '<i class="x-fa fa-video-camera icon-normal"></i></i>',
+                        listeners: {
+                        }
+                    }, {
+                        xtype: 'button',
+                        userCls: 'call-button call-button-cancel call-button-hangup',
+                        overCls: 'call-button-cancel-over',
+                        focusCls: 'call-button-cancel-focus',
+                        width: 40,
+                        height: 40,
+                        html: '<i class="x-fa fa-phone call-icon-cancel"></i>',
+                        listeners: {
+                        }
+                    }]
+                }
+            ]
         }
     ]
 });
