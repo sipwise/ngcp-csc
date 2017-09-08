@@ -320,6 +320,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
 
     incomingCallPending: function(call) {
         console.log('incomingCallPending');
+        this.playRingSound();
         this.showCallPanel();
         this.hideAllCallStates();
         this.getIncomingCallState().show();
@@ -359,6 +360,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         $ct = this;
         $vm = $ct.getViewModel();
         var localMediaStream = $vm.get('rtcEngineLocalMediaStream');
+        this.stopRingSound();
         this.hideAllCallStates();
         this.showCallPanel();
         this.getView().lookupReference('acceptedCallState').show();
@@ -390,6 +392,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     },
 
     showAbortedState: function (by, reason) {
+        this.stopRingSound();
         this.hideAllCallStates();
         this.getCallAbortedState().show();
         this.showCallPanel();
@@ -406,6 +409,7 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
     },
 
     hideAbortedState: function () {
+        this.stopRingSound();
         if(this.hasCall() && this.getCall().origin === 'local') {
             this.showComposer();
         } else {
@@ -503,6 +507,14 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         } else {
             document.getElementById('accepted-remote-media').muted = false;
             this.getView().lookupReference('callToggleRemoteAudio').removeCls('call-button-disabled');
+        }
+    },
+
+    showPhoneComposer: function() {
+        if(this.getViewModel().get('phoneKeyboardHidden')) {
+            this.getViewModel().set('phoneKeyboardHidden', false);
+        } else {
+            this.getViewModel().set('phoneKeyboardHidden', true);
         }
     }
 });

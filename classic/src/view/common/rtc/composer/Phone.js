@@ -24,6 +24,7 @@ Ext.define('NgcpCsc.view.common.rtc.composer.Phone', {
             handler: 'showPhoneComposer'
         }]
     }, {
+        reference: 'phoneKeys',
         xtype: 'phonekeys',
         bind: {
             hidden: '{phoneKeyboardHidden}'
