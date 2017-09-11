@@ -42,7 +42,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
             dataIndex: 'label',
             width: 135
         }, {
-            dataIndex: 'destination_displayed', // Renderer also uses ring_for value
+            dataIndex: 'destination_displayed', // Renderer also uses timeout value
             width: 285,
             renderer: 'renderDestinationColumn'
         }, {
