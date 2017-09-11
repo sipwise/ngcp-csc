@@ -10,6 +10,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTab', {
         scrollable: true
     },
 
+    listeners: {
+        click: {
+            element: 'el',
+            fn: 'addOwnPhoneToEmptyOnline'
+        }
+    },
+
     _tabId: null,
 
     _secondprefix: null,
