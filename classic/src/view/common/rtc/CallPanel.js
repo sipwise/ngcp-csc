@@ -19,7 +19,7 @@ Ext.define('NgcpCsc.view.common.rtc.CallPanel', {
                     reference: 'outgoingCallPeer',
                     xtype: 'label',
                     margin: '0 0 20 0',
-                    userCls: 'call-number-label',
+                    userCls: 'call-number-label'
                 },{
                     reference: 'outgoingCallMedia',
                     hidden: true,
