@@ -47,6 +47,9 @@ Ext.define('NgcpCsc.model.CallForwardDestination', {
         {
             name: 'label',
             defaultValue: ''
+        },
+        {
+            name: 'empty_online'
         }
     ]
 
