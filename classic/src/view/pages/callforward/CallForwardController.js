@@ -162,10 +162,15 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         }
     },
 
+    hasMappings: function (mapping) {
+        return mapping.length !== 0;
+    },
+
     cfStoreLoaded: function(store, data) {
-        var me = this;
+        var $cf = this;
         var cfTypeArrayOfObjects = [data.get('cfu'), data.get('cft'), data.get('cfb'), data.get('cfna')];
         var cftRingTimeout = data.get('cft_ringtimeout');
+        var hasCftAndCfuMappings = $cf.hasMappings(data.get('cfu')) && $cf.hasMappings(data.get('cft'));
         var cfTypes = ['cfu', 'cft', 'cfb', 'cfna'];
         var timeset = store._type;
         var arrayOfModels = [];
@@ -189,46 +194,48 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                             cfmappings.timesetName = cfTypeObject.timeset;
                             if (cfmappings.timesetName == routeTimeset) {
                                 Ext.each(cfdestinationsets, function(cfdestinationset) {
-                                    if (cfdestinationset.name == cfmappings.destinationsetName && !cfmappings._modelCreated) {
-                                        cfdestinationset.destinations = me.sortDestinationsetByPriority(cfdestinationset.destinations);
-                                        if (cfType === 'cft') {
-                                            if (cfTypeObjects.length > 0) {
-                                                me.addCftOwnPhone(cfdestinationset.destinations, cftRingTimeout);
+                                    if (cfType.match(/(cfb|cfna)/) || cfType === 'cfu' && cfTypeObjects[0].destinationset === cfTypeObject.destinationset || !hasCftAndCfuMappings && cfType === 'cft') {
+                                        if (cfdestinationset.name == cfmappings.destinationsetName && !cfmappings._modelCreated) {
+                                            cfdestinationset.destinations = $cf.sortDestinationsetByPriority(cfdestinationset.destinations);
+                                            if (cfType === 'cft') {
+                                                if (cfTypeObjects.length > 0) {
+                                                    $cf.addCftOwnPhone(cfdestinationset.destinations, cftRingTimeout);
+                                                }
+                                            };
+                                            for (item in cfdestinationset.destinations) {
+                                                var destinationToDisplayInGrid = $cf.getDestinationFromSipId(cfdestinationset.destinations[item].destination);
+                                                var destinationAnnouncementId = cfdestinationset.announcement_id;
+                                                var destination = cfdestinationset.destinations[item].destination;
+                                                var priority = cfdestinationset.destinations[item].priority;
+                                                var timeout = cfdestinationset.destinations[item].timeout;
+                                                var destinationId = cfdestinationset.id;
+                                                var destinationName = cfdestinationset.name;
+                                                // Removes timeout if destination is not a number
+                                                var ringFor = !Ext.isNumber(parseInt(destinationToDisplayInGrid)) ? '' : cfdestinationset.destinations[item].timeout;
+                                                var cbModel = Ext.create('NgcpCsc.model.CallForwardDestination', {
+                                                    type: cfType,
+                                                    destination_displayed: destinationToDisplayInGrid,
+                                                    destination: destination,
+                                                    destination_announcement_id: destinationAnnouncementId,
+                                                    priority: priority,
+                                                    timeout_displayed: ringFor,
+                                                    timeout: timeout,
+                                                    sourceset: cfmappings.sourcesetName,
+                                                    timeset: cfmappings.timesetName,
+                                                    destinationset_id: destinationId,
+                                                    destinationset_name: destinationName
+                                                });
+                                                arrayOfModels.push(cbModel);
+                                                cfmappings._modelCreated = true;
                                             }
-                                        };
-                                        for (item in cfdestinationset.destinations) {
-                                            var destinationToDisplayInGrid = me.getDestinationFromSipId(cfdestinationset.destinations[item].destination);
-                                            var destinationAnnouncementId = cfdestinationset.announcement_id;
-                                            var destination = cfdestinationset.destinations[item].destination;
-                                            var priority = cfdestinationset.destinations[item].priority;
-                                            var timeout = cfdestinationset.destinations[item].timeout;
-                                            var destinationId = cfdestinationset.id;
-                                            var destinationName = cfdestinationset.name;
-                                            // Removes timeout if destination is not a number
-                                            var ringFor = !Ext.isNumber(parseInt(destinationToDisplayInGrid)) ? '' : cfdestinationset.destinations[item].timeout;
-                                            var cbModel = Ext.create('NgcpCsc.model.CallForwardDestination', {
-                                                type: cfType,
-                                                destination_displayed: destinationToDisplayInGrid,
-                                                destination: destination,
-                                                destination_announcement_id: destinationAnnouncementId,
-                                                priority: priority,
-                                                timeout_displayed: ringFor,
-                                                timeout: timeout,
-                                                sourceset: cfmappings.sourcesetName,
-                                                timeset: cfmappings.timesetName,
-                                                destinationset_id: destinationId,
-                                                destinationset_name: destinationName
-                                            });
-                                            arrayOfModels.push(cbModel);
-                                            cfmappings._modelCreated = true;
                                         }
-                                    }
+                                    };
                                 });
                             };
                         });
                     });
                     if (arrayOfModels.length > 0) {
-                        me.populateDestinationStores(arrayOfModels);
+                        $cf.populateDestinationStores(arrayOfModels);
                     };
                 };
             },
@@ -579,14 +586,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             });
             terminationFalseIndexRange.map(function(index) {
                 store.getAt(index).set('after_termination', false);
-            });
-        };
-        // "Greyes out" destination if appearing after a terminating destination
-        if (store.findRecord('type', 'cfu') && store.findRecord('type', 'cft')) {
-            Ext.each(store.getRange(), function(record) {
-                if (!record.get('after_termination') && record.get('type') === 'cft') {
-                    record.set('after_termination', true);
-                };
             });
         };
         Ext.each(store.getRange(), function(record) {
