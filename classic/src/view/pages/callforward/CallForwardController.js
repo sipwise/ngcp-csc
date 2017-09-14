@@ -165,74 +165,86 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return mapping.length !== 0;
     },
 
+    buildArrayOfModels: function (cfMappings, cfType, routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels) {
+        var $cf = this;
+        Ext.each(cfMappings, function(mapping, j) {
+            var cfmappings = {};
+            if (cfType === 'cfu' && j === 1) { return false; };
+            cfmappings.destinationsetName = mapping.destinationset;
+            cfmappings.sourcesetName = mapping.sourceset;
+            cfmappings.timesetName = mapping.timeset;
+            if (cfmappings.timesetName == routeTimeset) {
+                // A destinationset can be used as mapping for mutiple call forwarding types, so
+                // we can not break out of this loop better than we already are. _modelCreated
+                // is already in place to make sure we don't go deeper in the loops if the current
+                // cftype already has that destinationset added as model
+                Ext.each(cfdestinationsets, function(cfdestinationset) {
+                    if (cfType !== 'cft' || !hasCftAndCfuMappings && cfType === 'cft') {
+                        if (cfdestinationset.name == cfmappings.destinationsetName && !cfmappings._modelCreated) {
+                            cfdestinationset.destinations = $cf.sortDestinationsetByPriority(cfdestinationset.destinations);
+                            if (cfType === 'cft' && cfMappings[0].destinationset === mapping.destinationset) {
+                                $cf.addCftOwnPhone(cfdestinationset.destinations, cftRingTimeout);
+                            };
+                            // We can not break out of this one, as we need all destinations of the given
+                            // destinationset added to the store
+                            for (item in cfdestinationset.destinations) {
+                                var destinationToDisplayInGrid = $cf.getDestinationFromSipId(cfdestinationset.destinations[item].destination);
+                                var destinationAnnouncementId = cfdestinationset.announcement_id;
+                                var destination = cfdestinationset.destinations[item].destination;
+                                var priority = cfdestinationset.destinations[item].priority;
+                                var timeout = cfdestinationset.destinations[item].timeout;
+                                var destinationId = cfdestinationset.id;
+                                var destinationName = cfdestinationset.name;
+                                // Removes timeout if destination is not a number
+                                var ringFor = !Ext.isNumber(parseInt(destinationToDisplayInGrid)) ? '' : cfdestinationset.destinations[item].timeout;
+                                var cbModel = Ext.create('NgcpCsc.model.CallForwardDestination', {
+                                    type: cfType,
+                                    destination_displayed: destinationToDisplayInGrid,
+                                    destination: destination,
+                                    destination_announcement_id: destinationAnnouncementId,
+                                    priority: priority,
+                                    timeout_displayed: ringFor,
+                                    timeout: timeout,
+                                    sourceset: cfmappings.sourcesetName,
+                                    timeset: cfmappings.timesetName,
+                                    destinationset_id: destinationId,
+                                    destinationset_name: destinationName
+                                });
+                                arrayOfModels.push(cbModel);
+                                cfmappings._modelCreated = true;
+                            }
+                        }
+                    };
+                });
+            };
+        });
+    },
+
     cfStoreLoaded: function(store, data) {
         var $cf = this;
         var $vm = this.getViewModel();
-        var cfTypeArrayOfObjects = [data.get('cfu'), data.get('cft'), data.get('cfb'), data.get('cfna')];
+        var cfuMappings = data.get('cfu');
+        var cftMappings = data.get('cft');
+        var cfbMappings = data.get('cfb');
+        var cfnaMappings = data.get('cfna');
         var cftRingTimeout = data.get('cft_ringtimeout');
-        var hasCftAndCfuMappings = $cf.hasMappings(data.get('cfu')) && $cf.hasMappings(data.get('cft'));
-        var cfTypes = ['cfu', 'cft', 'cfb', 'cfna'];
+        var hasCftAndCfuMappings = $cf.hasMappings(cfuMappings) && $cf.hasMappings(cftMappings);
         var timeset = store._type;
         var arrayOfModels = [];
         var currentRoute = window.location.hash;
         var routeTimeset = this.getTimesetFromRoute(currentRoute);
         $vm.set('cft_ringtimeout', cftRingTimeout);
         store.removeAll();
-        // TODO optimize, too many nested loops affects performance.
-        // Ex. Where possible use break Ext.each by return false;
         Ext.Ajax.request({
             url: '/api/cfdestinationsets/?rows=100&subscriber_id=' + localStorage.getItem('subscriber_id'),
             success: function(response, opts) {
                 var decodedResponse = Ext.decode(response.responseText);
                 if (decodedResponse._embedded) {
                     var cfdestinationsets = decodedResponse._embedded['ngcp:cfdestinationsets'];
-                    Ext.each(cfTypeArrayOfObjects, function (cfTypeObjects, index) {
-                        var cfType = cfTypes[index];
-                        Ext.each(cfTypeObjects, function(cfTypeObject) {
-                            var cfmappings = {};
-                            cfmappings.destinationsetName = cfTypeObject.destinationset;
-                            cfmappings.sourcesetName = cfTypeObject.sourceset;
-                            cfmappings.timesetName = cfTypeObject.timeset;
-                            if (cfmappings.timesetName == routeTimeset) {
-                                Ext.each(cfdestinationsets, function(cfdestinationset) {
-                                    if (cfType.match(/(cfb|cfna)/) || cfType === 'cfu' && cfTypeObjects[0].destinationset === cfTypeObject.destinationset || !hasCftAndCfuMappings && cfType === 'cft') {
-                                        if (cfdestinationset.name == cfmappings.destinationsetName && !cfmappings._modelCreated) {
-                                            cfdestinationset.destinations = $cf.sortDestinationsetByPriority(cfdestinationset.destinations);
-                                            if (cfType === 'cft' && cfTypeObjects[0].destinationset === cfTypeObject.destinationset) {
-                                                $cf.addCftOwnPhone(cfdestinationset.destinations, cftRingTimeout);
-                                            };
-                                            for (item in cfdestinationset.destinations) {
-                                                var destinationToDisplayInGrid = $cf.getDestinationFromSipId(cfdestinationset.destinations[item].destination);
-                                                var destinationAnnouncementId = cfdestinationset.announcement_id;
-                                                var destination = cfdestinationset.destinations[item].destination;
-                                                var priority = cfdestinationset.destinations[item].priority;
-                                                var timeout = cfdestinationset.destinations[item].timeout;
-                                                var destinationId = cfdestinationset.id;
-                                                var destinationName = cfdestinationset.name;
-                                                // Removes timeout if destination is not a number
-                                                var ringFor = !Ext.isNumber(parseInt(destinationToDisplayInGrid)) ? '' : cfdestinationset.destinations[item].timeout;
-                                                var cbModel = Ext.create('NgcpCsc.model.CallForwardDestination', {
-                                                    type: cfType,
-                                                    destination_displayed: destinationToDisplayInGrid,
-                                                    destination: destination,
-                                                    destination_announcement_id: destinationAnnouncementId,
-                                                    priority: priority,
-                                                    timeout_displayed: ringFor,
-                                                    timeout: timeout,
-                                                    sourceset: cfmappings.sourcesetName,
-                                                    timeset: cfmappings.timesetName,
-                                                    destinationset_id: destinationId,
-                                                    destinationset_name: destinationName
-                                                });
-                                                arrayOfModels.push(cbModel);
-                                                cfmappings._modelCreated = true;
-                                            }
-                                        }
-                                    };
-                                });
-                            };
-                        });
-                    });
+                    $cf.buildArrayOfModels(cfbMappings, 'cfb', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels);
+                    $cf.buildArrayOfModels(cfuMappings, 'cfu', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels);
+                    $cf.buildArrayOfModels(cftMappings, 'cft', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels);
+                    $cf.buildArrayOfModels(cfnaMappings, 'cfna', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels);
                     $cf.addOwnPhoneToEmptyOnline();
                     if (arrayOfModels.length > 0) {
                         $cf.populateDestinationStores(arrayOfModels);
