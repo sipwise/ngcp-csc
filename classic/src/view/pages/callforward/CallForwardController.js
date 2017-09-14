@@ -185,15 +185,21 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                 var decodedResponse = Ext.decode(response.responseText);
                 if (decodedResponse._embedded) {
                     var cfdestinationsets = decodedResponse._embedded['ngcp:cfdestinationsets'];
-                    Ext.each(cfTypeArrayOfObjects, function (cfTypeObjects, index) {
-                        var cfType = cfTypes[index];
-                        Ext.each(cfTypeObjects, function(cfTypeObject) {
+                    // In this loop, we are iterating over an array consisting of 4 arrays, holding 0 or more
+                    // mappings objects, the data from /api/cfmappings. Can not break out of it , as we want
+                    // to iterate over all call forwarding types.
+                    Ext.each(cfTypeArrayOfObjects, function (cfTypeObjects, i) {
+                        var cfType = cfTypes[i];
+                        Ext.each(cfTypeObjects, function(cfTypeObject, j) { // TODO can we return false to break for this one?
                             var cfmappings = {};
+                            if (cfType === 'cfu' && j === 1) {
+                                return false; // TODO Does not break out like expected
+                            };
                             cfmappings.destinationsetName = cfTypeObject.destinationset;
                             cfmappings.sourcesetName = cfTypeObject.sourceset;
                             cfmappings.timesetName = cfTypeObject.timeset;
                             if (cfmappings.timesetName == routeTimeset) {
-                                Ext.each(cfdestinationsets, function(cfdestinationset) {
+                                Ext.each(cfdestinationsets, function(cfdestinationset) { // TODO can we return false to break for this one?
                                     if (cfType.match(/(cfb|cfna)/) || cfType === 'cfu' && cfTypeObjects[0].destinationset === cfTypeObject.destinationset || !hasCftAndCfuMappings && cfType === 'cft') {
                                         if (cfdestinationset.name == cfmappings.destinationsetName && !cfmappings._modelCreated) {
                                             cfdestinationset.destinations = $cf.sortDestinationsetByPriority(cfdestinationset.destinations);
