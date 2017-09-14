@@ -178,29 +178,37 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var routeTimeset = this.getTimesetFromRoute(currentRoute);
         $vm.set('cft_ringtimeout', cftRingTimeout);
         store.removeAll();
-        // TODO optimize, too many nested loops affects performance.
-        // Ex. Where possible use break Ext.each by return false;
         Ext.Ajax.request({
             url: '/api/cfdestinationsets/?rows=100&subscriber_id=' + localStorage.getItem('subscriber_id'),
             success: function(response, opts) {
                 var decodedResponse = Ext.decode(response.responseText);
                 if (decodedResponse._embedded) {
                     var cfdestinationsets = decodedResponse._embedded['ngcp:cfdestinationsets'];
-                    Ext.each(cfTypeArrayOfObjects, function (cfTypeObjects, index) {
-                        var cfType = cfTypes[index];
-                        Ext.each(cfTypeObjects, function(cfTypeObject) {
+                    // In this loop, we are iterating over an array consisting of 4 arrays, holding 0 or more
+                    // mappings objects, the data from /api/cfmappings. Can not break out of it , as we want
+                    // to iterate over all call forwarding types.
+                    Ext.each(cfTypeArrayOfObjects, function (cfTypeObjects, i) {
+                        var cfType = cfTypes[i];
+                        Ext.each(cfTypeObjects, function(cfTypeObject, j) {
                             var cfmappings = {};
+                            if (cfType === 'cfu' && j === 1) { return false; };
                             cfmappings.destinationsetName = cfTypeObject.destinationset;
                             cfmappings.sourcesetName = cfTypeObject.sourceset;
                             cfmappings.timesetName = cfTypeObject.timeset;
                             if (cfmappings.timesetName == routeTimeset) {
+                                // A destinationset can be used as mapping for mutiple call forwarding types, so
+                                // we can not break out of this loop better than we already are. _modelCreated
+                                // is already in place to make sure we don't go deeper in the loops if the current
+                                // cftype already has that destinationset added as model
                                 Ext.each(cfdestinationsets, function(cfdestinationset) {
-                                    if (cfType.match(/(cfb|cfna)/) || cfType === 'cfu' && cfTypeObjects[0].destinationset === cfTypeObject.destinationset || !hasCftAndCfuMappings && cfType === 'cft') {
+                                    if (cfType !== 'cft' || !hasCftAndCfuMappings && cfType === 'cft') {
                                         if (cfdestinationset.name == cfmappings.destinationsetName && !cfmappings._modelCreated) {
                                             cfdestinationset.destinations = $cf.sortDestinationsetByPriority(cfdestinationset.destinations);
                                             if (cfType === 'cft' && cfTypeObjects[0].destinationset === cfTypeObject.destinationset) {
                                                 $cf.addCftOwnPhone(cfdestinationset.destinations, cftRingTimeout);
                                             };
+                                            // We can not break out of this one, as we need all destinations of the given
+                                            // destinationset added to the store
                                             for (item in cfdestinationset.destinations) {
                                                 var destinationToDisplayInGrid = $cf.getDestinationFromSipId(cfdestinationset.destinations[item].destination);
                                                 var destinationAnnouncementId = cfdestinationset.announcement_id;
