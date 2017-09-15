@@ -41,7 +41,132 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         store.sync();
     },
 
+    parseTimesetApiToRecords: function(times) {
+        var weekDaysMap = {
+            1: 'Sunday',
+            2: 'Monday',
+            3: 'Tuesday',
+            4: 'Wednesday',
+            5: 'Thursday',
+            6: 'Friday',
+            7: 'Saturday'
+        },
+        retData = {};
+
+        Ext.each(times, function(timeSlot) {
+            var days = timeSlot.wday.split('-');
+            var fromHour = parseInt(timeSlot.hour.split('-')[0]);
+            var toHour = parseInt(timeSlot.hour.split('-')[1]) || 0;
+            if (days.length > 1) {
+                var fromDay = parseInt(days[0]);
+                var toDay = parseInt(days[1]);
+                while (fromDay < toDay) {
+                    if (!days[fromDay]) {
+                        days.push(fromDay.toString())
+                    }
+                    fromDay++;
+                }
+            }
+            Ext.each(days, function(day) {
+                if (retData[day]) {
+                    Ext.each(retData[day], function(existingSlot) {
+                        // all possible cases within a day:
+                        var existingFromHour = parseInt(existingSlot.fromHour);
+                        var existingToHour = parseInt(existingSlot.toHour);
+                        switch (true) {
+                            case fromHour > existingToHour:
+                            case toHour < existingFromHour:
+                                // create a new slot
+                                retData[day].push({
+                                    day: weekDaysMap[day],
+                                    timeFrom: fromHour,
+                                    timeTo: toHour
+                                });
+                                break;
+                            case fromHour < existingFromHour && toHour > existingToHour:
+                                // replace the slot
+                                existingSlot = {
+                                    day: weekDaysMap[day],
+                                    timeFrom: fromHour,
+                                    timeTo: toHour
+                                };
+                                break;
+                            case fromHour < existingFromHour && toHour > existingFromHour && toHour < existingToHour:
+                                // replace existingSlot.fromHour
+                                existingSlot.fromHour = fromHour.toSring();
+                                break;
+                            case fromHour > existingFromHour && fromHour < existingToHour && toHour > existingToHour:
+                                // replace existingSlot.toHour
+                                existingSlot.toHour = toHour.toSring();
+                                break;
+                            case fromHour > existingFromHour && toHour < existingToHour:
+                                // do nothing
+                                break;
+                        }
+
+                    });
+                } else {
+                    retData[day] = [];
+                    retData[day].push({
+                        day: weekDaysMap[day],
+                        timeFrom: fromHour,
+                        timeTo: toHour
+                    })
+                }
+            });
+        });
+        console.info(retData)
+        //
+        // TODO: Take this input...
+        // "times": [
+        //   {
+        //     "hour": "8-16",
+        //     "mday": null,
+        //     "minute": null,
+        //     "month": null,
+        //     "wday": "2-3",
+        //     "year": null
+        //   },
+        //   {
+        //     "hour": "10-18",
+        //     "mday": null,
+        //     "minute": null,
+        //     "month": null,
+        //     "wday": "3",
+        //     "year": null
+        //   }
+        // ]
+        // >>>>>> ... and return this output: >>>>>>
+        // [ { "timeFrom": "8", "timeTo": "16", "day": "Monday" },
+        //   { "timeFrom": "8", "timeTo": "16", "day": "Tuesday" },
+        //   { "timeFrom": "8", "timeTo": "18", "day": "Wednesday" }
+        // ]
+        // XXX Temp dummy data XXX
+        return [{
+            "timeFrom": "9",
+            "timeTo": "16",
+            "day": "Monday"
+        }, {
+            "timeFrom": "12",
+            "timeTo": "16",
+            "day": "Tuesday"
+        }, {
+            "timeFrom": "8",
+            "timeTo": "18",
+            "day": "Wednesday"
+        }, {
+            "timeFrom": "8",
+            "timeTo": "11",
+            "day": "Thursday"
+        }, {
+            "timeFrom": "8",
+            "timeTo": "14",
+            "day": "Friday"
+        }];
+    },
+
     cfTimesetStoreLoaded: function(store, data) {
+        debugger
         var me = this;
         var arrayOfModels = [];
         var timesets;
@@ -55,17 +180,20 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             var timesetName = timeset.name;
             var timesetId = timeset.id;
             me.setVmToTrue(timesetName);
+            debugger
             if (/(After|Company)\s(Hours)/.test(timesetName)) {
-                var times = me.getModelValuesFromTimesData(timeset.times[0]);
-                Ext.each(times.days, function(weekday) {
+                var times = me.parseTimesetApiToRecords(timeset.times[0]);
+                Ext.each(times, function (time) {
                     var cfModel = Ext.create('NgcpCsc.model.CallForwardDestination', {
                         id: Ext.id(),
                         timeset_name: timesetName,
                         timeset_id: timesetId,
-                        time_from: times.timeFrom,
-                        time_to: times.timeTo,
-                        day: weekday,
-                        closed: false
+                        time_from: time.timeFrom,
+                        time_to: time.timeTo,
+                        day: time.day,
+                        closed: false   // TODO: (For PUT/PATCH ticket) decide
+                                        // if we should keep this, or solve this
+                                        // differently, or not at all
                     });
                     arrayOfModels.push(cfModel);
                 });
@@ -554,9 +682,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var store = Ext.getStore(moduleName + '-Timeset');
         if (store.getCount() === 0) {
             Ext.each(models, function(model) {
-                if (moduleName == 'afterours' && model.get('timeset_name') == 'After Hours') {
+                if (moduleName == 'afterhours' && model.get('timeset_name') == 'After Hours') {
                     store.add(model);
-                } else if (moduleName == 'companyours' && model.get('timeset_name') == 'Company Hours') {
+                } else if (moduleName == 'companyhours' && model.get('timeset_name') == 'Company Hours') {
                     store.add(model);
                 };
             });
