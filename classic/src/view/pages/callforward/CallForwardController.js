@@ -632,11 +632,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             var type = $cf.getGridCategoryFromType(model.get('type'));
             var storeName = sourcename + timename + type;
             store = Ext.getStore(storeName);
-            if(!store._emptied){
-                store.removeAll();
-                store._emptied = true;
-            }
             if (store) {
+                if (!store._emptied) {
+                    store.removeAll();
+                    store._emptied = true;
+                }
                 store.add(model);
                 stores.push(store);
             }
