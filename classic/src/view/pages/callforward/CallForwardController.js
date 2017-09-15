@@ -22,6 +22,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         }
     },
 
+    // TODO: Try this solution: have cfStoreLoaded() save arrayOfModels to VM
+    // and then call populateDestinationStores() once createTabPanels() is done.
+
     destinationDropped: function(node, data, overModel, dropPosition, eOpts) {
         var dropRec = data.records[0];
         var store = overModel.store;
@@ -233,6 +236,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var arrayOfModels = [];
         var currentRoute = window.location.hash;
         var routeTimeset = this.getTimesetFromRoute(currentRoute);
+        $vm.set('destStoresPopulated', false);
         $vm.set('cft_ringtimeout', cftRingTimeout);
         store.removeAll();
         Ext.Ajax.request({
@@ -247,7 +251,8 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     $cf.buildArrayOfModels(cfnaMappings, 'cfna', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels);
                     $cf.addOwnPhoneToEmptyOnline();
                     if (arrayOfModels.length > 0) {
-                        $cf.populateDestinationStores(arrayOfModels);
+                        $vm.set('arrayOfDestModels', arrayOfModels);
+                        $cf.populateDestinationStores();
                     };
                 };
             },
@@ -622,31 +627,37 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         });
     },
 
-    populateDestinationStores: function(models) {
+    populateDestinationStores: function() {
         var $cf = this;
+        var $vm = $cf.getViewModel();
         var store;
         var stores = [];
-        Ext.each(models, function(model) {
-            var sourcename = $cf.getSourceNameFromSourceSet(model.get('sourceset'));
-            var timename = $cf.getTimeNameFromTimeSet(model.get('timeset'));
-            var type = $cf.getGridCategoryFromType(model.get('type'));
-            var storeName = sourcename + timename + type;
-            store = Ext.getStore(storeName);
-            if(!store._emptied){
-                store.removeAll();
-                store._emptied = true;
-            }
-            if (store) {
-                store.add(model);
-                stores.push(store);
-            }
-        });
-        if (store) {
-            Ext.each(stores, function(store) {
-                store.commitChanges();
-                $cf.setLabelTerminationType(store);
-                store._emptied = false;
+        var models = $vm.get('arrayOfDestModels');
+        // TODO: Test. Think it works now.
+        if (models && !$vm.get('destStoresPopulated')) {
+            Ext.each(models, function(model) {
+                var sourcename = $cf.getSourceNameFromSourceSet(model.get('sourceset'));
+                var timename = $cf.getTimeNameFromTimeSet(model.get('timeset'));
+                var type = $cf.getGridCategoryFromType(model.get('type'));
+                var storeName = sourcename + timename + type;
+                store = Ext.getStore(storeName);
+                if (store) {
+                    if (!store._emptied) {
+                        store.removeAll();
+                        store._emptied = true;
+                    }
+                    store.add(model);
+                    stores.push(store);
+                }
             });
+            if (store) {
+                Ext.each(stores, function(store) {
+                    store.commitChanges();
+                    $cf.setLabelTerminationType(store);
+                    store._emptied = false;
+                });
+            };
+            $vm.set('destStoresPopulated', true);
         };
     },
 
@@ -714,6 +725,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                             }
                         }, 100);
                     });
+                    $cf.populateDestinationStores();
                     return;
                 }
             });
