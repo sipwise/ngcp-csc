@@ -22,6 +22,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         }
     },
 
+    // TODO: Try this solution: have cfStoreLoaded() save arrayOfModels to VM
+    // and then call populateDestinationStores() once createTabPanels() is done.
+
     destinationDropped: function(node, data, overModel, dropPosition, eOpts) {
         var dropRec = data.records[0];
         var store = overModel.store;
@@ -165,7 +168,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return mapping.length !== 0;
     },
 
-    buildArrayOfModels: function (cfMappings, cfType, routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels) {
+    buildArrayOfModels: function (cfMappings, cfType, routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels, hasCftAndCfuMappings) {
         var $cf = this;
         Ext.each(cfMappings, function(mapping, j) {
             var cfmappings = {};
@@ -189,26 +192,20 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                             // destinationset added to the store
                             for (item in cfdestinationset.destinations) {
                                 var destinationToDisplayInGrid = $cf.getDestinationFromSipId(cfdestinationset.destinations[item].destination);
-                                var destinationAnnouncementId = cfdestinationset.announcement_id;
-                                var destination = cfdestinationset.destinations[item].destination;
-                                var priority = cfdestinationset.destinations[item].priority;
-                                var timeout = cfdestinationset.destinations[item].timeout;
-                                var destinationId = cfdestinationset.id;
-                                var destinationName = cfdestinationset.name;
                                 // Removes timeout if destination is not a number
                                 var ringFor = !Ext.isNumber(parseInt(destinationToDisplayInGrid)) ? '' : cfdestinationset.destinations[item].timeout;
                                 var cbModel = Ext.create('NgcpCsc.model.CallForwardDestination', {
                                     type: cfType,
                                     destination_displayed: destinationToDisplayInGrid,
-                                    destination: destination,
-                                    destination_announcement_id: destinationAnnouncementId,
-                                    priority: priority,
+                                    destination: cfdestinationset.destinations[item].destination,
+                                    destination_announcement_id: cfdestinationset.announcement_id,
+                                    priority: cfdestinationset.destinations[item].priority,
                                     timeout_displayed: ringFor,
-                                    timeout: timeout,
+                                    timeout: cfdestinationset.destinations[item].timeout,
                                     sourceset: cfmappings.sourcesetName,
                                     timeset: cfmappings.timesetName,
-                                    destinationset_id: destinationId,
-                                    destinationset_name: destinationName
+                                    destinationset_id: cfdestinationset.id,
+                                    destinationset_name: cfdestinationset.name
                                 });
                                 arrayOfModels.push(cbModel);
                                 cfmappings._modelCreated = true;
@@ -233,6 +230,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var arrayOfModels = [];
         var currentRoute = window.location.hash;
         var routeTimeset = this.getTimesetFromRoute(currentRoute);
+        $vm.set('destStoresPopulated', false);
         $vm.set('cft_ringtimeout', cftRingTimeout);
         store.removeAll();
         Ext.Ajax.request({
@@ -243,11 +241,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     var cfdestinationsets = decodedResponse._embedded['ngcp:cfdestinationsets'];
                     $cf.buildArrayOfModels(cfbMappings, 'cfb', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels);
                     $cf.buildArrayOfModels(cfuMappings, 'cfu', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels);
-                    $cf.buildArrayOfModels(cftMappings, 'cft', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels);
+                    $cf.buildArrayOfModels(cftMappings, 'cft', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels, hasCftAndCfuMappings);
                     $cf.buildArrayOfModels(cfnaMappings, 'cfna', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels);
                     $cf.addOwnPhoneToEmptyOnline();
+                    // TODO: We have an issue with cfu/cft not being added to online status. Create new task for this if unrelated
                     if (arrayOfModels.length > 0) {
-                        $cf.populateDestinationStores(arrayOfModels);
+                        $vm.set('arrayOfDestModels', arrayOfModels);
+                        $cf.populateDestinationStores();
                     };
                 };
             },
@@ -622,31 +622,39 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         });
     },
 
-    populateDestinationStores: function(models) {
+    populateDestinationStores: function() {
         var $cf = this;
+        var $vm = $cf.getViewModel();
         var store;
         var stores = [];
-        Ext.each(models, function(model) {
-            var sourcename = $cf.getSourceNameFromSourceSet(model.get('sourceset'));
-            var timename = $cf.getTimeNameFromTimeSet(model.get('timeset'));
-            var type = $cf.getGridCategoryFromType(model.get('type'));
-            var storeName = sourcename + timename + type;
-            store = Ext.getStore(storeName);
-            if(!store._emptied){
-                store.removeAll();
-                store._emptied = true;
-            }
-            if (store) {
-                store.add(model);
-                stores.push(store);
-            }
-        });
-        if (store) {
-            Ext.each(stores, function(store) {
-                store.commitChanges();
-                $cf.setLabelTerminationType(store);
-                store._emptied = false;
+        var models = $vm.get('arrayOfDestModels');
+        // TODO: Works, but we now have an issue that List B mapping does not
+        // get populated. Fix.
+        console.log(models);
+        if (models && !$vm.get('destStoresPopulated')) {
+            Ext.each(models, function(model) {
+                var sourcename = $cf.getSourceNameFromSourceSet(model.get('sourceset'));
+                var timename = $cf.getTimeNameFromTimeSet(model.get('timeset'));
+                var type = $cf.getGridCategoryFromType(model.get('type'));
+                var storeName = sourcename + timename + type;
+                store = Ext.getStore(storeName);
+                if (store) {
+                    if (!store._emptied) {
+                        store.removeAll();
+                        store._emptied = true;
+                    }
+                    store.add(model);
+                    stores.push(store);
+                }
             });
+            if (store) {
+                Ext.each(stores, function(store) {
+                    store.commitChanges();
+                    $cf.setLabelTerminationType(store);
+                    store._emptied = false;
+                });
+            };
+            $vm.set('destStoresPopulated', true);
         };
     },
 
@@ -717,6 +725,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     return;
                 }
             });
+            $cf.populateDestinationStores();
         } else {
             var models = [];
             Ext.Ajax.request({

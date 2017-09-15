@@ -35,7 +35,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardModel', {
         after_hours_exists_in_api: false,
         company_hours_exists_in_api: false,
         last_store_synced: '',
-        cft_ringtimeout: '15'
+        cft_ringtimeout: '15',
+        arrayOfDestModels: null,
+        destStoresPopulated: false
     },
 
     formulas: {
