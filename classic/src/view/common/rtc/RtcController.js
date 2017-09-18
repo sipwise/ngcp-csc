@@ -518,6 +518,18 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         }
     },
 
+    toggleFullscreen: function() {
+        var rms = this.getViewModel().get('rtcEngineRemoteMediaStream');
+        var rm = document.getElementById('accepted-remote-media');
+        if(rms.hasVideo() && rm.requestFullscreen) {
+            rm.requestFullscreen();
+        } else if (rms.hasVideo() && rm.webkitRequestFullscreen) {
+            rm.webkitRequestFullscreen();
+        } else if (rms.hasVideo() && rm.mozRequestFullscreen) {
+            rm.mozRequestFullscreen();
+        }
+    },
+
     updateNumberToCall: function(number) {
         this.getViewModel().set('numberToCall', this.getViewModel().get('numberToCall') + "" + number.text);
     }
