@@ -516,5 +516,9 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         } else {
             this.getViewModel().set('phoneKeyboardHidden', true);
         }
+    },
+
+    updateNumberToCall: function(number) {
+        this.getViewModel().set('numberToCall', this.getViewModel().get('numberToCall') + "" + number.text);
     }
 });

@@ -25,7 +25,7 @@ Ext.define('NgcpCsc.view.common.rtc.composer.PhoneKeys', {
             xtype: 'button',
             flex: 1,
             margin: '0 10 10 0',
-            handler: 'digitNumber',
+            handler: 'updateNumberToCall',
             cls: 'rtc-digit',
             maxWidth:90
         }
