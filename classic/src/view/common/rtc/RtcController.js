@@ -516,5 +516,17 @@ Ext.define('NgcpCsc.view.common.rtc.RtcController', {
         } else {
             this.getViewModel().set('phoneKeyboardHidden', true);
         }
+    },
+
+    toggleFullscreen: function() {
+        var rms = this.getViewModel().get('rtcEngineRemoteMediaStream');
+        var rm = document.getElementById('accepted-remote-media');
+        if(rms.hasVideo() && rm.requestFullscreen) {
+            rm.requestFullscreen();
+        } else if (rms.hasVideo() && rm.webkitRequestFullscreen) {
+            rm.webkitRequestFullscreen();
+        } else if (rms.hasVideo() && rm.mozRequestFullscreen) {
+            rm.mozRequestFullscreen();
+        }
     }
 });
