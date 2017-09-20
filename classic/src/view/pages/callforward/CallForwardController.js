@@ -54,8 +54,8 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
         Ext.each(times, function(timeSlot) {
             var days = timeSlot.wday.split('-');
-            var fromHour = parseInt(timeSlot.hour.split('-')[0]);
-            var toHour = parseInt(timeSlot.hour.split('-')[1]) || null;
+            var fromHour = timeSlot.hour ? parseInt(timeSlot.hour.split('-')[0]) : null;
+            var toHour = timeSlot.hour ? parseInt(timeSlot.hour.split('-')[1]) : null;
             if (days.length > 1) {
                 var fromDay = parseInt(days[0]);
                 var toDay = parseInt(days[1]);
@@ -68,8 +68,8 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             Ext.each(days, function(day) {
                 retData.push({
                     day: weekDaysMap[day],
-                    dayArrIndex: day, // needed for sorting
-                    timeFrom: fromHour.toString(),
+                    dayArrIndex: parseInt(day), // needed for sorting
+                    timeFrom: fromHour ? fromHour.toString() : null,
                     timeTo: toHour ? toHour.toString() : null
                 });
             });
@@ -78,7 +78,17 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     sortTimeSlots: function(timeSlot1, timeSlot2) {
-        return timeSlot1.dayArrIndex > timeSlot2.dayArrIndex;
+        switch(true){
+            case timeSlot1.dayArrIndex < timeSlot2.dayArrIndex:
+                return -1;
+            break;
+            case timeSlot1.dayArrIndex > timeSlot2.dayArrIndex:
+                return 1;
+            break;
+            default:
+                return 0;
+
+        }
     },
 
     cfTimesetStoreLoaded: function(store, data) {
@@ -104,10 +114,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                         timeset_id: timesetId,
                         time_from: time.timeFrom,
                         time_to: time.timeTo,
-                        day: time.day,
-                        closed: false // TODO: (For PUT/PATCH ticket) decide
-                            // if we should keep this, or solve this
-                            // differently, or not at all
+                        day: time.day
                     });
                     arrayOfModels.push(cfModel);
                 });
@@ -207,7 +214,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return mapping.length !== 0;
     },
 
-    buildArrayOfModels: function (cfMappings, cfType, routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels, hasCftAndCfuMappings) {
+    buildArrayOfModels: function(cfMappings, cfType, routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels, hasCftAndCfuMappings) {
         var $cf = this;
         Ext.each(cfMappings, function(mapping, j) {
             var currentMapping = {};
@@ -599,7 +606,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var currentRoute = window.location.hash;
         var moduleName = this.getModuleFromRoute(currentRoute);
         var store = Ext.getStore(moduleName + '-Timeset');
-        if (store.getCount() === 0) {
+        if (store && store.getCount() === 0) {
             Ext.each(models, function(model) {
                 if (moduleName == 'afterhours' && model.get('timeset_name') == 'After Hours') {
                     store.add(model);
@@ -1065,23 +1072,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var view = currentRoute.split('/')[1];
         var prefix = currentSourceset + '-' + view + '-';
         return [prefix + 'CallForwardOnline', prefix + 'CallForwardBusy', prefix + 'CallForwardOffline'];
-    },
-
-    renderDay: function(value, meta, record) {
-        if (record.get('closed') === true) {
-            return Ext.String.format('<div class="cf-deactivate-day">{0}</div>', value);
-        } else {
-            return value;
-        }
-    },
-
-    toggleClosedState: function(grid, rowIndex, colIndex, item, event, record) {
-        record.set('closed', !record.get('closed'));
-        this.renderDay(record.get('closed'), null, record);
-    },
-
-    toggleClosedClass: function(val, meta, rec) {
-        return rec.get('closed') === true ? Ngcp.csc.icons.square_checked : Ngcp.csc.icons.square;
     },
 
     removeSourcelistRecord: function(grid, rowIndex) {

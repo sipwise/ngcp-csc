@@ -903,13 +903,6 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'Move',
                 sp: 'Move'
             },
-            full_day: {
-                en: 'Full Day',
-                it: 'Full Day',
-                de: 'Full Day',
-                fr: 'Full Day',
-                sp: 'Full Day'
-            },
             after_hours: {
                 en: 'After hours',
                 it: 'After hours',
@@ -937,13 +930,6 @@ Ext.define('Ngcp.csc.locales', {
                 de: 'List B',
                 fr: 'List B',
                 sp: 'List B'
-            },
-            closed: {
-                en: 'Closed',
-                it: 'Closed',
-                de: 'Closed',
-                fr: 'Closed',
-                sp: 'Closed'
             },
             add_new_source: {
                 en: 'ADD NEW SOURCE',
@@ -1078,13 +1064,6 @@ Ext.define('Ngcp.csc.locales', {
                     de: 'Change time to',
                     fr: 'Change time to',
                     sp: 'Change time to'
-                },
-                close_day: {
-                    en: 'Close day',
-                    it: 'Close day',
-                    de: 'Close day',
-                    fr: 'Close day',
-                    sp: 'Close day'
                 },
                 save_phone_number: {
                     en: 'Save phone number',

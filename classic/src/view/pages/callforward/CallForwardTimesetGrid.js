@@ -16,7 +16,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
             items: [{
                 text: Ngcp.csc.locales.common.day[localStorage.getItem('languageSelected')],
                 dataIndex: 'day',
-                renderer: 'renderDay',
                 flex: 1
             }, {
                 text: Ngcp.csc.locales.common.from[localStorage.getItem('languageSelected')],
@@ -28,7 +27,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
                     xtype: 'timefield',
                     tooltip: Ngcp.csc.locales.callforward.tooltips.change_time_from[localStorage.getItem('languageSelected')],
                     bind: {
-                        disabled: '{record.closed}',
                         value: '{record.time_from}'
                     }
                 }
@@ -42,21 +40,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
                     xtype: 'timefield',
                     tooltip: Ngcp.csc.locales.callforward.tooltips.change_time_to[localStorage.getItem('languageSelected')],
                     bind: {
-                        disabled: '{record.closed}',
                         value: '{record.time_to}'
                     }
                 }
-            }, {
-                text: Ngcp.csc.locales.callforward.full_day[localStorage.getItem('languageSelected')],
-                dataIndex: 'closed',
-                xtype: 'actioncolumn',
-                align: 'center',
-                width: 80,
-                items: [{
-                    tooltip: Ngcp.csc.locales.callforward.tooltips.close_day[localStorage.getItem('languageSelected')],
-                    getClass: 'toggleClosedClass',
-                    handler: 'toggleClosedState'
-                }]
             }]
         };
         this.callParent();
