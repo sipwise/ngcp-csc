@@ -14,8 +14,6 @@ Ext.define('NgcpCsc.model.CallForwardTimeset', {
         name: 'time_to'
     }, {
         name: 'day'
-    }, {
-        name: 'closed'
     }]
 
 });

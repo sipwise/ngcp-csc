@@ -64,8 +64,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                         timeset_id: timesetId,
                         time_from: times.timeFrom,
                         time_to: times.timeTo,
-                        day: weekday,
-                        closed: false
+                        day: weekday
                     });
                     arrayOfModels.push(cfModel);
                 });
@@ -1026,23 +1025,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var view = currentRoute.split('/')[1];
         var prefix = currentSourceset + '-' + view + '-';
         return [prefix + 'CallForwardOnline', prefix + 'CallForwardBusy', prefix + 'CallForwardOffline'];
-    },
-
-    renderDay: function(value, meta, record) {
-        if (record.get('closed') === true) {
-            return Ext.String.format('<div class="cf-deactivate-day">{0}</div>', value);
-        } else {
-            return value;
-        }
-    },
-
-    toggleClosedState: function(grid, rowIndex, colIndex, item, event, record) {
-        record.set('closed', !record.get('closed'));
-        this.renderDay(record.get('closed'), null, record);
-    },
-
-    toggleClosedClass: function(val, meta, rec) {
-        return rec.get('closed') === true ? Ngcp.csc.icons.square_checked : Ngcp.csc.icons.square;
     },
 
     removeSourcelistRecord: function(grid, rowIndex) {
