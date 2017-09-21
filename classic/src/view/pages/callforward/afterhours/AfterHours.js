@@ -52,6 +52,7 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
                             margin: '10 0 10 0',
                             html: Ngcp.csc.locales.callforward.no_after_hours_set[localStorage.getItem('languageSelected')],
                             bind: {
+                                html: '{after_hours_add_text}',
                                 hidden: '{after_hours_exists_in_api}'
                             }
                         },

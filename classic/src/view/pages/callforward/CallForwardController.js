@@ -41,8 +41,18 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         store.sync();
     },
 
+    checkIncompatibleTimeset: function(timeSlot){
+        var mday = timeSlot.mday;
+        var minute = timeSlot.minute;
+        var month = timeSlot.month;
+        var year = timeSlot.year;
+        return mday ||  minute || month || year;
+    },
+
     parseTimesetApiToRecords: function(times) {
         var retData = [];
+        var me = this;
+        var vm = me.getViewModel();
         var weekDaysMap = {
             1: 'Sunday',
             2: 'Monday',
@@ -56,6 +66,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             var days = timeSlot.wday.split('-');
             var fromHour = timeSlot.hour ? parseInt(timeSlot.hour.split('-')[0]) : null;
             var toHour = timeSlot.hour ? parseInt(timeSlot.hour.split('-')[1]) : null;
+            var checkIncompatibleTimeset = me.checkIncompatibleTimeset(timeSlot);
+            if(checkIncompatibleTimeset){
+                vm.set(me.getTimesetPrexifFromRoute() + '_add_text', Ngcp.csc.locales.callforward.invalid_times[localStorage.getItem('languageSelected')]);
+                return;
+            }
             if (days.length > 1) {
                 var fromDay = parseInt(days[0]);
                 var toDay = parseInt(days[1]);
@@ -87,14 +102,16 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             break;
             default:
                 return 0;
-
         }
     },
 
     cfTimesetStoreLoaded: function(store, data) {
         var me = this;
         var arrayOfModels = [];
+        var vm = this.getViewModel();
+        var currentRoute = window.location.hash;
         var timesets;
+
         if (data.getData()._embedded == undefined) {
             return;
         } else {
@@ -104,7 +121,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         Ext.each(timesets, function(timeset) {
             var timesetName = timeset.name;
             var timesetId = timeset.id;
-            me.setVmToTrue(timesetName);
             if (/(After|Company)\s(Hours)/.test(timesetName)) {
                 var times = me.parseTimesetApiToRecords(timeset.times);
                 Ext.each(times, function(time) {
@@ -117,22 +133,25 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                         day: time.day
                     });
                     arrayOfModels.push(cfModel);
+                    me.setVmToTrue(timesetName, true);
                 });
             };
         });
         if (arrayOfModels.length > 0) {
             me.populateTimesetStores(arrayOfModels);
-        };
+        }else{
+            me.setVmToTrue(me.getTimesetFromRoute(currentRoute), false);
+        }
     },
 
-    setVmToTrue: function(name) {
+    setVmToTrue: function(name, exists) {
         var vm = this.getViewModel();
         switch (name) {
             case 'After Hours':
-                vm.set('after_hours_exists_in_api', true);
+                vm.set('after_hours_exists_in_api', exists);
                 break;
             case 'Company Hours':
-                vm.set('company_hours_exists_in_api', true);
+                vm.set('company_hours_exists_in_api', exists);
                 break;
         };
     },
@@ -147,7 +166,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             Ext.each(sourcesets, function(sourceset) {
                 var sourcesetName = sourceset.name;
                 var sourcesetId = sourceset.id;
-                $cf.setVmToTrue(sourcesetName);
                 Ext.each(sourceset.sources, function(sourceEntry) {
                     arrayOfModels.push(Ext.create('NgcpCsc.model.CallForwardDestination', {
                         id: Ext.id(),
@@ -174,6 +192,18 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                 break;
             case ('#callforward/companyhours'):
                 return 'Company Hours';
+                break;
+        };
+    },
+
+    getTimesetPrexifFromRoute: function() {
+        var currentRoute = window.location.hash;
+        switch (currentRoute) {
+            case ('#callforward/afterhours'):
+                return 'after_hours';
+                break;
+            case ('#callforward/companyhours'):
+                return 'company_hours';
                 break;
         };
     },
