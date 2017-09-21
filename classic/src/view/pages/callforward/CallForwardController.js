@@ -257,6 +257,20 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return mapping.length !== 0;
     },
 
+    removeExtraCfuDestinations: function () {
+        var stores = this.getStoresByStatus('online');
+        Ext.each(stores.getRange(), function (store) {
+            if (store.first() && store.first().get('type') === 'cfu') {
+                var firstDestId = store.first().get('destinationset_id');
+                store.each(function (record) {
+                    if (record.get('destinationset_id') !== firstDestId) {
+                        store.remove(record);
+                    }
+                });
+            };
+        });
+    },
+
     buildArrayOfModels: function(cfMappings, cfType, routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels, hasCftAndCfuMappings) {
         var $cf = this;
         Ext.each(cfMappings, function(mapping, j) {
@@ -266,12 +280,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             currentMapping.timesetName = mapping.timeset;
             if (currentMapping.timesetName == routeTimeset) {
                 Ext.each(cfdestinationsets, function(cfdestinationset) {
-                    if (cfType.match(/(cfb|cfna)/) || cfType === 'cfu' && cfMappings[0].destinationset === mapping.destinationset || !hasCftAndCfuMappings && cfType === 'cft') {
+                    if (cfType !== 'cft' || !hasCftAndCfuMappings && cfType === 'cft') {
                         // _modelCreated check in place to make sure we don't add the destinationset more
                         // than one time if the cftype already has that destinationset added as model
                         if (cfdestinationset.name == currentMapping.destinationsetName && !currentMapping._modelCreated) {
                             cfdestinationset.destinations = $cf.sortDestinationsetByPriority(cfdestinationset.destinations);
-                            if (cfType === 'cft' && cfMappings[0].destinationset === mapping.destinationset) {
+                            if (cfType === 'cft') {
                                 $cf.addCftOwnPhone(cfdestinationset.destinations, cftRingTimeout);
                             };
                             for (item in cfdestinationset.destinations) {
@@ -326,13 +340,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     $cf.buildArrayOfModels(cfuMappings, 'cfu', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels);
                     $cf.buildArrayOfModels(cftMappings, 'cft', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels, hasCftAndCfuMappings);
                     $cf.buildArrayOfModels(cfnaMappings, 'cfna', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels);
-                    $cf.addOwnPhoneToEmptyOnline();
                     if (arrayOfModels.length > 0) {
                         $vm.set('arrayOfDestModels', arrayOfModels);
                         $cf.populateDestinationStores();
                     };
-                    $cf.unmaskDestinationGrids();
                 };
+                $cf.unmaskDestinationGrids();
             },
 
             failure: function(response, opts) {
@@ -340,6 +353,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             }
         });
     },
+
 
     hasDestinationWithId: function(arr, id) {
         return arr.some(function(arrObj) {
@@ -355,28 +369,28 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         delete options['create'];
         delete options['update'];
         Ext.each(store.getRange(), function(record) {
-            var data = record.getData();
-            if (data.destination !== 'own phone') {
-                switch (recordsToSend.length === 0 || !me.hasDestinationWithId(recordsToSend, data.destinationset_id)) {
+            var record = record.getData();
+            if (record.destination !== 'own phone') {
+                switch (recordsToSend.length === 0 || !me.hasDestinationWithId(recordsToSend, record.destinationset_id)) {
                     case true:
                         // if recordsToSend array is empty or recordsToSend does not already contain current destinationset already
-                        if (data.timeout) {
+                        if (record.timeout) {
                             recordsToSend.push({
-                                id: data.destinationset_id,
-                                records: [{
+                                id: record.destinationset_id,
+                                values: [{
                                     "announcement_id": null,
-                                    "destination": data.destination,
-                                    "priority": data.priority,
-                                    "timeout": data.timeout
+                                    "destination": record.destination,
+                                    "priority": record.priority,
+                                    "timeout": record.timeout
                                 }]
                             });
                         } else {
                             recordsToSend.push({
-                                id: data.destinationset_id,
-                                records: [{
+                                id: record.destinationset_id,
+                                values: [{
                                     "announcement_id": null,
-                                    "destination": data.destination,
-                                    "priority": data.priority
+                                    "destination": record.destination,
+                                    "priority": record.priority
                                 }]
                             });
                         };
@@ -385,19 +399,19 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                         // if destinationset has already been added to recordsToSend, push to the records field for that destinationset,
                         // building up an array of destination objects to write to API
                         recordsToSend.forEach(function(obj, index) {
-                            if (obj.id == data.destinationset_id) {
-                                if (data.timeout) {
-                                    recordsToSend[index].records.push({
+                            if (obj.id == record.destinationset_id) {
+                                if (record.timeout) {
+                                    recordsToSend[index].values.push({
                                         "announcement_id": null,
-                                        "destination": data.destination,
-                                        "priority": data.priority,
-                                        "timeout": data.timeout
+                                        "destination": record.destination,
+                                        "priority": record.priority,
+                                        "timeout": record.timeout
                                     });
                                 } else {
-                                    recordsToSend[index].records.push({
+                                    recordsToSend[index].values.push({
                                         "announcement_id": null,
-                                        "destination": data.destination,
-                                        "priority": data.priority
+                                        "destination": record.destination,
+                                        "priority": record.priority
                                     });
                                 };
                             };
@@ -407,7 +421,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             };
         });
         if (recordsToSend.length === 0) { // handles cases where last destination in store is deleted
-            var destinationsetId = store.removed[0].data.destinationset_id;
+            var destinationsetId = store.removed[0].get('destinationset_id');
             Ext.Ajax.request({
                 url: '/api/cfdestinationsets/' + destinationsetId,
                 method: 'PATCH',
@@ -440,7 +454,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     jsonData: [{
                         "op": "add",
                         "path": "/destinations",
-                        "value": obj.records
+                        "value": obj.values
                     }],
                     success: function(response, opts) {
                         var currentRoute = window.location.hash;
@@ -704,6 +718,21 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         });
     },
 
+    removeOwnPhoneDuplicates: function () {
+       var $cf = this;
+       var $vm = $cf.getViewModel();
+       var stores = $cf.getStoresByStatus('online');
+       Ext.each(stores.getRange(), function(store) {
+            var index = 0;
+            store.each(function (record) {
+               if (index > 0 && record.get('destination') === 'own phone') {
+                   store.remove(record);
+               }
+               index++
+            });
+       });
+    },
+
     populateDestinationStores: function() {
         var $cf = this;
         var $vm = $cf.getViewModel();
@@ -733,8 +762,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     store._emptied = false;
                 });
             };
+            $cf.removeExtraCfuDestinations();
+            $cf.removeOwnPhoneDuplicates();
             $vm.set('destStoresPopulated', true);
         };
+        $cf.addOwnPhoneToEmptyOnline();
     },
 
     getStoresByStatus: function (status) {
@@ -764,13 +796,46 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return stores;
     },
 
+   //addOwnPhoneToEmptyOnline: function () {
+   //    var $cf = this;
+   //    var $vm = $cf.getViewModel();
+   //    var timeout = $vm.get('cftRingTimeout');
+   //    var stores = $cf.getStoresByStatus('online');
+   //    Ext.each(stores.getRange(), function(store) {
+   //        if (!store.last()) {
+   //            var cfModel = Ext.create('NgcpCsc.model.CallForwardDestination', {
+   //                type: 'cft',
+   //                destination: 'own phone',
+   //                destination_announcement_id: null,
+   //                priority: 1,
+   //                timeout: timeout
+   //            });
+   //            store.add(cfModel);
+   //            $cf.setLabelTerminationType(store);
+   //        };
+   //    });
+   //},
+
+    // TODO Suddenly 'own phone' is not added after all to other sourcesets. Investigate
     addOwnPhoneToEmptyOnline: function () {
         var $cf = this;
         var $vm = $cf.getViewModel();
+        var moduleName = this.getModuleFromRoute();
         var timeout = $vm.get('cftRingTimeout');
-        var stores = $cf.getStoresByStatus('online');
-        Ext.each(stores.getRange(), function(store) {
-            if (!store.last()) {
+        var storeNames = $cf.getStoresByStatus('online').keys;
+        var stores = [];
+        // TODO Not needed anymore?
+        if (storeNames.length === 1) {
+            stores.push(Ext.getStore(storeNames[0]));
+            stores.push(Ext.getStore('ListA-' + moduleName + '-CallForwardOnline'));
+            stores.push(Ext.getStore('ListB-' + moduleName + '-CallForwardOnline'));
+        } else {
+            Ext.each(storeNames, function (storeName) {
+                stores.push(Ext.getStore(storeName));
+            });
+        };
+        Ext.each(stores, function(store) {
+            if (store && !store.last()) {
                 var cfModel = Ext.create('NgcpCsc.model.CallForwardDestination', {
                     type: 'cft',
                     destination: 'own phone',
