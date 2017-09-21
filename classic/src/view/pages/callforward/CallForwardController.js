@@ -257,6 +257,20 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return mapping.length !== 0;
     },
 
+    removeExtraCfuDestinations: function () {
+        var stores = this.getStoresByStatus('online');
+        Ext.each(stores.getRange(), function (store) {
+            if (store.first() && store.first().get('type') === 'cfu') {
+                var firstDestId = store.first().get('destinationset_id');
+                store.each(function (record) {
+                    if (record.get('destinationset_id') !== firstDestId) {
+                        store.remove(record);
+                    }
+                });
+            };
+        });
+    },
+
     buildArrayOfModels: function(cfMappings, cfType, routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels, hasCftAndCfuMappings) {
         var $cf = this;
         Ext.each(cfMappings, function(mapping, j) {
@@ -266,12 +280,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             currentMapping.timesetName = mapping.timeset;
             if (currentMapping.timesetName == routeTimeset) {
                 Ext.each(cfdestinationsets, function(cfdestinationset) {
-                    if (cfType.match(/(cfb|cfna)/) || cfType === 'cfu' && cfMappings[0].destinationset === mapping.destinationset || !hasCftAndCfuMappings && cfType === 'cft') {
+                    if (cfType !== 'cft' || !hasCftAndCfuMappings && cfType === 'cft') {
                         // _modelCreated check in place to make sure we don't add the destinationset more
                         // than one time if the cftype already has that destinationset added as model
                         if (cfdestinationset.name == currentMapping.destinationsetName && !currentMapping._modelCreated) {
                             cfdestinationset.destinations = $cf.sortDestinationsetByPriority(cfdestinationset.destinations);
-                            if (cfType === 'cft' && cfMappings[0].destinationset === mapping.destinationset) {
+                            if (cfType === 'cft') {
                                 $cf.addCftOwnPhone(cfdestinationset.destinations, cftRingTimeout);
                             };
                             for (item in cfdestinationset.destinations) {
@@ -326,13 +340,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     $cf.buildArrayOfModels(cfuMappings, 'cfu', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels);
                     $cf.buildArrayOfModels(cftMappings, 'cft', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels, hasCftAndCfuMappings);
                     $cf.buildArrayOfModels(cfnaMappings, 'cfna', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels);
-                    $cf.addOwnPhoneToEmptyOnline();
                     if (arrayOfModels.length > 0) {
                         $vm.set('arrayOfDestModels', arrayOfModels);
                         $cf.populateDestinationStores();
                     };
-                    $cf.unmaskDestinationGrids();
                 };
+                $cf.unmaskDestinationGrids();
             },
 
             failure: function(response, opts) {
@@ -340,6 +353,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             }
         });
     },
+
 
     hasDestinationWithId: function(arr, id) {
         return arr.some(function(arrObj) {
@@ -704,6 +718,22 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         });
     },
 
+    removeOwnPhoneDuplicates: function () {
+        console.log('removeOwnPhoneDuplicates');
+        var $cf = this;
+        var $vm = $cf.getViewModel();
+        var stores = $cf.getStoresByStatus('online');
+        Ext.each(stores.getRange(), function(store) {
+             var index = 0;
+             store.each(function (record) {
+                if (index > 0 && record.get('destination') === 'own phone') {
+                    store.remove(record);
+                }
+                index++
+             });
+        });
+    },
+
     populateDestinationStores: function() {
         var $cf = this;
         var $vm = $cf.getViewModel();
@@ -733,8 +763,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     store._emptied = false;
                 });
             };
+            $cf.removeOwnPhoneDuplicates();
             $vm.set('destStoresPopulated', true);
         };
+        $cf.removeExtraCfuDestinations();
+        $cf.addOwnPhoneToEmptyOnline();
     },
 
     getStoresByStatus: function (status) {
@@ -767,10 +800,21 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     addOwnPhoneToEmptyOnline: function () {
         var $cf = this;
         var $vm = $cf.getViewModel();
+        var moduleName = this.getModuleFromRoute();
         var timeout = $vm.get('cftRingTimeout');
-        var stores = $cf.getStoresByStatus('online');
-        Ext.each(stores.getRange(), function(store) {
-            if (!store.last()) {
+        var storeNames = $cf.getStoresByStatus('online').keys;
+        var stores = [];
+        if (storeNames.length === 1) {
+            stores.push(Ext.getStore(storeNames[0]));
+            stores.push(Ext.getStore('ListA-' + moduleName + '-CallForwardOnline'));
+            stores.push(Ext.getStore('ListB-' + moduleName + '-CallForwardOnline'));
+        } else {
+            Ext.each(storeNames, function (storeName) {
+                stores.push(Ext.getStore(storeName));
+            });
+        };
+        Ext.each(stores, function(store) {
+            if (store && !store.last()) {
                 var cfModel = Ext.create('NgcpCsc.model.CallForwardDestination', {
                     type: 'cft',
                     destination: 'own phone',
