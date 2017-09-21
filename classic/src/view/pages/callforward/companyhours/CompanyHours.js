@@ -50,17 +50,30 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
                     items: [{
                             xtype: 'panel',
                             margin: '10 0 10 0',
-                            html: Ngcp.csc.locales.callforward.no_company_hours_set[localStorage.getItem('languageSelected')],
                             bind: {
                                 hidden: '{company_hours_exists_in_api}'
-                            }
+                            },
+                            items: [{
+                                bind: {
+                                    html: '{company_hours_add_text}'
+                                }
+                            }, {
+                                width: '100%',
+                                layout:'hbox',
+                                items: [{
+                                    flex: 5
+                                },{
+                                    flex: 1,
+                                    xtype: 'button',
+                                    text: 'CREATE'
+                                }]
+                            }]
                         },
-                        callForwardCompanyGrid,
-                        {
+                        callForwardCompanyGrid, {
                             text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
                             xtype: 'button',
-                            cls: 'x-btn-left',
                             id: 'companyHours-saveButton',
+                            cls: 'x-btn-left',
                             width: 135,
                             margin: '10 0 10 585',
                             listeners: {
