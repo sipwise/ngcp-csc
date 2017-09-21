@@ -50,10 +50,24 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
                     items: [{
                             xtype: 'panel',
                             margin: '10 0 10 0',
-                            html: Ngcp.csc.locales.callforward.no_after_hours_set[localStorage.getItem('languageSelected')],
                             bind: {
                                 hidden: '{after_hours_exists_in_api}'
-                            }
+                            },
+                            items: [{
+                                bind: {
+                                    html: '{after_hours_add_text}'
+                                }
+                            }, {
+                                width: '100%',
+                                layout:'hbox',
+                                items: [{
+                                    flex: 5
+                                },{
+                                    flex: 1,
+                                    xtype: 'button',
+                                    text: Ngcp.csc.locales.common.create[localStorage.getItem('languageSelected')]
+                                }]
+                            }]
                         },
                         callForwardAfterGrid, {
                             text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],

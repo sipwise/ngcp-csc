@@ -1050,6 +1050,9 @@ Ext.define('Ngcp.csc.locales', {
                 en: 'Only numbers allowed. Please retry.',
                 it: 'Only numbers allowed. Please retry.'
             },
+            invalid_times: {
+                en: '<div class="cf-invalid-period-box">There are invalid time periods in the timeset; allowed fields are Weekday and Hour. Please fix your time periods or reset the timeset by clicking on Create button.</div>'
+            },
             tooltips: {
                 change_time_from: {
                     en: 'Change time from',
@@ -1367,15 +1370,15 @@ Ext.define('Ngcp.csc.locales', {
                 sp: 'With your 4-digit PIN you may query your voicebox from any telephone.'
             }
         },
-        contacts:{
-            title:{
+        contacts: {
+            title: {
                 en: 'Contacts',
                 it: 'Contacts',
                 de: 'Contacts',
                 fr: 'Contacts',
                 sp: 'Contacts'
             },
-            delete_user:{
+            delete_user: {
                 en: 'Do you really want to delete {0} from your Personal Addressbook?',
                 it: 'Do you really want to delete {0} from your Personal Addressbook?',
                 de: 'Do you really want to delete {0} from your Personal Addressbook?',
@@ -2107,14 +2110,14 @@ Ext.define('Ngcp.csc.locales', {
                 }
             },
             devices: {
-                delete_assignment:{
+                delete_assignment: {
                     en: 'Do you really want to unassign button {0}?',
                     it: 'Do you really want to unassign button {0}?',
                     de: 'Do you really want to unassign button {0}?',
                     fr: 'Do you really want to unassign button {0}?',
                     sp: 'Do you really want to unassign button {0}?'
                 },
-                tooltip:{
+                tooltip: {
                     click: {
                         en: 'Click to edit or remove',
                         it: 'Click to edit or remove',
@@ -2133,6 +2136,9 @@ Ext.define('Ngcp.csc.locales', {
             }
         },
         common: {
+            create: {
+                en: 'CREATE'
+            },
             edit: {
                 en: 'Edit',
                 it: 'Edit',
