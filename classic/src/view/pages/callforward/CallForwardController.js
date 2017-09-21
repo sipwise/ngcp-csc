@@ -151,7 +151,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     addCftOwnPhone: function(destinations, timeout) {
-        if (destinations.length > 0) {
+        // TODO x Add a check for whether or not destinations already has own phone?
+        console.log('destinations', destinations);
+        if (destinations.length > 0 && destinations[0].destination !== 'own phone') { // NOTE Tackles issue of adding more own phone to same destinationset
             destinations.unshift({
                 "announcement_id": null,
                 "destination": "own phone",
@@ -167,6 +169,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
 
     buildArrayOfModels: function (cfMappings, cfType, routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels, hasCftAndCfuMappings) {
         var $cf = this;
+        // TODO 2. More than one cfu mapping results in only the first mapping shown in grid
         Ext.each(cfMappings, function(mapping, j) {
             var currentMapping = {};
             currentMapping.destinationsetName = mapping.destinationset;
@@ -179,7 +182,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                         // than one time if the cftype already has that destinationset added as model
                         if (cfdestinationset.name == currentMapping.destinationsetName && !currentMapping._modelCreated) {
                             cfdestinationset.destinations = $cf.sortDestinationsetByPriority(cfdestinationset.destinations);
-                            if (cfType === 'cft' && cfMappings[0].destinationset === mapping.destinationset) {
+                            // TODO 1. "Own phone" only renders for first cftype mapping, the others not
+                            // if (cfType === 'cft' && cfMappings[0].destinationset === mapping.destinationset) { // NOTE If cft and first destinationset in mappings array is the same as current destinationset
+                            //     $cf.addCftOwnPhone(cfdestinationset.destinations, cftRingTimeout);
+                            // };
+                            if (cfType === 'cft') {
                                 $cf.addCftOwnPhone(cfdestinationset.destinations, cftRingTimeout);
                             };
                             for (item in cfdestinationset.destinations) {
@@ -236,6 +243,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     $cf.buildArrayOfModels(cftMappings, 'cft', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels, hasCftAndCfuMappings);
                     $cf.buildArrayOfModels(cfnaMappings, 'cfna', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels);
                     $cf.addOwnPhoneToEmptyOnline();
+                    // $cf.removeOwnPhoneDuplicates(arrayOfModels);
                     if (arrayOfModels.length > 0) {
                         $vm.set('arrayOfDestModels', arrayOfModels);
                         $cf.populateDestinationStores();
@@ -247,8 +255,8 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                 console.log('server-side failure with status code ' + response.status);
             }
         });
-
     },
+
 
     hasDestinationWithId: function(arr, id) {
         return arr.some(function(arrObj) {
@@ -613,6 +621,17 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         });
     },
 
+    removeOwnPhoneDuplicates: function () {
+        var $cf = this;
+        var $vm = $cf.getViewModel();
+        var stores = Ext.data.StoreManager.filterBy(function (item, key) {
+            return (key.indexOf('CallForwardOnline') >= 0);
+        });
+        Ext.each(stores.getRange(), function(store) {
+             // TODO Loop over store and find any own phone that is not first index, then remove
+        });
+    },
+
     populateDestinationStores: function() {
         var $cf = this;
         var $vm = $cf.getViewModel();
@@ -642,6 +661,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     store._emptied = false;
                 });
             };
+            $cf.removeOwnPhoneDuplicates();
             $vm.set('destStoresPopulated', true);
         };
     },
