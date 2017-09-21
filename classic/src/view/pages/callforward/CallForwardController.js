@@ -243,7 +243,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     addCftOwnPhone: function(destinations, timeout) {
-        if (destinations.length > 0) {
+        if (destinations.length > 0 && destinations[0].destination !== 'own phone') { // NOTE Tackles issue of adding more own phone to same destinationset
             destinations.unshift({
                 "announcement_id": null,
                 "destination": "own phone",
@@ -259,6 +259,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
 
     buildArrayOfModels: function(cfMappings, cfType, routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels, hasCftAndCfuMappings) {
         var $cf = this;
+        // TODO 2. More than one cfu mapping results in only the first mapping shown in grid
+        //      a. Find first destinationset id of first record with cfu in online stores, and
+        //         then filter store removing all cfu destinations not matching that id
         Ext.each(cfMappings, function(mapping, j) {
             var currentMapping = {};
             currentMapping.destinationsetName = mapping.destinationset;
@@ -266,12 +269,16 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             currentMapping.timesetName = mapping.timeset;
             if (currentMapping.timesetName == routeTimeset) {
                 Ext.each(cfdestinationsets, function(cfdestinationset) {
-                    if (cfType.match(/(cfb|cfna)/) || cfType === 'cfu' && cfMappings[0].destinationset === mapping.destinationset || !hasCftAndCfuMappings && cfType === 'cft') {
+                    // TODO Should show all cfu mappings. Remove by creating removeExtraCfuDestinations() and
+                    // invoking it after addOwnPhoneToEmptyOnline() in populateDestinationStores()
+                    if (cfType !== 'cft' || !hasCftAndCfuMappings && cfType === 'cft') {
+                    // if (cfType.match(/(cfb|cfna)/) || cfType === 'cfu' && cfMappings[0].destinationset === mapping.destinationset || !hasCftAndCfuMappings && cfType === 'cft') {
+                    // if (cfType.match(/(cfb|cfna)/) || cfType === 'cfu' || !hasCftAndCfuMappings && cfType === 'cft') {
                         // _modelCreated check in place to make sure we don't add the destinationset more
                         // than one time if the cftype already has that destinationset added as model
                         if (cfdestinationset.name == currentMapping.destinationsetName && !currentMapping._modelCreated) {
                             cfdestinationset.destinations = $cf.sortDestinationsetByPriority(cfdestinationset.destinations);
-                            if (cfType === 'cft' && cfMappings[0].destinationset === mapping.destinationset) {
+                            if (cfType === 'cft') {
                                 $cf.addCftOwnPhone(cfdestinationset.destinations, cftRingTimeout);
                             };
                             for (item in cfdestinationset.destinations) {
@@ -302,6 +309,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     cfStoreLoaded: function(store, data) {
+        console.log('cfStoreLoaded');
         var $cf = this;
         var $vm = this.getViewModel();
         var cfuMappings = data.get('cfu');
@@ -326,13 +334,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     $cf.buildArrayOfModels(cfuMappings, 'cfu', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels);
                     $cf.buildArrayOfModels(cftMappings, 'cft', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels, hasCftAndCfuMappings);
                     $cf.buildArrayOfModels(cfnaMappings, 'cfna', routeTimeset, cfdestinationsets, cftRingTimeout, arrayOfModels);
-                    $cf.addOwnPhoneToEmptyOnline();
                     if (arrayOfModels.length > 0) {
                         $vm.set('arrayOfDestModels', arrayOfModels);
                         $cf.populateDestinationStores();
                     };
-                    $cf.unmaskDestinationGrids();
                 };
+                // $cf.addOwnPhoneToEmptyOnline();
+                $cf.unmaskDestinationGrids();
             },
 
             failure: function(response, opts) {
@@ -340,6 +348,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             }
         });
     },
+
 
     hasDestinationWithId: function(arr, id) {
         return arr.some(function(arrObj) {
@@ -704,6 +713,22 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         });
     },
 
+    removeOwnPhoneDuplicates: function () {
+        console.log('removeOwnPhoneDuplicates');
+        var $cf = this;
+        var $vm = $cf.getViewModel();
+        var stores = $cf.getStoresByStatus('online');
+        Ext.each(stores.getRange(), function(store) {
+             var index = 0;
+             store.each(function (record) {
+                if (index > 0 && record.get('destination') === 'own phone') {
+                    store.remove(record);
+                }
+                index++
+             });
+        });
+    },
+
     populateDestinationStores: function() {
         var $cf = this;
         var $vm = $cf.getViewModel();
@@ -733,8 +758,10 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     store._emptied = false;
                 });
             };
+            $cf.removeOwnPhoneDuplicates();
             $vm.set('destStoresPopulated', true);
         };
+        $cf.addOwnPhoneToEmptyOnline();
     },
 
     getStoresByStatus: function (status) {
@@ -765,12 +792,25 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     addOwnPhoneToEmptyOnline: function () {
+        console.log('addOwnPhoneToEmptyOnline');
         var $cf = this;
         var $vm = $cf.getViewModel();
+        var moduleName = this.getModuleFromRoute();
         var timeout = $vm.get('cftRingTimeout');
-        var stores = $cf.getStoresByStatus('online');
-        Ext.each(stores.getRange(), function(store) {
-            if (!store.last()) {
+        var storeNames = $cf.getStoresByStatus('online').keys;
+        var stores = [];
+        console.log(storeNames);
+        if (storeNames.length === 1) {
+            stores.push(Ext.getStore(storeNames[0]));
+            stores.push(Ext.getStore('ListA-' + moduleName + '-CallForwardOnline'));
+            stores.push(Ext.getStore('ListB-' + moduleName + '-CallForwardOnline'));
+        } else {
+            Ext.each(storeNames, function (storeName) {
+                stores.push(Ext.getStore(storeName));
+            });
+        };
+        Ext.each(stores, function(store) {
+            if (!store.last()) { // TODO Solve. Is this broken in master? If not, why not?
                 var cfModel = Ext.create('NgcpCsc.model.CallForwardDestination', {
                     type: 'cft',
                     destination: 'own phone',
