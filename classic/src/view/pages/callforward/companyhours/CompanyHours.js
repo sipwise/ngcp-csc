@@ -35,7 +35,8 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
                 xtype: 'container',
                 items: [{
                     xtype: 'panel',
-                    id: 'collapsePanel-companyHours',
+                    name: 'timesetCont',
+                    id: 'collapsePanel-companyhours',
                     title: Ngcp.csc.locales.callforward.for_calls_during_company_hours[localStorage.getItem('languageSelected')],
                     width: '100%',
                     collapsible: true,
@@ -65,23 +66,38 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
                                 },{
                                     flex: 1,
                                     xtype: 'button',
+                                    handler: 'createTimeset',
                                     text: Ngcp.csc.locales.common.create[localStorage.getItem('languageSelected')]
                                 }]
                             }]
                         },
                         callForwardCompanyGrid, {
-                            text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
-                            xtype: 'button',
-                            id: 'companyHours-saveButton',
-                            cls: 'x-btn-left',
-                            width: 135,
-                            margin: '10 0 10 585',
-                            listeners: {
-                                click: 'saveTimesetGrid'
-                            },
+                            margin: '10 0 10 0',
+                            layout: 'hbox',
+                            width: '100%',
                             bind: {
                                 hidden: '{!company_hours_exists_in_api}'
-                            }
+                            },
+                            items: [{
+                                flex: 6
+                            },{
+                                flex: 2,
+                                margin: '0 5 0 0',
+                                text: Ngcp.csc.locales.callforward.add_new_period[localStorage.getItem('languageSelected')],
+                                xtype: 'button',
+                                id: 'companyhours-addNewPeriodButton',
+                                listeners: {
+                                    click: 'addNewPeriod'
+                                },
+                            }, {
+                                flex: 1,
+                                text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
+                                xtype: 'button',
+                                id: 'companyhours-saveButton',
+                                listeners: {
+                                    click: 'saveTimesetGrid'
+                                }
+                            }]
                         }
                     ]
                 }]
