@@ -13,7 +13,7 @@ Ext.define('NgcpCsc.store.CallForwardTimeset', {
         params: 'subscriber_id=' + localStorage.getItem('subscriber_id'),
         actionMethods: {
             read: 'GET',
-            update: 'PATCH'
+            update: 'PUT'
         }
     },
 

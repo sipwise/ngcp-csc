@@ -73,7 +73,7 @@ Ext.define('NgcpCsc.view.pages.callforward.afterhours.Afterhours', {
                             text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
                             xtype: 'button',
                             cls: 'x-btn-left',
-                            id: 'afterHours-saveButton',
+                            id: 'afterhours-saveButton',
                             width: 135,
                             margin: '10 0 10 623',
                             listeners: {
