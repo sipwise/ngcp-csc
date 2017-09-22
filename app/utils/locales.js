@@ -777,6 +777,9 @@ Ext.define('Ngcp.csc.locales', {
                 fr: 'CALL FORWARD',
                 sp: 'CALL FORWARD'
             },
+            add_new_period: {
+                en: 'ADD NEW PERIOD'
+            },
             time_one: {
                 en: 'Always',
                 it: 'Always',

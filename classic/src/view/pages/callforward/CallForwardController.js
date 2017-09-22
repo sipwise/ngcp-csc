@@ -461,6 +461,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     cfTimesetBeforeSync: function(store, options) {
+        // TODO 
         delete options['destroy'];
         delete options['create'];
         delete options['update'];
@@ -1368,6 +1369,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var storeName = el.id.split('-')[0] + '-Timeset';
         var store = Ext.getStore(storeName);
         store.sync();
+    },
+
+    addNewPeriod: function(btn){
+        var grid = btn.up('[name=timesetCont]').down('grid');
+        var store = grid.getStore();
+        var newModel = Ext.create('NgcpCsc.model.CallForwardTimeset');
+        store.add(newModel);
     }
 
 });
