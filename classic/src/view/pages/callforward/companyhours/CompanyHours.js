@@ -72,7 +72,7 @@ Ext.define('NgcpCsc.view.pages.callforward.companyhours.Companyhours', {
                         callForwardCompanyGrid, {
                             text: Ngcp.csc.locales.common.save_caps[localStorage.getItem('languageSelected')],
                             xtype: 'button',
-                            id: 'companyHours-saveButton',
+                            id: 'companyhours-saveButton',
                             cls: 'x-btn-left',
                             width: 135,
                             margin: '10 0 10 585',

@@ -41,12 +41,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         store.sync();
     },
 
-    checkIncompatibleTimeset: function(timeSlot){
+    checkIncompatibleTimeset: function(timeSlot) {
         var mday = timeSlot.mday;
         var minute = timeSlot.minute;
         var month = timeSlot.month;
         var year = timeSlot.year;
-        return mday ||  minute || month || year;
+        return mday || minute || month || year;
     },
 
     parseTimesetApiToRecords: function(times, timesetName) {
@@ -67,7 +67,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             var fromHour = timeSlot.hour ? parseInt(timeSlot.hour.split('-')[0]) : null;
             var toHour = timeSlot.hour ? parseInt(timeSlot.hour.split('-')[1]) : null;
             var checkIncompatibleTimeset = me.checkIncompatibleTimeset(timeSlot);
-            if(checkIncompatibleTimeset){
+            if (checkIncompatibleTimeset) {
                 vm.set(me.getTimesetPrexifFromName(timesetName) + '_add_text', '<div class="cf-invalid-period-box">' + Ngcp.csc.locales.callforward.invalid_times[localStorage.getItem('languageSelected')] + '</div>');
                 return;
             }
@@ -93,22 +93,22 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     sortTimeSlots: function(timeSlot1, timeSlot2) {
-        switch(true){
+        switch (true) {
             case timeSlot1.dayArrIndex < timeSlot2.dayArrIndex:
                 return -1;
-            break;
+                break;
             case timeSlot1.dayArrIndex > timeSlot2.dayArrIndex:
                 return 1;
-            break;
+                break;
             default:
                 return 0;
         }
     },
 
-    unmaskDestinationGrids: function () {
+    unmaskDestinationGrids: function() {
         var stores = this.getStoresByStatus('all');
         var moduleName = this.getModuleFromRoute();
-        Ext.each(stores.keys, function (storeName) {
+        Ext.each(stores.keys, function(storeName) {
             if (storeName.indexOf(moduleName) > -1) {
                 var grid = Ext.getCmp(storeName);
                 if (grid && grid.body) {
@@ -134,6 +134,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         Ext.each(timesets, function(timeset) {
             var timesetName = timeset.name;
             var timesetId = timeset.id;
+            store._timesetId = timeset.id;
             if (/(After|Company)\s(Hours)/.test(timesetName)) {
                 var times = me.parseTimesetApiToRecords(timeset.times, timesetName);
                 Ext.each(times, function(time) {
@@ -152,7 +153,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         });
         if (arrayOfModels.length > 0) {
             me.populateTimesetStores(arrayOfModels);
-        }else{
+        } else {
             me.setVmToTrue(me.getTimesetFromRoute(currentRoute), false);
         }
     },
@@ -503,6 +504,52 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     cfTimesetBeforeSync: function(store, options) {
+        var me = this;
+        var subscriberId = localStorage.getItem('subscriber_id');
+        var moduleName = this.getModuleFromRoute();
+        var daysMapping = {
+            'Sunday': 1,
+            'Monday': 2,
+            'Tuesday': 3,
+            'Wednesday': 4,
+            'Thursday': 5,
+            'Friday': 6,
+            'Saturday': 7
+        };
+        var times = [];
+        var multiDayPeriod;
+        Ext.each(store.getRange(), function(rec, index) {
+            var nextRec = store.getRange()[index + 1];
+            var timeFrom = Ext.isDate(rec.get('time_from')) ? new Date(rec.get('time_from')).getHours() : rec.get('time_from');
+            var timeTo = Ext.isDate(rec.get('time_to')) ? new Date(rec.get('time_to')).getHours() : rec.get('time_to');
+            var nextRecTimeFrom =  nextRec ? Ext.isDate(nextRec.get('time_from')) ? new Date(nextRec.get('time_from')).getHours() : nextRec.get('time_from') : null;
+            var nextRecTimeTo =  nextRec ? Ext.isDate(nextRec.get('time_to')) ? new Date(nextRec.get('time_to')).getHours() : nextRec.get('time_to') : null;
+            if (!nextRec || timeFrom.toString() !== nextRecTimeFrom.toString() || timeTo.toString() !== nextRecTimeTo.toString()) {
+                times.push({
+                    wday: (multiDayPeriod ? multiDayPeriod + '-' + daysMapping[rec.get('day')] : daysMapping[rec.get('day')]).toString(),
+                    hour: timeFrom.toString() + '-' + timeTo.toString()
+                });
+                multiDayPeriod = null;
+            } else {
+                multiDayPeriod = daysMapping[rec.get('day')];
+            }
+        });
+        Ext.Ajax.request({
+            url: '/api/cftimesets/' + store._timesetId,
+            method: 'PUT',
+            jsonData: {
+                "name": this.getTimesetFromRoute(),
+                "subscriber_id": parseInt(subscriberId),
+                "times": times
+            },
+            success: function(response, opts) {
+                store.commitChanges();
+                me.fireEvent('showmessage', true, Ngcp.csc.locales.common.save_success[localStorage.getItem('languageSelected')]);
+            },
+            failure: function(response, opts) {
+                console.log('server-side failure with status code ' + response.status);
+            }
+        });
         delete options['destroy'];
         delete options['create'];
         delete options['update'];
@@ -737,26 +784,26 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
-    getStoresByStatus: function (status) {
+    getStoresByStatus: function(status) {
         var stores;
         switch (status) {
             case 'all':
-                stores = Ext.data.StoreManager.filterBy(function (item, key) {
+                stores = Ext.data.StoreManager.filterBy(function(item, key) {
                     return (key.indexOf('CallForward') > -1);
                 });
                 break;
             case 'online':
-                stores = Ext.data.StoreManager.filterBy(function (item, key) {
+                stores = Ext.data.StoreManager.filterBy(function(item, key) {
                     return (key.indexOf('CallForwardOnline') > -1);
                 });
                 break;
             case 'busy':
-                stores = Ext.data.StoreManager.filterBy(function (item, key) {
+                stores = Ext.data.StoreManager.filterBy(function(item, key) {
                     return (key.indexOf('CallForwardBusy') > -1);
                 });
                 break;
             case 'offline':
-                stores = Ext.data.StoreManager.filterBy(function (item, key) {
+                stores = Ext.data.StoreManager.filterBy(function(item, key) {
                     return (key.indexOf('CallForwardOffline') > -1);
                 });
                 break;
@@ -764,7 +811,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return stores;
     },
 
-    addOwnPhoneToEmptyOnline: function () {
+    addOwnPhoneToEmptyOnline: function() {
         var $cf = this;
         var $vm = $cf.getViewModel();
         var timeout = $vm.get('cftRingTimeout');
