@@ -41,15 +41,15 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         store.sync();
     },
 
-    checkIncompatibleTimeset: function(timeSlot){
+    checkIncompatibleTimeset: function(timeSlot) {
         var mday = timeSlot.mday;
         var minute = timeSlot.minute;
         var month = timeSlot.month;
         var year = timeSlot.year;
-        return mday ||  minute || month || year;
+        return mday || minute || month || year;
     },
 
-    parseTimesetApiToRecords: function(times, timesetName) {
+    parseTimesetApiToRecords: function(times, timesetName, timesetId) {
         var retData = [];
         var me = this;
         var vm = me.getViewModel();
@@ -67,8 +67,9 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             var fromHour = timeSlot.hour ? parseInt(timeSlot.hour.split('-')[0]) : null;
             var toHour = timeSlot.hour ? parseInt(timeSlot.hour.split('-')[1]) : null;
             var checkIncompatibleTimeset = me.checkIncompatibleTimeset(timeSlot);
-            if(checkIncompatibleTimeset){
+            if (checkIncompatibleTimeset) {
                 vm.set(me.getTimesetPrexifFromName(timesetName) + '_add_text', '<div class="cf-invalid-period-box">' + Ngcp.csc.locales.callforward.invalid_times[localStorage.getItem('languageSelected')] + '</div>');
+                vm.set(me.getTimesetPrexifFromName(timesetName) + '_is_invalid', timesetId);
                 return;
             }
             if (days.length > 1) {
@@ -93,22 +94,22 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     },
 
     sortTimeSlots: function(timeSlot1, timeSlot2) {
-        switch(true){
+        switch (true) {
             case timeSlot1.dayArrIndex < timeSlot2.dayArrIndex:
                 return -1;
-            break;
+                break;
             case timeSlot1.dayArrIndex > timeSlot2.dayArrIndex:
                 return 1;
-            break;
+                break;
             default:
                 return 0;
         }
     },
 
-    unmaskDestinationGrids: function () {
+    unmaskDestinationGrids: function() {
         var stores = this.getStoresByStatus('all');
         var moduleName = this.getModuleFromRoute();
-        Ext.each(stores.keys, function (storeName) {
+        Ext.each(stores.keys, function(storeName) {
             if (storeName.indexOf(moduleName) > -1) {
                 var grid = Ext.getCmp(storeName);
                 if (grid && grid.body) {
@@ -135,7 +136,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             var timesetName = timeset.name;
             var timesetId = timeset.id;
             if (/(After|Company)\s(Hours)/.test(timesetName)) {
-                var times = me.parseTimesetApiToRecords(timeset.times, timesetName);
+                var times = me.parseTimesetApiToRecords(timeset.times, timesetName, timeset.id);
                 Ext.each(times, function(time) {
                     var cfModel = Ext.create('NgcpCsc.model.CallForwardDestination', {
                         id: Ext.id(),
@@ -146,18 +147,18 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                         day: time.day
                     });
                     arrayOfModels.push(cfModel);
-                    me.setVmToTrue(timesetName, true);
+                    me.setVm(timesetName, true);
                 });
             };
         });
         if (arrayOfModels.length > 0) {
             me.populateTimesetStores(arrayOfModels);
-        }else{
-            me.setVmToTrue(me.getTimesetFromRoute(currentRoute), false);
+        } else {
+            me.setVm(me.getTimesetFromRoute(currentRoute), false);
         }
     },
 
-    setVmToTrue: function(name, exists) {
+    setVm: function(name, exists) {
         var vm = this.getViewModel();
         switch (name) {
             case 'After Hours':
@@ -501,8 +502,54 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         });
         return false;
     },
+    createTimesetReq: function(timesetName, subscriberId, store) {
+        var me = this;
+        Ext.Ajax.request({
+            url: '/api/cftimesets/',
+            method: 'POST',
+            jsonData: {
+                name: timesetName,
+                subscriber_id: subscriberId,
+                times: [{
+                        wday: '1',
+                        hour: '0'
+                    }] // we need to create a default valid period
+            },
+            success: function(response, opts) {
+                store.load();
+            }
+        });
+    },
+
+    createTimeset: function() {
+        var vm = this.getViewModel();
+        var me = this;
+        var currentRoute = window.location.hash;
+        var timesetName = me.getTimesetFromRoute(currentRoute);
+        var subscriberId = localStorage.getItem('subscriber_id');
+        var store = Ext.getStore(me.getModuleFromRoute() + '-Timeset');
+        switch (true) {
+            case !!vm.get(me.getTimesetPrexifFromName(timesetName) + '_is_invalid'):
+                // if timeset is invalid it's deleted and recreated with the same name
+                Ext.Ajax.request({
+                    url: '/api/cftimesets/' + vm.get(me.getTimesetPrexifFromName(timesetName) + '_is_invalid'),
+                    method: 'DELETE',
+                    success: function(response, opts) {
+                        vm.set(me.getTimesetPrexifFromName(timesetName) + '_is_invalid', null);
+                        me.createTimesetReq(timesetName, subscriberId, store);
+                    }
+                });
+                break;
+            case !vm.get(me.getTimesetPrexifFromName(timesetName) + '_exists_in_api'):
+                me.createTimesetReq(timesetName, subscriberId, store);
+                break
+            default:
+                me.setVm(timesetName, true);
+        }
+    },
 
     cfTimesetBeforeSync: function(store, options) {
+        // TODO
         delete options['destroy'];
         delete options['create'];
         delete options['update'];
@@ -737,26 +784,26 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
-    getStoresByStatus: function (status) {
+    getStoresByStatus: function(status) {
         var stores;
         switch (status) {
             case 'all':
-                stores = Ext.data.StoreManager.filterBy(function (item, key) {
+                stores = Ext.data.StoreManager.filterBy(function(item, key) {
                     return (key.indexOf('CallForward') > -1);
                 });
                 break;
             case 'online':
-                stores = Ext.data.StoreManager.filterBy(function (item, key) {
+                stores = Ext.data.StoreManager.filterBy(function(item, key) {
                     return (key.indexOf('CallForwardOnline') > -1);
                 });
                 break;
             case 'busy':
-                stores = Ext.data.StoreManager.filterBy(function (item, key) {
+                stores = Ext.data.StoreManager.filterBy(function(item, key) {
                     return (key.indexOf('CallForwardBusy') > -1);
                 });
                 break;
             case 'offline':
-                stores = Ext.data.StoreManager.filterBy(function (item, key) {
+                stores = Ext.data.StoreManager.filterBy(function(item, key) {
                     return (key.indexOf('CallForwardOffline') > -1);
                 });
                 break;
@@ -764,7 +811,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return stores;
     },
 
-    addOwnPhoneToEmptyOnline: function () {
+    addOwnPhoneToEmptyOnline: function() {
         var $cf = this;
         var $vm = $cf.getViewModel();
         var timeout = $vm.get('cftRingTimeout');
@@ -1264,29 +1311,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
-
-    createNewStandardSet: function(url, name, subscriberId) {
-        var vm = this.getViewModel();
-        Ext.Ajax.request({
-            url: url,
-            method: 'POST',
-            jsonData: {
-                name: name,
-                subscriber_id: subscriberId
-            },
-            success: function(response, opts) {
-                switch (name) {
-                    case 'After Hours':
-                        vm.set('after_hours_exists_in_api', true);
-                        break;
-                    case 'Company Hours':
-                        vm.set('company_hours_exists_in_api', true);
-                        break;
-                }
-            }
-        });
-    },
-
     createNewMapping: function(subscriberId, newType, newDestinationsetName, newSourceset, newTimeset) {
         Ext.Ajax.request({
             url: '/api/cfmappings/' + localStorage.getItem('subscriber_id'),
@@ -1432,6 +1456,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var storeName = el.id.split('-')[0] + '-Timeset';
         var store = Ext.getStore(storeName);
         store.sync();
+    },
+
+    addNewPeriod: function(btn) {
+        var grid = btn.up('[name=timesetCont]').down('grid');
+        var store = grid.getStore();
+        var newModel = Ext.create('NgcpCsc.model.CallForwardTimeset');
+        store.add(newModel);
     }
 
 });
