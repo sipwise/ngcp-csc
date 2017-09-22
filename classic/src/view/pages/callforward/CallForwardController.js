@@ -501,6 +501,31 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         });
         return false;
     },
+    createTimesetOrPeriod: function(){
+        debugger
+        var vm = this.getViewModel();
+        var currentRoute = window.location.hash;
+        var routeTimeset = this.getTimesetFromRoute(currentRoute);
+        var subscriberId = localStorage.getItem('subscriber_id');
+        Ext.Ajax.request({
+            url: '/api/cftimesets/',
+            method: 'POST',
+            jsonData: {
+                name: routeTimeset,
+                subscriber_id: subscriberId
+            },
+            success: function(response, opts) {
+                switch (routeTimeset) {
+                    case 'After Hours':
+                        vm.set('after_hours_exists_in_api', true);
+                        break;
+                    case 'Company Hours':
+                        vm.set('company_hours_exists_in_api', true);
+                        break;
+                }
+            }
+        });
+    },
 
     cfTimesetBeforeSync: function(store, options) {
         delete options['destroy'];
@@ -1264,29 +1289,6 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         };
     },
 
-
-    createNewStandardSet: function(url, name, subscriberId) {
-        var vm = this.getViewModel();
-        Ext.Ajax.request({
-            url: url,
-            method: 'POST',
-            jsonData: {
-                name: name,
-                subscriber_id: subscriberId
-            },
-            success: function(response, opts) {
-                switch (name) {
-                    case 'After Hours':
-                        vm.set('after_hours_exists_in_api', true);
-                        break;
-                    case 'Company Hours':
-                        vm.set('company_hours_exists_in_api', true);
-                        break;
-                }
-            }
-        });
-    },
-
     createNewMapping: function(subscriberId, newType, newDestinationsetName, newSourceset, newTimeset) {
         Ext.Ajax.request({
             url: '/api/cfmappings/' + localStorage.getItem('subscriber_id'),
@@ -1432,6 +1434,13 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var storeName = el.id.split('-')[0] + '-Timeset';
         var store = Ext.getStore(storeName);
         store.sync();
+    },
+
+    addNewPeriod: function(btn){
+        var grid = btn.up('[name=timesetCont]').down('grid');
+        var store = grid.getStore();
+        var newModel = Ext.create('NgcpCsc.model.CallForwardTimeset');
+        store.add(newModel);
     }
 
 });
