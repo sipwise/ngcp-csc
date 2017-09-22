@@ -52,8 +52,7 @@ WORKDIR /code
 #
 # you need to put the proper NGCP sources at t/sources.list.d/builddeps.list
 # for instance, trunk:
-# echo "deb https://deb.sipwise.com/autobuild/ release-trunk-jessie main" > /
-#  t/sources.list.d/builddeps.list
+# echo "deb https://deb.sipwise.com/autobuild/ release-trunk-jessie main" > t/sources.list.d/builddeps.list
 #
 # NOTE: run the following commands from root folder of git repository:
 # % docker build --tag="ngcp-csc-jessie" -f ./t/Dockerfile .
