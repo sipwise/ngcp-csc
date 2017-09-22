@@ -16,7 +16,16 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
             items: [{
                 text: Ngcp.csc.locales.common.day[localStorage.getItem('languageSelected')],
                 dataIndex: 'day',
-                flex: 1
+                xtype: 'widgetcolumn',
+                editable: true,
+                flex: 1,
+                widget: {
+                    xtype: 'combo',
+                    bind: {
+                        value: '{record.day}'
+                    },
+                    store: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+                }
             }, {
                 text: Ngcp.csc.locales.common.from[localStorage.getItem('languageSelected')],
                 dataIndex: 'time_from',
@@ -26,6 +35,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
                 widget: {
                     xtype: 'timefield',
                     margin: '8 0 0 0',
+                    increment: 60,
                     tooltip: Ngcp.csc.locales.callforward.tooltips.change_time_from[localStorage.getItem('languageSelected')],
                     bind: {
                         value: '{record.time_from}'
@@ -40,6 +50,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardTimesetGrid', {
                 widget: {
                     xtype: 'timefield',
                     margin: '8 0 0 0',
+                    increment: 60,
                     tooltip: Ngcp.csc.locales.callforward.tooltips.change_time_to[localStorage.getItem('languageSelected')],
                     bind: {
                         value: '{record.time_to}'
