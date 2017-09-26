@@ -1,0 +1,8 @@
+Verified+1: Jenkins Jenkins
+Code-Review+2: Sergii Kipot <skipot@sipwise.com>
+Code-Review+2: Hans-Peter Herzog <hherzog@sipwise.com>
+Submitted-by: Alexander Lutay <alutay@sipwise.com>
+Submitted-at: Tue, 26 Sep 2017 09:33:53 +0200
+Reviewed-on: http://gerrit.mgm.sipwise.com/15590
+Project: ngcp-csc
+Branch: refs/heads/master
