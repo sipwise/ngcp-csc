@@ -1432,6 +1432,12 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var storeName = el.id.split('-')[0] + '-Timeset';
         var store = Ext.getStore(storeName);
         store.sync();
+    },
+
+    removePeriod: function(grid, rowIndex, colIndex) {
+        var store = grid.getStore()
+        var rec = store.getAt(rowIndex);
+        store.remove(rec);
     }
 
 });
