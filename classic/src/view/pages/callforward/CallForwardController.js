@@ -7,7 +7,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         controller: {
             '*': {
                 confirmCFRemoval: 'confirmCFRemoval',
-                cfReloadStore: 'cfReLoadStore'
+                cfReloadStores: 'cfReLoadStores'
             }
         },
         store: {
@@ -106,6 +106,19 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
             default:
                 return 0;
         }
+    },
+
+    maskDestinationGrids: function() {
+        var stores = this.getStoresByStatus('all');
+        var moduleName = this.getModuleFromRoute();
+        Ext.each(stores.keys, function(storeName) {
+            if (storeName.indexOf(moduleName) > -1) {
+                var grid = Ext.getCmp(storeName);
+                if (grid && grid.body) {
+                    grid.mask();
+                }
+            }
+        });
     },
 
     unmaskDestinationGrids: function() {
@@ -475,14 +488,29 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return false;
     },
 
-    cfReLoadStore: function() {
+    cfReLoadStores: function() {
         var me = this;
         var vm = this.getViewModel();
         var currentRoute = window.location.hash;
         var currentStoreName = me.getStoreNameFromRoute(currentRoute);
-        if (vm.get('last_store_synced').length > 0 && currentStoreName !== vm.get('last_store_synced')) {
-            Ext.getStore(currentStoreName).load();
-        };
+        var currentModule = this.getModuleFromRoute();
+        var cfTabPanels = Ext.ComponentQuery.query('[name=cfTab]');
+        var isTimsetTab = this.getModuleFromRoute() !== 'always';
+        //var isSourcesetTab = get
+
+        me.maskDestinationGrids();
+        Ext.getStore(currentStoreName).load();
+        Ext.each(cfTabPanels, function(tabP) {
+            if (tabP._tabId == currentModule) {
+                Ext.each(tabP._firstPrefixes, function(key) {
+                    var store = Ext.getStore(key.split('-')[2]);
+                    if(store){
+                        debugger
+                        store.load();
+                    }
+                });
+            }
+        });
     },
 
     cfSourcesetBeforeSync: function(store, options) {
@@ -1574,6 +1602,10 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
     clickTab: function () {
         this.addOwnPhoneToEmptyOnline();
         this.unmaskDestinationGrids();
+    },
+
+    maskGrid:function(grid) {
+       grid.mask('Loading...');
     }
 
 });

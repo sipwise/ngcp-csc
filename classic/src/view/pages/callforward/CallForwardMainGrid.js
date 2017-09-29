@@ -32,9 +32,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardMainGrid', {
     },
 
     listeners: {
-        render: function(grid) {
-           grid.mask('Loading...');
-        },
+        render: 'maskGrid',
         delay: 200
    },
 

@@ -180,14 +180,17 @@ Ext.define('NgcpCsc.view.main.MainController', {
         this.setCurrentView(id);
         this.fireEvent('routeChange');
         this.setSectionTitle(id);
-        if (id == 'inbox' || id == 'conversation-with' || id == 'pbxconfig/seats' || id == 'pbxconfig/groups' || id == 'pbxconfig/devices') {
-            vm.set('headerBarFieldHideState', false);
-        } else if (id == 'callforward/always' || id == 'callforward/afterhours' || id == 'callforward/companyhours') {
-            this.fireEvent('cfReloadStore');
-            vm.set('headerBarFieldHideState', true);
-        } else {
-            vm.set('headerBarFieldHideState', true);
-        };
+        switch(true){
+            case Ext.Array.contains(['inbox', 'conversation-with', 'pbxconfig/seats', 'pbxconfig/groups', 'pbxconfig/devices', 'pbxconfig/devices'], id):
+                vm.set('headerBarFieldHideState', false);
+            break;
+            case Ext.Array.contains(['callforward/always', 'callforward/afterhours', 'callforward/companyhours'], id):
+                this.fireEvent('cfReloadStores');
+                vm.set('headerBarFieldHideState', true);
+            break;
+            default:
+                vm.set('headerBarFieldHideState', true);
+        }
     },
 
     setSectionTitle: function(id, record) {
