@@ -1192,7 +1192,7 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return store;
     },
 
-    recordHasStoreAndOwnPhone: function(record) {
+    recordRemovedIsOwnPhone: function(record) {
         var store = record.store;
         return store && record.get('destination') === 'own phone';
     },
@@ -1205,7 +1205,8 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         return store.getCount() === 1;
     },
 
-    updateMappings: function(json, subscriber, store) {
+    updateMappings: function(json, subscriber, record) {
+        var store = record.store;
         Ext.Ajax.request({
             url: '/api/cfmappings/' + subscriber,
             method: 'PATCH',
@@ -1229,8 +1230,11 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
         var subscriberId = localStorage.getItem('subscriber_id');
         var isLastCftDestinationInStore = $cf.isLastCftDestinationInStore(store);
         var isLastDestinationInStore = $cf.isLastDestinationInStore(store);
-        if ($cf.recordHasStoreAndOwnPhone(record)) {
-            store = $cf.setCfuAsType(store, record.get('destinationset_id'));
+        var cfuMappings = [];
+        var cftMappings = [];
+        var cfbMappings = [];
+        var cfnaMappings = [];
+        if ($cf.recordRemovedIsOwnPhone(record) || isLastDestinationInStore) {
             Ext.Ajax.request({
                 url: '/api/cfmappings/' + localStorage.getItem('subscriber_id'),
                 method: 'GET',
@@ -1239,21 +1243,20 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     var decodedResponse = Ext.decode(response.responseText);
                     var cfuMappings = decodedResponse['cfu'];
                     var cftMappings = decodedResponse['cft'];
-                    cfuMappings.push({
-                        "destinationset": record.get('destinationset_name'),
-                        "sourceset": record.get('sourceset'),
-                        "timeset": record.get('timeset')
-                    });
-                    cftMappings = cftMappings.filter(function(obj) {
-                        return obj.destinationset !== record.get('destinationset_name');
-                    });
-                    if (isLastCftDestinationInStore) {
-                        $cf.updateMappings([{
-                                "op": "add",
-                                "path": "/cft",
-                                "value": []
-                            }], subscriberId, store);
-                    } else {
+                    var cfbMappings = decodedResponse['cfb'];
+                    var cfnaMappings = decodedResponse['cfna'];
+                    console.log('0 HERE HERE');
+                    if ($cf.recordRemovedIsOwnPhone(record)) {
+                        store = $cf.setCfuAsType(store, record.get('destinationset_id'));
+                        console.log('1 HERE HERE');
+                        cfuMappings.push({
+                            "destinationset": record.get('destinationset_name') || store.getAt(1).get('destinationset_name'),
+                            "sourceset": record.get('sourceset'),
+                            "timeset": record.get('timeset')
+                        });
+                        cftMappings = cftMappings.filter(function(obj) {
+                            return obj.destinationset !== record.get('destinationset_name');
+                        });
                         $cf.updateMappings([{
                                 "op": "add",
                                 "path": "/cft",
@@ -1262,7 +1265,44 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                                 "op": "add",
                                 "path": "/cfu",
                                 "value": cfuMappings
-                            }], subscriberId, store);
+                            }], subscriberId, record);
+                    } else {
+                        console.log('2 HERE HERE');
+                        // DONE Issue is that we are overwriting all existing mappings
+                        // for this type. Need to filter out mappings for correct type, and
+                        // TODO Test
+                        switch (record.get('type')) {
+                            case 'cfu':
+                                cfuMappings = cfuMappings.filter(function(obj) {
+                                    return obj.destinationset !== record.get('destinationset_name');
+                                });
+                                $cf.updateMappings([{
+                                        "op": "add",
+                                        "path": "/cfu",
+                                        "value": cfuMappings
+                                    }], subscriberId, record);
+                                break;
+                            case 'cfb':
+                                cfbMappings = cfbMappings.filter(function(obj) {
+                                    return obj.destinationset !== record.get('destinationset_name');
+                                });
+                                $cf.updateMappings([{
+                                        "op": "add",
+                                        "path": "/cfb",
+                                        "value": cfbMappings
+                                    }], subscriberId, record);
+                                break;
+                            case 'cfna':
+                                cfnaMappings = cfnaMappings.filter(function(obj) {
+                                    return obj.destinationset !== record.get('destinationset_name');
+                                });
+                                $cf.updateMappings([{
+                                        "op": "add",
+                                        "path": "/cfna",
+                                        "value": cfnaMappings
+                                    }], subscriberId, record);
+                                break;
+                        };
                     };
                 }
             });
@@ -1273,11 +1313,69 @@ Ext.define('NgcpCsc.view.pages.callforward.CallForwardController', {
                     "value": []
                 }], subscriberId, store);
         } else if (store) {
+            console.log('3 HERE HERE');
             store.remove(record);
             store.sync();
-            $cf.setLabelTerminationType(store);
+            //$cf.setLabelTerminationType(store);
         };
+            $cf.setLabelTerminationType(store);
     },
+
+    //confirmCFRemoval: function(record) {
+        //var $cf = this;
+        //var store = record.store;
+        //var subscriberId = localStorage.getItem('subscriber_id');
+        //var isLastCftDestinationInStore = $cf.isLastCftDestinationInStore(store);
+        //var isLastDestinationInStore = $cf.isLastDestinationInStore(store);
+        //if ($cf.recordRemovedIsOwnPhone(record)) {
+            //store = $cf.setCfuAsType(store, record.get('destinationset_id'));
+            //Ext.Ajax.request({
+                //url: '/api/cfmappings/' + localStorage.getItem('subscriber_id'),
+                //method: 'GET',
+                //jsonData: {},
+                //success: function(response) {
+                    //var decodedResponse = Ext.decode(response.responseText);
+                    //var cfuMappings = decodedResponse['cfu'];
+                    //var cftMappings = decodedResponse['cft'];
+                    //cfumappings.push({
+                        //"destinationset": record.get('destinationset_name'),
+                        //"sourceset": record.get('sourceset'),
+                        //"timeset": record.get('timeset')
+                    //});
+                    //cftmappings = cftmappings.filter(function(obj) {
+                        //return obj.destinationset !== record.get('destinationset_name');
+                    //});
+                    //if (isLastCftDestinationInStore) {
+                        //$cf.updateMappings([{
+                                //"op": "add",
+                                //"path": "/cft",
+                                //"value": []
+                            //}], subscriberId, record);
+                    //} else {
+                        //$cf.updateMappings([{
+                                //"op": "add",
+                                //"path": "/cft",
+                                //"value": cftMappings
+                            //}, {
+                                //"op": "add",
+                                //"path": "/cfu",
+                                //"value": cfuMappings
+                            //}], subscriberId, record);
+                    //};
+                //}
+            //});
+        //} else if (isLastDestinationInStore) {
+            //$cf.updateMappings([{
+                    //"op": "add",
+                    //"path": "/" + record.get('type'),
+                    //"value": []
+                //}], subscriberId, record);
+        //} else if (store) {
+            //store.remove(record);
+            //store.sync();
+            //$cf.setLabelTerminationType(store);
+        //};
+    //},
 
     getStoresArrayFromRoute: function(currentRoute, currentSourceset) {
         var view = currentRoute.split('/')[1];
