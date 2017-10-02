@@ -1,9 +1,0 @@
-{
-    "data": {
-        "initial_balance": 1.123,
-        "clients_total_count": 1,
-        "voicemails_total_count": 3,
-        "call_forward_active": true,
-        "reminder": true
-    }
-}

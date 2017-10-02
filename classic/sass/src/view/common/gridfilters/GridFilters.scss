@@ -1,9 +1,0 @@
-/* mixins */
-@include extjs-panel-ui (
-    $ui: 'gf-container',
-);
-
-/* custom css */
-.x-panel-gf-container .x-autocontainer-outerCt {
-    background: white;
-}
